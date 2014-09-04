@@ -41,21 +41,21 @@ begin
   // Modelo
   Application.CreateForm(TSgcdDataModule, SgcdDataModule);
   Application.CreateForm(TAcademiaDataModule, AcademiaDataModule);
-  //Application.CreateForm(TPersonasDataModule, PersonasDataModule);
+  Application.CreateForm(TPersonasDataModule, PersonasDataModule);
 
   // Controlador
   ABMController := TABMController.Create(AcademiaDataModule);
-  //PersonaController := TPersonaController.Create(PersonasDataModule);
+  PersonaController := TPersonaController.Create(PersonasDataModule);
 
   // Vista
   AbmAcademias := TAbmAcademias.Create(nil, ABMController);
-  //AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
+  AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
 
   // hay que castear el objeto para poder añadirle los observadores
   (SgcdDataModule as ISubject).Attach(AbmAcademias as IObserver);
   AbmAcademias.Show;
-  //(SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
-  //AbmPersonas.Show;
+  (SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
+  AbmPersonas.Show;
 
   Application.Run;
 end.

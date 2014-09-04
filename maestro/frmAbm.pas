@@ -24,16 +24,20 @@ type
     ButtonPanel: TButtonPanel;
     LabelFilter: TLabel;
     PanelDetail: TPanel;
+    TBConnected: TToggleBox;
     procedure ButtonFilterClick(Sender: TObject); virtual;
     procedure CancelButtonClick(Sender: TObject); virtual;
     procedure CloseButtonClick(Sender: TObject); virtual;
     procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: integer);
     procedure DBNavListClick(Sender: TObject; Button: TDBNavButtonType);
+    procedure FormShow(Sender: TObject);
     procedure HelpButtonClick(Sender: TObject); virtual;
     procedure MenuItemGuardarClick(Sender: TObject);
     procedure OKButtonClick(Sender: TObject); virtual;
     procedure ShowPanel(APanel: TPanel);
+    procedure TBConnectedClick(Sender: TObject);
+    procedure ObserverUpdate(const Subject: IInterface); override;
   end;
 
 var
@@ -73,6 +77,24 @@ begin
   end;
 end;
 
+procedure TAbm.TBConnectedClick(Sender: TObject);
+begin
+  if (Sender as TToggleBox).Checked then
+    Controller.Connect(Self)
+  else
+    Controller.Disconnect(Self);
+end;
+
+procedure TAbm.ObserverUpdate(const Subject: IInterface);
+begin
+      { aca se actualiza la vista. en este caso que es para prueba nomas
+    cambiamos boton connected }
+  if Controller.IsDBConnected(Self) then
+    TBConnected.Checked := True
+  else
+    TBConnected.Checked := False;
+end;
+
 procedure TAbm.ButtonFilterClick(Sender: TObject);
 begin
 
@@ -110,6 +132,13 @@ begin
       Controller.EditCurrentRecord(Self);
     end;
   end;
+end;
+
+procedure TAbm.FormShow(Sender: TObject);
+begin
+  if not Controller.IsDBConnected(Self) then
+    Controller.Connect(Self);
+  inherited FormShow(Sender);
 end;
 
 procedure TAbm.HelpButtonClick(Sender: TObject);

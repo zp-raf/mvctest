@@ -1,6 +1,6 @@
 inherited AbmPersonas: TAbmPersonas
-  Left = 557
-  Top = 259
+  Left = 807
+  Top = 310
   Caption = 'ABM Personas'
   inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner

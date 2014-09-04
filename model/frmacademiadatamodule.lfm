@@ -4,11 +4,16 @@ inherited AcademiaDataModule: TAcademiaDataModule
   VerticalOffset = 525
   Width = 160
   inherited db: TIBConnection
+    Connected = True
     AfterConnect = nil
     AfterDisconnect = nil
     left = 132
   end
+  inherited tran: TSQLTransaction
+    Active = True
+  end
   object qry: TSQLQuery[3]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -22,6 +27,7 @@ inherited AcademiaDataModule: TAcademiaDataModule
         Precision = -1
         Size = 255
       end>
+    Active = True
     OnNewRecord = qryNewRecord
     Database = db
     Transaction = tran

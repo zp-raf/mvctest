@@ -1,7 +1,7 @@
 inherited Abm: TAbm
-  Left = 566
+  Left = 785
   Height = 481
-  Top = 351
+  Top = 344
   Width = 640
   ClientHeight = 461
   ClientWidth = 640
@@ -140,6 +140,15 @@ inherited Abm: TAbm
       Caption = 'Filtrar'
       OnClick = ButtonFilterClick
       TabOrder = 3
+    end
+    object TBConnected: TToggleBox
+      Left = 542
+      Height = 23
+      Top = 21
+      Width = 90
+      Caption = 'Connected'
+      OnClick = TBConnectedClick
+      TabOrder = 4
     end
   end
   inherited MainMenu: TMainMenu[3]
