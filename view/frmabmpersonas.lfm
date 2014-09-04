@@ -1,0 +1,52 @@
+inherited AbmPersonas: TAbmPersonas
+  Left = 557
+  Top = 259
+  Caption = 'ABM Personas'
+  inherited PanelDetail: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'CEDULA'
+          Width = 78
+          FieldName = 'CEDULA'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          Width = 94
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'APELLIDO'
+          Width = 103
+          FieldName = 'APELLIDO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'SEXO'
+          Width = 43
+          FieldName = 'SEXO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'FECHANAC'
+          Width = 77
+          FieldName = 'FECHANAC'
+        end>
+      DataSource = PersonasDataModule.dsPersonas
+    end
+    inherited DBNavList: TDBNavigator
+      Hints.Strings = (      )
+    end
+  end
+end

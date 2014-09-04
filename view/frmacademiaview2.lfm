@@ -1,0 +1,81 @@
+inherited AcademiaView2: TAcademiaView2
+  Left = 715
+  Height = 256
+  Top = 362
+  Width = 512
+  Caption = 'ABM Academias'
+  ClientHeight = 236
+  ClientWidth = 512
+  Constraints.MinHeight = 256
+  Constraints.MinWidth = 512
+  OnCloseQuery = nil
+  object ToggleBoxConnected: TToggleBox[0]
+    AnchorSideTop.Control = DBGrid1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = DBGrid1
+    AnchorSideRight.Side = asrBottom
+    Left = 410
+    Height = 22
+    Top = 205
+    Width = 90
+    Anchors = [akTop, akRight]
+    BorderSpacing.Top = 2
+    Caption = 'Conectado'
+    OnChange = ToggleBoxConnectedChange
+    TabOrder = 0
+  end
+  object DBNavigator1: TDBNavigator[1]
+    AnchorSideLeft.Control = DBGrid1
+    AnchorSideTop.Control = DBGrid1
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 25
+    Top = 205
+    Width = 241
+    BevelOuter = bvNone
+    BorderSpacing.Top = 2
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 241
+    DataSource = ds
+    Options = []
+    TabOrder = 1
+  end
+  object DBGrid1: TDBGrid[2]
+    Left = 8
+    Height = 195
+    Top = 8
+    Width = 492
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <>
+    DataSource = ds
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+    TabOrder = 2
+  end
+  object ButtonCommit: TButton[3]
+    AnchorSideTop.Control = DBGrid1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = ToggleBoxConnected
+    Left = 325
+    Height = 22
+    Top = 205
+    Width = 83
+    Anchors = [akTop, akRight]
+    BorderSpacing.Top = 2
+    BorderSpacing.Right = 2
+    Caption = 'Commit!'
+    OnClick = ButtonCommitClick
+    TabOrder = 3
+  end
+  object ds: TDatasource[6]
+    DataSet = AcademiaDataModule.qry
+    left = 424
+    top = 24
+  end
+end

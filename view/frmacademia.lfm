@@ -1,0 +1,129 @@
+inherited ABMAcademia: TABMAcademia
+  Left = 482
+  Top = 368
+  Caption = 'ABM Academias'
+  OnCreate = FormCreate
+  inherited ButtonPanel1: TButtonPanel
+    OKButton.OnClick = OKButtonClick
+    CloseButton.OnClick = CloseButtonClick
+  end
+  inherited PanelNuevo: TPanel
+    TabOrder = 2
+    object LabelNuevoNombre: TLabel[0]
+      Left = 24
+      Height = 15
+      Top = 16
+      Width = 109
+      Caption = 'Nombre (requerido):'
+      ParentColor = False
+    end
+    object EditNuevoNombre: TEdit[1]
+      Left = 24
+      Height = 23
+      Top = 40
+      Width = 369
+      TabOrder = 0
+    end
+  end
+  inherited PanelEliminar: TPanel
+    TabOrder = 3
+    inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          FieldName = 'NOMBRE'
+        end>
+      TabOrder = 2
+      OnMouseDown = DBGrid1MouseDown
+    end
+    inherited DBNavigatorEliminar: TDBNavigator
+      Hints.Strings = (      )
+      TabOrder = 3
+    end
+    inherited EditEliminarFiltro: TEdit
+      TabOrder = 0
+    end
+    inherited ButtonEliminarFiltrar: TButton
+      ParentShowHint = False
+      TabOrder = 1
+    end
+  end
+  inherited PanelModificar: TPanel
+    TabOrder = 1
+    inherited DBGrid2: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          FieldName = 'NOMBRE'
+        end>
+      TabOrder = 2
+      OnMouseDown = DBGrid2MouseDown
+    end
+    inherited DBNavigatorModificar: TDBNavigator
+      Hints.Strings = (      )
+      TabOrder = 3
+    end
+    inherited EditModificarFiltro: TEdit
+      TabOrder = 0
+    end
+    inherited ButtonModificarFiltrar: TButton
+      TabOrder = 1
+    end
+  end
+  inherited MainMenu1: TMainMenu
+    top = 104
+    inherited MenuItemAcciones: TMenuItem
+      inherited MenuItemNuevo: TMenuItem
+        OnClick = MenuItemNuevoClick
+      end
+      inherited MenuItemEliminar: TMenuItem
+        OnClick = MenuItemEliminarClick
+      end
+    end
+  end
+  inherited Datasource1: TDatasource
+    top = 224
+  end
+  inherited SQLQuery1: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    SQL.Strings = (
+      'select * from academia'
+    )
+    top = 168
+    object SQLQuery1ID: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object SQLQuery1NOMBRE: TStringField[1]
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+  end
+end

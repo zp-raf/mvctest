@@ -1,0 +1,39 @@
+object sgcdDataModule: TsgcdDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  OldCreateOrder = False
+  Height = 98
+  HorizontalOffset = 733
+  VerticalOffset = 291
+  Width = 166
+  object db: TIBConnection
+    Connected = False
+    LoginPrompt = False
+    AfterConnect = dbAfterConnect
+    AfterDisconnect = dbAfterDisconnect
+    DatabaseName = 'C:\Firebird\Firebird_2_5\data\SGCD.FDB'
+    KeepConnection = False
+    Password = 'masterkey'
+    Transaction = tran
+    UserName = 'sysdba'
+    HostName = 'localhost'
+    LogEvents = []
+    left = 128
+    top = 48
+  end
+  object tran: TSQLTransaction
+    Active = False
+    Action = caNone
+    Database = db
+    left = 16
+    top = 48
+  end
+  object qryAux: TSQLQuery
+    FieldDefs = <>
+    Database = db
+    Transaction = tran
+    Params = <>
+    left = 79
+    top = 33
+  end
+end
