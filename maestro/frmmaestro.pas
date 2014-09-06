@@ -6,11 +6,15 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Menus, abmctrl, mvc, observerSubject;
+  Menus, ctrl, mvc, observerSubject;
+
+resourcestring
+  rsError = 'Error';
+  rsInformation = 'Informacion';
+  rsWarning = 'Advertencia';
+  rsConfirmation = 'Confimación';
 
 type
-
-
 
   { TMaestro }
 
@@ -42,12 +46,17 @@ type
       por otro para que no haya conflictos ni cosas indeseadas }
     procedure IObserver.Update = ObserverUpdate;
     procedure ObserverUpdate(const Subject: IInterface); virtual; abstract;
-    procedure ShowErrorMessage(AMsg: string);
-    procedure ShowInfoMessage(AMsg: string);
-    procedure ShowWarningMessage(AMsg: string);
+    function ShowErrorMessage(AMsg: string): TModalResult;
+    function ShowErrorMessage(ATitle: string; AMsg: string): TModalResult;
+    function ShowInfoMessage(AMsg: string): TModalResult;
+    function ShowInfoMessage(ATitle: string; AMsg: string): TModalResult;
+    function ShowWarningMessage(AMsg: string): TModalResult;
+    function ShowWarningMessage(ATitle: string; AMsg: string): TModalResult;
+    function ShowConfirmationMessage(AMsg: string): TModalResult;
+    function ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
     property Controller: IController read GetController write SetController;
   public
-    constructor Create(AOwner: TComponent; AController: IController); overload;
+    constructor Create(AOwner: IFormView; AController: IController); overload;
 
   { TODO: Aca faltaria un metodo Update() que sea llamado por el sujeto al cual esta
     adherido este observador. Por ejemplo para mostrar el estado de conexion de la
@@ -116,27 +125,52 @@ end;
 
 procedure TMaestro.MenuItemSalirClick(Sender: TObject);
 begin
-  Close;
+  Controller.Close((Self as IFormView));
 end;
 
-procedure TMaestro.ShowErrorMessage(AMsg: string);
+function TMaestro.ShowErrorMessage(AMsg: string): TModalResult;
 begin
-  MessageDlg(rsError, AMsg, mtError, [mbOK], 0);
+  Result := MessageDlg(rsError, AMsg, mtError, [mbOK], 0);
 end;
 
-procedure TMaestro.ShowInfoMessage(AMsg: string);
+function TMaestro.ShowErrorMessage(ATitle: string; AMsg: string): TModalResult;
 begin
-  MessageDlg(rsInformation, AMsg, mtInformation, [mbOK], 0);
+  Result := MessageDlg(ATitle, AMsg, mtError, [mbOK], 0);
 end;
 
-procedure TMaestro.ShowWarningMessage(AMsg: string);
+function TMaestro.ShowInfoMessage(AMsg: string): TModalResult;
 begin
-  MessageDlg(rsWarning, AMsg, mtWarning, [mbOK], 0);
+  Result := MessageDlg(rsInformation, AMsg, mtInformation, [mbOK], 0);
 end;
 
-constructor TMaestro.Create(AOwner: TComponent; AController: IController);
+function TMaestro.ShowInfoMessage(ATitle: string; AMsg: string): TModalResult;
 begin
-  inherited Create(AOwner);
+  Result := MessageDlg(ATitle, AMsg, mtInformation, [mbOK], 0);
+end;
+
+function TMaestro.ShowWarningMessage(AMsg: string): TModalResult;
+begin
+  Result := MessageDlg(rsWarning, AMsg, mtWarning, [mbOK], 0);
+end;
+
+function TMaestro.ShowWarningMessage(ATitle: string; AMsg: string): TModalResult;
+begin
+  Result := MessageDlg(ATitle, AMsg, mtWarning, [mbOK], 0);
+end;
+
+function TMaestro.ShowConfirmationMessage(AMsg: string): TModalResult;
+begin
+  Result := MessageDlg(rsConfirmation, AMsg, mtConfirmation, mbYesNo, 0);
+end;
+
+function TMaestro.ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
+begin
+  Result := MessageDlg(ATitle, AMsg, mtConfirmation, mbYesNo, 0);
+end;
+
+constructor TMaestro.Create(AOwner: IFormView; AController: IController);
+begin
+  inherited Create((AOwner as TComponent));
   Controller := AController;
 end;
 

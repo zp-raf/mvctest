@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, DBGrids, ButtonPanel, EditBtn, StdCtrls, DBCtrls, frmMaestro,
-  sqldb, LCLType, IBConnection, BufDataset, abmctrl;
+  sqldb, LCLType, IBConnection, BufDataset, mvc;
 
 type
 
@@ -32,8 +32,9 @@ type
       Shift: TShiftState; X, Y: integer);
     procedure DBNavListClick(Sender: TObject; Button: TDBNavButtonType);
     procedure FormShow(Sender: TObject);
-    procedure HelpButtonClick(Sender: TObject); virtual;
     procedure MenuItemGuardarClick(Sender: TObject);
+    procedure MenuItemSalirClick(Sender: TObject);
+    procedure OK(Sender: TObject); virtual;
     procedure OKButtonClick(Sender: TObject); virtual;
     procedure ShowPanel(APanel: TPanel);
     procedure TBConnectedClick(Sender: TObject);
@@ -51,13 +52,23 @@ implementation
 
 procedure TAbm.MenuItemGuardarClick(Sender: TObject);
 begin
-  OKButtonClick(Self);
+  OK(Self);
+end;
+
+procedure TAbm.MenuItemSalirClick(Sender: TObject);
+begin
+  Controller.Close(Self as IFormView);
+end;
+
+procedure TAbm.OK(Sender: TObject);
+begin
+  Controller.Commit(Self);
+  ShowPanel(PanelList);
 end;
 
 procedure TAbm.OKButtonClick(Sender: TObject);
 begin
-  Controller.Commit(Self);
-  ShowPanel(PanelList);
+  OK(Self);
 end;
 
 procedure TAbm.ShowPanel(APanel: TPanel);
@@ -87,7 +98,7 @@ end;
 
 procedure TAbm.ObserverUpdate(const Subject: IInterface);
 begin
-      { aca se actualiza la vista. en este caso que es para prueba nomas
+  { aca se actualiza la vista. en este caso que es para prueba nomas
     cambiamos boton connected }
   if Controller.IsDBConnected(Self) then
     TBConnected.Checked := True
@@ -108,14 +119,14 @@ end;
 
 procedure TAbm.CloseButtonClick(Sender: TObject);
 begin
-
+  Controller.Close(Self as IFormView);
 end;
 
 procedure TAbm.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);
 begin
   if (Button in [mbRight]) then
-    ShowInfoMessage((Controller as TABMController).GetCurrentRecordText(Self));
+    ShowInfoMessage(Controller.GetCurrentRecordText(Self));
 end;
 
 procedure TAbm.DBNavListClick(Sender: TObject; Button: TDBNavButtonType);
@@ -139,11 +150,6 @@ begin
   if not Controller.IsDBConnected(Self) then
     Controller.Connect(Self);
   inherited FormShow(Sender);
-end;
-
-procedure TAbm.HelpButtonClick(Sender: TObject);
-begin
-
 end;
 
 end.

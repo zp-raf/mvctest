@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls, PairSplitter,
-  frmAbm, DB, personactrl;
+  ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls,
+  frmAbm, personactrl;
 
 type
 

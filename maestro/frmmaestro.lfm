@@ -6,6 +6,7 @@ object Maestro: TMaestro
   Menu = MainMenu
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
+  OnShow = FormShow
   LCLVersion = '1.2.0.3'
   object MainMenu: TMainMenu
     left = 16
@@ -16,6 +17,7 @@ object Maestro: TMaestro
       object MenuItemSalir: TMenuItem
         Caption = '&Salir'
         ShortCut = 16465
+        OnClick = MenuItemSalirClick
       end
     end
     object MenuAyuda: TMenuItem
@@ -24,9 +26,11 @@ object Maestro: TMaestro
       object MenuItemAyuda: TMenuItem
         Caption = 'A&yuda'
         ShortCut = 112
+        OnClick = MenuItemAyudaClick
       end
       object MenuItemAbout: TMenuItem
         Caption = 'A&cerca de'
+        OnClick = MenuItemAboutClick
       end
     end
   end

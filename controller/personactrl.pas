@@ -5,11 +5,11 @@ unit personactrl;
 interface
 
 uses
-  Classes, SysUtils, abmctrl;
+  Classes, SysUtils, ctrl;
 
 type
 
-  TPersonaController = class(TABMController)
+  TPersonaController = class(TController)
 
   end;
 

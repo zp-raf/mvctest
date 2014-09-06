@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmsgcddatamodule, mvc, IBConnection, sqldb, DB;
+  frmsgcddatamodule, IBConnection, sqldb, DB;
 
 resourcestring
   rsGenName1 = 'GEN_ACADEMIA';
@@ -15,7 +15,7 @@ type
 
   { TPersonasDataModule }
 
-  TPersonasDataModule = class(TsgcdDataModule, IModel, IDBViewModel)
+  TPersonasDataModule = class(TsgcdDataModule)
     DireccionBARRIO: TStringField;
     DireccionCIUDAD: TStringField;
     DireccionDEPARTAMENTO: TStringField;

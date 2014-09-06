@@ -27,7 +27,6 @@ inherited AcademiaDataModule: TAcademiaDataModule
         Precision = -1
         Size = 255
       end>
-    Active = True
     OnNewRecord = qryNewRecord
     Database = db
     Transaction = tran

@@ -43,7 +43,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="13">
+    <Units Count="15">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -71,68 +71,81 @@
         <UnitName Value="frmMaestro"/>
       </Unit3>
       <Unit4>
-        <Filename Value="controller\abmctrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="abmctrl"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="model\frmacademiadatamodule.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="AcademiaDataModule"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmacademiadatamodule"/>
-      </Unit5>
-      <Unit6>
+      </Unit4>
+      <Unit5>
         <Filename Value="view\frmtest.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Test"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmtest"/>
-      </Unit6>
-      <Unit7>
+      </Unit5>
+      <Unit6>
         <Filename Value="base\mvc.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mvc"/>
-      </Unit7>
-      <Unit8>
+      </Unit6>
+      <Unit7>
         <Filename Value="maestro\frmAbm.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Abm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmAbm"/>
-      </Unit8>
-      <Unit9>
+      </Unit7>
+      <Unit8>
         <Filename Value="view\frmabmacademias.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="AbmAcademias"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmacademias"/>
-      </Unit9>
-      <Unit10>
+      </Unit8>
+      <Unit9>
         <Filename Value="model\frmpersonadatamodule.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="PersonasDataModule"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmpersonadatamodule"/>
-      </Unit10>
-      <Unit11>
+      </Unit9>
+      <Unit10>
         <Filename Value="view\frmabmpersonas.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="AbmPersonas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmpersonas"/>
-      </Unit11>
-      <Unit12>
+      </Unit10>
+      <Unit11>
         <Filename Value="controller\personactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="personactrl"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="view\principal.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Principal1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Principal"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="controller\ctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ctrl"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="controller\principalctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="principalctrl"/>
+      </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

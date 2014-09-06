@@ -55,7 +55,6 @@ inherited PersonasDataModule: TPersonasDataModule
         Precision = -1
         Size = 511
       end>
-    Active = True
     Database = db
     Transaction = tran
     SQL.Strings = (
@@ -130,6 +129,7 @@ inherited PersonasDataModule: TPersonasDataModule
     end
   end
   object Direccion: TSQLQuery[4]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

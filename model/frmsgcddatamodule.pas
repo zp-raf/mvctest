@@ -14,6 +14,7 @@ resourcestring
   rsSelectNextVa = 'select next value for ';
 
 type
+
   { TQryList }
 
   TQryList = class(TFPObjectList)
@@ -25,7 +26,7 @@ type
     descendientes puedan abrir y cerrar los datasets cuando ocurra las
     desconexiones }
 
-  TSgcdDataModule = class(TDataModule, IModel, IDBModel, ISubject)
+  TSgcdDataModule = class(TDataModule, IModel, ISubject)
   private
     FSubject: ISubject;
   published
@@ -40,6 +41,7 @@ type
     procedure Disconnect(Sender: IController);
     procedure EditCurrentRecord(Sender: IController);
     function GetCurrentRecordText(Sender: IController): string;
+    function GetDBStatus(Sender: IController): TDBStatus;
     procedure NewRecord(Sender: IController);
     function NextValue(gen: string): integer;
     procedure RefreshDataSets(Sender: IController);
@@ -258,6 +260,14 @@ begin
   finally
     msg.Free
   end;
+end;
+
+function TSgcdDataModule.GetDBStatus(Sender: IController): TDBStatus;
+begin
+  if DB.Connected then
+    Result := Connected
+  else
+    Result := Disconnected;
 end;
 
 procedure TSgcdDataModule.NewRecord(Sender: IController);

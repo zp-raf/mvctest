@@ -16,7 +16,7 @@ type
 
   { para que pueda mandar actualizaciones a las vistas añadidas tiene que
     implementar la interfaz ISubject que tiene todos los metodos pertinentes }
-  TAcademiaDataModule = class(TSgcdDataModule, IDBViewModel)
+  TAcademiaDataModule = class(TSgcdDataModule)
     Datasource1: TDatasource;
     qry: TSQLQuery;
     qryID: TLongintField;

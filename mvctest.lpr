@@ -6,14 +6,15 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,
+  ctrl,
   frmsgcddatamodule,
   frmacademiadatamodule,
-  abmctrl,
   frmabmacademias,
   frmabmpersonas,
   frmpersonadatamodule,
   personactrl,
-  observerSubject;
+  observerSubject,
+  Principal;
 
 {$R *.res}
 
@@ -40,22 +41,26 @@ begin
 
   // Modelo
   Application.CreateForm(TSgcdDataModule, SgcdDataModule);
-  Application.CreateForm(TAcademiaDataModule, AcademiaDataModule);
-  Application.CreateForm(TPersonasDataModule, PersonasDataModule);
+  //Application.CreateForm(TAcademiaDataModule, AcademiaDataModule);
+  //Application.CreateForm(TPersonasDataModule, PersonasDataModule);
 
   // Controlador
-  ABMController := TABMController.Create(AcademiaDataModule);
-  PersonaController := TPersonaController.Create(PersonasDataModule);
+  PrincipalController := TController.Create(SgcdDataModule);
+  //ABMController := TController.Create(AcademiaDataModule);
+  //PersonaController := TPersonaController.Create(PersonasDataModule);
 
   // Vista
-  AbmAcademias := TAbmAcademias.Create(nil, ABMController);
-  AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
+  Principal1 := TPrincipal1.Create(nil, PrincipalController);
+  //AbmAcademias := TAbmAcademias.Create(nil, ABMController);
+  //AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
 
-  // hay que castear el objeto para poder añadirle los observadores
-  (SgcdDataModule as ISubject).Attach(AbmAcademias as IObserver);
-  AbmAcademias.Show;
-  (SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
-  AbmPersonas.Show;
+  // Hay que castear el objeto para poder añadirle los observadores
+  (SgcdDataModule as ISubject).Attach(Principal1 as IObserver);
+  Principal1.Show;
+  //(SgcdDataModule as ISubject).Attach(AbmAcademias as IObserver);
+  //AbmAcademias.Show;
+  //(SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
+  //AbmPersonas.Show;
 
   Application.Run;
 end.
