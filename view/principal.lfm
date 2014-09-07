@@ -68,6 +68,7 @@ inherited Principal1: TPrincipal1
         Caption = '&Gestión del curso'
         object academias: TMenuItem
           Caption = 'ABM &Academias'
+          OnClick = academiasClick
         end
         object periodos: TMenuItem
           Caption = 'ABM &Periodos Lectivos'

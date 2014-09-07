@@ -161,10 +161,7 @@ end;
 
 function TController.IsDBConnected(Sender: IView): boolean;
 begin
-  case Model.GetDBStatus(Self) of
-    Connected: Result := True;
-    Disconnected: Result := False;
-  end;
+  Result := Model.GetDBStatus(Self).Connected;
 end;
 
 end.

@@ -7,7 +7,7 @@ object Maestro: TMaestro
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnShow = FormShow
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.4.0'
   object MainMenu: TMainMenu
     left = 16
     top = 64

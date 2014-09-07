@@ -125,7 +125,6 @@ type
 
 var
   Principal1: TPrincipal1;
-  PrincipalController: TController;
 
 implementation
 

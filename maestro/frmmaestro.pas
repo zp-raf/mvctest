@@ -111,9 +111,7 @@ begin
   begin
     TForm(GetOwner).Enabled := True;
     TForm(GetOwner).SetFocus;
-  end
-  else
-    Application.Terminate;
+  end;
 end;
 
 procedure TMaestro.FormShow(Sender: TObject);
@@ -125,7 +123,7 @@ end;
 
 procedure TMaestro.MenuItemSalirClick(Sender: TObject);
 begin
-  Controller.Close((Self as IFormView));
+  Controller.Close(Self as IFormView);
 end;
 
 function TMaestro.ShowErrorMessage(AMsg: string): TModalResult;

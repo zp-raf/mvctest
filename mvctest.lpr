@@ -13,6 +13,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   frmabmpersonas,
   frmpersonadatamodule,
   personactrl,
+  principalctrl,
   observerSubject,
   Principal;
 
@@ -45,7 +46,7 @@ begin
   //Application.CreateForm(TPersonasDataModule, PersonasDataModule);
 
   // Controlador
-  PrincipalController := TController.Create(SgcdDataModule);
+  PrincipalController := TPrincipalController.Create(SgcdDataModule);
   //ABMController := TController.Create(AcademiaDataModule);
   //PersonaController := TPersonaController.Create(PersonasDataModule);
 

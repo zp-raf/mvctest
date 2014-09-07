@@ -41,7 +41,7 @@ type
     procedure Disconnect(Sender: IController);
     procedure EditCurrentRecord(Sender: IController);
     function GetCurrentRecordText(Sender: IController): string;
-    function GetDBStatus(Sender: IController): TDBStatus;
+    function GetDBStatus(Sender: IController): TDBInfo;
     procedure NewRecord(Sender: IController);
     function NextValue(gen: string): integer;
     procedure RefreshDataSets(Sender: IController);
@@ -59,6 +59,7 @@ type
 var
   SgcdDataModule: TSgcdDataModule;
   QryList: TQryList;
+  DBInfo: TDBInfo;
 
 implementation
 
@@ -262,12 +263,24 @@ begin
   end;
 end;
 
-function TSgcdDataModule.GetDBStatus(Sender: IController): TDBStatus;
+function TSgcdDataModule.GetDBStatus(Sender: IController): TDBInfo;
 begin
-  if DB.Connected then
-    Result := Connected
-  else
-    Result := Disconnected;
+  with DBInfo do
+  begin
+    if DB.Connected then
+    begin
+      Connected := True;
+      User := DB.UserName;
+      Host := DB.HostName;
+    end
+    else
+    begin
+      Connected := False;
+      User := '';
+      Host := '';
+    end;
+  end;
+  Result := DBInfo;
 end;
 
 procedure TSgcdDataModule.NewRecord(Sender: IController);

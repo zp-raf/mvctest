@@ -10,15 +10,22 @@ uses
 // Aca defino los metodos basicos que tiene que tener cada parte
 type
 
-  { Este es un tipo para informar el estado de conexion de la DB }
-  TDBStatus = (Connected, Disconnected);
-
   { Forward declarations }
 
   IController = interface;
   IModel = interface;
   IFormView = interface;
   IView = interface;
+
+  // Este es un tipo para informar el estado de conexion de la DB
+
+  { TDBInfo }
+
+  TDBInfo = record
+    Connected: boolean;
+    User: string;
+    Host: string;
+  end;
 
   { IViewBase }
 
@@ -75,7 +82,7 @@ type
     procedure DataModuleDestroy(Sender: TObject);
     procedure EditCurrentRecord(Sender: IController);
     function GetCurrentRecordText(Sender: IController): string;
-    function GetDBStatus(Sender: IController): TDBStatus;
+    function GetDBStatus(Sender: IController): TDBInfo;
     procedure NewRecord(Sender: IController);
     procedure RefreshDataSets(Sender: IController);
   end;
