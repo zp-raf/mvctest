@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, IBConnection, sqldb, FileUtil, Forms, mvc,
-  observerSubject, contnrs, DB, Dialogs;
+  observerSubject, contnrs, DB, Dialogs, ctrl;
 
 resourcestring
   rsFromRdbDatab = ' from rdb$database';
@@ -26,26 +26,26 @@ type
     descendientes puedan abrir y cerrar los datasets cuando ocurra las
     desconexiones }
 
-  TSgcdDataModule = class(TDataModule, IModel, ISubject)
+  TSgcdDataModule = class(TDataModule, ISubject)
   private
     FSubject: ISubject;
   published
     qryAux: TSQLQuery;
     db: TIBConnection;
     tran: TSQLTransaction;
-    function ArePendingChanges(Sender: IController): boolean;
-    procedure Connect(Sender: IController);
+    function ArePendingChanges(Sender: TController): boolean;
+    procedure Connect(Sender: TController);
     procedure DataModuleCreate(Sender: TObject); virtual;
     procedure DataModuleDestroy(Sender: TObject);
-    procedure DiscardChanges(Sender: IController);
-    procedure Disconnect(Sender: IController);
-    procedure EditCurrentRecord(Sender: IController);
-    function GetCurrentRecordText(Sender: IController): string;
-    function GetDBStatus(Sender: IController): TDBInfo;
-    procedure NewRecord(Sender: IController);
+    procedure DiscardChanges(Sender: TController);
+    procedure Disconnect(Sender: TController);
+    procedure EditCurrentRecord(Sender: TController);
+    function GetCurrentRecordText(Sender: TController): string;
+    function GetDBStatus(Sender: TController): TDBInfo;
+    procedure NewRecord(Sender: TController);
     function NextValue(gen: string): integer;
-    procedure RefreshDataSets(Sender: IController);
-    procedure SaveChanges(Sender: IController);
+    procedure RefreshDataSets(Sender: TController);
+    procedure SaveChanges(Sender: TController);
     procedure dbAfterConnect(Sender: TObject);
     procedure dbAfterDisconnect(Sender: TObject);
     function DevuelveValor(qry: string; NombreCampoADevolver: string): string;
@@ -74,6 +74,7 @@ begin
   { creamos una lista donde ponemos en orden los datasets para que sean
   operados automaticamente }
   QryList := TQryList.Create(False);
+
   FSubject := TSubject.Create(Self);
 end;
 
@@ -83,7 +84,7 @@ begin
   inherited;
 end;
 
-function TSgcdDataModule.ArePendingChanges(Sender: IController): boolean;
+function TSgcdDataModule.ArePendingChanges(Sender: TController): boolean;
 var
   i: integer;
 begin
@@ -101,7 +102,7 @@ begin
   end;
 end;
 
-procedure TSgcdDataModule.Connect(Sender: IController);
+procedure TSgcdDataModule.Connect(Sender: TController);
 var
   i: integer;
 begin
@@ -121,7 +122,7 @@ begin
   end;
 end;
 
-procedure TSgcdDataModule.DiscardChanges(Sender: IController);
+procedure TSgcdDataModule.DiscardChanges(Sender: TController);
 var
   i: integer;
 begin
@@ -135,7 +136,7 @@ begin
   end;
 end;
 
-procedure TSgcdDataModule.SaveChanges(Sender: IController);
+procedure TSgcdDataModule.SaveChanges(Sender: TController);
 var
   i: integer;
 begin
@@ -189,7 +190,7 @@ begin
   sl.Free;
 end;
 
-procedure TSgcdDataModule.Disconnect(Sender: IController);
+procedure TSgcdDataModule.Disconnect(Sender: TController);
 var
   i: integer;
 begin
@@ -216,7 +217,7 @@ begin
   end;
 end;
 
-procedure TSgcdDataModule.EditCurrentRecord(Sender: IController);
+procedure TSgcdDataModule.EditCurrentRecord(Sender: TController);
 var
   i: integer;
 begin
@@ -242,7 +243,7 @@ begin
   end;
 end;
 
-function TSgcdDataModule.GetCurrentRecordText(Sender: IController): string;
+function TSgcdDataModule.GetCurrentRecordText(Sender: TController): string;
 var
   i, j: integer;
   msg: TStringList;
@@ -263,7 +264,7 @@ begin
   end;
 end;
 
-function TSgcdDataModule.GetDBStatus(Sender: IController): TDBInfo;
+function TSgcdDataModule.GetDBStatus(Sender: TController): TDBInfo;
 begin
   with DBInfo do
   begin
@@ -283,7 +284,7 @@ begin
   Result := DBInfo;
 end;
 
-procedure TSgcdDataModule.NewRecord(Sender: IController);
+procedure TSgcdDataModule.NewRecord(Sender: TController);
 var
   i: integer;
 begin
@@ -314,7 +315,7 @@ begin
   Result := StrToInt(DevuelveValor(rsSelectNextVa + gen + rsFromRdbDatab, rsGEN_ID));
 end;
 
-procedure TSgcdDataModule.RefreshDataSets(Sender: IController);
+procedure TSgcdDataModule.RefreshDataSets(Sender: TController);
 var
   i: integer;
 begin

@@ -26,7 +26,7 @@ type
     FModel: IModel;
     procedure SetModel(AValue: IModel);
     function GetModel: IModel;
-
+  protected
     // el controlador referencia al modelo que usa la vista
     property Model: IModel read GetModel write SetModel;
   public

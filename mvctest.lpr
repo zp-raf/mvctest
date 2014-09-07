@@ -10,9 +10,9 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   frmsgcddatamodule,
   frmacademiadatamodule,
   frmabmacademias,
-  frmabmpersonas,
-  frmpersonadatamodule,
-  personactrl,
+  //frmabmpersonas,
+  //frmpersonadatamodule,
+  //personactrl,
   principalctrl,
   observerSubject,
   Principal;
