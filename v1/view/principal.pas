@@ -6,7 +6,11 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Menus, ExtCtrls, ComCtrls, StdCtrls, frmMaestro, mvc, ctrl, frmsgcddatamodule;
+  Menus, ExtCtrls, ComCtrls, StdCtrls,
+  frmMaestro, mvc, ctrl, frmsgcddatamodule,
+  principalctrl,
+  frmacademiadatamodule, frmabmacademias,
+  frmpersonadatamodule, frmabmpersonas, personactrl;
 
 type
 
@@ -150,16 +154,18 @@ begin
   StatusBar1.Panels.Items[0].Text := username;
 end;
 
- //procedure TPrincipal1.ayuda1Click(Sender: TObject);
- //begin
- //  //hacer algo
- //  //  ShellExecute(Handle, 'open', 'help\sgcd-help_v1.chm', nil, nil, 1);
- //  //ShellExecute(Handle, 'open', 'help\ABMs\index.html', nil, nil, 1);
- //end;
+//procedure TPrincipal1.ayuda1Click(Sender: TObject);
+//begin
+//  //hacer algo
+//  //  ShellExecute(Handle, 'open', 'help\sgcd-help_v1.chm', nil, nil, 1);
+//  //ShellExecute(Handle, 'open', 'help\ABMs\index.html', nil, nil, 1);
+//end;
 
 procedure TPrincipal1.ObserverUpdate(const Subject: IInterface);
 begin
-
+  setConnStatus(Controller.IsDBConnected(Self),
+    (Controller as TPrincipalController).GetHostName(Self));
+  setLoggedUser((Controller as TPrincipalController).GetUserName(Self));
 end;
 
 procedure TPrincipal1.academiasClick(Sender: TObject);

@@ -34,20 +34,21 @@ type
 
     { todos estos metodos son de logica de negocio. Todo lo que esta en la
       vista es solo presentacion. }
+    procedure Cancel(Sender: IView);
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean);
-    procedure ErrorHandler(E: Exception; Sender: IView);
-    function GetVersion(Sender: IView): string;
-    procedure ShowHelp(Sender: IView);
-    procedure ShowHelp(Sender: IFormView);
-    procedure Cancel(Sender: IView);
+    procedure Commit(Sender: IView);
     procedure Connect(Sender: IView);
     procedure Disconnect(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
-    function GetCurrentRecordText(Sender: IView): string;
+    procedure ErrorHandler(E: Exception; Sender: IView);
     procedure NewRecord(Sender: IView);
-    procedure Commit(Sender: IView);
+    procedure RefreshData(Sender: IView);
+    procedure ShowHelp(Sender: IView);
+    procedure ShowHelp(Sender: IFormView);
+    function GetVersion(Sender: IView): string;
+    function GetCurrentRecordText(Sender: IView): string;
     function IsDBConnected(Sender: IView): boolean;
   end;
 
@@ -124,44 +125,49 @@ end;
 
 function TController.GetCurrentRecordText(Sender: IView): string;
 begin
-  Result := Model.GetCurrentRecordText(Self);
+  Result := Model.GetCurrentRecordText;
 end;
 
 procedure TController.NewRecord(Sender: IView);
 begin
-  Model.NewRecord(Self);
+  Model.NewRecord;
+end;
+
+procedure TController.RefreshData(Sender: IView);
+begin
+  Model.RefreshDataSets;
 end;
 
 procedure TController.EditCurrentRecord(Sender: IView);
 begin
-  Model.EditCurrentRecord(Self);
+  Model.EditCurrentRecord;
 end;
 
 procedure TController.Cancel(Sender: IView);
 begin
-  Model.DiscardChanges(Self);
-  Model.RefreshDataSets(Self);
+  Model.DiscardChanges;
+  Model.RefreshDataSets;
 end;
 
 procedure TController.Connect(Sender: IView);
 begin
-  Model.Connect(Self);
+  Model.Connect;
 end;
 
 procedure TController.Disconnect(Sender: IView);
 begin
-  Model.Disconnect(Self);
+  Model.Disconnect;
 end;
 
 procedure TController.Commit(Sender: IView);
 begin
-  Model.SaveChanges(Self);
-  Model.Connect(Self);
+  Model.SaveChanges;
+  Model.Connect;
 end;
 
 function TController.IsDBConnected(Sender: IView): boolean;
 begin
-  Result := Model.GetDBStatus(Self).Connected;
+  Result := Model.GetDBStatus.Connected;
 end;
 
 end.

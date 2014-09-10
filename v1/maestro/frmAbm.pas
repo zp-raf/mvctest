@@ -142,6 +142,10 @@ begin
       ShowPanel(PanelDetail);
       Controller.EditCurrentRecord(Self);
     end;
+    nbRefresh:
+    begin
+      Controller.RefreshData(Self);
+    end;
   end;
 end;
 

@@ -75,6 +75,7 @@ inherited Abm: TAbm
       BorderSpacing.Right = 8
       Color = clWindow
       Columns = <>
+      DataSource = AcademiaDataModule.DataSource1
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns, dgTruncCellHints, dgCellEllipsis]
       ShowHint = True
       TabOrder = 0

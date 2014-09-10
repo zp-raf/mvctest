@@ -2,6 +2,7 @@ inherited AbmPersonas: TAbmPersonas
   Left = 807
   Top = 310
   Caption = 'ABM Personas'
+  ClientHeight = 461
   inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -16,19 +17,18 @@ inherited AbmPersonas: TAbmPersonas
         item
           PickList.Strings = (          )
           Title.Caption = 'CEDULA'
-          Width = 78
+          Width = 59
           FieldName = 'CEDULA'
         end      
         item
           PickList.Strings = (          )
           Title.Caption = 'NOMBRE'
-          Width = 94
           FieldName = 'NOMBRE'
         end      
         item
           PickList.Strings = (          )
           Title.Caption = 'APELLIDO'
-          Width = 103
+          Width = 68
           FieldName = 'APELLIDO'
         end      
         item
@@ -46,6 +46,7 @@ inherited AbmPersonas: TAbmPersonas
       DataSource = PersonasDataModule.dsPersonas
     end
     inherited DBNavList: TDBNavigator
+      DataSource = PersonasDataModule.dsPersonas
       Hints.Strings = (      )
     end
   end

@@ -21,7 +21,7 @@ type
   { Ahora este form maneja solamente lo que atañe a la presentaacion y nada mas.
     La logica del negocio se maneja en el controlador. }
 
-  TMaestro = class(TForm, IView, IFormView, IObserver)
+  TMaestro = class(TForm, IObserver, IView, IFormView)
   private
     FController: IController;
     function GetController: IController;
@@ -118,7 +118,8 @@ procedure TMaestro.FormShow(Sender: TObject);
 begin
   if GetOwner <> nil then
     TForm(GetOwner).Enabled := False;
-  ObserverUpdate(nil); // actualizamos la vista
+  //if Visible then
+  //  ObserverUpdate(nil); // actualizamos la vista
 end;
 
 procedure TMaestro.MenuItemSalirClick(Sender: TObject);

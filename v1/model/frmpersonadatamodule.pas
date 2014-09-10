@@ -6,16 +6,16 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmsgcddatamodule, IBConnection, sqldb, DB;
+  frmsgcddatamodule, IBConnection, sqldb, DB, mvc, frmquerydatamodule;
 
 resourcestring
-  rsGenName1 = 'GEN_ACADEMIA';
+  rsGenName = 'GEN_ACADEMIA';
 
 type
 
   { TPersonasDataModule }
 
-  TPersonasDataModule = class(TsgcdDataModule)
+  TPersonasDataModule = class(TQueryDataModule)
     DireccionBARRIO: TStringField;
     DireccionCIUDAD: TStringField;
     DireccionDEPARTAMENTO: TStringField;
@@ -42,12 +42,8 @@ type
     TelefonoPREFIJO: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DireccionAfterInsert(DataSet: TDataSet);
-
+    procedure PersonaNewRecord(DataSet: TDataSet);
     procedure TelefonoAfterInsert(DataSet: TDataSet);
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var
@@ -70,6 +66,11 @@ end;
 procedure TPersonasDataModule.DireccionAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('IDPERSONA').AsInteger := Persona.FieldByName('ID').AsInteger;
+end;
+
+procedure TPersonasDataModule.PersonaNewRecord(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('ID').AsInteger := FMasterDataModule.NextValue(rsGenName);
 end;
 
 procedure TPersonasDataModule.TelefonoAfterInsert(DataSet: TDataSet);

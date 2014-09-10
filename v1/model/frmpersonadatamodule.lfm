@@ -1,17 +1,10 @@
 inherited PersonasDataModule: TPersonasDataModule
+  OnCreate = DataModuleCreate
   Height = 212
   HorizontalOffset = 1012
   VerticalOffset = 506
   Width = 280
-  inherited db: TIBConnection
-    Connected = True
-    top = 16
-  end
-  inherited tran: TSQLTransaction
-    Active = True
-  end
-  object Persona: TSQLQuery[3]
-    IndexName = 'DEFAULT_ORDER'
+  object Persona: TSQLQuery[0]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -55,8 +48,9 @@ inherited PersonasDataModule: TPersonasDataModule
         Precision = -1
         Size = 511
       end>
-    Database = db
-    Transaction = tran
+    OnNewRecord = PersonaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
     SQL.Strings = (
       'SELECT * FROM PERSONA'
     )
@@ -128,8 +122,7 @@ inherited PersonasDataModule: TPersonasDataModule
       Size = 1
     end
   end
-  object Direccion: TSQLQuery[4]
-    IndexName = 'DEFAULT_ORDER'
+  object Direccion: TSQLQuery[1]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -174,8 +167,8 @@ inherited PersonasDataModule: TPersonasDataModule
         Size = 255
       end>
     AfterInsert = DireccionAfterInsert
-    Database = db
-    Transaction = tran
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
     SQL.Strings = (
       'SELECT * FROM DIRECCION D WHERE D.IDPERSONA = :ID'
     )
@@ -265,7 +258,7 @@ inherited PersonasDataModule: TPersonasDataModule
       Size = 255
     end
   end
-  object Telefono: TSQLQuery[5]
+  object Telefono: TSQLQuery[2]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -298,8 +291,8 @@ inherited PersonasDataModule: TPersonasDataModule
         Size = 255
       end>
     AfterInsert = TelefonoAfterInsert
-    Database = db
-    Transaction = tran
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
     SQL.Strings = (
       'SELECT * FROM TELEFONO T WHERE T.IDPERSONA = :ID'
     )
@@ -367,17 +360,17 @@ inherited PersonasDataModule: TPersonasDataModule
       Size = 255
     end
   end
-  object dsTelefono: TDatasource[6]
+  object dsTelefono: TDataSource[3]
     DataSet = Telefono
     left = 232
     top = 56
   end
-  object dsDireccion: TDatasource[7]
+  object dsDireccion: TDataSource[4]
     DataSet = Direccion
     left = 232
     top = 140
   end
-  object dsPersonas: TDatasource[8]
+  object dsPersonas: TDataSource[5]
     DataSet = Persona
     left = 88
     top = 136

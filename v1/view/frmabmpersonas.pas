@@ -14,7 +14,6 @@ type
   { TAbmPersonas }
 
   TAbmPersonas = class(TAbm)
-    procedure ObserverUpdate(const Subject: IInterface); override;
   private
     { private declarations }
   public
@@ -29,10 +28,5 @@ implementation
 {$R *.lfm}
 
 { TAbmPersonas }
-
-procedure TAbmPersonas.ObserverUpdate(const Subject: IInterface);
-begin
-
-end;
 
 end.

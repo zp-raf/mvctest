@@ -10,9 +10,10 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   frmsgcddatamodule,
   frmacademiadatamodule,
   frmabmacademias,
-  //frmabmpersonas,
-  //frmpersonadatamodule,
-  //personactrl,
+  frmabmpersonas,
+  frmpersonadatamodule,
+  personactrl,
+  academiactrl,
   principalctrl,
   observerSubject,
   Principal;
@@ -41,27 +42,27 @@ begin
   Application.Initialize;
 
   // Modelo
-  Application.CreateForm(TSgcdDataModule, SgcdDataModule);
-  //Application.CreateForm(TAcademiaDataModule, AcademiaDataModule);
-  //Application.CreateForm(TPersonasDataModule, PersonasDataModule);
+  SgcdDataModule := TSgcdDataModule.Create(nil);
+  AcademiaDataModule := TAcademiaDataModule.Create(nil, SgcdDataModule);
+  PersonasDataModule := TPersonasDataModule.Create(Application, SgcdDataModule);
 
   // Controlador
-  PrincipalController := TPrincipalController.Create(SgcdDataModule);
-  //ABMController := TController.Create(AcademiaDataModule);
-  //PersonaController := TPersonaController.Create(PersonasDataModule);
+  //PrincipalController := TPrincipalController.Create(SgcdDataModule);
+  AcademiaController := TAcademiaController.Create(AcademiaDataModule);
+  PersonaController := TPersonaController.Create(PersonasDataModule);
 
   // Vista
-  Principal1 := TPrincipal1.Create(nil, PrincipalController);
-  //AbmAcademias := TAbmAcademias.Create(nil, ABMController);
-  //AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
+  //Principal1 := TPrincipal1.Create(nil, PrincipalController);
+  AbmAcademias := TAbmAcademias.Create(nil, AcademiaController);
+  AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
 
   // Hay que castear el objeto para poder añadirle los observadores
-  (SgcdDataModule as ISubject).Attach(Principal1 as IObserver);
-  Principal1.Show;
-  //(SgcdDataModule as ISubject).Attach(AbmAcademias as IObserver);
-  //AbmAcademias.Show;
-  //(SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
-  //AbmPersonas.Show;
+  //(SgcdDataModule as ISubject).Attach(Principal1 as IObserver);
+  //Principal1.Show;
+  AbmAcademias.Show;
+  (SgcdDataModule as ISubject).Attach(AbmAcademias as IObserver);
+  AbmPersonas.Show;
+  (SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
 
   Application.Run;
 end.
