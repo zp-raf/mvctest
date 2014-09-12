@@ -6,17 +6,11 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,
-  ctrl,
-  frmsgcddatamodule,
-  frmacademiadatamodule,
-  frmabmacademias,
-  frmabmpersonas,
-  frmpersonadatamodule,
-  personactrl,
-  academiactrl,
-  principalctrl,
+  frmsgcddatamodule, // el modelo de conexion de base de datos
+  principalctrl, // controlador del home
   observerSubject,
-  Principal;
+  Principal, // Home form
+  frmprincipaldatamodule; //el datamodule del home
 
 {$R *.res}
 
@@ -42,27 +36,21 @@ begin
   Application.Initialize;
 
   // Modelo
-  SgcdDataModule := TSgcdDataModule.Create(nil);
-  AcademiaDataModule := TAcademiaDataModule.Create(nil, SgcdDataModule);
-  PersonasDataModule := TPersonasDataModule.Create(Application, SgcdDataModule);
+
+  // el datamodule donde esta la conexion
+  SgcdDataModule := TSgcdDataModule.Create(Application);
+  PrincipalDataModule := TPrincipalDataModule.Create(Application, SgcdDataModule);
 
   // Controlador
-  //PrincipalController := TPrincipalController.Create(SgcdDataModule);
-  AcademiaController := TAcademiaController.Create(AcademiaDataModule);
-  PersonaController := TPersonaController.Create(PersonasDataModule);
+  PrincipalController := TPrincipalController.Create(PrincipalDataModule,
+    SgcdDataModule);
 
   // Vista
-  //Principal1 := TPrincipal1.Create(nil, PrincipalController);
-  AbmAcademias := TAbmAcademias.Create(nil, AcademiaController);
-  AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
+  Principal1 := TPrincipal1.Create(nil, PrincipalController);
 
   // Hay que castear el objeto para poder añadirle los observadores
-  //(SgcdDataModule as ISubject).Attach(Principal1 as IObserver);
-  //Principal1.Show;
-  AbmAcademias.Show;
-  (SgcdDataModule as ISubject).Attach(AbmAcademias as IObserver);
-  AbmPersonas.Show;
-  (SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
+  Principal1.Show;
+  (SgcdDataModule as ISubject).Attach(Principal1 as IObserver);
 
   Application.Run;
 end.

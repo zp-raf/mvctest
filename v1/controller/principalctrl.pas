@@ -5,23 +5,31 @@ unit principalctrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, mvc, observerSubject, frmMaestro, Forms, Dialogs;
+  Classes, SysUtils, ctrl, mvc, observerSubject, Forms, Dialogs,
+  frmsgcddatamodule, // el modelo de conexion de base de datos
+  frmquerydatamodule, // modelo base para los datamodules de cada vista
+  // ABM Academias
+  frmacademiadatamodule,
+  frmabmacademias,
+  academiactrl,
+  // ABM Personas
+  frmpersonadatamodule,
+  frmabmpersonas,
+  personactrl;
 
 type
 
   { TPrincipalController }
 
   TPrincipalController = class(TController)
+  private
+    FDBModel: IDBModel;
   public
-    constructor Create(ASubject: ISubject); overload;
-    procedure CreateModel(InstanceClass: TClass; AOwner: TComponent; out Reference);
-    procedure CreateModel(InstanceClass: TClass; AOwner: TComponent;
-      ASubOject: IInterface; out Reference);
-    procedure CreateController(InstanceClass: TClass; AModel: IModel; out Reference);
-    procedure CreateForm(InstanceClass: TClass; AOwner: TComponent;
-      AController: IController; out Reference);
+    constructor Create(AModel: IModel; ADBModel: IDBModel); overload;
     function GetUserName(Sender: IFormView): string;
     function GetHostName(Sender: IFormView): string;
+    procedure ABMAcad(Sender: IFormView);
+    procedure allpersonasClick(Sender: IFormView);
   end;
 
 var
@@ -31,102 +39,10 @@ implementation
 
 { TPrincipalController }
 
-constructor TPrincipalController.Create(ASubject: ISubject);
+constructor TPrincipalController.Create(AModel: IModel; ADBModel: IDBModel);
 begin
-
-end;
-
-procedure TPrincipalController.CreateModel(InstanceClass: TClass;
-  AOwner: TComponent; out Reference);
-var
-  Instance: TClass;
-  ok: boolean;
-begin
-  ShowMessage(InstanceClass.ClassName);
-  //// Allocate the instance, without calling the constructor
-  //Instance := TClass(InstanceClass).NewInstance;
-  //// set the Reference before the constructor is called, so that
-  //// events and constructors can refer to it
-  //TClass(Reference) := Instance;
-  //ok := False;
-  //try
-  //  Instance.Create(Self);
-  //  ok := True;
-  //finally
-  //  if not ok then
-  //  begin
-  //    Reference := nil;
-  //  end;
-  //end;
-end;
-
-procedure TPrincipalController.CreateModel(InstanceClass: TClass;
-  AOwner: TComponent; ASubOject: IInterface; out Reference);
-var
-  Instance: TClass;
-  ok: boolean;
-begin
-  //// Allocate the instance, without calling the constructor
-  //Instance := InstanceClass.NewInstance;
-  //// set the Reference before the constructor is called, so that
-  //// events and constructors can refer to it
-  //TClass(Reference) := Instance;
-  //ok := False;
-  //try
-  //  Instance.Create(Self);
-  //  ok := True;
-  //finally
-  //  if not ok then
-  //  begin
-  //    Reference := nil;
-  //  end;
-  //end;
-end;
-
-procedure TPrincipalController.CreateController(InstanceClass: TClass;
-  AModel: IModel; out Reference);
-var
-  Instance: TClass;
-  ok: boolean;
-begin
-  //// Allocate the instance, without calling the constructor
-  //Instance := InstanceClass.NewInstance;
-  //// set the Reference before the constructor is called, so that
-  //// events and constructors can refer to it
-  //TClass(Reference) := Instance;
-  //ok := False;
-  //try
-  //  Instance.Create(Self);
-  //  ok := True;
-  //finally
-  //  if not ok then
-  //  begin
-  //    Reference := nil;
-  //  end;
-  //end;
-end;
-
-procedure TPrincipalController.CreateForm(InstanceClass: TClass;
-  AOwner: TComponent; AController: IController; out Reference);
-var
-  Instance: TClass;
-  ok: boolean;
-begin
-  //// Allocate the instance, without calling the constructor
-  //Instance := InstanceClass.NewInstance;
-  //// set the Reference before the constructor is called, so that
-  //// events and constructors can refer to it
-  //TClass(Reference) := Instance;
-  //ok := False;
-  //try
-  //  Instance.Create(Self);
-  //  ok := True;
-  //finally
-  //  if not ok then
-  //  begin
-  //    Reference := nil;
-  //  end;
-  //end;
+  inherited Create(AModel);
+  FDBModel := ADBModel;
 end;
 
 function TPrincipalController.GetUserName(Sender: IFormView): string;
@@ -136,7 +52,28 @@ end;
 
 function TPrincipalController.GetHostName(Sender: IFormView): string;
 begin
-  Result := model.GetDBStatus.Host;
+  Result := Model.GetDBStatus.Host;
+end;
+
+procedure TPrincipalController.ABMAcad(Sender: IFormView);
+begin
+  AcademiaDataModule := TAcademiaDataModule.Create(Application, FDBModel);
+  AcademiaController := TAcademiaController.Create(AcademiaDataModule);
+  AbmAcademias := TAbmAcademias.Create(Sender, AcademiaController);
+  AbmAcademias.Show;
+  (FDBModel as ISubject).Attach(AbmAcademias as IObserver);
+  //(FDBModel as ISubject).Attach(TAbmAcademias.Create(Sender,
+  //  TAcademiaController.Create(TAcademiaDataModule.Create(Application, FDBModel))) as
+  //  IObserver);
+end;
+
+procedure TPrincipalController.allpersonasClick(Sender: IFormView);
+begin
+  PersonasDataModule := TPersonasDataModule.Create(Application, FDBModel);
+  PersonaController := TPersonaController.Create(PersonasDataModule);
+  AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
+  AbmPersonas.Show;
+  (SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
 end;
 
 end.

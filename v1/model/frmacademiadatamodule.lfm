@@ -1,10 +1,12 @@
-object academia: Tacademia
-  Left = 1062
+object AcademiaDataModule: TAcademiaDataModule
+  OnCreate = DataModuleCreate
+  OldCreateOrder = False
   Height = 150
-  Top = 285
+  HorizontalOffset = 412
+  VerticalOffset = 159
   Width = 150
-  LCLVersion = '1.2.0.3'
   object qry: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -18,13 +20,14 @@ object academia: Tacademia
         Precision = -1
         Size = 255
       end>
-    Database = sgcd.db
-    Transaction = sgcd.tran
+    OnNewRecord = qryNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
     SQL.Strings = (
       'select * from academia'
     )
     Params = <>
-    left = 104
+    left = 37
     top = 40
     object qryID: TLongintField
       DisplayWidth = 10
@@ -47,5 +50,10 @@ object academia: Tacademia
       Required = True
       Size = 255
     end
+  end
+  object DataSource1: TDataSource
+    DataSet = qry
+    left = 72
+    top = 96
   end
 end

@@ -5,12 +5,8 @@ unit Principal;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Menus, ExtCtrls, ComCtrls, StdCtrls,
-  frmMaestro, mvc, ctrl, frmsgcddatamodule,
-  principalctrl,
-  frmacademiadatamodule, frmabmacademias,
-  frmpersonadatamodule, frmabmpersonas, personactrl;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, frmMaestro,
+  Menus, ExtCtrls, ComCtrls, StdCtrls, mvc, principalctrl;
 
 type
 
@@ -80,7 +76,7 @@ type
     //procedure ayuda1Click(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
     procedure academiasClick(Sender: TObject);
-    //procedure allpersonasClick(Sender: TObject);
+    procedure allpersonasClick(Sender: TObject);
     //procedure alumnosClick(Sender: TObject);
     //procedure arancelesClick(Sender: TObject);
     //procedure asistenciaProfesoresClick(Sender: TObject);
@@ -121,10 +117,6 @@ type
     //procedure seccionesClick(Sender: TObject);
     //procedure talonariosClick(Sender: TObject);
     //procedure trabajosClick(Sender: TObject);
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var
@@ -163,14 +155,19 @@ end;
 
 procedure TPrincipal1.ObserverUpdate(const Subject: IInterface);
 begin
-  setConnStatus(Controller.IsDBConnected(Self),
-    (Controller as TPrincipalController).GetHostName(Self));
-  setLoggedUser((Controller as TPrincipalController).GetUserName(Self));
+  //setConnStatus(Controller.IsDBConnected(Self),
+  //  (Controller as TPrincipalController).GetHostName(Self));
+  //setLoggedUser((Controller as TPrincipalController).GetUserName(Self));
 end;
 
 procedure TPrincipal1.academiasClick(Sender: TObject);
 begin
+  (Controller as TPrincipalController).ABMAcad(Self);
+end;
 
+procedure TPrincipal1.allpersonasClick(Sender: TObject);
+begin
+  (Controller as TPrincipalController).allpersonasClick(Self);
 end;
 
 end.
