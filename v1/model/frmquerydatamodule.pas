@@ -21,10 +21,10 @@ type
     FMasterDataModule: IDBModel;
     procedure SetQryList(AValue: TQryList);
   published
-    procedure Connect;
+    procedure Connect; virtual;
     procedure DataModuleCreate(Sender: TObject); virtual;
     procedure DiscardChanges;
-    procedure Disconnect;
+    procedure Disconnect; virtual;
     procedure EditCurrentRecord;
     procedure NewRecord;
     procedure RefreshDataSets;

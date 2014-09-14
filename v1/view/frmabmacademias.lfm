@@ -1,7 +1,8 @@
 inherited AbmAcademias: TAbmAcademias
-  Left = 616
-  Top = 284
+  Left = 473
+  Top = 132
   Caption = 'ABM Academias'
+  ClientHeight = 461
   inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -15,7 +16,7 @@ inherited AbmAcademias: TAbmAcademias
       Top = 21
       Width = 624
       DataField = 'NOMBRE'
-      DataSource = AcademiaDataModule.Datasource1
+      DataSource = AcademiaDataModule.DataSource1
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 8
       BorderSpacing.Right = 8
@@ -44,13 +45,11 @@ inherited AbmAcademias: TAbmAcademias
         item
           PickList.Strings = (          )
           Title.Caption = 'NOMBRE'
-          Width = 278
           FieldName = 'NOMBRE'
         end>
-      DataSource = AcademiaDataModule.Datasource1
     end
     inherited DBNavList: TDBNavigator
-      DataSource = AcademiaDataModule.Datasource1
+      DataSource = AcademiaDataModule.DataSource1
       Hints.Strings = (      )
     end
   end

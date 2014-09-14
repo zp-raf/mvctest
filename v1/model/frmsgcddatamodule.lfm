@@ -6,7 +6,7 @@ object sgcdDataModule: TsgcdDataModule
   VerticalOffset = 291
   Width = 166
   object db: TIBConnection
-    Connected = False
+    Connected = True
     LoginPrompt = False
     AfterConnect = dbAfterConnect
     AfterDisconnect = dbAfterDisconnect
@@ -21,7 +21,7 @@ object sgcdDataModule: TsgcdDataModule
     top = 48
   end
   object tran: TSQLTransaction
-    Active = False
+    Active = True
     Action = caNone
     Database = db
     left = 16

@@ -70,6 +70,7 @@ type
     registroAnecdotico1: TMenuItem;
     StatusBar1: TStatusBar;
     trabajoPractico1: TMenuItem;
+    procedure facturasClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
     procedure setConnStatus(connected: boolean; host: string);
     procedure setLoggedUser(username: string);
@@ -77,46 +78,6 @@ type
     procedure ObserverUpdate(const Subject: IInterface); override;
     procedure academiasClick(Sender: TObject);
     procedure allpersonasClick(Sender: TObject);
-    //procedure alumnosClick(Sender: TObject);
-    //procedure arancelesClick(Sender: TObject);
-    //procedure asistenciaProfesoresClick(Sender: TObject);
-    //procedure calcularnotaClick(Sender: TObject);
-    //procedure calificarClick(Sender: TObject);
-    //procedure cargarFacturaClick(Sender: TObject);
-    //procedure cargarNotaCreditoClick(Sender: TObject);
-    //procedure cargarReciboClick(Sender: TObject);
-    //procedure certificadoEstudioClick(Sender: TObject);
-    //procedure clasesClick(Sender: TObject);
-    //procedure cuentasCobrarClick(Sender: TObject);
-    //procedure cuentasPagarClick(Sender: TObject);
-    //procedure cuotaxarancelClick(Sender: TObject);
-    //procedure desarrolloMateriasClick(Sender: TObject);
-    //procedure entregasClick(Sender: TObject);
-    //procedure equiposClick(Sender: TObject);
-    //procedure escalaClick(Sender: TObject);
-    //procedure examenesClick(Sender: TObject);
-    //procedure facturasClick(Sender: TObject);
-    //procedure generarDeudaClick(Sender: TObject);
-    //procedure gruposClick(Sender: TObject);
-    //procedure historicoClick(Sender: TObject);
-    //procedure historicoMovimientoClick(Sender: TObject);
-    //procedure justificativosClick(Sender: TObject);
-    //procedure materiasClick(Sender: TObject);
-    //procedure matricularClick(Sender: TObject);
-    //procedure confirmarClick(Sender: TObject);
-    //procedure modulosClick(Sender: TObject);
-    //procedure multasClick(Sender: TObject);
-    //procedure notaCreditoClick(Sender: TObject);
-    //procedure periodosClick(Sender: TObject);
-    //procedure personalClick(Sender: TObject);
-    //procedure personasextClick(Sender: TObject);
-    //procedure reciboClick(Sender: TObject);
-    //procedure registroAnecdotico1Click(Sender: TObject);
-    //procedure reportRegAsistenciaClick(Sender: TObject);
-    //procedure reservaEquipo1Click(Sender: TObject);
-    //procedure seccionesClick(Sender: TObject);
-    //procedure talonariosClick(Sender: TObject);
-    //procedure trabajosClick(Sender: TObject);
   end;
 
 var
@@ -139,6 +100,11 @@ end;
 procedure TPrincipal1.SalirClick(Sender: TObject);
 begin
   Controller.Close(Self as IFormView);
+end;
+
+procedure TPrincipal1.facturasClick(Sender: TObject);
+begin
+
 end;
 
 procedure TPrincipal1.setLoggedUser(username: string);

@@ -15,7 +15,11 @@ uses
   // ABM Personas
   frmpersonadatamodule,
   frmabmpersonas,
-  personactrl;
+  personactrl,
+  // Facturacion
+  frmfacturadatamodule,
+  frmfacturacion,
+  facturactrl;
 
 type
 
@@ -30,6 +34,7 @@ type
     function GetHostName(Sender: IFormView): string;
     procedure ABMAcad(Sender: IFormView);
     procedure allpersonasClick(Sender: IFormView);
+    procedure OpenFacturasForm(Sender: IFormView);
   end;
 
 var
@@ -74,6 +79,15 @@ begin
   AbmPersonas := TAbmPersonas.Create(nil, PersonaController);
   AbmPersonas.Show;
   (SgcdDataModule as ISubject).Attach(AbmPersonas as IObserver);
+end;
+
+procedure TPrincipalController.OpenFacturasForm(Sender: IFormView);
+begin
+  FacturaDataModule := TFacturaDataModule.Create(Application, FDBModel);
+  FacturaController := TFacturaController.Create(FacturaDataModule);
+  ProcesoFacturacion := TProcesoFacturacion.Create(nil, PersonaController);
+  ProcesoFacturacion.Show;
+  (SgcdDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
 end;
 
 end.

@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="31"/>
+      <BuildNr Value="32"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -49,7 +49,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="19">
+    <Units Count="22">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -177,6 +177,26 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmprincipaldatamodule"/>
       </Unit18>
+      <Unit19>
+        <Filename Value="view\frmfacturacion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoFacturacion"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmfacturacion"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="controller\facturactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="facturactrl"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="model\frmfacturadatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FacturaDataModule"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmfacturadatamodule"/>
+      </Unit21>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
