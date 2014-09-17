@@ -71,6 +71,8 @@ type
     StatusBar1: TStatusBar;
     trabajoPractico1: TMenuItem;
     procedure facturasClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure generarDeudaClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
     procedure setConnStatus(connected: boolean; host: string);
     procedure setLoggedUser(username: string);
@@ -104,7 +106,18 @@ end;
 
 procedure TPrincipal1.facturasClick(Sender: TObject);
 begin
+  (Controller as TPrincipalController).OpenFacturasForm(Self);
+end;
 
+procedure TPrincipal1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  inherited;
+  Application.Terminate;
+end;
+
+procedure TPrincipal1.generarDeudaClick(Sender: TObject);
+begin
+  (Controller as TPrincipalController).OpenVentaForm(Self);
 end;
 
 procedure TPrincipal1.setLoggedUser(username: string);

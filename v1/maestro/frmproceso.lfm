@@ -1,0 +1,27 @@
+inherited Proceso: TProceso
+  Height = 348
+  Width = 453
+  ClientHeight = 348
+  ClientWidth = 453
+  object ButtonPanel1: TButtonPanel[0]
+    Left = 6
+    Height = 34
+    Top = 288
+    Width = 441
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    HelpButton.OnClick = HelpButtonClick
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CloseButton.OnClick = CloseButtonClick
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 0
+  end
+  inherited MainMenu: TMainMenu[1]
+  end
+  inherited AppProps: TApplicationProperties[2]
+  end
+end

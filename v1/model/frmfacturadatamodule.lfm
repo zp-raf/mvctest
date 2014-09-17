@@ -1,12 +1,10 @@
-object FacturaDataModule: TFacturaDataModule
+inherited FacturaDataModule: TFacturaDataModule
   OnCreate = DataModuleCreate
-  OldCreateOrder = False
   Height = 292
-  HorizontalOffset = 323
-  VerticalOffset = 161
+  HorizontalOffset = 512
+  VerticalOffset = 267
   Width = 411
-  object Cabecera: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
+  object Cabecera: TSQLQuery[0]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -122,7 +120,6 @@ object FacturaDataModule: TFacturaDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -348,13 +345,12 @@ object FacturaDataModule: TFacturaDataModule
       Precision = -1
     end
   end
-  object DsCabecera: TDataSource
+  object DsCabecera: TDataSource[1]
     DataSet = Cabecera
     left = 56
     top = 136
   end
-  object Detalle: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
+  object Detalle: TSQLQuery[2]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -410,7 +406,6 @@ object FacturaDataModule: TFacturaDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     AfterInsert = DetalleAfterInsert
     OnNewRecord = DetalleNewRecord
     Database = sgcdDataModule.db
@@ -526,8 +521,7 @@ object FacturaDataModule: TFacturaDataModule
       Precision = -1
     end
   end
-  object Talonario: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
+  object Talonario: TSQLQuery[3]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -625,7 +619,6 @@ object FacturaDataModule: TFacturaDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -818,18 +811,17 @@ object FacturaDataModule: TFacturaDataModule
       Size = 255
     end
   end
-  object DsDetalle: TDataSource
+  object DsDetalle: TDataSource[4]
     DataSet = Detalle
     left = 144
     top = 144
   end
-  object DsTalonario: TDataSource
+  object DsTalonario: TDataSource[5]
     DataSet = Talonario
     left = 232
     top = 133
   end
-  object TipoTalonario: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
+  object TipoTalonario: TSQLQuery[6]
     FieldDefs = <    
       item
         Name = 'VALOR'
@@ -849,7 +841,6 @@ object FacturaDataModule: TFacturaDataModule
         Precision = -1
         Size = 255
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -891,7 +882,7 @@ object FacturaDataModule: TFacturaDataModule
       Size = 255
     end
   end
-  object NumeroFactura: TSQLQuery
+  object NumeroFactura: TSQLQuery[7]
     FieldDefs = <>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

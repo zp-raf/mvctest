@@ -73,10 +73,10 @@ end;
 
 procedure TController.ErrorHandler(E: Exception; Sender: IView);
 begin
-  if E is EIBDatabaseError then
-    Sender.ShowErrorMessage(GetErrorMessage(E as EIBDatabaseError))
-  else if E is EDatabaseError then
+  if E is EDatabaseError then
     Sender.ShowErrorMessage(GetErrorMessage(E as EDatabaseError))
+  else if E is EIBDatabaseError then
+    Sender.ShowErrorMessage(GetErrorMessage(E as EIBDatabaseError))
   else
     Sender.ShowErrorMessage(GetErrorMessage(E));
 end;
@@ -107,9 +107,10 @@ begin
   case Sender.ShowConfirmationMessage(rsExitSalir, rsExitQuestion) of
     mrYes:
     begin
-      Application.Terminate;
+      CanClose := True;
+      //Sender.CloseView(Self);
     end;
-    mrNo: Abort;
+    mrNo: CanClose := False;
   end;
 end;
 

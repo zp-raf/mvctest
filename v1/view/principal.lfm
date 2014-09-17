@@ -10,6 +10,7 @@ inherited Principal1: TPrincipal1
   Constraints.MaxHeight = 100
   Constraints.MinHeight = 100
   Constraints.MinWidth = 310
+  OnClose = FormClose
   object StatusBar1: TStatusBar[0]
     Left = 0
     Height = 23
@@ -140,6 +141,7 @@ inherited Principal1: TPrincipal1
         end
         object generarDeuda: TMenuItem
           Caption = 'Generar &deudas'
+          OnClick = generarDeudaClick
         end
         object cuentasCobrar: TMenuItem
           Caption = 'Cuentas por c&obrar'

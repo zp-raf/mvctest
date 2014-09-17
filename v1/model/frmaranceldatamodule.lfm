@@ -1,0 +1,21 @@
+inherited ArancelesDataModule: TArancelesDataModule
+  OnCreate = DataModuleCreate
+  Height = 159
+  HorizontalOffset = 805
+  VerticalOffset = 458
+  Width = 124
+  object Arancel: TSQLQuery[0]
+    FieldDefs = <>
+    OnFilterRecord = ArancelFilterRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    Params = <>
+    left = 40
+    top = 24
+  end
+  object dsAranceles: TDataSource[1]
+    DataSet = Arancel
+    left = 56
+    top = 96
+  end
+end

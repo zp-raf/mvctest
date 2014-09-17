@@ -35,6 +35,7 @@ type
     MenuItemAyuda: TMenuItem;
     MenuItemAbout: TMenuItem;
     procedure AppPropsException(Sender: TObject; E: Exception);
+    procedure CloseView(Sender: IController);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -85,6 +86,11 @@ end;
 procedure TMaestro.AppPropsException(Sender: TObject; E: Exception);
 begin
   Controller.ErrorHandler(E, Self);
+end;
+
+procedure TMaestro.CloseView(Sender: IController);
+begin
+  Close;
 end;
 
 procedure TMaestro.FormCloseQuery(Sender: TObject; var CanClose: boolean);

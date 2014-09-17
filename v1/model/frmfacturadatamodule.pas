@@ -79,10 +79,12 @@ type
     TipoTalonarioOBJETO: TStringField;
     TipoTalonarioSIGNIFICADO: TStringField;
     TipoTalonarioVALOR: TLongintField;
+    procedure ActualizarTotal(Sender: IController);
     procedure Connect; override;
-    procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject); override;
     procedure DetalleAfterInsert(DataSet: TDataSet);
     procedure DetalleNewRecord(DataSet: TDataSet);
+    procedure Disconnect; override;
     property IDTalonario: integer read FIDTalonario write SetIDTalonario;
     property Factura: integer read FFactura write SetFactura;
   end;
@@ -108,6 +110,11 @@ begin
   if FIDTalonario = AValue then
     Exit;
   FIDTalonario := AValue;
+end;
+
+procedure TFacturaDataModule.ActualizarTotal(Sender: IController);
+begin
+
 end;
 
 
@@ -139,6 +146,13 @@ begin
   DetalleEXENTA.AsFloat := 0;
   DetalleIVA5.AsFloat := 0;
   DetalleIVA10.AsFloat := 0;
+end;
+
+procedure TFacturaDataModule.Disconnect;
+begin
+  Talonario.Close;
+  TipoTalonario.Close;
+  inherited Disconnect;
 end;
 
 end.

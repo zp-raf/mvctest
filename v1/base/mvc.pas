@@ -27,6 +27,7 @@ type
 
   IView = interface
     ['{BF806B18-377B-4EF8-8139-75EE0C7984D5}']
+    procedure CloseView(Sender: IController);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     function ShowErrorMessage(AMsg: string): TModalResult;
     function ShowErrorMessage(ATitle: string; AMsg: string): TModalResult;
@@ -77,6 +78,7 @@ type
     function ArePendingChanges: boolean;
     procedure DataModuleCreate(Sender: TObject);
     procedure EditCurrentRecord;
+    procedure FilterRecord(DataSet: TDataSet; var Accept: Boolean);
     function GetCurrentRecordText: string;
     function GetDBStatus: TDBInfo;
     procedure NewRecord;

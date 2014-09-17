@@ -1,0 +1,389 @@
+inherited ProcesoVenta: TProcesoVenta
+  Left = 468
+  Height = 680
+  Top = 202
+  Width = 800
+  Caption = 'Nueva venta (deuda)'
+  ClientHeight = 660
+  ClientWidth = 800
+  Constraints.MinHeight = 680
+  Constraints.MinWidth = 800
+  inherited ButtonPanel1: TButtonPanel
+    Top = 620
+    Width = 788
+    OKButton.OnClick = OKButtonClick
+    TabOrder = 3
+  end
+  object Persona: TGroupBox[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 6
+    Height = 114
+    Top = 6
+    Width = 788
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 6
+    BorderSpacing.Right = 6
+    Caption = 'Persona'
+    ClientHeight = 96
+    ClientWidth = 784
+    TabOrder = 0
+    object DBEdit1: TDBEdit
+      Left = 8
+      Height = 23
+      Top = 64
+      Width = 504
+      DataField = 'DIRECCION'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object DBEdit2: TDBEdit
+      Left = 8
+      Height = 23
+      Top = 18
+      Width = 240
+      DataField = 'RUC'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object Label1: TLabel
+      AnchorSideLeft.Control = DBEdit1
+      AnchorSideBottom.Control = DBEdit1
+      Left = 8
+      Height = 15
+      Top = 49
+      Width = 50
+      Anchors = [akLeft, akBottom]
+      Caption = 'Direccion'
+      ParentColor = False
+    end
+    object Label2: TLabel
+      AnchorSideLeft.Control = DBEdit2
+      AnchorSideBottom.Control = DBEdit2
+      Left = 8
+      Height = 15
+      Top = 3
+      Width = 71
+      Anchors = [akLeft, akBottom]
+      Caption = 'RUC - Cedula'
+      ParentColor = False
+    end
+    object DBEdit3: TDBEdit
+      Left = 528
+      Height = 23
+      Top = 64
+      Width = 240
+      DataField = 'TELEFONO'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 3
+    end
+    object Label3: TLabel
+      AnchorSideLeft.Control = DBEdit3
+      AnchorSideBottom.Control = DBEdit3
+      Left = 528
+      Height = 15
+      Top = 49
+      Width = 47
+      Anchors = [akLeft, akBottom]
+      Caption = 'Telefono'
+      ParentColor = False
+    end
+    object DBEdit12: TDBEdit
+      Left = 328
+      Height = 23
+      Top = 18
+      Width = 392
+      DataField = 'NOMBRE'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object Label9: TLabel
+      AnchorSideLeft.Control = DBEdit12
+      AnchorSideBottom.Control = DBEdit12
+      Left = 328
+      Height = 15
+      Top = 3
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object ButtonBuscarCedula: TButton
+      AnchorSideLeft.Control = DBEdit2
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = DBEdit2
+      AnchorSideTop.Side = asrCenter
+      Left = 250
+      Height = 25
+      Top = 17
+      Width = 46
+      BorderSpacing.Left = 2
+      Caption = 'Buscar'
+      OnClick = ButtonBuscarCedulaClick
+      TabOrder = 4
+    end
+    object ButtonBuscarNombre: TButton
+      AnchorSideLeft.Control = DBEdit12
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = DBEdit12
+      AnchorSideTop.Side = asrCenter
+      Left = 722
+      Height = 25
+      Top = 17
+      Width = 46
+      BorderSpacing.Left = 2
+      Caption = 'Buscar'
+      OnClick = ButtonBuscarNombreClick
+      TabOrder = 5
+    end
+  end
+  object Detalles: TGroupBox[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Persona
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Side = asrBottom
+    Left = 6
+    Height = 328
+    Top = 120
+    Width = 788
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 6
+    BorderSpacing.Right = 6
+    Caption = 'Detalles'
+    ClientHeight = 310
+    ClientWidth = 784
+    TabOrder = 1
+    object DBGrid1: TDBGrid
+      AnchorSideLeft.Control = Detalles
+      AnchorSideTop.Control = Detalles
+      AnchorSideRight.Control = Detalles
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = DBNavigator1
+      Left = 8
+      Height = 261
+      Top = 8
+      Width = 768
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderSpacing.Around = 8
+      Color = clWindow
+      Columns = <>
+      DataSource = VentaDataModule.dsDeudaDetalle
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns]
+      TabOrder = 0
+      OnKeyDown = DBGrid1KeyDown
+    end
+    object DBNavigator1: TDBNavigator
+      AnchorSideLeft.Control = Detalles
+      AnchorSideBottom.Control = Detalles
+      AnchorSideBottom.Side = asrBottom
+      Left = 8
+      Height = 25
+      Top = 277
+      Width = 241
+      Anchors = [akLeft, akBottom]
+      BevelOuter = bvNone
+      BorderSpacing.Around = 8
+      ChildSizing.EnlargeHorizontal = crsScaleChilds
+      ChildSizing.EnlargeVertical = crsScaleChilds
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 100
+      ClientHeight = 25
+      ClientWidth = 241
+      ConfirmDelete = False
+      DataSource = VentaDataModule.dsDeudaDetalle
+      OnClick = DBNavigator1Click
+      Options = []
+      TabOrder = 1
+      VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+    end
+  end
+  object Totales: TGroupBox[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Detalles
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = ButtonPanel1
+    Left = 6
+    Height = 166
+    Top = 448
+    Width = 788
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 6
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 6
+    Caption = 'Totales'
+    ChildSizing.ControlsPerLine = 3
+    ClientHeight = 148
+    ClientWidth = 784
+    Constraints.MinHeight = 165
+    Constraints.MinWidth = 788
+    TabOrder = 2
+    object DBEdit5: TDBEdit
+      Left = 8
+      Height = 23
+      Top = 19
+      Width = 136
+      DataField = 'SUBTOTAL_EXENTAS'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object Subtotal: TLabel
+      AnchorSideLeft.Control = DBEdit5
+      AnchorSideBottom.Control = DBEdit5
+      Left = 8
+      Height = 15
+      Top = 4
+      Width = 86
+      Anchors = [akLeft, akBottom]
+      Caption = 'Subtotal Exentas'
+      ParentColor = False
+    end
+    object DBEdit6: TDBEdit
+      Left = 8
+      Height = 23
+      Top = 67
+      Width = 136
+      DataField = 'TOTAL'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 3
+    end
+    object Grantotal: TLabel
+      AnchorSideLeft.Control = DBEdit6
+      AnchorSideBottom.Control = DBEdit6
+      Left = 8
+      Height = 15
+      Top = 52
+      Width = 69
+      Anchors = [akLeft, akBottom]
+      Caption = 'Total a pagar'
+      ParentColor = False
+    end
+    object DBEdit7: TDBEdit
+      Left = 8
+      Height = 23
+      Top = 115
+      Width = 136
+      DataField = 'IVA5'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 4
+    end
+    object Label6: TLabel
+      AnchorSideLeft.Control = DBEdit7
+      AnchorSideBottom.Control = DBEdit7
+      Left = 8
+      Height = 15
+      Top = 100
+      Width = 37
+      Anchors = [akLeft, akBottom]
+      Caption = 'IVA 5%'
+      ParentColor = False
+    end
+    object DBEdit8: TDBEdit
+      Left = 160
+      Height = 23
+      Top = 115
+      Width = 136
+      DataField = 'IVA10'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 5
+    end
+    object Label7: TLabel
+      AnchorSideLeft.Control = DBEdit8
+      AnchorSideBottom.Control = DBEdit8
+      Left = 160
+      Height = 15
+      Top = 100
+      Width = 43
+      Anchors = [akLeft, akBottom]
+      Caption = 'IVA 10%'
+      ParentColor = False
+    end
+    object DBEdit9: TDBEdit
+      Left = 312
+      Height = 23
+      Top = 115
+      Width = 136
+      DataField = 'IVA_TOTAL'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 6
+    end
+    object Label8: TLabel
+      AnchorSideLeft.Control = DBEdit9
+      AnchorSideBottom.Control = DBEdit9
+      Left = 312
+      Height = 15
+      Top = 100
+      Width = 48
+      Anchors = [akLeft, akBottom]
+      Caption = 'IVA Total'
+      ParentColor = False
+    end
+    object Subtotal1: TLabel
+      AnchorSideLeft.Control = DBEdit10
+      AnchorSideBottom.Control = DBEdit10
+      Left = 160
+      Height = 15
+      Top = 4
+      Width = 114
+      Anchors = [akLeft, akBottom]
+      Caption = 'Subtotal Gravadas 5%'
+      ParentColor = False
+    end
+    object DBEdit10: TDBEdit
+      Left = 160
+      Height = 23
+      Top = 19
+      Width = 136
+      DataField = 'SUBTOTAL_IVA5'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object Subtotal2: TLabel
+      AnchorSideLeft.Control = DBEdit11
+      AnchorSideBottom.Control = DBEdit11
+      Left = 312
+      Height = 15
+      Top = 4
+      Width = 120
+      Anchors = [akLeft, akBottom]
+      Caption = 'Subtotal Gravadas 10%'
+      ParentColor = False
+    end
+    object DBEdit11: TDBEdit
+      Left = 312
+      Height = 23
+      Top = 19
+      Width = 136
+      DataField = 'SUBTOTAL_IVA10'
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+  end
+  inherited MainMenu: TMainMenu[4]
+    left = 544
+    top = 0
+  end
+  inherited AppProps: TApplicationProperties[5]
+    left = 632
+    top = 0
+  end
+end

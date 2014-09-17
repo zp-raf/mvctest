@@ -10,7 +10,7 @@ object sgcdDataModule: TsgcdDataModule
     LoginPrompt = False
     AfterConnect = dbAfterConnect
     AfterDisconnect = dbAfterDisconnect
-    DatabaseName = 'C:\Program Files\Firebird\Firebird_2_5\data\SGCD.FDB'
+    DatabaseName = 'C:\Program Files\Firebird\Firebird_2_5\data\SGCD_TEST.FDB'
     KeepConnection = False
     Password = 'masterkey'
     Transaction = tran
@@ -21,7 +21,7 @@ object sgcdDataModule: TsgcdDataModule
     top = 48
   end
   object tran: TSQLTransaction
-    Active = True
+    Active = False
     Action = caNone
     Database = db
     left = 16

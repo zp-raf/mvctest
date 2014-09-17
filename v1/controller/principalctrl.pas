@@ -18,8 +18,12 @@ uses
   personactrl,
   // Facturacion
   frmfacturadatamodule,
-  frmfacturacion,
-  facturactrl;
+  //frmfacturacion,
+  facturactrl,
+  // Ventas(Deudas)
+  frmventadatamodule,
+  frmventa,
+  ventactrl;
 
 type
 
@@ -35,6 +39,7 @@ type
     procedure ABMAcad(Sender: IFormView);
     procedure allpersonasClick(Sender: IFormView);
     procedure OpenFacturasForm(Sender: IFormView);
+    procedure OpenVentaForm(Sender: IFormView);
   end;
 
 var
@@ -85,9 +90,18 @@ procedure TPrincipalController.OpenFacturasForm(Sender: IFormView);
 begin
   FacturaDataModule := TFacturaDataModule.Create(Application, FDBModel);
   FacturaController := TFacturaController.Create(FacturaDataModule);
-  ProcesoFacturacion := TProcesoFacturacion.Create(nil, PersonaController);
-  ProcesoFacturacion.Show;
-  (SgcdDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
+  //ProcesoFacturacion := TProcesoFacturacion.Create(nil, PersonaController);
+  //ProcesoFacturacion.Show;
+  //(SgcdDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
+end;
+
+procedure TPrincipalController.OpenVentaForm(Sender: IFormView);
+begin
+  VentaDataModule := TVentaDataModule.Create(Application, FDBModel);
+  VentaController := TVentaController.Create(VentaDataModule);
+  ProcesoVenta := TProcesoVenta.Create(nil, PersonaController);
+  ProcesoVenta.Show;
+  (SgcdDataModule as ISubject).Attach(ProcesoVenta as IObserver);
 end;
 
 end.

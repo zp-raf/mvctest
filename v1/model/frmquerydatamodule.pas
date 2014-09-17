@@ -8,6 +8,8 @@ uses
   Classes, SysUtils, FileUtil, frmsgcddatamodule, mvc, mensajes, sqldb, DB;
 
 type
+  TSearchFieldList = class(TStringList)
+  end;
 
   { TQueryDataModule }
 
@@ -17,6 +19,8 @@ type
     function GetQryList: TQryList;
   private
     FQryList: TQryList;
+    FSearchFieldList: TSearchFieldList;
+    procedure SetSearchFieldList(AValue: TSearchFieldList);
   protected
     FMasterDataModule: IDBModel;
     procedure SetQryList(AValue: TQryList);
@@ -25,6 +29,7 @@ type
     procedure DataModuleCreate(Sender: TObject); virtual;
     procedure DiscardChanges;
     procedure Disconnect; virtual;
+    procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure EditCurrentRecord;
     procedure NewRecord;
     procedure RefreshDataSets;
@@ -33,6 +38,8 @@ type
     function GetCurrentRecordText: string;
     function GetDBStatus: TDBInfo;
     property QryList: TQryList read GetQryList write SetQryList;
+    property SearchFieldList: TSearchFieldList
+      read FSearchFieldList write SetSearchFieldList;
   end;
 
 var
@@ -82,6 +89,7 @@ end;
 procedure TQueryDataModule.DataModuleCreate(Sender: TObject);
 begin
   FQryList := TQryList.Create(False);
+  FSearchFieldList := TSearchFieldList.Create;
 end;
 
 constructor TQueryDataModule.Create(AOwner: TComponent; AMaster: IDBModel);
@@ -120,6 +128,16 @@ begin
 
   //despues la conexion a base de datos
   FMasterDataModule.Disconnect;
+end;
+
+procedure TQueryDataModule.FilterRecord(DataSet: TDataSet; var Accept: boolean);
+var
+  i: integer;
+begin
+  for i := 0 to (FSearchFieldList.Count -1) do
+  begin
+
+  end;
 end;
 
 procedure TQueryDataModule.EditCurrentRecord;
@@ -251,6 +269,13 @@ end;
 function TQueryDataModule.GetQryList: TQryList;
 begin
   Result := FQryList;
+end;
+
+procedure TQueryDataModule.SetSearchFieldList(AValue: TSearchFieldList);
+begin
+  if FSearchFieldList = AValue then
+    Exit;
+  FSearchFieldList := AValue;
 end;
 
 end.
