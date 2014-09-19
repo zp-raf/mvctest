@@ -20,6 +20,7 @@ type
     qryID: TLongintField;
     qryNOMBRE: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure qryFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure qryNewRecord(DataSet: TDataSet);
   private
     { private declarations }
@@ -37,6 +38,12 @@ procedure TAcademiaDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(qry));
+  SearchFieldList.Add('NOMBRE');
+end;
+
+procedure TAcademiaDataModule.qryFilterRecord(DataSet: TDataSet; var Accept: boolean);
+begin
+  FilterRecord(DataSet, Accept);
 end;
 
 procedure TAcademiaDataModule.qryNewRecord(DataSet: TDataSet);

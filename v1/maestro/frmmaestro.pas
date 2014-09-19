@@ -96,6 +96,15 @@ end;
 procedure TMaestro.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   Controller.CloseQuery(Self, CanClose);
+  if CanClose then
+  begin
+    Controller := nil; // liberamos la referencia al objeto asi se destruye
+    if GetOwner <> nil then
+    begin
+      TForm(GetOwner).Enabled := True;
+      TForm(GetOwner).SetFocus;
+    end;
+  end;
 end;
 
 procedure TMaestro.SetController(AValue: IController);

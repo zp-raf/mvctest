@@ -33,7 +33,6 @@ type
     procedure DBNavListClick(Sender: TObject; Button: TDBNavButtonType);
     procedure FormShow(Sender: TObject);
     procedure MenuItemGuardarClick(Sender: TObject);
-    procedure MenuItemSalirClick(Sender: TObject);
     procedure OK(Sender: TObject); virtual;
     procedure OKButtonClick(Sender: TObject); virtual;
     procedure ShowPanel(APanel: TPanel);
@@ -53,11 +52,6 @@ implementation
 procedure TAbm.MenuItemGuardarClick(Sender: TObject);
 begin
   OK(Self);
-end;
-
-procedure TAbm.MenuItemSalirClick(Sender: TObject);
-begin
-  Controller.Close(Self as IFormView);
 end;
 
 procedure TAbm.OK(Sender: TObject);
@@ -108,7 +102,7 @@ end;
 
 procedure TAbm.ButtonFilterClick(Sender: TObject);
 begin
-
+  Controller.FilterData(EditFilter.Text, Self);
 end;
 
 procedure TAbm.CancelButtonClick(Sender: TObject);
@@ -119,7 +113,7 @@ end;
 
 procedure TAbm.CloseButtonClick(Sender: TObject);
 begin
-  Controller.Close(Self as IFormView);
+  MenuItemSalirClick(Sender);
 end;
 
 procedure TAbm.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;

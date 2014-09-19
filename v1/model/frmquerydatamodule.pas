@@ -5,41 +5,55 @@ unit frmquerydatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, frmsgcddatamodule, mvc, mensajes, sqldb, DB;
+  Classes, SysUtils, FileUtil, frmsgcddatamodule, mvc, mensajes, sqldb, DB, strutils;
 
 type
-  TSearchFieldList = class(TStringList)
-  end;
 
   { TQueryDataModule }
 
   TQueryDataModule = class(TDataModule, IModel)
+    procedure DataModuleDestroy(Sender: TObject);
   public
     constructor Create(AOwner: TComponent; AMaster: IDBModel); overload;
-    function GetQryList: TQryList;
   private
-    FQryList: TQryList;
+    FAuxQryList: TQryList;
     FSearchFieldList: TSearchFieldList;
-    procedure SetSearchFieldList(AValue: TSearchFieldList);
+    FSearchText: string;
+    FQryList: TQryList;
+    function GetAuxQryList: TQryList;
+    function GetMasterDataModule: IDBModel;
+    function GetSearchFieldList: TSearchFieldList;
+    function GetSearchText: string;
+    function GetQryList: TQryList;
+    procedure SetAuxQryList(AValue: TQryList);
+    procedure SetMasterDataModule(AValue: IDBModel);
+    procedure SetSearchText(AValue: string);
   protected
     FMasterDataModule: IDBModel;
     procedure SetQryList(AValue: TQryList);
+    procedure SetSearchFieldList(AValue: TSearchFieldList);
   published
     procedure Connect; virtual;
     procedure DataModuleCreate(Sender: TObject); virtual;
     procedure DiscardChanges;
     procedure Disconnect; virtual;
+    procedure FilterData(ASearchText: string);
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure EditCurrentRecord;
     procedure NewRecord;
     procedure RefreshDataSets;
     procedure SaveChanges;
+    procedure UnfilterData;
     function ArePendingChanges: boolean;
     function GetCurrentRecordText: string;
     function GetDBStatus: TDBInfo;
     property QryList: TQryList read GetQryList write SetQryList;
     property SearchFieldList: TSearchFieldList
-      read FSearchFieldList write SetSearchFieldList;
+      read GetSearchFieldList write SetSearchFieldList;
+    property SearchText: string read GetSearchText write SetSearchText;
+    property AuxQryList: TQryList read GetAuxQryList write SetAuxQryList;
+    property MasterDataModule: IDBModel read GetMasterDataModule
+      write SetMasterDataModule;
   end;
 
 var
@@ -88,8 +102,15 @@ end;
 
 procedure TQueryDataModule.DataModuleCreate(Sender: TObject);
 begin
-  FQryList := TQryList.Create(False);
+  FQryList := TQryList.Create(True);
   FSearchFieldList := TSearchFieldList.Create;
+  FSearchText := '';
+end;
+
+procedure TQueryDataModule.DataModuleDestroy(Sender: TObject);
+begin
+  FQryList.Free;
+  FSearchFieldList.Free;
 end;
 
 constructor TQueryDataModule.Create(AOwner: TComponent; AMaster: IDBModel);
@@ -130,14 +151,56 @@ begin
   FMasterDataModule.Disconnect;
 end;
 
-procedure TQueryDataModule.FilterRecord(DataSet: TDataSet; var Accept: boolean);
+procedure TQueryDataModule.FilterData(ASearchText: string);
 var
   i: integer;
 begin
-  for i := 0 to (FSearchFieldList.Count -1) do
-  begin
+  FSearchText := ASearchText;
+  if Trim(FSearchText) = '' then
+    for i := 0 to (FQryList.Count - 1) do
+    begin
+      (FQryList.Items[i] as TDataSet).Filtered := False;
+    end
+  else
+    for i := 0 to (FQryList.Count - 1) do
+    begin
+      (FQryList.Items[i] as TDataSet).Filtered := True;
+    end;
+end;
 
+procedure TQueryDataModule.FilterRecord(DataSet: TDataSet; var Accept: boolean);
+var
+  i: integer;
+  FirstTime: boolean;
+  res: boolean;
+begin
+  if Trim(FSearchText) = '' then
+  begin
+    Accept := True;
+    Exit;
   end;
+
+  FirstTime := True;
+  if FSearchFieldList.Count = 0 then
+    Accept := True
+  else
+    for i := 0 to (FSearchFieldList.Count - 1) do
+    begin
+      if FirstTime then
+      begin
+        res := AnsiContainsText(DataSet.FieldByName(FSearchFieldList[i]).AsString,
+          FSearchText);
+        Accept := res;
+      end
+      else
+      begin
+        Accept := res or AnsiContainsText(DataSet.FieldByName(
+          FSearchFieldList[i]).AsString, FSearchText);
+        res := AnsiContainsText(DataSet.FieldByName(
+          FSearchFieldList[i]).AsString, FSearchText);
+        FirstTime := False;
+      end;
+    end;
 end;
 
 procedure TQueryDataModule.EditCurrentRecord;
@@ -218,18 +281,27 @@ procedure TQueryDataModule.SaveChanges;
 var
   i: integer;
 begin
-  for i := 0 to FQryList.Count - 1 do
-  begin
-    with TSQLQuery(FQryList.Items[i]) do
+  try
+    for i := 0 to FQryList.Count - 1 do
     begin
-      try
-        //DisableControls;
+      with TSQLQuery(FQryList.Items[i]) do
+      begin
         ApplyUpdates;
-        FMasterDataModule.Commit;
-      finally
-        //EnableControls;
       end;
     end;
+  finally
+    FMasterDataModule.Commit;
+  end;
+end;
+
+procedure TQueryDataModule.UnfilterData;
+var
+  i: integer;
+begin
+  FSearchText := '';
+  for i := 0 to (FQryList.Count - 1) do
+  begin
+    (FQryList.Items[i] as TDataSet).Filtered := False;
   end;
 end;
 
@@ -276,6 +348,47 @@ begin
   if FSearchFieldList = AValue then
     Exit;
   FSearchFieldList := AValue;
+end;
+
+function TQueryDataModule.GetSearchText: string;
+begin
+  Result := FSearchText;
+end;
+
+function TQueryDataModule.GetAuxQryList: TQryList;
+begin
+  Result := FAuxQryList;
+end;
+
+function TQueryDataModule.GetMasterDataModule: IDBModel;
+begin
+  Result := FMasterDataModule;
+end;
+
+function TQueryDataModule.GetSearchFieldList: TSearchFieldList;
+begin
+  Result := FSearchFieldList;
+end;
+
+procedure TQueryDataModule.SetAuxQryList(AValue: TQryList);
+begin
+  if AValue = FAuxQryList then
+    Exit;
+  FAuxQryList := AValue;
+end;
+
+procedure TQueryDataModule.SetMasterDataModule(AValue: IDBModel);
+begin
+  if FMasterDataModule = AValue then
+    Exit;
+  FMasterDataModule := AValue;
+end;
+
+procedure TQueryDataModule.SetSearchText(AValue: string);
+begin
+  if AValue = FSearchText then
+    Exit;
+  FSearchText := AValue;
 end;
 
 end.

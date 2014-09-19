@@ -9,6 +9,8 @@ uses
 
 type
 
+  { TPersonaController }
+
   TPersonaController = class(TController)
 
   end;

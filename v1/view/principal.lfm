@@ -109,7 +109,7 @@ inherited Principal1: TPrincipal1
         end
         object allpersonas: TMenuItem
           Caption = '&Cambiar rol'
-          Visible = False
+          OnClick = allpersonasClick
         end
       end
       object financiero: TMenuItem

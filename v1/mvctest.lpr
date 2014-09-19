@@ -31,7 +31,6 @@ begin
     (como algun texto que indique el estado de conexion a la base de  datos)
     se necesita este mecasnismo. }
 
-
   RequireDerivedFormResource := True;
   Application.Initialize;
 
@@ -39,14 +38,9 @@ begin
 
   // el datamodule donde esta la conexion
   SgcdDataModule := TSgcdDataModule.Create(Application);
-  PrincipalDataModule := TPrincipalDataModule.Create(Application, SgcdDataModule);
 
-  // Controlador
-  PrincipalController := TPrincipalController.Create(PrincipalDataModule,
-    SgcdDataModule);
-
-  // Vista
-  Principal1 := TPrincipal1.Create(nil, PrincipalController);
+  Principal1 := TPrincipal1.Create(nil, TPrincipalController.Create(
+    TPrincipalDataModule.Create(Application, SgcdDataModule), SgcdDataModule));
 
   // Hay que castear el objeto para poder añadirle los observadores
   Principal1.Show;

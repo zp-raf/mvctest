@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls,
-  frmAbm, personactrl;
+  frmAbm, frmpersonasdatamodule, personactrl;
 
 type
 

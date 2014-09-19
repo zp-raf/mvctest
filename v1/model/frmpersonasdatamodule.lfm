@@ -1,0 +1,70 @@
+inherited PersonasDataModule: TPersonasDataModule
+  OnCreate = DataModuleCreate
+  Height = 322
+  HorizontalOffset = 709
+  VerticalOffset = 549
+  Width = 306
+  object Persona: TSQLQuery[0]
+    FieldDefs = <>
+    OnNewRecord = PersonaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from persona'
+    )
+    Params = <>
+    left = 34
+    top = 30
+  end
+  object Direccion: TSQLQuery[1]
+    FieldDefs = <>
+    AfterInsert = DireccionAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from direccion where idpersona = :id'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptInput
+      end>
+    DataSource = dsPersona
+    left = 128
+    top = 104
+  end
+  object Telefono: TSQLQuery[2]
+    FieldDefs = <>
+    AfterInsert = TelefonoAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from telefono where idpersona = :id'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptInput
+      end>
+    DataSource = dsPersona
+    left = 34
+    top = 182
+  end
+  object dsPersona: TDataSource[3]
+    DataSet = Persona
+    left = 34
+    top = 104
+  end
+  object dsDireccion: TDataSource[4]
+    DataSet = Direccion
+    left = 216
+    top = 104
+  end
+  object dsTelefono: TDataSource[5]
+    DataSet = Telefono
+    left = 34
+    top = 256
+  end
+end

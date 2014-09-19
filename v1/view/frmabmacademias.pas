@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls, frmAbm, DB,
-  frmacademiadatamodule, academiactrl;
+  ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls,
+  frmAbm, frmacademiadatamodule, academiactrl;
 
 type
 

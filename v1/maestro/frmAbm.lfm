@@ -7,8 +7,6 @@ inherited Abm: TAbm
   ClientWidth = 640
   Constraints.MinHeight = 481
   Constraints.MinWidth = 640
-  OnClose = FormClose
-  OnShow = FormShow
   Position = poScreenCenter
   object ButtonPanel: TButtonPanel[0]
     Left = 6
@@ -160,14 +158,6 @@ inherited Abm: TAbm
         Caption = '&Guardar'
         ShortCut = 16455
         OnClick = MenuItemGuardarClick
-      end
-      inherited MenuItemSalir: TMenuItem[1]
-        OnClick = MenuItemSalirClick
-      end
-    end
-    inherited MenuAyuda: TMenuItem
-      inherited MenuItemAyuda: TMenuItem
-        OnClick = MenuItemAyudaClick
       end
     end
   end

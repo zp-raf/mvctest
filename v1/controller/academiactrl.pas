@@ -8,7 +8,11 @@ uses
   Classes, SysUtils, ctrl;
 
 type
+
+  { TAcademiaController }
+
   TAcademiaController = class(TController)
+
   end;
 
 var

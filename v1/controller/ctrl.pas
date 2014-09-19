@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, manejoerrores, mvc, frmsgcddatamodule,
-  IBConnection, DB, Controls, Forms;
+  IBConnection, DB, Controls, Forms, observerSubject;
 
 // para modificar mas facilmente los textos de mensajes
 resourcestring
@@ -31,7 +31,7 @@ type
     property Model: IModel read GetModel write SetModel;
   public
     constructor Create(AModel: IModel);
-
+    destructor Destroy; override;
     { todos estos metodos son de logica de negocio. Todo lo que esta en la
       vista es solo presentacion. }
     procedure Cancel(Sender: IView);
@@ -43,6 +43,7 @@ type
     procedure Disconnect(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
     procedure ErrorHandler(E: Exception; Sender: IView);
+    procedure FilterData(AFilterText: string; Sender: IView);
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
     procedure ShowHelp(Sender: IView);
@@ -81,6 +82,20 @@ begin
     Sender.ShowErrorMessage(GetErrorMessage(E));
 end;
 
+procedure TController.FilterData(AFilterText: string; Sender: IView);
+begin
+  if Trim(AFilterText) = '' then
+  begin
+    Model.UnfilterData;
+    Model.RefreshDataSets;
+  end
+  else
+  begin
+    Model.FilterData(AFilterText);
+    Model.RefreshDataSets;
+  end;
+end;
+
 function TController.GetVersion(Sender: IView): string;
 begin
   Result := rsProductName + #13#10 + rsProductVersion + #13#10 + rsProductCopyright;
@@ -90,6 +105,12 @@ constructor TController.Create(AModel: IModel);
 begin
   inherited Create;
   Model := AModel;
+end;
+
+destructor TController.Destroy;
+begin
+  (Model as TComponent).Free;
+  inherited Destroy;
 end;
 
 procedure TController.Close(Sender: IView);
@@ -108,9 +129,12 @@ begin
     mrYes:
     begin
       CanClose := True;
-      //Sender.CloseView(Self);
+      (Model.MasterDataModule as ISubject).Detach(Sender as IObserver);
     end;
-    mrNo: CanClose := False;
+    mrNo:
+    begin
+      CanClose := False;
+    end;
   end;
 end;
 

@@ -20,6 +20,7 @@ type
   { para que pueda mandar actualizaciones a las vistas añadidas tiene que
     implementar la interfaz ISubject que tiene todos los metodos pertinentes }
   TSgcdDataModule = class(TDataModule, ISubject, IDBModel)
+    procedure DataModuleDestroy(Sender: TObject);
   private
     FSubject: ISubject;
   published
@@ -50,6 +51,11 @@ implementation
 {$R *.lfm}
 
 { TAcademiaDataModule }
+
+procedure TSgcdDataModule.DataModuleDestroy(Sender: TObject);
+begin
+
+end;
 
 procedure TSgcdDataModule.Commit;
 begin

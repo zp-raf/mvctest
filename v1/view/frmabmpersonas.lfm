@@ -43,10 +43,10 @@ inherited AbmPersonas: TAbmPersonas
           Width = 77
           FieldName = 'FECHANAC'
         end>
-      DataSource = PersonasDataModule.dsPersonas
+      DataSource = PersonasDataModule.dsPersona
     end
     inherited DBNavList: TDBNavigator
-      DataSource = PersonasDataModule.dsPersonas
+      DataSource = PersonasDataModule.dsPersona
       Hints.Strings = (      )
     end
   end

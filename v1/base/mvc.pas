@@ -5,7 +5,7 @@ unit mvc;
 interface
 
 uses
-  Classes, SysUtils, Forms, mensajes, contnrs;
+  Classes, SysUtils, Forms, mensajes, contnrs, DB;
 
 // Aca defino los metodos basicos que tiene que tener cada parte
 type
@@ -15,12 +15,19 @@ type
   TQryList = class;
   IController = interface;
   IModel = interface;
+  IDBModel = interface;
   IFormView = interface;
   IView = interface;
 
   { TQryList }
 
   TQryList = class(TFPObjectList)
+  end;
+
+
+  { TSearchFieldList }
+
+  TSearchFieldList = class(TStringList)
   end;
 
   { IView }
@@ -58,35 +65,6 @@ type
     procedure FormShow(Sender: TObject);
   end;
 
-  { IModel }
-
-  IModel = interface
-
-      { TODO : Por ahora solo tiene esto pero deberia tener algun metodo que notifique a
-        las vistas que deben actualizarse. Por ejemplo para mostrar algun texto que
-        indique el estado de conexion a la base de datos.
-        Los datasources de las vistas no necesitan ser actualizados ya que tienen
-        su propio controlador y metodo de notificacion.
-        La logica de datos se debe manejar aca (generators,
-        llamadas a procedimientos, etc) }
-    ['{91D626B4-415B-4FB2-8B98-620B8F24A406}']
-    procedure DiscardChanges;
-    function GetQryList: TQryList;
-    procedure SaveChanges;
-    procedure Connect;
-    procedure Disconnect;
-    function ArePendingChanges: boolean;
-    procedure DataModuleCreate(Sender: TObject);
-    procedure EditCurrentRecord;
-    procedure FilterRecord(DataSet: TDataSet; var Accept: Boolean);
-    function GetCurrentRecordText: string;
-    function GetDBStatus: TDBInfo;
-    procedure NewRecord;
-    procedure RefreshDataSets;
-    procedure SetQryList(AValue: TQryList);
-    property QryList: TQryList read GetQryList write SetQryList;
-  end;
-
   { IDBModel }
 
   IDBModel = interface
@@ -100,6 +78,52 @@ type
     function NextValue(gen: string): integer;
   end;
 
+  { IModel }
+
+  IModel = interface
+
+      { TODO : Por ahora solo tiene esto pero deberia tener algun metodo que notifique a
+        las vistas que deben actualizarse. Por ejemplo para mostrar algun texto que
+        indique el estado de conexion a la base de datos.
+        Los datasources de las vistas no necesitan ser actualizados ya que tienen
+        su propio controlador y metodo de notificacion.
+        La logica de datos se debe manejar aca (generators,
+        llamadas a procedimientos, etc) }
+    ['{91D626B4-415B-4FB2-8B98-620B8F24A406}']
+
+    procedure Connect;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure DiscardChanges;
+    procedure Disconnect;
+    procedure EditCurrentRecord;
+    procedure FilterData(ASearchText: string);
+    procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
+    procedure NewRecord;
+    procedure RefreshDataSets;
+    procedure SaveChanges;
+    procedure SetAuxQryList(AValue: TQryList);
+    procedure SetMasterDataModule(AValue: IDBModel);
+    procedure SetQryList(AValue: TQryList);
+    procedure SetSearchText(AValue: string);
+    procedure SetSearchFieldList(AValue: TSearchFieldList);
+    procedure UnfilterData;
+    function ArePendingChanges: boolean;
+    function GetAuxQryList: TQryList;
+    function GetCurrentRecordText: string;
+    function GetDBStatus: TDBInfo;
+    function GetMasterDataModule: IDBModel;
+    function GetQryList: TQryList;
+    function GetSearchFieldList: TSearchFieldList;
+    function GetSearchText: string;
+    property QryList: TQryList read GetQryList write SetQryList;
+    property SearchText: string read GetSearchText write SetSearchText;
+    property SearchFieldList: TSearchFieldList
+      read GetSearchFieldList write SetSearchFieldList;
+    property AuxQryList: TQryList read GetAuxQryList write SetAuxQryList;
+    property MasterDataModule: IDBModel read GetMasterDataModule
+      write SetMasterDataModule;
+  end;
+
   { IController }
 
   IController = interface
@@ -108,17 +132,18 @@ type
     procedure Close(Sender: IFormView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean);
     procedure ErrorHandler(E: Exception; Sender: IView);
-    function GetVersion(Sender: IView): string;
+    procedure FilterData(AFilterText: string; Sender: IView);
     procedure ShowHelp(Sender: IView);
     procedure ShowHelp(Sender: IFormView);
     procedure Cancel(Sender: IView);
     procedure Connect(Sender: IView);
     procedure Disconnect(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
-    function GetCurrentRecordText(Sender: IView): string;
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
     procedure Commit(Sender: IView);
+    function GetVersion(Sender: IView): string;
+    function GetCurrentRecordText(Sender: IView): string;
     function IsDBConnected(Sender: IView): boolean;
     { El modelo MVC dice que los eventos deben ser manejados por el controlador.
       El controlador debe ser capaz de manejar una vista grafica o de linea de
