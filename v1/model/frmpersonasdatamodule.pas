@@ -24,10 +24,9 @@ type
     Persona: TSQLQuery;
     Direccion: TSQLQuery;
     Telefono: TSQLQuery;
-    procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DireccionAfterInsert(DataSet: TDataSet);
-    procedure Disconnect; override;
+    procedure FilterRecord(DataSet: TDataSet; var Accept: Boolean);
     procedure PersonaNewRecord(DataSet: TDataSet);
     procedure TelefonoAfterInsert(DataSet: TDataSet);
   private
@@ -45,19 +44,12 @@ implementation
 
 { TPersonasDataModule }
 
-procedure TPersonasDataModule.Connect;
-begin
-  inherited Connect;
-  Direccion.Open;
-  Telefono.Open;
-end;
-
 procedure TPersonasDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(Persona));
-  AuxQryList.Add(TObject(Direccion));
-  AuxQryList.Add(TObject(Telefono));
+  QryList.Add(TObject(Direccion));
+  QryList.Add(TObject(Telefono));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('APELLIDO');
   SearchFieldList.Add('CEDULA');
@@ -69,11 +61,10 @@ begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenNameDir);
 end;
 
-procedure TPersonasDataModule.Disconnect;
+procedure TPersonasDataModule.FilterRecord(DataSet: TDataSet;
+  var Accept: Boolean);
 begin
-  Direccion.Close;
-  Telefono.Close;
-  inherited Disconnect;
+  FilterRecord(DataSet,Accept);
 end;
 
 procedure TPersonasDataModule.PersonaNewRecord(DataSet: TDataSet);

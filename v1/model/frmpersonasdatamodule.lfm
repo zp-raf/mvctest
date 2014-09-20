@@ -1,11 +1,10 @@
 inherited PersonasDataModule: TPersonasDataModule
   OnCreate = DataModuleCreate
   Height = 322
-  HorizontalOffset = 709
-  VerticalOffset = 549
+  HorizontalOffset = 602
+  VerticalOffset = 183
   Width = 306
   object Persona: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -61,8 +60,8 @@ inherited PersonasDataModule: TPersonasDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     Filtered = True
+    OnFilterRecord = FilterRecord
     OnNewRecord = PersonaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -109,17 +108,17 @@ inherited PersonasDataModule: TPersonasDataModule
     left = 34
     top = 182
   end
-  object dsPersona: TDataSource[3]
+  object dsPersona: TDatasource[3]
     DataSet = Persona
     left = 34
     top = 104
   end
-  object dsDireccion: TDataSource[4]
+  object dsDireccion: TDatasource[4]
     DataSet = Direccion
     left = 216
     top = 104
   end
-  object dsTelefono: TDataSource[5]
+  object dsTelefono: TDatasource[5]
     DataSet = Telefono
     left = 34
     top = 256
