@@ -5,7 +5,6 @@ inherited VentaDataModule: TVentaDataModule
   VerticalOffset = 451
   Width = 217
   object Deuda: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -43,7 +42,8 @@ inherited VentaDataModule: TVentaDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
+    Filtered = True
+    OnNewRecord = DeudaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -128,7 +128,6 @@ inherited VentaDataModule: TVentaDataModule
     top = 24
   end
   object DeudaDetalle: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -202,7 +201,6 @@ inherited VentaDataModule: TVentaDataModule
         Precision = -1
         Size = 255
       end>
-    Active = True
     AfterInsert = DeudaDetalleAfterInsert
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

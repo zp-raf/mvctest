@@ -40,6 +40,7 @@ type
     DeudaDetalle: TSQLQuery;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DeudaDetalleAfterInsert(DataSet: TDataSet);
+    procedure DeudaNewRecord(DataSet: TDataSet);
   private
     { private declarations }
   public
@@ -65,6 +66,12 @@ end;
 procedure TVentaDataModule.DeudaDetalleAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('DEUDAID').Value := Deuda.FieldByName('ID').Value;
+  DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenDeudaDetalle);
+end;
+
+procedure TVentaDataModule.DeudaNewRecord(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenDeuda);
 end;
 
 end.

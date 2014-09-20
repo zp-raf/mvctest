@@ -1,7 +1,7 @@
 inherited ProcesoVenta: TProcesoVenta
-  Left = 468
+  Left = 611
   Height = 680
-  Top = 202
+  Top = 204
   Width = 800
   Caption = 'Nueva venta (deuda)'
   ClientHeight = 660
@@ -47,6 +47,7 @@ inherited ProcesoVenta: TProcesoVenta
       Top = 18
       Width = 240
       DataField = 'RUC'
+      DataSource = PersonasDataModule.dsPersona
       CharCase = ecNormal
       MaxLength = 0
       TabOrder = 0

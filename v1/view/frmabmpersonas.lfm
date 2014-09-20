@@ -17,18 +17,19 @@ inherited AbmPersonas: TAbmPersonas
         item
           PickList.Strings = (          )
           Title.Caption = 'CEDULA'
-          Width = 59
+          Width = 78
           FieldName = 'CEDULA'
         end      
         item
           PickList.Strings = (          )
           Title.Caption = 'NOMBRE'
+          Width = 94
           FieldName = 'NOMBRE'
         end      
         item
           PickList.Strings = (          )
           Title.Caption = 'APELLIDO'
-          Width = 68
+          Width = 103
           FieldName = 'APELLIDO'
         end      
         item
@@ -42,6 +43,12 @@ inherited AbmPersonas: TAbmPersonas
           Title.Caption = 'FECHANAC'
           Width = 77
           FieldName = 'FECHANAC'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          FieldName = 'ACTIVO'
         end>
       DataSource = PersonasDataModule.dsPersona
     end

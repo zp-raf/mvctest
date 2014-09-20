@@ -5,7 +5,64 @@ inherited PersonasDataModule: TPersonasDataModule
   VerticalOffset = 549
   Width = 306
   object Persona: TSQLQuery[0]
-    FieldDefs = <>
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'APELLIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'FECHANAC'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SEXO'
+        DataType = ftString
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'NOMBRECOMPLETO'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Active = True
+    Filtered = True
     OnNewRecord = PersonaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

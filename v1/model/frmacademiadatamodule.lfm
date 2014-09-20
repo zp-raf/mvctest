@@ -14,6 +14,7 @@ inherited AcademiaDataModule: TAcademiaDataModule
         Precision = -1
         Size = 255
       end>
+    Filtered = True
     OnFilterRecord = qryFilterRecord
     OnNewRecord = qryNewRecord
     Database = sgcdDataModule.db

@@ -56,6 +56,8 @@ procedure TPersonasDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(Persona));
+  AuxQryList.Add(TObject(Direccion));
+  AuxQryList.Add(TObject(Telefono));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('APELLIDO');
   SearchFieldList.Add('CEDULA');

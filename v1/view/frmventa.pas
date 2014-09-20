@@ -8,7 +8,9 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, frmproceso, Dialogs,
   Menus, ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
   sqldb, DB, IBConnection, strutils, LCLType, Buttons, ShellApi,
-  frmventadatamodule, ventactrl;
+  frmventadatamodule, ventactrl,
+  // para los campos de persona
+  frmpersonasdatamodule;
 
 type
   { TProcesoVenta }

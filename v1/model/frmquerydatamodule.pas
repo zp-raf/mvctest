@@ -43,6 +43,7 @@ type
     procedure NewRecord;
     procedure RefreshDataSets;
     procedure SaveChanges;
+    procedure SetReadOnly(Option: boolean);
     procedure UnfilterData;
     function ArePendingChanges: boolean;
     function GetCurrentRecordText: string;
@@ -88,6 +89,16 @@ begin
 
   //primero la conexion a base de datos
   FMasterDataModule.Connect;
+
+  // antes de los principales los auxiliares
+  for i := 0 to FAuxQryList.Count - 1 do
+  begin
+    with TSQLQuery(FAuxQryList.Items[i]) do
+    begin
+      if not Active then
+        Active := True;
+    end;
+  end;
 
   //segundo se abren los datasets
   for i := 0 to FQryList.Count - 1 do
@@ -146,7 +157,15 @@ begin
         Active := False;
     end;
   end;
-
+  // antes de los principales los auxiliares
+  for i := 0 to FAuxQryList.Count - 1 do
+  begin
+    with TSQLQuery(FAuxQryList.Items[i]) do
+    begin
+      if Active then
+        Active := False;
+    end;
+  end;
   //despues la conexion a base de datos
   FMasterDataModule.Disconnect;
 end;
@@ -156,16 +175,16 @@ var
   i: integer;
 begin
   FSearchText := ASearchText;
-  if Trim(FSearchText) = '' then
-    for i := 0 to (FQryList.Count - 1) do
-    begin
-      (FQryList.Items[i] as TDataSet).Filtered := False;
-    end
-  else
-    for i := 0 to (FQryList.Count - 1) do
-    begin
-      (FQryList.Items[i] as TDataSet).Filtered := True;
-    end;
+  //if Trim(FSearchText) = '' then
+  //  for i := 0 to (FQryList.Count - 1) do
+  //  begin
+  //    (FQryList.Items[i] as TDataSet).Filtered := False;
+  //  end
+  //else
+  //  for i := 0 to (FQryList.Count - 1) do
+  //  begin
+  //    (FQryList.Items[i] as TDataSet).Filtered := True;
+  //  end;
 end;
 
 procedure TQueryDataModule.FilterRecord(DataSet: TDataSet; var Accept: boolean);
@@ -291,6 +310,26 @@ begin
     end;
   finally
     FMasterDataModule.Commit;
+  end;
+end;
+
+procedure TQueryDataModule.SetReadOnly(Option: boolean);
+var
+  i: integer;
+begin
+  for i := 0 to FQryList.Count - 1 do
+  begin
+    with TSQLQuery(FQryList.Items[i]) do
+    begin
+      ReadOnly := Option;
+    end;
+  end;
+  for i := 0 to FAuxQryList.Count - 1 do
+  begin
+    with TSQLQuery(FAuxQryList.Items[i]) do
+    begin
+      ReadOnly := Option;
+    end;
   end;
 end;
 
