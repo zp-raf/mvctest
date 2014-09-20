@@ -40,7 +40,7 @@ begin
   SgcdDataModule := TSgcdDataModule.Create(Application);
 
   Principal1 := TPrincipal1.Create(nil, TPrincipalController.Create(
-    TPrincipalDataModule.Create(Application, SgcdDataModule), SgcdDataModule));
+    TPrincipalDataModule.Create(Application, SgcdDataModule)));
 
   // Hay que castear el objeto para poder añadirle los observadores
   Principal1.Show;

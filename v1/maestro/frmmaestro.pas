@@ -13,6 +13,8 @@ resourcestring
   rsInformation = 'Informacion';
   rsWarning = 'Advertencia';
   rsConfirmation = 'Confimación';
+  rsProvidedCont = 'Provided controller does not implements basic controller '
+    +'funcionality';
 
 type
 
@@ -83,6 +85,18 @@ begin
   Controller.ShowHelp(Self as IFormView);
 end;
 
+function TMaestro.GetController: IController;
+begin
+  Result := FController;
+end;
+
+procedure TMaestro.SetController(AValue: IController);
+begin
+  if FController = AValue then
+    Exit;
+  FController := AValue;
+end;
+
 procedure TMaestro.AppPropsException(Sender: TObject; E: Exception);
 begin
   Controller.ErrorHandler(E, Self);
@@ -105,18 +119,6 @@ begin
       TForm(GetOwner).SetFocus;
     end;
   end;
-end;
-
-procedure TMaestro.SetController(AValue: IController);
-begin
-  if FController = AValue then
-    Exit;
-  FController := AValue;
-end;
-
-function TMaestro.GetController: IController;
-begin
-  Result := FController;
 end;
 
 procedure TMaestro.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -184,7 +186,10 @@ end;
 
 constructor TMaestro.Create(AOwner: IFormView; AController: IController);
 begin
-  inherited Create((AOwner as TComponent));
+  if AOwner is TComponent then
+    inherited Create((AOwner as TComponent))
+  else
+    inherited Create(nil);
   Controller := AController;
 end;
 

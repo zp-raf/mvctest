@@ -11,7 +11,7 @@ type
 
   { TAcademiaController }
 
-  TAcademiaController = class(TController)
+  TAcademiaController = class(TABMController)
   end;
 
 var

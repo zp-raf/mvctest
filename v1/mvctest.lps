@@ -4,15 +4,15 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="95">
+    <Units Count="96">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mvctest"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="5"/>
-        <CursorPos X="3" Y="33"/>
+        <TopLine Value="1"/>
+        <CursorPos X="16" Y="12"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -23,26 +23,24 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmsgcddatamodule"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="59" Y="28"/>
+        <TopLine Value="1"/>
+        <CursorPos X="5" Y="25"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
-          <TopLine Value="23"/>
-          <CursorPos X="1" Y="58"/>
+          <TopLine Value="44"/>
+          <CursorPos X="1" Y="71"/>
         </ExtraEditor1>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="base\observersubject.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="observerSubject"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="24"/>
-        <CursorPos X="1" Y="58"/>
+        <TopLine Value="12"/>
+        <CursorPos X="1" Y="48"/>
         <UsageCount Value="210"/>
       </Unit2>
       <Unit3>
@@ -53,13 +51,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmMaestro"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="125"/>
-        <CursorPos X="3" Y="124"/>
+        <TopLine Value="143"/>
+        <CursorPos X="1" Y="194"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
-          <TopLine Value="89"/>
-          <CursorPos X="5" Y="101"/>
+          <TopLine Value="142"/>
+          <CursorPos X="3" Y="189"/>
         </ExtraEditor1>
         <UsageCount Value="203"/>
       </Unit3>
@@ -73,24 +71,23 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="29" Y="35"/>
-        <UsageCount Value="178"/>
+        <UsageCount Value="189"/>
       </Unit4>
       <Unit5>
         <Filename Value="base\mvc.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mvc"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="113"/>
-        <CursorPos X="3" Y="133"/>
+        <TopLine Value="119"/>
+        <CursorPos X="57" Y="149"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
-          <WindowIndex Value="0"/>
-          <TopLine Value="32"/>
-          <CursorPos X="3" Y="70"/>
+          <IsVisibleTab Value="True"/>
+          <WindowIndex Value="1"/>
+          <TopLine Value="38"/>
+          <CursorPos X="46" Y="150"/>
         </ExtraEditor1>
-        <UsageCount Value="169"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="180"/>
       </Unit5>
       <Unit6>
         <Filename Value="maestro\frmAbm.pas"/>
@@ -100,15 +97,15 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmAbm"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="16"/>
-        <CursorPos X="1" Y="36"/>
+        <TopLine Value="11"/>
+        <CursorPos X="31" Y="25"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
-          <TopLine Value="7"/>
-          <CursorPos X="15" Y="30"/>
+          <TopLine Value="97"/>
+          <CursorPos X="85" Y="43"/>
         </ExtraEditor1>
-        <UsageCount Value="159"/>
+        <UsageCount Value="170"/>
       </Unit6>
       <Unit7>
         <Filename Value="view\frmabmacademias.pas"/>
@@ -119,8 +116,8 @@
         <UnitName Value="frmabmacademias"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="101" Y="13"/>
-        <UsageCount Value="132"/>
+        <CursorPos X="122" Y="17"/>
+        <UsageCount Value="143"/>
       </Unit7>
       <Unit8>
         <Filename Value="view\frmabmpersonas.pas"/>
@@ -132,7 +129,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="22" Y="10"/>
-        <UsageCount Value="120"/>
+        <UsageCount Value="131"/>
       </Unit8>
       <Unit9>
         <Filename Value="controller\personactrl.pas"/>
@@ -140,8 +137,8 @@
         <UnitName Value="personactrl"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="28" Y="14"/>
-        <UsageCount Value="113"/>
+        <CursorPos X="44" Y="14"/>
+        <UsageCount Value="124"/>
       </Unit9>
       <Unit10>
         <Filename Value="view\principal.pas"/>
@@ -151,38 +148,36 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Principal"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="4"/>
-        <CursorPos X="3" Y="15"/>
-        <UsageCount Value="110"/>
+        <TopLine Value="107"/>
+        <CursorPos X="17" Y="157"/>
+        <UsageCount Value="121"/>
       </Unit10>
       <Unit11>
         <Filename Value="controller\ctrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ctrl"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="70"/>
-        <CursorPos X="50" Y="30"/>
-        <UsageCount Value="109"/>
+        <TopLine Value="168"/>
+        <CursorPos X="42" Y="191"/>
+        <UsageCount Value="120"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="controller\principalctrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="principalctrl"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="12"/>
-        <CursorPos X="63" Y="91"/>
+        <TopLine Value="40"/>
+        <CursorPos X="1" Y="64"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
-          <TopLine Value="29"/>
-          <CursorPos X="1" Y="60"/>
+          <TopLine Value="7"/>
+          <CursorPos X="36" Y="18"/>
         </ExtraEditor1>
-        <UsageCount Value="101"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="112"/>
       </Unit12>
       <Unit13>
         <Filename Value="base\mensajes.pas"/>
@@ -191,18 +186,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="11" Y="17"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="106"/>
       </Unit13>
       <Unit14>
         <Filename Value="controller\academiactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="academiactrl"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="43" Y="14"/>
-        <UsageCount Value="92"/>
-        <Loaded Value="True"/>
+        <CursorPos X="45" Y="14"/>
+        <UsageCount Value="103"/>
       </Unit14>
       <Unit15>
         <Filename Value="model\frmquerydatamodule.pas"/>
@@ -211,13 +204,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmquerydatamodule"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="4"/>
-        <CursorPos X="38" Y="55"/>
-        <UsageCount Value="89"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <TopLine Value="1"/>
+        <CursorPos X="67" Y="73"/>
+        <UsageCount Value="100"/>
       </Unit15>
       <Unit16>
         <Filename Value="model\frmacademiadatamodule.pas"/>
@@ -226,24 +216,22 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmacademiadatamodule"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="9"/>
-        <CursorPos X="55" Y="17"/>
-        <UsageCount Value="83"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <TopLine Value="1"/>
+        <CursorPos X="51" Y="8"/>
+        <UsageCount Value="94"/>
       </Unit16>
       <Unit17>
         <Filename Value="model\frmprincipaldatamodule.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="PrincipalDataModule"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmprincipaldatamodule"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="24"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="91"/>
       </Unit17>
       <Unit18>
         <Filename Value="controller\facturactrl.pas"/>
@@ -252,7 +240,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="41" Y="21"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="87"/>
       </Unit18>
       <Unit19>
         <Filename Value="maestro\frmproceso.pas"/>
@@ -263,8 +251,8 @@
         <UnitName Value="frmproceso"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="44" Y="33"/>
-        <UsageCount Value="70"/>
+        <CursorPos X="28" Y="15"/>
+        <UsageCount Value="81"/>
       </Unit19>
       <Unit20>
         <Filename Value="model\frmfacturadatamodule.pas"/>
@@ -276,7 +264,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="63"/>
         <CursorPos X="64" Y="81"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="76"/>
       </Unit20>
       <Unit21>
         <Filename Value="controller\ventactrl.pas"/>
@@ -285,7 +273,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="12"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="76"/>
       </Unit21>
       <Unit22>
         <Filename Value="model\frmventadatamodule.pas"/>
@@ -296,8 +284,8 @@
         <UnitName Value="frmventadatamodule"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="30" Y="63"/>
-        <UsageCount Value="60"/>
+        <CursorPos X="3" Y="61"/>
+        <UsageCount Value="71"/>
       </Unit22>
       <Unit23>
         <Filename Value="view\frmventa.pas"/>
@@ -307,9 +295,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmventa"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="184"/>
-        <CursorPos X="39" Y="206"/>
-        <UsageCount Value="66"/>
+        <TopLine Value="1"/>
+        <CursorPos X="35" Y="12"/>
+        <UsageCount Value="77"/>
       </Unit23>
       <Unit24>
         <Filename Value="model\frmaranceldatamodule.pas"/>
@@ -321,7 +309,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="1" Y="41"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="67"/>
       </Unit24>
       <Unit25>
         <Filename Value="maestro\frmprocesoseleccion.pas"/>
@@ -333,7 +321,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="1"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="66"/>
       </Unit25>
       <Unit26>
         <Filename Value="model\frmpersonasdatamodule.pas"/>
@@ -343,11 +331,20 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmpersonasdatamodule"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="55" Y="20"/>
-        <UsageCount Value="23"/>
+        <TopLine Value="24"/>
+        <CursorPos X="1" Y="67"/>
+        <UsageCount Value="34"/>
       </Unit26>
       <Unit27>
+        <Filename Value="controller\procesoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="procesoctrl"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="17" Y="1"/>
+        <UsageCount Value="28"/>
+      </Unit27>
+      <Unit28>
         <Filename Value="model\frmpersonadatamodule.pas"/>
         <ComponentName Value="PersonasDataModule"/>
         <HasResources Value="True"/>
@@ -356,17 +353,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="44" Y="23"/>
-        <UsageCount Value="116"/>
-      </Unit27>
-      <Unit28>
+        <UsageCount Value="115"/>
+      </Unit28>
+      <Unit29>
         <Filename Value="base\messages.pas"/>
         <UnitName Value="messages"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="12"/>
-        <UsageCount Value="17"/>
-      </Unit28>
-      <Unit29>
+        <UsageCount Value="16"/>
+      </Unit29>
+      <Unit30>
         <Filename Value="controller\abmctrl.pas"/>
         <UnitName Value="abmctrl"/>
         <WindowIndex Value="0"/>
@@ -378,9 +375,9 @@
           <TopLine Value="1"/>
           <CursorPos X="16" Y="32"/>
         </ExtraEditor1>
-        <UsageCount Value="180"/>
-      </Unit29>
-      <Unit30>
+        <UsageCount Value="179"/>
+      </Unit30>
+      <Unit31>
         <Filename Value="view\frmacademiaview.pas"/>
         <ComponentName Value="AcademiaView"/>
         <HasResources Value="True"/>
@@ -389,9 +386,9 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="42" Y="17"/>
-        <UsageCount Value="91"/>
-      </Unit30>
-      <Unit31>
+        <UsageCount Value="90"/>
+      </Unit31>
+      <Unit32>
         <Filename Value="view\frmacademiaview2.pas"/>
         <ComponentName Value="AcademiaView2"/>
         <HasResources Value="True"/>
@@ -400,188 +397,188 @@
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="28" Y="44"/>
-        <UsageCount Value="49"/>
-      </Unit31>
-      <Unit32>
+        <UsageCount Value="48"/>
+      </Unit32>
+      <Unit33>
         <Filename Value="model\manejoerrores.pas"/>
         <UnitName Value="manejoerrores"/>
         <WindowIndex Value="0"/>
         <TopLine Value="60"/>
         <CursorPos X="10" Y="26"/>
-        <UsageCount Value="17"/>
-      </Unit32>
-      <Unit33>
+        <UsageCount Value="16"/>
+      </Unit33>
+      <Unit34>
         <Filename Value="view\frmacademiaview.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="32"/>
         <CursorPos X="1" Y="6"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit33>
-      <Unit34>
+      </Unit34>
+      <Unit35>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\objpash.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="230"/>
         <CursorPos X="8" Y="250"/>
-        <UsageCount Value="21"/>
-      </Unit34>
-      <Unit35>
+        <UsageCount Value="20"/>
+      </Unit35>
+      <Unit36>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\objpas.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="976"/>
         <CursorPos X="10" Y="980"/>
-        <UsageCount Value="20"/>
-      </Unit35>
-      <Unit36>
+        <UsageCount Value="19"/>
+      </Unit36>
+      <Unit37>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-db\src\base\db.pas"/>
         <UnitName Value="db"/>
         <WindowIndex Value="0"/>
         <TopLine Value="337"/>
         <CursorPos X="21" Y="369"/>
-        <UsageCount Value="5"/>
-      </Unit36>
-      <Unit37>
+        <UsageCount Value="4"/>
+      </Unit37>
+      <Unit38>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-db\src\base\datasource.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="642"/>
         <CursorPos X="1" Y="642"/>
-        <UsageCount Value="5"/>
-      </Unit37>
-      <Unit38>
+        <UsageCount Value="4"/>
+      </Unit38>
+      <Unit39>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1662"/>
         <CursorPos X="14" Y="1682"/>
-        <UsageCount Value="3"/>
-      </Unit38>
-      <Unit39>
+        <UsageCount Value="2"/>
+      </Unit39>
+      <Unit40>
         <Filename Value="C:\lazarus\lcl\dbctrls.pp"/>
         <UnitName Value="DbCtrls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1146"/>
         <CursorPos X="19" Y="1177"/>
-        <UsageCount Value="6"/>
-      </Unit39>
-      <Unit40>
+        <UsageCount Value="5"/>
+      </Unit40>
+      <Unit41>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-db\src\sqldb\sqldb.pp"/>
         <UnitName Value="sqldb"/>
         <WindowIndex Value="0"/>
         <TopLine Value="159"/>
         <CursorPos X="3" Y="175"/>
-        <UsageCount Value="7"/>
-      </Unit40>
-      <Unit41>
+        <UsageCount Value="6"/>
+      </Unit41>
+      <Unit42>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-db\src\base\bufdataset.pas"/>
         <UnitName Value="BufDataset"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2045"/>
         <CursorPos X="11" Y="2069"/>
-        <UsageCount Value="3"/>
-      </Unit41>
-      <Unit42>
+        <UsageCount Value="2"/>
+      </Unit42>
+      <Unit43>
         <Filename Value="C:\lazarus\lcl\include\application.inc"/>
         <TopLine Value="2142"/>
         <CursorPos X="79" Y="2171"/>
-        <UsageCount Value="6"/>
-      </Unit42>
-      <Unit43>
+        <UsageCount Value="5"/>
+      </Unit43>
+      <Unit44>
         <Filename Value="C:\lazarus\lcl\lresources.pp"/>
         <UnitName Value="LResources"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3087"/>
         <CursorPos X="1" Y="3104"/>
-        <UsageCount Value="5"/>
-      </Unit43>
-      <Unit44>
+        <UsageCount Value="4"/>
+      </Unit44>
+      <Unit45>
         <Filename Value="model\frmsgcddatamodule.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit44>
-      <Unit45>
+      </Unit45>
+      <Unit46>
         <Filename Value="model\frmacademiadatamodule.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="1"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit45>
-      <Unit46>
+      </Unit46>
+      <Unit47>
         <Filename Value="C:\lazarus\lcl\controls.pp"/>
         <UnitName Value="Controls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2083"/>
         <CursorPos X="14" Y="2103"/>
-        <UsageCount Value="5"/>
-      </Unit46>
-      <Unit47>
+        <UsageCount Value="4"/>
+      </Unit47>
+      <Unit48>
         <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5305"/>
         <CursorPos X="1" Y="5327"/>
-        <UsageCount Value="7"/>
-      </Unit47>
-      <Unit48>
+        <UsageCount Value="6"/>
+      </Unit48>
+      <Unit49>
         <Filename Value="C:\lazarus\lcl\include\winapih.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="262"/>
         <CursorPos X="10" Y="281"/>
-        <UsageCount Value="5"/>
-      </Unit48>
-      <Unit49>
+        <UsageCount Value="4"/>
+      </Unit49>
+      <Unit50>
         <Filename Value="C:\lazarus\lcl\include\intfbasewinapi.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2108"/>
         <CursorPos X="37" Y="2135"/>
-        <UsageCount Value="5"/>
-      </Unit49>
-      <Unit50>
+        <UsageCount Value="4"/>
+      </Unit50>
+      <Unit51>
         <Filename Value="maestro\frmpopup.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="frmpopup"/>
-        <UsageCount Value="7"/>
-      </Unit50>
-      <Unit51>
+        <UsageCount Value="6"/>
+      </Unit51>
+      <Unit52>
         <Filename Value="maestro\frmreporte.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="frmreporte"/>
-        <UsageCount Value="7"/>
-      </Unit51>
-      <Unit52>
+        <UsageCount Value="6"/>
+      </Unit52>
+      <Unit53>
         <Filename Value="model\mensajes.pas"/>
         <UnitName Value="mensajes"/>
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
-      </Unit52>
-      <Unit53>
+        <UsageCount Value="4"/>
+      </Unit53>
+      <Unit54>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\strutils.pp"/>
         <UnitName Value="strutils"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="86"/>
-        <UsageCount Value="6"/>
-      </Unit53>
-      <Unit54>
+        <UsageCount Value="5"/>
+      </Unit54>
+      <Unit55>
         <Filename Value="model\ib_util.pas"/>
         <UnitName Value="ib_util"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="26"/>
-        <UsageCount Value="6"/>
-      </Unit54>
-      <Unit55>
+        <UsageCount Value="5"/>
+      </Unit55>
+      <Unit56>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1327"/>
         <CursorPos X="25" Y="1365"/>
-        <UsageCount Value="6"/>
-      </Unit55>
-      <Unit56>
+        <UsageCount Value="5"/>
+      </Unit56>
+      <Unit57>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-db\src\base\fields.inc"/>
         <TopLine Value="532"/>
         <CursorPos X="23" Y="454"/>
@@ -591,321 +588,305 @@
           <TopLine Value="887"/>
           <CursorPos X="3" Y="890"/>
         </ExtraEditor1>
-        <UsageCount Value="3"/>
-      </Unit56>
-      <Unit57>
+        <UsageCount Value="2"/>
+      </Unit57>
+      <Unit58>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\classes\persist.inc"/>
         <WindowIndex Value="1"/>
         <TopLine Value="87"/>
         <CursorPos X="17" Y="111"/>
-        <UsageCount Value="10"/>
-      </Unit57>
-      <Unit58>
+        <UsageCount Value="9"/>
+      </Unit58>
+      <Unit59>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\sysutils\sysutilh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="150"/>
         <CursorPos X="4" Y="177"/>
-        <UsageCount Value="10"/>
-      </Unit58>
-      <Unit59>
+        <UsageCount Value="9"/>
+      </Unit59>
+      <Unit60>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="923"/>
         <CursorPos X="11" Y="945"/>
-        <UsageCount Value="1"/>
-      </Unit59>
-      <Unit60>
+        <UsageCount Value="10"/>
+      </Unit60>
+      <Unit61>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\text.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="108"/>
         <CursorPos X="3" Y="110"/>
-        <UsageCount Value="1"/>
-      </Unit60>
-      <Unit61>
+        <UsageCount Value="10"/>
+      </Unit61>
+      <Unit62>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\fmtbcd.pp"/>
         <UnitName Value="FmtBCD"/>
         <WindowIndex Value="1"/>
         <TopLine Value="165"/>
         <CursorPos X="7" Y="212"/>
-        <UsageCount Value="10"/>
-      </Unit61>
-      <Unit62>
+        <UsageCount Value="9"/>
+      </Unit62>
+      <Unit63>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\classes\compon.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
         <CursorPos X="3" Y="91"/>
-        <UsageCount Value="3"/>
-      </Unit62>
-      <Unit63>
+        <UsageCount Value="2"/>
+      </Unit63>
+      <Unit64>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-db\src\base\dbconst.pas"/>
         <UnitName Value="dbconst"/>
         <WindowIndex Value="1"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="52"/>
-        <UsageCount Value="10"/>
-      </Unit63>
-      <Unit64>
+        <UsageCount Value="9"/>
+      </Unit64>
+      <Unit65>
         <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2067"/>
         <CursorPos X="1" Y="2104"/>
-        <UsageCount Value="10"/>
-      </Unit64>
-      <Unit65>
+        <UsageCount Value="9"/>
+      </Unit65>
+      <Unit66>
         <Filename Value="view\frmacademia.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="frmAcademia"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-      </Unit65>
-      <Unit66>
+        <UsageCount Value="10"/>
+      </Unit66>
+      <Unit67>
         <Filename Value="view\frmabmacademias.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="46" Y="53"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit66>
-      <Unit67>
+      </Unit67>
+      <Unit68>
         <Filename Value="maestro\frmAbm.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="123"/>
         <CursorPos X="1" Y="163"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit67>
-      <Unit68>
+      </Unit68>
+      <Unit69>
         <Filename Value="view\frmacademiaview2.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="37"/>
         <CursorPos X="1" Y="76"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit68>
-      <Unit69>
+      </Unit69>
+      <Unit70>
         <Filename Value="C:\lazarus\lcl\include\control.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="518"/>
         <CursorPos X="1" Y="542"/>
-        <UsageCount Value="10"/>
-      </Unit69>
-      <Unit70>
+        <UsageCount Value="9"/>
+      </Unit70>
+      <Unit71>
         <Filename Value="model\frmpersonadatamodule.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="331"/>
         <CursorPos X="35" Y="372"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit70>
-      <Unit71>
+      </Unit71>
+      <Unit72>
         <Filename Value="view\principal.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="40" Y="32"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit71>
-      <Unit72>
+      </Unit72>
+      <Unit73>
         <Filename Value="C:\lazarus\lcl\dialogs.pp"/>
         <UnitName Value="Dialogs"/>
         <WindowIndex Value="1"/>
         <TopLine Value="467"/>
         <CursorPos X="10" Y="494"/>
-        <UsageCount Value="4"/>
-      </Unit72>
-      <Unit73>
+        <UsageCount Value="3"/>
+      </Unit73>
+      <Unit74>
         <Filename Value="C:\lazarus\lcl\interfacebase.pp"/>
         <UnitName Value="InterfaceBase"/>
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="67" Y="30"/>
-        <UsageCount Value="5"/>
-      </Unit73>
-      <Unit74>
+        <UsageCount Value="4"/>
+      </Unit74>
+      <Unit75>
         <Filename Value="C:\lazarus\lcl\lmessages.pp"/>
         <UnitName Value="LMessages"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="4" Y="28"/>
-        <UsageCount Value="5"/>
-      </Unit74>
-      <Unit75>
+        <UsageCount Value="4"/>
+      </Unit75>
+      <Unit76>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\win\messages.pp"/>
         <UnitName Value="messages"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
-      </Unit75>
-      <Unit76>
+        <UsageCount Value="4"/>
+      </Unit76>
+      <Unit77>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32wsmenus.pp"/>
         <UnitName Value="Win32WSMenus"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1180"/>
         <CursorPos X="1" Y="1195"/>
-        <UsageCount Value="6"/>
-      </Unit76>
-      <Unit77>
+        <UsageCount Value="5"/>
+      </Unit77>
+      <Unit78>
         <Filename Value="C:\lazarus\lcl\include\customcheckbox.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="209"/>
         <CursorPos X="1" Y="238"/>
-        <UsageCount Value="5"/>
-      </Unit77>
-      <Unit78>
+        <UsageCount Value="4"/>
+      </Unit78>
+      <Unit79>
         <Filename Value="C:\lazarus\lcl\include\buttoncontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="16"/>
-        <UsageCount Value="7"/>
-      </Unit78>
-      <Unit79>
+        <UsageCount Value="6"/>
+      </Unit79>
+      <Unit80>
         <Filename Value="model\frmquerydatamodule.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="1"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit79>
-      <Unit80>
+      </Unit80>
+      <Unit81>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\win\sysutils.pp"/>
         <UnitName Value="sysutils"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
-      </Unit80>
-      <Unit81>
-        <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\inc\objpash.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="171"/>
-        <CursorPos X="22" Y="194"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="4"/>
       </Unit81>
       <Unit82>
-        <Filename Value="view\frmabmpersonas.lfm"/>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\inc\objpash.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="255"/>
+        <CursorPos X="80" Y="288"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit82>
       <Unit83>
-        <Filename Value="C:\lazarus\lcl\include\dbcustomnavigator.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="464"/>
-        <CursorPos X="22" Y="486"/>
-        <UsageCount Value="6"/>
-      </Unit83>
-      <Unit84>
-        <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-db\src\base\db.pas"/>
-        <UnitName Value="db"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="52"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="6"/>
-      </Unit84>
-      <Unit85>
-        <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-db\src\base\dataset.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1483"/>
-        <CursorPos X="3" Y="1486"/>
-        <UsageCount Value="6"/>
-      </Unit85>
-      <Unit86>
-        <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-base\src\custapp.pp"/>
-        <UnitName Value="CustApp"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="6"/>
-        <CursorPos X="3" Y="29"/>
-        <UsageCount Value="6"/>
-      </Unit86>
-      <Unit87>
-        <Filename Value="view\frmfacturacion.lfm"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="10" Y="1"/>
-        <UsageCount Value="7"/>
-        <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit87>
-      <Unit88>
-        <Filename Value="view\frmventa.lfm"/>
+        <Filename Value="view\frmabmpersonas.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="C:\lazarus\lcl\include\dbcustomnavigator.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="464"/>
+        <CursorPos X="22" Y="486"/>
+        <UsageCount Value="5"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-db\src\base\db.pas"/>
+        <UnitName Value="db"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="52"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="5"/>
+      </Unit85>
+      <Unit86>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-db\src\base\dataset.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1483"/>
+        <CursorPos X="3" Y="1486"/>
+        <UsageCount Value="5"/>
+      </Unit86>
+      <Unit87>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-base\src\custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6"/>
+        <CursorPos X="3" Y="29"/>
+        <UsageCount Value="5"/>
+      </Unit87>
+      <Unit88>
+        <Filename Value="view\frmfacturacion.lfm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="10" Y="1"/>
+        <UsageCount Value="6"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit88>
       <Unit89>
+        <Filename Value="view\frmventa.lfm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit89>
+      <Unit90>
         <Filename Value="C:\lazarus\lcl\include\bitbtn.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="37"/>
         <CursorPos X="1" Y="65"/>
-        <UsageCount Value="7"/>
-      </Unit89>
-      <Unit90>
+        <UsageCount Value="6"/>
+      </Unit90>
+      <Unit91>
         <Filename Value="C:\lazarus\lcl\include\menuitem.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="263"/>
         <CursorPos X="1" Y="271"/>
-        <UsageCount Value="7"/>
-      </Unit90>
-      <Unit91>
+        <UsageCount Value="6"/>
+      </Unit91>
+      <Unit92>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2597"/>
         <CursorPos X="1" Y="2634"/>
-        <UsageCount Value="7"/>
-      </Unit91>
-      <Unit92>
+        <UsageCount Value="6"/>
+      </Unit92>
+      <Unit93>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32wsforms.pp"/>
         <UnitName Value="Win32WSForms"/>
         <WindowIndex Value="0"/>
         <TopLine Value="374"/>
         <CursorPos X="1" Y="396"/>
-        <UsageCount Value="7"/>
-      </Unit92>
-      <Unit93>
+        <UsageCount Value="6"/>
+      </Unit93>
+      <Unit94>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32object.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="345"/>
         <CursorPos X="1" Y="367"/>
-        <UsageCount Value="7"/>
-      </Unit93>
-      <Unit94>
+        <UsageCount Value="6"/>
+      </Unit94>
+      <Unit95>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\inc\objpas.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="269"/>
         <CursorPos X="9" Y="271"/>
-        <UsageCount Value="10"/>
-      </Unit94>
+        <UsageCount Value="9"/>
+      </Unit95>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="5" HistoryIndex="4">
+    <JumpHistory Count="1" HistoryIndex="0">
       <Position1>
-        <Filename Value="model\frmquerydatamodule.pas"/>
-        <Caret Line="46" Column="40" TopLine="20"/>
-      </Position1>
-      <Position2>
-        <Filename Value="model\frmquerydatamodule.pas"/>
-        <Caret Line="14" Column="43" TopLine="1"/>
-      </Position2>
-      <Position3>
         <Filename Value="mvctest.lpr"/>
-        <Caret Line="33" Column="3" TopLine="5"/>
-      </Position3>
-      <Position4>
-        <Filename Value="controller\academiactrl.pas"/>
-        <Caret Line="15" Column="1" TopLine="1"/>
-      </Position4>
-      <Position5>
-        <Filename Value="controller\ctrl.pas"/>
-        <Caret Line="26" Column="5" TopLine="1"/>
-      </Position5>
+        <Caret Line="12" Column="16" TopLine="7"/>
+      </Position1>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

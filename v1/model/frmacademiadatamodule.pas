@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, sqldb, DB, FileUtil, frmsgcddatamodule, frmquerydatamodule, mvc;
 
 resourcestring
-  rsGenName = 'GEN_ACADEMIA';
+  rsGenName = 'SEQ_ACADEMIA';
 
 type
 

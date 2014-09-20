@@ -11,7 +11,7 @@ type
 
   { TPersonaController }
 
-  TPersonaController = class(TController)
+  TPersonaController = class(TABMController)
 
   end;
 

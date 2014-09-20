@@ -115,6 +115,7 @@ procedure TQueryDataModule.DataModuleCreate(Sender: TObject);
 begin
   FQryList := TQryList.Create(True);
   FSearchFieldList := TSearchFieldList.Create;
+  FAuxQryList := TQryList.Create(True);
   FSearchText := '';
 end;
 

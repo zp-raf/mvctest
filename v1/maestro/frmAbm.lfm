@@ -159,6 +159,8 @@ inherited Abm: TAbm
         ShortCut = 16455
         OnClick = MenuItemGuardarClick
       end
+      inherited MenuItemSalir: TMenuItem[1]
+      end
     end
   end
   inherited AppProps: TApplicationProperties[4]

@@ -5,7 +5,7 @@ unit frmventadatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, frmquerydatamodule, sqldb, DB, frmsgcddatamodule;
+  Classes, SysUtils, FileUtil, frmquerydatamodule, sqldb, DB, frmsgcddatamodule, mvc;
 
 resourcestring
   rsGenDeuda = 'GENERATOR_DEUDA';
@@ -15,7 +15,7 @@ type
 
   { TVentaDataModule }
 
-  TVentaDataModule = class(TQueryDataModule)
+  TVentaDataModule = class(TQueryDataModule, IModel)
     DeudaACTIVO: TSmallintField;
     DeudaDetalleARANCELID: TLongintField;
     DeudaDetalleCANTIDAD: TLongintField;

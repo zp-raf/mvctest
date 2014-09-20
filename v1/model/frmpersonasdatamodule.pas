@@ -5,7 +5,7 @@ unit frmpersonasdatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, frmsgcddatamodule,
   frmquerydatamodule, mvc, sqldb, DB;
 
 resourcestring
@@ -26,7 +26,7 @@ type
     Telefono: TSQLQuery;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DireccionAfterInsert(DataSet: TDataSet);
-    procedure FilterRecord(DataSet: TDataSet; var Accept: Boolean);
+    procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure PersonaNewRecord(DataSet: TDataSet);
     procedure TelefonoAfterInsert(DataSet: TDataSet);
   private
@@ -61,10 +61,10 @@ begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenNameDir);
 end;
 
-procedure TPersonasDataModule.FilterRecord(DataSet: TDataSet;
-  var Accept: Boolean);
+procedure TPersonasDataModule.FilterRecord(DataSet: TDataSet; var Accept: boolean);
 begin
-  FilterRecord(DataSet,Accept);
+  FilterRecord(DataSet, Accept);
+
 end;
 
 procedure TPersonasDataModule.PersonaNewRecord(DataSet: TDataSet);

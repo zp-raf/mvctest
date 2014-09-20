@@ -26,37 +26,106 @@ type
     FModel: IModel;
     procedure SetModel(AValue: IModel);
     function GetModel: IModel;
-  protected
-    // el controlador referencia al modelo que usa la vista
-    property Model: IModel read GetModel write SetModel;
   public
     constructor Create(AModel: IModel);
     destructor Destroy; override;
-    { todos estos metodos son de logica de negocio. Todo lo que esta en la
-      vista es solo presentacion. }
-    procedure Cancel(Sender: IView);
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean);
+    procedure ErrorHandler(E: Exception; Sender: IView);
+    procedure ShowHelp(Sender: IView);
+    procedure ShowHelp(Sender: IFormView);
+    function GetVersion(Sender: IView): string;
+    property Model: IModel read GetModel write SetModel;
+  end;
+
+  { TABMController }
+
+  TABMController = class(TController, IABMController)
+  private
+    //FController: IController;
+  public
+    procedure Cancel(Sender: IView);
     procedure Commit(Sender: IView);
     procedure Connect(Sender: IView);
     procedure Disconnect(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
-    procedure ErrorHandler(E: Exception; Sender: IView);
     procedure FilterData(AFilterText: string; Sender: IView);
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
-    procedure ShowHelp(Sender: IView);
-    procedure ShowHelp(Sender: IFormView);
-    function GetVersion(Sender: IView): string;
     function GetCurrentRecordText(Sender: IView): string;
     function IsDBConnected(Sender: IView): boolean;
+    //property Controller: IController read FController implements IController;
   end;
 
 var
   Controller: TController;
+  ABMController: TABMController;
 
 implementation
+
+{ TABMController }
+
+procedure TABMController.FilterData(AFilterText: string; Sender: IView);
+begin
+  if Trim(AFilterText) = '' then
+  begin
+    Model.UnfilterData;
+    Model.RefreshDataSets;
+  end
+  else
+  begin
+    Model.FilterData(AFilterText);
+    Model.RefreshDataSets;
+  end;
+end;
+
+function TABMController.GetCurrentRecordText(Sender: IView): string;
+begin
+  Result := Model.GetCurrentRecordText;
+end;
+
+procedure TABMController.NewRecord(Sender: IView);
+begin
+  Model.NewRecord;
+end;
+
+procedure TABMController.RefreshData(Sender: IView);
+begin
+  Model.RefreshDataSets;
+end;
+
+procedure TABMController.EditCurrentRecord(Sender: IView);
+begin
+  Model.EditCurrentRecord;
+end;
+
+procedure TABMController.Cancel(Sender: IView);
+begin
+  Model.DiscardChanges;
+  Model.RefreshDataSets;
+end;
+
+procedure TABMController.Connect(Sender: IView);
+begin
+  Model.Connect;
+end;
+
+procedure TABMController.Disconnect(Sender: IView);
+begin
+  Model.Disconnect;
+end;
+
+procedure TABMController.Commit(Sender: IView);
+begin
+  Model.SaveChanges;
+  Model.Connect;
+end;
+
+function TABMController.IsDBConnected(Sender: IView): boolean;
+begin
+  Result := Model.GetDBStatus.Connected;
+end;
 
 { TController }
 
@@ -82,20 +151,6 @@ begin
     Sender.ShowErrorMessage(GetErrorMessage(E));
 end;
 
-procedure TController.FilterData(AFilterText: string; Sender: IView);
-begin
-  if Trim(AFilterText) = '' then
-  begin
-    Model.UnfilterData;
-    Model.RefreshDataSets;
-  end
-  else
-  begin
-    Model.FilterData(AFilterText);
-    Model.RefreshDataSets;
-  end;
-end;
-
 function TController.GetVersion(Sender: IView): string;
 begin
   Result := rsProductName + #13#10 + rsProductVersion + #13#10 + rsProductCopyright;
@@ -103,7 +158,6 @@ end;
 
 constructor TController.Create(AModel: IModel);
 begin
-  inherited Create;
   Model := AModel;
 end;
 
@@ -148,52 +202,4 @@ begin
   { TODO : Mostrar la ayuda }
 end;
 
-function TController.GetCurrentRecordText(Sender: IView): string;
-begin
-  Result := Model.GetCurrentRecordText;
-end;
-
-procedure TController.NewRecord(Sender: IView);
-begin
-  Model.NewRecord;
-end;
-
-procedure TController.RefreshData(Sender: IView);
-begin
-  Model.RefreshDataSets;
-end;
-
-procedure TController.EditCurrentRecord(Sender: IView);
-begin
-  Model.EditCurrentRecord;
-end;
-
-procedure TController.Cancel(Sender: IView);
-begin
-  Model.DiscardChanges;
-  Model.RefreshDataSets;
-end;
-
-procedure TController.Connect(Sender: IView);
-begin
-  Model.Connect;
-end;
-
-procedure TController.Disconnect(Sender: IView);
-begin
-  Model.Disconnect;
-end;
-
-procedure TController.Commit(Sender: IView);
-begin
-  Model.SaveChanges;
-  Model.Connect;
-end;
-
-function TController.IsDBConnected(Sender: IView): boolean;
-begin
-  Result := Model.GetDBStatus.Connected;
-end;
-
 end.
-

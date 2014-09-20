@@ -80,6 +80,7 @@ type
     procedure ObserverUpdate(const Subject: IInterface); override;
     procedure academiasClick(Sender: TObject);
     procedure allpersonasClick(Sender: TObject);
+    function GetCustomController: TPrincipalController;
   end;
 
 var
@@ -106,7 +107,7 @@ end;
 
 procedure TPrincipal1.facturasClick(Sender: TObject);
 begin
-  (Controller as TPrincipalController).OpenFacturasForm(Self);
+  GetCustomController.OpenFacturasForm(Self);
 end;
 
 procedure TPrincipal1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -117,7 +118,7 @@ end;
 
 procedure TPrincipal1.generarDeudaClick(Sender: TObject);
 begin
-  (Controller as TPrincipalController).OpenVentaForm(Self);
+  GetCustomController.OpenVentaForm(Self);
 end;
 
 procedure TPrincipal1.setLoggedUser(username: string);
@@ -141,12 +142,17 @@ end;
 
 procedure TPrincipal1.academiasClick(Sender: TObject);
 begin
-  (Controller as TPrincipalController).ABMAcad(Self);
+  GetCustomController.ABMAcad(Self);
 end;
 
 procedure TPrincipal1.allpersonasClick(Sender: TObject);
 begin
-  (Controller as TPrincipalController).allpersonasClick(Self);
+  GetCustomController.allpersonasClick(Self);
+end;
+
+function TPrincipal1.GetCustomController: TPrincipalController;
+begin
+  Result := (Controller as TPrincipalController);
 end;
 
 end.

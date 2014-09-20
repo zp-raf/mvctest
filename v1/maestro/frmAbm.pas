@@ -13,7 +13,13 @@ type
 
   { TAbm }
 
-  TAbm = class(TMaestro)
+  TAbm = class(TMaestro, IABMView)
+  private
+    FABMController: IABMController;
+    function GetController: IABMController;
+    procedure SetController(AValue: IABMController);
+  public
+    constructor Create(AOwner: IFormView; AController: IABMController); overload;
   published
     ButtonFilter: TButton;
     DBGrid1: TDBGrid;
@@ -38,6 +44,7 @@ type
     procedure ShowPanel(APanel: TPanel);
     procedure TBConnectedClick(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
+    property ABMController: IABMController read GetController write SetController;
   end;
 
 var
@@ -56,7 +63,7 @@ end;
 
 procedure TAbm.OK(Sender: TObject);
 begin
-  Controller.Commit(Self);
+  ABMController.Commit(Self);
   ShowPanel(PanelList);
 end;
 
@@ -85,30 +92,56 @@ end;
 procedure TAbm.TBConnectedClick(Sender: TObject);
 begin
   if (Sender as TToggleBox).Checked then
-    Controller.Connect(Self)
+    ABMController.Connect(Self)
   else
-    Controller.Disconnect(Self);
+    ABMController.Disconnect(Self);
 end;
 
 procedure TAbm.ObserverUpdate(const Subject: IInterface);
 begin
   { aca se actualiza la vista. en este caso que es para prueba nomas
     cambiamos boton connected }
-  if Controller.IsDBConnected(Self) then
+  if ABMController.IsDBConnected(Self) then
     TBConnected.Checked := True
   else
     TBConnected.Checked := False;
 end;
 
+function TAbm.GetController: IABMController;
+begin
+  Result := FABMController;
+end;
+
+procedure TAbm.SetController(AValue: IABMController);
+begin
+  if ABMController = AValue then
+    Exit;
+  ABMController := AValue;
+end;
+
+constructor TAbm.Create(AOwner: IFormView; AController: IABMController);
+var
+  temp: IController;
+begin
+  AController.QueryInterface(IController, temp);
+  if temp <> nil then
+  begin
+    inherited Create(AOwner, temp);
+    FABMController := AController;
+  end
+  else
+    raise Exception.Create(rsProvidedCont);
+end;
+
 procedure TAbm.ButtonFilterClick(Sender: TObject);
 begin
-  Controller.FilterData(EditFilter.Text, Self);
+  ABMController.FilterData(EditFilter.Text, Self);
 end;
 
 procedure TAbm.CancelButtonClick(Sender: TObject);
 begin
   ShowPanel(PanelList);
-  Controller.Cancel(Self);
+  ABMController.Cancel(Self);
 end;
 
 procedure TAbm.CloseButtonClick(Sender: TObject);
@@ -120,7 +153,7 @@ procedure TAbm.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);
 begin
   if (Button in [mbRight]) then
-    ShowInfoMessage(Controller.GetCurrentRecordText(Self));
+    ShowInfoMessage(ABMController.GetCurrentRecordText(Self));
 end;
 
 procedure TAbm.DBNavListClick(Sender: TObject; Button: TDBNavButtonType);
@@ -129,24 +162,24 @@ begin
     nbInsert:
     begin
       ShowPanel(PanelDetail);
-      Controller.NewRecord(Self);
+      ABMController.NewRecord(Self);
     end;
     nbEdit:
     begin
       ShowPanel(PanelDetail);
-      Controller.EditCurrentRecord(Self);
+      ABMController.EditCurrentRecord(Self);
     end;
     nbRefresh:
     begin
-      Controller.RefreshData(Self);
+      ABMController.RefreshData(Self);
     end;
   end;
 end;
 
 procedure TAbm.FormShow(Sender: TObject);
 begin
-  if not Controller.IsDBConnected(Self) then
-    Controller.Connect(Self);
+  if not ABMController.IsDBConnected(Self) then
+    ABMController.Connect(Self);
   inherited FormShow(Sender);
 end;
 

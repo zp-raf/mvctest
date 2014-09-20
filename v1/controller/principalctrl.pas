@@ -30,11 +30,7 @@ type
   { TPrincipalController }
 
   TPrincipalController = class(TController)
-  private
-    FDBModel: IDBModel;
   public
-    constructor Create(AModel: IModel; ADBModel: IDBModel); overload;
-    destructor Destroy; override;
     function GetUserName(Sender: IFormView): string;
     function GetHostName(Sender: IFormView): string;
     procedure ABMAcad(Sender: IFormView);
@@ -50,18 +46,6 @@ implementation
 
 { TPrincipalController }
 
-constructor TPrincipalController.Create(AModel: IModel; ADBModel: IDBModel);
-begin
-  inherited Create(AModel);
-  FDBModel := ADBModel;
-end;
-
-destructor TPrincipalController.Destroy;
-begin
-  (Model as TComponent).Free;
-  (FDBModel as TComponent).Free;
-end;
-
 function TPrincipalController.GetUserName(Sender: IFormView): string;
 begin
   Result := Model.GetDBStatus.User;
@@ -75,34 +59,35 @@ end;
 procedure TPrincipalController.ABMAcad(Sender: IFormView);
 begin
   AbmAcademias := TAbmAcademias.Create(Sender,
-    TAcademiaController.Create(TAcademiaDataModule.Create(Application, FDBModel)));
+    TAcademiaController.Create(TAcademiaDataModule.Create(Application,
+    Model.MasterDataModule)));
   AbmAcademias.Show;
-  (FDBModel as ISubject).Attach(AbmAcademias as IObserver);
+  (Model.MasterDataModule as ISubject).Attach(AbmAcademias as IObserver);
 end;
 
 procedure TPrincipalController.allpersonasClick(Sender: IFormView);
 begin
   AbmPersonas := TAbmPersonas.Create(Sender,
-    TPersonaController.Create(TPersonasDataModule.Create(Application, FDBModel)));
+    TPersonaController.Create(TPersonasDataModule.Create(Application,
+    Model.MasterDataModule)));
   AbmPersonas.Show;
-  (FDBModel as ISubject).Attach(AbmPersonas as IObserver);
+  (Model.MasterDataModule as ISubject).Attach(AbmPersonas as IObserver);
 end;
 
 procedure TPrincipalController.OpenFacturasForm(Sender: IFormView);
 begin
-  FacturaDataModule := TFacturaDataModule.Create(Application, FDBModel);
-  FacturaController := TFacturaController.Create(FacturaDataModule);
-  //ProcesoFacturacion := TProcesoFacturacion.Create(nil, PersonaController);
+  //ProcesoFacturacion := TProcesoFacturacion.Create(nil,
+  //  TFacturaController.Create(TFacturaDataModule.Create(Application,
+  //  Model.MasterDataModule)));
   //ProcesoFacturacion.Show;
-  //(SgcdDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
+  //(Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
 end;
 
 procedure TPrincipalController.OpenVentaForm(Sender: IFormView);
 begin
-  ProcesoVenta := TProcesoVenta.Create(Sender,
-    TVentaController.Create(TVentaDataModule.Create(Application, FDBModel)));
-  ProcesoVenta.Show;
-  (FDBModel as ISubject).Attach(ProcesoVenta as IObserver);
+  //ProcesoVenta := TProcesoVenta.cre;
+  //ProcesoVenta.Show;
+  //(Model.MasterDataModule as ISubject).Attach(ProcesoVenta as IObserver);
 end;
 
 end.
