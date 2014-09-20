@@ -12,8 +12,6 @@ type
   { TAcademiaController }
 
   TAcademiaController = class(TController)
-     model: TAcademiaDataModule;
-     knkjknj: iconokk impldxvg icnit
   end;
 
 var

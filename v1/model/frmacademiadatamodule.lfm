@@ -1,5 +1,9 @@
 inherited AcademiaDataModule: TAcademiaDataModule
   OnCreate = DataModuleCreate
+  Height = 150
+  HorizontalOffset = 1111
+  VerticalOffset = 363
+  Width = 150
   object qry: TSQLQuery[0]
     FieldDefs = <    
       item
