@@ -172,8 +172,8 @@ begin
 end;
 
 procedure TQueryDataModule.FilterData(ASearchText: string);
-var
-  i: integer;
+//var
+//  i: integer;
 begin
   FSearchText := ASearchText;
   //if Trim(FSearchText) = '' then
@@ -261,7 +261,7 @@ begin
         DisableControls;
         if Active and not (State in [dsEdit]) then
           Append
-        else if (State in [dsEdit]) or (RowsAffected > 0) then
+        else if (State in [dsEdit]) and (RowsAffected > 0) then
         begin
           Cancel;
           Append;

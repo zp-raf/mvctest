@@ -43,6 +43,7 @@ type
     generarDeuda: TMenuItem;
     certificadoEstudio: TMenuItem;
     historicoMovimiento: TMenuItem;
+    MenuItemABMCuentas: TMenuItem;
     reportRegAsistencia: TMenuItem;
     reporte1: TMenuItem;
     calcularnota: TMenuItem;
@@ -73,6 +74,7 @@ type
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure generarDeudaClick(Sender: TObject);
+    procedure MenuItemABMCuentasClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
     procedure setConnStatus(connected: boolean; host: string);
     procedure setLoggedUser(username: string);
@@ -119,6 +121,11 @@ end;
 procedure TPrincipal1.generarDeudaClick(Sender: TObject);
 begin
   GetCustomController.OpenVentaForm(Self);
+end;
+
+procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMCuentasForm(Self);
 end;
 
 procedure TPrincipal1.setLoggedUser(username: string);

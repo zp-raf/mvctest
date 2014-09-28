@@ -1,0 +1,13 @@
+inherited AsientosDataModule: TAsientosDataModule
+  OnCreate = DataModuleCreate
+  Height = 254
+  HorizontalOffset = 887
+  VerticalOffset = 326
+  Width = 264
+  inherited Movimiento: TSQLQuery
+    ReadOnly = True
+  end
+  inherited MovimientoDet: TSQLQuery
+    ReadOnly = True
+  end
+end

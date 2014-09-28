@@ -123,6 +123,10 @@ inherited Principal1: TPrincipal1
         object talonarios: TMenuItem
           Caption = 'ABM &Talonarios'
         end
+        object MenuItemABMCuentas: TMenuItem
+          Caption = 'ABM C&uentas'
+          OnClick = MenuItemABMCuentasClick
+        end
         object multas: TMenuItem
           Caption = 'Actualizar &multas'
         end

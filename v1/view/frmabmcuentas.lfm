@@ -1,0 +1,103 @@
+inherited AbmCuentas: TAbmCuentas
+  Caption = 'ABM Cuentas'
+  ClientHeight = 461
+  inherited PanelList: TPanel[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = CuentaDataModule.dsCuenta
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = CuentaDataModule.dsCuenta
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEdit1: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 72
+      Width = 608
+      DataField = 'CODIGO'
+      DataSource = CuentaDataModule.dsCuenta
+      Anchors = [akTop, akLeft, akRight]
+      CharCase = ecNormal
+      MaxLength = 255
+      TabOrder = 1
+    end
+    object DBEdit2: TDBEdit[1]
+      Left = 16
+      Height = 23
+      Top = 21
+      Width = 608
+      DataField = 'NOMBRE'
+      DataSource = CuentaDataModule.dsCuenta
+      Anchors = [akTop, akLeft, akRight]
+      CharCase = ecNormal
+      MaxLength = 255
+      TabOrder = 0
+    end
+    object DBRadioGroupTipo: TDBRadioGroup[2]
+      Left = 16
+      Height = 65
+      Top = 112
+      Width = 168
+      Caption = 'Tipo de cuenta (requerido)'
+      DataField = 'TIPO_CUENTA'
+      DataSource = CuentaDataModule.dsCuenta
+      Items.Strings = (
+        'Deudora'
+        'Acreedora'
+      )
+      TabOrder = 2
+      Values.Strings = (
+        'D'
+        'A'
+      )
+    end
+    object Nombre: TLabel[3]
+      AnchorSideLeft.Control = DBEdit2
+      AnchorSideBottom.Control = DBEdit2
+      Left = 16
+      Height = 15
+      Top = 6
+      Width = 106
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre (requerido)'
+      ParentColor = False
+    end
+    object Codigo: TLabel[4]
+      AnchorSideLeft.Control = DBEdit1
+      AnchorSideBottom.Control = DBEdit1
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 101
+      Anchors = [akLeft, akBottom]
+      Caption = 'Codigo (requerido)'
+      ParentColor = False
+    end
+    object LabeledEdit1: TLabeledEdit[5]
+      Left = 59
+      Height = 23
+      Top = 237
+      Width = 80
+      EditLabel.AnchorSideLeft.Control = LabeledEdit1
+      EditLabel.AnchorSideRight.Control = LabeledEdit1
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEdit1
+      EditLabel.Left = 59
+      EditLabel.Height = 15
+      EditLabel.Top = 219
+      EditLabel.Width = 80
+      EditLabel.Caption = 'LabeledEdit1'
+      EditLabel.ParentColor = False
+      TabOrder = 3
+      Text = 'LabeledEdit1'
+    end
+  end
+end

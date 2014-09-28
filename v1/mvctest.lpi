@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="84"/>
+      <BuildNr Value="90"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -49,7 +49,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="28">
+    <Units Count="36">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -241,6 +241,61 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="procesoctrl"/>
       </Unit27>
+      <Unit28>
+        <Filename Value="model\frmmovimientodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MovimientoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmmovimientodatamodule"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="model\frmcuentadatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CuentaDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmcuentadatamodule"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="controller\cuentactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cuentactrl"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="controller\movimientoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="movimientoctrl"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="view\frmabmcuentas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmCuentas"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmcuentas"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="view\frmprocesoasientos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoAsientos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoasientos"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="model\frmasientosdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AsientosDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmasientosdatamodule"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="asientosctrl"/>
+      </Unit35>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

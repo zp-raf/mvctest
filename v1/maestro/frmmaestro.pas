@@ -13,8 +13,8 @@ resourcestring
   rsInformation = 'Informacion';
   rsWarning = 'Advertencia';
   rsConfirmation = 'Confimación';
-  rsProvidedCont = 'Provided controller does not implements basic controller '
-    +'funcionality';
+  rsProvidedCont = 'Provided controller does not implements basic controller ' +
+    'funcionality';
 
 type
 
@@ -72,6 +72,7 @@ var
 implementation
 
 {$R *.lfm}
+
 
 { TMaestro }
 

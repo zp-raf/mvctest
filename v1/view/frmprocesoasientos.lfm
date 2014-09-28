@@ -1,0 +1,166 @@
+inherited ProcesoAsientos: TProcesoAsientos
+  Left = 690
+  Height = 664
+  Top = 199
+  Width = 651
+  Caption = 'Asientos'
+  ClientHeight = 644
+  ClientWidth = 651
+  OnCreate = FormCreate
+  inherited ButtonPanel1: TButtonPanel
+    Top = 604
+    Width = 639
+  end
+  object GroupBox1: TGroupBox[1]
+    Left = 6
+    Height = 264
+    Top = 0
+    Width = 639
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Nuevo asiento'
+    ClientHeight = 246
+    ClientWidth = 635
+    TabOrder = 1
+    object DBLookupComboBox1: TDBLookupComboBox
+      AnchorSideLeft.Control = GroupBox1
+      AnchorSideRight.Control = GroupBox1
+      AnchorSideRight.Side = asrBottom
+      Left = 8
+      Height = 23
+      Top = 24
+      Width = 619
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Left = 8
+      BorderSpacing.Right = 8
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = CuentaDataModule.dsCuenta
+      LookupCache = False
+      ReadOnly = True
+      ScrollListDataset = True
+      TabOrder = 0
+    end
+    object DBLookupComboBox2: TDBLookupComboBox
+      AnchorSideLeft.Control = GroupBox1
+      AnchorSideRight.Control = GroupBox1
+      AnchorSideRight.Side = asrBottom
+      Left = 8
+      Height = 23
+      Top = 72
+      Width = 619
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Left = 8
+      BorderSpacing.Right = 8
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = CuentaDataModule.dsCuenta
+      LookupCache = False
+      ReadOnly = True
+      ScrollListDataset = True
+      TabOrder = 1
+    end
+    object Debe: TLabel
+      AnchorSideLeft.Control = DBLookupComboBox1
+      AnchorSideBottom.Control = DBLookupComboBox1
+      Left = 8
+      Height = 15
+      Top = 9
+      Width = 27
+      Anchors = [akLeft, akBottom]
+      Caption = 'Debe'
+      ParentColor = False
+    end
+    object Haber: TLabel
+      AnchorSideLeft.Control = DBLookupComboBox2
+      AnchorSideBottom.Control = DBLookupComboBox2
+      Left = 8
+      Height = 15
+      Top = 57
+      Width = 32
+      Anchors = [akLeft, akBottom]
+      Caption = 'Haber'
+      ParentColor = False
+    end
+    object LabeledEdit1: TLabeledEdit
+      AnchorSideLeft.Control = GroupBox1
+      Left = 8
+      Height = 23
+      Top = 128
+      Width = 216
+      BorderSpacing.Left = 8
+      EditLabel.AnchorSideLeft.Control = LabeledEdit1
+      EditLabel.AnchorSideRight.Control = LabeledEdit1
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEdit1
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 110
+      EditLabel.Width = 216
+      EditLabel.Caption = 'Monto'
+      EditLabel.ParentColor = False
+      TabOrder = 2
+    end
+    object LabeledEdit2: TLabeledEdit
+      AnchorSideLeft.Control = GroupBox1
+      AnchorSideRight.Control = GroupBox1
+      AnchorSideRight.Side = asrBottom
+      Left = 8
+      Height = 23
+      Top = 184
+      Width = 619
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Left = 8
+      BorderSpacing.Right = 8
+      EditLabel.AnchorSideLeft.Control = LabeledEdit2
+      EditLabel.AnchorSideRight.Control = LabeledEdit2
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEdit2
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 166
+      EditLabel.Width = 619
+      EditLabel.Caption = 'Descripcion'
+      EditLabel.ParentColor = False
+      TabOrder = 3
+    end
+  end
+  object GroupBox2: TGroupBox[2]
+    AnchorSideLeft.Control = GroupBox1
+    AnchorSideTop.Control = GroupBox1
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 335
+    Top = 264
+    Width = 639
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Caption = 'Movimientos'
+    ClientHeight = 317
+    ClientWidth = 635
+    TabOrder = 2
+    object DBGrid1: TDBGrid
+      AnchorSideLeft.Control = GroupBox2
+      AnchorSideTop.Control = GroupBox2
+      AnchorSideRight.Control = GroupBox2
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = GroupBox2
+      AnchorSideBottom.Side = asrBottom
+      Left = 4
+      Height = 309
+      Top = 4
+      Width = 627
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderSpacing.Around = 4
+      Color = clWindow
+      Columns = <>
+      TabOrder = 0
+    end
+  end
+  inherited MainMenu: TMainMenu[3]
+    left = 592
+    top = 0
+  end
+  inherited AppProps: TApplicationProperties[4]
+    left = 688
+    top = 0
+  end
+end

@@ -14,6 +14,7 @@ type
   { TAbm }
 
   TAbm = class(TMaestro, IABMView)
+
   private
     FABMController: IABMController;
     function GetController: IABMController;
@@ -36,7 +37,7 @@ type
     procedure CloseButtonClick(Sender: TObject); virtual;
     procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: integer);
-    procedure DBNavListClick(Sender: TObject; Button: TDBNavButtonType);
+    procedure DBNavListBeforeAction(Sender: TObject; Button: TDBNavButtonType);
     procedure FormShow(Sender: TObject);
     procedure MenuItemGuardarClick(Sender: TObject);
     procedure OK(Sender: TObject); virtual;
@@ -107,6 +108,31 @@ begin
     TBConnected.Checked := False;
 end;
 
+procedure TAbm.DBNavListBeforeAction(Sender: TObject; Button: TDBNavButtonType);
+begin
+  if not (Sender is TDBNavigator) then
+    Abort;
+  case Button of
+    nbInsert:
+    begin
+      ShowPanel(PanelDetail);
+      ABMController.NewRecord(Self);
+      Abort;
+    end;
+    nbEdit:
+    begin
+      ShowPanel(PanelDetail);
+      ABMController.EditCurrentRecord(Self);
+      Abort;
+    end;
+    nbRefresh:
+    begin
+      ABMController.RefreshData(Self);
+      Abort;
+    end;
+  end;
+end;
+
 function TAbm.GetController: IABMController;
 begin
   Result := FABMController;
@@ -154,26 +180,6 @@ procedure TAbm.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
 begin
   if (Button in [mbRight]) then
     ShowInfoMessage(ABMController.GetCurrentRecordText(Self));
-end;
-
-procedure TAbm.DBNavListClick(Sender: TObject; Button: TDBNavButtonType);
-begin
-  case Button of
-    nbInsert:
-    begin
-      ShowPanel(PanelDetail);
-      ABMController.NewRecord(Self);
-    end;
-    nbEdit:
-    begin
-      ShowPanel(PanelDetail);
-      ABMController.EditCurrentRecord(Self);
-    end;
-    nbRefresh:
-    begin
-      ABMController.RefreshData(Self);
-    end;
-  end;
 end;
 
 procedure TAbm.FormShow(Sender: TObject);

@@ -73,10 +73,9 @@ inherited Abm: TAbm
       BorderSpacing.Right = 8
       Color = clWindow
       Columns = <>
-      DataSource = AcademiaDataModule.DataSource1
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns, dgTruncCellHints, dgCellEllipsis]
       ShowHint = True
-      TabOrder = 0
+      TabOrder = 3
       OnMouseDown = DBGrid1MouseDown
     end
     object DBNavList: TDBNavigator
@@ -88,6 +87,7 @@ inherited Abm: TAbm
       Hint = 'Panel de navegación'
       Top = 388
       Width = 313
+      BeforeAction = DBNavListBeforeAction
       BevelOuter = bvNone
       BorderSpacing.Top = 4
       ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -99,9 +99,8 @@ inherited Abm: TAbm
       ClientHeight = 25
       ClientWidth = 313
       ConfirmDelete = False
-      OnClick = DBNavListClick
       Options = []
-      TabOrder = 1
+      TabOrder = 4
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbCancel, nbRefresh]
     end
     object EditFilter: TEdit
@@ -113,7 +112,7 @@ inherited Abm: TAbm
       Width = 288
       Anchors = [akLeft, akBottom]
       BorderSpacing.Bottom = 4
-      TabOrder = 2
+      TabOrder = 0
     end
     object LabelFilter: TLabel
       AnchorSideLeft.Control = EditFilter
@@ -138,7 +137,7 @@ inherited Abm: TAbm
       BorderSpacing.Left = 8
       Caption = 'Filtrar'
       OnClick = ButtonFilterClick
-      TabOrder = 3
+      TabOrder = 1
     end
     object TBConnected: TToggleBox
       Left = 542
@@ -147,7 +146,7 @@ inherited Abm: TAbm
       Width = 90
       Caption = 'Connected'
       OnClick = TBConnectedClick
-      TabOrder = 4
+      TabOrder = 2
     end
   end
   inherited MainMenu: TMainMenu[3]

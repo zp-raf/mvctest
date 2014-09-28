@@ -23,7 +23,15 @@ uses
   // Ventas(Deudas)
   frmventadatamodule,
   frmventa,
-  ventactrl;
+  ventactrl,
+  // Cuentas
+  frmcuentadatamodule,
+  frmabmcuentas,
+  cuentactrl,
+  // Asientos(test)
+  frmasientosdatamodule,
+  frmprocesoasientos,
+  asientosctrl;
 
 type
 
@@ -37,6 +45,8 @@ type
     procedure allpersonasClick(Sender: IFormView);
     procedure OpenFacturasForm(Sender: IFormView);
     procedure OpenVentaForm(Sender: IFormView);
+    procedure OpenABMCuentasForm(Sender: IFormView);
+    procedure OpenAsientosFrom(Sender: IFormView);
   end;
 
 var
@@ -88,6 +98,24 @@ begin
   //ProcesoVenta := TProcesoVenta.cre;
   //ProcesoVenta.Show;
   //(Model.MasterDataModule as ISubject).Attach(ProcesoVenta as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMCuentasForm(Sender: IFormView);
+begin
+  AbmCuentas := TAbmCuentas.Create(Sender, TCuentaController.Create(
+    TCuentaDataModule.Create(Application, Model.MasterDataModule)));
+
+  AbmCuentas.Show;
+  (Model.MasterDataModule as ISubject).Attach(AbmCuentas as IObserver);
+end;
+
+procedure TPrincipalController.OpenAsientosFrom(Sender: IFormView);
+begin
+  ProcesoAsientos := TProcesoAsientos.Create(nil,
+    TAsientosController.Create(TAsientosDataModule.Create(Application,
+    Model.MasterDataModule)));
+  ProcesoAsientos.Show;
+  (Model.MasterDataModule as ISubject).Attach(ProcesoAsientos as IObserver);
 end;
 
 end.

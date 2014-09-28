@@ -5,7 +5,7 @@ unit academiactrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmacademiadatamodule;
+  Classes, SysUtils, ctrl;
 
 type
 
