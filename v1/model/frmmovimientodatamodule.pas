@@ -29,6 +29,8 @@ type
     MovimientoDetTIPO_MOVIMIENTO: TStringField;
     MovimientoFECHA: TDateField;
     MovimientoID: TLongintField;
+    MovimientoNUMERO: TLongintField;
+    Operacion: TSQLQuery;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure MovimientoDetAfterInsert(DataSet: TDataSet);
     procedure MovimientoFilterRecord(DataSet: TDataSet; var Accept: boolean);
@@ -58,7 +60,8 @@ end;
 
 procedure TMovimientoDataModule.MovimientoDetAfterInsert(DataSet: TDataSet);
 begin
-  DataSet.FieldByName('MOVIMIENTOID').Value := Movimiento.FieldByName('ID').Value;
+  DataSet.FieldByName('MOVIMIENTOID').AsInteger :=
+    Movimiento.FieldByName('ID').AsInteger;
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenNameMovDet);
 end;
 
@@ -74,4 +77,3 @@ begin
 end;
 
 end.
-

@@ -12,7 +12,6 @@ type
   { TQueryDataModule }
 
   TQueryDataModule = class(TDataModule, IModel)
-    procedure DataModuleDestroy(Sender: TObject);
   public
     constructor Create(AOwner: TComponent; AMaster: IDBModel); overload;
   private
@@ -33,16 +32,19 @@ type
     procedure SetQryList(AValue: TQryList);
     procedure SetSearchFieldList(AValue: TSearchFieldList);
   published
+    procedure Commit;
     procedure Connect; virtual;
     procedure DataModuleCreate(Sender: TObject); virtual;
+    procedure DataModuleDestroy(Sender: TObject);
     procedure DiscardChanges;
     procedure Disconnect; virtual;
     procedure FilterData(ASearchText: string);
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure EditCurrentRecord;
     procedure NewRecord;
-    procedure RefreshDataSets;
-    procedure SaveChanges;
+    procedure RefreshDataSets; virtual;
+    procedure Rollback;
+    procedure SaveChanges; virtual;
     procedure SetReadOnly(Option: boolean);
     procedure UnfilterData;
     function ArePendingChanges: boolean;
@@ -73,7 +75,7 @@ begin
   begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
-      if (State in [dsEdit, dsInsert]) or (RowsAffected > 0) then
+      if (State in [dsEdit, dsInsert]) then
       begin
         Result := True;
         Exit;
@@ -139,8 +141,8 @@ begin
   begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
-      if (State in [dsEdit, dsInsert]) or (RowsAffected > 0) then
-        CancelUpdates;
+      if (State in [dsEdit, dsInsert]) or (RowsAffected > 0) and not ReadOnly then
+        Cancel;
     end;
   end;
 end;
@@ -233,6 +235,8 @@ begin
     begin
       try
         DisableControls;
+        if ReadOnly then
+          Continue;
         if Active and not (State in [dsInsert]) then
           Edit
         else if (State in [dsInsert]) or (RowsAffected > 0) then
@@ -259,6 +263,8 @@ begin
     begin
       try
         DisableControls;
+        if ReadOnly then
+          Continue;
         if Active and not (State in [dsEdit]) then
           Append
         else if (State in [dsEdit]) and (RowsAffected > 0) then
@@ -297,20 +303,23 @@ begin
   end;
 end;
 
+procedure TQueryDataModule.Rollback;
+begin
+  FMasterDataModule.Rollback;
+end;
+
 procedure TQueryDataModule.SaveChanges;
 var
   i: integer;
 begin
-  try
-    for i := 0 to FQryList.Count - 1 do
+  for i := 0 to FQryList.Count - 1 do
+  begin
+    with TSQLQuery(FQryList.Items[i]) do
     begin
-      with TSQLQuery(FQryList.Items[i]) do
-      begin
-        ApplyUpdates;
-      end;
+      if ReadOnly then
+        Continue;
+      ApplyUpdates;
     end;
-  finally
-    FMasterDataModule.Commit;
   end;
 end;
 
@@ -322,14 +331,18 @@ begin
   begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
+      Close;
       ReadOnly := Option;
+      Open;
     end;
   end;
   for i := 0 to FAuxQryList.Count - 1 do
   begin
     with TSQLQuery(FAuxQryList.Items[i]) do
     begin
+      Close;
       ReadOnly := Option;
+      Open;
     end;
   end;
 end;
@@ -388,6 +401,11 @@ begin
   if FSearchFieldList = AValue then
     Exit;
   FSearchFieldList := AValue;
+end;
+
+procedure TQueryDataModule.Commit;
+begin
+  FMasterDataModule.Commit;
 end;
 
 function TQueryDataModule.GetSearchText: string;

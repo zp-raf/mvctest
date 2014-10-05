@@ -1,10 +1,15 @@
 inherited CuentaDataModule: TCuentaDataModule
   OnCreate = DataModuleCreate
   Height = 150
-  HorizontalOffset = 548
-  VerticalOffset = 276
-  Width = 150
-  object Cuenta: TSQLQuery[0]
+  HorizontalOffset = 883
+  VerticalOffset = 400
+  Width = 211
+  object dsCuenta: TDataSource[0]
+    DataSet = Cuenta
+    left = 24
+    top = 88
+  end
+  object Cuenta: TSQLQuery[1]
     IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
@@ -26,13 +31,18 @@ inherited CuentaDataModule: TCuentaDataModule
         Size = 255
       end    
       item
-        Name = 'TIPO_CUENTA'
+        Name = 'NATURALEZA'
         DataType = ftFixedChar
         Precision = -1
         Size = 1
+      end    
+      item
+        Name = 'CUENTA_PADRE'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
     Active = True
-    OnFilterRecord = CuentaFilterRecord
     OnNewRecord = CuentaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -40,8 +50,8 @@ inherited CuentaDataModule: TCuentaDataModule
       'select * from cuenta'
     )
     Params = <>
-    left = 28
-    top = 23
+    left = 24
+    top = 24
     object CuentaID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -74,10 +84,10 @@ inherited CuentaDataModule: TCuentaDataModule
       Required = True
       Size = 255
     end
-    object CuentaTIPO_CUENTA: TStringField
+    object CuentaNATURALEZA: TStringField
       DisplayWidth = 1
       FieldKind = fkData
-      FieldName = 'TIPO_CUENTA'
+      FieldName = 'NATURALEZA'
       Index = 3
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -85,10 +95,124 @@ inherited CuentaDataModule: TCuentaDataModule
       Required = True
       Size = 1
     end
+    object CuentaCUENTA_PADRE: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CUENTA_PADRE'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
-  object dsCuenta: TDataSource[1]
-    DataSet = Cuenta
-    left = 72
-    top = 88
+  object CuentaAux: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CODIGO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NATURALEZA'
+        DataType = ftFixedChar
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'CUENTA_PADRE'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    Active = True
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from cuenta where cuenta.id<>:id'
+    )
+    Params = <    
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+        Size = 4
+      end>
+    DataSource = dsCuenta
+    left = 136
+    top = 24
+    object CuentaAuxID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object CuentaAuxCODIGO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CODIGO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object CuentaAuxNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object CuentaAuxNATURALEZA: TStringField
+      DisplayWidth = 1
+      FieldKind = fkData
+      FieldName = 'NATURALEZA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 1
+    end
+    object CuentaAuxCUENTA_PADRE: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CUENTA_PADRE'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsCuentaAux: TDataSource[3]
+    DataSet = CuentaAux
+    left = 144
+    top = 96
   end
 end

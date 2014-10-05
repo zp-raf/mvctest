@@ -1,13 +1,20 @@
 inherited MovimientoDataModule: TMovimientoDataModule
   OnCreate = DataModuleCreate
   Height = 254
-  HorizontalOffset = 364
-  VerticalOffset = 263
+  HorizontalOffset = 766
+  VerticalOffset = 358
   Width = 264
   object Movimiento: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NUMERO'
         DataType = ftInteger
         Precision = -1
         Size = 0
@@ -44,11 +51,21 @@ inherited MovimientoDataModule: TMovimientoDataModule
       ReadOnly = False
       Required = True
     end
+    object MovimientoNUMERO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
     object MovimientoFECHA: TDateField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'FECHA'
-      Index = 1
+      Index = 2
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -58,7 +75,7 @@ inherited MovimientoDataModule: TMovimientoDataModule
       DisplayWidth = 255
       FieldKind = fkData
       FieldName = 'DESCRIPCION'
-      Index = 2
+      Index = 3
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -98,20 +115,18 @@ inherited MovimientoDataModule: TMovimientoDataModule
         Precision = -1
         Size = 1
       end>
+    Filter = 'MOVIMIENTOID = MovimientoID'
     AfterInsert = MovimientoDetAfterInsert
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
-      'select * from movimiento_detalle where movimientoid = :id'
+      'select * from movimiento_detalle'
+      '--where movimiento_detalle.movimientoid = :id'
     )
-    Params = <    
-      item
-        DataType = ftInteger
-        Name = 'ID'
-        ParamType = ptInput
-        Size = 4
-      end>
-    DataSource = dsMovimiento
+    InsertSQL.Strings = (
+      ''
+    )
+    Params = <>
     left = 158
     top = 40
     object MovimientoDetID: TLongintField
@@ -169,14 +184,22 @@ inherited MovimientoDataModule: TMovimientoDataModule
       Size = 1
     end
   end
-  object dsMovimiento: TDataSource[2]
+  object dsMovimiento: TDatasource[2]
     DataSet = Movimiento
     left = 56
     top = 120
   end
-  object dsMovimientoDet: TDataSource[3]
+  object dsMovimientoDet: TDatasource[3]
     DataSet = MovimientoDet
     left = 160
     top = 120
+  end
+  object Operacion: TSQLQuery[4]
+    FieldDefs = <>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    Params = <>
+    left = 56
+    top = 192
   end
 end

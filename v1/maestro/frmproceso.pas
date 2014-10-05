@@ -16,10 +16,6 @@ type
     ButtonPanel1: TButtonPanel;
     procedure CloseButtonClick(Sender: TObject);
     procedure HelpButtonClick(Sender: TObject);
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var

@@ -16,6 +16,8 @@ resourcestring
   rsProductInitials = 'SGCD';
   rsProductName = 'Sistema de Gestión de Cursos de Danza ';
   rsProductVersion = 'Versión 0.0.0.1';
+  rsPendingChanges = 'Hay cambios sin guardar.';
+  rsModelErr = 'El modelo no es del tipo apropiado';
 
 type
 
@@ -31,7 +33,7 @@ type
     destructor Destroy; override;
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
-    procedure CloseQuery(Sender: IView; var CanClose: boolean);
+    procedure CloseQuery(Sender: IView; var CanClose: boolean); virtual;
     procedure ErrorHandler(E: Exception; Sender: IView);
     procedure ShowHelp(Sender: IView);
     procedure ShowHelp(Sender: IFormView);
@@ -46,6 +48,7 @@ type
     //FController: IController;
   public
     procedure Cancel(Sender: IView);
+    procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
     procedure Commit(Sender: IView);
     procedure Connect(Sender: IView);
     procedure Disconnect(Sender: IView);
@@ -53,6 +56,8 @@ type
     procedure FilterData(AFilterText: string; Sender: IView);
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
+    procedure Rollback(Sender: IView);
+    procedure Save(Sender: IView);
     function GetCurrentRecordText(Sender: IView): string;
     function IsDBConnected(Sender: IView): boolean;
     //property Controller: IController read FController implements IController;
@@ -95,6 +100,18 @@ begin
   Model.RefreshDataSets;
 end;
 
+procedure TABMController.Rollback(Sender: IView);
+begin
+  Model.Rollback;
+  Model.Connect;
+end;
+
+procedure TABMController.Save(Sender: IView);
+begin
+  Model.SaveChanges;
+  Model.RefreshDataSets;
+end;
+
 procedure TABMController.EditCurrentRecord(Sender: IView);
 begin
   Model.EditCurrentRecord;
@@ -104,6 +121,26 @@ procedure TABMController.Cancel(Sender: IView);
 begin
   Model.DiscardChanges;
   Model.RefreshDataSets;
+end;
+
+procedure TABMController.CloseQuery(Sender: IView; var CanClose: boolean);
+begin
+  if Model.ArePendingChanges then
+    case Sender.ShowConfirmationMessage(rsExitSalir, rsPendingChanges +
+        #13#10 + rsExitQuestion) of
+      mrYes:
+      begin
+        CanClose := True;
+        Model.DiscardChanges;
+        (Model.MasterDataModule as ISubject).Detach(Sender as IObserver);
+      end;
+      mrNo:
+      begin
+        CanClose := False;
+      end;
+    end
+  else
+    inherited CloseQuery(Sender, CanClose);
 end;
 
 procedure TABMController.Connect(Sender: IView);
@@ -118,7 +155,7 @@ end;
 
 procedure TABMController.Commit(Sender: IView);
 begin
-  Model.SaveChanges;
+  Model.Commit;
   Model.Connect;
 end;
 

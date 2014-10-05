@@ -13,8 +13,7 @@ type
   { TPrincipal1 }
 
   TPrincipal1 = class(TMaestro)
-    Button1: TButton;
-    MainMenu1: TMainMenu;
+    Asientos: TButton;
     Academico: TMenuItem;
     Administrativo: TMenuItem;
     ayuda2: TMenuItem;
@@ -71,6 +70,7 @@ type
     registroAnecdotico1: TMenuItem;
     StatusBar1: TStatusBar;
     trabajoPractico1: TMenuItem;
+    procedure AsientosClick(Sender: TObject);
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure generarDeudaClick(Sender: TObject);
@@ -110,6 +110,11 @@ end;
 procedure TPrincipal1.facturasClick(Sender: TObject);
 begin
   GetCustomController.OpenFacturasForm(Self);
+end;
+
+procedure TPrincipal1.AsientosClick(Sender: TObject);
+begin
+  GetCustomController.OpenAsientosFrom(Self);
 end;
 
 procedure TPrincipal1.FormClose(Sender: TObject; var CloseAction: TCloseAction);

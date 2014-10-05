@@ -16,15 +16,24 @@ type
   { TCuentaDataModule }
 
   TCuentaDataModule = class(TQueryDataModule)
-    Cuenta: TSQLQuery;
+    CuentaAux: TSQLQuery;
+    CuentaAuxCODIGO: TStringField;
+    CuentaAuxCUENTA_PADRE: TLongintField;
+    CuentaAuxID: TLongintField;
+    CuentaAuxNATURALEZA: TStringField;
+    CuentaAuxNOMBRE: TStringField;
     CuentaCODIGO: TStringField;
+    CuentaCUENTA_PADRE: TLongintField;
     CuentaID: TLongintField;
+    CuentaNATURALEZA: TStringField;
     CuentaNOMBRE: TStringField;
-    CuentaTIPO_CUENTA: TStringField;
+    dsCuentaAux: TDataSource;
     dsCuenta: TDataSource;
+    Cuenta: TSQLQuery;
     procedure CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure CuentaNewRecord(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure SaveChanges; override;
   private
     { private declarations }
   public
@@ -44,8 +53,14 @@ procedure TCuentaDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(Cuenta));
+  //AuxQryList.Add(TObject(CuentaAux));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('CODIGO');
+end;
+
+procedure TCuentaDataModule.SaveChanges;
+begin
+  inherited SaveChanges;
 end;
 
 procedure TCuentaDataModule.CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);

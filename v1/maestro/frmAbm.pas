@@ -14,7 +14,6 @@ type
   { TAbm }
 
   TAbm = class(TMaestro, IABMView)
-
   private
     FABMController: IABMController;
     function GetController: IABMController;
@@ -64,6 +63,7 @@ end;
 
 procedure TAbm.OK(Sender: TObject);
 begin
+  ABMController.Save(Self);
   ABMController.Commit(Self);
   ShowPanel(PanelList);
 end;
@@ -140,9 +140,9 @@ end;
 
 procedure TAbm.SetController(AValue: IABMController);
 begin
-  if ABMController = AValue then
+  if FABMController = AValue then
     Exit;
-  ABMController := AValue;
+  FABMController := AValue;
 end;
 
 constructor TAbm.Create(AOwner: IFormView; AController: IABMController);

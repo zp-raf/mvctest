@@ -1,166 +1,260 @@
 inherited ProcesoAsientos: TProcesoAsientos
-  Left = 690
-  Height = 664
-  Top = 199
-  Width = 651
+  Left = 88
+  Height = 785
+  Top = 5
+  Width = 1098
   Caption = 'Asientos'
-  ClientHeight = 644
-  ClientWidth = 651
+  ClientHeight = 766
+  ClientWidth = 1098
   OnCreate = FormCreate
   inherited ButtonPanel1: TButtonPanel
-    Top = 604
-    Width = 639
+    Top = 726
+    Width = 1086
+    OKButton.Caption = '&Guardar'
+    OKButton.DefaultCaption = False
+    OKButton.OnClick = OKButtonClick
+    CancelButton.Caption = '&Cancelar'
+    CancelButton.DefaultCaption = False
+    CancelButton.OnClick = CancelButtonClick
   end
   object GroupBox1: TGroupBox[1]
-    Left = 6
-    Height = 264
-    Top = 0
-    Width = 639
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 4
+    Height = 284
+    Top = 4
+    Width = 1090
     Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 4
+    BorderSpacing.Top = 4
+    BorderSpacing.Right = 4
+    BorderSpacing.Bottom = 4
     Caption = 'Nuevo asiento'
-    ClientHeight = 246
-    ClientWidth = 635
+    ClientHeight = 266
+    ClientWidth = 1086
     TabOrder = 1
-    object DBLookupComboBox1: TDBLookupComboBox
+    object DBLookupComboBoxDebe: TDBLookupComboBox
       AnchorSideLeft.Control = GroupBox1
       AnchorSideRight.Control = GroupBox1
       AnchorSideRight.Side = asrBottom
       Left = 8
-      Height = 23
+      Height = 21
       Top = 24
-      Width = 619
+      Width = 1070
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 8
       BorderSpacing.Right = 8
+      KeyField = 'ID'
       ListField = 'NOMBRE'
       ListFieldIndex = 0
-      ListSource = CuentaDataModule.dsCuenta
-      LookupCache = False
-      ReadOnly = True
-      ScrollListDataset = True
-      TabOrder = 0
-    end
-    object DBLookupComboBox2: TDBLookupComboBox
-      AnchorSideLeft.Control = GroupBox1
-      AnchorSideRight.Control = GroupBox1
-      AnchorSideRight.Side = asrBottom
-      Left = 8
-      Height = 23
-      Top = 72
-      Width = 619
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Left = 8
-      BorderSpacing.Right = 8
-      ListField = 'NOMBRE'
-      ListFieldIndex = 0
-      ListSource = CuentaDataModule.dsCuenta
+      ListSource = AsientosDataModule.dsCuentaDebe
       LookupCache = False
       ReadOnly = True
       ScrollListDataset = True
       TabOrder = 1
     end
-    object Debe: TLabel
-      AnchorSideLeft.Control = DBLookupComboBox1
-      AnchorSideBottom.Control = DBLookupComboBox1
+    object DBLookupComboBoxHaber: TDBLookupComboBox
+      AnchorSideLeft.Control = GroupBox1
+      AnchorSideRight.Control = GroupBox1
+      AnchorSideRight.Side = asrBottom
       Left = 8
-      Height = 15
-      Top = 9
-      Width = 27
+      Height = 21
+      Top = 72
+      Width = 1070
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Left = 8
+      BorderSpacing.Right = 8
+      KeyField = 'ID'
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = AsientosDataModule.dsCuentaHaber
+      LookupCache = False
+      ReadOnly = True
+      ScrollListDataset = True
+      TabOrder = 2
+    end
+    object Debe: TLabel
+      AnchorSideLeft.Control = DBLookupComboBoxDebe
+      AnchorSideBottom.Control = DBLookupComboBoxDebe
+      Left = 8
+      Height = 13
+      Top = 11
+      Width = 25
       Anchors = [akLeft, akBottom]
       Caption = 'Debe'
       ParentColor = False
     end
     object Haber: TLabel
-      AnchorSideLeft.Control = DBLookupComboBox2
-      AnchorSideBottom.Control = DBLookupComboBox2
+      AnchorSideLeft.Control = DBLookupComboBoxHaber
+      AnchorSideBottom.Control = DBLookupComboBoxHaber
       Left = 8
-      Height = 15
-      Top = 57
-      Width = 32
+      Height = 13
+      Top = 59
+      Width = 29
       Anchors = [akLeft, akBottom]
       Caption = 'Haber'
       ParentColor = False
     end
-    object LabeledEdit1: TLabeledEdit
-      AnchorSideLeft.Control = GroupBox1
-      Left = 8
-      Height = 23
-      Top = 128
-      Width = 216
-      BorderSpacing.Left = 8
-      EditLabel.AnchorSideLeft.Control = LabeledEdit1
-      EditLabel.AnchorSideRight.Control = LabeledEdit1
-      EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = LabeledEdit1
-      EditLabel.Left = 8
-      EditLabel.Height = 15
-      EditLabel.Top = 110
-      EditLabel.Width = 216
-      EditLabel.Caption = 'Monto'
-      EditLabel.ParentColor = False
-      TabOrder = 2
-    end
-    object LabeledEdit2: TLabeledEdit
+    object LabeledEditDesscripcion: TLabeledEdit
       AnchorSideLeft.Control = GroupBox1
       AnchorSideRight.Control = GroupBox1
       AnchorSideRight.Side = asrBottom
       Left = 8
-      Height = 23
+      Height = 21
       Top = 184
-      Width = 619
+      Width = 1070
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 8
       BorderSpacing.Right = 8
-      EditLabel.AnchorSideLeft.Control = LabeledEdit2
-      EditLabel.AnchorSideRight.Control = LabeledEdit2
+      EditLabel.AnchorSideLeft.Control = LabeledEditDesscripcion
+      EditLabel.AnchorSideRight.Control = LabeledEditDesscripcion
       EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = LabeledEdit2
+      EditLabel.AnchorSideBottom.Control = LabeledEditDesscripcion
       EditLabel.Left = 8
-      EditLabel.Height = 15
-      EditLabel.Top = 166
-      EditLabel.Width = 619
+      EditLabel.Height = 13
+      EditLabel.Top = 168
+      EditLabel.Width = 1070
       EditLabel.Caption = 'Descripcion'
       EditLabel.ParentColor = False
+      TabOrder = 4
+    end
+    object MaskEditMonto: TMaskEdit
+      Left = 8
+      Height = 21
+      Top = 128
+      Width = 136
+      CharCase = ecNormal
+      MaxLength = 0
       TabOrder = 3
+      OnKeyPress = MaskEditMontoKeyPress
+      SpaceChar = '_'
+    end
+    object Monto: TLabel
+      AnchorSideLeft.Control = MaskEditMonto
+      AnchorSideBottom.Control = MaskEditMonto
+      Left = 8
+      Height = 13
+      Top = 115
+      Width = 30
+      Anchors = [akLeft, akBottom]
+      Caption = 'Monto'
+      ParentColor = False
+    end
+    object Conectado: TToggleBox
+      Left = 988
+      Height = 23
+      Top = -8
+      Width = 90
+      Anchors = [akTop, akRight]
+      Caption = 'Conectado'
+      OnClick = ConectadoClick
+      TabOrder = 0
+    end
+    object BitBtnNuevo: TBitBtn
+      Left = 8
+      Height = 30
+      Top = 224
+      Width = 75
+      Caption = '&Nuevo'
+      Kind = bkYes
+      OnClick = BitBtnNuevoClick
+      TabOrder = 5
     end
   end
   object GroupBox2: TGroupBox[2]
     AnchorSideLeft.Control = GroupBox1
     AnchorSideTop.Control = GroupBox1
     AnchorSideTop.Side = asrBottom
-    Left = 6
-    Height = 335
-    Top = 264
-    Width = 639
+    AnchorSideRight.Control = GroupBox1
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = ButtonPanel1
+    Left = 4
+    Height = 428
+    Top = 292
+    Width = 1090
     Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Bottom = 4
     Caption = 'Movimientos'
-    ClientHeight = 317
-    ClientWidth = 635
+    ClientHeight = 410
+    ClientWidth = 1086
     TabOrder = 2
     object DBGrid1: TDBGrid
       AnchorSideLeft.Control = GroupBox2
       AnchorSideTop.Control = GroupBox2
       AnchorSideRight.Control = GroupBox2
       AnchorSideRight.Side = asrBottom
-      AnchorSideBottom.Control = GroupBox2
-      AnchorSideBottom.Side = asrBottom
+      AnchorSideBottom.Control = BitBtnReversar
       Left = 4
-      Height = 309
+      Height = 368
       Top = 4
-      Width = 627
+      Width = 1078
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Around = 4
       Color = clWindow
       Columns = <>
+      DataSource = AsientosDataModule.dsAsientos
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
       TabOrder = 0
+    end
+    object BitBtnReversar: TBitBtn
+      AnchorSideLeft.Control = GroupBox2
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = GroupBox2
+      AnchorSideBottom.Side = asrBottom
+      Left = 4
+      Height = 30
+      Top = 376
+      Width = 79
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Left = 4
+      BorderSpacing.Right = 4
+      BorderSpacing.Bottom = 4
+      Caption = '&Reversar'
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF004DA1560647994FB8FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF0053A95CD94DA156F747994F38FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF005DB868CF71BE7BFF7AC183FF5BAA64FF47994FFF419149FF3B8842FF3580
+        3BFF2F7835FF2A702FFF256929FF216324FF1D5E20FFFFFFFF00FFFFFF0065C3
+        71C47BC886FF9CD5A5FF98D3A1FF94D09DFF90CE98FF8BCB93FF87C98EFF82C6
+        89FF7EC384FF7AC180FF76BE7CFF72BD78FF216324FFFFFFFF00FFFFFF0068C7
+        74C97FCC8AFFA2D8ABFF9ED6A7FF9AD4A3FF96D29FFF93CF9AFF8ECC95FF89CA
+        90FF85C78BFF81C587FF7DC282FF78C07EFF256929FFFFFFFF00FFFFFF00FFFF
+        FF0068C774D180CD8BFF7CC987FF5DB868FF58B162FF53A95CFF4DA156FF4799
+        4FFF419149FF3B8842FF35803BFF2F7835FF2A702FFFFFFFFF00FFFFFF00FFFF
+        FF00FFFFFF0068C774DB65C371F7FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF0068C7740668C774BBFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+      OnClick = BitBtnReversarClick
+      TabOrder = 1
     end
   end
   inherited MainMenu: TMainMenu[3]
-    left = 592
-    top = 0
   end
   inherited AppProps: TApplicationProperties[4]
-    left = 688
-    top = 0
   end
 end

@@ -85,6 +85,7 @@ type
     procedure Disconnect;
     function GetDBStatus: TDBInfo;
     function NextValue(gen: string): integer;
+    procedure Rollback;
   end;
 
   { IModel }
@@ -98,6 +99,7 @@ type
       La logica de datos se debe manejar aca (generators,
       llamadas a procedimientos, etc) }
     ['{91D626B4-415B-4FB2-8B98-620B8F24A406}']
+    procedure Commit;
     procedure Connect;
     procedure DataModuleCreate(Sender: TObject);
     procedure DiscardChanges;
@@ -107,6 +109,7 @@ type
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure NewRecord;
     procedure RefreshDataSets;
+    procedure Rollback;
     procedure SaveChanges;
     procedure SetAuxQryList(AValue: TQryList);
     procedure SetMasterDataModule(AValue: IDBModel);
@@ -155,14 +158,16 @@ type
 
   IABMController = interface(IController)
     ['{DCFA8850-3248-48F4-BC94-72A140AA75F4}']
-    procedure FilterData(AFilterText: string; Sender: IView);
     procedure Cancel(Sender: IView);
+    procedure Commit(Sender: IView);
     procedure Connect(Sender: IView);
     procedure Disconnect(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
+    procedure FilterData(AFilterText: string; Sender: IView);
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
-    procedure Commit(Sender: IView);
+    procedure Rollback(Sender: IView);
+    procedure Save(Sender: IView);
     function GetCurrentRecordText(Sender: IView): string;
     function IsDBConnected(Sender: IView): boolean;
   end;

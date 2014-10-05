@@ -36,6 +36,7 @@ type
     function DevuelveValor(AQry: string; NombreCampoADevolver: string): string;
     function GetDBStatus: TDBInfo;
     function NextValue(gen: string): integer;
+    procedure Rollback;
 
     { En la arquitectura Observer-Subject el sujeto notifica a los observadores
       (en nuestro caso las vistas) para que se actualicen. }
@@ -148,6 +149,11 @@ end;
 function TSgcdDataModule.NextValue(gen: string): integer;
 begin
   Result := StrToInt(DevuelveValor(rsSelectNextVa + gen + rsFromRdbDatab, rsGEN_ID));
+end;
+
+procedure TSgcdDataModule.Rollback;
+begin
+  tran.Rollback;
 end;
 
 end.

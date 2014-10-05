@@ -104,14 +104,13 @@ procedure TPrincipalController.OpenABMCuentasForm(Sender: IFormView);
 begin
   AbmCuentas := TAbmCuentas.Create(Sender, TCuentaController.Create(
     TCuentaDataModule.Create(Application, Model.MasterDataModule)));
-
   AbmCuentas.Show;
   (Model.MasterDataModule as ISubject).Attach(AbmCuentas as IObserver);
 end;
 
 procedure TPrincipalController.OpenAsientosFrom(Sender: IFormView);
 begin
-  ProcesoAsientos := TProcesoAsientos.Create(nil,
+  ProcesoAsientos := TProcesoAsientos.Create(Sender,
     TAsientosController.Create(TAsientosDataModule.Create(Application,
     Model.MasterDataModule)));
   ProcesoAsientos.Show;
