@@ -7,8 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ButtonPanel, StdCtrls, DBCtrls, ExtCtrls, DBGrids, PairSplitter, Buttons,
-  maskedit, frmproceso, frmmovimientodatamodule, frmasientosdatamodule,
-  asientosctrl, mvc, frmMaestro;
+  maskedit, frmproceso, frmasientosdatamodule, asientosctrl, mvc, frmMaestro;
 
 resourcestring
   rsReversionDeA = 'Reversion de asiento';
@@ -18,6 +17,13 @@ type
   { TProcesoAsientos }
 
   TProcesoAsientos = class(TProceso)
+    BitBtnCerrarAsiento: TBitBtn;
+    BitBtnNuevoDetalle: TBitBtn;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
+    RadioGroup1: TRadioGroup;
+    procedure BitBtnCerrarAsientoClick(Sender: TObject);
+    procedure BitBtnNuevoDetalleClick(Sender: TObject);
   private
     FABMController: IABMController;
     FCustomController: TAsientosController;
@@ -34,12 +40,9 @@ type
     MaskEditMonto: TMaskEdit;
     Conectado: TToggleBox;
     BitBtnReversar: TBitBtn;
-    DBGrid1: TDBGrid;
-    DBLookupComboBoxDebe: TDBLookupComboBox;
-    DBLookupComboBoxHaber: TDBLookupComboBox;
+    DBLookupComboBoxCuenta: TDBLookupComboBox;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
-    Debe: TLabel;
     Haber: TLabel;
     LabeledEditDesscripcion: TLabeledEdit;
     procedure BitBtnNuevoClick(Sender: TObject);
@@ -74,6 +77,41 @@ begin
     Conectado.Checked := True
   else
     Conectado.Checked := False;
+  case GetCustomController.GetAsientoEstado(Self) of
+    asInicial:
+    begin
+      DBLookupComboBoxCuenta.Enabled := False;
+      MaskEditMonto.Enabled := False;
+      LabeledEditDesscripcion.Enabled := True;
+      RadioGroup1.Enabled := False;
+      BitBtnReversar.Enabled := True;
+      BitBtnCerrarAsiento.Enabled := False;
+      BitBtnNuevoDetalle.Enabled := False;
+      BitBtnNuevo.Enabled := True;
+    end;
+    asGuardado:
+    begin
+      DBLookupComboBoxCuenta.Enabled := False;
+      MaskEditMonto.Enabled := False;
+      LabeledEditDesscripcion.Enabled := True;
+      RadioGroup1.Enabled := False;
+      BitBtnReversar.Enabled := True;
+      BitBtnCerrarAsiento.Enabled := False;
+      BitBtnNuevoDetalle.Enabled := False;
+      BitBtnNuevo.Enabled := True;
+    end;
+    asEditando:
+    begin
+      DBLookupComboBoxCuenta.Enabled := True;
+      MaskEditMonto.Enabled := True;
+      LabeledEditDesscripcion.Enabled := False;
+      RadioGroup1.Enabled := True;
+      BitBtnReversar.Enabled := False;
+      BitBtnCerrarAsiento.Enabled := True;
+      BitBtnNuevoDetalle.Enabled := True;
+      BitBtnNuevo.Enabled := False;
+    end;
+  end;
 end;
 
 constructor TProcesoAsientos.Create(AOwner: IFormView;
@@ -106,18 +144,17 @@ begin
   //DBLookupComboBoxDebe.ListField := 'NOMBRE';
   //DBLookupComboBoxDebe.ScrollListDataset := True;
 
-  //DBLookupComboBoxHaber.ListSource := GetCustomController.GetCuentaHaberDataSource;
-  //DBLookupComboBoxHaber.KeyField := 'ID';
-  //DBLookupComboBoxHaber.ListField := 'NOMBRE';
+  //DBLookupComboBoxCuenta.ListSource := GetCustomController.GetCuentaHaberDataSource;
+  //DBLookupComboBoxCuenta.KeyField := 'ID';
+  //DBLookupComboBoxCuenta.ListField := 'NOMBRE';
   //DBLookupComboBoxDebe.ScrollListDataset := True;
 end;
 
 procedure TProcesoAsientos.Limpiar;
 begin
-  DBLookupComboBoxDebe.ClearSelection;
-  DBLookupComboBoxHaber.ClearSelection;
+  DBLookupComboBoxCuenta.ClearSelection;
   MaskEditMonto.Clear;
-  LabeledEditDesscripcion.Clear;
+  RadioGroup1.ItemIndex := -1;
 end;
 
 procedure TProcesoAsientos.ConectadoClick(Sender: TObject);
@@ -130,11 +167,9 @@ end;
 
 procedure TProcesoAsientos.BitBtnNuevoClick(Sender: TObject);
 begin
-  if (Trim(MaskEditMonto.Text) = '') or (Trim(DBLookupComboBoxDebe.Text) = '') or
-    (Trim(DBLookupComboBoxHaber.Text) = '') then
-    Exit;
   GetCustomController.NuevoAsiento(LabeledEditDesscripcion.Text, Self as IFormView);
   Limpiar;
+  LabeledEditDesscripcion.Enabled := False;
 end;
 
 procedure TProcesoAsientos.MaskEditMontoKeyPress(Sender: TObject; var Key: char);
@@ -150,6 +185,25 @@ begin
   ABMController.Connect(Self);
   Limpiar;
   ShowInfoMessage('Los nuevos asientos fueron guardados');
+end;
+
+procedure TProcesoAsientos.BitBtnNuevoDetalleClick(Sender: TObject);
+begin
+  if (RadioGroup1.ItemIndex in [0, 1]) then
+  begin
+    case RadioGroup1.ItemIndex of
+      0: GetCustomController.NuevoAsientoDetalle(mvDebito, MaskEditMonto.Text, Self);
+      1: GetCustomController.NuevoAsientoDetalle(mvCredito, MaskEditMonto.Text, Self);
+    end;
+    Limpiar;
+  end
+  else
+    ShowInfoMessage('Por favor seleccione un tipo de movimiento');
+end;
+
+procedure TProcesoAsientos.BitBtnCerrarAsientoClick(Sender: TObject);
+begin
+  GetCustomController.CerrarAsiento(Self);
 end;
 
 function TProcesoAsientos.GetController: IABMController;

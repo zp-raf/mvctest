@@ -5,7 +5,6 @@ inherited MovimientoDataModule: TMovimientoDataModule
   VerticalOffset = 358
   Width = 264
   object Movimiento: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -184,22 +183,14 @@ inherited MovimientoDataModule: TMovimientoDataModule
       Size = 1
     end
   end
-  object dsMovimiento: TDatasource[2]
+  object dsMovimiento: TDataSource[2]
     DataSet = Movimiento
     left = 56
     top = 120
   end
-  object dsMovimientoDet: TDatasource[3]
+  object dsMovimientoDet: TDataSource[3]
     DataSet = MovimientoDet
     left = 160
     top = 120
-  end
-  object Operacion: TSQLQuery[4]
-    FieldDefs = <>
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
-    Params = <>
-    left = 56
-    top = 192
   end
 end

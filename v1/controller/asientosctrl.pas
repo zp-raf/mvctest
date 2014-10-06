@@ -17,18 +17,27 @@ type
 
   TAsientosController = class(TABMController)
   private
+    FCustomModel: TAsientosDataModule;
     { Aca saca el objeto model pero casteado al tipo que necesitamos para poder
       usar los metodos y funciones especificos del modelo y que no estan
       especificados en la interfaz }
     function GetCustomModel: TAsientosDataModule;
-    function GetCuentaDebeDataSource: TDataSource;
-    function GetCuentaHaberDataSource: TDataSource;
+    function GetCuentaDataSource: TDataSource;
+    procedure SetCustomModel(AValue: TAsientosDataModule);
   public
-    //constructor Create(AModel: IModel); overload;
+    constructor Create(AModel: IModel); overload;
+    destructor Destroy; override;
+    function GetAsientoEstado(Sender: IView): TEstadoAsiento;
     procedure NuevoAsiento(ADescripcion: string; Sender: IView);
+    procedure NuevoAsientoDetalle(ACuentaID: string; ATipoMov: TTipoMovimiento;
+      AMonto: string; Sender: IView);
+    procedure NuevoAsientoDetalle(ATipoMov: TTipoMovimiento; AMonto: string;
+      Sender: IView);
+    procedure CerrarAsiento(Sender: IView);
     procedure ErrorHandler(E: Exception; Sender: IView); override;
     procedure ReversarAsiento(AAsientoID: string; ADescripcion: string; Sender: IView);
     procedure ReversarAsiento(ADescripcion: string; Sender: IView);
+    property CustomModel: TAsientosDataModule read GetCustomModel write SetCustomModel;
   end;
 
 var
@@ -38,29 +47,82 @@ implementation
 
 { TAsientosController }
 
-function TAsientosController.GetCuentaDebeDataSource: TDataSource;
+function TAsientosController.GetCuentaDataSource: TDataSource;
 begin
-  Result := GetCustomModel.dsCuentaDebe;
+  Result := GetCustomModel.dsCuenta;
 end;
 
-function TAsientosController.GetCuentaHaberDataSource: TDataSource;
+procedure TAsientosController.SetCustomModel(AValue: TAsientosDataModule);
 begin
-  Result := GetCustomModel.dsCuentaHaber;
+  if AValue = FCustomModel then
+    Exit;
+  FCustomModel := AValue;
 end;
 
-//constructor TAsientosController.Create(AModel: IModel);
-//begin
-//  inherited Create(AModel);
-//end;
+constructor TAsientosController.Create(AModel: IModel);
+begin
+  inherited Create(AModel);
+  if (AModel is TAsientosDataModule) then
+    CustomModel := (AModel as TAsientosDataModule)
+  else
+    raise Exception.Create(rsModelErr);
+end;
+
+destructor TAsientosController.Destroy;
+begin
+  CustomModel := nil;
+  inherited;
+end;
+
+function TAsientosController.GetAsientoEstado(Sender: IView): TEstadoAsiento;
+begin
+  Result := GetCustomModel.Estado;
+end;
 
 function TAsientosController.GetCustomModel: TAsientosDataModule;
 begin
-  Result := (Model as TAsientosDataModule);
+  Result := FCustomModel;
 end;
 
 procedure TAsientosController.NuevoAsiento(ADescripcion: string; Sender: IView);
 begin
   GetCustomModel.NuevoAsiento(ADescripcion);
+end;
+
+procedure TAsientosController.NuevoAsientoDetalle(ACuentaID: string;
+  ATipoMov: TTipoMovimiento; AMonto: string; Sender: IView);
+var
+  id: integer;
+  mon: double;
+begin
+  if TryStrToInt(ACuentaID, id) then
+    if TryStrToFloat(AMonto, mon) then
+    begin
+      GetCustomModel.NuevoAsientoDetalle(ACuentaID, ATipoMov, mon);
+    end
+    else
+      raise Exception.Create(rsFormatoDeMon)
+  else
+    raise Exception.Create(rsFormatoDeIde);
+end;
+
+procedure TAsientosController.NuevoAsientoDetalle(ATipoMov: TTipoMovimiento;
+  AMonto: string; Sender: IView);
+var
+  mon: double;
+begin
+  if TryStrToFloat(AMonto, mon) then
+    NuevoAsientoDetalle(GetCustomModel.Cuenta.CuentaID.AsString,
+      ATipoMov, AMonto, Sender)
+  else
+    raise Exception.Create(rsFormatoDeMon);
+end;
+
+procedure TAsientosController.CerrarAsiento(Sender: IView);
+begin
+  GetCustomModel.CerrarAsiento;
+  Model.SaveChanges;
+  Model.RefreshDataSets;
 end;
 
 procedure TAsientosController.ErrorHandler(E: Exception; Sender: IView);
@@ -71,10 +133,17 @@ end;
 
 procedure TAsientosController.ReversarAsiento(AAsientoID: string;
   ADescripcion: string; Sender: IView);
+var
+  id: integer;
 begin
-  GetCustomModel.ReversarAsiento(AAsientoID, ADescripcion);
-  Model.SaveChanges;
-  Model.RefreshDataSets;
+  if TryStrToInt(AAsientoID, id) then
+  begin
+    GetCustomModel.ReversarAsiento(AAsientoID, ADescripcion);
+    Model.SaveChanges;
+    Model.RefreshDataSets;
+  end
+  else
+    raise Exception.Create(rsFormatoDeIde);
 end;
 
 procedure TAsientosController.ReversarAsiento(ADescripcion: string; Sender: IView);

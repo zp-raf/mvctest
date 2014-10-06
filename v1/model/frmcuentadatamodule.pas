@@ -26,10 +26,12 @@ type
     CuentaID: TLongintField;
     CuentaNATURALEZA: TStringField;
     CuentaNOMBRE: TStringField;
+    CuentaNOMBRE_CODIGO: TStringField;
     dsCuentaAux: TDataSource;
     dsCuenta: TDataSource;
     Cuenta: TSQLQuery;
     procedure ActualizarDetallesCuenta(Sender: IController; var EsCuentaHija: boolean);
+    procedure CuentaCalcFields(DataSet: TDataSet);
     procedure CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure CuentaNewRecord(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject); override;
@@ -79,6 +81,12 @@ begin
     CuentaNATURALEZA.Value := CuentaAuxNATURALEZA.Value;
     EsCuentaHija := True;
   end;
+end;
+
+procedure TCuentaDataModule.CuentaCalcFields(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('NOMBRE_CODIGO').AsString :=
+    DataSet.FieldByName('CODIGO').AsString + '. ' + DataSet.FieldByName('NOMBRE').AsString;
 end;
 
 procedure TCuentaDataModule.CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);

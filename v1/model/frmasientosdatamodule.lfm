@@ -1,10 +1,15 @@
 inherited AsientosDataModule: TAsientosDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 220
   HorizontalOffset = 867
   VerticalOffset = 336
   Width = 363
-  object qryAsientos: TSQLQuery[0]
+  object dsCuenta: TDataSource[0]
+    left = 312
+    top = 24
+  end
+  object Movimiento: TSQLQuery[1]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -25,72 +30,33 @@ inherited AsientosDataModule: TAsientosDataModule
         Size = 0
       end    
       item
-        Name = 'MOVIMIENTOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'CUENTA_DEBE'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOMBRE_CUENTA_DEBE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'MONTO_DEBE'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'CUENTA_HABER'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOMBRE_CUENTA_HABER'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'MONTO_HABER'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
         Name = 'DESCRIPCION'
         DataType = ftString
         Precision = -1
         Size = 255
       end>
+    AfterScroll = MovimientoAfterScroll
+    OnFilterRecord = MovimientoFilterRecord
+    OnNewRecord = MovimientoNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
-      'select * from v_movimientos'
+      'select * from movimiento'
     )
     Params = <>
-    left = 32
-    top = 16
-    object qryAsientosID: TLongintField
+    left = 40
+    top = 24
+    object MovimientoID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ID'
       Index = 0
       LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = False
-      Required = False
+      Required = True
     end
-    object qryAsientosNUMERO: TLongintField
+    object MovimientoNUMERO: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'NUMERO'
@@ -100,7 +66,7 @@ inherited AsientosDataModule: TAsientosDataModule
       ReadOnly = False
       Required = False
     end
-    object qryAsientosFECHA: TDateField
+    object MovimientoFECHA: TDateField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'FECHA'
@@ -108,109 +74,133 @@ inherited AsientosDataModule: TAsientosDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = False
+      Required = True
     end
-    object qryAsientosMOVIMIENTOID: TLongintField
-      DisplayWidth = 10
+    object MovimientoDESCRIPCION: TStringField
+      DisplayWidth = 255
       FieldKind = fkData
-      FieldName = 'MOVIMIENTOID'
+      FieldName = 'DESCRIPCION'
       Index = 3
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      Size = 255
     end
-    object qryAsientosCUENTA_DEBE: TLongintField
+  end
+  object MovimientoDet: TSQLQuery[2]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MOVIMIENTOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CUENTAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MONTO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIPO_MOVIMIENTO'
+        DataType = ftFixedChar
+        Precision = -1
+        Size = 1
+      end>
+    AfterInsert = MovimientoDetAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from movimiento_detalle'
+      'where movimiento_detalle.movimientoid = :id'
+    )
+    InsertSQL.Strings = (
+      ''
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptInput
+      end>
+    left = 184
+    top = 24
+    object MovimientoDetID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'CUENTA_DEBE'
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object MovimientoDetMOVIMIENTOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MOVIMIENTOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MovimientoDetCUENTAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CUENTAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MovimientoDetMONTO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object MovimientoDetTIPO_MOVIMIENTO: TStringField
+      DisplayWidth = 1
+      FieldKind = fkData
+      FieldName = 'TIPO_MOVIMIENTO'
       Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = False
-    end
-    object qryAsientosNOMBRE_CUENTA_DEBE: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NOMBRE_CUENTA_DEBE'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object qryAsientosMONTO_DEBE: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'MONTO_DEBE'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-    object qryAsientosCUENTA_HABER: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'CUENTA_HABER'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object qryAsientosNOMBRE_CUENTA_HABER: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NOMBRE_CUENTA_HABER'
-      Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object qryAsientosMONTO_HABER: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'MONTO_HABER'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-    object qryAsientosDESCRIPCION: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'DESCRIPCION'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = True
-      Required = False
-      Size = 255
+      Required = True
+      Size = 1
     end
   end
-  object dsAsientos: TDataSource[1]
-    DataSet = qryAsientos
-    left = 112
-    top = 24
+  object dsMovimiento: TDataSource[3]
+    DataSet = Movimiento
+    left = 40
+    top = 104
   end
-  object dsCuentaDebe: TDataSource[2]
-    left = 192
-    top = 80
-  end
-  object dsCuentaHaber: TDataSource[3]
-    left = 288
-    top = 96
+  object dsMovimientoDet: TDataSource[4]
+    DataSet = MovimientoDet
+    left = 184
+    top = 104
   end
 end

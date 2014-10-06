@@ -10,6 +10,7 @@ inherited CuentaDataModule: TCuentaDataModule
     top = 88
   end
   object Cuenta: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -41,6 +42,8 @@ inherited CuentaDataModule: TCuentaDataModule
         Precision = -1
         Size = 0
       end>
+    Active = True
+    OnCalcFields = CuentaCalcFields
     OnNewRecord = CuentaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -103,9 +106,19 @@ inherited CuentaDataModule: TCuentaDataModule
       ReadOnly = False
       Required = False
     end
+    object CuentaNOMBRE_CODIGO: TStringField
+      DisplayWidth = 200
+      FieldKind = fkCalculated
+      FieldName = 'NOMBRE_CODIGO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
   end
   object CuentaAux: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

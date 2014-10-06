@@ -199,9 +199,12 @@ begin
 end;
 
 destructor TController.Destroy;
+var
+  t: pointer;
 begin
-  (Model as TComponent).Free;
-  inherited Destroy;
+  t := Pointer(Model);
+  Model := nil;
+  TComponent(t).Free;
 end;
 
 procedure TController.Close(Sender: IView);

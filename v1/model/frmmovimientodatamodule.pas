@@ -30,7 +30,6 @@ type
     MovimientoFECHA: TDateField;
     MovimientoID: TLongintField;
     MovimientoNUMERO: TLongintField;
-    Operacion: TSQLQuery;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure MovimientoDetAfterInsert(DataSet: TDataSet);
     procedure MovimientoFilterRecord(DataSet: TDataSet; var Accept: boolean);

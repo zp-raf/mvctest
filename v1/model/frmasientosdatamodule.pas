@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, mvc, frmcuentadatamodule, frmmovimientodatamodule;
+  frmquerydatamodule, mvc, frmcuentadatamodule, frmmovimientodatamodule,
+  observerSubject;
 
 resourcestring
   rsSeHaSeleccio = 'Se ha seleccionado la misma cuenta para debe y haber';
@@ -15,6 +16,10 @@ resourcestring
   rsNuevoAsientoError = 'Creacion de asiento en proceso. Finalice el asiento ' +
     'e intente de nuevo.';
   rsNoHayNigunAs = 'No hay nigun asiento en proceso.';
+  rsLosMontosDeb = 'Los montos debe y haber no coinciden. Por favor revise los' +
+    ' datos e intente de nuevo';
+  rsGenNameMov = 'GEN_MOVIMIENTO';
+  rsGenNameMovDet = 'GEN_MOVIMIENTO_DET';
 
 const
   DEBITO = 'D';
@@ -28,18 +33,43 @@ type
 
   TEstadoAsiento = (asInicial, asEditando, asGuardado);
 
+  { TMovimientoRec }
+
+  TMovimientoRec = record
+    CuentaID: string;
+    TipoMovimiento: TTipoMovimiento;
+    Monto: double;
+  end;
+
+  TMovimientoList = array of TMovimientoRec;
+
   { TAsientosDataModule }
 
   TAsientosDataModule = class(TQueryDataModule)
+    dsMovimiento: TDataSource;
+    dsMovimientoDet: TDataSource;
+    Movimiento: TSQLQuery;
+    MovimientoDESCRIPCION: TStringField;
+    MovimientoDet: TSQLQuery;
+    MovimientoDetCUENTAID: TLongintField;
+    MovimientoDetID: TLongintField;
+    MovimientoDetMONTO: TFloatField;
+    MovimientoDetMOVIMIENTOID: TLongintField;
+    MovimientoDetTIPO_MOVIMIENTO: TStringField;
+    MovimientoFECHA: TDateField;
+    MovimientoID: TLongintField;
+    MovimientoNUMERO: TLongintField;
+    procedure DataModuleDestroy(Sender: TObject);
+    procedure MovimientoAfterScroll(DataSet: TDataSet);
+    procedure MovimientoDetAfterInsert(DataSet: TDataSet);
+    procedure MovimientoFilterRecord(DataSet: TDataSet; var Accept: boolean);
+    procedure MovimientoNewRecord(DataSet: TDataSet);
   private
-    FCuentaDebe: TCuentaDataModule;
-    FCuentaHaber: TCuentaDataModule;
+    FCuenta: TCuentaDataModule;
     FEstado: TEstadoAsiento;
-    FMovimiento: TMovimientoDataModule;
+    procedure ResetearEstado;
   published
-    dsCuentaHaber: TDataSource;
-    dsCuentaDebe: TDataSource;
-    dsAsientos: TDataSource;
+    dsCuenta: TDataSource;
     qryAsientosCUENTA_DEBE: TLongintField;
     qryAsientosCUENTA_HABER: TLongintField;
     qryAsientosNOMBRE_CUENTA_DEBE: TStringField;
@@ -51,7 +81,6 @@ type
     qryAsientosMONTO_HABER: TFloatField;
     qryAsientosMOVIMIENTOID: TLongintField;
     qryAsientosNUMERO: TLongintField;
-    qryAsientos: TSQLQuery;
     procedure CerrarAsiento;
     procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
@@ -59,6 +88,7 @@ type
     procedure NuevoAsiento(ADescripcion: string);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double);
+    procedure NuevoAsientoDetalle(ATipoMov: TTipoMovimiento; AMonto: double);
     procedure RefreshDataSets; override;
     procedure ReversarAsiento(ADescripcion: string);
     procedure ReversarAsiento(AAsientoID: string; ADescripcion: string);
@@ -66,9 +96,7 @@ type
 
     { esta clase esta compuesta por tres subobjetos mas; dos para las cuentas
       y otro para los movimientos }
-    property CuentaDebe: TCuentaDataModule read FCuentaDebe write FCuentaDebe;
-    property CuentaHaber: TCuentaDataModule read FCuentaHaber write FCuentaHaber;
-    property Movimiento: TMovimientoDataModule read FMovimiento write FMovimiento;
+    property Cuenta: TCuentaDataModule read FCuenta write FCuenta;
     property Estado: TEstadoAsiento read FEstado write FEstado;
   end;
 
@@ -84,30 +112,19 @@ implementation
 procedure TAsientosDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited DataModuleCreate(Sender);
+  QryList.Add(TObject(Movimiento));
+  QryList.Add(TObject(MovimientoDet));
+  SearchFieldList.Add('DESCRIPCION');
   Estado := asInicial;
-  // modelo de cuentas para debe
-  FCuentaDebe := TCuentaDataModule.Create(Self, MasterDataModule);
-  FCuentaDebe.SetReadOnly(True);
-  // modelo de cuentas para haber
-  FCuentaHaber := TCuentaDataModule.Create(Self, MasterDataModule);
-  FCuentaHaber.SetReadOnly(True);
-  //modelo de los movimientos
-  FMovimiento := TMovimientoDataModule.Create(Self, MasterDataModule);
-
-  QryList.Add(TObject(qryAsientos));
-  //QryList.Add(TObject(FMovimiento.Movimiento));
-  //QryList.Add(TObject(FMovimiento.MovimientoDet));
-  //AuxQryList.Add(TObject(FCuentaDebe.Cuenta));
-  //AuxQryList.Add(TObject(FCuentaHaber.Cuenta));
-  dsCuentaDebe.DataSet := FCuentaDebe.Cuenta;
-  dsCuentaHaber.DataSet := FCuentaHaber.Cuenta;
+  // modelo de cuentas
+  FCuenta := TCuentaDataModule.Create(Self, MasterDataModule);
+  FCuenta.SetReadOnly(True);
+  dsCuenta.DataSet := FCuenta.Cuenta;
 end;
 
 procedure TAsientosDataModule.Disconnect;
 begin
-  FCuentaDebe.Disconnect;
-  FCuentaHaber.Disconnect;
-  FMovimiento.Disconnect;
+  FCuenta.Disconnect;
   inherited Disconnect;
 end;
 
@@ -116,49 +133,84 @@ begin
   if (Estado in [asEditando]) then
     raise Exception.Create(rsNuevoAsientoError);
   try
-    with FMovimiento do
-    begin
-      Movimiento.Insert;
-      MovimientoFECHA.AsDateTime := Now;
-      MovimientoDESCRIPCION.AsString := ADescripcion;
-      Estado := asEditando;
-    end;
+    Movimiento.Insert;
+    MovimientoFECHA.AsDateTime := Now;
+    MovimientoDESCRIPCION.AsString := ADescripcion;
+    Estado := asEditando;
+    (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
-    begin
-      FMovimiento.DiscardChanges;
-      FMovimiento.Rollback;
-      Estado := asInicial;
-      Connect;
-    end;
+      ResetearEstado;
   end;
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
   ATipoMov: TTipoMovimiento; AMonto: double);
 begin
-  if (Estado in [asEditando]) then
-    raise Exception.Create(rsNuevoAsientoError);
+  if (Estado in [asInicial, asGuardado]) then
+    raise Exception.Create(rsNoHayNigunAs);
   try
-    with FMovimiento do
-    begin
-      MovimientoDet.Insert;
-      MovimientoDetCUENTAID.AsString := ACuenta;
-      MovimientoDetMONTO.AsFloat := AMonto;
-      case ATipoMov of
-        mvCredito: MovimientoDetTIPO_MOVIMIENTO.AsString := CREDITO;
-        mvDebito: MovimientoDetTIPO_MOVIMIENTO.AsString := DEBITO;
-      end;
+    MovimientoDet.Insert;
+    MovimientoDetCUENTAID.AsString := ACuenta;
+    MovimientoDetMONTO.AsFloat := AMonto;
+    case ATipoMov of
+      mvCredito: MovimientoDetTIPO_MOVIMIENTO.AsString := CREDITO;
+      mvDebito: MovimientoDetTIPO_MOVIMIENTO.AsString := DEBITO;
     end;
+    (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
-    begin
-      FMovimiento.DiscardChanges;
-      FMovimiento.Rollback;
-      Estado := asInicial;
-      Connect;
-    end;
+      ResetearEstado;
   end;
+end;
+
+procedure TAsientosDataModule.NuevoAsientoDetalle(ATipoMov: TTipoMovimiento;
+  AMonto: double);
+begin
+  NuevoAsientoDetalle(FCuenta.CuentaID.AsString, ATipoMov, AMonto);
+end;
+
+procedure TAsientosDataModule.MovimientoDetAfterInsert(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('MOVIMIENTOID').AsInteger :=
+    Movimiento.FieldByName('ID').AsInteger;
+  DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenNameMovDet);
+end;
+
+procedure TAsientosDataModule.DataModuleDestroy(Sender: TObject);
+begin
+  inherited;
+  FCuenta.Free;
+end;
+
+procedure TAsientosDataModule.MovimientoAfterScroll(DataSet: TDataSet);
+begin
+  try
+    MovimientoDet.Close;
+    MovimientoDet.ParamByName('ID').AsInteger := DataSet.FieldByName('ID').AsInteger;
+  finally
+    MovimientoDet.Open;
+  end;
+end;
+
+procedure TAsientosDataModule.MovimientoFilterRecord(DataSet: TDataSet;
+  var Accept: boolean);
+begin
+  FilterRecord(DataSet, Accept);
+end;
+
+procedure TAsientosDataModule.MovimientoNewRecord(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenNameMov);
+end;
+
+procedure TAsientosDataModule.ResetearEstado;
+begin
+  DiscardChanges;
+  Rollback;
+  Estado := asInicial;
+  Connect;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TAsientosDataModule.CerrarAsiento;
@@ -168,93 +220,93 @@ begin
   if not (Estado in [asEditando]) then
     raise Exception.Create(rsNoHayNigunAs);
   try
-    sumaDebe:=0.0;
-    sumaHaber:=0.0;
-    // ponemos un filtro para el dataset
-    FMovimiento.MovimientoDet.Filter :=
-      'MOVIMIENTOID = ' + FMovimiento.MovimientoID.AsString;
-    FMovimiento.MovimientoDet.Filtered := True;
-    FMovimiento.MovimientoDet.Close;
-    FMovimiento.MovimientoDet.Open;
-    FMovimiento.MovimientoDet.First;
-    while not Movimiento.MovimientoDet.EOF do
+    sumaDebe := 0.0;
+    sumaHaber := 0.0;
+    // recorremos el dataset y vemos si se los montos cuadran
+    MovimientoDet.First;
+    while not MovimientoDet.EOF do
     begin
-      case FMovimiento.MovimientoDetTIPO_MOVIMIENTO.AsString of
-        DEBITO: ;
-        CREDITO: ;
+      case MovimientoDetTIPO_MOVIMIENTO.AsString of
+        DEBITO: sumaDebe := sumaDebe + MovimientoDetMONTO.AsFloat;
+        CREDITO: sumaHaber := sumaHaber + MovimientoDetMONTO.AsFloat;
       end;
-      FMovimiento.MovimientoDet.Next;
+      MovimientoDet.Next;
     end;
+
+    if sumaDebe <> sumaHaber then
+      raise Exception.Create(rsLosMontosDeb);
+    Movimiento.ApplyUpdates;
+    MovimientoDet.ApplyUpdates;
     Estado := asGuardado;
+    (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
-    begin
-      FMovimiento.DiscardChanges;
-      FMovimiento.Rollback;
-      Estado := asInicial;
-      Connect;
-    end;
+      ResetearEstado;
   end;
 end;
 
 procedure TAsientosDataModule.Connect;
 begin
-  FCuentaDebe.Connect;
-  FCuentaHaber.Connect;
-  FMovimiento.Connect;
+  FCuenta.Connect;
   inherited Connect;
 end;
 
 procedure TAsientosDataModule.RefreshDataSets;
 begin
-  FCuentaDebe.RefreshDataSets;
-  FCuentaHaber.RefreshDataSets;
-  FMovimiento.RefreshDataSets;
+  FCuenta.RefreshDataSets;
   inherited RefreshDataSets;
 end;
 
 procedure TAsientosDataModule.ReversarAsiento(ADescripcion: string);
 begin
-  ReversarAsiento(qryAsientosID.AsString, ADescripcion);
+  ReversarAsiento(MovimientoID.AsString, ADescripcion);
 end;
 
 procedure TAsientosDataModule.ReversarAsiento(AAsientoID: string; ADescripcion: string);
 var
   PDescripcion: string;
+  mov: TMovimientoList;
+  x: integer;
 begin
   // buscamos el asiento
-  if not FMovimiento.Movimiento.Locate('ID', AAsientoID, [loCaseInsensitive]) then
+  if not Movimiento.Locate('ID', AAsientoID, [loCaseInsensitive]) then
     raise Exception.Create(rsAsientoNoEnc);
   try
-    // ponemos un filtro para el dataset
-    FMovimiento.MovimientoDet.Filter :=
-      'MOVIMIENTOID = ' + FMovimiento.MovimientoID.AsString;
-    FMovimiento.MovimientoDet.Filtered := True;
-    FMovimiento.MovimientoDet.Close;
-    FMovimiento.MovimientoDet.Open;
+    // guardamos todos los movimientos en una lista para luego introducirlos
+    // de nuevo pero en movimiento contrario
+    // hay que ir hasta el ultimo registro para obtener el numero real de registros
+    MovimientoDet.Last;
+    SetLength(mov, MovimientoDet.RecordCount);
+    MovimientoDet.First;
+    x := 0;
+    while not MovimientoDet.EOF do
+    begin
+      mov[x].CuentaID := MovimientoDetCUENTAID.AsString;
+      mov[x].Monto := MovimientoDetMONTO.AsFloat;
+      case MovimientoDetTIPO_MOVIMIENTO.AsString of
+        DEBITO:
+          mov[x].TipoMovimiento := mvCredito; // movimiento contrario
+        CREDITO:
+          mov[x].TipoMovimiento := mvDebito; // movimiento contrario
+      end;
+      MovimientoDet.Next;
+      x := x + 1;
+    end;
     // si no se metio una descripcion se usa la que esta por defecto
     if (Trim(ADescripcion) = '') then
-      PDescripcion := DESCRIPCION_POR_DEFECTO + FMovimiento.MovimientoNUMERO.AsString +
-        ' - ' + FMovimiento.MovimientoFECHA.AsString
+      PDescripcion := DESCRIPCION_POR_DEFECTO + MovimientoNUMERO.AsString +
+        ' - ' + MovimientoFECHA.AsString
     else
       PDescripcion := ADescripcion;
+    // insertamos el asiento de reversion
     NuevoAsiento(PDescripcion);
-    // sacamos las cuentas que iran en el nuevo asiento
-    FMovimiento.MovimientoDet.First;
-    while not Movimiento.MovimientoDet.EOF do
+    for x := 0 to Length(mov) - 1 do
     begin
-      // hay que insertar los movimientos contrarios
-      case FMovimiento.MovimientoDetTIPO_MOVIMIENTO.AsString of
-        DEBITO: NuevoAsientoDetalle(FMovimiento.MovimientoDetCUENTAID.AsString,
-            mvCredito, FMovimiento.MovimientoDetMONTO.AsFloat);
-        CREDITO: NuevoAsientoDetalle(FMovimiento.MovimientoDetCUENTAID.AsString,
-            mvDebito, FMovimiento.MovimientoDetMONTO.AsFloat);
-      end;
-      FMovimiento.MovimientoDet.Next;
+      NuevoAsientoDetalle(mov[x].CuentaID, mov[x].TipoMovimiento, mov[x].Monto);
     end;
+    CerrarAsiento;
   finally
-    FMovimiento.MovimientoDet.Filtered := False;
-    FMovimiento.MovimientoDet.Filter := '';
+    (MasterDataModule as ISubject).Notify;
   end;
 end;
 
@@ -262,8 +314,6 @@ procedure TAsientosDataModule.SaveChanges;
 begin
   if (Estado in [asEditando]) then
     CerrarAsiento;
-  FMovimiento.Movimiento.ApplyUpdates;
-  FMovimiento.MovimientoDet.ApplyUpdates;
   inherited SaveChanges;
 end;
 
