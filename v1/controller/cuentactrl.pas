@@ -17,6 +17,7 @@ type
     procedure SetCustomModel(AValue: TCuentaDataModule);
   public
     constructor Create(AModel: IModel); overload;
+    procedure ActualizarDetallesCuenta(Sender: IFormView; var EsCuentaHija: boolean);
     property CustomModel: TCuentaDataModule read FCustomModel write SetCustomModel;
   end;
 
@@ -40,5 +41,10 @@ begin
     raise Exception.Create(rsModelErr);
 end;
 
-end.
+procedure TCuentaController.ActualizarDetallesCuenta(Sender: IFormView;
+  var EsCuentaHija: boolean);
+begin
+  CustomModel.ActualizarDetallesCuenta(Self, EsCuentaHija);
+end;
 
+end.

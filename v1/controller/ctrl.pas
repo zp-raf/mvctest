@@ -34,7 +34,7 @@ type
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean); virtual;
-    procedure ErrorHandler(E: Exception; Sender: IView);
+    procedure ErrorHandler(E: Exception; Sender: IView); virtual;
     procedure ShowHelp(Sender: IView);
     procedure ShowHelp(Sender: IFormView);
     function GetVersion(Sender: IView): string;

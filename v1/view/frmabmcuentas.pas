@@ -17,6 +17,9 @@ type
   { TAbmCuentas }
 
   TAbmCuentas = class(TAbm)
+    DBLookupComboBox1: TDBLookupComboBox;
+    LabelCuentaPadre: TLabel;
+    procedure DBLookupComboBox1EditingDone(Sender: TObject);
   private
     FCustomController: TCuentaController;
     procedure SetCustomController(AValue: TCuentaController);
@@ -26,6 +29,7 @@ type
     DBRadioGroupTipo: TDBRadioGroup;
     Codigo: TLabel;
     Nombre: TLabel;
+    procedure ABMInsert; override;
     procedure FormCreate(Sender: TObject);
     property CustomController: TCuentaController
       read FCustomController write SetCustomController;
@@ -44,11 +48,28 @@ implementation
 
 { TAbmCuentas }
 
+procedure TAbmCuentas.DBLookupComboBox1EditingDone(Sender: TObject);
+var
+  EsCuentaHija: boolean;
+begin
+  CustomController.ActualizarDetallesCuenta(Self, EsCuentaHija);
+  if EsCuentaHija then
+    DBRadioGroupTipo.Enabled := False
+  else
+    DBRadioGroupTipo.Enabled := True;
+end;
+
 procedure TAbmCuentas.SetCustomController(AValue: TCuentaController);
 begin
   if FCustomController = AValue then
     Exit;
   FCustomController := AValue;
+end;
+
+procedure TAbmCuentas.ABMInsert;
+begin
+  inherited ABMInsert;
+  DBRadioGroupTipo.Enabled := True;
 end;
 
 procedure TAbmCuentas.FormCreate(Sender: TObject);

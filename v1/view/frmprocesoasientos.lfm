@@ -1,14 +1,14 @@
 inherited ProcesoAsientos: TProcesoAsientos
-  Left = 88
+  Left = 570
   Height = 785
-  Top = 5
+  Top = 105
   Width = 1098
   Caption = 'Asientos'
-  ClientHeight = 766
+  ClientHeight = 765
   ClientWidth = 1098
   OnCreate = FormCreate
   inherited ButtonPanel1: TButtonPanel
-    Top = 726
+    Top = 725
     Width = 1086
     OKButton.Caption = '&Guardar'
     OKButton.DefaultCaption = False
@@ -40,7 +40,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideRight.Control = GroupBox1
       AnchorSideRight.Side = asrBottom
       Left = 8
-      Height = 21
+      Height = 23
       Top = 24
       Width = 1070
       Anchors = [akTop, akLeft, akRight]
@@ -60,7 +60,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideRight.Control = GroupBox1
       AnchorSideRight.Side = asrBottom
       Left = 8
-      Height = 21
+      Height = 23
       Top = 72
       Width = 1070
       Anchors = [akTop, akLeft, akRight]
@@ -79,9 +79,9 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideLeft.Control = DBLookupComboBoxDebe
       AnchorSideBottom.Control = DBLookupComboBoxDebe
       Left = 8
-      Height = 13
-      Top = 11
-      Width = 25
+      Height = 15
+      Top = 9
+      Width = 27
       Anchors = [akLeft, akBottom]
       Caption = 'Debe'
       ParentColor = False
@@ -90,9 +90,9 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideLeft.Control = DBLookupComboBoxHaber
       AnchorSideBottom.Control = DBLookupComboBoxHaber
       Left = 8
-      Height = 13
-      Top = 59
-      Width = 29
+      Height = 15
+      Top = 57
+      Width = 32
       Anchors = [akLeft, akBottom]
       Caption = 'Haber'
       ParentColor = False
@@ -102,7 +102,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideRight.Control = GroupBox1
       AnchorSideRight.Side = asrBottom
       Left = 8
-      Height = 21
+      Height = 23
       Top = 184
       Width = 1070
       Anchors = [akTop, akLeft, akRight]
@@ -113,8 +113,8 @@ inherited ProcesoAsientos: TProcesoAsientos
       EditLabel.AnchorSideRight.Side = asrBottom
       EditLabel.AnchorSideBottom.Control = LabeledEditDesscripcion
       EditLabel.Left = 8
-      EditLabel.Height = 13
-      EditLabel.Top = 168
+      EditLabel.Height = 15
+      EditLabel.Top = 166
       EditLabel.Width = 1070
       EditLabel.Caption = 'Descripcion'
       EditLabel.ParentColor = False
@@ -122,7 +122,7 @@ inherited ProcesoAsientos: TProcesoAsientos
     end
     object MaskEditMonto: TMaskEdit
       Left = 8
-      Height = 21
+      Height = 23
       Top = 128
       Width = 136
       CharCase = ecNormal
@@ -135,9 +135,9 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideLeft.Control = MaskEditMonto
       AnchorSideBottom.Control = MaskEditMonto
       Left = 8
-      Height = 13
-      Top = 115
-      Width = 30
+      Height = 15
+      Top = 113
+      Width = 36
       Anchors = [akLeft, akBottom]
       Caption = 'Monto'
       ParentColor = False
@@ -171,13 +171,13 @@ inherited ProcesoAsientos: TProcesoAsientos
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel1
     Left = 4
-    Height = 428
+    Height = 427
     Top = 292
     Width = 1090
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Bottom = 4
     Caption = 'Movimientos'
-    ClientHeight = 410
+    ClientHeight = 409
     ClientWidth = 1086
     TabOrder = 2
     object DBGrid1: TDBGrid
@@ -187,7 +187,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = BitBtnReversar
       Left = 4
-      Height = 368
+      Height = 367
       Top = 4
       Width = 1078
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -206,7 +206,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideBottom.Side = asrBottom
       Left = 4
       Height = 30
-      Top = 376
+      Top = 375
       Width = 79
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 4

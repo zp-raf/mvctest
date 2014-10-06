@@ -200,16 +200,16 @@ inherited AsientosDataModule: TAsientosDataModule
       Size = 255
     end
   end
-  object dsAsientos: TDatasource[1]
+  object dsAsientos: TDataSource[1]
     DataSet = qryAsientos
     left = 112
     top = 24
   end
-  object dsCuentaDebe: TDatasource[2]
+  object dsCuentaDebe: TDataSource[2]
     left = 192
     top = 80
   end
-  object dsCuentaHaber: TDatasource[3]
+  object dsCuentaHaber: TDataSource[3]
     left = 288
     top = 96
   end

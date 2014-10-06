@@ -31,6 +31,10 @@ type
     LabelFilter: TLabel;
     PanelDetail: TPanel;
     TBConnected: TToggleBox;
+    procedure ABMInsert; virtual;
+    procedure ABMEdit; virtual;
+    procedure ABMDelete; virtual;
+    procedure ABMRefresh; virtual;
     procedure ButtonFilterClick(Sender: TObject); virtual;
     procedure CancelButtonClick(Sender: TObject); virtual;
     procedure CloseButtonClick(Sender: TObject); virtual;
@@ -115,19 +119,17 @@ begin
   case Button of
     nbInsert:
     begin
-      ShowPanel(PanelDetail);
-      ABMController.NewRecord(Self);
+      ABMInsert;
       Abort;
     end;
     nbEdit:
     begin
-      ShowPanel(PanelDetail);
-      ABMController.EditCurrentRecord(Self);
+      ABMEdit;
       Abort;
     end;
     nbRefresh:
     begin
-      ABMController.RefreshData(Self);
+      ABMRefresh;
       Abort;
     end;
   end;
@@ -157,6 +159,28 @@ begin
   end
   else
     raise Exception.Create(rsProvidedCont);
+end;
+
+procedure TAbm.ABMInsert;
+begin
+  ShowPanel(PanelDetail);
+  ABMController.NewRecord(Self);
+end;
+
+procedure TAbm.ABMEdit;
+begin
+  ShowPanel(PanelDetail);
+  ABMController.EditCurrentRecord(Self);
+end;
+
+procedure TAbm.ABMDelete;
+begin
+
+end;
+
+procedure TAbm.ABMRefresh;
+begin
+  ABMController.RefreshData(Self);
 end;
 
 procedure TAbm.ButtonFilterClick(Sender: TObject);

@@ -5,7 +5,7 @@ unit asientosctrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmasientosdatamodule, mvc, DB;
+  Classes, SysUtils, ctrl, frmasientosdatamodule, mvc, DB, manejoerrores;
 
 resourcestring
   rsFormatoDeMon = 'Formato de monto invalido';
@@ -26,6 +26,7 @@ type
   public
     //constructor Create(AModel: IModel); overload;
     procedure NuevoAsiento(ADescripcion: string; Sender: IView);
+    procedure ErrorHandler(E: Exception; Sender: IView); override;
     procedure ReversarAsiento(AAsientoID: string; ADescripcion: string; Sender: IView);
     procedure ReversarAsiento(ADescripcion: string; Sender: IView);
   end;
@@ -59,9 +60,13 @@ end;
 
 procedure TAsientosController.NuevoAsiento(ADescripcion: string; Sender: IView);
 begin
-    GetCustomModel.NuevoAsiento(ADescripcion);
-  Model.SaveChanges;
-  Model.RefreshDataSets;
+  GetCustomModel.NuevoAsiento(ADescripcion);
+end;
+
+procedure TAsientosController.ErrorHandler(E: Exception; Sender: IView);
+begin
+  //para avisar si se metio mal el nro de asiento
+  inherited ErrorHandler(E, Sender);
 end;
 
 procedure TAsientosController.ReversarAsiento(AAsientoID: string;
@@ -72,7 +77,7 @@ begin
   Model.RefreshDataSets;
 end;
 
-procedure TAsientosController.ReversarAsiento(ADescripcion: string; Sender: IFormView);
+procedure TAsientosController.ReversarAsiento(ADescripcion: string; Sender: IView);
 begin
   GetCustomModel.ReversarAsiento(ADescripcion);
   Model.SaveChanges;

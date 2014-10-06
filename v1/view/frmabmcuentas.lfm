@@ -1,6 +1,5 @@
 inherited AbmCuentas: TAbmCuentas
   Caption = 'ABM Cuentas'
-  ClientHeight = 461
   OnCreate = FormCreate
   inherited PanelList: TPanel[1]
     AnchorSideLeft.Control = Owner
@@ -21,14 +20,14 @@ inherited AbmCuentas: TAbmCuentas
     object DBEdit1: TDBEdit[0]
       Left = 16
       Height = 23
-      Top = 72
+      Top = 120
       Width = 608
       DataField = 'CODIGO'
       DataSource = CuentaDataModule.dsCuenta
       Anchors = [akTop, akLeft, akRight]
       CharCase = ecNormal
       MaxLength = 255
-      TabOrder = 1
+      TabOrder = 2
     end
     object DBEdit2: TDBEdit[1]
       Left = 16
@@ -58,7 +57,7 @@ inherited AbmCuentas: TAbmCuentas
       AnchorSideBottom.Control = DBEdit1
       Left = 16
       Height = 15
-      Top = 57
+      Top = 105
       Width = 101
       Anchors = [akLeft, akBottom]
       Caption = 'Codigo (requerido)'
@@ -67,7 +66,7 @@ inherited AbmCuentas: TAbmCuentas
     object DBRadioGroupTipo: TDBRadioGroup[4]
       Left = 16
       Height = 65
-      Top = 112
+      Top = 160
       Width = 168
       Caption = 'Naturaleza (requerido)'
       DataField = 'NATURALEZA'
@@ -76,11 +75,41 @@ inherited AbmCuentas: TAbmCuentas
         'Deudora'
         'Acreedora'
       )
-      TabOrder = 2
+      TabOrder = 3
       Values.Strings = (
         'D'
         'A'
       )
+    end
+    object DBLookupComboBox1: TDBLookupComboBox[5]
+      Left = 16
+      Height = 23
+      Top = 72
+      Width = 608
+      Anchors = [akTop, akLeft, akRight]
+      AutoComplete = True
+      DataField = 'CUENTA_PADRE'
+      DataSource = CuentaDataModule.dsCuenta
+      KeyField = 'ID'
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = CuentaDataModule.dsCuentaAux
+      LookupCache = False
+      NullValueKey = 46
+      OnEditingDone = DBLookupComboBox1EditingDone
+      ScrollListDataset = True
+      TabOrder = 1
+    end
+    object LabelCuentaPadre: TLabel[6]
+      AnchorSideLeft.Control = DBLookupComboBox1
+      AnchorSideBottom.Control = DBLookupComboBox1
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 71
+      Anchors = [akLeft, akBottom]
+      Caption = 'Cuenta Padre'
+      ParentColor = False
     end
   end
 end

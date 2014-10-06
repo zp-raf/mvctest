@@ -12,7 +12,7 @@ type
   { TFacturaController }
 
   TFacturaController = class(TController)
-    procedure ErrorHandler(E: Exception; Sender: IModel);
+    procedure ErrorHandler(E: Exception; Sender: IModel); virtual;
     procedure ActualizarTotal(Sender: IView);
     procedure NuevaFactura(Sender: IView);
   end;

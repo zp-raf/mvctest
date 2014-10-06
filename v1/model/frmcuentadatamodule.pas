@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule;
+  frmquerydatamodule, mvc;
 
 resourcestring
   rsGenName = 'GEN_CUENTA';
@@ -18,7 +18,6 @@ type
   TCuentaDataModule = class(TQueryDataModule)
     CuentaAux: TSQLQuery;
     CuentaAuxCODIGO: TStringField;
-    CuentaAuxCUENTA_PADRE: TLongintField;
     CuentaAuxID: TLongintField;
     CuentaAuxNATURALEZA: TStringField;
     CuentaAuxNOMBRE: TStringField;
@@ -30,6 +29,7 @@ type
     dsCuentaAux: TDataSource;
     dsCuenta: TDataSource;
     Cuenta: TSQLQuery;
+    procedure ActualizarDetallesCuenta(Sender: IController; var EsCuentaHija: boolean);
     procedure CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure CuentaNewRecord(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject); override;
@@ -53,7 +53,7 @@ procedure TCuentaDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(Cuenta));
-  //AuxQryList.Add(TObject(CuentaAux));
+  AuxQryList.Add(TObject(CuentaAux));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('CODIGO');
 end;
@@ -61,6 +61,24 @@ end;
 procedure TCuentaDataModule.SaveChanges;
 begin
   inherited SaveChanges;
+end;
+
+procedure TCuentaDataModule.ActualizarDetallesCuenta(Sender: IController;
+  var EsCuentaHija: boolean);
+begin
+  // si se selecciona una cuenta padre se tiene que cambiar el codigo de la
+  // cuenta y su naturaleza
+  if CuentaCUENTA_PADRE.IsNull or (Trim(CuentaCUENTA_PADRE.AsString) = '') then
+  begin
+    CuentaCODIGO.Clear;
+    EsCuentaHija := False;
+  end
+  else
+  begin
+    CuentaCODIGO.Value := CuentaAuxCODIGO.Value;
+    CuentaNATURALEZA.Value := CuentaAuxNATURALEZA.Value;
+    EsCuentaHija := True;
+  end;
 end;
 
 procedure TCuentaDataModule.CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
