@@ -20,6 +20,7 @@ type
     asistenciaProfesores: TMenuItem;
     aboutUs1: TMenuItem;
     ayuda1: TMenuItem;
+    Pagos: TButton;
     gestionCurso: TMenuItem;
     academias: TMenuItem;
     grupos: TMenuItem;
@@ -73,8 +74,10 @@ type
     procedure AsientosClick(Sender: TObject);
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormShow(Sender: TObject);
     procedure generarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
+    procedure PagosClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
     procedure setConnStatus(connected: boolean; host: string);
     procedure setLoggedUser(username: string);
@@ -123,6 +126,12 @@ begin
   Application.Terminate;
 end;
 
+procedure TPrincipal1.FormShow(Sender: TObject);
+begin
+  inherited;
+  Controller.Connect(Self);
+end;
+
 procedure TPrincipal1.generarDeudaClick(Sender: TObject);
 begin
   GetCustomController.OpenVentaForm(Self);
@@ -131,6 +140,11 @@ end;
 procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);
 begin
   GetCustomController.OpenABMCuentasForm(Self);
+end;
+
+procedure TPrincipal1.PagosClick(Sender: TObject);
+begin
+  GetCustomController.OpenPagosForm(Self);
 end;
 
 procedure TPrincipal1.setLoggedUser(username: string);
@@ -147,9 +161,9 @@ end;
 
 procedure TPrincipal1.ObserverUpdate(const Subject: IInterface);
 begin
-  //setConnStatus(Controller.IsDBConnected(Self),
-  //  (Controller as TPrincipalController).GetHostName(Self));
-  //setLoggedUser((Controller as TPrincipalController).GetUserName(Self));
+  setConnStatus(Controller.IsDBConnected(Self),
+    (Controller as TPrincipalController).GetHostName(Self));
+  setLoggedUser((Controller as TPrincipalController).GetUserName(Self));
 end;
 
 procedure TPrincipal1.academiasClick(Sender: TObject);

@@ -1,16 +1,15 @@
 inherited CuentaDataModule: TCuentaDataModule
   OnCreate = DataModuleCreate
-  Height = 150
+  Height = 195
   HorizontalOffset = 883
   VerticalOffset = 400
-  Width = 211
+  Width = 311
   object dsCuenta: TDataSource[0]
     DataSet = Cuenta
     left = 24
     top = 88
   end
   object Cuenta: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -42,7 +41,6 @@ inherited CuentaDataModule: TCuentaDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     OnCalcFields = CuentaCalcFields
     OnNewRecord = CuentaNewRecord
     Database = sgcdDataModule.db
@@ -159,7 +157,7 @@ inherited CuentaDataModule: TCuentaDataModule
         ParamType = ptInput
       end>
     DataSource = dsCuenta
-    left = 136
+    left = 96
     top = 24
     object CuentaAuxID: TLongintField
       DisplayWidth = 10
@@ -207,7 +205,18 @@ inherited CuentaDataModule: TCuentaDataModule
   end
   object dsCuentaAux: TDataSource[3]
     DataSet = CuentaAux
-    left = 136
+    left = 96
     top = 96
+  end
+  object CuentasContables: TSQLQuery[4]
+    FieldDefs = <>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from v_cuentas_contables'
+    )
+    Params = <>
+    left = 192
+    top = 24
   end
 end

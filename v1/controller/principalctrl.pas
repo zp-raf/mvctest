@@ -31,7 +31,11 @@ uses
   // Asientos(test)
   frmasientosdatamodule,
   frmprocesoasientos,
-  asientosctrl;
+  asientosctrl,
+  // Pagos
+  frmpagodatamodule,
+  frmpago,
+  pagoctrl;
 
 type
 
@@ -47,6 +51,7 @@ type
     procedure OpenVentaForm(Sender: IFormView);
     procedure OpenABMCuentasForm(Sender: IFormView);
     procedure OpenAsientosFrom(Sender: IFormView);
+    procedure OpenPagosForm(Sender: IFormView);
   end;
 
 var
@@ -115,6 +120,15 @@ begin
     Model.MasterDataModule)));
   ProcesoAsientos.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoAsientos as IObserver);
+end;
+
+procedure TPrincipalController.OpenPagosForm(Sender: IFormView);
+begin
+  ProcesoPago := TProcesoPago.Create(Sender,
+    TPagoController.Create(TPagoDataModule.Create(Application,
+    Model.MasterDataModule)));
+  ProcesoPago.Show;
+  (Model.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
 end;
 
 end.

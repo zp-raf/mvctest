@@ -30,6 +30,7 @@ type
     dsCuentaAux: TDataSource;
     dsCuenta: TDataSource;
     Cuenta: TSQLQuery;
+    CuentasContables: TSQLQuery;
     procedure ActualizarDetallesCuenta(Sender: IController; var EsCuentaHija: boolean);
     procedure CuentaCalcFields(DataSet: TDataSet);
     procedure CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
@@ -56,6 +57,7 @@ begin
   inherited;
   QryList.Add(TObject(Cuenta));
   AuxQryList.Add(TObject(CuentaAux));
+  AuxQryList.Add(TObject(CuentasContables));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('CODIGO');
 end;
@@ -86,7 +88,8 @@ end;
 procedure TCuentaDataModule.CuentaCalcFields(DataSet: TDataSet);
 begin
   DataSet.FieldByName('NOMBRE_CODIGO').AsString :=
-    DataSet.FieldByName('CODIGO').AsString + '. ' + DataSet.FieldByName('NOMBRE').AsString;
+    DataSet.FieldByName('CODIGO').AsString + '. ' +
+    DataSet.FieldByName('NOMBRE').AsString;
 end;
 
 procedure TCuentaDataModule.CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);

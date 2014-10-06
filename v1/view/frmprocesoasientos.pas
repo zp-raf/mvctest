@@ -38,7 +38,6 @@ type
     BitBtnNuevo: TBitBtn;
     Monto: TLabel;
     MaskEditMonto: TMaskEdit;
-    Conectado: TToggleBox;
     BitBtnReversar: TBitBtn;
     DBLookupComboBoxCuenta: TDBLookupComboBox;
     GroupBox1: TGroupBox;
@@ -46,7 +45,6 @@ type
     Haber: TLabel;
     LabeledEditDesscripcion: TLabeledEdit;
     procedure BitBtnNuevoClick(Sender: TObject);
-    procedure ConectadoClick(Sender: TObject);
     procedure MaskEditMontoKeyPress(Sender: TObject; var Key: char);
     procedure OKButtonClick(Sender: TObject);
     procedure BitBtnReversarClick(Sender: TObject);
@@ -71,12 +69,7 @@ implementation
 
 procedure TProcesoAsientos.ObserverUpdate(const Subject: IInterface);
 begin
-  { aca se actualiza la vista. en este caso que es para prueba nomas
-    cambiamos boton connected }
-  if ABMController.IsDBConnected(Self) then
-    Conectado.Checked := True
-  else
-    Conectado.Checked := False;
+  inherited;
   case GetCustomController.GetAsientoEstado(Self) of
     asInicial:
     begin
@@ -157,14 +150,6 @@ begin
   RadioGroup1.ItemIndex := -1;
 end;
 
-procedure TProcesoAsientos.ConectadoClick(Sender: TObject);
-begin
-  if Conectado.Checked then
-    ABMController.Connect(Self)
-  else
-    ABMController.Disconnect(Self);
-end;
-
 procedure TProcesoAsientos.BitBtnNuevoClick(Sender: TObject);
 begin
   GetCustomController.NuevoAsiento(LabeledEditDesscripcion.Text, Self as IFormView);
@@ -233,9 +218,9 @@ end;
 
 procedure TProcesoAsientos.CancelButtonClick(Sender: TObject);
 begin
-  ABMController.Cancel(Self);
+  //ABMController.Cancel(Self);
   ABMController.Rollback(Self);
-  ABMController.Connect(Self);
+  //ABMController.Connect(Self);
   Limpiar;
   ShowInfoMessage('Los asientos no guardados fueron descartados');
 end;

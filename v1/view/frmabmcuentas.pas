@@ -52,7 +52,7 @@ procedure TAbmCuentas.DBLookupComboBox1EditingDone(Sender: TObject);
 var
   EsCuentaHija: boolean;
 begin
-  CustomController.ActualizarDetallesCuenta(Self, EsCuentaHija);
+  CustomController.ActualizarDetallesCuenta(Self, EsCuentaHija{%H-});
   if EsCuentaHija then
     DBRadioGroupTipo.Enabled := False
   else

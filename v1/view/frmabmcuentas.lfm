@@ -1,19 +1,8 @@
 inherited AbmCuentas: TAbmCuentas
   Caption = 'ABM Cuentas'
+  ClientHeight = 461
   OnCreate = FormCreate
-  inherited PanelList: TPanel[1]
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    inherited DBGrid1: TDBGrid
-      DataSource = CuentaDataModule.dsCuenta
-    end
-    inherited DBNavList: TDBNavigator
-      DataSource = CuentaDataModule.dsCuenta
-      Hints.Strings = (      )
-    end
-  end
-  inherited PanelDetail: TPanel[2]
+  inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
@@ -110,6 +99,18 @@ inherited AbmCuentas: TAbmCuentas
       Anchors = [akLeft, akBottom]
       Caption = 'Cuenta Padre'
       ParentColor = False
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = CuentaDataModule.dsCuenta
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = CuentaDataModule.dsCuenta
+      Hints.Strings = (      )
     end
   end
 end

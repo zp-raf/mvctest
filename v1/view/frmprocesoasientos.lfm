@@ -47,13 +47,13 @@ inherited ProcesoAsientos: TProcesoAsientos
       BorderSpacing.Left = 8
       BorderSpacing.Right = 8
       KeyField = 'ID'
-      ListField = 'NOMBRE_CODIGO'
+      ListField = 'CODIGO_NOMBRE'
       ListFieldIndex = 0
       ListSource = AsientosDataModule.dsCuenta
       LookupCache = False
       ReadOnly = True
       ScrollListDataset = True
-      TabOrder = 1
+      TabOrder = 0
     end
     object Haber: TLabel
       AnchorSideLeft.Control = DBLookupComboBoxCuenta
@@ -87,7 +87,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       EditLabel.Width = 1060
       EditLabel.Caption = 'Descripcion'
       EditLabel.ParentColor = False
-      TabOrder = 3
+      TabOrder = 2
     end
     object MaskEditMonto: TMaskEdit
       Left = 8
@@ -96,7 +96,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       Width = 136
       CharCase = ecNormal
       MaxLength = 0
-      TabOrder = 2
+      TabOrder = 1
       OnKeyPress = MaskEditMontoKeyPress
       SpaceChar = '_'
     end
@@ -110,16 +110,6 @@ inherited ProcesoAsientos: TProcesoAsientos
       Anchors = [akLeft, akBottom]
       Caption = 'Monto'
       ParentColor = False
-    end
-    object Conectado: TToggleBox
-      Left = 978
-      Height = 23
-      Top = -8
-      Width = 90
-      Anchors = [akTop, akRight]
-      Caption = 'Conectado'
-      OnClick = ConectadoClick
-      TabOrder = 0
     end
     object BitBtnNuevo: TBitBtn
       Left = 8
@@ -165,7 +155,7 @@ inherited ProcesoAsientos: TProcesoAsientos
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
       OnClick = BitBtnNuevoClick
-      TabOrder = 4
+      TabOrder = 3
     end
     object BitBtnNuevoDetalle: TBitBtn
       AnchorSideLeft.Control = BitBtnNuevo
@@ -219,7 +209,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       }
       ModalResult = 6
       OnClick = BitBtnNuevoDetalleClick
-      TabOrder = 5
+      TabOrder = 4
     end
     object BitBtnCerrarAsiento: TBitBtn
       AnchorSideLeft.Control = BitBtnNuevoDetalle
@@ -272,7 +262,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       }
       ModalResult = 8
       OnClick = BitBtnCerrarAsientoClick
-      TabOrder = 6
+      TabOrder = 5
     end
     object RadioGroup1: TRadioGroup
       Left = 168
@@ -295,7 +285,7 @@ inherited ProcesoAsientos: TProcesoAsientos
         'Debe'
         'Haber'
       )
-      TabOrder = 7
+      TabOrder = 6
     end
   end
   object GroupBox2: TGroupBox[2]

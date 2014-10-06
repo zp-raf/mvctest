@@ -101,9 +101,9 @@ begin
       GetCustomModel.NuevoAsientoDetalle(ACuentaID, ATipoMov, mon);
     end
     else
-      raise Exception.Create(rsFormatoDeMon)
+      Sender.ShowInfoMessage(rsFormatoDeMon)
   else
-    raise Exception.Create(rsFormatoDeIde);
+    Sender.ShowInfoMessage(rsFormatoDeIde);
 end;
 
 procedure TAsientosController.NuevoAsientoDetalle(ATipoMov: TTipoMovimiento;
@@ -115,7 +115,7 @@ begin
     NuevoAsientoDetalle(GetCustomModel.Cuenta.CuentaID.AsString,
       ATipoMov, AMonto, Sender)
   else
-    raise Exception.Create(rsFormatoDeMon);
+    Sender.ShowInfoMessage(rsFormatoDeMon);
 end;
 
 procedure TAsientosController.CerrarAsiento(Sender: IView);
@@ -143,7 +143,7 @@ begin
     Model.RefreshDataSets;
   end
   else
-    raise Exception.Create(rsFormatoDeIde);
+    Sender.ShowInfoMessage(rsFormatoDeIde);
 end;
 
 procedure TAsientosController.ReversarAsiento(ADescripcion: string; Sender: IView);

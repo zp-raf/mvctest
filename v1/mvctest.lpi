@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="180"/>
+      <BuildNr Value="192"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -49,7 +49,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="36">
+    <Units Count="39">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -296,6 +296,27 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="asientosctrl"/>
       </Unit35>
+      <Unit36>
+        <Filename Value="controller\pagoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="pagoctrl"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="model\frmpagodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PagoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmpagodatamodule"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="view\frmpago.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoPago"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmpago"/>
+      </Unit38>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

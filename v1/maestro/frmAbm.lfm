@@ -75,7 +75,7 @@ inherited Abm: TAbm
       Columns = <>
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns, dgTruncCellHints, dgCellEllipsis]
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 2
       OnMouseDown = DBGrid1MouseDown
     end
     object DBNavList: TDBNavigator
@@ -100,7 +100,7 @@ inherited Abm: TAbm
       ClientWidth = 313
       ConfirmDelete = False
       Options = []
-      TabOrder = 4
+      TabOrder = 3
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbCancel, nbRefresh]
     end
     object EditFilter: TEdit
@@ -138,15 +138,6 @@ inherited Abm: TAbm
       Caption = 'Filtrar'
       OnClick = ButtonFilterClick
       TabOrder = 1
-    end
-    object TBConnected: TToggleBox
-      Left = 542
-      Height = 23
-      Top = 21
-      Width = 90
-      Caption = 'Connected'
-      OnClick = TBConnectedClick
-      TabOrder = 2
     end
   end
   inherited MainMenu: TMainMenu[3]

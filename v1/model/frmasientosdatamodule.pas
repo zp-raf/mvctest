@@ -92,6 +92,7 @@ type
     procedure RefreshDataSets; override;
     procedure ReversarAsiento(ADescripcion: string);
     procedure ReversarAsiento(AAsientoID: string; ADescripcion: string);
+    procedure Rollback; override;
     procedure SaveChanges; override;
 
     { esta clase esta compuesta por tres subobjetos mas; dos para las cuentas
@@ -119,7 +120,7 @@ begin
   // modelo de cuentas
   FCuenta := TCuentaDataModule.Create(Self, MasterDataModule);
   FCuenta.SetReadOnly(True);
-  dsCuenta.DataSet := FCuenta.Cuenta;
+  dsCuenta.DataSet := FCuenta.CuentasContables;
 end;
 
 procedure TAsientosDataModule.Disconnect;
@@ -207,7 +208,7 @@ end;
 procedure TAsientosDataModule.ResetearEstado;
 begin
   DiscardChanges;
-  Rollback;
+  MasterDataModule.Rollback;
   Estado := asInicial;
   Connect;
   (MasterDataModule as ISubject).Notify;
@@ -308,6 +309,11 @@ begin
   finally
     (MasterDataModule as ISubject).Notify;
   end;
+end;
+
+procedure TAsientosDataModule.Rollback;
+begin
+  ResetearEstado;
 end;
 
 procedure TAsientosDataModule.SaveChanges;

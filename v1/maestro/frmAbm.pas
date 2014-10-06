@@ -30,7 +30,6 @@ type
     ButtonPanel: TButtonPanel;
     LabelFilter: TLabel;
     PanelDetail: TPanel;
-    TBConnected: TToggleBox;
     procedure ABMInsert; virtual;
     procedure ABMEdit; virtual;
     procedure ABMDelete; virtual;
@@ -46,8 +45,6 @@ type
     procedure OK(Sender: TObject); virtual;
     procedure OKButtonClick(Sender: TObject); virtual;
     procedure ShowPanel(APanel: TPanel);
-    procedure TBConnectedClick(Sender: TObject);
-    procedure ObserverUpdate(const Subject: IInterface); override;
     property ABMController: IABMController read GetController write SetController;
   end;
 
@@ -92,24 +89,6 @@ begin
     else if Components[i] is TPanel then
       TPanel(Components[i]).Visible := False; //ocultamos los demas
   end;
-end;
-
-procedure TAbm.TBConnectedClick(Sender: TObject);
-begin
-  if (Sender as TToggleBox).Checked then
-    ABMController.Connect(Self)
-  else
-    ABMController.Disconnect(Self);
-end;
-
-procedure TAbm.ObserverUpdate(const Subject: IInterface);
-begin
-  { aca se actualiza la vista. en este caso que es para prueba nomas
-    cambiamos boton connected }
-  if ABMController.IsDBConnected(Self) then
-    TBConnected.Checked := True
-  else
-    TBConnected.Checked := False;
 end;
 
 procedure TAbm.DBNavListBeforeAction(Sender: TObject; Button: TDBNavButtonType);

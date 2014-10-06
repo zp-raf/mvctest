@@ -139,6 +139,9 @@ type
 
   IController = interface
     ['{B1D8EBC6-C5B4-4F72-9CA3-6E4B74F51858}']
+    procedure Connect(Sender: IView);
+    procedure Disconnect(Sender: IView);
+    function IsDBConnected(Sender: IView): boolean;
     function GetVersion(Sender: IView): string;
     procedure ShowHelp(Sender: IView);
     procedure ShowHelp(Sender: IFormView);
@@ -160,8 +163,6 @@ type
     ['{DCFA8850-3248-48F4-BC94-72A140AA75F4}']
     procedure Cancel(Sender: IView);
     procedure Commit(Sender: IView);
-    procedure Connect(Sender: IView);
-    procedure Disconnect(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
     procedure FilterData(AFilterText: string; Sender: IView);
     procedure NewRecord(Sender: IView);
@@ -169,7 +170,6 @@ type
     procedure Rollback(Sender: IView);
     procedure Save(Sender: IView);
     function GetCurrentRecordText(Sender: IView): string;
-    function IsDBConnected(Sender: IView): boolean;
   end;
 
 implementation

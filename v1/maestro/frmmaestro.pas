@@ -24,6 +24,8 @@ type
     La logica del negocio se maneja en el controlador. }
 
   TMaestro = class(TForm, IObserver, IView, IFormView)
+    MIConnected: TMenuItem;
+    procedure MIConnectedClick(Sender: TObject);
   private
     FController: IController;
     function GetController: IController;
@@ -48,7 +50,7 @@ type
       por eso le cambiamos el nombre del metodo Update de la interfaz
       por otro para que no haya conflictos ni cosas indeseadas }
     procedure IObserver.Update = ObserverUpdate;
-    procedure ObserverUpdate(const Subject: IInterface); virtual; abstract;
+    procedure ObserverUpdate(const Subject: IInterface); virtual;
     function ShowErrorMessage(AMsg: string): TModalResult;
     function ShowErrorMessage(ATitle: string; AMsg: string): TModalResult;
     function ShowInfoMessage(AMsg: string): TModalResult;
@@ -84,6 +86,20 @@ end;
 procedure TMaestro.MenuItemAyudaClick(Sender: TObject);
 begin
   Controller.ShowHelp(Self as IFormView);
+end;
+
+procedure TMaestro.MIConnectedClick(Sender: TObject);
+begin
+  if (Sender as TMenuItem).Checked then
+  begin
+    (Sender as TMenuItem).Checked := False;
+    Controller.Disconnect(Self);
+  end
+  else
+  begin
+    Controller.Connect(Self);
+    (Sender as TMenuItem).Checked := True;
+  end;
 end;
 
 function TMaestro.GetController: IController;
@@ -138,11 +154,22 @@ begin
     TForm(GetOwner).Enabled := False;
   //if Visible then
   //  ObserverUpdate(nil); // actualizamos la vista
+  Controller.Connect(Self);
 end;
 
 procedure TMaestro.MenuItemSalirClick(Sender: TObject);
 begin
   Controller.Close(Self as IFormView);
+end;
+
+procedure TMaestro.ObserverUpdate(const Subject: IInterface);
+begin
+  { aca se actualiza la vista. en este caso que es para prueba nomas
+    cambiamos boton connected }
+  if Controller.IsDBConnected(Self) then
+    MIConnected.Checked := True
+  else
+    MIConnected.Checked := False;
 end;
 
 function TMaestro.ShowErrorMessage(AMsg: string): TModalResult;

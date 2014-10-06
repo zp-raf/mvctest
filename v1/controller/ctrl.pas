@@ -34,10 +34,13 @@ type
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean); virtual;
+    procedure Connect(Sender: IView);
+    procedure Disconnect(Sender: IView);
     procedure ErrorHandler(E: Exception; Sender: IView); virtual;
     procedure ShowHelp(Sender: IView);
     procedure ShowHelp(Sender: IFormView);
     function GetVersion(Sender: IView): string;
+    function IsDBConnected(Sender: IView): boolean;
     property Model: IModel read GetModel write SetModel;
   end;
 
@@ -50,8 +53,6 @@ type
     procedure Cancel(Sender: IView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
     procedure Commit(Sender: IView);
-    procedure Connect(Sender: IView);
-    procedure Disconnect(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
     procedure FilterData(AFilterText: string; Sender: IView);
     procedure NewRecord(Sender: IView);
@@ -59,7 +60,6 @@ type
     procedure Rollback(Sender: IView);
     procedure Save(Sender: IView);
     function GetCurrentRecordText(Sender: IView): string;
-    function IsDBConnected(Sender: IView): boolean;
     //property Controller: IController read FController implements IController;
   end;
 
@@ -143,28 +143,30 @@ begin
     inherited CloseQuery(Sender, CanClose);
 end;
 
-procedure TABMController.Connect(Sender: IView);
-begin
-  Model.Connect;
-end;
-
-procedure TABMController.Disconnect(Sender: IView);
-begin
-  Model.Disconnect;
-end;
-
 procedure TABMController.Commit(Sender: IView);
 begin
   Model.Commit;
   Model.Connect;
 end;
 
-function TABMController.IsDBConnected(Sender: IView): boolean;
+
+
+{ TController }
+
+procedure TController.Connect(Sender: IView);
+begin
+  Model.Connect;
+end;
+
+procedure TController.Disconnect(Sender: IView);
+begin
+  Model.Disconnect;
+end;
+
+function TController.IsDBConnected(Sender: IView): boolean;
 begin
   Result := Model.GetDBStatus.Connected;
 end;
-
-{ TController }
 
 procedure TController.SetModel(AValue: IModel);
 begin

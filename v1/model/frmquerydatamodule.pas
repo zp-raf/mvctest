@@ -43,7 +43,7 @@ type
     procedure EditCurrentRecord;
     procedure NewRecord;
     procedure RefreshDataSets; virtual;
-    procedure Rollback;
+    procedure Rollback; virtual;
     procedure SaveChanges; virtual;
     procedure SetReadOnly(Option: boolean);
     procedure UnfilterData;

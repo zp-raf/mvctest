@@ -14,6 +14,10 @@ object Maestro: TMaestro
     object MenuArchivo: TMenuItem
       Caption = '&Archivo'
       ShortCut = 32833
+      object MIConnected: TMenuItem
+        Caption = '&Conectado'
+        OnClick = MIConnectedClick
+      end
       object MenuItemSalir: TMenuItem
         Caption = '&Salir'
         ShortCut = 16465
