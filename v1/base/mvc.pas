@@ -69,6 +69,7 @@ type
 
   IABMView = interface
     ['{C8D5D732-64B6-4F9A-B41E-2E6471C54D6E}']
+    procedure Cancel;
     function GetController: IABMController;
     procedure SetController(AValue: IABMController);
     property ABMController: IABMController read GetController write SetController;

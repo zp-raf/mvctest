@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, manejoerrores, mvc, frmsgcddatamodule,
-  IBConnection, DB, Controls, Forms, observerSubject;
+  IBConnection, DB, Controls, Forms, observerSubject, dateutils, FileUtil;
 
 // para modificar mas facilmente los textos de mensajes
 resourcestring
@@ -54,6 +54,7 @@ type
     procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
     procedure Commit(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
+    procedure ErrorHandler(E: Exception; Sender: IABMView); overload;
     procedure FilterData(AFilterText: string; Sender: IView);
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
@@ -117,6 +118,16 @@ begin
   Model.EditCurrentRecord;
 end;
 
+procedure TABMController.ErrorHandler(E: Exception; Sender: IABMView);
+var
+  viewObj: IView;
+begin
+  Sender.QueryInterface(IView, viewObj);
+  if viewObj <> nil then
+    inherited ErrorHandler(E, viewObj);
+  Sender.Cancel;
+end;
+
 procedure TABMController.Cancel(Sender: IView);
 begin
   Model.DiscardChanges;
@@ -148,8 +159,6 @@ begin
   Model.Commit;
   Model.Connect;
 end;
-
-
 
 { TController }
 
@@ -202,11 +211,14 @@ end;
 
 destructor TController.Destroy;
 var
-  t: pointer;
+  x: Pointer;
 begin
-  t := Pointer(Model);
-  Model := nil;
-  TComponent(t).Free;
+  if Model <> nil then
+  begin
+    x := Pointer(Model);
+    Model := nil;
+    TComponent(x).Free;
+  end;
 end;
 
 procedure TController.Close(Sender: IView);

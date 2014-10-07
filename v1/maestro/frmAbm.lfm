@@ -3,7 +3,7 @@ inherited Abm: TAbm
   Height = 481
   Top = 344
   Width = 640
-  ClientHeight = 461
+  ClientHeight = 481
   ClientWidth = 640
   Constraints.MinHeight = 481
   Constraints.MinWidth = 640
@@ -149,7 +149,7 @@ inherited Abm: TAbm
         ShortCut = 16455
         OnClick = MenuItemGuardarClick
       end
-      inherited MenuItemSalir: TMenuItem[1]
+      inherited MIConnected: TMenuItem[2]
       end
     end
   end

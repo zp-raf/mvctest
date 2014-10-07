@@ -35,6 +35,7 @@ type
     procedure ABMDelete; virtual;
     procedure ABMRefresh; virtual;
     procedure ButtonFilterClick(Sender: TObject); virtual;
+    procedure Cancel;
     procedure CancelButtonClick(Sender: TObject); virtual;
     procedure CloseButtonClick(Sender: TObject); virtual;
     procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -167,10 +168,15 @@ begin
   ABMController.FilterData(EditFilter.Text, Self);
 end;
 
-procedure TAbm.CancelButtonClick(Sender: TObject);
+procedure TAbm.Cancel;
 begin
   ShowPanel(PanelList);
   ABMController.Cancel(Self);
+end;
+
+procedure TAbm.CancelButtonClick(Sender: TObject);
+begin
+  Cancel;
 end;
 
 procedure TAbm.CloseButtonClick(Sender: TObject);

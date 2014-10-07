@@ -60,8 +60,8 @@ type
     PagoDetCheques: TSQLQuery;
     PagoDetTarjetas: TSQLQuery;
     procedure ActualizarTotales;
-    procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure NuevoPago(EsCobro: boolean);
     procedure PagoAfterScroll(DataSet: TDataSet);
     procedure PagoDetAfterInsert(DataSet: TDataSet);
     procedure PagoDetChequesAfterInsert(DataSet: TDataSet);
@@ -119,15 +119,6 @@ begin
   //end;
 end;
 
-procedure TPagoDataModule.Connect;
-begin
-  Pago.Open;
-  PagoDet.Open;
-  PagoDetCheques.Open;
-  PagoDetTarjetas.Open;
-  inherited Connect;
-end;
-
 procedure TPagoDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
@@ -135,11 +126,17 @@ begin
   QryList.Add(TObject(PagoDet));
   QryList.Add(TObject(PagoDetCheques));
   QryList.Add(TObject(PagoDetTarjetas));
-  PagoDetCheques.ParamByName('TIPOS_PAGO').AsString := CHEQUE;
-  PagoDetCheques.ParamByName('TIPOS_PAGO').Bound := True;
-  PagoDetTarjetas.ParamByName('TIPOS_PAGO').AsString :=
-    TARJETA_DEBITO + ITEM_SEPARATOR + TARJETA_CREDITO;
-  PagoDetTarjetas.ParamByName('TIPOS_PAGO').Bound := True;
+  PagoDetCheques.ParamByName('TIPO_PAGO').AsString := CHEQUE;
+  PagoDetCheques.ParamByName('TIPO_PAGO').Bound := True;
+  PagoDetTarjetas.ParamByName('TIPO_PAGO1').AsString := TARJETA_DEBITO;
+  PagoDetTarjetas.ParamByName('TIPO_PAGO1').Bound := True;
+  PagoDetTarjetas.ParamByName('TIPO_PAGO2').AsString := TARJETA_CREDITO;
+  PagoDetTarjetas.ParamByName('TIPO_PAGO2').Bound := True;
+end;
+
+procedure TPagoDataModule.NuevoPago(EsCobro: boolean);
+begin
+
 end;
 
 procedure TPagoDataModule.PagoAfterScroll(DataSet: TDataSet);

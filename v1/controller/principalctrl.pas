@@ -108,7 +108,7 @@ end;
 procedure TPrincipalController.OpenABMCuentasForm(Sender: IFormView);
 begin
   AbmCuentas := TAbmCuentas.Create(Sender, TCuentaController.Create(
-    TCuentaDataModule.Create(Application, Model.MasterDataModule)));
+    TCuentaDataModule.Create((Sender as TComponent), Model.MasterDataModule)));
   AbmCuentas.Show;
   (Model.MasterDataModule as ISubject).Attach(AbmCuentas as IObserver);
 end;

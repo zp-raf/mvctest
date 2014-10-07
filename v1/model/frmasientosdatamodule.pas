@@ -89,10 +89,10 @@ type
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double);
     procedure NuevoAsientoDetalle(ATipoMov: TTipoMovimiento; AMonto: double);
+    procedure OnAsientoError;
     procedure RefreshDataSets; override;
     procedure ReversarAsiento(ADescripcion: string);
     procedure ReversarAsiento(AAsientoID: string; ADescripcion: string);
-    procedure Rollback; override;
     procedure SaveChanges; override;
 
     { esta clase esta compuesta por tres subobjetos mas; dos para las cuentas
@@ -119,7 +119,7 @@ begin
   Estado := asInicial;
   // modelo de cuentas
   FCuenta := TCuentaDataModule.Create(Self, MasterDataModule);
-  FCuenta.SetReadOnly(True);
+  // FCuenta.SetReadOnly(True);
   dsCuenta.DataSet := FCuenta.CuentasContables;
 end;
 
@@ -131,6 +131,7 @@ end;
 
 procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string);
 begin
+  Connect;
   if (Estado in [asEditando]) then
     raise Exception.Create(rsNuevoAsientoError);
   try
@@ -141,7 +142,7 @@ begin
     (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
-      ResetearEstado;
+      OnAsientoError;
   end;
 end;
 
@@ -161,7 +162,7 @@ begin
     (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
-      ResetearEstado;
+      OnAsientoError;
   end;
 end;
 
@@ -169,6 +170,13 @@ procedure TAsientosDataModule.NuevoAsientoDetalle(ATipoMov: TTipoMovimiento;
   AMonto: double);
 begin
   NuevoAsientoDetalle(FCuenta.CuentaID.AsString, ATipoMov, AMonto);
+end;
+
+procedure TAsientosDataModule.OnAsientoError;
+begin
+  DiscardChanges;
+  Rollback;
+  ResetearEstado;
 end;
 
 procedure TAsientosDataModule.MovimientoDetAfterInsert(DataSet: TDataSet);
@@ -180,8 +188,8 @@ end;
 
 procedure TAsientosDataModule.DataModuleDestroy(Sender: TObject);
 begin
-  inherited;
   FCuenta.Free;
+  inherited;
 end;
 
 procedure TAsientosDataModule.MovimientoAfterScroll(DataSet: TDataSet);
@@ -207,8 +215,6 @@ end;
 
 procedure TAsientosDataModule.ResetearEstado;
 begin
-  DiscardChanges;
-  MasterDataModule.Rollback;
   Estado := asInicial;
   Connect;
   (MasterDataModule as ISubject).Notify;
@@ -242,7 +248,7 @@ begin
     (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
-      ResetearEstado;
+      OnAsientoError;
   end;
 end;
 
@@ -309,11 +315,6 @@ begin
   finally
     (MasterDataModule as ISubject).Notify;
   end;
-end;
-
-procedure TAsientosDataModule.Rollback;
-begin
-  ResetearEstado;
 end;
 
 procedure TAsientosDataModule.SaveChanges;

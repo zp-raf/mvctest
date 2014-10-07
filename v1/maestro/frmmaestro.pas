@@ -38,7 +38,7 @@ type
     MenuItemSalir: TMenuItem;
     MenuItemAyuda: TMenuItem;
     MenuItemAbout: TMenuItem;
-    procedure AppPropsException(Sender: TObject; E: Exception);
+    procedure AppPropsException(Sender: TObject; E: Exception); virtual;
     procedure CloseView(Sender: IController);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);

@@ -7,7 +7,6 @@ inherited ProcesoPago: TProcesoPago
   ClientWidth = 1022
   Constraints.MinHeight = 680
   Constraints.MinWidth = 800
-  OnShow = FormShow
   inherited ButtonPanel1: TButtonPanel
     Top = 620
     Width = 1010

@@ -209,9 +209,47 @@ inherited CuentaDataModule: TCuentaDataModule
     top = 96
   end
   object CuentasContables: TSQLQuery[4]
-    FieldDefs = <>
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CODIGO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CODIGO_NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'NATURALEZA'
+        DataType = ftFixedChar
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'CUENTA_PADRE'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
+    ReadOnly = True
     SQL.Strings = (
       'select * from v_cuentas_contables'
     )

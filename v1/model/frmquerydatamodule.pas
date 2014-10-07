@@ -36,7 +36,7 @@ type
     procedure Connect; virtual;
     procedure DataModuleCreate(Sender: TObject); virtual;
     procedure DataModuleDestroy(Sender: TObject);
-    procedure DiscardChanges;
+    procedure DiscardChanges; virtual;
     procedure Disconnect; virtual;
     procedure FilterData(ASearchText: string);
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
@@ -229,6 +229,7 @@ procedure TQueryDataModule.EditCurrentRecord;
 var
   i: integer;
 begin
+  Connect;
   for i := 0 to FQryList.Count - 1 do
   begin
     with TSQLQuery(FQryList.Items[i]) do
@@ -257,6 +258,7 @@ procedure TQueryDataModule.NewRecord;
 var
   i: integer;
 begin
+  Connect;
   for i := 0 to FQryList.Count - 1 do
   begin
     with TSQLQuery(FQryList.Items[i]) do
@@ -312,11 +314,12 @@ procedure TQueryDataModule.SaveChanges;
 var
   i: integer;
 begin
+
   for i := 0 to FQryList.Count - 1 do
   begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
-      if ReadOnly or not (State in [dsEdit, dsInsert]) then
+      if ReadOnly or (not Active) or not (State in [dsEdit, dsInsert]) then
         Continue;
       ApplyUpdates;
     end;
@@ -370,6 +373,7 @@ var
   i, j: integer;
   msg: TStringList;
 begin
+  Connect;
   try
     msg := TStringList.Create();
     for i := 0 to FQryList.Count - 1 do

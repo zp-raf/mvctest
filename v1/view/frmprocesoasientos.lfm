@@ -1,15 +1,17 @@
 inherited ProcesoAsientos: TProcesoAsientos
-  Left = 550
-  Height = 636
-  Top = 239
-  Width = 1088
+  Left = 551
+  Height = 512
+  Top = 253
+  Width = 768
   Caption = 'Asientos'
-  ClientHeight = 616
-  ClientWidth = 1088
+  ClientHeight = 492
+  ClientWidth = 768
+  Constraints.MinHeight = 512
+  Constraints.MinWidth = 768
   OnCreate = FormCreate
   inherited ButtonPanel1: TButtonPanel
-    Top = 576
-    Width = 1076
+    Top = 452
+    Width = 756
     OKButton.Caption = '&Guardar'
     OKButton.DefaultCaption = False
     OKButton.OnClick = OKButtonClick
@@ -25,7 +27,7 @@ inherited ProcesoAsientos: TProcesoAsientos
     Left = 4
     Height = 220
     Top = 4
-    Width = 1080
+    Width = 760
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 4
     BorderSpacing.Top = 4
@@ -33,47 +35,25 @@ inherited ProcesoAsientos: TProcesoAsientos
     BorderSpacing.Bottom = 4
     Caption = 'Nuevo asiento'
     ClientHeight = 202
-    ClientWidth = 1076
+    ClientWidth = 756
     TabOrder = 1
-    object DBLookupComboBoxCuenta: TDBLookupComboBox
-      AnchorSideLeft.Control = GroupBox1
-      AnchorSideRight.Control = GroupBox1
-      AnchorSideRight.Side = asrBottom
-      Left = 8
-      Height = 23
-      Top = 24
-      Width = 1060
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Left = 8
-      BorderSpacing.Right = 8
-      KeyField = 'ID'
-      ListField = 'CODIGO_NOMBRE'
-      ListFieldIndex = 0
-      ListSource = AsientosDataModule.dsCuenta
-      LookupCache = False
-      ReadOnly = True
-      ScrollListDataset = True
-      TabOrder = 0
-    end
     object Haber: TLabel
-      AnchorSideLeft.Control = DBLookupComboBoxCuenta
-      AnchorSideBottom.Control = DBLookupComboBoxCuenta
+      AnchorSideLeft.Control = DBGridCuenta
+      AnchorSideBottom.Control = DBGridCuenta
       Left = 8
       Height = 15
-      Top = 9
+      Top = 1
       Width = 38
       Anchors = [akLeft, akBottom]
       Caption = 'Cuenta'
       ParentColor = False
     end
     object LabeledEditDesscripcion: TLabeledEdit
-      AnchorSideLeft.Control = GroupBox1
-      AnchorSideRight.Control = GroupBox1
       AnchorSideRight.Side = asrBottom
-      Left = 8
+      Left = 352
       Height = 23
-      Top = 128
-      Width = 1060
+      Top = 64
+      Width = 396
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 8
       BorderSpacing.Right = 8
@@ -81,40 +61,40 @@ inherited ProcesoAsientos: TProcesoAsientos
       EditLabel.AnchorSideRight.Control = LabeledEditDesscripcion
       EditLabel.AnchorSideRight.Side = asrBottom
       EditLabel.AnchorSideBottom.Control = LabeledEditDesscripcion
-      EditLabel.Left = 8
+      EditLabel.Left = 352
       EditLabel.Height = 15
-      EditLabel.Top = 110
-      EditLabel.Width = 1060
+      EditLabel.Top = 46
+      EditLabel.Width = 396
       EditLabel.Caption = 'Descripcion'
       EditLabel.ParentColor = False
-      TabOrder = 2
+      TabOrder = 1
     end
     object MaskEditMonto: TMaskEdit
-      Left = 8
+      Left = 352
       Height = 23
-      Top = 72
+      Top = 16
       Width = 136
       CharCase = ecNormal
       MaxLength = 0
-      TabOrder = 1
+      TabOrder = 0
       OnKeyPress = MaskEditMontoKeyPress
       SpaceChar = '_'
     end
     object Monto: TLabel
       AnchorSideLeft.Control = MaskEditMonto
       AnchorSideBottom.Control = MaskEditMonto
-      Left = 8
+      Left = 352
       Height = 15
-      Top = 57
+      Top = 1
       Width = 36
       Anchors = [akLeft, akBottom]
       Caption = 'Monto'
       ParentColor = False
     end
     object BitBtnNuevo: TBitBtn
-      Left = 8
+      Left = 352
       Height = 26
-      Top = 168
+      Top = 112
       Width = 122
       AutoSize = True
       Caption = '&Nuevo asiento'
@@ -155,16 +135,16 @@ inherited ProcesoAsientos: TProcesoAsientos
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
       OnClick = BitBtnNuevoClick
-      TabOrder = 3
+      TabOrder = 2
     end
     object BitBtnNuevoDetalle: TBitBtn
       AnchorSideLeft.Control = BitBtnNuevo
       AnchorSideLeft.Side = asrBottom
       AnchorSideBottom.Control = BitBtnNuevo
       AnchorSideBottom.Side = asrBottom
-      Left = 138
+      Left = 482
       Height = 26
-      Top = 168
+      Top = 112
       Width = 120
       Anchors = [akLeft, akBottom]
       AutoSize = True
@@ -209,16 +189,16 @@ inherited ProcesoAsientos: TProcesoAsientos
       }
       ModalResult = 6
       OnClick = BitBtnNuevoDetalleClick
-      TabOrder = 4
+      TabOrder = 3
     end
     object BitBtnCerrarAsiento: TBitBtn
       AnchorSideLeft.Control = BitBtnNuevoDetalle
       AnchorSideLeft.Side = asrBottom
       AnchorSideBottom.Control = BitBtnNuevoDetalle
       AnchorSideBottom.Side = asrBottom
-      Left = 266
+      Left = 610
       Height = 26
-      Top = 168
+      Top = 112
       Width = 121
       Anchors = [akLeft, akBottom]
       AutoSize = True
@@ -262,12 +242,12 @@ inherited ProcesoAsientos: TProcesoAsientos
       }
       ModalResult = 8
       OnClick = BitBtnCerrarAsientoClick
-      TabOrder = 5
+      TabOrder = 4
     end
     object RadioGroup1: TRadioGroup
-      Left = 168
+      Left = 544
       Height = 37
-      Top = 58
+      Top = 2
       Width = 144
       AutoFill = True
       Caption = 'Tipo de movimiento'
@@ -285,6 +265,29 @@ inherited ProcesoAsientos: TProcesoAsientos
         'Debe'
         'Haber'
       )
+      TabOrder = 5
+    end
+    object DBGridCuenta: TDBGrid
+      Left = 8
+      Height = 176
+      Top = 16
+      Width = 318
+      Anchors = [akTop, akLeft, akBottom]
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'ID'
+          Width = 26
+          FieldName = 'ID'
+        end      
+        item
+          Title.Caption = 'CODIGO_NOMBRE'
+          Width = 114
+          FieldName = 'CODIGO_NOMBRE'
+        end>
+      DataSource = AsientosDataModule.dsCuenta
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+      ReadOnly = True
       TabOrder = 6
     end
   end
@@ -296,14 +299,14 @@ inherited ProcesoAsientos: TProcesoAsientos
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel1
     Left = 4
-    Height = 342
+    Height = 218
     Top = 228
-    Width = 1080
+    Width = 760
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Bottom = 4
     Caption = 'Movimientos'
-    ClientHeight = 324
-    ClientWidth = 1076
+    ClientHeight = 200
+    ClientWidth = 756
     TabOrder = 2
     object BitBtnReversar: TBitBtn
       AnchorSideLeft.Control = GroupBox2
@@ -313,7 +316,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideBottom.Side = asrBottom
       Left = 4
       Height = 30
-      Top = 290
+      Top = 166
       Width = 79
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 4
@@ -360,10 +363,11 @@ inherited ProcesoAsientos: TProcesoAsientos
       TabOrder = 0
     end
     object DBGrid1: TDBGrid
-      Left = 8
-      Height = 284
+      Left = 4
+      Height = 157
       Top = 0
-      Width = 496
+      Width = 360
+      Anchors = [akTop, akLeft, akBottom]
       Color = clWindow
       Columns = <>
       DataSource = AsientosDataModule.dsMovimiento
@@ -375,11 +379,11 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideLeft.Control = DBGrid1
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = DBGrid1
-      Left = 512
-      Height = 284
+      Left = 372
+      Height = 157
       Top = 0
-      Width = 556
-      Anchors = [akTop, akLeft, akRight]
+      Width = 376
+      Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Left = 8
       Color = clWindow
       Columns = <>

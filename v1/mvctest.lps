@@ -4,12 +4,12 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="68">
+    <Units Count="72">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mvctest"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit0>
       <Unit1>
         <Filename Value="model\frmsgcddatamodule.pas"/>
@@ -21,7 +21,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="1" Y="72"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit1>
       <Unit2>
         <Filename Value="base\observersubject.pas"/>
@@ -30,7 +30,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="5" Y="1"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit2>
       <Unit3>
         <Filename Value="maestro\frmmaestro.pas"/>
@@ -40,9 +40,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmMaestro"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="91"/>
-        <CursorPos X="3" Y="112"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="105"/>
+        <CursorPos X="3" Y="119"/>
+        <UsageCount Value="118"/>
       </Unit3>
       <Unit4>
         <Filename Value="view\frmtest.pas"/>
@@ -51,16 +51,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmtest"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit4>
       <Unit5>
         <Filename Value="base\mvc.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mvc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="80"/>
-        <CursorPos X="15" Y="103"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="42"/>
+        <CursorPos X="22" Y="72"/>
+        <UsageCount Value="118"/>
       </Unit5>
       <Unit6>
         <Filename Value="maestro\frmAbm.pas"/>
@@ -70,9 +70,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmAbm"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="29"/>
-        <CursorPos X="1" Y="48"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="150"/>
+        <CursorPos X="21" Y="175"/>
+        <UsageCount Value="118"/>
       </Unit6>
       <Unit7>
         <Filename Value="view\frmabmacademias.pas"/>
@@ -81,7 +81,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmacademias"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit7>
       <Unit8>
         <Filename Value="view\frmabmpersonas.pas"/>
@@ -90,13 +90,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmpersonas"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit8>
       <Unit9>
         <Filename Value="controller\personactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="personactrl"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit9>
       <Unit10>
         <Filename Value="view\principal.pas"/>
@@ -105,23 +105,19 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Principal"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
         <CursorPos X="41" Y="147"/>
-        <UsageCount Value="111"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <UsageCount Value="118"/>
       </Unit10>
       <Unit11>
         <Filename Value="controller\ctrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ctrl"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="135"/>
-        <CursorPos X="1" Y="158"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="191"/>
+        <CursorPos X="1" Y="219"/>
+        <UsageCount Value="118"/>
       </Unit11>
       <Unit12>
         <Filename Value="controller\principalctrl.pas"/>
@@ -129,20 +125,20 @@
         <UnitName Value="principalctrl"/>
         <WindowIndex Value="0"/>
         <TopLine Value="89"/>
-        <CursorPos X="30" Y="129"/>
-        <UsageCount Value="111"/>
+        <CursorPos X="70" Y="119"/>
+        <UsageCount Value="118"/>
       </Unit12>
       <Unit13>
         <Filename Value="base\mensajes.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mensajes"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit13>
       <Unit14>
         <Filename Value="controller\academiactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="academiactrl"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit14>
       <Unit15>
         <Filename Value="model\frmquerydatamodule.pas"/>
@@ -152,9 +148,9 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmquerydatamodule"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="84"/>
-        <CursorPos X="1" Y="111"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="17"/>
+        <CursorPos X="1" Y="128"/>
+        <UsageCount Value="118"/>
       </Unit15>
       <Unit16>
         <Filename Value="model\frmacademiadatamodule.pas"/>
@@ -166,7 +162,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit16>
       <Unit17>
         <Filename Value="model\frmprincipaldatamodule.pas"/>
@@ -175,7 +171,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmprincipaldatamodule"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit17>
       <Unit18>
         <Filename Value="controller\facturactrl.pas"/>
@@ -184,7 +180,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="26"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit18>
       <Unit19>
         <Filename Value="maestro\frmproceso.pas"/>
@@ -196,7 +192,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="15"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit19>
       <Unit20>
         <Filename Value="model\frmfacturadatamodule.pas"/>
@@ -208,13 +204,13 @@
         <WindowIndex Value="0"/>
         <TopLine Value="98"/>
         <CursorPos X="36" Y="87"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit20>
       <Unit21>
         <Filename Value="controller\ventactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ventactrl"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit21>
       <Unit22>
         <Filename Value="model\frmventadatamodule.pas"/>
@@ -223,7 +219,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmventadatamodule"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit22>
       <Unit23>
         <Filename Value="view\frmventa.pas"/>
@@ -232,7 +228,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmventa"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit23>
       <Unit24>
         <Filename Value="model\frmaranceldatamodule.pas"/>
@@ -241,7 +237,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmaranceldatamodule"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit24>
       <Unit25>
         <Filename Value="maestro\frmprocesoseleccion.pas"/>
@@ -250,7 +246,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmprocesoseleccion"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit25>
       <Unit26>
         <Filename Value="model\frmpersonasdatamodule.pas"/>
@@ -262,7 +258,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="1" Y="65"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit26>
       <Unit27>
         <Filename Value="controller\procesoctrl.pas"/>
@@ -271,7 +267,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="15"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit27>
       <Unit28>
         <Filename Value="model\frmmovimientodatamodule.pas"/>
@@ -283,7 +279,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="48" Y="18"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit28>
       <Unit29>
         <Filename Value="model\frmcuentadatamodule.pas"/>
@@ -293,24 +289,24 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmcuentadatamodule"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="47"/>
-        <CursorPos X="44" Y="92"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="36"/>
+        <CursorPos X="26" Y="73"/>
+        <UsageCount Value="118"/>
       </Unit29>
       <Unit30>
         <Filename Value="controller\cuentactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="cuentactrl"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="5"/>
-        <CursorPos X="1" Y="37"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="1"/>
+        <CursorPos X="51" Y="32"/>
+        <UsageCount Value="118"/>
       </Unit30>
       <Unit31>
         <Filename Value="controller\movimientoctrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="movimientoctrl"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="118"/>
       </Unit31>
       <Unit32>
         <Filename Value="view\frmabmcuentas.pas"/>
@@ -320,9 +316,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmcuentas"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="68" Y="78"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="23"/>
+        <CursorPos X="15" Y="17"/>
+        <UsageCount Value="118"/>
       </Unit32>
       <Unit33>
         <Filename Value="view\frmprocesoasientos.pas"/>
@@ -331,10 +327,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmprocesoasientos"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="10"/>
-        <CursorPos X="32" Y="72"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="21"/>
+        <CursorPos X="1" Y="38"/>
+        <UsageCount Value="118"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="model\frmasientosdatamodule.pas"/>
@@ -343,30 +343,33 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmasientosdatamodule"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="264"/>
-        <CursorPos X="43" Y="142"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="168"/>
+        <CursorPos X="1" Y="191"/>
+        <UsageCount Value="118"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="controller\asientosctrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="asientosctrl"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="42"/>
-        <CursorPos X="1" Y="64"/>
-        <UsageCount Value="104"/>
+        <TopLine Value="51"/>
+        <CursorPos X="1" Y="67"/>
+        <UsageCount Value="111"/>
+        <Loaded Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="controller\pagoctrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pagoctrl"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="50" Y="8"/>
-        <UsageCount Value="33"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="40"/>
       </Unit36>
       <Unit37>
         <Filename Value="model\frmpagodatamodule.pas"/>
@@ -375,13 +378,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmpagodatamodule"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="121"/>
-        <CursorPos X="23" Y="127"/>
-        <UsageCount Value="33"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <TopLine Value="42"/>
+        <CursorPos X="37" Y="64"/>
+        <UsageCount Value="40"/>
       </Unit37>
       <Unit38>
         <Filename Value="view\frmpago.pas"/>
@@ -390,13 +390,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmpago"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="102"/>
-        <CursorPos X="3" Y="125"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <TopLine Value="1"/>
+        <CursorPos X="38" Y="18"/>
+        <UsageCount Value="33"/>
       </Unit38>
       <Unit39>
         <Filename Value="controller\asientosctrl_old.pas"/>
@@ -549,9 +546,9 @@
       <Unit58>
         <Filename Value="C:\lazarus\lcl\include\application.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1388"/>
-        <CursorPos X="21" Y="1412"/>
-        <UsageCount Value="8"/>
+        <TopLine Value="2296"/>
+        <CursorPos X="1" Y="2318"/>
+        <UsageCount Value="10"/>
       </Unit58>
       <Unit59>
         <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
@@ -565,7 +562,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1016"/>
         <CursorPos X="1" Y="1045"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="10"/>
       </Unit60>
       <Unit61>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-db\src\base\dataset.inc"/>
@@ -621,82 +618,142 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit67>
+      <Unit68>
+        <Filename Value="view\frmpago.lfm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="10"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="model\frmpagodatamodule.lfm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="88"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\objpas\classes\classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1903"/>
+        <CursorPos X="16" Y="1925"/>
+        <UsageCount Value="10"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\objpas\classes\dm.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="56"/>
+        <CursorPos X="3" Y="58"/>
+        <UsageCount Value="10"/>
+      </Unit71>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="124" Column="1" TopLine="112"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="67" Column="1" TopLine="52"/>
       </Position1>
       <Position2>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="125" Column="1" TopLine="112"/>
+        <Filename Value="model\frmasientosdatamodule.pas"/>
+        <Caret Line="191" Column="1" TopLine="168"/>
       </Position2>
       <Position3>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="126" Column="1" TopLine="112"/>
+        <Filename Value="model\frmasientosdatamodule.pas"/>
+        <Caret Line="192" Column="1" TopLine="168"/>
       </Position3>
       <Position4>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="127" Column="1" TopLine="112"/>
+        <Filename Value="model\frmasientosdatamodule.pas"/>
+        <Caret Line="193" Column="1" TopLine="168"/>
       </Position4>
       <Position5>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="128" Column="1" TopLine="112"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="67" Column="21" TopLine="52"/>
       </Position5>
       <Position6>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="129" Column="1" TopLine="112"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="65" Column="1" TopLine="52"/>
       </Position6>
       <Position7>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="130" Column="1" TopLine="112"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="66" Column="1" TopLine="52"/>
       </Position7>
       <Position8>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="131" Column="1" TopLine="112"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="75" Column="3" TopLine="72"/>
       </Position8>
       <Position9>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="132" Column="1" TopLine="112"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="74" Column="1" TopLine="66"/>
       </Position9>
       <Position10>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="133" Column="1" TopLine="112"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="80" Column="1" TopLine="66"/>
       </Position10>
       <Position11>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="63" Column="33" TopLine="50"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="75" Column="1" TopLine="66"/>
       </Position11>
       <Position12>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <Caret Line="127" Column="23" TopLine="121"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="76" Column="1" TopLine="66"/>
       </Position12>
       <Position13>
-        <Filename Value="view\frmpago.pas"/>
-        <Caret Line="125" Column="3" TopLine="102"/>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="81" Column="15" TopLine="66"/>
       </Position13>
+      <Position14>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="74" Column="1" TopLine="66"/>
+      </Position14>
+      <Position15>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="82" Column="1" TopLine="66"/>
+      </Position15>
+      <Position16>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="75" Column="1" TopLine="66"/>
+      </Position16>
+      <Position17>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="76" Column="1" TopLine="66"/>
+      </Position17>
+      <Position18>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="78" Column="1" TopLine="66"/>
+      </Position18>
+      <Position19>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="80" Column="1" TopLine="66"/>
+      </Position19>
+      <Position20>
+        <Filename Value="view\frmprocesoasientos.pas"/>
+        <Caret Line="38" Column="1" TopLine="21"/>
+      </Position20>
+      <Position21>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="70" Column="5" TopLine="51"/>
+      </Position21>
+      <Position22>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="69" Column="27" TopLine="51"/>
+      </Position22>
+      <Position23>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="67" Column="22" TopLine="51"/>
+      </Position23>
+      <Position24>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="70" Column="5" TopLine="51"/>
+      </Position24>
+      <Position25>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <Caret Line="67" Column="1" TopLine="51"/>
+      </Position25>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="2">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="model\frmpagodatamodule.pas"/>
-        <Line Value="132"/>
-      </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="model\frmpagodatamodule.pas"/>
-        <Line Value="123"/>
-      </Item2>
-    </BreakPoints>
-  </Debugging>
   <EditorMacros Count="0"/>
 </CONFIG>

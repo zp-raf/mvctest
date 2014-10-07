@@ -25,8 +25,8 @@ type
     function GetCuentaDataSource: TDataSource;
     procedure SetCustomModel(AValue: TAsientosDataModule);
   public
-    constructor Create(AModel: IModel); overload;
     destructor Destroy; override;
+    constructor Create(AModel: IModel); overload;
     function GetAsientoEstado(Sender: IView): TEstadoAsiento;
     procedure NuevoAsiento(ADescripcion: string; Sender: IView);
     procedure NuevoAsientoDetalle(ACuentaID: string; ATipoMov: TTipoMovimiento;
@@ -59,6 +59,17 @@ begin
   FCustomModel := AValue;
 end;
 
+destructor TAsientosController.Destroy;
+var
+  x: Pointer;
+begin
+  x := Pointer(FCustomModel);
+  Model := nil;
+  FCustomModel := nil;
+  TAsientosDataModule(x).Free;
+  inherited;
+end;
+
 constructor TAsientosController.Create(AModel: IModel);
 begin
   inherited Create(AModel);
@@ -66,12 +77,6 @@ begin
     CustomModel := (AModel as TAsientosDataModule)
   else
     raise Exception.Create(rsModelErr);
-end;
-
-destructor TAsientosController.Destroy;
-begin
-  CustomModel := nil;
-  inherited;
 end;
 
 function TAsientosController.GetAsientoEstado(Sender: IView): TEstadoAsiento;
@@ -129,6 +134,8 @@ procedure TAsientosController.ErrorHandler(E: Exception; Sender: IView);
 begin
   //para avisar si se metio mal el nro de asiento
   inherited ErrorHandler(E, Sender);
+  Model.DiscardChanges;
+  Model.Rollback;
 end;
 
 procedure TAsientosController.ReversarAsiento(AAsientoID: string;

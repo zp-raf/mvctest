@@ -36,7 +36,6 @@ type
     procedure CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure CuentaNewRecord(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject); override;
-    procedure SaveChanges; override;
   private
     { private declarations }
   public
@@ -60,11 +59,6 @@ begin
   AuxQryList.Add(TObject(CuentasContables));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('CODIGO');
-end;
-
-procedure TCuentaDataModule.SaveChanges;
-begin
-  inherited SaveChanges;
 end;
 
 procedure TCuentaDataModule.ActualizarDetallesCuenta(Sender: IController;

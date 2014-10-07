@@ -67,7 +67,6 @@ type
     Totales: TGroupBox;
     procedure CancelButtonClick(Sender: TObject);
     procedure DBEditEfectivoEditingDone(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure Limpiar;
     procedure OKButtonClick(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
@@ -101,11 +100,6 @@ begin
 end;
 
 procedure TProcesoPago.DBEditEfectivoEditingDone(Sender: TObject);
-begin
-
-end;
-
-procedure TProcesoPago.FormShow(Sender: TObject);
 begin
 
 end;

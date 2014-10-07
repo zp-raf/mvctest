@@ -21,6 +21,7 @@ type
     BitBtnNuevoDetalle: TBitBtn;
     DBGrid1: TDBGrid;
     DBGrid2: TDBGrid;
+    DBGridCuenta: TDBGrid;
     RadioGroup1: TRadioGroup;
     procedure BitBtnCerrarAsientoClick(Sender: TObject);
     procedure BitBtnNuevoDetalleClick(Sender: TObject);
@@ -39,7 +40,6 @@ type
     Monto: TLabel;
     MaskEditMonto: TMaskEdit;
     BitBtnReversar: TBitBtn;
-    DBLookupComboBoxCuenta: TDBLookupComboBox;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     Haber: TLabel;
@@ -73,7 +73,8 @@ begin
   case GetCustomController.GetAsientoEstado(Self) of
     asInicial:
     begin
-      DBLookupComboBoxCuenta.Enabled := False;
+      DBGridCuenta.Enabled := False;
+      DBGridCuenta.Color := clInactiveCaption;
       MaskEditMonto.Enabled := False;
       LabeledEditDesscripcion.Enabled := True;
       RadioGroup1.Enabled := False;
@@ -84,7 +85,8 @@ begin
     end;
     asGuardado:
     begin
-      DBLookupComboBoxCuenta.Enabled := False;
+      DBGridCuenta.Enabled := False;
+      DBGridCuenta.Color := clInactiveCaption;
       MaskEditMonto.Enabled := False;
       LabeledEditDesscripcion.Enabled := True;
       RadioGroup1.Enabled := False;
@@ -95,7 +97,8 @@ begin
     end;
     asEditando:
     begin
-      DBLookupComboBoxCuenta.Enabled := True;
+      DBGridCuenta.Enabled := False;
+      DBGridCuenta.Color := clWindow;
       MaskEditMonto.Enabled := True;
       LabeledEditDesscripcion.Enabled := False;
       RadioGroup1.Enabled := True;
@@ -145,7 +148,6 @@ end;
 
 procedure TProcesoAsientos.Limpiar;
 begin
-  DBLookupComboBoxCuenta.ClearSelection;
   MaskEditMonto.Clear;
   RadioGroup1.ItemIndex := -1;
 end;
