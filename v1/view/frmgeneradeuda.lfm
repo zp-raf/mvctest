@@ -1,0 +1,86 @@
+inherited GenerarDeuda: TGenerarDeuda
+  Left = 479
+  Top = 268
+  ClientHeight = 461
+  OnCreate = FormCreate
+  inherited PanelDetail: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      Height = 232
+      Top = 152
+    end
+    inherited DBNavList: TDBNavigator
+      Hints.Strings = (      )
+    end
+    inherited EditFilter: TEdit
+      Top = 125
+    end
+    inherited LabelFilter: TLabel
+      Height = 16
+      Top = 109
+      Width = 235
+    end
+    inherited ButtonFilter: TButton
+      Top = 124
+    end
+    object DBLookupComboBox1: TDBLookupComboBox[5]
+      Left = 152
+      Height = 23
+      Top = 32
+      Width = 280
+      ListFieldIndex = 0
+      LookupCache = False
+      TabOrder = 4
+    end
+  end
+  object DBLookupComboBox2: TDBLookupComboBox[3]
+    Left = 152
+    Height = 23
+    Top = 32
+    Width = 280
+    ListFieldIndex = 0
+    LookupCache = False
+    TabOrder = 3
+  end
+  object DBLookupComboBox3: TDBLookupComboBox[4]
+    Left = 152
+    Height = 23
+    Top = 60
+    Width = 280
+    ListFieldIndex = 0
+    LookupCache = False
+    TabOrder = 4
+  end
+  object Label2: TLabel[5]
+    Left = 56
+    Height = 16
+    Top = 33
+    Width = 44
+    Caption = 'Alumno'
+    Color = clBackground
+    ParentColor = False
+    Transparent = False
+    OnClick = Label2Click
+  end
+  object Label3: TLabel[6]
+    Left = 56
+    Height = 16
+    Top = 61
+    Width = 41
+    Caption = 'Arancel'
+    Color = clBlack
+    ParentColor = False
+    Transparent = False
+  end
+  inherited MainMenu: TMainMenu[7]
+  end
+  inherited AppProps: TApplicationProperties[8]
+  end
+end
