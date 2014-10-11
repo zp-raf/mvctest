@@ -319,7 +319,7 @@ begin
   begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
-      if ReadOnly or (not Active) or not (State in [dsEdit, dsInsert]) then
+      if ReadOnly or not Active then
         Continue;
       ApplyUpdates;
     end;

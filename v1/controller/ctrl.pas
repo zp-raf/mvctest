@@ -59,7 +59,7 @@ type
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
     procedure Rollback(Sender: IView);
-    procedure Save(Sender: IView);
+    procedure Save(Sender: IView); virtual;
     function GetCurrentRecordText(Sender: IView): string;
     //property Controller: IController read FController implements IController;
   end;

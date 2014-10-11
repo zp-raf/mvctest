@@ -13,9 +13,15 @@ type
 
   TArancelesDataModule = class(TQueryDataModule)
     Arancel: TSQLQuery;
+    ArancelACTIVO: TSmallintField;
+    ArancelDESCRIPCION: TStringField;
+    ArancelGRUPO_PRODUCTOSID: TLongintField;
+    ArancelID: TLongintField;
+    ArancelMONTO: TFloatField;
+    ArancelNOMBRE: TStringField;
     dsAranceles: TDataSource;
     procedure ArancelFilterRecord(DataSet: TDataSet; var Accept: Boolean);
-    procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject); override;
   private
     { private declarations }
   public

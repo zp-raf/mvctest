@@ -168,9 +168,9 @@ inherited Principal1: TPrincipal1
         object historico: TMenuItem
           Caption = '&Historico de Movimientos'
         end
-        object generarDeuda: TMenuItem
+        object MenuItemGenerarDeuda: TMenuItem
           Caption = 'Generar &deudas'
-          OnClick = generarDeudaClick
+          OnClick = MenuItemGenerarDeudaClick
         end
         object cuentasCobrar: TMenuItem
           Caption = 'Cuentas por c&obrar'

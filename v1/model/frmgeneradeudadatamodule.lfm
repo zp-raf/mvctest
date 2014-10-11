@@ -1,14 +1,15 @@
 inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
-  Height = 150
+  OnCreate = DataModuleCreate
+  Height = 242
   HorizontalOffset = 509
   VerticalOffset = 278
-  Width = 150
-  object ds1: TDatasource[0]
+  Width = 292
+  object dsDeuda: TDataSource[0]
+    DataSet = Deuda
     left = 32
     top = 37
   end
-  object qry1: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
+  object Deuda: TSQLQuery[1]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -17,26 +18,14 @@ inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
         Size = 0
       end    
       item
-        Name = 'PERSONAID'
+        Name = 'ARANCELID'
         DataType = ftInteger
         Precision = -1
         Size = 0
       end    
       item
-        Name = 'MONTO_DEUDA'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'MONTO_PAGADO'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SALDO'
-        DataType = ftFloat
+        Name = 'MATRICULAID'
+        DataType = ftInteger
         Precision = -1
         Size = 0
       end    
@@ -45,84 +34,140 @@ inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
         DataType = ftSmallint
         Precision = -1
         Size = 0
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'CANTIDAD_CUOTAS'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CUOTA_NRO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VENCIMIENTO'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
       end>
-    Active = True
+    BeforePost = DeudaBeforePost
+    OnNewRecord = DeudaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
-      'select * from deuda;'
+      'select * from deuda'
     )
     Params = <>
-    left = 106
-    top = 80
-    object qry1ID: TLongintField
+    left = 32
+    top = 104
+    object DeudaID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ID'
       Index = 0
       LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = False
       Required = True
     end
-    object qry1PERSONAID: TLongintField
+    object DeudaARANCELID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'PERSONAID'
+      FieldName = 'ARANCELID'
       Index = 1
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
     end
-    object qry1MONTO_DEUDA: TFloatField
+    object DeudaMATRICULAID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'MONTO_DEUDA'
+      FieldName = 'MATRICULAID'
       Index = 2
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
+      Required = False
     end
-    object qry1MONTO_PAGADO: TFloatField
+    object DeudaACTIVO: TSmallintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'MONTO_PAGADO'
+      FieldName = 'ACTIVO'
       Index = 3
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
     end
-    object qry1SALDO: TFloatField
-      DisplayWidth = 10
+    object DeudaDESCRIPCION: TStringField
+      DisplayWidth = 512
       FieldKind = fkData
-      FieldName = 'SALDO'
+      FieldName = 'DESCRIPCION'
       Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
+      Size = 512
     end
-    object qry1ACTIVO: TSmallintField
+    object DeudaCANTIDAD_CUOTAS: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'ACTIVO'
+      FieldName = 'CANTIDAD_CUOTAS'
       Index = 5
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
+    object DeudaCUOTA_NRO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CUOTA_NRO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DeudaVENCIMIENTO: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VENCIMIENTO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsPers: TDataSource[2]
+    DataSet = PersonasDataModule.Persona
+    left = 120
+    top = 32
+  end
+  object dsCuota: TDataSource[3]
+    DataSet = CuotaArancelDataModule.CuotaXArancel
+    left = 120
+    top = 112
+  end
+  object dsCod: TDataSource[4]
+    left = 209
+    top = 37
+  end
+  object dsAran: TDataSource[5]
+    DataSet = ArancelesDataModule.Arancel
+    left = 221
+    top = 112
   end
 end

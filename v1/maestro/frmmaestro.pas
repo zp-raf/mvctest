@@ -59,6 +59,7 @@ type
     function ShowWarningMessage(ATitle: string; AMsg: string): TModalResult;
     function ShowConfirmationMessage(AMsg: string): TModalResult;
     function ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
+    function ValidateDate(ADateStr: string): boolean;
     property Controller: IController read GetController write SetController;
   public
     constructor Create(AOwner: IFormView; AController: IController); overload;
@@ -210,6 +211,16 @@ end;
 function TMaestro.ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
 begin
   Result := MessageDlg(ATitle, AMsg, mtConfirmation, mbYesNo, 0);
+end;
+
+function TMaestro.ValidateDate(ADateStr: string): boolean;
+var
+  x: TDateTime;
+begin
+  if TryStrToDate(ADateStr, x) and (x > StrToDate('01/01/1900')) then
+    Result := True
+  else
+    Result := False;
 end;
 
 constructor TMaestro.Create(AOwner: IFormView; AController: IController);

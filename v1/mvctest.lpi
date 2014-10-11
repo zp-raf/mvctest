@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="200"/>
+      <BuildNr Value="247"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -49,7 +49,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="39">
+    <Units Count="44">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -317,6 +317,43 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmpago"/>
       </Unit38>
+      <Unit39>
+        <Filename Value="model\frmgeneradeudadatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="GeneraDeudaDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmgeneradeudadatamodule"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="view\frmgeneradeuda.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="GenerarDeuda"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmgeneradeuda"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="controller\generardeudactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="generardeudactrl"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="model\frmcuotaxarancel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CuotaArancelDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmcuotaxarancel"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="model\frmcodigosdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CodigosDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmcodigosdatamodule"/>
+      </Unit43>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -1,0 +1,73 @@
+inherited CodigosDataModule: TCodigosDataModule
+  OnCreate = DataModuleCreate
+  Height = 199
+  HorizontalOffset = 801
+  VerticalOffset = 478
+  Width = 182
+  object dsCodigos: TDataSource[0]
+    DataSet = Codigos
+    left = 40
+    top = 96
+  end
+  object Codigos: TSQLQuery[1]
+    FieldDefs = <    
+      item
+        Name = 'VALOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'OBJETO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SIGNIFICADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from codigos'
+    )
+    Params = <>
+    left = 39
+    top = 35
+    object CodigosVALOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALOR'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object CodigosOBJETO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBJETO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object CodigosSIGNIFICADO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'SIGNIFICADO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+  end
+end

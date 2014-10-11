@@ -40,7 +40,7 @@ type
     cuotaxarancel: TMenuItem;
     examenabm: TMenuItem;
     calificar: TMenuItem;
-    generarDeuda: TMenuItem;
+    MenuItemGenerarDeuda: TMenuItem;
     certificadoEstudio: TMenuItem;
     historicoMovimiento: TMenuItem;
     MenuItemABMCuentas: TMenuItem;
@@ -75,7 +75,7 @@ type
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure generarDeudaClick(Sender: TObject);
+    procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
     procedure PagosClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
@@ -132,9 +132,9 @@ begin
   Controller.Connect(Self);
 end;
 
-procedure TPrincipal1.generarDeudaClick(Sender: TObject);
+procedure TPrincipal1.MenuItemGenerarDeudaClick(Sender: TObject);
 begin
-  GetCustomController.OpenVentaForm(Self);
+  GetCustomController.OpenDeudaForm(Self);
 end;
 
 procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);

@@ -35,7 +35,11 @@ uses
   // Pagos
   frmpagodatamodule,
   frmpago,
-  pagoctrl;
+  pagoctrl,
+  // Deudas(test)
+  frmgeneradeudadatamodule,
+  frmgeneradeuda,
+  generardeudactrl;
 
 type
 
@@ -48,7 +52,7 @@ type
     procedure ABMAcad(Sender: IFormView);
     procedure allpersonasClick(Sender: IFormView);
     procedure OpenFacturasForm(Sender: IFormView);
-    procedure OpenVentaForm(Sender: IFormView);
+    procedure OpenDeudaForm(Sender: IFormView);
     procedure OpenABMCuentasForm(Sender: IFormView);
     procedure OpenAsientosFrom(Sender: IFormView);
     procedure OpenPagosForm(Sender: IFormView);
@@ -98,11 +102,12 @@ begin
   //(Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
 end;
 
-procedure TPrincipalController.OpenVentaForm(Sender: IFormView);
+procedure TPrincipalController.OpenDeudaForm(Sender: IFormView);
 begin
-  //ProcesoVenta := TProcesoVenta.cre;
-  //ProcesoVenta.Show;
-  //(Model.MasterDataModule as ISubject).Attach(ProcesoVenta as IObserver);
+  GenerarDeuda := TGenerarDeuda.Create(Sender, TGenDeudaController.Create(
+    TGeneraDeudaDataModule.Create((Sender as TComponent), Model.MasterDataModule)));
+  GenerarDeuda.Show;
+  (Model.MasterDataModule as ISubject).Attach(GenerarDeuda as IObserver);
 end;
 
 procedure TPrincipalController.OpenABMCuentasForm(Sender: IFormView);

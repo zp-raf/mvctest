@@ -286,8 +286,7 @@ inherited ProcesoAsientos: TProcesoAsientos
           FieldName = 'CODIGO_NOMBRE'
         end>
       DataSource = AsientosDataModule.dsCuenta
-      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
-      ReadOnly = True
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
       TabOrder = 6
     end
   end
