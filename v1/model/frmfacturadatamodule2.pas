@@ -5,11 +5,20 @@ unit frmfacturadatamodule2;
 interface
 
 uses
-  Classes, SysUtils, db, sqldb, FileUtil, LR_DBSet, LR_Class, Forms, Controls,
+  Classes, SysUtils, db, sqldb, FileUtil, //LR_DBSet,
+//  LR_Class,
+  Forms, Controls,
   Graphics, Dialogs, XMLPropStorage, frmquerydatamodule;
+
+resourcestring
+
+  rsGenFacturaID = 'SEQ_FACTURA';
+  rsGenFacturaDetalleID = 'SEQ_FACTURA_DETALLE';
 
 type
 
+
+  TEstadoFactura = (asInicial, asEditando, asGuardado);
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TQueryDataModule)
@@ -18,9 +27,9 @@ type
     dsNum: TDatasource;
     dsPersona: TDatasource;
     dstal: TDatasource;
-    frDBReporteCab: TfrDBDataSet;
-    frDBReporteDet: TfrDBDataSet;
-    frReport1: TfrReport;
+//    frDBReporteCab: TfrDBDataSet;
+//    frDBReporteDet: TfrDBDataSet;
+//    frReport1: TfrReport;
     qryDetalle: TSQLQuery;
     qryDetalleCANTIDAD: TLongintField;
     qryDetalleDETALLE: TStringField;
@@ -57,6 +66,7 @@ type
     talVALIDO_HASTA: TDateField;
     XMLPropStorage1: TXMLPropStorage;
   private
+    FEstado: TEstadoFactura;
     { private declarations }
   public
     { public declarations }
@@ -66,6 +76,11 @@ type
         procedure Disconnect; override;
         procedure RefreshDataSets; override;
        procedure SaveChanges; override;
+  published
+        procedure NuevaFactura(Sender: TObject);
+        procedure NuevaFacturaDetalle (Sender: TObject);
+        property Estado: TEstadoFactura read FEstado write FEstado;
+
   end;
 
 var
@@ -86,6 +101,7 @@ procedure TFacturasDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited DataModuleCreate(Sender);
   QryList.Add(TObject(qryFactura));
+
 end;
 
 procedure TFacturasDataModule.Disconnect;
@@ -101,6 +117,41 @@ end;
 procedure TFacturasDataModule.SaveChanges;
 begin
   inherited SaveChanges;
+end;
+
+procedure TFacturasDataModule.NuevaFactura(Sender: TObject);
+begin
+    Connect;
+  if (Estado in [asEditando]) then
+//    raise Exception.Create(rsNuevoAsientoError);
+  try
+    qryFactura.Insert;
+
+
+   // Movimiento.Insert;
+   // MovimientoFECHA.AsDateTime := Now;
+   // MovimientoDESCRIPCION.AsString := ADescripcion;
+    Estado := asEditando;
+   // (MasterDataModule as ISubject).Notify;
+  except
+    on E: EDatabaseError do
+    //  OnAsientoError;
+  end;
+
+end;
+
+procedure TFacturasDataModule.NuevaFacturaDetalle(Sender: TObject);
+begin
+  if (Estado in [asInicial, asGuardado]) then
+    raise Exception.Create('Cree la cabecera primero');
+  try
+    qryDetalle.Insert;
+   // TODO: cada uno de los campos del detalle (?)
+//     (MasterDataModule as ISubject).Notify;
+  except
+    on E: EDatabaseError do
+      //OnAsientoError;
+  end;
 end;
 
 end.

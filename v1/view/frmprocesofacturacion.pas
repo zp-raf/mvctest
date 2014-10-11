@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, StdCtrls, DbCtrls, EditBtn, PairSplitter, DBGrids, frmproceso;
-
+  ButtonPanel, StdCtrls, DbCtrls, EditBtn, PairSplitter, DBGrids, frmproceso, mvc,
+  facturactrl2, frmfacturadatamodule2, frmMaestro;
 type
 
   { TProcesoFacturacion }
@@ -70,9 +70,16 @@ type
     Subtotal1: TLabel;
     Subtotal2: TLabel;
     Totales: TGroupBox;
+
+    procedure ObserverUpdate(const Subject: IInterface); override;
+
     property ABMController: IABMController read GetController write SetController;
+    procedure Limpiar;
+        procedure OKButtonClick(Sender: TObject);
+        procedure CancelButtonClick(Sender: TObject);
     { Aca esta el controlador especifico del modulo }
     property CustomController: TFacturaController read GetCustomController write SetCustomController;
+
 {
 
 procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -144,13 +151,156 @@ begin
    (AController as IInterface).QueryInterface(IController, Cont);
    (AController as IInterface).QueryInterface(IABMController, ABMCont);
    if (Cont = nil) or (ABMCont = nil) then
-     raise Exception.Create(rsProvidedCont)
+   //  raise Exception.Create(rsProvidedCont)
    else
    begin
      inherited Create(AOwner, Cont);
      ABMController := ABMCont;
      CustomController := AController;
    end;
+end;
+
+procedure TProcesoFacturacion.ObserverUpdate(const Subject: IInterface);
+begin
+  inherited ObserverUpdate(Subject);
+  //case GetCustomController.GetAsientoEstado(Self) of
+  case GetCustomController.GetFacturaEstado(Self) of
+    asInicial:
+    begin
+      {DBGridCuenta.Enabled := False;
+      DBGridCuenta.Color := clInactiveCaption;
+      MaskEditMonto.Enabled := False;
+      LabeledEditDesscripcion.Enabled := True;
+      RadioGroup1.Enabled := False;
+      BitBtnReversar.Enabled := True;
+      BitBtnCerrarAsiento.Enabled := False;
+      BitBtnNuevoDetalle.Enabled := False;
+      BitBtnNuevo.Enabled := True;}
+      DBGrid1.Enabled:= False;
+      DBGrid1.Color:= clInactiveCaption;
+      btSeleccionar.Visible:= False;
+      ButtonLimpiar.Enabled:= False;
+      DBEdit1.Enabled:= True;
+      DBEdit2.Enabled:= True;
+      DBEdit3.Enabled:= True;
+      DBEdit4.Enabled:= True;
+      DBEdit5.Enabled:= True;
+      DBEdit6.Enabled:= True;
+      DBEdit7.Enabled:= True;
+      DBEdit8.Enabled:= True;
+      DBEdit9.Enabled:= True;
+      DBEdit10.Enabled:= True;
+      DBEdit11.Enabled:= True;
+      DBEdit12.Enabled:= True;
+      DateEdit1.Enabled:=True;
+      DateEdit2.Enabled:= True;
+      Condicion.Enabled:= False;
+    end;
+    asGuardado:
+    begin
+      {
+       DBGridCuenta.Enabled := False;
+       DBGridCuenta.Color := clInactiveCaption;
+       MaskEditMonto.Enabled := False;
+       LabeledEditDesscripcion.Enabled := True;
+       RadioGroup1.Enabled := False;
+       BitBtnReversar.Enabled := True;
+       BitBtnCerrarAsiento.Enabled := False;
+       BitBtnNuevoDetalle.Enabled := False;
+       BitBtnNuevo.Enabled := True;
+      }
+      DBGrid1.Enabled:= False;
+      DBGrid1.Color:= clInactiveCaption;
+      btSeleccionar.Visible:= False;
+      ButtonLimpiar.Enabled:= False;
+      DBEdit1.Enabled:= True;
+      DBEdit2.Enabled:= True;
+      DBEdit3.Enabled:= True;
+      DBEdit4.Enabled:= True;
+      DBEdit5.Enabled:= True;
+      DBEdit6.Enabled:= True;
+      DBEdit7.Enabled:= True;
+      DBEdit8.Enabled:= True;
+      DBEdit9.Enabled:= True;
+      DBEdit10.Enabled:= True;
+      DBEdit11.Enabled:= True;
+      DBEdit12.Enabled:= True;
+      DateEdit1.Enabled:=True;
+      DateEdit2.Enabled:= True;
+      Condicion.Enabled:= True;
+
+    end;
+    asEditando:
+    begin
+      {
+       DBGridCuenta.Enabled := False;
+       DBGridCuenta.Color := clWindow;
+       MaskEditMonto.Enabled := True;
+       LabeledEditDesscripcion.Enabled := False;
+       RadioGroup1.Enabled := True;
+       BitBtnReversar.Enabled := False;
+       BitBtnCerrarAsiento.Enabled := True;
+       BitBtnNuevoDetalle.Enabled := True;
+       BitBtnNuevo.Enabled := False;
+      }
+      DBGrid1.Enabled:= False;
+      DBGrid1.Color:= clWindow;
+      btSeleccionar.Visible:= False;
+      ButtonLimpiar.Enabled:= False;
+      DBEdit1.Enabled:= False;
+      DBEdit2.Enabled:= False;
+      DBEdit3.Enabled:= False;
+      DBEdit4.Enabled:= False;
+      DBEdit5.Enabled:= False;
+      DBEdit6.Enabled:= False;
+      DBEdit7.Enabled:= False;
+      DBEdit8.Enabled:= False;
+      DBEdit9.Enabled:= False;
+      DBEdit10.Enabled:= False;
+      DBEdit11.Enabled:= False;
+      DBEdit12.Enabled:= False;
+      DateEdit1.Enabled:=False;
+      DateEdit2.Enabled:= False;
+      Condicion.Enabled:= False;
+
+    end;
+  end;
+
+end;
+
+procedure TProcesoFacturacion.Limpiar;
+begin
+    DBEdit1.Clear;
+    DBEdit2.Clear;
+    DBEdit3.Clear;
+    DBEdit4.Clear;
+    DBEdit5.Clear;
+    DBEdit6.Clear;
+    DBEdit7.Clear;
+    DBEdit8.Clear;
+    DBEdit9.Clear;
+    DBEdit10.Clear;
+    DBEdit11.Clear;
+    DBEdit12.Clear;
+    DateEdit1.Clear;
+    DateEdit2.Clear;
+    Condicion.ItemIndex:=-1;
+
+end;
+
+procedure TProcesoFacturacion.OKButtonClick(Sender: TObject);
+begin
+  ABMController.Commit(Self);
+  ABMController.Connect(Self);
+  Limpiar;
+  ShowInfoMessage('Factura ingresada correctamente');
+end;
+
+procedure TProcesoFacturacion.CancelButtonClick(Sender: TObject);
+begin
+  ABMController.Rollback(Self);
+  Limpiar;
+  ShowInfoMessage('Factura descartada');
 end;
 
 

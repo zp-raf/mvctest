@@ -5,7 +5,7 @@ unit facturactrl2;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmfacturadatamodule2;
+  Classes, SysUtils, ctrl, frmfacturadatamodule2,mvc, db;
 
 type
 
@@ -22,6 +22,8 @@ type
  //   function GetCuentaDebeDataSource: TDataSource;
  //   function GetCuentaHaberDataSource: TDataSource;
   public
+
+        function GetFacturaEstado(Sender: IView): TEstadoFactura;
     //constructor Create(AModel: IModel); overload;
   //  procedure NuevoAsiento(ADescripcion: string; Sender: IView);
    // procedure ErrorHandler(E: Exception; Sender: IView); override;
@@ -39,6 +41,11 @@ implementation
 function TFacturaController.GetCustomModel: TFacturasDataModule;
 begin
   Result := (Model as TFacturasDataModule);
+end;
+
+function TFacturaController.GetFacturaEstado(Sender: IView): TEstadoFactura;
+begin
+  Result := GetCustomModel.Estado;
 end;
 
 end.
