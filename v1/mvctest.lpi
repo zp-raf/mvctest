@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="247"/>
+      <BuildNr Value="248"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -49,7 +49,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="44">
+    <Units Count="49">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -354,6 +354,33 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmcodigosdatamodule"/>
       </Unit43>
+      <Unit44>
+        <Filename Value="controller\facturactrl2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="facturactrl2"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="model\frmfacturadatamodule2.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="model\frmfacturadatamodule2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FacturasDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmfacturadatamodule2"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="view\frmprocesofacturacion.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="view\frmprocesofacturacion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="frmprocesofacturacion"/>
+      </Unit48>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

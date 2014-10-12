@@ -39,7 +39,10 @@ uses
   // Deudas(test)
   frmgeneradeudadatamodule,
   frmgeneradeuda,
-  generardeudactrl;
+  generardeudactrl,
+  frmprocesofacturacion,
+  frmfacturadatamodule2,
+  facturactrl2;
 
 type
 
@@ -95,11 +98,11 @@ end;
 
 procedure TPrincipalController.OpenFacturasForm(Sender: IFormView);
 begin
-  //ProcesoFacturacion := TProcesoFacturacion.Create(nil,
-  //  TFacturaController.Create(TFacturaDataModule.Create(Application,
-  //  Model.MasterDataModule)));
-  //ProcesoFacturacion.Show;
-  //(Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
+  ProcesoFacturacion := TProcesoFacturacion.Create(nil,
+    TFacturaController.Create(TFacturaDataModule.Create(Application,
+    Model.MasterDataModule)));
+  ProcesoFacturacion.Show;
+  (Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
 end;
 
 procedure TPrincipalController.OpenDeudaForm(Sender: IFormView);

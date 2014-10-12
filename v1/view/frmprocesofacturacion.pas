@@ -8,6 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ButtonPanel, StdCtrls, DbCtrls, EditBtn, PairSplitter, DBGrids, frmproceso, mvc,
   facturactrl2, frmfacturadatamodule2, frmMaestro;
+
 type
 
   { TProcesoFacturacion }
@@ -80,28 +81,29 @@ type
     { Aca esta el controlador especifico del modulo }
     property CustomController: TFacturaController read GetCustomController write SetCustomController;
 
+
+
 {
-
-procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-procedure XMLPropStorage1RestoreProperties(Sender: TObject);
-procedure XMLPropStorage1SaveProperties(Sender: TObject);
-procedure AbrirCursor;
-procedure ActualizarTotal;
-procedure btSeleccionarClick(Sender: TObject);
-procedure ButtonLimpiarClick(Sender: TObject);
-procedure CancelButtonClick(Sender: TObject); override;
-procedure CondicionChange(Sender: TObject);
-procedure FormCreate(Sender: TObject); override;
-procedure ManejoErrores(E: EDatabaseError); override;
-procedure OKButtonClick(Sender: TObject); override;
-procedure qryDetalleFilterRecord(DataSet: TDataSet; var Accept: boolean);
-procedure qryDetalleNewRecord(DataSet: TDataSet);
-procedure qryDeudaFilterRecord(DataSet: TDataSet; var Accept: boolean);
-procedure talonarioClick(Sender: TObject);
-property pTalonarioID: integer read FTalonarioID write SetTalonarioID;
-property pFacturaID: integer read FFacturaID write SetFacturaID;
-
+ procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+ procedure XMLPropStorage1RestoreProperties(Sender: TObject);
+ procedure XMLPropStorage1SaveProperties(Sender: TObject);
+ procedure AbrirCursor;
+ procedure ActualizarTotal;
+ procedure btSeleccionarClick(Sender: TObject);
+ procedure ButtonLimpiarClick(Sender: TObject);
+ procedure CancelButtonClick(Sender: TObject); override;
+ procedure CondicionChange(Sender: TObject);
+ procedure FormCreate(Sender: TObject); override;
+ procedure ManejoErrores(E: EDatabaseError); override;
+ procedure OKButtonClick(Sender: TObject); override;
+ procedure qryDetalleFilterRecord(DataSet: TDataSet; var Accept: boolean);
+ procedure qryDetalleNewRecord(DataSet: TDataSet);
+ procedure qryDeudaFilterRecord(DataSet: TDataSet; var Accept: boolean);
+ procedure talonarioClick(Sender: TObject);
+ property pTalonarioID: integer read FTalonarioID write SetTalonarioID;
+ property pFacturaID: integer read FFacturaID write SetFacturaID;
 }
+
 
   end;
 
@@ -162,8 +164,7 @@ end;
 
 procedure TProcesoFacturacion.ObserverUpdate(const Subject: IInterface);
 begin
-  inherited ObserverUpdate(Subject);
-  //case GetCustomController.GetAsientoEstado(Self) of
+  inherited;// ObserverUpdate(Subject);
   case GetCustomController.GetFacturaEstado(Self) of
     asInicial:
     begin

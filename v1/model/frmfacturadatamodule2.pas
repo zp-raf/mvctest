@@ -5,11 +5,9 @@ unit frmfacturadatamodule2;
 interface
 
 uses
-  Classes, SysUtils, db, sqldb, FileUtil, //LR_DBSet,
-//  LR_Class,
+  Classes, SysUtils, db, sqldb, FileUtil,
   Forms, Controls,
-  Graphics, Dialogs, XMLPropStorage, frmquerydatamodule;
-
+  Graphics, Dialogs, XMLPropStorage, frmquerydatamodule, observerSubject, mvc;
 resourcestring
 
   rsGenFacturaID = 'SEQ_FACTURA';
@@ -132,7 +130,7 @@ begin
    // MovimientoFECHA.AsDateTime := Now;
    // MovimientoDESCRIPCION.AsString := ADescripcion;
     Estado := asEditando;
-   // (MasterDataModule as ISubject).Notify;
+    (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
     //  OnAsientoError;
