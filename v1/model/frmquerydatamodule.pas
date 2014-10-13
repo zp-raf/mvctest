@@ -19,12 +19,15 @@ type
     FSearchFieldList: TSearchFieldList;
     FSearchText: string;
     FQryList: TQryList;
+    FDetailList: TQryList;
     function GetAuxQryList: TQryList;
+    function GetDetailList: TQryList;
     function GetMasterDataModule: IDBModel;
     function GetSearchFieldList: TSearchFieldList;
     function GetSearchText: string;
     function GetQryList: TQryList;
     procedure SetAuxQryList(AValue: TQryList);
+    procedure SetDetailList(AValue: TQryList);
     procedure SetMasterDataModule(AValue: IDBModel);
     procedure SetSearchText(AValue: string);
   protected
@@ -42,6 +45,7 @@ type
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure EditCurrentRecord;
     procedure NewRecord;
+    procedure NewDetailRecord;
     procedure RefreshDataSets; virtual;
     procedure Rollback; virtual;
     procedure SaveChanges; virtual;
@@ -57,6 +61,7 @@ type
     property AuxQryList: TQryList read GetAuxQryList write SetAuxQryList;
     property MasterDataModule: IDBModel read GetMasterDataModule
       write SetMasterDataModule;
+    property DetailList: TQryList read GetDetailList write SetDetailList;
   end;
 
 var
@@ -76,10 +81,15 @@ begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
       if (State in [dsEdit, dsInsert]) then
-      begin
         Result := True;
-        Exit;
-      end;
+    end;
+  end;
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
+    begin
+      if (State in [dsEdit, dsInsert]) then
+        Result := True;
     end;
   end;
 end;
@@ -111,6 +121,15 @@ begin
         Active := True;
     end;
   end;
+  // detalles
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
+    begin
+      if not Active then
+        Active := True;
+    end;
+  end;
 end;
 
 procedure TQueryDataModule.DataModuleCreate(Sender: TObject);
@@ -118,13 +137,16 @@ begin
   FQryList := TQryList.Create(True);
   FSearchFieldList := TSearchFieldList.Create;
   FAuxQryList := TQryList.Create(True);
+  FDetailList := TQryList.Create(True);
   FSearchText := '';
 end;
 
 procedure TQueryDataModule.DataModuleDestroy(Sender: TObject);
 begin
   FQryList.Free;
+  FAuxQryList.Free;
   FSearchFieldList.Free;
+  FDetailList.Free;
 end;
 
 constructor TQueryDataModule.Create(AOwner: TComponent; AMaster: IDBModel);
@@ -140,6 +162,14 @@ begin
   for i := 0 to FQryList.Count - 1 do
   begin
     with TSQLQuery(FQryList.Items[i]) do
+    begin
+      if (State in [dsEdit, dsInsert]) or (RowsAffected > 0) and not ReadOnly then
+        Cancel;
+    end;
+  end;
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
     begin
       if (State in [dsEdit, dsInsert]) or (RowsAffected > 0) and not ReadOnly then
         Cancel;
@@ -164,6 +194,15 @@ begin
   for i := 0 to FAuxQryList.Count - 1 do
   begin
     with TSQLQuery(FAuxQryList.Items[i]) do
+    begin
+      if Active then
+        Active := False;
+    end;
+  end;
+
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
     begin
       if Active then
         Active := False;
@@ -283,6 +322,36 @@ begin
   end;
 end;
 
+procedure TQueryDataModule.NewDetailRecord;
+var
+  i: integer;
+begin
+  if not ArePendingChanges then
+    Exit;
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
+    begin
+      try
+        DisableControls;
+        if ReadOnly then
+          Continue;
+        if Active and not (State in [dsEdit]) then
+          Append
+        else if (State in [dsEdit]) and (RowsAffected > 0) then
+        begin
+          Cancel;
+          Append;
+        end
+        else if not Active then
+          Abort;
+      finally
+        EnableControls;
+      end;
+    end;
+  end;
+end;
+
 procedure TQueryDataModule.RefreshDataSets;
 var
   i: integer;
@@ -290,6 +359,22 @@ begin
   for i := 0 to FQryList.Count - 1 do
   begin
     with TSQLQuery(FQryList.Items[i]) do
+    begin
+      try
+        DisableControls;
+        if not (State in [dsEdit, dsInsert]) then
+        begin
+          Close;
+          Open;
+        end;
+      finally
+        EnableControls;
+      end;
+    end;
+  end;
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
     begin
       try
         DisableControls;
@@ -324,6 +409,16 @@ begin
       ApplyUpdates;
     end;
   end;
+
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
+    begin
+      if ReadOnly or not Active then
+        Continue;
+      ApplyUpdates;
+    end;
+  end;
 end;
 
 procedure TQueryDataModule.SetReadOnly(Option: boolean);
@@ -333,6 +428,15 @@ begin
   for i := 0 to FQryList.Count - 1 do
   begin
     with TSQLQuery(FQryList.Items[i]) do
+    begin
+      Close;
+      ReadOnly := Option;
+      Open;
+    end;
+  end;
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
     begin
       Close;
       ReadOnly := Option;
@@ -422,6 +526,11 @@ begin
   Result := FAuxQryList;
 end;
 
+function TQueryDataModule.GetDetailList: TQryList;
+begin
+  Result := FDetailList;
+end;
+
 function TQueryDataModule.GetMasterDataModule: IDBModel;
 begin
   Result := FMasterDataModule;
@@ -437,6 +546,13 @@ begin
   if AValue = FAuxQryList then
     Exit;
   FAuxQryList := AValue;
+end;
+
+procedure TQueryDataModule.SetDetailList(AValue: TQryList);
+begin
+  if AValue = FDetailList then
+    Exit;
+  FDetailList := AValue;
 end;
 
 procedure TQueryDataModule.SetMasterDataModule(AValue: IDBModel);

@@ -5,32 +5,30 @@ unit facturactrl2;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmfacturadatamodule2, mvc, db;
+  Classes, SysUtils, ctrl, frmfacturadatamodule2, mvc, DB, Forms,
+  frmbuscaralumnos, buscaralctrl, Controls;
 
 type
-
-  { TAsientosController }
 
   { TFacturaController }
 
   TFacturaController = class(TABMController)
   private
+    FCustomModel: TFacturasDataModule;
     { Aca saca el objeto model pero casteado al tipo que necesitamos para poder
       usar los metodos y funciones especificos del modelo y que no estan
       especificados en la interfaz }
-    FCustomModel: TFacturasDataModule;
-    function GetCustomModel: TFacturasDataModule;
     procedure SetCustomModel(AValue: TFacturasDataModule);
   public
-
-  function GetFacturaEstado(Sender: IView): TEstadoFactura;
-  destructor Destroy; override;
-  constructor Create(AModel: IModel); overload;
-  procedure NuevaFactura(Sender: IView);
-  procedure CerrarFactura(Sender: IView);
-//  procedure ErrorHandler(E: Exception; Sender: IView); override;
-  property CustomModel: TFacturasDataModule read GetCustomModel write SetCustomModel;
-
+    constructor Create(AModel: IModel); overload;
+    destructor Destroy; override;
+    procedure ActualizarTotales(Sender: IView);
+    procedure NuevaFactura(Sender: IView);
+    procedure CerrarFactura(Sender: IView);
+    procedure OpenBuscarPersForm(Sender: IFormView);
+    function GetFacturaEstado(Sender: IView): TEstadoFactura;
+    procedure SetVencimiento(ADate: TDateTime);
+    property CustomModel: TFacturasDataModule read FCustomModel write SetCustomModel;
   end;
 
 var
@@ -40,54 +38,76 @@ implementation
 
 { TFacturaController }
 
-function TFacturaController.GetCustomModel: TFacturasDataModule;
-begin
-  Result := (Model as TFacturasDataModule);
-end;
-
 procedure TFacturaController.SetCustomModel(AValue: TFacturasDataModule);
 begin
-     if (AValue = FCustomModel) then
+  if FCustomModel = AValue then
     Exit;
   FCustomModel := AValue;
 end;
 
-function TFacturaController.GetFacturaEstado(Sender: IView): TEstadoFactura;
-begin
-  Result := GetCustomModel.Estado;
-end;
-
 destructor TFacturaController.Destroy;
 var
-   x: Pointer;
+  x: Pointer;
 begin
-     x := Pointer(FCustomModel);
-     Model := nil;
-     FCustomModel := nil;
-     TFacturasDataModule(x).Free;
-  inherited;
+  x := Pointer(FCustomModel);
+  Model := nil;
+  FCustomModel := nil;
+  TFacturasDataModule(x).Free;
+  inherited Destroy;
 end;
 
-constructor TFacturaController.Create(AModel: IModel);
+procedure TFacturaController.ActualizarTotales(Sender: IView);
 begin
-  inherited Create(AModel) ;
-   if (AModel is TFacturasDataModule) then
-     CustomModel := (AModel as TFacturasDataModule)
-   else
-     raise Exception.Create('Error al crear el ctrl');
+  CustomModel.ActualizarTotales;
 end;
 
 procedure TFacturaController.NuevaFactura(Sender: IView);
 begin
-     // GetCustomModel.NuevaFactura(Sender: TObject);
+  CustomModel.NuevaFactura;
 end;
 
 procedure TFacturaController.CerrarFactura(Sender: IView);
 begin
-//  GetCustomModel.Cerr;
   Model.SaveChanges;
+  Model.Commit;
   Model.RefreshDataSets;
 end;
 
-end.
+procedure TFacturaController.OpenBuscarPersForm(Sender: IFormView);
+begin
+  case TPopupSeleccionAlumnos.Create(Sender, TBuscarAlumnosController.Create(Model)).ShowModal of
+    mrOk:
+    begin
+      // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
+      Cancel(Sender);
+      NuevaFactura(Sender);
+      CustomModel.FetchCabecera;
+      CustomModel.FetchDeuda;
+    end
+    else
+    begin
+      Exit;
+    end;
+  end;
+end;
 
+function TFacturaController.GetFacturaEstado(Sender: IView): TEstadoFactura;
+begin
+  Result := CustomModel.Estado;
+end;
+
+procedure TFacturaController.SetVencimiento(ADate: TDateTime);
+begin
+  CustomModel.qryFacturaFECHA_EMISION.AsDateTime := ADate;
+end;
+
+constructor TFacturaController.Create(AModel: IModel);
+begin
+  inherited Create(AModel);
+  if (AModel is TFacturasDataModule) then
+    CustomModel := (AModel as TFacturasDataModule)
+  else
+    raise Exception.Create(rsModelErr);
+end;
+
+end.

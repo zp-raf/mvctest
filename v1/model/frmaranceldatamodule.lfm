@@ -43,7 +43,6 @@ inherited ArancelesDataModule: TArancelesDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     OnFilterRecord = ArancelFilterRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

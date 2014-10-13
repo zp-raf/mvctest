@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, mvc, frmcuentadatamodule, frmmovimientodatamodule,
+  frmquerydatamodule, mvc, frmcuentadatamodule,
   observerSubject;
 
 resourcestring
@@ -52,9 +52,11 @@ type
     MovimientoDESCRIPCION: TStringField;
     MovimientoDet: TSQLQuery;
     MovimientoDetCUENTAID: TLongintField;
+    MovimientoDetDEUDAID: TLongintField;
     MovimientoDetID: TLongintField;
     MovimientoDetMONTO: TFloatField;
     MovimientoDetMOVIMIENTOID: TLongintField;
+    MovimientoDetPAGOID: TLongintField;
     MovimientoDetTIPO_MOVIMIENTO: TStringField;
     MovimientoFECHA: TDateField;
     MovimientoID: TLongintField;
@@ -65,9 +67,11 @@ type
     procedure MovimientoFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure MovimientoNewRecord(DataSet: TDataSet);
   private
+    FComprobarAsiento: boolean;
     FCuenta: TCuentaDataModule;
     FEstado: TEstadoAsiento;
     procedure ResetearEstado;
+    procedure SetComprobarAsiento(AValue: boolean);
   published
     dsCuenta: TDataSource;
     qryAsientosCUENTA_DEBE: TLongintField;
@@ -88,6 +92,8 @@ type
     procedure NuevoAsiento(ADescripcion: string);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double);
+    procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
+      AMonto: double; ADeudaID: string);
     procedure NuevoAsientoDetalle(ATipoMov: TTipoMovimiento; AMonto: double);
     procedure OnAsientoError;
     procedure RefreshDataSets; override;
@@ -99,6 +105,7 @@ type
       y otro para los movimientos }
     property Cuenta: TCuentaDataModule read FCuenta write FCuenta;
     property Estado: TEstadoAsiento read FEstado write FEstado;
+    property ComprobarAsiento: boolean read FComprobarAsiento write SetComprobarAsiento;
   end;
 
 var
@@ -121,6 +128,7 @@ begin
   FCuenta := TCuentaDataModule.Create(Self, MasterDataModule);
   // FCuenta.SetReadOnly(True);
   dsCuenta.DataSet := FCuenta.CuentasContables;
+  ComprobarAsiento := True;
 end;
 
 procedure TAsientosDataModule.Disconnect;
@@ -164,6 +172,13 @@ begin
     on E: EDatabaseError do
       OnAsientoError;
   end;
+end;
+
+procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
+  ATipoMov: TTipoMovimiento; AMonto: double; ADeudaID: string);
+begin
+  NuevoAsientoDetalle(ACuenta, ATipoMov, AMonto);
+  MovimientoDetDEUDAID.AsString := ADeudaID;
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ATipoMov: TTipoMovimiento;
@@ -220,6 +235,13 @@ begin
   (MasterDataModule as ISubject).Notify;
 end;
 
+procedure TAsientosDataModule.SetComprobarAsiento(AValue: boolean);
+begin
+  if FComprobarAsiento = AValue then
+    Exit;
+  FComprobarAsiento := AValue;
+end;
+
 procedure TAsientosDataModule.CerrarAsiento;
 var
   sumaDebe, sumaHaber: double;
@@ -227,21 +249,24 @@ begin
   if not (Estado in [asEditando]) then
     raise Exception.Create(rsNoHayNigunAs);
   try
-    sumaDebe := 0.0;
-    sumaHaber := 0.0;
-    // recorremos el dataset y vemos si se los montos cuadran
-    MovimientoDet.First;
-    while not MovimientoDet.EOF do
+    if ComprobarAsiento then
     begin
-      case MovimientoDetTIPO_MOVIMIENTO.AsString of
-        DEBITO: sumaDebe := sumaDebe + MovimientoDetMONTO.AsFloat;
-        CREDITO: sumaHaber := sumaHaber + MovimientoDetMONTO.AsFloat;
+      sumaDebe := 0.0;
+      sumaHaber := 0.0;
+      // recorremos el dataset y vemos si se los montos cuadran
+      MovimientoDet.First;
+      while not MovimientoDet.EOF do
+      begin
+        case MovimientoDetTIPO_MOVIMIENTO.AsString of
+          DEBITO: sumaDebe := sumaDebe + MovimientoDetMONTO.AsFloat;
+          CREDITO: sumaHaber := sumaHaber + MovimientoDetMONTO.AsFloat;
+        end;
+        MovimientoDet.Next;
       end;
-      MovimientoDet.Next;
-    end;
 
-    if sumaDebe <> sumaHaber then
-      raise Exception.Create(rsLosMontosDeb);
+      if sumaDebe <> sumaHaber then
+        raise Exception.Create(rsLosMontosDeb);
+    end;
     Movimiento.ApplyUpdates;
     MovimientoDet.ApplyUpdates;
     Estado := asGuardado;

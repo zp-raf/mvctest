@@ -59,12 +59,6 @@ inherited PersonasDataModule: TPersonasDataModule
         DataType = ftSmallint
         Precision = -1
         Size = 0
-      end    
-      item
-        Name = 'CUENTAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
       end>
     Filtered = True
     AfterScroll = PersonaAfterScroll
@@ -173,16 +167,6 @@ inherited PersonasDataModule: TPersonasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-    end
-    object PersonaCUENTAID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'CUENTAID'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
     end
   end
   object Direccion: TSQLQuery[1]
@@ -435,5 +419,120 @@ inherited PersonasDataModule: TPersonasDataModule
     DataSet = Telefono
     left = 34
     top = 256
+  end
+  object PersonasRoles: TSQLQuery[6]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'APELLIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SEXO'
+        DataType = ftString
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'FECHANAC'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRECOMPLETO'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESALUMNO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESVEEDOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESINTERVENTOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESENCARGADO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESPROVEEDOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESCOORDINADOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESADMINISTRATIVO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESPROFESOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    Active = True
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from V_PERSONAS_ROLES'
+    )
+    Params = <>
+    left = 227
+    top = 272
+  end
+  object dsPersonasRoles: TDataSource[7]
+    DataSet = PersonasRoles
+    left = 227
+    top = 214
   end
 end

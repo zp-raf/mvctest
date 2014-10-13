@@ -5,7 +5,8 @@ unit generardeudactrl;
 interface
 
 uses
-  Classes, SysUtils, mvc, ctrl, frmgeneradeudadatamodule, mensajes, StdCtrls;
+  Classes, SysUtils, mvc, ctrl, frmgeneradeudadatamodule, mensajes,
+  StdCtrls;
 
 resourcestring
   rsPorFavorSele = 'Por favor seleccione una opcion para fraccionamiento y ' +
@@ -19,7 +20,7 @@ type
   TGenDeudaController = class(TABMController)
   private
     FCustomModel: TGeneraDeudaDataModule;
-    procedure SetCustomController(AValue: TGeneraDeudaDataModule);
+    procedure SetCustomModel(AValue: TGeneraDeudaDataModule);
   public
     constructor Create(AModel: TGeneraDeudaDataModule);
     function CheckAndSave(Sender: IView; AMsg: TDeudaMsg): boolean;
@@ -35,8 +36,7 @@ type
     // con vencimiento
     procedure Save(Sender: IView; ACantCuotas: integer; AUnidadFecha: TUnidadFecha;
       ACant: integer); overload;
-    property CustomModel: TGeneraDeudaDataModule
-      read FCustomModel write SetCustomController;
+    property CustomModel: TGeneraDeudaDataModule read FCustomModel write SetCustomModel;
   end;
 
 implementation
@@ -160,11 +160,10 @@ begin
   inherited Save(Sender);
 end;
 
-procedure TGenDeudaController.SetCustomController(AValue: TGeneraDeudaDataModule);
+procedure TGenDeudaController.SetCustomModel(AValue: TGeneraDeudaDataModule);
 begin
-  if FCustomModel = AValue then
-    Exit;
-  FCustomModel := AValue;
+  if FCustomModel=AValue then Exit;
+  FCustomModel:=AValue;
 end;
 
 end.

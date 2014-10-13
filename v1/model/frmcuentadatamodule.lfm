@@ -10,6 +10,7 @@ inherited CuentaDataModule: TCuentaDataModule
     top = 88
   end
   object Cuenta: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -40,7 +41,14 @@ inherited CuentaDataModule: TCuentaDataModule
         DataType = ftInteger
         Precision = -1
         Size = 0
+      end    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
+    Active = True
     OnCalcFields = CuentaCalcFields
     OnNewRecord = CuentaNewRecord
     Database = sgcdDataModule.db
@@ -115,6 +123,16 @@ inherited CuentaDataModule: TCuentaDataModule
       Required = False
       Size = 200
     end
+    object CuentaPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object CuentaAux: TSQLQuery[2]
     FieldDefs = <    
@@ -152,9 +170,10 @@ inherited CuentaDataModule: TCuentaDataModule
     )
     Params = <    
       item
-        DataType = ftUnknown
-        Name = 'id'
+        DataType = ftInteger
+        Name = 'ID'
         ParamType = ptInput
+        Size = 4
       end>
     DataSource = dsCuenta
     left = 96
@@ -209,7 +228,6 @@ inherited CuentaDataModule: TCuentaDataModule
     top = 96
   end
   object CuentasContables: TSQLQuery[4]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

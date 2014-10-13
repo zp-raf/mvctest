@@ -17,9 +17,9 @@ uses
   frmabmpersonas,
   personactrl,
   // Facturacion
-  frmfacturadatamodule,
-  //frmfacturacion,
-  facturactrl,
+  frmfacturadatamodule2,
+  frmprocesofacturacion,
+  facturactrl2,
   // Ventas(Deudas)
   frmventadatamodule,
   frmventa,
@@ -39,10 +39,7 @@ uses
   // Deudas(test)
   frmgeneradeudadatamodule,
   frmgeneradeuda,
-  generardeudactrl,
-  frmprocesofacturacion,
-  frmfacturadatamodule2,
-  facturactrl2;
+  generardeudactrl;
 
 type
 
@@ -98,8 +95,8 @@ end;
 
 procedure TPrincipalController.OpenFacturasForm(Sender: IFormView);
 begin
-  ProcesoFacturacion := TProcesoFacturacion.Create(nil,
-    TFacturaController.Create(TFacturaDataModule.Create(Application,
+  ProcesoFacturacion := TProcesoFacturacion.Create(Sender,
+    TFacturaController.Create(TFacturasDataModule.Create(Application,
     Model.MasterDataModule)));
   ProcesoFacturacion.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);

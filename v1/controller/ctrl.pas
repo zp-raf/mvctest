@@ -56,6 +56,7 @@ type
     procedure EditCurrentRecord(Sender: IView);
     procedure ErrorHandler(E: Exception; Sender: IABMView); overload;
     procedure FilterData(AFilterText: string; Sender: IView);
+    procedure NewDetailRecord(Sender: IView);
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
     procedure Rollback(Sender: IView);
@@ -84,6 +85,11 @@ begin
     Model.FilterData(AFilterText);
     Model.RefreshDataSets;
   end;
+end;
+
+procedure TABMController.NewDetailRecord(Sender: IView);
+begin
+  Model.NewDetailRecord;
 end;
 
 function TABMController.GetCurrentRecordText(Sender: IView): string;

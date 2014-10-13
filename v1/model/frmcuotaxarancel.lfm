@@ -5,7 +5,6 @@ inherited CuotaArancelDataModule: TCuotaArancelDataModule
   VerticalOffset = 306
   Width = 312
   object CuotaXArancel: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ARANCELID'

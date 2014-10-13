@@ -7,7 +7,8 @@ interface
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, Forms, Controls, Graphics, Dialogs,
   frmquerydatamodule, frmpersonasdatamodule, frmcuotaxarancel,
-  frmcodigosdatamodule, frmaranceldatamodule, dateutils;
+  frmcodigosdatamodule, frmaranceldatamodule, dateutils, frmasientosdatamodule,
+  frmcuentadatamodule;
 
 resourcestring
   rsGenDeuda = 'GENERATOR_DEUDA';
@@ -42,12 +43,17 @@ type
     DeudaID: TLongintField;
     DeudaMATRICULAID: TLongintField;
     DeudaVENCIMIENTO: TDateField;
-    procedure DeudaBeforePost(DataSet: TDataSet);
+    dsDeuda: TDatasource;
+    Deuda: TSQLQuery;
   private
     FArancel: TArancelesDataModule;
+    FAsientos: TAsientosDataModule;
+    FCuentas: TCuentaDataModule;
     FCuota: TCuotaArancelDataModule;
     FPersonas: TPersonasDataModule;
     procedure SetArancel(AValue: TArancelesDataModule);
+    procedure SetAsientos(AValue: TAsientosDataModule);
+    procedure SetCuentas(AValue: TCuentaDataModule);
     procedure SetCuota(AValue: TCuotaArancelDataModule);
     procedure SetPersonas(AValue: TPersonasDataModule);
     // el generador de cuotas
@@ -57,10 +63,9 @@ type
     function GetVencimiento(AFecha: TDateTime; AUnidadFecha: TUnidadFecha;
       ACant: integer; ANroCuota: integer): TDateTime;
   published
-    dsDeuda: TDatasource;
-    Deuda: TSQLQuery;
     procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DeudaBeforePost(DataSet: TDataSet);
     procedure DeudaNewRecord(DataSet: TDataSet);
     procedure Disconnect; override;
     // cuotas por defecto
@@ -72,16 +77,15 @@ type
     // con vencimiento
     procedure GenerarCuotas(ACantCuotas: integer; AUnidadFecha: TUnidadFecha;
       ACant: integer); overload;
+    procedure SaveChanges; override;
     procedure SetArancel(AID: string);
-    procedure SetPersona(AID: string);
     procedure SetMatricula(AID: string);
-    property Personas: TPersonasDataModule read FPersonas write SetPersonas;
-    property Cuota: TCuotaArancelDataModule read FCuota write SetCuota;
+    procedure SetPersona(AID: string);
     property Arancel: TArancelesDataModule read FArancel write SetArancel;
-  private
-    { private declarations }
-  public
-    { public declarations }
+    property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
+    property Cuentas: TCuentaDataModule read FCuentas write SetCuentas;
+    property Cuota: TCuotaArancelDataModule read FCuota write SetCuota;
+    property Personas: TPersonasDataModule read FPersonas write SetPersonas;
   end;
 
 var
@@ -111,6 +115,7 @@ end;
 procedure TGeneraDeudaDataModule.DeudaBeforePost(DataSet: TDataSet);
 var
   DescMatricula: string;
+  CuentaID: string;
 begin
   DescMatricula := '';
   // aca ponemos la descripcion de la deuda
@@ -119,6 +124,13 @@ begin
     DataSet.FieldByName('CUOTA_NRO').AsString + SEPARADOR_CUOTA +
     DataSet.FieldByName('CANTIDAD_CUOTAS').AsString + SEPARADOR +
     Personas.Persona.FieldByName('NOMBRECOMPLETO').AsString + DescMatricula;
+  // insertamos el detalle del asiento
+  if Cuentas.Cuenta.Lookup('PERSONAID', Personas.PersonaID.AsString, 'ID') = null then
+    raise Exception.Create('No se encontro la cuenta de la persona seleccionada')
+  else
+    CuentaID := Cuentas.Cuenta.Lookup('PERSONAID', Personas.PersonaID.AsString, 'ID');
+  Asientos.NuevoAsientoDetalle(CuentaID, mvDebito, Arancel.ArancelMONTO.AsFloat,
+    DeudaID.AsString);
 end;
 
 procedure TGeneraDeudaDataModule.SetArancel(AValue: TArancelesDataModule);
@@ -128,11 +140,27 @@ begin
   FArancel := AValue;
 end;
 
+procedure TGeneraDeudaDataModule.SetAsientos(AValue: TAsientosDataModule);
+begin
+  if FAsientos = AValue then
+    Exit;
+  FAsientos := AValue;
+end;
+
+procedure TGeneraDeudaDataModule.SetCuentas(AValue: TCuentaDataModule);
+begin
+  if FCuentas = AValue then
+    Exit;
+  FCuentas := AValue;
+end;
+
 procedure TGeneraDeudaDataModule.Connect;
 begin
   FPersonas.Connect;
   FCuota.Connect;
   FArancel.Connect;
+  FAsientos.Connect;
+  FCuentas.Connect;
   inherited Connect;
 end;
 
@@ -148,6 +176,10 @@ begin
   FArancel := TArancelesDataModule.Create(Self, FMasterDataModule);
   FArancel.SetReadOnly(True);
   dsCod.DataSet := FCuota.Codigos.Codigos;
+  FAsientos := TAsientosDataModule.Create(Self, FMasterDataModule);
+  // para no comprobar el asiento antes de guardar
+  FAsientos.ComprobarAsiento := False;
+  FCuentas := TCuentaDataModule.Create(Self, FMasterDataModule);
 end;
 
 procedure TGeneraDeudaDataModule.DeudaNewRecord(DataSet: TDataSet);
@@ -161,6 +193,8 @@ begin
   FPersonas.Disconnect;
   FCuota.Disconnect;
   FArancel.Disconnect;
+  FAsientos.Disconnect;
+  FCuentas.Disconnect;
   inherited Disconnect;
 end;
 
@@ -205,6 +239,13 @@ procedure TGeneraDeudaDataModule.GenerarCuotas(ACantCuotas: integer;
   AUnidadFecha: TUnidadFecha; ACant: integer);
 begin
   GeneradorCuotas(ACantCuotas, AUnidadFecha, ACant);
+end;
+
+procedure TGeneraDeudaDataModule.SaveChanges;
+begin
+  inherited SaveChanges;
+  // ahora cuando se guardo todo se cierra el asiento tambien
+  Asientos.CerrarAsiento;
 end;
 
 procedure TGeneraDeudaDataModule.SetArancel(AID: string);
@@ -254,6 +295,9 @@ begin
     DeudaVENCIMIENTO.Clear
   else
     raise Exception.Create('Parametros no validos');
+
+  // insertar un movimiento para registrar la deuda
+  Asientos.NuevoAsiento('Generacion de deuda nro: ' + DeudaID.AsString);
 
   // desde la segunda cuota
   for i := 2 to ACantCuotas do

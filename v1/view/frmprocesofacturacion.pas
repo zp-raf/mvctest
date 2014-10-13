@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, StdCtrls, DbCtrls, EditBtn, PairSplitter, DBGrids, frmproceso, mvc,
+  ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, frmproceso, mvc,
   facturactrl2, frmfacturadatamodule2, frmMaestro;
 
 type
@@ -14,97 +14,77 @@ type
   { TProcesoFacturacion }
 
   TProcesoFacturacion = class(TProceso)
-
+    procedure btSeleccionarClick(Sender: TObject);
+    procedure ButtonLimpiarClick(Sender: TObject);
+    procedure DateEditVenEditingDone(Sender: TObject);
+    procedure DBNavigatorDetBeforeAction(Sender: TObject; Button: TDBNavButtonType);
+    procedure FormShow(Sender: TObject);
   private
-    FABMController : IABMController;
+    FABMController: IABMController;
     FCustomController: TFacturaController;
     function GetController: IABMController;
     function GetCustomController: TFacturaController;
     procedure SetController(AValue: IABMController);
     procedure SetCustomController(AValue: TFacturaController);
-    { private declarations }
   public
-    { public declarations }
     constructor Create(AOwner: IFormView; AController: TFacturaController);
       overload;
   published
     btSeleccionar: TButton;
     ButtonLimpiar: TButton;
     Cabecera: TGroupBox;
-    Condicion: TDBRadioGroup;
-    DateEdit1: TDateEdit;
-    DateEdit2: TDateEdit;
-    DBEdit1: TDBEdit;
-    DBEdit10: TDBEdit;
-    DBEdit11: TDBEdit;
-    DBEdit12: TDBEdit;
-    DBEdit2: TDBEdit;
-    DBEdit3: TDBEdit;
-    DBEdit4: TDBEdit;
-    DBEdit5: TDBEdit;
-    DBEdit6: TDBEdit;
-    DBEdit7: TDBEdit;
-    DBEdit8: TDBEdit;
-    DBEdit9: TDBEdit;
-    DBGrid1: TDBGrid;
-    DBNavigator1: TDBNavigator;
-    DBText1: TDBText;
-    DBText2: TDBText;
+    RadioCondicion: TDBRadioGroup;
+    DateEditFecha: TDateEdit;
+    DateEditVen: TDateEdit;
+    DBEditDireccion: TDBEdit;
+    DBEditSubTotal5: TDBEdit;
+    DBEditSubTotal10: TDBEdit;
+    DBEditNombre: TDBEdit;
+    DBEditRuc: TDBEdit;
+    DBEditTelefono: TDBEdit;
+    DBEditNotaRem: TDBEdit;
+    DBEditSubTotal: TDBEdit;
+    DBEditGranTotal: TDBEdit;
+    DBEditIVA5: TDBEdit;
+    DBEditIVA10: TDBEdit;
+    DBEditIVATotal: TDBEdit;
+    DBGridDet: TDBGrid;
+    DBNavigatorDet: TDBNavigator;
+    DBTextNro: TDBText;
+    DBTextTimbrado: TDBText;
     Detalles: TGroupBox;
-    Grantotal: TLabel;
-    Label1: TLabel;
-    Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
-    PairSplitter1: TPairSplitter;
+    LabelGranTotal: TLabel;
+    LabelDireccion: TLabel;
+    LabelVen: TLabel;
+    LabelNro: TLabel;
+    LabelTimbrado: TLabel;
+    LabelRuc: TLabel;
+    LabelTelefono: TLabel;
+    LabelNotaRem: TLabel;
+    LabelFecha: TLabel;
+    LabelIVA5: TLabel;
+    LabelIVA10: TLabel;
+    LabelIVATotal: TLabel;
+    LabelNombre: TLabel;
+    PairSplitterDetSubTot: TPairSplitter;
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
-    Subtotal: TLabel;
-    Subtotal1: TLabel;
-    Subtotal2: TLabel;
+    LabelSubtotal: TLabel;
+    LabelSubtotal5: TLabel;
+    LabelSubtotal10: TLabel;
     Totales: TGroupBox;
-
+    procedure Edit;
+    procedure Insert;
+    procedure Delete;
+    procedure Refresh;
     procedure ObserverUpdate(const Subject: IInterface); override;
-
     property ABMController: IABMController read GetController write SetController;
     procedure Limpiar;
-        procedure OKButtonClick(Sender: TObject);
-        procedure CancelButtonClick(Sender: TObject);
+    procedure OKButtonClick(Sender: TObject);
+    procedure CancelButtonClick(Sender: TObject);
     { Aca esta el controlador especifico del modulo }
-    property CustomController: TFacturaController read GetCustomController write SetCustomController;
-
-
-
-{
- procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
- procedure XMLPropStorage1RestoreProperties(Sender: TObject);
- procedure XMLPropStorage1SaveProperties(Sender: TObject);
- procedure AbrirCursor;
- procedure ActualizarTotal;
- procedure btSeleccionarClick(Sender: TObject);
- procedure ButtonLimpiarClick(Sender: TObject);
- procedure CancelButtonClick(Sender: TObject); override;
- procedure CondicionChange(Sender: TObject);
- procedure FormCreate(Sender: TObject); override;
- procedure ManejoErrores(E: EDatabaseError); override;
- procedure OKButtonClick(Sender: TObject); override;
- procedure qryDetalleFilterRecord(DataSet: TDataSet; var Accept: boolean);
- procedure qryDetalleNewRecord(DataSet: TDataSet);
- procedure qryDeudaFilterRecord(DataSet: TDataSet; var Accept: boolean);
- procedure talonarioClick(Sender: TObject);
- property pTalonarioID: integer read FTalonarioID write SetTalonarioID;
- property pFacturaID: integer read FFacturaID write SetFacturaID;
-}
-
-
+    property CustomController: TFacturaController
+      read GetCustomController write SetCustomController;
   end;
 
 var
@@ -115,6 +95,59 @@ implementation
 {$R *.lfm}
 
 { TProcesoFacturacion }
+
+procedure TProcesoFacturacion.btSeleccionarClick(Sender: TObject);
+begin
+  CustomController.OpenBuscarPersForm(Self);
+end;
+
+procedure TProcesoFacturacion.ButtonLimpiarClick(Sender: TObject);
+begin
+  Limpiar;
+end;
+
+procedure TProcesoFacturacion.DateEditVenEditingDone(Sender: TObject);
+begin
+  if DateEditVen.Date < Now then
+    ShowErrorMessage('Fecha no permitida')
+  else
+    CustomController.SetVencimiento(DateEditVen.Date);
+end;
+
+procedure TProcesoFacturacion.DBNavigatorDetBeforeAction(Sender: TObject;
+  Button: TDBNavButtonType);
+begin
+  //if not (Sender is TDBNavigator) then
+  //  Abort;
+  //case Button of
+  //  nbInsert:
+  //  begin
+  //    Insert;
+  //    Abort;
+  //  end;
+  //  nbEdit:
+  //  begin
+  //    Edit;
+  //    Abort;
+  //  end;
+  //  nbRefresh:
+  //  begin
+  //    Refresh;
+  //    Abort;
+  //  end;
+  //  nbDelete:
+  //  begin
+  //    Delete;
+  //    Abort;
+  //  end;
+  //end;
+end;
+
+procedure TProcesoFacturacion.FormShow(Sender: TObject);
+begin
+  inherited;
+  //ABMController.NewRecord(Self);
+end;
 
 function TProcesoFacturacion.GetController: IABMController;
 begin
@@ -135,386 +168,127 @@ end;
 
 procedure TProcesoFacturacion.SetCustomController(AValue: TFacturaController);
 begin
-  if FCustomController=AValue then Exit;
-  FCustomController:=AValue;
+  if FCustomController = AValue then
+    Exit;
+  FCustomController := AValue;
 end;
 
 constructor TProcesoFacturacion.Create(AOwner: IFormView;
   AController: TFacturaController);
 var
-   Cont: IController;
-   ABMCont: IABMController;
+  Cont: IController;
+  ABMCont: IABMController;
 begin
   { Aca se chequean el controlador y se asignan las propiedades
      correspondientes. Con queryinterface sacamos una referencia al objeto que
      implementa la interfaz. Hacemos asi por si acaso AController sea un objeto
      compuesto y que hayan subojetos que implementen las interfaces. Esto nos da
      mayor flexibilidad en la implementacion. }
-   (AController as IInterface).QueryInterface(IController, Cont);
-   (AController as IInterface).QueryInterface(IABMController, ABMCont);
-   if (Cont = nil) or (ABMCont = nil) then
-   //  raise Exception.Create(rsProvidedCont)
-   else
-   begin
-     inherited Create(AOwner, Cont);
-     ABMController := ABMCont;
-     CustomController := AController;
-   end;
+  (AController as IInterface).QueryInterface(IController, Cont);
+  (AController as IInterface).QueryInterface(IABMController, ABMCont);
+  if (Cont = nil) or (ABMCont = nil) then
+    raise Exception.Create(rsProvidedCont)
+  else
+  begin
+    inherited Create(AOwner, Cont);
+    ABMController := ABMCont;
+    CustomController := AController;
+  end;
+end;
+
+procedure TProcesoFacturacion.Edit;
+begin
+
+end;
+
+procedure TProcesoFacturacion.Insert;
+begin
+
+end;
+
+procedure TProcesoFacturacion.Delete;
+begin
+
+end;
+
+procedure TProcesoFacturacion.Refresh;
+begin
+
 end;
 
 procedure TProcesoFacturacion.ObserverUpdate(const Subject: IInterface);
 begin
-  inherited;// ObserverUpdate(Subject);
+  inherited ObserverUpdate(Subject);
   case GetCustomController.GetFacturaEstado(Self) of
     asInicial:
     begin
-      {DBGridCuenta.Enabled := False;
-      DBGridCuenta.Color := clInactiveCaption;
-      MaskEditMonto.Enabled := False;
-      LabeledEditDesscripcion.Enabled := True;
-      RadioGroup1.Enabled := False;
-      BitBtnReversar.Enabled := True;
-      BitBtnCerrarAsiento.Enabled := False;
-      BitBtnNuevoDetalle.Enabled := False;
-      BitBtnNuevo.Enabled := True;}
-      DBGrid1.Enabled:= False;
-      DBGrid1.Color:= clInactiveCaption;
-      btSeleccionar.Visible:= False;
-      ButtonLimpiar.Enabled:= False;
-      DBEdit1.Enabled:= True;
-      DBEdit2.Enabled:= True;
-      DBEdit3.Enabled:= True;
-      DBEdit4.Enabled:= True;
-      DBEdit5.Enabled:= True;
-      DBEdit6.Enabled:= True;
-      DBEdit7.Enabled:= True;
-      DBEdit8.Enabled:= True;
-      DBEdit9.Enabled:= True;
-      DBEdit10.Enabled:= True;
-      DBEdit11.Enabled:= True;
-      DBEdit12.Enabled:= True;
-      DateEdit1.Enabled:=True;
-      DateEdit2.Enabled:= True;
-      Condicion.Enabled:= False;
+      Cabecera.Enabled := False;
+      Detalles.Enabled := False;
+      Totales.Enabled := False;
+      DBGridDet.Color := clInactiveCaption;
+      //btSeleccionar.Visible := False;
+      //ButtonLimpiar.Enabled := False;
     end;
     asGuardado:
     begin
-      {
-       DBGridCuenta.Enabled := False;
-       DBGridCuenta.Color := clInactiveCaption;
-       MaskEditMonto.Enabled := False;
-       LabeledEditDesscripcion.Enabled := True;
-       RadioGroup1.Enabled := False;
-       BitBtnReversar.Enabled := True;
-       BitBtnCerrarAsiento.Enabled := False;
-       BitBtnNuevoDetalle.Enabled := False;
-       BitBtnNuevo.Enabled := True;
-      }
-      DBGrid1.Enabled:= False;
-      DBGrid1.Color:= clInactiveCaption;
-      btSeleccionar.Visible:= False;
-      ButtonLimpiar.Enabled:= False;
-      DBEdit1.Enabled:= True;
-      DBEdit2.Enabled:= True;
-      DBEdit3.Enabled:= True;
-      DBEdit4.Enabled:= True;
-      DBEdit5.Enabled:= True;
-      DBEdit6.Enabled:= True;
-      DBEdit7.Enabled:= True;
-      DBEdit8.Enabled:= True;
-      DBEdit9.Enabled:= True;
-      DBEdit10.Enabled:= True;
-      DBEdit11.Enabled:= True;
-      DBEdit12.Enabled:= True;
-      DateEdit1.Enabled:=True;
-      DateEdit2.Enabled:= True;
-      Condicion.Enabled:= True;
-
+      Cabecera.Enabled := False;
+      Detalles.Enabled := False;
+      Totales.Enabled := False;
+      DBGridDet.Color := clInactiveCaption;
+      //btSeleccionar.Visible := False;
+      //ButtonLimpiar.Enabled := False;
     end;
     asEditando:
     begin
-      {
-       DBGridCuenta.Enabled := False;
-       DBGridCuenta.Color := clWindow;
-       MaskEditMonto.Enabled := True;
-       LabeledEditDesscripcion.Enabled := False;
-       RadioGroup1.Enabled := True;
-       BitBtnReversar.Enabled := False;
-       BitBtnCerrarAsiento.Enabled := True;
-       BitBtnNuevoDetalle.Enabled := True;
-       BitBtnNuevo.Enabled := False;
-      }
-      DBGrid1.Enabled:= False;
-      DBGrid1.Color:= clWindow;
-      btSeleccionar.Visible:= False;
-      ButtonLimpiar.Enabled:= False;
-      DBEdit1.Enabled:= False;
-      DBEdit2.Enabled:= False;
-      DBEdit3.Enabled:= False;
-      DBEdit4.Enabled:= False;
-      DBEdit5.Enabled:= False;
-      DBEdit6.Enabled:= False;
-      DBEdit7.Enabled:= False;
-      DBEdit8.Enabled:= False;
-      DBEdit9.Enabled:= False;
-      DBEdit10.Enabled:= False;
-      DBEdit11.Enabled:= False;
-      DBEdit12.Enabled:= False;
-      DateEdit1.Enabled:=False;
-      DateEdit2.Enabled:= False;
-      Condicion.Enabled:= False;
-
+      Cabecera.Enabled := True;
+      Detalles.Enabled := True;
+      Totales.Enabled := True;
+      DBGridDet.Color := clWindow;
+      //btSeleccionar.Visible := False;
+      //ButtonLimpiar.Enabled := False;
+      DBGridDet.AutoSizeColumns;
+      DateEditVen.Date := now; // no me gusta esto pero bue...
     end;
   end;
-
 end;
 
 procedure TProcesoFacturacion.Limpiar;
 begin
-    DBEdit1.Clear;
-    DBEdit2.Clear;
-    DBEdit3.Clear;
-    DBEdit4.Clear;
-    DBEdit5.Clear;
-    DBEdit6.Clear;
-    DBEdit7.Clear;
-    DBEdit8.Clear;
-    DBEdit9.Clear;
-    DBEdit10.Clear;
-    DBEdit11.Clear;
-    DBEdit12.Clear;
-    DateEdit1.Clear;
-    DateEdit2.Clear;
-    Condicion.ItemIndex:=-1;
-
+  DBEditDireccion.Clear;
+  DBEditRuc.Clear;
+  DBEditTelefono.Clear;
+  DBEditNotaRem.Clear;
+  DBEditSubTotal.Clear;
+  DBEditGranTotal.Clear;
+  DBEditIVA5.Clear;
+  DBEditIVA10.Clear;
+  DBEditIVATotal.Clear;
+  DBEditSubTotal5.Clear;
+  DBEditSubTotal10.Clear;
+  DBEditNombre.Clear;
+  DateEditFecha.Clear;
+  DateEditVen.Clear;
+  RadioCondicion.ItemIndex := -1;
 end;
 
 procedure TProcesoFacturacion.OKButtonClick(Sender: TObject);
 begin
-  ABMController.Commit(Self);
-  ABMController.Connect(Self);
+  if not (CustomController.GetFacturaEstado(Self) in [asEditando]) then
+    ShowInfoMessage('No se esta procesando ninguna factura');
+  CustomController.CerrarFactura(Self);
   Limpiar;
   ShowInfoMessage('Factura ingresada correctamente');
 end;
 
 procedure TProcesoFacturacion.CancelButtonClick(Sender: TObject);
 begin
+  ABMController.Cancel(Self);
   ABMController.Rollback(Self);
   Limpiar;
   ShowInfoMessage('Factura descartada');
 end;
 
-
 {
-procedure TProcesoFacturacion.SetFacturaID(AValue: integer);
-begin
-  if FFacturaID = AValue then
-    Exit;
-  FFacturaID := AValue;
-end;
-
-procedure TProcesoFacturacion.SetTalonarioID(AValue: integer);
-begin
-  if FTalonarioID = AValue then
-    Exit;
-  FTalonarioID := AValue;
-end;
-
-{
-*************************************
-FILTROS Y EVENTOS DEL DATASET
-*************************************
-}
-
-procedure TProcesoFacturacion.AbrirCursor;
-begin
-  try
-    qryPersona.Close;
-    qryCabecera.Close;
-    qryDetalle.Close;
-    //qryNumero.Close;
-    qryDeuda.Close;
-    tal.Close;
-    qryPersona.Open;
-    qryCabecera.Open;
-    qryDetalle.Open;
-    //qryNumero.Open;
-    qryDeuda.Open;
-    tal.Open;
-  except
-    on e: EDatabaseError do
-    begin
-      ManejoErrores(e);
-    end;
-  end;
-end;
-
-
-procedure TProcesoFacturacion.qryDetalleFilterRecord(DataSet: TDataSet;
-  var Accept: boolean);
-begin
-  Accept := DataSet.FieldByName('FACTURAID').AsInteger = pFacturaID;
-end;
-
-{
- aca manejamos el autoincremento del dataset
-}
-procedure TProcesoFacturacion.qryDetalleNewRecord(DataSet: TDataSet);
-begin
-  qryDetalleID.AsInteger := SGCDDataModule.SiguienteValor('seq_factura_detalle');
-  qryDetalleFACTURAID.AsInteger := pFacturaID;
-  qryDetalleDETALLE.AsString := '';
-  qryDetalleCANTIDAD.AsInteger := 0;
-  qryDetalleEXENTA.AsFloat := 0;
-  qryDetalleIVA5.AsFloat := 0;
-  qryDetalleIVA10.AsFloat := 0;
-end;
-
-procedure TProcesoFacturacion.qryDeudaFilterRecord(DataSet: TDataSet;
-  var Accept: boolean);
-begin
-  Accept := DataSet.FieldByName('PERSONAID').AsInteger = qryPersonaID.AsInteger;
-end;
-
-{
-*************************************
-EVENTOS DE BOTONES Y MENUS
-*************************************
-}
-
-procedure TProcesoFacturacion.ActualizarTotal;
-begin
-  if not (qryCabecera.State in [dsEdit, dsInsert]) then
-    qryCabecera.Edit;
-  qryCabeceraSUBTOTAL_EXENTAS.AsFloat := 0.0;
-  qryCabeceraSUBTOTAL_IVA5.AsFloat := 0.0;
-  qryCabeceraSUBTOTAL_IVA10.AsFloat := 0.0;
-  if not qryDetalle.IsEmpty then
-  begin
-    qryDetalle.First;
-    while not qryDetalle.EOF do
-    begin
-      qryCabeceraSUBTOTAL_EXENTAS.AsFloat :=
-        qryCabeceraSUBTOTAL_EXENTAS.AsFloat + qryDetalleEXENTA.AsFloat;
-      qryCabeceraSUBTOTAL_IVA5.AsFloat :=
-        qryCabeceraSUBTOTAL_IVA5.AsFloat + qryDetalleIVA5.AsFloat;
-      qryCabeceraSUBTOTAL_IVA10.AsFloat :=
-        qryCabeceraSUBTOTAL_IVA10.AsFloat + qryDetalleIVA10.AsFloat;
-      qryDetalle.Next;
-    end;
-    qryCabeceraTOTAL.AsFloat :=
-      round(qryCabeceraSUBTOTAL_EXENTAS.AsFloat + qryCabeceraSUBTOTAL_IVA5.AsFloat +
-      qryCabeceraSUBTOTAL_IVA10.AsFloat);
-    qryCabeceraIVA5.AsFloat := round(qryCabeceraSUBTOTAL_IVA5.AsFloat / 23.0);
-    qryCabeceraIVA10.AsFloat := round(qryCabeceraSUBTOTAL_IVA10.AsFloat / 11.0);
-    qryCabeceraIVA_TOTAL.AsFloat :=
-      round(qryCabeceraIVA5.AsFloat + qryCabeceraIVA10.AsFloat);
-  end;
-end;
-
-procedure TProcesoFacturacion.btSeleccionarClick(Sender: TObject);
-begin
-  try
-    //creamos la ventana de seleccion
-    try
-      f := TPopupSeleccionAlumnos.Create(Self, FAlumno);
-      if (f.ShowModal = mrOk) then
-      begin
-        if not qryPersona.Locate('ID', IntToStr(FAlumno.alumno.ID),
-          [loCaseInsensitive]) then
-          Exit;
-      end
-      else
-      begin
-        Exit;
-      end;
-    finally
-      f.Free;
-    end;
-    //filtramos la deuda para sacar solo la del alumno seleccionado
-    qryDeuda.Close;
-    qryDeuda.Open;
-
-    //aplicamos los cambios a la cabecera
-    if DateEdit1.Text = '' then
-    begin
-      DateEdit1.Date := Now;
-    end;
-    qryCabeceraPERSONAID.AsInteger := qryPersonaID.AsInteger;
-    qryCabeceraRUC.AsString := qryPersonaCEDULA.AsString;
-    qryCabeceraNOMBRE.AsString := qryPersonaNOMBRECOMPLETO.AsString;
-    ActualizarTotal;
-
-    //recorremos el dataset y vamos cargando en la factura
-    qryDeuda.First;
-    while not qryDeuda.EOF do
-    begin
-      qryDetalle.Append;
-      qryDetalleCANTIDAD.AsInteger := qryDeudaCANT.AsInteger;
-      qryDetalleDETALLE.AsString := qryDeudaDETALLE.AsString;
-      qryDetallePRECIO_UNITARIO.AsFloat := qryDeudaPRECIO_UNITARIO.AsFloat;
-      qryDetalleEXENTA.AsFloat := qryDeudaEXENTA.AsFloat;
-      qryDetalleIVA5.AsFloat := qryDeudaIVA5.AsFloat;
-      qryDetalleIVA10.AsFloat := qryDeudaIVA10.AsFloat;
-      qryDetalleDEUDAID.AsInteger := qryDeudaDEUDAID.AsInteger;
-      qryDeuda.Next;
-    end;
-    DBGrid1.AutoSizeColumns;
-    ActualizarTotal;
-    DBGrid1.SetFocus;
-  except
-    on e: EDatabaseError do
-    begin
-      ManejoErrores(e);
-    end;
-  end;
-end;
-
-procedure TProcesoFacturacion.ButtonLimpiarClick(Sender: TObject);
-begin
-  try
-
-    //traemos el siguiente numero de factura disponible del talonario
-    qryNumero.Params[0].AsInteger := pTalonarioID;
-    qryNumero.Close;
-    qryNumero.Open;
-    {si se devuelve negativo quiere decir que el talonario no existe y se pide
-    seleccionar uno}
-
-    //sacamos un nuevo id de factura
-    pFacturaID := SGCDDataModule.SiguienteValor('seq_factura');
-    DateEdit1.Clear;
-    DateEdit2.Clear;
-    AbrirCursor;
-    tal.Refresh;
-    //creamos nueva factura
-    qryCabecera.Append;
-    qryCabeceraID.AsInteger := pFacturaID;
-    qryCabeceraTALONARIOID.AsInteger := pTalonarioID;
-    qryCabeceraCONTADO.AsInteger := 1;//por defecto contado
-    DateEdit2.Enabled := False;
-  except
-    on e: EDatabaseError do
-    begin
-      ManejoErrores(e);
-    end;
-  end;
-end;
-
-procedure TProcesoFacturacion.CancelButtonClick(Sender: TObject);
-begin
-  SGCDDataModule.sqlTran.Rollback;
-  ButtonLimpiarClick(Self);
-end;
-
-procedure TProcesoFacturacion.CondicionChange(Sender: TObject);
-begin
-  if Condicion.Value = '0' then
-    DateEdit2.Enabled := True
-  else
-    DateEdit2.Enabled := False;
-end;
-
 //para seleccionar el talonario a usar
 procedure TProcesoFacturacion.talonarioClick(Sender: TObject);
 begin
@@ -525,8 +299,6 @@ begin
     if (g.ShowModal = mrOk) then
     begin
       pTalonarioID := FTalonario.talonario.ID;
-      {por si se entro en condicion de error de talonario no existente
-      entonces volvemos a habilitar los campos}
       Cabecera.Enabled := True;
       Detalles.Enabled := True;
       Totales.Enabled := True;
@@ -549,7 +321,7 @@ begin
   begin
     if not (qryDetalle.State in [dsEdit, dsInsert]) then
       qryDetalle.Edit;
-    case DBGrid1.SelectedField.FieldName of
+    case DBGridDet.SelectedField.FieldName of
       'EXENTA':
       begin
         qryDetalleIVA5.AsFloat := 0;
@@ -559,7 +331,7 @@ begin
         qryDetalle.Post;
         ActualizarTotal;
         qryDetalle.Append;
-        DBGrid1.SelectedIndex := 1;
+        DBGridDet.SelectedIndex := 1;
       end;
       'IVA5':
       begin
@@ -570,7 +342,7 @@ begin
         qryDetalle.Post;
         ActualizarTotal;
         qryDetalle.Append;
-        DBGrid1.SelectedIndex := 1;
+        DBGridDet.SelectedIndex := 1;
       end;
       'IVA10':
       begin
@@ -581,7 +353,7 @@ begin
         qryDetalle.Post;
         ActualizarTotal;
         qryDetalle.Append;
-        DBGrid1.SelectedIndex := 1;
+        DBGridDet.SelectedIndex := 1;
       end;
       else
       begin
@@ -589,7 +361,7 @@ begin
       end;
     end;
   end
-  else if (Key = VK_DELETE) and (not (DBGrid1.EditorMode)) and not
+  else if (Key = VK_DELETE) and (not (DBGridDet.EditorMode)) and not
     qryDetalle.IsEmpty then
   begin
     //borrar la fila actual
@@ -606,24 +378,13 @@ begin
   end;
 end;
 
-procedure TProcesoFacturacion.MenuItemAyudaClick(Sender: TObject);
-begin
-  //inherited;
-   ShellExecute(Handle, 'open', 'help\ABMs\factura-venta.html', nil, nil, 1);
-end;
-
-procedure TProcesoFacturacion.talFilterRecord(DataSet: TDataSet; var Accept: boolean);
-begin
-  Accept := DataSet.FieldByName('ID').AsInteger = pTalonarioID;
-end;
-
 procedure TProcesoFacturacion.OKButtonClick(Sender: TObject);
 begin
   try
-    qryCabeceraFECHA_EMISION.AsDateTime := DateEdit1.Date;
+    qryCabeceraFECHA_EMISION.AsDateTime := DateEditFecha.Date;
     if qryCabeceraCONTADO.AsInteger = 0 then
     begin
-      qryCabeceraVENCIMIENTO.AsDateTime := DateEdit2.Date;
+      qryCabeceraVENCIMIENTO.AsDateTime := DateEditVen.Date;
       if (qryCabeceraVENCIMIENTO.AsDateTime <= qryCabeceraFECHA_EMISION.AsDateTime) then
         raise EDatabaseError.Create(
           '#La fecha de vencimiento no puede ser anterior a la fecha de emision#');
@@ -682,63 +443,7 @@ begin
     end;
   end;
 end;
-
-{
-*************************************
-MANEJO DE VENTANA
-*************************************
-}
-procedure TProcesoFacturacion.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  XMLPropStorage1.Save;
-  inherited;
-end;
-
-procedure TProcesoFacturacion.FormCreate(Sender: TObject);
-begin
-  XMLPropStorage1.Restore;
-  //creamos los objetos que sirven de mensajeros entre los forms de busqueda y principal
-  FAlumno := TMensajeAlumno.Create();
-  FTalonario := TMensajeTalonario.Create();
-  FComprobante := TMensajeComprobante.Create();
-  ButtonLimpiarClick(Self);
-end;
-
-{
-*************************************
-MANEJO DE ERRORES
-*************************************
-}
-procedure TProcesoFacturacion.ManejoErrores(E: EDatabaseError);
-begin
-  inherited ManejoErrores(E);
-  Cabecera.Enabled := False;
-  Detalles.Enabled := False;
-  Totales.Enabled := False;
-end;
-
-{
-*************************************
-GUARDADO DE PROPIEDADES
-*************************************
-}
-
-procedure TProcesoFacturacion.XMLPropStorage1RestoreProperties(Sender: TObject);
-begin
-  if Trim(XMLPropStorage1.StoredValues.Items[0].Value) = '' then
-    pTalonarioID := 0
-  else
-    pTalonarioID := StrToInt(XMLPropStorage1.StoredValues.Items[0].Value);
-end;
-
-procedure TProcesoFacturacion.XMLPropStorage1SaveProperties(Sender: TObject);
-begin
-  XMLPropStorage1.StoredValues.Items[0].Value := IntToStr(pTalonarioID);
-end;
-
-
 }
 
 
 end.
-

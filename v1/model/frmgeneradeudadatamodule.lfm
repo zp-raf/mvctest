@@ -1,13 +1,13 @@
 inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
   OnCreate = DataModuleCreate
   Height = 242
-  HorizontalOffset = 509
-  VerticalOffset = 278
+  HorizontalOffset = 800
+  VerticalOffset = 259
   Width = 292
   object dsDeuda: TDataSource[0]
     DataSet = Deuda
-    left = 32
-    top = 37
+    left = 40
+    top = 32
   end
   object Deuda: TSQLQuery[1]
     FieldDefs = <    
@@ -67,8 +67,8 @@ inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
       'select * from deuda'
     )
     Params = <>
-    left = 32
-    top = 104
+    left = 40
+    top = 112
     object DeudaID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -162,12 +162,12 @@ inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
     top = 112
   end
   object dsCod: TDataSource[4]
-    left = 209
-    top = 37
+    left = 200
+    top = 32
   end
   object dsAran: TDataSource[5]
     DataSet = ArancelesDataModule.Arancel
-    left = 221
+    left = 200
     top = 112
   end
 end

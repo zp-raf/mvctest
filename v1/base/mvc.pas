@@ -109,6 +109,7 @@ type
     procedure FilterData(ASearchText: string);
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure NewRecord;
+    procedure NewDetailRecord;
     procedure RefreshDataSets;
     procedure Rollback;
     procedure SaveChanges;
@@ -166,6 +167,7 @@ type
     procedure Commit(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
     procedure FilterData(AFilterText: string; Sender: IView);
+    procedure NewDetailRecord(Sender: IView);
     procedure NewRecord(Sender: IView);
     procedure RefreshData(Sender: IView);
     procedure Rollback(Sender: IView);

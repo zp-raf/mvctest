@@ -18,6 +18,7 @@ type
   { TPersonasDataModule }
 
   TPersonasDataModule = class(TQueryDataModule, IModel)
+    dsPersonasRoles: TDataSource;
     DireccionBARRIO: TStringField;
     DireccionCIUDAD: TStringField;
     DireccionDEPARTAMENTO: TStringField;
@@ -33,13 +34,13 @@ type
     PersonaACTIVO: TSmallintField;
     PersonaAPELLIDO: TStringField;
     PersonaCEDULA: TStringField;
-    PersonaCUENTAID: TLongintField;
     PersonaFECHANAC: TDateField;
     PersonaID: TLongintField;
     PersonaNOMBRE: TStringField;
     PersonaNOMBRECOMPLETO: TStringField;
     PersonaRUC: TStringField;
     PersonaSEXO: TStringField;
+    PersonasRoles: TSQLQuery;
     Telefono: TSQLQuery;
     TelefonoDESCRIPCION: TStringField;
     TelefonoID: TLongintField;
@@ -73,6 +74,7 @@ begin
   QryList.Add(TObject(Persona));
   QryList.Add(TObject(Direccion));
   QryList.Add(TObject(Telefono));
+  AuxQryList.Add(TObject(PersonasRoles));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('APELLIDO');
   SearchFieldList.Add('CEDULA');

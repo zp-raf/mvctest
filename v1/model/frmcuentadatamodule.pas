@@ -27,6 +27,7 @@ type
     CuentaNATURALEZA: TStringField;
     CuentaNOMBRE: TStringField;
     CuentaNOMBRE_CODIGO: TStringField;
+    CuentaPERSONAID: TLongintField;
     dsCuentaAux: TDataSource;
     dsCuenta: TDataSource;
     Cuenta: TSQLQuery;
