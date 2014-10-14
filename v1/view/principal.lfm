@@ -1,7 +1,7 @@
 inherited Principal1: TPrincipal1
-  Left = 863
+  Left = 666
   Height = 100
-  Top = 506
+  Top = 389
   Width = 455
   Anchors = []
   Caption = 'SGCD'

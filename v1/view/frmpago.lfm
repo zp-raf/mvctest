@@ -1,7 +1,7 @@
 inherited ProcesoPago: TProcesoPago
-  Left = 535
+  Left = 359
   Height = 680
-  Top = 226
+  Top = 108
   Width = 1022
   ClientHeight = 660
   ClientWidth = 1022
@@ -27,9 +27,9 @@ inherited ProcesoPago: TProcesoPago
     object Label3: TLabel
       AnchorSideBottom.Side = asrCenter
       Left = 36
-      Height = 15
+      Height = 16
       Top = 48
-      Width = 42
+      Width = 43
       BorderSpacing.Right = 8
       Caption = 'Efectivo'
       ParentColor = False
@@ -37,9 +37,9 @@ inherited ProcesoPago: TProcesoPago
     object Label4: TLabel
       AnchorSideBottom.Side = asrCenter
       Left = 9
-      Height = 15
+      Height = 16
       Top = 17
-      Width = 69
+      Width = 70
       BorderSpacing.Right = 8
       Caption = 'Total a pagar'
       ParentColor = False
@@ -49,9 +49,9 @@ inherited ProcesoPago: TProcesoPago
       AnchorSideLeft.Side = asrBottom
       AnchorSideBottom.Control = Label4
       AnchorSideBottom.Side = asrCenter
-      Left = 86
+      Left = 87
       Height = 23
-      Top = 12
+      Top = 13
       Width = 168
       DataField = 'MONTO'
       DataSource = PagoDataModule.dsPago
@@ -63,9 +63,9 @@ inherited ProcesoPago: TProcesoPago
     object Label5: TLabel
       AnchorSideBottom.Side = asrCenter
       Left = 32
-      Height = 15
+      Height = 16
       Top = 80
-      Width = 46
+      Width = 47
       BorderSpacing.Right = 8
       Caption = 'Cheques'
       ParentColor = False
@@ -73,9 +73,9 @@ inherited ProcesoPago: TProcesoPago
     object Label6: TLabel
       AnchorSideBottom.Side = asrCenter
       Left = 37
-      Height = 15
+      Height = 16
       Top = 112
-      Width = 41
+      Width = 42
       BorderSpacing.Right = 8
       Caption = 'Tarjetas'
       ParentColor = False
@@ -83,9 +83,9 @@ inherited ProcesoPago: TProcesoPago
     object Label7: TLabel
       AnchorSideBottom.Side = asrCenter
       Left = 8
-      Height = 15
+      Height = 16
       Top = 144
-      Width = 70
+      Width = 71
       BorderSpacing.Right = 8
       Caption = 'Total pagado'
       ParentColor = False
@@ -93,9 +93,9 @@ inherited ProcesoPago: TProcesoPago
     object Label8: TLabel
       AnchorSideBottom.Side = asrCenter
       Left = 44
-      Height = 15
+      Height = 16
       Top = 176
-      Width = 34
+      Width = 35
       BorderSpacing.Right = 8
       Caption = 'Vuelto'
       ParentColor = False
@@ -105,9 +105,9 @@ inherited ProcesoPago: TProcesoPago
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label3
       AnchorSideTop.Side = asrCenter
-      Left = 86
+      Left = 87
       Height = 23
-      Top = 44
+      Top = 45
       Width = 168
       DataField = 'EFECTIVO'
       DataSource = PagoDataModule.dsPago
@@ -121,9 +121,9 @@ inherited ProcesoPago: TProcesoPago
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label5
       AnchorSideTop.Side = asrCenter
-      Left = 86
+      Left = 87
       Height = 23
-      Top = 76
+      Top = 77
       Width = 168
       DataField = 'CHEQUES'
       DataSource = PagoDataModule.dsPago
@@ -137,9 +137,9 @@ inherited ProcesoPago: TProcesoPago
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label6
       AnchorSideTop.Side = asrCenter
-      Left = 86
+      Left = 87
       Height = 23
-      Top = 108
+      Top = 109
       Width = 168
       DataField = 'TARJETAS'
       DataSource = PagoDataModule.dsPago
@@ -153,9 +153,9 @@ inherited ProcesoPago: TProcesoPago
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label7
       AnchorSideTop.Side = asrCenter
-      Left = 86
+      Left = 87
       Height = 23
-      Top = 140
+      Top = 141
       Width = 168
       DataField = 'TOTALPAGADO'
       DataSource = PagoDataModule.dsPago
@@ -169,9 +169,9 @@ inherited ProcesoPago: TProcesoPago
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label8
       AnchorSideTop.Side = asrCenter
-      Left = 86
+      Left = 87
       Height = 23
-      Top = 172
+      Top = 173
       Width = 168
       DataField = 'VUELTO'
       DataSource = PagoDataModule.dsPago
@@ -223,8 +223,8 @@ inherited ProcesoPago: TProcesoPago
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = DBNavigator1
           Left = 8
-          Height = 321
-          Top = 23
+          Height = 320
+          Top = 24
           Width = 384
           Anchors = [akTop, akLeft, akRight, akBottom]
           BorderSpacing.Left = 8
@@ -256,9 +256,9 @@ inherited ProcesoPago: TProcesoPago
           AnchorSideLeft.Control = PairSplitterSide1
           AnchorSideTop.Control = PairSplitterSide1
           Left = 8
-          Height = 15
+          Height = 16
           Top = 0
-          Width = 46
+          Width = 47
           BorderSpacing.Left = 8
           Caption = 'Cheques'
           ParentColor = False
@@ -302,9 +302,9 @@ inherited ProcesoPago: TProcesoPago
           AnchorSideLeft.Control = PairSplitterSide2
           AnchorSideTop.Control = PairSplitterSide2
           Left = 8
-          Height = 15
+          Height = 16
           Top = 0
-          Width = 41
+          Width = 42
           BorderSpacing.Left = 8
           Caption = 'Tarjetas'
           ParentColor = False
@@ -317,8 +317,8 @@ inherited ProcesoPago: TProcesoPago
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = DBNavigator2
           Left = 8
-          Height = 321
-          Top = 23
+          Height = 320
+          Top = 24
           Width = 579
           Anchors = [akTop, akLeft, akRight, akBottom]
           BorderSpacing.Left = 8
