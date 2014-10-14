@@ -9,12 +9,10 @@
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mvctest"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="33"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="model\frmsgcddatamodule.pas"/>
@@ -23,18 +21,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmsgcddatamodule"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="59" Y="28"/>
+        <TopLine Value="23"/>
+        <CursorPos X="1" Y="58"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
-          <TopLine Value="23"/>
-          <CursorPos X="1" Y="58"/>
+          <TopLine Value="7"/>
+          <CursorPos X="59" Y="28"/>
         </ExtraEditor1>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="base\observersubject.pas"/>
@@ -79,9 +75,10 @@
         <Filename Value="base\mvc.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mvc"/>
-        <EditorIndex Value="7"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="113"/>
+        <TopLine Value="123"/>
         <CursorPos X="3" Y="133"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
@@ -159,30 +156,25 @@
         <Filename Value="controller\ctrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ctrl"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="70"/>
-        <CursorPos X="50" Y="30"/>
+        <TopLine Value="69"/>
+        <CursorPos X="51" Y="94"/>
         <UsageCount Value="109"/>
-        <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="controller\principalctrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="principalctrl"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="12"/>
-        <CursorPos X="63" Y="91"/>
+        <TopLine Value="29"/>
+        <CursorPos X="1" Y="60"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
-          <TopLine Value="29"/>
-          <CursorPos X="1" Y="60"/>
+          <TopLine Value="12"/>
+          <CursorPos X="63" Y="91"/>
         </ExtraEditor1>
         <UsageCount Value="101"/>
-        <Loaded Value="True"/>
       </Unit12>
       <Unit13>
         <Filename Value="base\mensajes.pas"/>
@@ -197,12 +189,10 @@
         <Filename Value="controller\academiactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="academiactrl"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="43" Y="14"/>
         <UsageCount Value="92"/>
-        <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="model\frmquerydatamodule.pas"/>
@@ -211,13 +201,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmquerydatamodule"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
         <CursorPos X="38" Y="55"/>
         <UsageCount Value="89"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit15>
       <Unit16>
         <Filename Value="model\frmacademiadatamodule.pas"/>
@@ -226,13 +213,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmacademiadatamodule"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="55" Y="17"/>
         <UsageCount Value="83"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit16>
       <Unit17>
         <Filename Value="model\frmprincipaldatamodule.pas"/>
@@ -885,28 +869,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="5" HistoryIndex="4">
-      <Position1>
-        <Filename Value="model\frmquerydatamodule.pas"/>
-        <Caret Line="46" Column="40" TopLine="20"/>
-      </Position1>
-      <Position2>
-        <Filename Value="model\frmquerydatamodule.pas"/>
-        <Caret Line="14" Column="43" TopLine="1"/>
-      </Position2>
-      <Position3>
-        <Filename Value="mvctest.lpr"/>
-        <Caret Line="33" Column="3" TopLine="5"/>
-      </Position3>
-      <Position4>
-        <Filename Value="controller\academiactrl.pas"/>
-        <Caret Line="15" Column="1" TopLine="1"/>
-      </Position4>
-      <Position5>
-        <Filename Value="controller\ctrl.pas"/>
-        <Caret Line="26" Column="5" TopLine="1"/>
-      </Position5>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectSession>
   <Debugging>
     <BreakPoints Count="2">
