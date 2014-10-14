@@ -16,6 +16,9 @@ resourcestring
   rsNoSeEstaCreando = 'No se esta creando una factura';
   rsYaSeEstaCreando = 'Ya se esta creando una factura';
   rsPersonaNoEncontrada = 'Persona no encontrada';
+  rsNoSeEncontroDoc = 'No se encontro el documento';
+  rsNoSePuedeSetFac = 'No se puede completar la accion. Se esta editando una ' +
+    'factura';
 
 const
   //mientras tanto pongo aca los codigos de los impuestos
@@ -34,7 +37,7 @@ type
 
   TCodigos = TStringList;
 
-  TEstadoFactura = (asInicial, asEditando, asGuardado);
+  TEstadoFactura = (asInicial, asEditando, asGuardado, asLeyendo);
 
   { TFacturasDataModule }
 
@@ -150,6 +153,7 @@ type
     procedure FetchCabecera(APersonaID: string);
     procedure FetchDeuda;
     procedure FetchDeuda(APersonaID: string);
+    function GetDeudaMontoFacturado: double;
     procedure ModelPropsException(Sender: TObject; E: Exception);
     procedure NuevaFactura;
     procedure NuevaFacturaDetalle;
@@ -161,7 +165,7 @@ type
     procedure qryDetalleAfterInsert(DataSet: TDataSet);
     procedure qryFacturaAfterScroll(DataSet: TDataSet);
     procedure qryFacturaNewRecord(DataSet: TDataSet);
-    procedure SetDetalle;
+    procedure SetFactura(AID: string);
     property Estado: TEstadoFactura read FEstado write FEstado;
     property IVA5Cod: TCodigos read FIVA5Cod write SetIVA5Cod;
     property IVA10Cod: TCodigos read FIVA10Cod write SetIVA10Cod;
@@ -272,9 +276,13 @@ begin
   DataSet.FieldByName('TALONARIOID').AsString := TALONARIOID;
 end;
 
-procedure TFacturasDataModule.SetDetalle;
+procedure TFacturasDataModule.SetFactura(AID: string);
 begin
-
+  if (Estado in [asEditando]) then
+    raise Exception.Create(rsNoSePuedeSetFac)
+  else if not qryFactura.Locate('ID', AID, [loCaseInsensitive]) then
+    raise Exception.Create(rsNoSeEncontroDoc);
+  Estado := asLeyendo;
 end;
 
 procedure TFacturasDataModule.PropsRestoreProperties(Sender: TObject);
@@ -432,6 +440,13 @@ begin
   (MasterDataModule as ISubject).Notify;
 end;
 
+function TFacturasDataModule.GetDeudaMontoFacturado: double;
+begin
+  if not (Estado in [asLeyendo]) then
+    raise  Exception.Create(rsNoSePuedeSetFac);
+  Result := qryDetallePRECIO_UNITARIO.AsFloat * qryDetalleCANTIDAD.AsFloat;
+end;
+
 procedure TFacturasDataModule.NuevaFactura;
 begin
   Connect;
@@ -464,7 +479,7 @@ procedure TFacturasDataModule.OnFacturaError;
 begin
   DiscardChanges;
   Rollback;
-  Estado:=asInicial;
+  Estado := asInicial;
 end;
 
 end.

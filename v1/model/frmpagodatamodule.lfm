@@ -5,10 +5,17 @@ inherited PagoDataModule: TPagoDataModule
   VerticalOffset = 335
   Width = 456
   object Pago: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
         DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESCOBRO'
+        DataType = ftSmallint
         Precision = -1
         Size = 0
       end    
@@ -25,30 +32,6 @@ inherited PagoDataModule: TPagoDataModule
         Size = 0
       end    
       item
-        Name = 'TIPO_MOVIMIENTO'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'FACTURAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'RECIBOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOTA_CREDITOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
         Name = 'MONTO'
         DataType = ftFloat
         Precision = -1
@@ -58,7 +41,7 @@ inherited PagoDataModule: TPagoDataModule
         Name = 'DESCRIPCION'
         DataType = ftString
         Precision = -1
-        Size = 1024
+        Size = 512
       end    
       item
         Name = 'VALIDO'
@@ -97,23 +80,18 @@ inherited PagoDataModule: TPagoDataModule
         Size = 0
       end    
       item
-        Name = 'FACTURACOMPRAID'
+        Name = 'COMPROBANTEID'
         DataType = ftInteger
         Precision = -1
         Size = 0
       end    
       item
-        Name = 'RECIBOCOMPRAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOTA_CREDITOCOMPRAID'
+        Name = 'TIPO_COMPROBANTE'
         DataType = ftInteger
         Precision = -1
         Size = 0
       end>
+    Active = True
     AfterScroll = PagoAfterScroll
     OnNewRecord = PagoNewRecord
     Database = sgcdDataModule.db
@@ -134,21 +112,11 @@ inherited PagoDataModule: TPagoDataModule
       ReadOnly = False
       Required = True
     end
-    object PagoMOVIMIENTOID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'MOVIMIENTOID'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
     object PagoESCOBRO: TSmallintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESCOBRO'
-      Index = 2
+      Index = 1
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -158,7 +126,7 @@ inherited PagoDataModule: TPagoDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'FECHA'
-      Index = 3
+      Index = 2
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -168,11 +136,24 @@ inherited PagoDataModule: TPagoDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'HORA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PagoMONTO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO'
       Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
     end
     object PagoDESCRIPCION: TStringField
       DisplayWidth = 512
@@ -260,88 +241,25 @@ inherited PagoDataModule: TPagoDataModule
       MinValue = 0
       Precision = -1
     end
-    object PagoMONTO: TFloatField
+    object PagoCOMPROBANTEID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'MONTO'
+      FieldName = 'COMPROBANTEID'
       Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
     end
-    object PagoTIPO_MOVIMIENTO: TLongintField
+    object PagoTIPO_COMPROBANTE: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'TIPO_MOVIMIENTO'
+      FieldName = 'TIPO_COMPROBANTE'
       Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-    end
-    object PagoFACTURAID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'FACTURAID'
-      Index = 14
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object PagoRECIBOID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'RECIBOID'
-      Index = 15
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object PagoNOTA_CREDITOID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NOTA_CREDITOID'
-      Index = 16
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object PagoFACTURACOMPRAID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'FACTURACOMPRAID'
-      Index = 17
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object PagoRECIBOCOMPRAID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'RECIBOCOMPRAID'
-      Index = 18
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object PagoNOTA_CREDITOCOMPRAID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NOTA_CREDITOCOMPRAID'
-      Index = 19
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
     end
   end
   object PagoDet: TSQLQuery[1]
@@ -362,12 +280,6 @@ inherited PagoDataModule: TPagoDataModule
       item
         Name = 'MONTO'
         DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TIPO_PAGO'
-        DataType = ftInteger
         Precision = -1
         Size = 0
       end    
@@ -400,7 +312,14 @@ inherited PagoDataModule: TPagoDataModule
         DataType = ftString
         Precision = -1
         Size = 255
+      end    
+      item
+        Name = 'TIPO_PAGO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
+    Active = True
     AfterInsert = PagoDetAfterInsert
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -515,12 +434,12 @@ inherited PagoDataModule: TPagoDataModule
       Required = True
     end
   end
-  object dsPago: TDatasource[2]
+  object dsPago: TDataSource[2]
     DataSet = Pago
     left = 24
     top = 112
   end
-  object dsPagoDet: TDatasource[3]
+  object dsPagoDet: TDataSource[3]
     DataSet = PagoDet
     left = 96
     top = 112
@@ -543,12 +462,6 @@ inherited PagoDataModule: TPagoDataModule
       item
         Name = 'MONTO'
         DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TIPO_PAGO'
-        DataType = ftInteger
         Precision = -1
         Size = 0
       end    
@@ -581,7 +494,14 @@ inherited PagoDataModule: TPagoDataModule
         DataType = ftString
         Precision = -1
         Size = 255
+      end    
+      item
+        Name = 'TIPO_PAGO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
+    Active = True
     AfterInsert = PagoDetChequesAfterInsert
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -626,12 +546,6 @@ inherited PagoDataModule: TPagoDataModule
         Size = 0
       end    
       item
-        Name = 'TIPO_PAGO'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
         Name = 'NRO_CHEQUE'
         DataType = ftString
         Precision = -1
@@ -660,7 +574,14 @@ inherited PagoDataModule: TPagoDataModule
         DataType = ftString
         Precision = -1
         Size = 255
+      end    
+      item
+        Name = 'TIPO_PAGO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
+    Active = True
     AfterInsert = PagoDetTarjetasAfterInsert
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -688,12 +609,12 @@ inherited PagoDataModule: TPagoDataModule
     left = 296
     top = 16
   end
-  object dsCheques: TDatasource[6]
+  object dsCheques: TDataSource[6]
     DataSet = PagoDetCheques
     left = 199
     top = 101
   end
-  object dsTarjetas: TDatasource[7]
+  object dsTarjetas: TDataSource[7]
     DataSet = PagoDetTarjetas
     left = 304
     top = 96

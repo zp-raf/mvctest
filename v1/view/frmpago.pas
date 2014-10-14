@@ -38,10 +38,6 @@ type
   { TProcesoPago }
 
   TProcesoPago = class(TProceso)
-  private
-    FCustomController: TPagoController;
-    procedure SetCustomController(AValue: TPagoController);
-  published
     DBEditEfectivo: TDBEdit;
     DBEdit3: TDBEdit;
     DBEdit4: TDBEdit;
@@ -65,16 +61,19 @@ type
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
     Totales: TGroupBox;
+  private
+    FCustomController: TPagoController;
+    procedure SetCustomController(AValue: TPagoController);
+  public
+    constructor Create(AOwner: IFormView; AController: TPagoController); overload;
+  published
     procedure CancelButtonClick(Sender: TObject);
     procedure DBEditEfectivoEditingDone(Sender: TObject);
     procedure Limpiar;
     procedure OKButtonClick(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
-    property CustomController: TPagoController read FCustomController write SetCustomController;
-  private
-    { private declarations }
-  public
-    constructor Create(AOwner: IFormView; AController: TPagoController); overload;
+    property CustomController: TPagoController
+      read FCustomController write SetCustomController;
   end;
 
 var
@@ -90,8 +89,9 @@ implementation
 
 procedure TProcesoPago.SetCustomController(AValue: TPagoController);
 begin
-  if FCustomController=AValue then Exit;
-  FCustomController:=AValue;
+  if FCustomController = AValue then
+    Exit;
+  FCustomController := AValue;
 end;
 
 procedure TProcesoPago.CancelButtonClick(Sender: TObject);
