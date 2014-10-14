@@ -5,7 +5,6 @@ inherited PagoDataModule: TPagoDataModule
   VerticalOffset = 335
   Width = 456
   object Pago: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -91,7 +90,6 @@ inherited PagoDataModule: TPagoDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     AfterScroll = PagoAfterScroll
     OnNewRecord = PagoNewRecord
     Database = sgcdDataModule.db
@@ -263,7 +261,6 @@ inherited PagoDataModule: TPagoDataModule
     end
   end
   object PagoDet: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -319,8 +316,8 @@ inherited PagoDataModule: TPagoDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     AfterInsert = PagoDetAfterInsert
+    BeforePost = PagoDetBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -445,7 +442,6 @@ inherited PagoDataModule: TPagoDataModule
     top = 112
   end
   object PagoDetCheques: TSQLQuery[4]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -501,8 +497,8 @@ inherited PagoDataModule: TPagoDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     AfterInsert = PagoDetChequesAfterInsert
+    BeforePost = PagoDetChequesBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -525,7 +521,6 @@ inherited PagoDataModule: TPagoDataModule
     top = 16
   end
   object PagoDetTarjetas: TSQLQuery[5]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -581,8 +576,8 @@ inherited PagoDataModule: TPagoDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     AfterInsert = PagoDetTarjetasAfterInsert
+    BeforePost = PagoDetTarjetasBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -618,5 +613,10 @@ inherited PagoDataModule: TPagoDataModule
     DataSet = PagoDetTarjetas
     left = 304
     top = 96
+  end
+  object dsCodigos: TDataSource[8]
+    DataSet = CodigosDataModule.Codigos
+    left = 281
+    top = 190
   end
 end

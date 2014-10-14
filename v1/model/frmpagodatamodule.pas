@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, frmsgcddatamodule, frmfacturadatamodule2;
+  frmquerydatamodule, frmsgcddatamodule, frmfacturadatamodule2, frmcodigosdatamodule;
 
 const
   CREDITO = '1';
@@ -29,8 +29,14 @@ type
   { TPagoDataModule }
 
   TPagoDataModule = class(TQueryDataModule)
+    dsCodigos: TDataSource;
+    procedure PagoDetBeforePost(DataSet: TDataSet);
+    procedure PagoDetChequesBeforePost(DataSet: TDataSet);
+    procedure PagoDetTarjetasBeforePost(DataSet: TDataSet);
   private
+    FCodigos: TCodigosDataModule;
     FFactura: TFacturasDataModule;
+    procedure SetCodigos(AValue: TCodigosDataModule);
     procedure SetFactura(AValue: TFacturasDataModule);
   published
     dsCheques: TDataSource;
@@ -73,6 +79,7 @@ type
     procedure PagoDetTarjetasAfterInsert(DataSet: TDataSet);
     procedure PagoNewRecord(DataSet: TDataSet);
     property Factura: TFacturasDataModule read FFactura write SetFactura;
+    property Codigos: TCodigosDataModule read FCodigos write SetCodigos;
   private
     { private declarations }
   public
@@ -88,11 +95,44 @@ implementation
 
 { TPagoDataModule }
 
+procedure TPagoDataModule.PagoDetBeforePost(DataSet: TDataSet);
+begin
+
+end;
+
+procedure TPagoDataModule.PagoDetChequesBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('MONTO').IsNull or DataSet.FieldByName('NRO_CHEQUE').IsNull or
+    DataSet.FieldByName('EMISOR_CHEQUE').IsNull then
+    Abort;
+end;
+
+procedure TPagoDataModule.PagoDetTarjetasBeforePost(DataSet: TDataSet);
+begin
+
+end;
+
+procedure TPagToDataModule.PagoDetTarjetasBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('MONTO').IsNull or DataSet.FieldByName('NRO_TARJETA').IsNull or
+    DataSet.FieldByName('EMISOR_TARJETA').IsNull or
+    DataSet.FieldByName('COMPROBANTE_TARJETA').IsNull or
+    DataSet.FieldByName('TIPO_PAGO').IsNull then
+    Abort;
+end;
+
 procedure TPagoDataModule.SetFactura(AValue: TFacturasDataModule);
 begin
   if FFactura = AValue then
     Exit;
   FFactura := AValue;
+end;
+
+procedure TPagoDataModule.SetCodigos(AValue: TCodigosDataModule);
+begin
+  if FCodigos = AValue then
+    Exit;
+  FCodigos := AValue;
 end;
 
 procedure TPagoDataModule.ActualizarTotales;
@@ -139,6 +179,7 @@ begin
   DetailList.Add(TObject(PagoDet));
   DetailList.Add(TObject(PagoDetCheques));
   DetailList.Add(TObject(PagoDetTarjetas));
+  AuxQryList.Add(TObject(Codigos));
   PagoDetCheques.ParamByName('TIPO_PAGO').AsString := CHEQUE;
   PagoDetCheques.ParamByName('TIPO_PAGO').Bound := True;
   PagoDetTarjetas.ParamByName('TIPO_PAGO1').AsString := TARJETA_DEBITO;
@@ -147,6 +188,8 @@ begin
   PagoDetTarjetas.ParamByName('TIPO_PAGO2').Bound := True;
   Factura := TFacturasDataModule.Create(Self, MasterDataModule);
   Factura.SetReadOnly(True);
+  Codigos := TCodigosDataModule.Create(Self, MasterDataModule);
+  Codigos.SetObject('PAGO_DETALLE.TIPO_PAGO');
 end;
 
 procedure TPagoDataModule.NuevoPago(EsCobro: boolean; ADocumentoID: string);
@@ -160,8 +203,14 @@ end;
 procedure TPagoDataModule.PagoAfterScroll(DataSet: TDataSet);
 begin
   PagoDet.Close;
+  PagoDetCheques.Close;
+  PagoDetTarjetas.Close;
   PagoDet.ParamByName('ID').Value := Pago.FieldByName('ID').Value;
+  PagoDetCheques.ParamByName('ID').Value := Pago.FieldByName('ID').Value;
+  PagoDetTarjetas.ParamByName('ID').Value := Pago.FieldByName('ID').Value;
   PagoDet.Open;
+  PagoDetCheques.Open;
+  PagoDetTarjetas.Open;
 end;
 
 procedure TPagoDataModule.PagoDetAfterInsert(DataSet: TDataSet);
