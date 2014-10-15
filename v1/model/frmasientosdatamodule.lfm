@@ -10,7 +10,6 @@ inherited AsientosDataModule: TAsientosDataModule
     top = 24
   end
   object Movimiento: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -90,7 +89,6 @@ inherited AsientosDataModule: TAsientosDataModule
     end
   end
   object MovimientoDet: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

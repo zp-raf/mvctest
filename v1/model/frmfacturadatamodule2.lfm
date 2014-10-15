@@ -1324,12 +1324,7 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
     end
   end
-  object ModelProps: TApplicationProperties[14]
-    OnException = ModelPropsException
-    left = 360
-    top = 24
-  end
-  object Impuesto: TSQLQuery[15]
+  object Impuesto: TSQLQuery[14]
     FieldDefs = <    
       item
         Name = 'ID'

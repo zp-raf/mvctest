@@ -39,28 +39,29 @@ type
 
   TProcesoPago = class(TProceso)
     DBEditEfectivo: TDBEdit;
-    DBEdit3: TDBEdit;
-    DBEdit4: TDBEdit;
-    DBEdit5: TDBEdit;
-    DBEdit6: TDBEdit;
-    DBEdit2: TDBEdit;
-    DBGrid1: TDBGrid;
-    DBGrid2: TDBGrid;
-    DBNavigator1: TDBNavigator;
-    DBNavigator2: TDBNavigator;
-    Detalles: TGroupBox;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
+    DBEditCheques: TDBEdit;
+    DBEditTarjeta: TDBEdit;
+    DBEditPagado: TDBEdit;
+    DBEditVuelto: TDBEdit;
+    DBEditTotal: TDBEdit;
+    DBGridCheques: TDBGrid;
+    DBGridTarjetas: TDBGrid;
+    DBNavigatorCheques: TDBNavigator;
+    DBNavigatorTarjetas: TDBNavigator;
+    GroupBoxDetalles: TGroupBox;
+    LabelDetCheques: TLabel;
+    LabelDetTarjetas: TLabel;
+    LabelEfectivo: TLabel;
+    LabelTotal: TLabel;
+    LabelCheques: TLabel;
+    LabelTarjetas: TLabel;
+    LabelTotalPagado: TLabel;
+    LabelVuelto: TLabel;
     PairSplitter1: TPairSplitter;
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
-    Totales: TGroupBox;
+    GroupBoxTotales: TGroupBox;
+    procedure FormShow(Sender: TObject);
   private
     FCustomController: TPagoController;
     procedure SetCustomController(AValue: TPagoController);
@@ -78,14 +79,18 @@ type
 
 var
   ProcesoPago: TProcesoPago;
-//pid: integer;
-//pdid: integer;
 
 implementation
 
 {$R *.lfm}
 
 { TProcesoPago }
+
+procedure TProcesoPago.FormShow(Sender: TObject);
+begin
+  inherited;
+  CustomController.NuevoPago(True, '383', doFactura);
+end;
 
 procedure TProcesoPago.SetCustomController(AValue: TPagoController);
 begin

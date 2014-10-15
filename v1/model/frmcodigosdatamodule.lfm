@@ -10,6 +10,7 @@ inherited CodigosDataModule: TCodigosDataModule
     top = 96
   end
   object Codigos: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'VALOR'
@@ -29,6 +30,7 @@ inherited CodigosDataModule: TCodigosDataModule
         Precision = -1
         Size = 255
       end>
+    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (

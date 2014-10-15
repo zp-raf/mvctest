@@ -260,188 +260,12 @@ inherited PagoDataModule: TPagoDataModule
       Required = True
     end
   end
-  object PagoDet: TSQLQuery[1]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'PAGOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'MONTO'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NRO_CHEQUE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'EMISOR_CHEQUE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NRO_TARJETA'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'EMISOR_TARJETA'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'COMPROBANTE_TARJETA'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'TIPO_PAGO'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end>
-    AfterInsert = PagoDetAfterInsert
-    BeforePost = PagoDetBeforePost
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
-    SQL.Strings = (
-      'select * from pago_detalle'
-      'where pago_detalle.pagoid = :id'
-    )
-    Params = <    
-      item
-        DataType = ftUnknown
-        Name = 'id'
-        ParamType = ptInput
-      end>
-    left = 96
-    top = 16
-    object PagoDetID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ID'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      ReadOnly = False
-      Required = True
-    end
-    object PagoDetPAGOID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'PAGOID'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object PagoDetMONTO: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'MONTO'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-    object PagoDetNRO_CHEQUE: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NRO_CHEQUE'
-      Index = 3
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object PagoDetEMISOR_CHEQUE: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'EMISOR_CHEQUE'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object PagoDetNRO_TARJETA: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NRO_TARJETA'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object PagoDetEMISOR_TARJETA: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'EMISOR_TARJETA'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object PagoDetCOMPROBANTE_TARJETA: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'COMPROBANTE_TARJETA'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object PagoDetTIPO_PAGO: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'TIPO_PAGO'
-      Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-  end
-  object dsPago: TDataSource[2]
+  object dsPago: TDataSource[1]
     DataSet = Pago
     left = 24
     top = 112
   end
-  object dsPagoDet: TDataSource[3]
-    DataSet = PagoDet
-    left = 96
-    top = 112
-  end
-  object PagoDetCheques: TSQLQuery[4]
+  object PagoDetCheques: TSQLQuery[2]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -517,10 +341,108 @@ inherited PagoDataModule: TPagoDataModule
         Name = 'tipo_pago'
         ParamType = ptInput
       end>
-    left = 184
+    left = 96
     top = 16
+    object PagoDetChequesID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object PagoDetChequesPAGOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PAGOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PagoDetChequesMONTO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object PagoDetChequesNRO_CHEQUE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NRO_CHEQUE'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetChequesEMISOR_CHEQUE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'EMISOR_CHEQUE'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetChequesNRO_TARJETA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NRO_TARJETA'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetChequesEMISOR_TARJETA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'EMISOR_TARJETA'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetChequesCOMPROBANTE_TARJETA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'COMPROBANTE_TARJETA'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetChequesTIPO_PAGO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TIPO_PAGO'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
   end
-  object PagoDetTarjetas: TSQLQuery[5]
+  object PagoDetTarjetas: TSQLQuery[3]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -601,22 +523,193 @@ inherited PagoDataModule: TPagoDataModule
         Name = 'tipo_pago2'
         ParamType = ptInput
       end>
-    left = 296
+    left = 208
     top = 16
+    object PagoDetTarjetasID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PagoDetTarjetasPAGOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PAGOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PagoDetTarjetasMONTO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object PagoDetTarjetasNRO_CHEQUE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NRO_CHEQUE'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetTarjetasEMISOR_CHEQUE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'EMISOR_CHEQUE'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetTarjetasNRO_TARJETA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NRO_TARJETA'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetTarjetasEMISOR_TARJETA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'EMISOR_TARJETA'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetTarjetasCOMPROBANTE_TARJETA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'COMPROBANTE_TARJETA'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PagoDetTarjetasTIPO_PAGO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TIPO_PAGO'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringFieldTIPOPAGO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'TIPOPAGO'
+      Index = 9
+      KeyFields = 'TIPO_PAGO'
+      LookupCache = False
+      LookupDataSet = Codigos
+      LookupKeyFields = 'VALOR'
+      LookupResultField = 'SIGNIFICADO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
-  object dsCheques: TDataSource[6]
+  object dsCheques: TDataSource[4]
     DataSet = PagoDetCheques
-    left = 199
+    left = 111
     top = 101
   end
-  object dsTarjetas: TDataSource[7]
+  object dsTarjetas: TDataSource[5]
     DataSet = PagoDetTarjetas
-    left = 304
+    left = 216
     top = 96
   end
-  object dsCodigos: TDataSource[8]
-    DataSet = CodigosDataModule.Codigos
-    left = 281
-    top = 190
+  object Codigos: TSQLQuery[6]
+    FieldDefs = <    
+      item
+        Name = 'VALOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'OBJETO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SIGNIFICADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    Filter = 'OBJETO = ''PAGO_DETALLE.TIPO_PAGO'' AND VALOR = 3 OR VALOR = 4'
+    Filtered = True
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from codigos'
+    )
+    Params = <>
+    left = 232
+    top = 176
+    object CodigosVALOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALOR'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object CodigosOBJETO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBJETO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object CodigosSIGNIFICADO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'SIGNIFICADO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
   end
 end

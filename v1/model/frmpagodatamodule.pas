@@ -6,11 +6,12 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, frmsgcddatamodule, frmfacturadatamodule2, frmcodigosdatamodule;
+  frmquerydatamodule, frmsgcddatamodule, frmfacturadatamodule2,
+  frmcodigosdatamodule, observerSubject;
 
 const
-  CREDITO = '1';
-  DEBITO = '2';
+  //CREDITO = '1';
+  //DEBITO = '2';
   FACTURA = '1';
   RECIBO = '2';
   NOTA_CREDITO = '3';
@@ -26,28 +27,49 @@ resourcestring
 
 type
 
+  TTipoDocumento = (doFactura, doRecibo, doNotaCredito);
+
+  TFormaPago = (paCheque, paEfectivo, paTarjetaDebito, paTarjetaCredito);
+
+
   { TPagoDataModule }
 
   TPagoDataModule = class(TQueryDataModule)
+    Codigos: TSQLQuery;
+    CodigosOBJETO: TStringField;
+    CodigosSIGNIFICADO: TStringField;
+    CodigosVALOR: TLongintField;
     dsCodigos: TDataSource;
-    procedure PagoDetBeforePost(DataSet: TDataSet);
-    procedure PagoDetChequesBeforePost(DataSet: TDataSet);
-    procedure PagoDetTarjetasBeforePost(DataSet: TDataSet);
-  private
-    FCodigos: TCodigosDataModule;
-    FFactura: TFacturasDataModule;
-    procedure SetCodigos(AValue: TCodigosDataModule);
-    procedure SetFactura(AValue: TFacturasDataModule);
-  published
+    PagoDetChequesCOMPROBANTE_TARJETA: TStringField;
+    PagoDetChequesEMISOR_CHEQUE: TStringField;
+    PagoDetChequesEMISOR_TARJETA: TStringField;
+    PagoDetChequesID: TLongintField;
+    PagoDetChequesMONTO: TFloatField;
+    PagoDetChequesNRO_CHEQUE: TStringField;
+    PagoDetChequesNRO_TARJETA: TStringField;
+    PagoDetChequesPAGOID: TLongintField;
+    PagoDetChequesTIPO_PAGO: TLongintField;
+    PagoDetTarjetasCOMPROBANTE_TARJETA: TStringField;
+    PagoDetTarjetasEMISOR_CHEQUE: TStringField;
+    PagoDetTarjetasEMISOR_TARJETA: TStringField;
+    PagoDetTarjetasID: TLongintField;
+    PagoDetTarjetasMONTO: TFloatField;
+    PagoDetTarjetasNRO_CHEQUE: TStringField;
+    PagoDetTarjetasNRO_TARJETA: TStringField;
+    PagoDetTarjetasPAGOID: TLongintField;
+    PagoDetTarjetasTIPO_PAGO: TLongintField;
+    qryCodigos: TSQLQuery;
+    qryCodigosOBJETO: TStringField;
+    qryCodigosSIGNIFICADO: TStringField;
+    qryCodigosVALOR: TLongintField;
+    StringFieldTIPOPAGO: TStringField;
     dsCheques: TDataSource;
     dsTarjetas: TDataSource;
     dsPago: TDataSource;
-    dsPagoDet: TDataSource;
     Pago: TSQLQuery;
     PagoCHEQUES: TFloatField;
     PagoCOMPROBANTEID: TLongintField;
     PagoDESCRIPCION: TStringField;
-    PagoDet: TSQLQuery;
     PagoDetCOMPROBANTE_TARJETA: TStringField;
     PagoDetEMISOR_CHEQUE: TStringField;
     PagoDetEMISOR_TARJETA: TStringField;
@@ -70,16 +92,24 @@ type
     PagoTOTALPAGADO: TFloatField;
     PagoVALIDO: TSmallintField;
     PagoVUELTO: TFloatField;
+  private
+    FFactura: TFacturasDataModule;
+    procedure SetFactura(AValue: TFacturasDataModule);
+  published
     procedure ActualizarTotales;
+    procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
-    procedure NuevoPago(EsCobro: boolean; ADocumentoID: string);
+    procedure Disconnect; override;
+    procedure NuevoPago(EsCobro: boolean; ADocumentoID: string;
+      ATipoDoc: TTipoDocumento);
     procedure PagoAfterScroll(DataSet: TDataSet);
-    procedure PagoDetAfterInsert(DataSet: TDataSet);
+    procedure PagoDetChequesBeforePost(DataSet: TDataSet);
+    procedure PagoDetTarjetasBeforePost(DataSet: TDataSet);
     procedure PagoDetChequesAfterInsert(DataSet: TDataSet);
     procedure PagoDetTarjetasAfterInsert(DataSet: TDataSet);
     procedure PagoNewRecord(DataSet: TDataSet);
-    property Factura: TFacturasDataModule read FFactura write SetFactura;
-    property Codigos: TCodigosDataModule read FCodigos write SetCodigos;
+    procedure OnPagoError(Sender: TObject; E: EDatabaseError);
+    property Facturas: TFacturasDataModule read FFactura write SetFactura;
   private
     { private declarations }
   public
@@ -95,11 +125,6 @@ implementation
 
 { TPagoDataModule }
 
-procedure TPagoDataModule.PagoDetBeforePost(DataSet: TDataSet);
-begin
-
-end;
-
 procedure TPagoDataModule.PagoDetChequesBeforePost(DataSet: TDataSet);
 begin
   if DataSet.FieldByName('MONTO').IsNull or DataSet.FieldByName('NRO_CHEQUE').IsNull or
@@ -108,11 +133,6 @@ begin
 end;
 
 procedure TPagoDataModule.PagoDetTarjetasBeforePost(DataSet: TDataSet);
-begin
-
-end;
-
-procedure TPagToDataModule.PagoDetTarjetasBeforePost(DataSet: TDataSet);
 begin
   if DataSet.FieldByName('MONTO').IsNull or DataSet.FieldByName('NRO_TARJETA').IsNull or
     DataSet.FieldByName('EMISOR_TARJETA').IsNull or
@@ -126,13 +146,6 @@ begin
   if FFactura = AValue then
     Exit;
   FFactura := AValue;
-end;
-
-procedure TPagoDataModule.SetCodigos(AValue: TCodigosDataModule);
-begin
-  if FCodigos = AValue then
-    Exit;
-  FCodigos := AValue;
 end;
 
 procedure TPagoDataModule.ActualizarTotales;
@@ -172,57 +185,73 @@ begin
   //end;
 end;
 
+procedure TPagoDataModule.Connect;
+begin
+  Facturas.Connect;
+  inherited Connect;
+end;
+
 procedure TPagoDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
+  OnError := @OnPagoError;
   QryList.Add(TObject(Pago));
-  DetailList.Add(TObject(PagoDet));
   DetailList.Add(TObject(PagoDetCheques));
   DetailList.Add(TObject(PagoDetTarjetas));
-  AuxQryList.Add(TObject(Codigos));
+  //parametros para los datasets
   PagoDetCheques.ParamByName('TIPO_PAGO').AsString := CHEQUE;
   PagoDetCheques.ParamByName('TIPO_PAGO').Bound := True;
   PagoDetTarjetas.ParamByName('TIPO_PAGO1').AsString := TARJETA_DEBITO;
   PagoDetTarjetas.ParamByName('TIPO_PAGO1').Bound := True;
   PagoDetTarjetas.ParamByName('TIPO_PAGO2').AsString := TARJETA_CREDITO;
   PagoDetTarjetas.ParamByName('TIPO_PAGO2').Bound := True;
-  Factura := TFacturasDataModule.Create(Self, MasterDataModule);
-  Factura.SetReadOnly(True);
-  Codigos := TCodigosDataModule.Create(Self, MasterDataModule);
-  Codigos.SetObject('PAGO_DETALLE.TIPO_PAGO');
+  //objetos auxiliares
+  Facturas := TFacturasDataModule.Create(Self, MasterDataModule);
+  Facturas.SetReadOnly(True);
 end;
 
-procedure TPagoDataModule.NuevoPago(EsCobro: boolean; ADocumentoID: string);
+procedure TPagoDataModule.Disconnect;
 begin
+  Facturas.Disconnect;
+  inherited Disconnect;
+end;
+
+procedure TPagoDataModule.NuevoPago(EsCobro: boolean; ADocumentoID: string;
+  ATipoDoc: TTipoDocumento);
+var
+  TipoComp: string;
+begin
+  if ATipoDoc = doFactura then
+  begin
+    Facturas.SetFactura(ADocumentoID);
+    TipoComp := FACTURA;
+  end
+  else
+    Exit; // por el momento solo factura, despues agregar mas condiciones if
   NewRecord;
   if EsCobro then
-    DataSet.FieldByName('ESCOBRO').AsInteger := 1;
-  DataSet.FieldByName('DOCUMENTOID').AsInteger := 1;
+    Pago.FieldByName('ESCOBRO').AsInteger := 1
+  else
+    Pago.FieldByName('ESCOBRO').AsInteger := 0;
+  Pago.FieldByName('COMPROBANTEID').AsString := ADocumentoID;
+  Pago.FieldByName('TIPO_COMPROBANTE').AsString := TipoComp;
 end;
 
 procedure TPagoDataModule.PagoAfterScroll(DataSet: TDataSet);
 begin
-  PagoDet.Close;
   PagoDetCheques.Close;
   PagoDetTarjetas.Close;
-  PagoDet.ParamByName('ID').Value := Pago.FieldByName('ID').Value;
   PagoDetCheques.ParamByName('ID').Value := Pago.FieldByName('ID').Value;
   PagoDetTarjetas.ParamByName('ID').Value := Pago.FieldByName('ID').Value;
-  PagoDet.Open;
   PagoDetCheques.Open;
   PagoDetTarjetas.Open;
-end;
-
-procedure TPagoDataModule.PagoDetAfterInsert(DataSet: TDataSet);
-begin
-  DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenPagoDet);
-  DataSet.FieldByName('PAGOID').Value := Pago.FieldByName('ID').Value;
 end;
 
 procedure TPagoDataModule.PagoDetChequesAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenPagoDet);
   DataSet.FieldByName('PAGOID').Value := Pago.FieldByName('ID').Value;
+  DataSet.FieldByName('TIPO_PAGO').AsString := CHEQUE;
 end;
 
 procedure TPagoDataModule.PagoDetTarjetasAfterInsert(DataSet: TDataSet);
@@ -245,6 +274,13 @@ begin
   DataSet.FieldByName('TARJETAS').AsFloat := 0;
   DataSet.FieldByName('TOTALPAGADO').AsFloat := 0;
   DataSet.FieldByName('VUELTO').AsFloat := 0;
+end;
+
+procedure TPagoDataModule.OnPagoError(Sender: TObject; E: EDatabaseError);
+begin
+  DiscardChanges;
+  Connect;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 end.

@@ -10,6 +10,8 @@ uses
 // Aca defino los metodos basicos que tiene que tener cada parte
 type
 
+  TErrorEvent = procedure(Sender: TObject; E: EDatabaseError) of object;
+
   { Forward declarations }
 
   TQryList = class;
@@ -108,6 +110,7 @@ type
     procedure EditCurrentRecord;
     procedure FilterData(ASearchText: string);
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
+    function GetOnError: TErrorEvent;
     procedure NewRecord;
     procedure NewDetailRecord;
     procedure RefreshDataSets;
@@ -115,6 +118,7 @@ type
     procedure SaveChanges;
     procedure SetAuxQryList(AValue: TQryList);
     procedure SetMasterDataModule(AValue: IDBModel);
+    procedure SetOnError(AValue: TErrorEvent);
     procedure SetQryList(AValue: TQryList);
     procedure SetReadOnly(Option: boolean);
     procedure SetSearchText(AValue: string);
@@ -128,6 +132,7 @@ type
     function GetQryList: TQryList;
     function GetSearchFieldList: TSearchFieldList;
     function GetSearchText: string;
+    property OnError: TErrorEvent read GetOnError write SetOnError;
     property QryList: TQryList read GetQryList write SetQryList;
     property SearchText: string read GetSearchText write SetSearchText;
     property SearchFieldList: TSearchFieldList

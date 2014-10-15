@@ -27,6 +27,7 @@ type
   public
     destructor Destroy; override;
     constructor Create(AModel: IModel); overload;
+    procedure ErrorHandler(E: Exception; Sender: IABMView); override;
     function GetAsientoEstado(Sender: IView): TEstadoAsiento;
     procedure NuevoAsiento(ADescripcion: string; Sender: IView);
     procedure NuevoAsientoDetalle(ACuentaID: string; ATipoMov: TTipoMovimiento;
@@ -77,6 +78,11 @@ begin
     CustomModel := (AModel as TAsientosDataModule)
   else
     raise Exception.Create(rsModelErr);
+end;
+
+procedure TAsientosController.ErrorHandler(E: Exception; Sender: IABMView);
+begin
+  ErrorHandler(E, Sender as IView);
 end;
 
 function TAsientosController.GetAsientoEstado(Sender: IView): TEstadoAsiento;

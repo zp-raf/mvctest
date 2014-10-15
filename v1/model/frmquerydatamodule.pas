@@ -16,6 +16,7 @@ type
     constructor Create(AOwner: TComponent; AMaster: IDBModel); overload;
   private
     FAuxQryList: TQryList;
+    FOnError: TErrorEvent;
     FSearchFieldList: TSearchFieldList;
     FSearchText: string;
     FQryList: TQryList;
@@ -23,12 +24,14 @@ type
     function GetAuxQryList: TQryList;
     function GetDetailList: TQryList;
     function GetMasterDataModule: IDBModel;
+    function GetOnError: TErrorEvent;
     function GetSearchFieldList: TSearchFieldList;
     function GetSearchText: string;
     function GetQryList: TQryList;
     procedure SetAuxQryList(AValue: TQryList);
     procedure SetDetailList(AValue: TQryList);
     procedure SetMasterDataModule(AValue: IDBModel);
+    procedure SetOnError(AValue: TErrorEvent);
     procedure SetSearchText(AValue: string);
   protected
     FMasterDataModule: IDBModel;
@@ -46,6 +49,7 @@ type
     procedure EditCurrentRecord;
     procedure NewRecord;
     procedure NewDetailRecord;
+    procedure OnErrorEvent(Sender: TObject; E: EDatabaseError);
     procedure RefreshDataSets; virtual;
     procedure Rollback; virtual;
     procedure SaveChanges; virtual;
@@ -54,14 +58,15 @@ type
     function ArePendingChanges: boolean;
     function GetCurrentRecordText: string;
     function GetDBStatus: TDBInfo;
+    property AuxQryList: TQryList read GetAuxQryList write SetAuxQryList;
+    property DetailList: TQryList read GetDetailList write SetDetailList;
+    property MasterDataModule: IDBModel read GetMasterDataModule
+      write SetMasterDataModule;
+    property OnError: TErrorEvent read GetOnError write SetOnError;
     property QryList: TQryList read GetQryList write SetQryList;
     property SearchFieldList: TSearchFieldList
       read GetSearchFieldList write SetSearchFieldList;
     property SearchText: string read GetSearchText write SetSearchText;
-    property AuxQryList: TQryList read GetAuxQryList write SetAuxQryList;
-    property MasterDataModule: IDBModel read GetMasterDataModule
-      write SetMasterDataModule;
-    property DetailList: TQryList read GetDetailList write SetDetailList;
   end;
 
 var
@@ -139,6 +144,7 @@ begin
   FAuxQryList := TQryList.Create(True);
   FDetailList := TQryList.Create(True);
   FSearchText := '';
+  OnError := @OnErrorEvent;
 end;
 
 procedure TQueryDataModule.DataModuleDestroy(Sender: TObject);
@@ -352,6 +358,11 @@ begin
   end;
 end;
 
+procedure TQueryDataModule.OnErrorEvent(Sender: TObject; E: EDatabaseError);
+begin
+
+end;
+
 procedure TQueryDataModule.RefreshDataSets;
 var
   i: integer;
@@ -536,6 +547,11 @@ begin
   Result := FMasterDataModule;
 end;
 
+function TQueryDataModule.GetOnError: TErrorEvent;
+begin
+  Result := FOnError;
+end;
+
 function TQueryDataModule.GetSearchFieldList: TSearchFieldList;
 begin
   Result := FSearchFieldList;
@@ -560,6 +576,13 @@ begin
   if FMasterDataModule = AValue then
     Exit;
   FMasterDataModule := AValue;
+end;
+
+procedure TQueryDataModule.SetOnError(AValue: TErrorEvent);
+begin
+  if FOnError = AValue then
+    Exit;
+  FOnError := AValue;
 end;
 
 procedure TQueryDataModule.SetSearchText(AValue: string);

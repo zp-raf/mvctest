@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_DBSet, LR_Class,
   Forms, Controls, observerSubject, Graphics, Dialogs, XMLPropStorage,
-  frmquerydatamodule, frmsgcddatamodule, frmpersonasdatamodule;
+  frmquerydatamodule, frmsgcddatamodule, frmpersonasdatamodule, mvc;
 
 resourcestring
   rsGenFacturaID = 'SEQ_FACTURA';
@@ -48,7 +48,6 @@ type
     ImpuestoINCLUIDO: TSmallintField;
     ImpuestoNOMBRE: TStringField;
     ImpuestoViewINCLUIDO: TSmallintField;
-    ModelProps: TApplicationProperties;
     Impuesto: TSQLQuery;
     DeudaView: TSQLQuery;
     DeudaViewACTIVO: TSmallintField;
@@ -154,10 +153,9 @@ type
     procedure FetchDeuda;
     procedure FetchDeuda(APersonaID: string);
     function GetDeudaMontoFacturado: double;
-    procedure ModelPropsException(Sender: TObject; E: Exception);
     procedure NuevaFactura;
     procedure NuevaFacturaDetalle;
-    procedure OnFacturaError;
+    procedure OnFacturaError(Sender: TObject; E: EDatabaseError);
     procedure PropsRestoreProperties(Sender: TObject);
     procedure PropsRestoringProperties(Sender: TObject);
     procedure PropsSaveProperties(Sender: TObject);
@@ -300,11 +298,6 @@ begin
   inherited;
 end;
 
-procedure TFacturasDataModule.ModelPropsException(Sender: TObject; E: Exception);
-begin
-  OnFacturaError;
-end;
-
 procedure TFacturasDataModule.qryFacturaAfterScroll(DataSet: TDataSet);
 begin
   qryDetalle.Close;
@@ -335,6 +328,7 @@ end;
 procedure TFacturasDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited DataModuleCreate(Sender);
+  OnError := @OnFacturaError;
   QryList.Add(TObject(qryFactura));
   DetailList.Add(TObject(qryDetalle));
   AuxQryList.Add(TObject(tal));
@@ -475,11 +469,12 @@ begin
   (MasterDataModule as ISubject).Notify;
 end;
 
-procedure TFacturasDataModule.OnFacturaError;
+procedure TFacturasDataModule.OnFacturaError(Sender: TObject; E: EDatabaseError);
 begin
   DiscardChanges;
   Rollback;
   Estado := asInicial;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 end.

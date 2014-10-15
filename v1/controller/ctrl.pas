@@ -54,7 +54,7 @@ type
     procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
     procedure Commit(Sender: IView);
     procedure EditCurrentRecord(Sender: IView);
-    procedure ErrorHandler(E: Exception; Sender: IABMView); overload;
+    procedure ErrorHandler(E: Exception; Sender: IABMView); virtual; overload;
     procedure FilterData(AFilterText: string; Sender: IView);
     procedure NewDetailRecord(Sender: IView);
     procedure NewRecord(Sender: IView);
@@ -198,7 +198,10 @@ end;
 procedure TController.ErrorHandler(E: Exception; Sender: IView);
 begin
   if E is EDatabaseError then
-    Sender.ShowErrorMessage(GetErrorMessage(E as EDatabaseError))
+  begin
+    Sender.ShowErrorMessage(GetErrorMessage(E as EDatabaseError));
+    Model.OnError((Sender as TObject), (E as EDatabaseError));
+  end
   else if E is EIBDatabaseError then
     Sender.ShowErrorMessage(GetErrorMessage(E as EIBDatabaseError))
   else

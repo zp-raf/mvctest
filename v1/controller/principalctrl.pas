@@ -78,7 +78,7 @@ end;
 procedure TPrincipalController.ABMAcad(Sender: IFormView);
 begin
   AbmAcademias := TAbmAcademias.Create(Sender,
-    TAcademiaController.Create(TAcademiaDataModule.Create(Application,
+    TAcademiaController.Create(TAcademiaDataModule.Create((Sender as TComponent),
     Model.MasterDataModule)));
   AbmAcademias.Show;
   (Model.MasterDataModule as ISubject).Attach(AbmAcademias as IObserver);
@@ -87,7 +87,7 @@ end;
 procedure TPrincipalController.allpersonasClick(Sender: IFormView);
 begin
   AbmPersonas := TAbmPersonas.Create(Sender,
-    TPersonaController.Create(TPersonasDataModule.Create(Application,
+    TPersonaController.Create(TPersonasDataModule.Create((Sender as TComponent),
     Model.MasterDataModule)));
   AbmPersonas.Show;
   (Model.MasterDataModule as ISubject).Attach(AbmPersonas as IObserver);
@@ -96,7 +96,7 @@ end;
 procedure TPrincipalController.OpenFacturasForm(Sender: IFormView);
 begin
   ProcesoFacturacion := TProcesoFacturacion.Create(Sender,
-    TFacturaController.Create(TFacturasDataModule.Create(Application,
+    TFacturaController.Create(TFacturasDataModule.Create((Sender as TComponent),
     Model.MasterDataModule)));
   ProcesoFacturacion.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
@@ -121,7 +121,7 @@ end;
 procedure TPrincipalController.OpenAsientosFrom(Sender: IFormView);
 begin
   ProcesoAsientos := TProcesoAsientos.Create(Sender,
-    TAsientosController.Create(TAsientosDataModule.Create(Application,
+    TAsientosController.Create(TAsientosDataModule.Create((Sender as TComponent),
     Model.MasterDataModule)));
   ProcesoAsientos.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoAsientos as IObserver);
@@ -130,7 +130,7 @@ end;
 procedure TPrincipalController.OpenPagosForm(Sender: IFormView);
 begin
   ProcesoPago := TProcesoPago.Create(Sender,
-    TPagoController.Create(TPagoDataModule.Create(Application,
+    TPagoController.Create(TPagoDataModule.Create((Sender as TComponent),
     Model.MasterDataModule)));
   ProcesoPago.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);

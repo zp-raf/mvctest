@@ -17,6 +17,8 @@ type
     function GetCustomModel: TPagoDataModule;
     procedure SetCustomModel(AValue: TPagoDataModule);
   public
+    procedure NuevoPago(EsCobro: boolean; ADocumentoID: string;
+      ATipoDoc: TTipoDocumento);
     constructor Create(AModel: IModel); overload;
     property CustomModel: TPagoDataModule read GetCustomModel write SetCustomModel;
   end;
@@ -35,6 +37,12 @@ end;
 function TPagoController.GetCustomModel: TPagoDataModule;
 begin
   Result := FCustomModel;
+end;
+
+procedure TPagoController.NuevoPago(EsCobro: boolean; ADocumentoID: string;
+  ATipoDoc: TTipoDocumento);
+begin
+  CustomModel.NuevoPago(EsCobro, ADocumentoID, ATipoDoc);
 end;
 
 constructor TPagoController.Create(AModel: IModel);

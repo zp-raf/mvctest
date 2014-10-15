@@ -26,7 +26,7 @@ type
     function CheckAndSave(Sender: IView; AMsg: TDeudaMsg): boolean;
     function CheckAndSave(Sender: IView; AMsg: TDeudaMsg;
       ADetMsg: TDeudaDetMsg): boolean;
-    procedure ErrorHandler(E: Exception; Sender: IABMView); overload;
+    procedure ErrorHandler(E: Exception; Sender: IABMView); overload; override;
     // cuotas por defecto
     procedure Save(Sender: IView); override; overload;
     // sin vencimiento
@@ -128,7 +128,7 @@ end;
 
 procedure TGenDeudaController.ErrorHandler(E: Exception; Sender: IABMView);
 begin
-  inherited ErrorHandler(E, Sender);
+  inherited ErrorHandler(E, Sender as IView);
 end;
 
 procedure TGenDeudaController.Save(Sender: IView);
@@ -162,8 +162,9 @@ end;
 
 procedure TGenDeudaController.SetCustomModel(AValue: TGeneraDeudaDataModule);
 begin
-  if FCustomModel=AValue then Exit;
-  FCustomModel:=AValue;
+  if FCustomModel = AValue then
+    Exit;
+  FCustomModel := AValue;
 end;
 
 end.

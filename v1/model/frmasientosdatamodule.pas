@@ -95,7 +95,7 @@ type
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double; ADeudaID: string);
     procedure NuevoAsientoDetalle(ATipoMov: TTipoMovimiento; AMonto: double);
-    procedure OnAsientoError;
+    procedure OnAsientoError(Sender: TObject; E: EDatabaseError);
     procedure RefreshDataSets; override;
     procedure ReversarAsiento(ADescripcion: string);
     procedure ReversarAsiento(AAsientoID: string; ADescripcion: string);
@@ -120,6 +120,7 @@ implementation
 procedure TAsientosDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited DataModuleCreate(Sender);
+  OnError := @OnAsientoError;
   QryList.Add(TObject(Movimiento));
   QryList.Add(TObject(MovimientoDet));
   SearchFieldList.Add('DESCRIPCION');
@@ -142,16 +143,11 @@ begin
   Connect;
   if (Estado in [asEditando]) then
     raise Exception.Create(rsNuevoAsientoError);
-  try
-    Movimiento.Insert;
-    MovimientoFECHA.AsDateTime := Now;
-    MovimientoDESCRIPCION.AsString := ADescripcion;
-    Estado := asEditando;
-    (MasterDataModule as ISubject).Notify;
-  except
-    on E: EDatabaseError do
-      OnAsientoError;
-  end;
+  Movimiento.Insert;
+  MovimientoFECHA.AsDateTime := Now;
+  MovimientoDESCRIPCION.AsString := ADescripcion;
+  Estado := asEditando;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
@@ -159,19 +155,14 @@ procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
 begin
   if (Estado in [asInicial, asGuardado]) then
     raise Exception.Create(rsNoHayNigunAs);
-  try
-    MovimientoDet.Insert;
-    MovimientoDetCUENTAID.AsString := ACuenta;
-    MovimientoDetMONTO.AsFloat := AMonto;
-    case ATipoMov of
-      mvCredito: MovimientoDetTIPO_MOVIMIENTO.AsString := CREDITO;
-      mvDebito: MovimientoDetTIPO_MOVIMIENTO.AsString := DEBITO;
-    end;
-    (MasterDataModule as ISubject).Notify;
-  except
-    on E: EDatabaseError do
-      OnAsientoError;
+  MovimientoDet.Insert;
+  MovimientoDetCUENTAID.AsString := ACuenta;
+  MovimientoDetMONTO.AsFloat := AMonto;
+  case ATipoMov of
+    mvCredito: MovimientoDetTIPO_MOVIMIENTO.AsString := CREDITO;
+    mvDebito: MovimientoDetTIPO_MOVIMIENTO.AsString := DEBITO;
   end;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
@@ -187,11 +178,12 @@ begin
   NuevoAsientoDetalle(FCuenta.CuentaID.AsString, ATipoMov, AMonto);
 end;
 
-procedure TAsientosDataModule.OnAsientoError;
+procedure TAsientosDataModule.OnAsientoError(Sender: TObject; E: EDatabaseError);
 begin
   DiscardChanges;
   Rollback;
   ResetearEstado;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TAsientosDataModule.MovimientoDetAfterInsert(DataSet: TDataSet);
@@ -248,33 +240,28 @@ var
 begin
   if not (Estado in [asEditando]) then
     raise Exception.Create(rsNoHayNigunAs);
-  try
-    if ComprobarAsiento then
+  if ComprobarAsiento then
+  begin
+    sumaDebe := 0.0;
+    sumaHaber := 0.0;
+    // recorremos el dataset y vemos si se los montos cuadran
+    MovimientoDet.First;
+    while not MovimientoDet.EOF do
     begin
-      sumaDebe := 0.0;
-      sumaHaber := 0.0;
-      // recorremos el dataset y vemos si se los montos cuadran
-      MovimientoDet.First;
-      while not MovimientoDet.EOF do
-      begin
-        case MovimientoDetTIPO_MOVIMIENTO.AsString of
-          DEBITO: sumaDebe := sumaDebe + MovimientoDetMONTO.AsFloat;
-          CREDITO: sumaHaber := sumaHaber + MovimientoDetMONTO.AsFloat;
-        end;
-        MovimientoDet.Next;
+      case MovimientoDetTIPO_MOVIMIENTO.AsString of
+        DEBITO: sumaDebe := sumaDebe + MovimientoDetMONTO.AsFloat;
+        CREDITO: sumaHaber := sumaHaber + MovimientoDetMONTO.AsFloat;
       end;
-
-      if sumaDebe <> sumaHaber then
-        raise Exception.Create(rsLosMontosDeb);
+      MovimientoDet.Next;
     end;
-    Movimiento.ApplyUpdates;
-    MovimientoDet.ApplyUpdates;
-    Estado := asGuardado;
-    (MasterDataModule as ISubject).Notify;
-  except
-    on E: EDatabaseError do
-      OnAsientoError;
+
+    if sumaDebe <> sumaHaber then
+      raise Exception.Create(rsLosMontosDeb);
   end;
+  Movimiento.ApplyUpdates;
+  MovimientoDet.ApplyUpdates;
+  Estado := asGuardado;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TAsientosDataModule.Connect;
