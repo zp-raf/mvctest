@@ -110,7 +110,7 @@ end;
 
 procedure TGenerarDeuda.DateEditVenEditingDone(Sender: TObject);
 begin
-  if not ValidateDate(DateEditVen.Text) then
+  if not Controller.IsValidDate(DateEditVen.Text) then
     ShowErrorMessage(rsFormatoDeFec);
 end;
 

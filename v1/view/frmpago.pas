@@ -61,6 +61,7 @@ type
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
     GroupBoxTotales: TGroupBox;
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
     FCustomController: TPagoController;
@@ -69,7 +70,6 @@ type
     constructor Create(AOwner: IFormView; AController: TPagoController); overload;
   published
     procedure CancelButtonClick(Sender: TObject);
-    procedure DBEditEfectivoEditingDone(Sender: TObject);
     procedure Limpiar;
     procedure OKButtonClick(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
@@ -89,7 +89,13 @@ implementation
 procedure TProcesoPago.FormShow(Sender: TObject);
 begin
   inherited;
-  CustomController.NuevoPago(True, '383', doFactura);
+  CustomController.NuevoPago(True, '409', doFactura);
+end;
+
+procedure TProcesoPago.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  CloseAction := caFree;
+  inherited;
 end;
 
 procedure TProcesoPago.SetCustomController(AValue: TPagoController);
@@ -101,12 +107,8 @@ end;
 
 procedure TProcesoPago.CancelButtonClick(Sender: TObject);
 begin
-
-end;
-
-procedure TProcesoPago.DBEditEfectivoEditingDone(Sender: TObject);
-begin
-
+  CustomController.Cancel(Self);
+  Close;
 end;
 
 procedure TProcesoPago.Limpiar;
@@ -116,12 +118,16 @@ end;
 
 procedure TProcesoPago.OKButtonClick(Sender: TObject);
 begin
-
+  CustomController.CerrarPago(Self);
+  Close;
 end;
 
 procedure TProcesoPago.ObserverUpdate(const Subject: IInterface);
 begin
-
+  if CustomController.PagoListo then
+    ButtonPanel1.OKButton.Enabled := True
+  else
+    ButtonPanel1.OKButton.Enabled := False;
 end;
 
 constructor TProcesoPago.Create(AOwner: IFormView; AController: TPagoController);

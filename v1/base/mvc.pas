@@ -160,6 +160,7 @@ type
       El controlador debe ser capaz de manejar una vista grafica o de linea de
       comandos sin modificaciones }
     function GetModel: IModel;
+    function IsValidDate(ADateStr: string): boolean;
     procedure SetModel(AValue: IModel);
     property Model: IModel read GetModel write SetModel;
   end;

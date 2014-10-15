@@ -17,8 +17,10 @@ type
     procedure btSeleccionarClick(Sender: TObject);
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure DateEditVenEditingDone(Sender: TObject);
+    procedure DBGridDetEditingDone(Sender: TObject);
     procedure DBNavigatorDetBeforeAction(Sender: TObject; Button: TDBNavButtonType);
     procedure FormShow(Sender: TObject);
+    procedure RadioCondicionChange(Sender: TObject);
   private
     FABMController: IABMController;
     FCustomController: TFacturaController;
@@ -114,6 +116,11 @@ begin
     CustomController.SetVencimiento(DateEditVen.Date);
 end;
 
+procedure TProcesoFacturacion.DBGridDetEditingDone(Sender: TObject);
+begin
+  CustomController.ActualizarTotales(Self);
+end;
+
 procedure TProcesoFacturacion.DBNavigatorDetBeforeAction(Sender: TObject;
   Button: TDBNavButtonType);
 begin
@@ -147,6 +154,15 @@ procedure TProcesoFacturacion.FormShow(Sender: TObject);
 begin
   inherited;
   //ABMController.NewRecord(Self);
+end;
+
+procedure TProcesoFacturacion.RadioCondicionChange(Sender: TObject);
+begin
+  case RadioCondicion.ItemIndex of
+    -1: DateEditVen.Enabled := False;
+    0: DateEditVen.Enabled := True;
+    1: DateEditVen.Enabled := False;
+  end;
 end;
 
 function TProcesoFacturacion.GetController: IABMController;
@@ -273,19 +289,33 @@ end;
 
 procedure TProcesoFacturacion.OKButtonClick(Sender: TObject);
 begin
+  if RadioCondicion.ItemIndex = -1 then
+  begin
+    ShowErrorMessage('Por favor seleccione una condicion de venta');
+    Exit;
+  end
+  else if (RadioCondicion.ItemIndex = 0) and
+    (not Controller.IsValidDate(DateEditVen.Text) or (DateEditVen.Date < Now)) then
+  begin
+    ShowErrorMessage('Fecha de vencimiento no valida');
+    Exit;
+  end;
   if not (CustomController.GetFacturaEstado(Self) in [asEditando]) then
+  begin
     ShowInfoMessage('No se esta procesando ninguna factura');
+    Exit;
+  end;
   CustomController.CerrarFactura(Self);
-  Limpiar;
   ShowInfoMessage('Factura ingresada correctamente');
+  Limpiar;
 end;
 
 procedure TProcesoFacturacion.CancelButtonClick(Sender: TObject);
 begin
   ABMController.Cancel(Self);
   ABMController.Rollback(Self);
-  Limpiar;
   ShowInfoMessage('Factura descartada');
+  Limpiar;
 end;
 
 {

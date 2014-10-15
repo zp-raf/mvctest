@@ -33,13 +33,14 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       Height = 64
       Top = 15
       Width = 80
-      Caption = 'RadioCondicion'
+      Caption = 'Condicion'
       DataField = 'CONTADO'
       DataSource = FacturasDataModule.dsFactura
       Items.Strings = (
         'Credito'
         'Contado'
       )
+      OnChange = RadioCondicionChange
       TabOrder = 1
       Values.Strings = (
         '0'
@@ -352,6 +353,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
           Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns]
           OptionsExtra = [dgeCheckboxColumn]
           TabOrder = 0
+          OnEditingDone = DBGridDetEditingDone
         end
         object DBNavigatorDet: TDBNavigator
           AnchorSideLeft.Control = Detalles

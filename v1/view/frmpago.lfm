@@ -8,6 +8,7 @@ inherited ProcesoPago: TProcesoPago
   ClientWidth = 1080
   Constraints.MinHeight = 680
   Constraints.MinWidth = 1080
+  OnClose = FormClose
   OnShow = FormShow
   inherited ButtonPanel1: TButtonPanel
     Top = 620
@@ -57,8 +58,10 @@ inherited ProcesoPago: TProcesoPago
       Width = 168
       DataField = 'MONTO'
       DataSource = PagoDataModule.dsPago
+      ReadOnly = True
       Anchors = [akLeft, akBottom]
       CharCase = ecNormal
+      Color = clInfoBk
       MaxLength = 0
       TabOrder = 0
     end
@@ -116,7 +119,6 @@ inherited ProcesoPago: TProcesoPago
       CharCase = ecNormal
       MaxLength = 0
       TabOrder = 1
-      OnEditingDone = DBEditEfectivoEditingDone
     end
     object DBEditCheques: TDBEdit
       AnchorSideLeft.Control = LabelCheques
@@ -131,6 +133,7 @@ inherited ProcesoPago: TProcesoPago
       DataSource = PagoDataModule.dsPago
       ReadOnly = True
       CharCase = ecNormal
+      Color = clInfoBk
       MaxLength = 0
       TabOrder = 2
     end
@@ -147,6 +150,7 @@ inherited ProcesoPago: TProcesoPago
       DataSource = PagoDataModule.dsPago
       ReadOnly = True
       CharCase = ecNormal
+      Color = clInfoBk
       MaxLength = 0
       TabOrder = 3
     end
@@ -163,6 +167,7 @@ inherited ProcesoPago: TProcesoPago
       DataSource = PagoDataModule.dsPago
       ReadOnly = True
       CharCase = ecNormal
+      Color = clInfoBk
       MaxLength = 0
       TabOrder = 4
     end
@@ -179,6 +184,7 @@ inherited ProcesoPago: TProcesoPago
       DataSource = PagoDataModule.dsPago
       ReadOnly = True
       CharCase = ecNormal
+      Color = clInfoBk
       MaxLength = 0
       TabOrder = 5
     end

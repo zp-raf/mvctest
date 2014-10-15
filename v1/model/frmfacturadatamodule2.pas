@@ -42,6 +42,7 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TQueryDataModule)
+    DeudaViewFACTURAID: TLongintField;
     ImpuestoACTIVO: TSmallintField;
     ImpuestoFACTOR: TFloatField;
     ImpuestoID: TLongintField;
@@ -134,6 +135,8 @@ type
     talVALIDO_DESDE: TDateField;
     talVALIDO_HASTA: TDateField;
     Props: TXMLPropStorage;
+    procedure qryDetalleBeforePost(DataSet: TDataSet);
+    procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
   private
     FEstado: TEstadoFactura;
     FIVA10Cod: TCodigos;
@@ -153,6 +156,7 @@ type
     procedure FetchDeuda;
     procedure FetchDeuda(APersonaID: string);
     function GetDeudaMontoFacturado: double;
+    function GetMontoFactura: double;
     procedure NuevaFactura;
     procedure NuevaFacturaDetalle;
     procedure OnFacturaError(Sender: TObject; E: EDatabaseError);
@@ -163,6 +167,7 @@ type
     procedure qryDetalleAfterInsert(DataSet: TDataSet);
     procedure qryFacturaAfterScroll(DataSet: TDataSet);
     procedure qryFacturaNewRecord(DataSet: TDataSet);
+    procedure SaveChanges; override;
     procedure SetFactura(AID: string);
     property Estado: TEstadoFactura read FEstado write FEstado;
     property IVA5Cod: TCodigos read FIVA5Cod write SetIVA5Cod;
@@ -215,15 +220,15 @@ begin
       qryFacturaSUBTOTAL_IVA5.AsFloat * I5Fac;
     qryFacturaIVA10.AsFloat :=
       qryFacturaIVA10.AsFloat + qryFacturaSUBTOTAL_IVA10.AsFloat * I10Fac;
-    // sumatoria de iva5 e iva10
-    qryFacturaIVA_TOTAL.AsFloat :=
-      qryFacturaIVA_TOTAL.AsFloat + qryFacturaIVA10.AsFloat + qryFacturaIVA5.AsFloat;
-    // gran total
-    qryFacturaTOTAL.AsFloat :=
-      qryFacturaTOTAL.AsFloat + qryFacturaSUBTOTAL_EXENTAS.AsFloat +
-      qryFacturaSUBTOTAL_IVA5.AsFloat + qryFacturaSUBTOTAL_IVA10.AsFloat;
     qryDetalle.Next;
   end;
+  // sumatoria de iva5 e iva10
+  qryFacturaIVA_TOTAL.AsFloat :=
+    qryFacturaIVA_TOTAL.AsFloat + qryFacturaIVA10.AsFloat + qryFacturaIVA5.AsFloat;
+  // gran total
+  qryFacturaTOTAL.AsFloat :=
+    qryFacturaTOTAL.AsFloat + qryFacturaSUBTOTAL_EXENTAS.AsFloat +
+    qryFacturaSUBTOTAL_IVA5.AsFloat + qryFacturaSUBTOTAL_IVA10.AsFloat;
 end;
 
 procedure TFacturasDataModule.PropsRestoringProperties(Sender: TObject);
@@ -274,6 +279,13 @@ begin
   DataSet.FieldByName('TALONARIOID').AsString := TALONARIOID;
 end;
 
+procedure TFacturasDataModule.SaveChanges;
+begin
+  inherited SaveChanges;
+  Estado := asInicial;
+  (MasterDataModule as ISubject).Notify;
+end;
+
 procedure TFacturasDataModule.SetFactura(AID: string);
 begin
   if (Estado in [asEditando]) then
@@ -303,6 +315,39 @@ begin
   qryDetalle.Close;
   qryDetalle.ParamByName('FACTURAID').Value := qryFactura.FieldByName('ID').Value;
   qryDetalle.Open;
+end;
+
+procedure TFacturasDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField);
+begin
+  // iva 10
+  if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
+    Exit
+  else
+    qryDetalleIVA10.AsFloat :=
+      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+  // iva 5
+  if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
+    Exit
+  else
+    qryDetalleIVA5.AsFloat :=
+      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+  // exenta
+  if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
+    Exit
+  else
+    qryDetalleEXENTA.AsFloat :=
+      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+end;
+
+procedure TFacturasDataModule.qryDetalleBeforePost(DataSet: TDataSet);
+begin
+  //if DataSet.FieldByName('CANTIDAD').ISNULL or DataSet.FieldByName(
+  //  'DETALLE').IsNull or DataSet.FieldByName('PRECIO_UNITARIO').ISNULL or
+  //  (DataSet.FieldByName('EXENTA').IsNull and DataSet.FieldByName('IVA5').IsNull and
+  //  DataSet.FieldByName('IVA10').IsNull) then
+  //    Abort;
+  if DataSet.FieldByName('PRECIO_UNITARIO').ISNULL then
+    Abort;
 end;
 
 procedure TFacturasDataModule.SetIVA10Cod(AValue: TCodigos);
@@ -439,6 +484,13 @@ begin
   if not (Estado in [asLeyendo]) then
     raise  Exception.Create(rsNoSePuedeSetFac);
   Result := qryDetallePRECIO_UNITARIO.AsFloat * qryDetalleCANTIDAD.AsFloat;
+end;
+
+function TFacturasDataModule.GetMontoFactura: double;
+begin
+  if not (Estado in [asLeyendo]) then
+    raise  Exception.Create(rsNoSePuedeSetFac);
+  Result := qryFacturaTOTAL.AsFloat;
 end;
 
 procedure TFacturasDataModule.NuevaFactura;

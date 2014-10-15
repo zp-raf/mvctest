@@ -426,6 +426,7 @@ inherited FacturasDataModule: TFacturasDataModule
       end>
     Filtered = True
     AfterInsert = qryDetalleAfterInsert
+    BeforePost = qryDetalleBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -500,6 +501,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = qryDetallePRECIO_UNITARIOChange
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -1127,6 +1129,7 @@ inherited FacturasDataModule: TFacturasDataModule
     end
   end
   object DeudaView: TSQLQuery[13]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -1193,6 +1196,12 @@ inherited FacturasDataModule: TFacturasDataModule
         DataType = ftFloat
         Precision = -1
         Size = 0
+      end    
+      item
+        Name = 'FACTURAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -1200,6 +1209,7 @@ inherited FacturasDataModule: TFacturasDataModule
     SQL.Strings = (
       'select * from v_deudas'
       'where v_deudas.personaid = :personaid'
+      'and v_deudas.facturaid is null'
     )
     Params = <    
       item
@@ -1318,6 +1328,16 @@ inherited FacturasDataModule: TFacturasDataModule
       FieldKind = fkData
       FieldName = 'PERSONAID'
       Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DeudaViewFACTURAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FACTURAID'
+      Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   frmquerydatamodule, frmsgcddatamodule, frmfacturadatamodule2,
-  frmcodigosdatamodule, observerSubject;
+  frmcodigosdatamodule, observerSubject, frmasientosdatamodule;
 
 const
   //CREDITO = '1';
@@ -58,15 +58,13 @@ type
     PagoDetTarjetasNRO_TARJETA: TStringField;
     PagoDetTarjetasPAGOID: TLongintField;
     PagoDetTarjetasTIPO_PAGO: TLongintField;
-    qryCodigos: TSQLQuery;
-    qryCodigosOBJETO: TStringField;
-    qryCodigosSIGNIFICADO: TStringField;
-    qryCodigosVALOR: TLongintField;
+    PagoDetCheques: TSQLQuery;
+    PagoDetTarjetas: TSQLQuery;
+    Pago: TSQLQuery;
     StringFieldTIPOPAGO: TStringField;
     dsCheques: TDataSource;
     dsTarjetas: TDataSource;
     dsPago: TDataSource;
-    Pago: TSQLQuery;
     PagoCHEQUES: TFloatField;
     PagoCOMPROBANTEID: TLongintField;
     PagoDESCRIPCION: TStringField;
@@ -79,8 +77,6 @@ type
     PagoDetNRO_TARJETA: TStringField;
     PagoDetPAGOID: TLongintField;
     PagoDetTIPO_PAGO: TLongintField;
-    PagoDetCheques: TSQLQuery;
-    PagoDetTarjetas: TSQLQuery;
     PagoEFECTIVO: TFloatField;
     PagoESCOBRO: TSmallintField;
     PagoFECHA: TDateField;
@@ -92,24 +88,36 @@ type
     PagoTOTALPAGADO: TFloatField;
     PagoVALIDO: TSmallintField;
     PagoVUELTO: TFloatField;
+
   private
+    FAsientos: TAsientosDataModule;
     FFactura: TFacturasDataModule;
+    FListo: boolean;
+    function GetEstado: boolean;
+    procedure SetAsientos(AValue: TAsientosDataModule);
     procedure SetFactura(AValue: TFacturasDataModule);
   published
     procedure ActualizarTotales;
     procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DataModuleDestroy(Sender: TObject);
     procedure Disconnect; override;
     procedure NuevoPago(EsCobro: boolean; ADocumentoID: string;
       ATipoDoc: TTipoDocumento);
+    procedure PagoDetChequesAfterPost(DataSet: TDataSet);
+    procedure PagoDetTarjetasAfterPost(DataSet: TDataSet);
+    procedure PagoEFECTIVOChange(Sender: TField);
     procedure PagoAfterScroll(DataSet: TDataSet);
     procedure PagoDetChequesBeforePost(DataSet: TDataSet);
     procedure PagoDetTarjetasBeforePost(DataSet: TDataSet);
     procedure PagoDetChequesAfterInsert(DataSet: TDataSet);
     procedure PagoDetTarjetasAfterInsert(DataSet: TDataSet);
     procedure PagoNewRecord(DataSet: TDataSet);
+    procedure SaveChanges; override;
     procedure OnPagoError(Sender: TObject; E: EDatabaseError);
+    property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
     property Facturas: TFacturasDataModule read FFactura write SetFactura;
+    property Listo: boolean read GetEstado write FListo;
   private
     { private declarations }
   public
@@ -141,6 +149,21 @@ begin
     Abort;
 end;
 
+procedure TPagoDataModule.PagoEFECTIVOChange(Sender: TField);
+begin
+  ActualizarTotales;
+end;
+
+procedure TPagoDataModule.PagoDetChequesAfterPost(DataSet: TDataSet);
+begin
+  ActualizarTotales;
+end;
+
+procedure TPagoDataModule.PagoDetTarjetasAfterPost(DataSet: TDataSet);
+begin
+  ActualizarTotales;
+end;
+
 procedure TPagoDataModule.SetFactura(AValue: TFacturasDataModule);
 begin
   if FFactura = AValue then
@@ -148,41 +171,55 @@ begin
   FFactura := AValue;
 end;
 
+procedure TPagoDataModule.DataModuleDestroy(Sender: TObject);
+begin
+  Facturas.Free;
+  inherited;
+end;
+
+function TPagoDataModule.GetEstado: boolean;
+begin
+  Result := FListo;
+end;
+
+procedure TPagoDataModule.SetAsientos(AValue: TAsientosDataModule);
+begin
+  if FAsientos=AValue then Exit;
+  FAsientos:=AValue;
+end;
+
 procedure TPagoDataModule.ActualizarTotales;
 begin
-  //try
-  //  //qryDetCh.Refresh;
-  //  qryCabeceraCHEQUES.AsFloat := 0;
-  //  qryDetCh.First;
-  //  while not qryDetCh.EOF do
-  //  begin
-  //    qryCabeceraCHEQUES.AsFloat := qryCabeceraCHEQUES.AsFloat + qryDetChMONTO.AsFloat;
-  //    qryDetCh.Next;
-  //  end;
-  //  //qryDetTa.Refresh;
-  //  qryCabeceraTARJETAS.AsFloat := 0;
-  //  qryDetTa.First;
-  //  while not qryDetTa.EOF do
-  //  begin
-  //    qryCabeceraTARJETAS.AsFloat := qryCabeceraTARJETAS.AsFloat + qryDetTaMONTO.AsFloat;
-  //    qryDetTa.Next;
-  //  end;
-  //  qryCabeceraTOTALPAGADO.AsFloat := 0;
-  //  qryCabeceraTOTALPAGADO.AsFloat :=
-  //    qryCabeceraEFECTIVO.AsFloat + qryCabeceraCHEQUES.AsFloat +
-  //    qryCabeceraTARJETAS.AsFloat;
-  //  if qryCabeceraTOTALPAGADO.AsFloat > qryCabeceraMONTO.AsFloat then
-  //    qryCabeceraVUELTO.AsFloat :=
-  //      qryCabeceraTOTALPAGADO.AsFloat - qryCabeceraMONTO.AsFloat
-  //  else
-  //    qryCabeceraVUELTO.AsFloat := 0;
-  //except
-  //  on e: EDatabaseError do
-  //  begin
-  //    ManejoErrores(e);
-  //    AbrirCursor;
-  //  end;
-  //end;
+  // el total de cheques
+  PagoCHEQUES.AsFloat := 0;
+  PagoDetCheques.First;
+  while not PagoDetCheques.EOF do
+  begin
+    PagoCHEQUES.AsFloat := PagoCHEQUES.AsFloat + PagoDetChequesMONTO.AsFloat;
+    PagoDetCheques.Next;
+  end;
+  // el total de tarjetas
+  PagoTARJETAS.AsFloat := 0;
+  PagoDetTarjetas.First;
+  while not PagoDetTarjetas.EOF do
+  begin
+    PagoTARJETAS.AsFloat := PagoTARJETAS.AsFloat + PagoDetTarjetasMONTO.AsFloat;
+    PagoDetTarjetas.Next;
+  end;
+  // total pagado
+  PagoTOTALPAGADO.AsFloat := 0;
+  PagoTOTALPAGADO.AsFloat :=
+    PagoEFECTIVO.AsFloat + PagoCHEQUES.AsFloat + PagoTARJETAS.AsFloat;
+  if PagoTOTALPAGADO.AsFloat > PagoMONTO.AsFloat then
+    PagoVUELTO.AsFloat :=
+      PagoTOTALPAGADO.AsFloat - PagoMONTO.AsFloat
+  else
+    PagoVUELTO.AsFloat := 0;
+  if PagoTOTALPAGADO.AsFloat < PagoMONTO.AsFloat then
+    Listo := False
+  else
+    Listo := True;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TPagoDataModule.Connect;
@@ -199,15 +236,18 @@ begin
   DetailList.Add(TObject(PagoDetCheques));
   DetailList.Add(TObject(PagoDetTarjetas));
   //parametros para los datasets
-  PagoDetCheques.ParamByName('TIPO_PAGO').AsString := CHEQUE;
-  PagoDetCheques.ParamByName('TIPO_PAGO').Bound := True;
-  PagoDetTarjetas.ParamByName('TIPO_PAGO1').AsString := TARJETA_DEBITO;
-  PagoDetTarjetas.ParamByName('TIPO_PAGO1').Bound := True;
-  PagoDetTarjetas.ParamByName('TIPO_PAGO2').AsString := TARJETA_CREDITO;
-  PagoDetTarjetas.ParamByName('TIPO_PAGO2').Bound := True;
+  //PagoDetCheques.ParamByName('TIPO_PAGO').AsString := CHEQUE;
+  //PagoDetCheques.ParamByName('TIPO_PAGO').Bound := True;
+  //PagoDetTarjetas.ParamByName('TIPO_PAGO1').AsString := TARJETA_DEBITO;
+  //PagoDetTarjetas.ParamByName('TIPO_PAGO1').Bound := True;
+  //PagoDetTarjetas.ParamByName('TIPO_PAGO2').AsString := TARJETA_CREDITO;
+  //PagoDetTarjetas.ParamByName('TIPO_PAGO2').Bound := True;
   //objetos auxiliares
   Facturas := TFacturasDataModule.Create(Self, MasterDataModule);
   Facturas.SetReadOnly(True);
+  Asientos := TAsientosDataModule.Create(Self, MasterDataModule);
+  // obviamente no esta listo el pago jeje
+  Listo := False;
 end;
 
 procedure TPagoDataModule.Disconnect;
@@ -235,14 +275,17 @@ begin
     Pago.FieldByName('ESCOBRO').AsInteger := 0;
   Pago.FieldByName('COMPROBANTEID').AsString := ADocumentoID;
   Pago.FieldByName('TIPO_COMPROBANTE').AsString := TipoComp;
+  Pago.FieldByName('MONTO').AsFloat := Facturas.GetMontoFactura;
+  Listo := False;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TPagoDataModule.PagoAfterScroll(DataSet: TDataSet);
 begin
   PagoDetCheques.Close;
   PagoDetTarjetas.Close;
-  PagoDetCheques.ParamByName('ID').Value := Pago.FieldByName('ID').Value;
-  PagoDetTarjetas.ParamByName('ID').Value := Pago.FieldByName('ID').Value;
+  PagoDetCheques.ParamByName('PAGOID').Value := Pago.FieldByName('ID').Value;
+  PagoDetTarjetas.ParamByName('PAGOID').Value := Pago.FieldByName('ID').Value;
   PagoDetCheques.Open;
   PagoDetTarjetas.Open;
 end;
@@ -250,14 +293,14 @@ end;
 procedure TPagoDataModule.PagoDetChequesAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenPagoDet);
-  DataSet.FieldByName('PAGOID').Value := Pago.FieldByName('ID').Value;
+  DataSet.FieldByName('PAGOID').AsInteger := Pago.FieldByName('ID').AsInteger;
   DataSet.FieldByName('TIPO_PAGO').AsString := CHEQUE;
 end;
 
 procedure TPagoDataModule.PagoDetTarjetasAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenPagoDet);
-  DataSet.FieldByName('PAGOID').Value := Pago.FieldByName('ID').Value;
+  DataSet.FieldByName('PAGOID').AsInteger := Pago.FieldByName('ID').AsInteger;
 end;
 
 procedure TPagoDataModule.PagoNewRecord(DataSet: TDataSet);
@@ -274,6 +317,15 @@ begin
   DataSet.FieldByName('TARJETAS').AsFloat := 0;
   DataSet.FieldByName('TOTALPAGADO').AsFloat := 0;
   DataSet.FieldByName('VUELTO').AsFloat := 0;
+end;
+
+procedure TPagoDataModule.SaveChanges;
+begin
+  Pago.ApplyUpdates;
+  PagoDetCheques.ApplyUpdates;
+  PagoDetTarjetas.ApplyUpdates;
+  MasterDataModule.Commit;
+  Listo := False;
 end;
 
 procedure TPagoDataModule.OnPagoError(Sender: TObject; E: EDatabaseError);

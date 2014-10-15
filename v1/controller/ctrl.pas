@@ -5,8 +5,8 @@ unit ctrl;
 interface
 
 uses
-  Classes, SysUtils, manejoerrores, mvc, frmsgcddatamodule,
-  IBConnection, DB, Controls, Forms, observerSubject, dateutils, FileUtil;
+  Classes, SysUtils, manejoerrores, mvc, frmsgcddatamodule, IBConnection, DB,
+  Controls, Forms, observerSubject, FileUtil, dateutils;
 
 // para modificar mas facilmente los textos de mensajes
 resourcestring
@@ -41,6 +41,7 @@ type
     procedure ShowHelp(Sender: IFormView);
     function GetVersion(Sender: IView): string;
     function IsDBConnected(Sender: IView): boolean;
+    function IsValidDate(ADateStr: string): boolean;
     property Model: IModel read GetModel write SetModel;
   end;
 
@@ -183,6 +184,16 @@ begin
   Result := Model.GetDBStatus.Connected;
 end;
 
+function TController.IsValidDate(ADateStr: string): boolean;
+var
+  x: TDateTime;
+begin
+  if TryStrToDate(ADateStr, x) and (x > StrToDate('01/01/1900')) then
+    Result := True
+  else
+    Result := False;
+end;
+
 procedure TController.SetModel(AValue: IModel);
 begin
   if FModel = AValue then
@@ -242,6 +253,8 @@ end;
 
 procedure TController.CloseQuery(Sender: IView; var CanClose: boolean);
 begin
+  if CanClose then
+    Exit;
   case Sender.ShowConfirmationMessage(rsExitSalir, rsExitQuestion) of
     mrYes:
     begin
