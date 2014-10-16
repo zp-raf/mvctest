@@ -5,7 +5,7 @@ unit mvc;
 interface
 
 uses
-  Classes, SysUtils, Forms, mensajes, contnrs, DB;
+  Classes, SysUtils, Forms, mensajes, contnrs, DB, observerSubject;
 
 // Aca defino los metodos basicos que tiene que tener cada parte
 type

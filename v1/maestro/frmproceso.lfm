@@ -20,4 +20,8 @@ inherited Proceso: TProceso
     CancelButton.DefaultCaption = True
     TabOrder = 0
   end
+  inherited MainMenu: TMainMenu[1]
+  end
+  inherited AppProps: TApplicationProperties[2]
+  end
 end

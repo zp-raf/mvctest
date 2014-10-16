@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ButtonPanel, StdCtrls, DBCtrls, ExtCtrls, DBGrids, PairSplitter, Buttons,
-  maskedit, frmproceso, frmasientosdatamodule, asientosctrl, mvc, frmMaestro;
+  maskedit, frmproceso, frmasientosdatamodule, asientosctrl, mvc, frmMaestro, observerSubject;
 
 resourcestring
   rsReversionDeA = 'Reversion de asiento';

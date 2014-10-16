@@ -27,6 +27,7 @@ type
     MIConnected: TMenuItem;
     procedure MIConnectedClick(Sender: TObject);
   private
+    hola: Pointer;
     FController: IController;
     function GetController: IController;
     procedure SetController(AValue: IController);
@@ -62,7 +63,6 @@ type
     property Controller: IController read GetController write SetController;
   public
     constructor Create(AOwner: IFormView; AController: IController); overload;
-
   { TODO: Aca faltaria un metodo Update() que sea llamado por el sujeto al cual esta
     adherido este observador. Por ejemplo para mostrar el estado de conexion de la
     base de datos en un Text. }
@@ -140,6 +140,7 @@ end;
 
 procedure TMaestro.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  (IController(hola).GetModel.MasterDataModule as ISubject).Detach(Self as IObserver);
   CloseAction := caFree;
   if GetOwner <> nil then
   begin
@@ -219,6 +220,7 @@ begin
   else
     inherited Create(nil);
   Controller := AController;
+  hola := Pointer(AController);
 end;
 
 end.

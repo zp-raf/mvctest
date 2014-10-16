@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, frmMaestro, mvc;
+  ButtonPanel, frmMaestro, mvc, observerSubject;
 
 type
 

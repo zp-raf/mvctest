@@ -2,6 +2,7 @@ inherited AbmAcademias: TAbmAcademias
   Left = 473
   Top = 132
   Caption = 'ABM Academias'
+  ClientHeight = 461
   inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner

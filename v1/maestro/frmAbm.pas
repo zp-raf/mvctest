@@ -7,13 +7,14 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, DBGrids, ButtonPanel, EditBtn, StdCtrls, DBCtrls, frmMaestro,
-  sqldb, LCLType, IBConnection, BufDataset, mvc;
+  sqldb, LCLType, IBConnection, BufDataset, mvc, observerSubject;
 
 type
 
   { TAbm }
 
   TAbm = class(TMaestro, IABMView)
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     FABMController: IABMController;
     function GetController: IABMController;
@@ -115,6 +116,13 @@ begin
   end;
 end;
 
+procedure TAbm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  if ABMController <> nil then
+    (ABMController.GetModel.MasterDataModule as ISubject).Detach(Self as IObserver);
+  inherited;
+end;
+
 function TAbm.GetController: IABMController;
 begin
   Result := FABMController;
@@ -134,7 +142,7 @@ begin
   AController.QueryInterface(IController, temp);
   if temp <> nil then
   begin
-    inherited Create(AOwner, temp);
+    inherited Create(AOwner, AController);
     FABMController := AController;
   end
   else

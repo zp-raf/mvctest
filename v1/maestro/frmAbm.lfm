@@ -3,10 +3,11 @@ inherited Abm: TAbm
   Height = 481
   Top = 344
   Width = 640
-  ClientHeight = 481
+  ClientHeight = 461
   ClientWidth = 640
   Constraints.MinHeight = 481
   Constraints.MinWidth = 640
+  OnClose = FormClose
   Position = poScreenCenter
   object ButtonPanel: TButtonPanel[0]
     Left = 6

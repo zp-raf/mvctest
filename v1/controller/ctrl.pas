@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, manejoerrores, mvc, frmsgcddatamodule, IBConnection, DB,
-  Controls, Forms, observerSubject, FileUtil, dateutils;
+  Controls, Forms, observerSubject, FileUtil, dateutils, frmquerydatamodule;
 
 // para modificar mas facilmente los textos de mensajes
 resourcestring
@@ -237,7 +237,7 @@ begin
   begin
     x := Pointer(Model);
     Model := nil;
-    TComponent(x).Free;
+    TQueryDataModule(x).Free;
   end;
 end;
 

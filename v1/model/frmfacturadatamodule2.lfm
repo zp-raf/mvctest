@@ -1,4 +1,5 @@
 inherited FacturasDataModule: TFacturasDataModule
+  OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 321
   HorizontalOffset = 975
@@ -1129,7 +1130,6 @@ inherited FacturasDataModule: TFacturasDataModule
     end
   end
   object DeudaView: TSQLQuery[13]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
