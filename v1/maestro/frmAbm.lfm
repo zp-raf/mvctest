@@ -7,7 +7,6 @@ inherited Abm: TAbm
   ClientWidth = 640
   Constraints.MinHeight = 481
   Constraints.MinWidth = 640
-  OnClose = FormClose
   Position = poScreenCenter
   inherited StatusBar1: TStatusBar
     Top = 438
@@ -15,8 +14,8 @@ inherited Abm: TAbm
   end
   object ButtonPanel: TButtonPanel[1]
     Left = 6
-    Height = 122
-    Top = 310
+    Height = 34
+    Top = 398
     Width = 628
     OKButton.Name = 'OKButton'
     OKButton.Caption = '&Guardar'
@@ -40,7 +39,7 @@ inherited Abm: TAbm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel
     Left = 0
-    Height = 304
+    Height = 392
     Top = 0
     Width = 640
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -55,12 +54,12 @@ inherited Abm: TAbm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel
     Left = 0
-    Height = 304
+    Height = 392
     Top = 0
     Width = 640
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 304
+    ClientHeight = 392
     ClientWidth = 640
     TabOrder = 1
     object DBGrid1: TDBGrid
@@ -69,7 +68,7 @@ inherited Abm: TAbm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
       Left = 8
-      Height = 222
+      Height = 310
       Hint = 'Para seleccionar una fila, haga click izquierdo.'#13#10'Para ver el contenido de la fila, haga click derecho.'#13#10'Para eliminar la fila, presione la tecla suprimir o haga click en el boton de eliminar en el panel de navegación.'
       Top = 51
       Width = 624
@@ -90,7 +89,7 @@ inherited Abm: TAbm
       Left = 8
       Height = 25
       Hint = 'Panel de navegación'
-      Top = 277
+      Top = 365
       Width = 313
       BeforeAction = DBNavListBeforeAction
       BevelOuter = bvNone

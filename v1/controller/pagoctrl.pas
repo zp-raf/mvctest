@@ -17,7 +17,7 @@ type
     function GetCustomModel: TPagoDataModule;
     procedure SetCustomModel(AValue: TPagoDataModule);
   public
-    constructor Create(AModel: IModel); overload;
+    constructor Create(AModel: TPagoDataModule); overload;
     function PagoListo: boolean;
     procedure NuevoPago(EsCobro: boolean; ADocumentoID: string;
       ATipoDoc: TTipoDocumento);
@@ -68,13 +68,23 @@ begin
   inherited CloseQuery(Sender, CanClose);
 end;
 
-constructor TPagoController.Create(AModel: IModel);
+constructor TPagoController.Create(AModel: TPagoDataModule);
+var
+  x: IModel;
 begin
-  inherited Create(AModel);
-  if (AModel is TPagoDataModule) then
-    CustomModel := (AModel as TPagoDataModule)
+  (AModel as IInterface).QueryInterface(IModel, x);
+  if x <> nil then
+  begin
+    inherited Create(AModel);
+    FCustomModel := AModel;
+  end
   else
     raise Exception.Create(rsModelErr);
+  //inherited Create(AModel);
+  //if (AModel is TPagoDataModule) then
+  //  CustomModel := (AModel as TPagoDataModule)
+  //else
+  //  raise Exception.Create(rsModelErr);
 end;
 
 function TPagoController.PagoListo: boolean;

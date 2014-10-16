@@ -116,11 +116,6 @@ var
   Cont: IController;
   ABMCont: IABMController;
 begin
-  { Aca se chequean el controlador y se asignan las propiedades
-    correspondientes. Con queryinterface sacamos una referencia al objeto que
-    implementa la interfaz. Hacemos asi por si acaso AController sea un objeto
-    compuesto y que hayan subojetos que implementen las interfaces. Esto nos da
-    mayor flexibilidad en la implementacion. }
   (AController as IInterface).QueryInterface(IController, Cont);
   (AController as IInterface).QueryInterface(IABMController, ABMCont);
   if (Cont = nil) or (ABMCont = nil) then

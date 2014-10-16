@@ -61,7 +61,6 @@ type
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
     GroupBoxTotales: TGroupBox;
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
     FCustomController: TPagoController;
@@ -90,16 +89,6 @@ procedure TProcesoPago.FormShow(Sender: TObject);
 begin
   inherited;
   CustomController.NuevoPago(True, '409', doFactura);
-end;
-
-procedure TProcesoPago.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  { TODO : Por algun motivo no se puede conseguir la referencia al objeto
-    subject del modelo y tenemos que hacerlo por la fuerza }
-  (CustomController.CustomModel.MasterDataModule as ISubject).Detach(Self as IObserver);
-  FControllerPtr := nil;
-  CloseAction := caFree;
-  inherited;
 end;
 
 procedure TProcesoPago.SetCustomController(AValue: TPagoController);
@@ -136,22 +125,16 @@ end;
 
 constructor TProcesoPago.Create(AOwner: IFormView; AController: TPagoController);
 var
-  Cont: IController;
+  x: IController;
 begin
-  { Aca se chequean el controlador y se asignan las propiedades
-    correspondientes. Con queryinterface sacamos una referencia al objeto que
-    implementa la interfaz. Hacemos asi por si acaso AController sea un objeto
-    compuesto y que hayan subojetos que implementen las interfaces. Esto nos da
-    mayor flexibilidad en la implementacion. }
-  (AController as IInterface).QueryInterface(IController, Cont);
-  if Cont = nil then
-    raise Exception.Create(rsProvidedCont)
-  else
+  (AController as IInterface).QueryInterface(IController, x);
+  if x <> nil then
   begin
-    inherited Create(AOwner, Cont);
-    CustomController := AController;
-    FControllerPtr := Pointer(CustomController);
-  end;
+    inherited Create(AOwner, x);
+    FCustomController := AController;
+  end
+  else
+    raise Exception.Create(rsProvidedCont);
 end;
 
 end.

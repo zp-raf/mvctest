@@ -14,7 +14,6 @@ type
   { TAbm }
 
   TAbm = class(TMaestro, IABMView)
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     FABMController: IABMController;
     function GetController: IABMController;
@@ -114,13 +113,6 @@ begin
       Abort;
     end;
   end;
-end;
-
-procedure TAbm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  if ABMController <> nil then
-    (ABMController.GetModel.MasterDataModule as ISubject).Detach(Self as IObserver);
-  inherited;
 end;
 
 function TAbm.GetController: IABMController;

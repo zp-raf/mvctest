@@ -7,4 +7,7 @@
   <Principal1>
     <FacturasDataModule codigosiva5="" talonarioID="" codigosiva10=""/>
   </Principal1>
+  <PagoDataModule>
+    <FacturasDataModule codigosiva5="" talonarioID="" codigosiva10=""/>
+  </PagoDataModule>
 </CONFIG>

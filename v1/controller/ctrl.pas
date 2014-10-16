@@ -235,7 +235,7 @@ destructor TController.Destroy;
   //var
   //  x: Pointer;
 begin
-  TObject(FModelPtr).Free;;
+  TObject(FModelPtr).Free;
   //TQueryDataModule(FModelPtr).Free;
   //if Model <> nil then
   //begin

@@ -30,8 +30,6 @@ type
     function GetController: IController;
     procedure SetController(AValue: IController);
     procedure SetConnStatus(connected: boolean; host: string; username: string);
-  protected
-    FControllerPtr: Pointer;
   published
     AppProps: TApplicationProperties;
     MainMenu: TMainMenu;
@@ -130,7 +128,6 @@ begin
   Controller.CloseQuery(Self, CanClose);
   if CanClose then
   begin
-    Controller := nil; // liberamos la referencia al objeto asi se destruye
     if GetOwner <> nil then
     begin
       TForm(GetOwner).Enabled := True;
@@ -141,9 +138,8 @@ end;
 
 procedure TMaestro.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  if FControllerPtr <> nil then
-    (IController(FControllerPtr).GetModel.MasterDataModule as
-      ISubject).Detach(Self as IObserver);
+  if FController <> nil then
+    (FController.GetModel.MasterDataModule as ISubject).Detach(Sender as IObserver);
   CloseAction := caFree;
   if GetOwner <> nil then
   begin
@@ -220,7 +216,7 @@ begin
   else
     inherited Create(nil);
   Controller := AController;
-  FControllerPtr := Pointer(Controller);
+  //FControllerPtr := Pointer(FController);
 end;
 
 end.
