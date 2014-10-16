@@ -61,13 +61,13 @@ begin
 end;
 
 destructor TAsientosController.Destroy;
-var
-  x: Pointer;
+//var
+//  x: Pointer;
 begin
-  x := Pointer(FCustomModel);
-  Model := nil;
-  FCustomModel := nil;
-  TAsientosDataModule(x).Free;
+  //x := Pointer(FCustomModel);
+  //Model := nil;
+  //FCustomModel := nil;
+  //TAsientosDataModule(x).Free;
   inherited;
 end;
 

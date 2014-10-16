@@ -69,7 +69,6 @@ type
     personasext: TMenuItem;
     reservaEquipo1: TMenuItem;
     registroAnecdotico1: TMenuItem;
-    StatusBar1: TStatusBar;
     trabajoPractico1: TMenuItem;
     procedure AsientosClick(Sender: TObject);
     procedure facturasClick(Sender: TObject);
@@ -79,10 +78,7 @@ type
     procedure MenuItemABMCuentasClick(Sender: TObject);
     procedure PagosClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
-    procedure setConnStatus(connected: boolean; host: string);
-    procedure setLoggedUser(username: string);
     //procedure ayuda1Click(Sender: TObject);
-    procedure ObserverUpdate(const Subject: IInterface); override;
     procedure academiasClick(Sender: TObject);
     procedure allpersonasClick(Sender: TObject);
     function GetCustomController: TPrincipalController;
@@ -96,14 +92,6 @@ implementation
 {$R *.lfm}
 
 { TPrincipal1 }
-
-procedure TPrincipal1.setConnStatus(connected: boolean; host: string);
-begin
-  if connected then
-    StatusBar1.Panels.Items[1].Text := 'Server: ' + host
-  else
-    StatusBar1.Panels.Items[1].Text := 'Desconectado';
-end;
 
 procedure TPrincipal1.SalirClick(Sender: TObject);
 begin
@@ -147,24 +135,12 @@ begin
   GetCustomController.OpenPagosForm(Self);
 end;
 
-procedure TPrincipal1.setLoggedUser(username: string);
-begin
-  StatusBar1.Panels.Items[0].Text := username;
-end;
-
 //procedure TPrincipal1.ayuda1Click(Sender: TObject);
 //begin
 //  //hacer algo
 //  //  ShellExecute(Handle, 'open', 'help\sgcd-help_v1.chm', nil, nil, 1);
 //  //ShellExecute(Handle, 'open', 'help\ABMs\index.html', nil, nil, 1);
 //end;
-
-procedure TPrincipal1.ObserverUpdate(const Subject: IInterface);
-begin
-  setConnStatus(Controller.IsDBConnected(Self),
-    (Controller as TPrincipalController).GetHostName(Self));
-  setLoggedUser((Controller as TPrincipalController).GetUserName(Self));
-end;
 
 procedure TPrincipal1.academiasClick(Sender: TObject);
 begin

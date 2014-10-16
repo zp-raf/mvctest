@@ -47,8 +47,6 @@ type
 
   TPrincipalController = class(TController)
   public
-    function GetUserName(Sender: IFormView): string;
-    function GetHostName(Sender: IFormView): string;
     procedure ABMAcad(Sender: IFormView);
     procedure allpersonasClick(Sender: IFormView);
     procedure OpenFacturasForm(Sender: IFormView);
@@ -64,16 +62,6 @@ var
 implementation
 
 { TPrincipalController }
-
-function TPrincipalController.GetUserName(Sender: IFormView): string;
-begin
-  Result := Model.GetDBStatus.User;
-end;
-
-function TPrincipalController.GetHostName(Sender: IFormView): string;
-begin
-  Result := Model.GetDBStatus.Host;
-end;
 
 procedure TPrincipalController.ABMAcad(Sender: IFormView);
 begin

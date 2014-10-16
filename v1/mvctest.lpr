@@ -37,10 +37,10 @@ begin
   // Modelo
 
   // el datamodule donde esta la conexion
-  SgcdDataModule := TSgcdDataModule.Create(Application);
+  SgcdDataModule := TSgcdDataModule.Create(nil);
 
   Principal1 := TPrincipal1.Create(nil, TPrincipalController.Create(
-    TPrincipalDataModule.Create(Application, SgcdDataModule)));
+    TPrincipalDataModule.Create(nil, SgcdDataModule)));
 
   // Hay que castear el objeto para poder añadirle los observadores
   Principal1.Show;

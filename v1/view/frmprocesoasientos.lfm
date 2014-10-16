@@ -9,8 +9,12 @@ inherited ProcesoAsientos: TProcesoAsientos
   Constraints.MinHeight = 512
   Constraints.MinWidth = 768
   OnCreate = FormCreate
+  inherited StatusBar1: TStatusBar
+    Top = 469
+    Width = 768
+  end
   inherited ButtonPanel1: TButtonPanel
-    Top = 452
+    Top = 429
     Width = 756
     OKButton.Caption = '&Guardar'
     OKButton.DefaultCaption = False
@@ -19,7 +23,7 @@ inherited ProcesoAsientos: TProcesoAsientos
     CancelButton.DefaultCaption = False
     CancelButton.OnClick = CancelButtonClick
   end
-  object GroupBox1: TGroupBox[1]
+  object GroupBox1: TGroupBox[2]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
@@ -150,7 +154,6 @@ inherited ProcesoAsientos: TProcesoAsientos
       AutoSize = True
       BorderSpacing.Left = 8
       Caption = 'Nuevo &Detalle'
-      Default = True
       Glyph.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -290,7 +293,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       TabOrder = 6
     end
   end
-  object GroupBox2: TGroupBox[2]
+  object GroupBox2: TGroupBox[3]
     AnchorSideLeft.Control = GroupBox1
     AnchorSideTop.Control = GroupBox1
     AnchorSideTop.Side = asrBottom
@@ -298,13 +301,13 @@ inherited ProcesoAsientos: TProcesoAsientos
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel1
     Left = 4
-    Height = 218
+    Height = 195
     Top = 228
     Width = 760
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Bottom = 4
     Caption = 'Movimientos'
-    ClientHeight = 200
+    ClientHeight = 177
     ClientWidth = 756
     TabOrder = 2
     object BitBtnReversar: TBitBtn
@@ -315,7 +318,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideBottom.Side = asrBottom
       Left = 4
       Height = 30
-      Top = 166
+      Top = 143
       Width = 79
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 4
@@ -363,7 +366,7 @@ inherited ProcesoAsientos: TProcesoAsientos
     end
     object DBGrid1: TDBGrid
       Left = 4
-      Height = 157
+      Height = 134
       Top = 0
       Width = 360
       Anchors = [akTop, akLeft, akBottom]
@@ -379,7 +382,7 @@ inherited ProcesoAsientos: TProcesoAsientos
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = DBGrid1
       Left = 372
-      Height = 157
+      Height = 134
       Top = 0
       Width = 376
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -392,11 +395,11 @@ inherited ProcesoAsientos: TProcesoAsientos
       TabOrder = 2
     end
   end
-  inherited MainMenu: TMainMenu[3]
+  inherited MainMenu: TMainMenu[4]
     left = 312
     top = 0
   end
-  inherited AppProps: TApplicationProperties[4]
+  inherited AppProps: TApplicationProperties[5]
     left = 512
     top = 0
   end

@@ -9,10 +9,14 @@ inherited Abm: TAbm
   Constraints.MinWidth = 640
   OnClose = FormClose
   Position = poScreenCenter
-  object ButtonPanel: TButtonPanel[0]
+  inherited StatusBar1: TStatusBar
+    Top = 438
+    Width = 640
+  end
+  object ButtonPanel: TButtonPanel[1]
     Left = 6
-    Height = 34
-    Top = 421
+    Height = 122
+    Top = 310
     Width = 628
     OKButton.Name = 'OKButton'
     OKButton.Caption = '&Guardar'
@@ -29,14 +33,14 @@ inherited Abm: TAbm
     CancelButton.OnClick = CancelButtonClick
     TabOrder = 0
   end
-  object PanelDetail: TPanel[1]
+  object PanelDetail: TPanel[2]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel
     Left = 0
-    Height = 415
+    Height = 304
     Top = 0
     Width = 640
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -44,19 +48,19 @@ inherited Abm: TAbm
     ChildSizing.ControlsPerLine = 1
     TabOrder = 2
   end
-  object PanelList: TPanel[2]
+  object PanelList: TPanel[3]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel
     Left = 0
-    Height = 415
+    Height = 304
     Top = 0
     Width = 640
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 415
+    ClientHeight = 304
     ClientWidth = 640
     TabOrder = 1
     object DBGrid1: TDBGrid
@@ -65,7 +69,7 @@ inherited Abm: TAbm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
       Left = 8
-      Height = 333
+      Height = 222
       Hint = 'Para seleccionar una fila, haga click izquierdo.'#13#10'Para ver el contenido de la fila, haga click derecho.'#13#10'Para eliminar la fila, presione la tecla suprimir o haga click en el boton de eliminar en el panel de navegación.'
       Top = 51
       Width = 624
@@ -86,7 +90,7 @@ inherited Abm: TAbm
       Left = 8
       Height = 25
       Hint = 'Panel de navegación'
-      Top = 388
+      Top = 277
       Width = 313
       BeforeAction = DBNavListBeforeAction
       BevelOuter = bvNone
@@ -141,7 +145,7 @@ inherited Abm: TAbm
       TabOrder = 1
     end
   end
-  inherited MainMenu: TMainMenu[3]
+  inherited MainMenu: TMainMenu[4]
     left = 560
     top = 0
     inherited MenuArchivo: TMenuItem
@@ -150,11 +154,11 @@ inherited Abm: TAbm
         ShortCut = 16455
         OnClick = MenuItemGuardarClick
       end
-      inherited MIConnected: TMenuItem[2]
+      inherited MenuItemSalir: TMenuItem[1]
       end
     end
   end
-  inherited AppProps: TApplicationProperties[4]
+  inherited AppProps: TApplicationProperties[5]
     left = 392
     top = 0
   end

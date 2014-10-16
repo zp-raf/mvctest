@@ -1,20 +1,24 @@
 inherited ProcesoVenta: TProcesoVenta
-  Left = 611
+  Left = 633
   Height = 680
-  Top = 204
+  Top = 240
   Width = 800
   Caption = 'Nueva venta (deuda)'
   ClientHeight = 660
   ClientWidth = 800
   Constraints.MinHeight = 680
   Constraints.MinWidth = 800
+  inherited StatusBar1: TStatusBar
+    Top = 637
+    Width = 800
+  end
   inherited ButtonPanel1: TButtonPanel
-    Top = 620
+    Top = 597
     Width = 788
     OKButton.OnClick = OKButtonClick
     TabOrder = 3
   end
-  object Persona: TGroupBox[1]
+  object Persona: TGroupBox[2]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
@@ -145,7 +149,7 @@ inherited ProcesoVenta: TProcesoVenta
       TabOrder = 5
     end
   end
-  object Detalles: TGroupBox[2]
+  object Detalles: TGroupBox[3]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Persona
     AnchorSideTop.Side = asrBottom
@@ -153,14 +157,14 @@ inherited ProcesoVenta: TProcesoVenta
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Side = asrBottom
     Left = 6
-    Height = 328
+    Height = 305
     Top = 120
     Width = 788
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Left = 6
     BorderSpacing.Right = 6
     Caption = 'Detalles'
-    ClientHeight = 310
+    ClientHeight = 287
     ClientWidth = 784
     TabOrder = 1
     object DBGrid1: TDBGrid
@@ -170,7 +174,7 @@ inherited ProcesoVenta: TProcesoVenta
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = DBNavigator1
       Left = 8
-      Height = 261
+      Height = 238
       Top = 8
       Width = 768
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -188,7 +192,7 @@ inherited ProcesoVenta: TProcesoVenta
       AnchorSideBottom.Side = asrBottom
       Left = 8
       Height = 25
-      Top = 277
+      Top = 254
       Width = 241
       Anchors = [akLeft, akBottom]
       BevelOuter = bvNone
@@ -209,7 +213,7 @@ inherited ProcesoVenta: TProcesoVenta
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
     end
   end
-  object Totales: TGroupBox[3]
+  object Totales: TGroupBox[4]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Detalles
     AnchorSideTop.Side = asrBottom
@@ -218,7 +222,7 @@ inherited ProcesoVenta: TProcesoVenta
     AnchorSideBottom.Control = ButtonPanel1
     Left = 6
     Height = 166
-    Top = 448
+    Top = 425
     Width = 788
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Left = 6
@@ -379,11 +383,11 @@ inherited ProcesoVenta: TProcesoVenta
       TabOrder = 2
     end
   end
-  inherited MainMenu: TMainMenu[4]
+  inherited MainMenu: TMainMenu[5]
     left = 544
     top = 0
   end
-  inherited AppProps: TApplicationProperties[5]
+  inherited AppProps: TApplicationProperties[6]
     left = 632
     top = 0
   end

@@ -93,8 +93,8 @@ procedure TSgcdDataModule.Disconnect;
 begin
   if DB.Connected and tran.Active then
   begin
-    tran.CloseDataSets;
-    tran.Rollback;
+    //tran.CloseDataSets;
+    //tran.Rollback;
     DB.Connected := False;
   end
   else if not DB.Connected then

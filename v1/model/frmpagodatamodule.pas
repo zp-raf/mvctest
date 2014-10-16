@@ -88,7 +88,6 @@ type
     PagoTOTALPAGADO: TFloatField;
     PagoVALIDO: TSmallintField;
     PagoVUELTO: TFloatField;
-
   private
     FAsientos: TAsientosDataModule;
     FFactura: TFacturasDataModule;
@@ -113,6 +112,7 @@ type
     procedure PagoDetChequesAfterInsert(DataSet: TDataSet);
     procedure PagoDetTarjetasAfterInsert(DataSet: TDataSet);
     procedure PagoNewRecord(DataSet: TDataSet);
+    procedure RegistrarMovimiento;
     procedure SaveChanges; override;
     procedure OnPagoError(Sender: TObject; E: EDatabaseError);
     property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
@@ -174,6 +174,7 @@ end;
 procedure TPagoDataModule.DataModuleDestroy(Sender: TObject);
 begin
   Facturas.Free;
+  Asientos.Free;
   inherited;
 end;
 
@@ -184,8 +185,9 @@ end;
 
 procedure TPagoDataModule.SetAsientos(AValue: TAsientosDataModule);
 begin
-  if FAsientos=AValue then Exit;
-  FAsientos:=AValue;
+  if FAsientos = AValue then
+    Exit;
+  FAsientos := AValue;
 end;
 
 procedure TPagoDataModule.ActualizarTotales;
@@ -225,6 +227,7 @@ end;
 procedure TPagoDataModule.Connect;
 begin
   Facturas.Connect;
+  Asientos.Connect;
   inherited Connect;
 end;
 
@@ -253,6 +256,7 @@ end;
 procedure TPagoDataModule.Disconnect;
 begin
   Facturas.Disconnect;
+  Asientos.Disconnect;
   inherited Disconnect;
 end;
 
@@ -317,6 +321,11 @@ begin
   DataSet.FieldByName('TARJETAS').AsFloat := 0;
   DataSet.FieldByName('TOTALPAGADO').AsFloat := 0;
   DataSet.FieldByName('VUELTO').AsFloat := 0;
+end;
+
+procedure TPagoDataModule.RegistrarMovimiento;
+begin
+
 end;
 
 procedure TPagoDataModule.SaveChanges;

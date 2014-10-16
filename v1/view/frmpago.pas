@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   Menus, ButtonPanel, StdCtrls, DBGrids, DBCtrls, PairSplitter, frmMaestro,
-  frmproceso, frmsgcddatamodule, frmpagodatamodule, pagoctrl, mvc;
+  frmproceso, frmsgcddatamodule, frmpagodatamodule, pagoctrl, mvc, observerSubject;
 
 const
   Credito = 1;
@@ -94,6 +94,10 @@ end;
 
 procedure TProcesoPago.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  { TODO : Por algun motivo no se puede conseguir la referencia al objeto
+    subject del modelo y tenemos que hacerlo por la fuerza }
+  (CustomController.CustomModel.MasterDataModule as ISubject).Detach(Self as IObserver);
+  FControllerPtr := nil;
   CloseAction := caFree;
   inherited;
 end;
@@ -146,6 +150,7 @@ begin
   begin
     inherited Create(AOwner, Cont);
     CustomController := AController;
+    FControllerPtr := Pointer(CustomController);
   end;
 end;
 

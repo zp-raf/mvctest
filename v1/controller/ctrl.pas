@@ -25,6 +25,7 @@ type
 
   TController = class(TInterfacedObject, IController)
   private
+    FModelPtr: Pointer;
     FModel: IModel;
     procedure SetModel(AValue: IModel);
     function GetModel: IModel;
@@ -227,18 +228,21 @@ end;
 constructor TController.Create(AModel: IModel);
 begin
   Model := AModel;
+  FModelPtr := Pointer(AModel);
 end;
 
 destructor TController.Destroy;
-var
-  x: Pointer;
+  //var
+  //  x: Pointer;
 begin
-  if Model <> nil then
-  begin
-    x := Pointer(Model);
-    Model := nil;
-    TQueryDataModule(x).Free;
-  end;
+  TObject(FModelPtr).Free;;
+  //TQueryDataModule(FModelPtr).Free;
+  //if Model <> nil then
+  //begin
+  //  x := Pointer(Model);
+  //  Model := nil;
+  //  TQueryDataModule(x).Free;
+  //end;
 end;
 
 procedure TController.Close(Sender: IView);

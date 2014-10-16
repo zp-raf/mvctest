@@ -10,14 +10,18 @@ inherited ProcesoPago: TProcesoPago
   Constraints.MinWidth = 1080
   OnClose = FormClose
   OnShow = FormShow
+  inherited StatusBar1: TStatusBar
+    Top = 637
+    Width = 1080
+  end
   inherited ButtonPanel1: TButtonPanel
-    Top = 620
+    Top = 597
     Width = 1068
     OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
     ShowButtons = [pbOK, pbCancel, pbHelp]
   end
-  object GroupBoxTotales: TGroupBox[1]
+  object GroupBoxTotales: TGroupBox[2]
     Left = 8
     Height = 224
     Top = 0
@@ -189,17 +193,17 @@ inherited ProcesoPago: TProcesoPago
       TabOrder = 5
     end
   end
-  object GroupBoxDetalles: TGroupBox[2]
+  object GroupBoxDetalles: TGroupBox[3]
     AnchorSideLeft.Control = GroupBoxTotales
     AnchorSideTop.Control = GroupBoxTotales
     AnchorSideTop.Side = asrBottom
     Left = 8
-    Height = 391
+    Height = 368
     Top = 224
     Width = 1062
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Detalles'
-    ClientHeight = 373
+    ClientHeight = 350
     ClientWidth = 1058
     TabOrder = 2
     object PairSplitter1: TPairSplitter
@@ -210,7 +214,7 @@ inherited ProcesoPago: TProcesoPago
       AnchorSideBottom.Control = GroupBoxDetalles
       AnchorSideBottom.Side = asrBottom
       Left = 0
-      Height = 373
+      Height = 350
       Top = 0
       Width = 1058
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -218,11 +222,11 @@ inherited ProcesoPago: TProcesoPago
       object PairSplitterSide1: TPairSplitterSide
         Cursor = crArrow
         Left = 0
-        Height = 373
+        Height = 350
         Top = 0
         Width = 400
         ClientWidth = 400
-        ClientHeight = 373
+        ClientHeight = 350
         object DBGridCheques: TDBGrid
           AnchorSideLeft.Control = PairSplitterSide1
           AnchorSideTop.Control = LabelDetCheques
@@ -231,7 +235,7 @@ inherited ProcesoPago: TProcesoPago
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = DBNavigatorCheques
           Left = 8
-          Height = 321
+          Height = 298
           Top = 23
           Width = 384
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -278,7 +282,7 @@ inherited ProcesoPago: TProcesoPago
           AnchorSideBottom.Side = asrBottom
           Left = 8
           Height = 25
-          Top = 348
+          Top = 325
           Width = 241
           Anchors = [akLeft, akBottom]
           BevelOuter = bvNone
@@ -301,11 +305,11 @@ inherited ProcesoPago: TProcesoPago
       object PairSplitterSide2: TPairSplitterSide
         Cursor = crArrow
         Left = 405
-        Height = 373
+        Height = 350
         Top = 0
         Width = 653
         ClientWidth = 653
-        ClientHeight = 373
+        ClientHeight = 350
         object LabelDetTarjetas: TLabel
           AnchorSideLeft.Control = PairSplitterSide2
           AnchorSideTop.Control = PairSplitterSide2
@@ -325,7 +329,7 @@ inherited ProcesoPago: TProcesoPago
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = DBNavigatorTarjetas
           Left = 8
-          Height = 321
+          Height = 298
           Top = 23
           Width = 637
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -375,7 +379,7 @@ inherited ProcesoPago: TProcesoPago
           AnchorSideBottom.Side = asrBottom
           Left = 8
           Height = 25
-          Top = 348
+          Top = 325
           Width = 241
           Anchors = [akLeft, akBottom]
           BevelOuter = bvNone
@@ -398,11 +402,11 @@ inherited ProcesoPago: TProcesoPago
       end
     end
   end
-  inherited MainMenu: TMainMenu[3]
+  inherited MainMenu: TMainMenu[4]
     left = 760
     top = 24
   end
-  inherited AppProps: TApplicationProperties[4]
+  inherited AppProps: TApplicationProperties[5]
     left = 848
     top = 24
   end

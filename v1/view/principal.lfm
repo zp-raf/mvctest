@@ -12,21 +12,9 @@ inherited Principal1: TPrincipal1
   Constraints.MinWidth = 310
   OnClose = FormClose
   OnShow = FormShow
-  object StatusBar1: TStatusBar[0]
-    Left = 0
-    Height = 23
+  inherited StatusBar1: TStatusBar
     Top = 57
     Width = 455
-    Panels = <    
-      item
-        Text = 'User'
-        Width = 80
-      end    
-      item
-        Text = 'Host'
-        Width = 50
-      end>
-    SimplePanel = False
   end
   object Asientos: TButton[1]
     Left = 264
@@ -49,12 +37,6 @@ inherited Principal1: TPrincipal1
   inherited MainMenu: TMainMenu[3]
     left = 64
     top = 8
-    inherited MenuArchivo: TMenuItem
-      inherited MenuItemSalir: TMenuItem[0]
-      end
-      inherited MIConnected: TMenuItem[1]
-      end
-    end
     object Academico: TMenuItem[1]
       Caption = 'A&cademico'
       object matricular: TMenuItem

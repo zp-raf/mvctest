@@ -46,13 +46,13 @@ begin
 end;
 
 destructor TFacturaController.Destroy;
-var
-  x: Pointer;
+//var
+//  x: Pointer;
 begin
-  x := Pointer(FCustomModel);
-  Model := nil;
-  FCustomModel := nil;
-  TFacturasDataModule(x).Free;
+  //x := Pointer(FCustomModel);
+  //Model := nil;
+  //FCustomModel := nil;
+  //TFacturasDataModule(x).Free;
   inherited Destroy;
 end;
 

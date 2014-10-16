@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Menus, ctrl, mvc, observerSubject;
+  Menus, ComCtrls, ctrl, mvc, observerSubject, mensajes;
 
 resourcestring
   rsError = 'Error';
@@ -24,13 +24,14 @@ type
     La logica del negocio se maneja en el controlador. }
 
   TMaestro = class(TForm, IObserver, IView, IFormView)
-    MIConnected: TMenuItem;
-    procedure MIConnectedClick(Sender: TObject);
+    StatusBar1: TStatusBar;
   private
-    hola: Pointer;
     FController: IController;
     function GetController: IController;
     procedure SetController(AValue: IController);
+    procedure SetConnStatus(connected: boolean; host: string; username: string);
+  protected
+    FControllerPtr: Pointer;
   published
     AppProps: TApplicationProperties;
     MainMenu: TMainMenu;
@@ -88,20 +89,6 @@ begin
   Controller.ShowHelp(Self as IFormView);
 end;
 
-procedure TMaestro.MIConnectedClick(Sender: TObject);
-begin
-  if (Sender as TMenuItem).Checked then
-  begin
-    (Sender as TMenuItem).Checked := False;
-    Controller.Disconnect(Self);
-  end
-  else
-  begin
-    Controller.Connect(Self);
-    (Sender as TMenuItem).Checked := True;
-  end;
-end;
-
 function TMaestro.GetController: IController;
 begin
   Result := FController;
@@ -112,6 +99,20 @@ begin
   if FController = AValue then
     Exit;
   FController := AValue;
+end;
+
+procedure TMaestro.SetConnStatus(connected: boolean; host: string; username: string);
+begin
+  if connected then
+  begin
+    StatusBar1.Panels.Items[1].Text := 'Server: ' + host;
+    StatusBar1.Panels.Items[0].Text := username;
+  end
+  else
+  begin
+    StatusBar1.Panels.Items[1].Text := 'Desconectado';
+    StatusBar1.Panels.Items[0].Text := '';
+  end;
 end;
 
 procedure TMaestro.AppPropsException(Sender: TObject; E: Exception);
@@ -140,7 +141,9 @@ end;
 
 procedure TMaestro.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  (IController(hola).GetModel.MasterDataModule as ISubject).Detach(Self as IObserver);
+  if FControllerPtr <> nil then
+    (IController(FControllerPtr).GetModel.MasterDataModule as
+      ISubject).Detach(Self as IObserver);
   CloseAction := caFree;
   if GetOwner <> nil then
   begin
@@ -165,12 +168,9 @@ end;
 
 procedure TMaestro.ObserverUpdate(const Subject: IInterface);
 begin
-  { aca se actualiza la vista. en este caso que es para prueba nomas
-    cambiamos boton connected }
-  if Controller.IsDBConnected(Self) then
-    MIConnected.Checked := True
-  else
-    MIConnected.Checked := False;
+  if (Subject is IDBModel) then
+    SetConnStatus((Subject as IDBModel).GetDBStatus.Connected,
+      (Subject as IDBModel).GetDBStatus.Host, (Subject as IDBModel).GetDBStatus.User);
 end;
 
 function TMaestro.ShowErrorMessage(AMsg: string): TModalResult;
@@ -220,7 +220,7 @@ begin
   else
     inherited Create(nil);
   Controller := AController;
-  hola := Pointer(AController);
+  FControllerPtr := Pointer(Controller);
 end;
 
 end.
