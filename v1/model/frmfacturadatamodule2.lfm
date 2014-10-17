@@ -2,7 +2,7 @@ inherited FacturasDataModule: TFacturasDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 321
-  HorizontalOffset = 975
+  HorizontalOffset = 869
   VerticalOffset = 263
   Width = 447
   object dsFactura: TDataSource[0]

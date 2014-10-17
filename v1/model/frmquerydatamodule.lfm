@@ -3,7 +3,7 @@ object QueryDataModule: TQueryDataModule
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 150
-  HorizontalOffset = 412
-  VerticalOffset = 159
+  HorizontalOffset = 467
+  VerticalOffset = 223
   Width = 150
 end

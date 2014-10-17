@@ -495,7 +495,6 @@ end;
 
 procedure TFacturasDataModule.NuevaFactura;
 begin
-  Connect;
   if (Estado in [asEditando]) then
     raise EDatabaseError.Create(rsYaSeEstaCreando);
   // antes que nada traemos los factores para iva10 e iva5

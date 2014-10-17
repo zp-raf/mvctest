@@ -5,8 +5,7 @@ unit facturactrl2;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmfacturadatamodule2, mvc, DB, Forms,
-  frmbuscaralumnos, buscaralctrl, Controls;
+  Classes, SysUtils, ctrl, frmfacturadatamodule2, mvc, DB, Forms, Controls;
 
 type
 
@@ -25,7 +24,6 @@ type
     procedure ActualizarTotales(Sender: IView);
     procedure NuevaFactura(Sender: IView);
     procedure CerrarFactura(Sender: IView);
-    procedure OpenBuscarPersForm(Sender: IFormView);
     function GetFacturaEstado(Sender: IView): TEstadoFactura;
     procedure SetVencimiento(ADate: TDateTime);
     property CustomModel: TFacturasDataModule read FCustomModel write SetCustomModel;
@@ -46,8 +44,8 @@ begin
 end;
 
 destructor TFacturaController.Destroy;
-//var
-//  x: Pointer;
+  //var
+  //  x: Pointer;
 begin
   //x := Pointer(FCustomModel);
   //Model := nil;
@@ -64,6 +62,8 @@ end;
 procedure TFacturaController.NuevaFactura(Sender: IView);
 begin
   CustomModel.NuevaFactura;
+  CustomModel.FetchCabecera;
+  CustomModel.FetchDeuda;
 end;
 
 procedure TFacturaController.CerrarFactura(Sender: IView);
@@ -71,24 +71,6 @@ begin
   Model.SaveChanges;
   Model.Commit;
   Model.RefreshDataSets;
-end;
-
-procedure TFacturaController.OpenBuscarPersForm(Sender: IFormView);
-begin
-  case TPopupSeleccionAlumnos.Create(Sender, TBuscarAlumnosController.Create(Model)).ShowModal of
-    mrOk:
-    begin
-      // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
-      Cancel(Sender);
-      NuevaFactura(Sender);
-      CustomModel.FetchCabecera;
-      CustomModel.FetchDeuda;
-    end
-    else
-    begin
-      Exit;
-    end;
-  end;
 end;
 
 function TFacturaController.GetFacturaEstado(Sender: IView): TEstadoFactura;

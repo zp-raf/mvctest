@@ -1,7 +1,7 @@
 inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
-  Left = 428
+  Left = 66
   Height = 512
-  Top = 182
+  Top = 82
   Width = 1024
   HorzScrollBar.Page = 586
   VertScrollBar.Page = 525
@@ -11,7 +11,11 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
   Constraints.MinHeight = 512
   Constraints.MinWidth = 1024
   OnClose = FormClose
-  object DBGrid1: TDBGrid[0]
+  inherited StatusBar1: TStatusBar
+    Top = 469
+    Width = 1024
+  end
+  object DBGrid1: TDBGrid[1]
     Left = 8
     Height = 354
     Top = 96
@@ -88,7 +92,7 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
     ReadOnly = True
     TabOrder = 1
   end
-  object LabeledEdit1: TLabeledEdit[1]
+  object LabeledEdit1: TLabeledEdit[2]
     AnchorSideLeft.Control = DBGrid1
     AnchorSideBottom.Control = DBGrid1
     Left = 8
@@ -109,7 +113,7 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
     EditLabel.ParentColor = False
     TabOrder = 0
   end
-  object ButtonOK: TButton[2]
+  object ButtonOK: TButton[3]
     Left = 847
     Height = 25
     Top = 456
@@ -119,7 +123,7 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
     ModalResult = 1
     TabOrder = 2
   end
-  object ButtonCancel: TButton[3]
+  object ButtonCancel: TButton[4]
     Left = 935
     Height = 25
     Top = 456
@@ -129,7 +133,7 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
     ModalResult = 2
     TabOrder = 3
   end
-  object Personas: TRadioGroup[4]
+  object Personas: TRadioGroup[5]
     AnchorSideLeft.Side = asrBottom
     Left = 256
     Height = 88
@@ -156,11 +160,11 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
     )
     TabOrder = 4
   end
-  inherited MainMenu: TMainMenu[5]
+  inherited MainMenu: TMainMenu[6]
     left = 104
     top = 0
   end
-  inherited AppProps: TApplicationProperties[6]
+  inherited AppProps: TApplicationProperties[7]
     left = 184
     top = 0
   end

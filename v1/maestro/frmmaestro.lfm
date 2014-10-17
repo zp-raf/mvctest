@@ -3,7 +3,7 @@ object Maestro: TMaestro
   Height = 241
   Top = 296
   Width = 320
-  ClientHeight = 241
+  ClientHeight = 221
   ClientWidth = 320
   Menu = MainMenu
   OnClose = FormClose

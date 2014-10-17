@@ -1,19 +1,23 @@
 inherited ProcesoFacturacion: TProcesoFacturacion
-  Left = 517
+  Left = 294
   Height = 681
-  Top = 208
+  Top = 1
   Width = 901
   Caption = 'Factura Venta'
   ClientHeight = 661
   ClientWidth = 901
   OnShow = FormShow
+  inherited StatusBar1: TStatusBar
+    Top = 592
+    Width = 901
+  end
   inherited ButtonPanel1: TButtonPanel
     Top = 621
     Width = 889
     OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
-  object Cabecera: TGroupBox[1]
+  object Cabecera: TGroupBox[2]
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
@@ -254,7 +258,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       ParentColor = False
     end
   end
-  object PairSplitterDetSubTot: TPairSplitter[2]
+  object PairSplitterDetSubTot: TPairSplitter[3]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Cabecera
     AnchorSideTop.Side = asrBottom
@@ -567,7 +571,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       end
     end
   end
-  object ButtonLimpiar: TButton[3]
+  object ButtonLimpiar: TButton[4]
     Left = 16
     Height = 25
     Top = 8
@@ -576,7 +580,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     OnClick = ButtonLimpiarClick
     TabOrder = 3
   end
-  object btSeleccionar: TButton[4]
+  object btSeleccionar: TButton[5]
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Side = asrCenter
     Left = 96
@@ -589,11 +593,11 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     OnClick = btSeleccionarClick
     TabOrder = 4
   end
-  inherited MainMenu: TMainMenu[5]
+  inherited MainMenu: TMainMenu[6]
     left = 432
     top = 8
   end
-  inherited AppProps: TApplicationProperties[6]
+  inherited AppProps: TApplicationProperties[7]
     left = 504
     top = 8
   end

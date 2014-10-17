@@ -14,7 +14,6 @@ type
   { TPopupSeleccionAlumnos }
 
   TPopupSeleccionAlumnos = class(TMaestro)
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     FCustomController: TBuscarAlumnosController;
     procedure SetCustomController(AValue: TBuscarAlumnosController);
@@ -27,10 +26,10 @@ type
     DBGrid1: TDBGrid;
     LabeledEdit1: TLabeledEdit;
     Personas: TRadioGroup;
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure SQLQuery1FilterRecord(DataSet: TDataSet; var Accept: boolean);
     property CustomController: TBuscarAlumnosController
       read FCustomController write SetCustomController;
-
   end;
 
 var
@@ -100,7 +99,8 @@ end;
 procedure TPopupSeleccionAlumnos.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
-  CloseAction:=caFree;
+  CustomController := nil;
+  Controller := nil;
   inherited;
 end;
 

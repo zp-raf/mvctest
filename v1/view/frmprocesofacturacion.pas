@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, frmproceso, mvc,
-  facturactrl2, frmfacturadatamodule2, frmMaestro;
+  facturactrl2, frmfacturadatamodule2, frmMaestro, frmbuscaralumnos, buscaralctrl;
 
 type
 
@@ -99,8 +99,27 @@ implementation
 { TProcesoFacturacion }
 
 procedure TProcesoFacturacion.btSeleccionarClick(Sender: TObject);
+var
+  PopUp: TPopupSeleccionAlumnos;
 begin
-  CustomController.OpenBuscarPersForm(Self);
+  try
+    PopUp := TPopupSeleccionAlumnos.Create(Self, TBuscarAlumnosController.Create(
+      Controller.Model));
+    case PopUp.ShowModal of
+      mrOk:
+      begin
+        Controller.Connect(Self);
+        // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
+        CustomController.NuevaFactura(Self);
+      end
+      else
+      begin
+        Exit;
+      end;
+    end;
+  finally
+    PopUp.Free;
+  end;
 end;
 
 procedure TProcesoFacturacion.ButtonLimpiarClick(Sender: TObject);
@@ -154,6 +173,7 @@ procedure TProcesoFacturacion.FormShow(Sender: TObject);
 begin
   inherited;
   //ABMController.NewRecord(Self);
+  Controller.Disconnect(Self);
 end;
 
 procedure TProcesoFacturacion.RadioCondicionChange(Sender: TObject);

@@ -12,9 +12,9 @@ type
   { TBuscarAlumnosController }
 
   TBuscarAlumnosController = class(TController)
+  public
     procedure Aceptar(Sender: IFormView);
     procedure Cancelar(Sender: IFormView);
-    procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
   end;
 
 implementation
@@ -29,12 +29,6 @@ end;
 procedure TBuscarAlumnosController.Cancelar(Sender: IFormView);
 begin
 
-end;
-
-procedure TBuscarAlumnosController.CloseQuery(Sender: IView;
-  var CanClose: boolean);
-begin
-  //inherited CloseQuery(Sender, CanClose);
 end;
 
 end.

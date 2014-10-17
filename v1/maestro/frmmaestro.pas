@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Menus, ComCtrls, ctrl, mvc, observerSubject, mensajes;
+  Menus, ComCtrls, ctrl, mvc, observerSubject, mensajes, frmquerydatamodule;
 
 resourcestring
   rsError = 'Error';
@@ -216,7 +216,6 @@ begin
   else
     inherited Create(nil);
   Controller := AController;
-  //FControllerPtr := Pointer(FController);
 end;
 
 end.
