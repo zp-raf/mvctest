@@ -39,7 +39,10 @@ uses
   // Deudas(test)
   frmgeneradeudadatamodule,
   frmgeneradeuda,
-  generardeudactrl;
+  generardeudactrl,
+  frmNotaCreditoDataModule,
+  frmProcNotaCredito,
+  notacreditoctrl;
 
 type
 
@@ -54,6 +57,7 @@ type
     procedure OpenABMCuentasForm(Sender: IFormView);
     procedure OpenAsientosFrom(Sender: IFormView);
     procedure OpenPagosForm(Sender: IFormView);
+    procedure OpenNotaCreditoForm(Sender: IFormView);
   end;
 
 var
@@ -122,6 +126,15 @@ begin
     Model.MasterDataModule)));
   ProcesoPago.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
+end;
+
+procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);
+begin
+  ProcesoNotaCredito := TProcesoNotaCredito.Create(Sender,
+  TNotaCreditoController.Create(TNotaCreditoDataModule.Create((Sender as TComponent),
+  Model.MasterDataModule))) ;
+  ProcesoNotaCredito.Show;
+  (Model.MasterDataModule as ISubject).Attach(ProcesoNotaCredito as IObserver);
 end;
 
 end.

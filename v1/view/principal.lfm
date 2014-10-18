@@ -143,6 +143,7 @@ inherited Principal1: TPrincipal1
         end
         object notaCredito: TMenuItem
           Caption = 'Nota de &crédito'
+          OnClick = notaCreditoClick
         end
         object recibo: TMenuItem
           Caption = 'Emisión de &recibos'

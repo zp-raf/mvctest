@@ -76,6 +76,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
+    procedure notaCreditoClick(Sender: TObject);
     procedure PagosClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
     //procedure ayuda1Click(Sender: TObject);
@@ -128,6 +129,11 @@ end;
 procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);
 begin
   GetCustomController.OpenABMCuentasForm(Self);
+end;
+
+procedure TPrincipal1.notaCreditoClick(Sender: TObject);
+begin
+   GetCustomController.OpenNotaCreditoForm(Self);
 end;
 
 procedure TPrincipal1.PagosClick(Sender: TObject);
