@@ -37,7 +37,7 @@ inherited CodigosDataModule: TCodigosDataModule
       'select * from codigos'
     )
     Params = <>
-    left = 39
+    left = 40
     top = 35
     object CodigosVALOR: TLongintField
       DisplayWidth = 10

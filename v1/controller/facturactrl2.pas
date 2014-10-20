@@ -22,6 +22,7 @@ type
     constructor Create(AModel: IModel); overload;
     destructor Destroy; override;
     procedure ActualizarTotales(Sender: IView);
+    procedure Cancel(Sender: IView);
     procedure NuevaFactura(Sender: IView);
     procedure CerrarFactura(Sender: IView);
     function GetFacturaEstado(Sender: IView): TEstadoFactura;
@@ -59,6 +60,11 @@ begin
   CustomModel.ActualizarTotales;
 end;
 
+procedure TFacturaController.Cancel(Sender: IView);
+begin
+  Model.DiscardChanges;
+end;
+
 procedure TFacturaController.NuevaFactura(Sender: IView);
 begin
   CustomModel.NuevaFactura;
@@ -70,7 +76,7 @@ procedure TFacturaController.CerrarFactura(Sender: IView);
 begin
   Model.SaveChanges;
   Model.Commit;
-  Model.RefreshDataSets;
+  //Model.RefreshDataSets;
 end;
 
 function TFacturaController.GetFacturaEstado(Sender: IView): TEstadoFactura;

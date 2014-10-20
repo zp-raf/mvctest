@@ -61,6 +61,7 @@ type
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
     GroupBoxTotales: TGroupBox;
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     FCustomController: TPagoController;
@@ -88,7 +89,15 @@ implementation
 procedure TProcesoPago.FormShow(Sender: TObject);
 begin
   inherited;
-  CustomController.NuevoPago(True, '409', doFactura);
+  //CustomController.NuevoPago(True, '409', doFactura);
+  //Controller.OpenDataSets(Self);
+end;
+
+procedure TProcesoPago.FormCreate(Sender: TObject);
+begin
+  ButtonPanel1.OKButton.ModalResult := mrOk;
+  ButtonPanel1.CancelButton.ModalResult := mrCancel;
+  Controller.OpenDataSets(Self);
 end;
 
 procedure TProcesoPago.SetCustomController(AValue: TPagoController);
@@ -101,7 +110,6 @@ end;
 procedure TProcesoPago.CancelButtonClick(Sender: TObject);
 begin
   CustomController.Cancel(Self);
-  Close;
 end;
 
 procedure TProcesoPago.Limpiar;
@@ -112,7 +120,6 @@ end;
 procedure TProcesoPago.OKButtonClick(Sender: TObject);
 begin
   CustomController.CerrarPago(Self);
-  Close;
 end;
 
 procedure TProcesoPago.ObserverUpdate(const Subject: IInterface);

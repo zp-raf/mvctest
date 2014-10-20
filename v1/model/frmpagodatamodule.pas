@@ -20,6 +20,7 @@ const
   TARJETA_DEBITO = '3';
   TARJETA_CREDITO = '4';
   ITEM_SEPARATOR = ', ';
+  DESCRIPCION_DEFAULT = 'PAGO DE FACTURA NRO ';
 
 resourcestring
   rsGenPago = 'GENERATOR_PAGO';
@@ -39,6 +40,18 @@ type
     CodigosOBJETO: TStringField;
     CodigosSIGNIFICADO: TStringField;
     CodigosVALOR: TLongintField;
+    DeudaView: TSQLQuery;
+    DeudaViewACTIVO: TSmallintField;
+    DeudaViewARANCELID: TLongintField;
+    DeudaViewCANTIDAD_CUOTAS: TLongintField;
+    DeudaViewCUENTAID: TLongintField;
+    DeudaViewCUOTA_NRO: TLongintField;
+    DeudaViewDESCRIPCION: TStringField;
+    DeudaViewID: TLongintField;
+    DeudaViewMATRICULAID: TLongintField;
+    DeudaViewPERSONAID: TLongintField;
+    DeudaViewSALDO: TFloatField;
+    DeudaViewVENCIMIENTO: TDateField;
     dsCodigos: TDataSource;
     PagoDetChequesCOMPROBANTE_TARJETA: TStringField;
     PagoDetChequesEMISOR_CHEQUE: TStringField;
@@ -112,7 +125,7 @@ type
     procedure PagoDetChequesAfterInsert(DataSet: TDataSet);
     procedure PagoDetTarjetasAfterInsert(DataSet: TDataSet);
     procedure PagoNewRecord(DataSet: TDataSet);
-    procedure RegistrarMovimiento;
+    procedure RegistrarMovimiento(EsCobro: boolean; APagoID: string);
     procedure SaveChanges; override;
     procedure OnPagoError(Sender: TObject; E: EDatabaseError);
     property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
@@ -249,6 +262,7 @@ begin
   Facturas := TFacturasDataModule.Create(Self, MasterDataModule);
   Facturas.SetReadOnly(True);
   Asientos := TAsientosDataModule.Create(Self, MasterDataModule);
+  Asientos.ComprobarAsiento := False; // cuando se arregle el tema contable sacar
   // obviamente no esta listo el pago jeje
   Listo := False;
 end;
@@ -262,23 +276,28 @@ end;
 
 procedure TPagoDataModule.NuevoPago(EsCobro: boolean; ADocumentoID: string;
   ATipoDoc: TTipoDocumento);
-var
-  TipoComp: string;
 begin
-  if ATipoDoc = doFactura then
-  begin
-    Facturas.SetFactura(ADocumentoID);
-    TipoComp := FACTURA;
-  end
-  else
-    Exit; // por el momento solo factura, despues agregar mas condiciones if
+  Facturas.SetFactura(ADocumentoID);
   NewRecord;
   if EsCobro then
     Pago.FieldByName('ESCOBRO').AsInteger := 1
   else
     Pago.FieldByName('ESCOBRO').AsInteger := 0;
   Pago.FieldByName('COMPROBANTEID').AsString := ADocumentoID;
-  Pago.FieldByName('TIPO_COMPROBANTE').AsString := TipoComp;
+  case ATipoDoc of
+    doFactura:
+    begin
+      Pago.FieldByName('TIPO_COMPROBANTE').AsString := FACTURA;
+    end;
+    doNotaCredito:
+    begin
+      Pago.FieldByName('TIPO_COMPROBANTE').AsString := NOTA_CREDITO;
+    end;
+    doRecibo:
+    begin
+      Pago.FieldByName('TIPO_COMPROBANTE').AsString := RECIBO;
+    end;
+  end;
   Pago.FieldByName('MONTO').AsFloat := Facturas.GetMontoFactura;
   Listo := False;
   (MasterDataModule as ISubject).Notify;
@@ -323,16 +342,48 @@ begin
   DataSet.FieldByName('VUELTO').AsFloat := 0;
 end;
 
-procedure TPagoDataModule.RegistrarMovimiento;
+procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
 begin
-
+  // creamos un nuevo asiento
+  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryFacturaNUMERO.AsString);
+  // recorrer la factura y poner los detales de los asientos
+  Facturas.qryDetalle.First;
+  while not facturas.qryDetalle.EOF do
+  begin
+    DeudaView.Close;
+    DeudaView.ParamByName('DEUDAID').AsString := Facturas.qryDetalleDEUDAID.AsString;
+    DeudaView.Open;
+    if EsCobro then
+      Asientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvCredito,
+        Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
+        Facturas.qryDetalleDEUDAID.AsString, APagoID)
+    else
+      Asientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvDebito,
+        Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
+        Facturas.qryDetalleDEUDAID.AsString, APagoID);
+    Facturas.qryDetalle.Next;
+  end;
+  Asientos.CerrarAsiento;
 end;
 
 procedure TPagoDataModule.SaveChanges;
+var
+  co: boolean;
+  pa: string;
 begin
+  // para pasarle los parametros a registrarmovimiento
+  if PagoESCOBRO.AsInteger = 1 then
+    co := True
+  else if PagoESCOBRO.AsInteger = 0 then
+    co := False;
+  pa := PagoID.AsString;
+  // guardamos el pago
   Pago.ApplyUpdates;
   PagoDetCheques.ApplyUpdates;
   PagoDetTarjetas.ApplyUpdates;
+  // y reigstramos el movimiento
+  RegistrarMovimiento(co, pa);
+  // y comiteamos
   MasterDataModule.Commit;
   Listo := False;
 end;

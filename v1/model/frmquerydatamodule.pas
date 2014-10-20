@@ -38,6 +38,7 @@ type
     procedure SetQryList(AValue: TQryList);
     procedure SetSearchFieldList(AValue: TSearchFieldList);
   published
+    procedure CloseDataSets;
     procedure Commit;
     procedure Connect; virtual;
     procedure DataModuleCreate(Sender: TObject); virtual;
@@ -50,6 +51,7 @@ type
     procedure NewRecord;
     procedure NewDetailRecord;
     procedure OnErrorEvent(Sender: TObject; E: EDatabaseError);
+    procedure OpenDataSets;
     procedure RefreshDataSets; virtual;
     procedure Rollback; virtual;
     procedure SaveChanges; virtual;
@@ -100,41 +102,10 @@ begin
 end;
 
 procedure TQueryDataModule.Connect;
-var
-  i: integer;
 begin
-
   //primero la conexion a base de datos
   FMasterDataModule.Connect;
-
-  // antes de los principales los auxiliares
-  for i := 0 to FAuxQryList.Count - 1 do
-  begin
-    with TSQLQuery(FAuxQryList.Items[i]) do
-    begin
-      if not Active then
-        Active := True;
-    end;
-  end;
-
-  //segundo se abren los datasets
-  for i := 0 to FQryList.Count - 1 do
-  begin
-    with TSQLQuery(FQryList.Items[i]) do
-    begin
-      if not Active then
-        Active := True;
-    end;
-  end;
-  // detalles
-  for i := 0 to FDetailList.Count - 1 do
-  begin
-    with TSQLQuery(FDetailList.Items[i]) do
-    begin
-      if not Active then
-        Active := True;
-    end;
-  end;
+  OpenDataSets;
 end;
 
 procedure TQueryDataModule.DataModuleCreate(Sender: TObject);
@@ -149,6 +120,8 @@ end;
 
 procedure TQueryDataModule.DataModuleDestroy(Sender: TObject);
 begin
+  DiscardChanges;
+  CloseDataSets;
   FQryList.Free;
   FAuxQryList.Free;
   FSearchFieldList.Free;
@@ -184,36 +157,8 @@ begin
 end;
 
 procedure TQueryDataModule.Disconnect;
-var
-  i: integer;
 begin
-  //primero se cierran los datasets
-  for i := 0 to FQryList.Count - 1 do
-  begin
-    with TSQLQuery(FQryList.Items[i]) do
-    begin
-      if Active then
-        Active := False;
-    end;
-  end;
-  // antes de los principales los auxiliares
-  for i := 0 to FAuxQryList.Count - 1 do
-  begin
-    with TSQLQuery(FAuxQryList.Items[i]) do
-    begin
-      if Active then
-        Active := False;
-    end;
-  end;
-
-  for i := 0 to FDetailList.Count - 1 do
-  begin
-    with TSQLQuery(FDetailList.Items[i]) do
-    begin
-      if Active then
-        Active := False;
-    end;
-  end;
+  CloseDataSets;
   //despues la conexion a base de datos
   FMasterDataModule.Disconnect;
 end;
@@ -361,6 +306,40 @@ end;
 procedure TQueryDataModule.OnErrorEvent(Sender: TObject; E: EDatabaseError);
 begin
 
+end;
+
+procedure TQueryDataModule.OpenDataSets;
+var
+  i: integer;
+begin
+  // antes de los principales los auxiliares
+  for i := 0 to FAuxQryList.Count - 1 do
+  begin
+    with TSQLQuery(FAuxQryList.Items[i]) do
+    begin
+      if not Active then
+        Active := True;
+    end;
+  end;
+
+  //segundo se abren los datasets
+  for i := 0 to FQryList.Count - 1 do
+  begin
+    with TSQLQuery(FQryList.Items[i]) do
+    begin
+      if not Active then
+        Active := True;
+    end;
+  end;
+  // detalles
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
+    begin
+      if not Active then
+        Active := True;
+    end;
+  end;
 end;
 
 procedure TQueryDataModule.RefreshDataSets;
@@ -520,6 +499,39 @@ begin
   if FSearchFieldList = AValue then
     Exit;
   FSearchFieldList := AValue;
+end;
+
+procedure TQueryDataModule.CloseDataSets;
+var
+  i: integer;
+begin
+  //primero se cierran los datasets
+  for i := 0 to FQryList.Count - 1 do
+  begin
+    with TSQLQuery(FQryList.Items[i]) do
+    begin
+      if Active then
+        Active := False;
+    end;
+  end;
+  // antes de los principales los auxiliares
+  for i := 0 to FAuxQryList.Count - 1 do
+  begin
+    with TSQLQuery(FAuxQryList.Items[i]) do
+    begin
+      if Active then
+        Active := False;
+    end;
+  end;
+
+  for i := 0 to FDetailList.Count - 1 do
+  begin
+    with TSQLQuery(FDetailList.Items[i]) do
+    begin
+      if Active then
+        Active := False;
+    end;
+  end;
 end;
 
 procedure TQueryDataModule.Commit;

@@ -42,7 +42,6 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TQueryDataModule)
-    DeudaViewFACTURAID: TLongintField;
     ImpuestoACTIVO: TSmallintField;
     ImpuestoFACTOR: TFloatField;
     ImpuestoID: TLongintField;
@@ -150,6 +149,7 @@ type
     procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
+    procedure DiscardChanges; override;
     procedure Disconnect; override;
     procedure FetchCabecera;
     procedure FetchCabecera(APersonaID: string);
@@ -282,7 +282,7 @@ end;
 procedure TFacturasDataModule.SaveChanges;
 begin
   inherited SaveChanges;
-  Estado := asInicial;
+  Estado := asGuardado;
   (MasterDataModule as ISubject).Notify;
 end;
 
@@ -308,6 +308,13 @@ begin
   FIVA10Cod.Free;
   FPersonas.Free;
   inherited;
+end;
+
+procedure TFacturasDataModule.DiscardChanges;
+begin
+  inherited DiscardChanges;
+  Estado := asInicial;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TFacturasDataModule.qryFacturaAfterScroll(DataSet: TDataSet);
@@ -417,6 +424,7 @@ begin
   // traer nombre, ruc
   if not FPersonas.Persona.Locate('ID', APersonaID, [loCaseInsensitive]) then
     raise Exception.Create(rsPersonaNoEncontrada);
+  qryFacturaPERSONAID.AsString := FPersonas.PersonasRoles.FieldByName('ID').AsString;
   qryFacturaNOMBRE.AsString := FPersonas.PersonaNOMBRECOMPLETO.AsString;
   qryFacturaRUC.AsString := FPersonas.PersonaRUC.AsString;
   // traer direccion, telefono

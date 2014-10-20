@@ -42,7 +42,11 @@ uses
   generardeudactrl,
   frmNotaCreditoDataModule,
   frmProcNotaCredito,
-  notacreditoctrl;
+  notacreditoctrl,
+  // Documentos
+  frmdocumentosdatamodule,
+  frmprocesodocumentos,
+  documentosctrl;
 
 type
 
@@ -57,6 +61,7 @@ type
     procedure OpenABMCuentasForm(Sender: IFormView);
     procedure OpenAsientosFrom(Sender: IFormView);
     procedure OpenPagosForm(Sender: IFormView);
+    procedure OpenDocumentosForm(Sender: IFormView);
     procedure OpenNotaCreditoForm(Sender: IFormView);
   end;
 
@@ -70,8 +75,8 @@ implementation
 procedure TPrincipalController.ABMAcad(Sender: IFormView);
 begin
   AbmAcademias := TAbmAcademias.Create(Sender,
-    TAcademiaController.Create(TAcademiaDataModule.Create((Sender as TComponent),
-    Model.MasterDataModule)));
+    TAcademiaController.Create(TAcademiaDataModule.Create(
+    (Sender as TComponent), Model.MasterDataModule)));
   AbmAcademias.Show;
   (Model.MasterDataModule as ISubject).Attach(AbmAcademias as IObserver);
 end;
@@ -79,8 +84,8 @@ end;
 procedure TPrincipalController.allpersonasClick(Sender: IFormView);
 begin
   AbmPersonas := TAbmPersonas.Create(Sender,
-    TPersonaController.Create(TPersonasDataModule.Create((Sender as TComponent),
-    Model.MasterDataModule)));
+    TPersonaController.Create(TPersonasDataModule.Create(
+    (Sender as TComponent), Model.MasterDataModule)));
   AbmPersonas.Show;
   (Model.MasterDataModule as ISubject).Attach(AbmPersonas as IObserver);
 end;
@@ -88,8 +93,8 @@ end;
 procedure TPrincipalController.OpenFacturasForm(Sender: IFormView);
 begin
   ProcesoFacturacion := TProcesoFacturacion.Create(Sender,
-    TFacturaController.Create(TFacturasDataModule.Create((Sender as TComponent),
-    Model.MasterDataModule)));
+    TFacturaController.Create(TFacturasDataModule.Create(
+    (Sender as TComponent), Model.MasterDataModule)));
   ProcesoFacturacion.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
 end;
@@ -113,8 +118,8 @@ end;
 procedure TPrincipalController.OpenAsientosFrom(Sender: IFormView);
 begin
   ProcesoAsientos := TProcesoAsientos.Create(Sender,
-    TAsientosController.Create(TAsientosDataModule.Create((Sender as TComponent),
-    Model.MasterDataModule)));
+    TAsientosController.Create(TAsientosDataModule.Create(
+    (Sender as TComponent), Model.MasterDataModule)));
   ProcesoAsientos.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoAsientos as IObserver);
 end;
@@ -122,8 +127,8 @@ end;
 procedure TPrincipalController.OpenPagosForm(Sender: IFormView);
 begin
   ProcesoPago := TProcesoPago.Create(Sender,
-    TPagoController.Create(TPagoDataModule.Create((Sender as TComponent),
-    Model.MasterDataModule)));
+    TPagoController.Create(TPagoDataModule.Create(
+    (Sender as TComponent), Model.MasterDataModule)));
   ProcesoPago.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
 end;
@@ -131,10 +136,19 @@ end;
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);
 begin
   ProcesoNotaCredito := TProcesoNotaCredito.Create(Sender,
-  TNotaCreditoController.Create(TNotaCreditoDataModule.Create((Sender as TComponent),
-  Model.MasterDataModule))) ;
+    TNotaCreditoController.Create(TNotaCreditoDataModule.Create(
+    (Sender as TComponent), Model.MasterDataModule)));
   ProcesoNotaCredito.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoNotaCredito as IObserver);
+end;
+
+procedure TPrincipalController.OpenDocumentosForm(Sender: IFormView);
+begin
+  ProcesoDocumentos := TProcesoDocumentos.Create(Sender,
+    TDocumentosController.Create(TDocumentosDataModule.Create(
+    (Sender as TComponent), Model.MasterDataModule)));
+  ProcesoDocumentos.Show;
+  (Model.MasterDataModule as ISubject).Attach(ProcesoDocumentos as IObserver);
 end;
 
 end.

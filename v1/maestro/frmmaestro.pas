@@ -155,6 +155,8 @@ begin
   //if Visible then
   //  ObserverUpdate(nil); // actualizamos la vista
   Controller.Connect(Self);
+  Controller.CloseDataSets(Self);
+  Controller.OpenDataSets(Self);
 end;
 
 procedure TMaestro.MenuItemSalirClick(Sender: TObject);

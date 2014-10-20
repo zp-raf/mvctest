@@ -195,6 +195,7 @@ procedure TAbm.FormShow(Sender: TObject);
 begin
   if not ABMController.IsDBConnected(Self) then
     ABMController.Connect(Self);
+  ABMController.RefreshData(Self);
   ShowPanel(PanelList);
   inherited FormShow(Sender);
 end;

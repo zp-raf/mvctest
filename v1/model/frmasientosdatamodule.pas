@@ -94,6 +94,8 @@ type
       AMonto: double);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double; ADeudaID: string);
+    procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
+      AMonto: double; ADeudaID: string; APagoID: string);
     procedure NuevoAsientoDetalle(ATipoMov: TTipoMovimiento; AMonto: double);
     procedure OnAsientoError(Sender: TObject; E: EDatabaseError);
     procedure RefreshDataSets; override;
@@ -170,6 +172,14 @@ procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
 begin
   NuevoAsientoDetalle(ACuenta, ATipoMov, AMonto);
   MovimientoDetDEUDAID.AsString := ADeudaID;
+end;
+
+procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
+  ATipoMov: TTipoMovimiento; AMonto: double; ADeudaID: string; APagoID: string);
+begin
+  NuevoAsientoDetalle(ACuenta, ATipoMov, AMonto);
+  MovimientoDetDEUDAID.AsString := ADeudaID;
+  MovimientoDetPAGOID.AsString := APagoID;
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ATipoMov: TTipoMovimiento;

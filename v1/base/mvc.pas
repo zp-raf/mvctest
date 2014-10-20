@@ -102,6 +102,7 @@ type
       La logica de datos se debe manejar aca (generators,
       llamadas a procedimientos, etc) }
     ['{91D626B4-415B-4FB2-8B98-620B8F24A406}']
+    procedure CloseDataSets;
     procedure Commit;
     procedure Connect;
     procedure DataModuleCreate(Sender: TObject);
@@ -113,6 +114,7 @@ type
     function GetOnError: TErrorEvent;
     procedure NewRecord;
     procedure NewDetailRecord;
+    procedure OpenDataSets;
     procedure RefreshDataSets;
     procedure Rollback;
     procedure SaveChanges;
@@ -146,16 +148,18 @@ type
 
   IController = interface
     ['{B1D8EBC6-C5B4-4F72-9CA3-6E4B74F51858}']
-    procedure Connect(Sender: IView);
-    procedure Disconnect(Sender: IView);
-    function IsDBConnected(Sender: IView): boolean;
-    function GetVersion(Sender: IView): string;
-    procedure ShowHelp(Sender: IView);
-    procedure ShowHelp(Sender: IFormView);
-    procedure ErrorHandler(E: Exception; Sender: IView);
-    procedure CloseQuery(Sender: IView; var CanClose: boolean);
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
+    procedure CloseDataSets(Sender: IView);
+    procedure CloseQuery(Sender: IView; var CanClose: boolean);
+    procedure Connect(Sender: IView);
+    procedure Disconnect(Sender: IView);
+    procedure ErrorHandler(E: Exception; Sender: IView);
+    procedure OpenDataSets(Sender: IView);
+    procedure ShowHelp(Sender: IView);
+    procedure ShowHelp(Sender: IFormView);
+    function IsDBConnected(Sender: IView): boolean;
+    function GetVersion(Sender: IView): string;
     { El modelo MVC dice que los eventos deben ser manejados por el controlador.
       El controlador debe ser capaz de manejar una vista grafica o de linea de
       comandos sin modificaciones }

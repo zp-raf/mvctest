@@ -102,6 +102,7 @@ procedure TProcesoFacturacion.btSeleccionarClick(Sender: TObject);
 var
   PopUp: TPopupSeleccionAlumnos;
 begin
+  Controller.OpenDataSets(Self);
   try
     PopUp := TPopupSeleccionAlumnos.Create(Self, TBuscarAlumnosController.Create(
       Controller.Model));
@@ -125,6 +126,7 @@ end;
 procedure TProcesoFacturacion.ButtonLimpiarClick(Sender: TObject);
 begin
   Limpiar;
+  ABMController.Cancel(Self);
 end;
 
 procedure TProcesoFacturacion.DateEditVenEditingDone(Sender: TObject);
@@ -173,7 +175,7 @@ procedure TProcesoFacturacion.FormShow(Sender: TObject);
 begin
   inherited;
   //ABMController.NewRecord(Self);
-  Controller.Disconnect(Self);
+  Controller.CloseDataSets(Self);
 end;
 
 procedure TProcesoFacturacion.RadioCondicionChange(Sender: TObject);
@@ -262,8 +264,9 @@ begin
       Detalles.Enabled := False;
       Totales.Enabled := False;
       DBGridDet.Color := clInactiveCaption;
-      //btSeleccionar.Visible := False;
-      //ButtonLimpiar.Enabled := False;
+      btSeleccionar.Enabled := True;
+      ButtonLimpiar.Enabled := True;
+      Controller.CloseDataSets(Self);
     end;
     asGuardado:
     begin
@@ -271,8 +274,9 @@ begin
       Detalles.Enabled := False;
       Totales.Enabled := False;
       DBGridDet.Color := clInactiveCaption;
-      //btSeleccionar.Visible := False;
-      //ButtonLimpiar.Enabled := False;
+      btSeleccionar.Enabled := True;
+      ButtonLimpiar.Enabled := True;
+      Controller.CloseDataSets(Self);
     end;
     asEditando:
     begin
@@ -280,10 +284,14 @@ begin
       Detalles.Enabled := True;
       Totales.Enabled := True;
       DBGridDet.Color := clWindow;
-      //btSeleccionar.Visible := False;
-      //ButtonLimpiar.Enabled := False;
+      btSeleccionar.Enabled := False;
+      ButtonLimpiar.Enabled := False;
       DBGridDet.AutoSizeColumns;
       DateEditVen.Date := now; // no me gusta esto pero bue...
+    end;
+    asLeyendo:
+    begin
+      Controller.OpenDataSets(Self);
     end;
   end;
 end;

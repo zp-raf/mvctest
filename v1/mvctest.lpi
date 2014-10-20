@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="344"/>
+      <BuildNr Value="353"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -52,7 +52,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="49">
+    <Units Count="52">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -391,6 +391,27 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="notacreditoctrl"/>
       </Unit48>
+      <Unit49>
+        <Filename Value="view\frmprocesodocumentos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoDocumentos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesodocumentos"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="model\frmdocumentosdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DocumentosDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmdocumentosdatamodule"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="controller\documentosctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="documentosctrl"/>
+      </Unit51>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

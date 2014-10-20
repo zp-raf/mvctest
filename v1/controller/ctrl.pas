@@ -34,10 +34,12 @@ type
     destructor Destroy; override;
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
+    procedure CloseDataSets(Sender: IView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean); virtual;
     procedure Connect(Sender: IView);
     procedure Disconnect(Sender: IView);
     procedure ErrorHandler(E: Exception; Sender: IView); virtual;
+    procedure OpenDataSets(Sender: IView);
     procedure ShowHelp(Sender: IView);
     procedure ShowHelp(Sender: IFormView);
     function GetVersion(Sender: IView): string;
@@ -220,6 +222,11 @@ begin
     Sender.ShowErrorMessage(GetErrorMessage(E));
 end;
 
+procedure TController.OpenDataSets(Sender: IView);
+begin
+  Model.OpenDataSets;
+end;
+
 function TController.GetVersion(Sender: IView): string;
 begin
   Result := rsProductName + #13#10 + rsProductVersion + #13#10 + rsProductCopyright;
@@ -253,6 +260,11 @@ end;
 procedure TController.Close(Sender: IFormView);
 begin
   (Sender as TForm).Close;
+end;
+
+procedure TController.CloseDataSets(Sender: IView);
+begin
+  Model.CloseDataSets;
 end;
 
 procedure TController.CloseQuery(Sender: IView; var CanClose: boolean);

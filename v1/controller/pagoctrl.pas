@@ -5,7 +5,7 @@ unit pagoctrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmpagodatamodule, mvc;
+  Classes, SysUtils, ctrl, frmpagodatamodule, mvc, asientosctrl;
 
 type
 
@@ -25,6 +25,7 @@ type
     procedure CerrarPago(Sender: IView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
     property CustomModel: TPagoDataModule read GetCustomModel write SetCustomModel;
+    //property AsientoController: TAsientosController;
   end;
 
 implementation
