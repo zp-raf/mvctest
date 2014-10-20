@@ -19,10 +19,16 @@
     <PagoDataModule_1>
       <FacturasDataModule_1 codigosiva5="" talonarioID="" codigosiva10=""/>
     </PagoDataModule_1>
+    <PagoDataModule_2>
+      <FacturasDataModule_2 codigosiva5="" talonarioID="" codigosiva10=""/>
+    </PagoDataModule_2>
   </DocumentosDataModule_1>
   <DocumentosDataModule>
     <PagoDataModule>
       <FacturasDataModule codigosiva5="" talonarioID="" codigosiva10=""/>
     </PagoDataModule>
+    <PagoDataModule_1>
+      <FacturasDataModule_1 codigosiva5="" talonarioID="" codigosiva10=""/>
+    </PagoDataModule_1>
   </DocumentosDataModule>
 </CONFIG>

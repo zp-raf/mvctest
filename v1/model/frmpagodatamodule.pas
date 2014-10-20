@@ -21,6 +21,7 @@ const
   TARJETA_CREDITO = '4';
   ITEM_SEPARATOR = ', ';
   DESCRIPCION_DEFAULT = 'PAGO DE FACTURA NRO ';
+  DESCRIPCION_REVERSION = 'ANULACION DE PAGO NRO ';
 
 resourcestring
   rsGenPago = 'GENERATOR_PAGO';
@@ -49,6 +50,8 @@ type
     DeudaViewDESCRIPCION: TStringField;
     DeudaViewID: TLongintField;
     DeudaViewMATRICULAID: TLongintField;
+    DeudaViewMONTO_DEUDA: TFloatField;
+    DeudaViewMONTO_FACTURADO: TFloatField;
     DeudaViewPERSONAID: TLongintField;
     DeudaViewSALDO: TFloatField;
     DeudaViewVENCIMIENTO: TDateField;
@@ -110,6 +113,7 @@ type
     procedure SetFactura(AValue: TFacturasDataModule);
   published
     procedure ActualizarTotales;
+    procedure AnularPago(APagoID: string);
     procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
@@ -237,6 +241,23 @@ begin
   (MasterDataModule as ISubject).Notify;
 end;
 
+procedure TPagoDataModule.AnularPago(APagoID: string);
+begin
+  if not Pago.Locate('ID', APagoID, [loCaseInsensitive]) then
+    raise Exception.Create('No se encontro el pago');
+  try
+    Asientos.MovimientoDet.Filter := 'PAGOID = ' + PagoID.AsString;
+    Asientos.MovimientoDet.Filtered := True;
+    Asientos.MovimientoDet.Refresh;
+    Asientos.MovimientoDet.First;
+  finally
+    // le sacamos el filtro
+    Asientos.MovimientoDet.Filter := '';
+    Asientos.MovimientoDet.Filtered := False;
+    Asientos.MovimientoDet.Refresh;
+  end;
+end;
+
 procedure TPagoDataModule.Connect;
 begin
   Facturas.Connect;
@@ -345,7 +366,7 @@ end;
 procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
 begin
   // creamos un nuevo asiento
-  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryFacturaNUMERO.AsString);
+  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryFacturaNUMERO.AsString, APagoID);
   // recorrer la factura y poner los detales de los asientos
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do
@@ -356,11 +377,11 @@ begin
     if EsCobro then
       Asientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvCredito,
         Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
-        Facturas.qryDetalleDEUDAID.AsString, APagoID)
+        Facturas.qryDetalleDEUDAID.AsString)
     else
       Asientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvDebito,
         Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
-        Facturas.qryDetalleDEUDAID.AsString, APagoID);
+        Facturas.qryDetalleDEUDAID.AsString);
     Facturas.qryDetalle.Next;
   end;
   Asientos.CerrarAsiento;

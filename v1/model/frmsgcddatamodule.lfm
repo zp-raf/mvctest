@@ -7,7 +7,7 @@ object sgcdDataModule: TsgcdDataModule
   VerticalOffset = 291
   Width = 166
   object db: TIBConnection
-    Connected = False
+    Connected = True
     LoginPrompt = False
     AfterConnect = dbAfterConnect
     AfterDisconnect = dbAfterDisconnect

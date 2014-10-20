@@ -9,7 +9,10 @@ inherited ProcesoPago: TProcesoPago
   Constraints.MinHeight = 680
   Constraints.MinWidth = 1080
   OnCreate = FormCreate
+  OnHide = FormHide
   OnShow = FormShow
+  Position = poDesktopCenter
+  ShowInTaskBar = stAlways
   inherited StatusBar1: TStatusBar
     Top = 637
     Width = 1080

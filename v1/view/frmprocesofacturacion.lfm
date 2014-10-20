@@ -1,18 +1,18 @@
 inherited ProcesoFacturacion: TProcesoFacturacion
-  Left = 294
+  Left = 527
   Height = 681
-  Top = 1
+  Top = 148
   Width = 901
   Caption = 'Factura Venta'
   ClientHeight = 661
   ClientWidth = 901
   OnShow = FormShow
   inherited StatusBar1: TStatusBar
-    Top = 592
+    Top = 638
     Width = 901
   end
   inherited ButtonPanel1: TButtonPanel
-    Top = 621
+    Top = 598
     Width = 889
     OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
@@ -267,22 +267,22 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     AnchorSideBottom.Control = ButtonPanel1
     Cursor = crSizeNS
     Left = 8
-    Height = 423
+    Height = 400
     Top = 192
     Width = 885
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Left = 8
     BorderSpacing.Right = 8
-    Position = 256
+    Position = 232
     SplitterType = pstVertical
     object PairSplitterSide1: TPairSplitterSide
       Cursor = crArrow
       Left = 0
-      Height = 256
+      Height = 232
       Top = 0
       Width = 885
       ClientWidth = 885
-      ClientHeight = 256
+      ClientHeight = 232
       object Detalles: TGroupBox
         AnchorSideLeft.Control = PairSplitterSide1
         AnchorSideTop.Control = PairSplitterSide1
@@ -291,12 +291,12 @@ inherited ProcesoFacturacion: TProcesoFacturacion
         AnchorSideBottom.Control = PairSplitterSide1
         AnchorSideBottom.Side = asrBottom
         Left = 0
-        Height = 256
+        Height = 232
         Top = 0
         Width = 885
         Anchors = [akTop, akLeft, akRight, akBottom]
         Caption = 'Detalles'
-        ClientHeight = 238
+        ClientHeight = 214
         ClientWidth = 881
         TabOrder = 0
         object DBGridDet: TDBGrid
@@ -306,7 +306,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = DBNavigatorDet
           Left = 8
-          Height = 189
+          Height = 165
           Top = 8
           Width = 865
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -365,7 +365,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
           AnchorSideBottom.Side = asrBottom
           Left = 8
           Height = 25
-          Top = 205
+          Top = 181
           Width = 241
           Anchors = [akLeft, akBottom]
           BeforeAction = DBNavigatorDetBeforeAction
@@ -381,6 +381,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
           ClientWidth = 241
           ConfirmDelete = False
           DataSource = FacturasDataModule.dsDetalle
+          OnClick = DBNavigatorDetClick
           Options = []
           TabOrder = 1
           VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
@@ -390,11 +391,11 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     object PairSplitterSide2: TPairSplitterSide
       Cursor = crArrow
       Left = 0
-      Height = 162
-      Top = 261
+      Height = 163
+      Top = 237
       Width = 885
       ClientWidth = 885
-      ClientHeight = 162
+      ClientHeight = 163
       object Totales: TGroupBox
         AnchorSideLeft.Control = PairSplitterSide2
         AnchorSideTop.Control = PairSplitterSide2

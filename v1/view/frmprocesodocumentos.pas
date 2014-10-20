@@ -32,17 +32,21 @@ type
     procedure ButtonAnularPagoClick(Sender: TObject);
     procedure ButtonCobrarClick(Sender: TObject);
     procedure ButtonVerClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure TabSheetCobroShow(Sender: TObject);
     procedure TabSheetFacturasCobradasShow(Sender: TObject);
     procedure TabSheetFacturaShow(Sender: TObject);
   private
+    FCobroForm: TProcesoPago;
     FCustomController: TDocumentosController;
+    procedure SetCobroForm(AValue: TProcesoPago);
     procedure SetCustomController(AValue: TDocumentosController);
     { private declarations }
   public
     constructor Create(AOwner: IFormView; AController: TDocumentosController); overload;
     property CustomController: TDocumentosController
       read FCustomController write SetCustomController;
+    property CobroForm: TProcesoPago read FCobroForm write SetCobroForm;
   end;
 
 var
@@ -73,28 +77,21 @@ begin
 end;
 
 procedure TProcesoDocumentos.ButtonCobrarClick(Sender: TObject);
-var
-  x: TProcesoPago;
 begin
   if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
   begin
-    try
-      x := TProcesoPago.Create(Self, CustomController.PagoController);
-      CustomController.CobrarDoc(doFactura);
-      //x.Controller.OpenDataSets(x);
-      case x.ShowModal of
-        mrOk:
-        begin
-          Controller.CloseDataSets(Self);
-          Controller.OpenDataSets(Self);
-        end;
-        mrCancel:
-        begin
-          // no se que hacer :P
-        end;
+    CustomController.CobrarDoc(doFactura, Self);
+    case CobroForm.ShowModal of
+      mrOk:
+      begin
+        Controller.CloseDataSets(Self);
+        Controller.OpenDataSets(Self);
       end;
-    finally
-      x.Free;
+      mrCancel:
+      begin
+        Controller.CloseDataSets(Self);
+        Controller.OpenDataSets(Self);
+      end;
     end;
   end;
 end;
@@ -102,25 +99,31 @@ end;
 procedure TProcesoDocumentos.ButtonAnularClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetCobro.PageIndex then
-    CustomController.AnularDoc(doRecibo)
+    CustomController.AnularDoc(doRecibo, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
-    CustomController.AnularDoc(doFactura);
+    CustomController.AnularDoc(doFactura, Self);
 end;
 
 procedure TProcesoDocumentos.ButtonAnularPagoClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetFacturasCobradas.PageIndex then
-    CustomController.AnularPago(doFactura);
+    CustomController.AnularPago(doFactura, Self);
 end;
 
 procedure TProcesoDocumentos.ButtonVerClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetCobro.PageIndex then
-    CustomController.VerDocumento(doRecibo)
+    CustomController.VerDocumento(doRecibo, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
-    CustomController.VerDocumento(doFactura)
+    CustomController.VerDocumento(doFactura, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFacturasCobradas.PageIndex then
-    CustomController.VerDocumento(doFactura);
+    CustomController.VerDocumento(doFactura, Self);
+end;
+
+procedure TProcesoDocumentos.FormDestroy(Sender: TObject);
+begin
+  if CobroForm <> nil then
+    CobroForm.Free;
 end;
 
 procedure TProcesoDocumentos.TabSheetFacturaShow(Sender: TObject);
@@ -139,6 +142,13 @@ begin
   FCustomController := AValue;
 end;
 
+procedure TProcesoDocumentos.SetCobroForm(AValue: TProcesoPago);
+begin
+  if FCobroForm = AValue then
+    Exit;
+  FCobroForm := AValue;
+end;
+
 constructor TProcesoDocumentos.Create(AOwner: IFormView;
   AController: TDocumentosController);
 var
@@ -151,6 +161,7 @@ begin
   begin
     inherited Create(AOwner, Cont);
     CustomController := AController;
+    FCobroForm := TProcesoPago.Create(Self, CustomController.PagoController);
   end;
 end;
 

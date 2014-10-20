@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, ctrl, frmdocumentosdatamodule, mvc, frmfacturadatamodule2,
-  frmpagodatamodule, pagoctrl;
+  frmpagodatamodule, pagoctrl, frmpago, Controls;
 
 type
 
@@ -20,14 +20,14 @@ type
     procedure SetPagoController(AValue: TPagoController);
   public
     constructor Create(AModel: IModel);
-    procedure AnularDoc(ATipoDoc: TTipoDocumento);
-    procedure AnularDoc(ATipoDoc: TTipoDocumento; ADoc: string);
-    procedure AnularPago(ATipoDoc: TTipoDocumento);
-    procedure AnularPago(ATipoDoc: TTipoDocumento; ADoc: string);
-    procedure CobrarDoc(ATipoDoc: TTipoDocumento);
-    procedure CobrarDoc(ATipoDoc: TTipoDocumento; ADoc: string);
-    procedure VerDocumento(ATipoDoc: TTipoDocumento);
-    procedure VerDocumento(ATipoDoc: TTipoDocumento; ADoc: string);
+    procedure AnularDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
+    procedure AnularDoc(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
+    procedure AnularPago(ATipoDoc: TTipoDocumento; Sender: IFormView);
+    procedure AnularPago(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
+    procedure CobrarDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
+    procedure CobrarDoc(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
+    procedure VerDocumento(ATipoDoc: TTipoDocumento; Sender: IFormView);
+    procedure VerDocumento(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
     property CustomModel: TDocumentosDataModule read FCustomModel write SetCustomModel;
     property PagoController: TPagoController read FPagoController
       write SetPagoController;
@@ -62,49 +62,80 @@ begin
   FPagoController := TPagoController.Create(CustomModel.Pagos);
 end;
 
-procedure TDocumentosController.AnularDoc(ATipoDoc: TTipoDocumento);
+procedure TDocumentosController.AnularDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
 begin
 
 end;
 
-procedure TDocumentosController.AnularDoc(ATipoDoc: TTipoDocumento; ADoc: string);
+procedure TDocumentosController.AnularDoc(ATipoDoc: TTipoDocumento;
+  ADoc: string; Sender: IFormView);
 begin
 
 end;
 
-procedure TDocumentosController.AnularPago(ATipoDoc: TTipoDocumento);
+procedure TDocumentosController.AnularPago(ATipoDoc: TTipoDocumento; Sender: IFormView);
 begin
-
+  //case ATipoDoc of
+  //  //doFactura: AnularDoc(ATipoDoc, CustomModel.CobrosView.Lookup('ID', CustomModel.FacturasCobradasViewID., Sender);
+  //end;
 end;
 
-procedure TDocumentosController.AnularPago(ATipoDoc: TTipoDocumento; ADoc: string);
+procedure TDocumentosController.AnularPago(ATipoDoc: TTipoDocumento;
+  ADoc: string; Sender: IFormView);
 begin
-
+  //case ATipoDoc of
+  //  doFactura:
+  //  begin
+  //    //PagoController.AnularPago();
+  //  end;
+  //  end;
+  //end;
 end;
 
-procedure TDocumentosController.CobrarDoc(ATipoDoc: TTipoDocumento);
+procedure TDocumentosController.CobrarDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
 begin
   case ATipoDoc of
-    doFactura: CobrarDoc(ATipoDoc, CustomModel.FacturasViewID.AsString);
+    doFactura: CobrarDoc(ATipoDoc, CustomModel.FacturasViewID.AsString, Sender);
   end;
 end;
 
-procedure TDocumentosController.CobrarDoc(ATipoDoc: TTipoDocumento; ADoc: string);
+procedure TDocumentosController.CobrarDoc(ATipoDoc: TTipoDocumento;
+  ADoc: string; Sender: IFormView);
+//var
+//  CobroForm: TProcesoPago;
 begin
-  case ATipoDoc of
-    doFactura:
-    begin
-      PagoController.NuevoPago(True, ADoc, ATipoDoc);
+  try
+    //CobroForm := TProcesoPago.Create(Sender, PagoController);
+    case ATipoDoc of
+      doFactura:
+      begin
+        PagoController.NuevoPago(True, ADoc, ATipoDoc);
+      end;
     end;
+    //case CobroForm.ShowModal of
+    //  mrOk:
+    //  begin
+    //    Model.Connect;
+    //  end;
+    //  mrCancel:
+    //  begin
+    //    Model.Connect;
+    //  end;
+    //end;
+  finally
+    //CobroForm.Free;
+    //CobroForm := nil;
   end;
 end;
 
-procedure TDocumentosController.VerDocumento(ATipoDoc: TTipoDocumento);
+procedure TDocumentosController.VerDocumento(ATipoDoc: TTipoDocumento;
+  Sender: IFormView);
 begin
 
 end;
 
-procedure TDocumentosController.VerDocumento(ATipoDoc: TTipoDocumento; ADoc: string);
+procedure TDocumentosController.VerDocumento(ATipoDoc: TTipoDocumento;
+  ADoc: string; Sender: IFormView);
 begin
 
 end;

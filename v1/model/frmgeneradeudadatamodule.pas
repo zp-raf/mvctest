@@ -31,6 +31,7 @@ type
   { TGeneraDeudaDataModule }
 
   TGeneraDeudaDataModule = class(TQueryDataModule)
+    DeudaMONTO_DEUDA: TFloatField;
     dsAran: TDataSource;
     dsCod: TDataSource;
     dsCuota: TDataSource;
@@ -59,6 +60,7 @@ type
     // el generador de cuotas
     procedure GeneradorCuotas(ACantCuotas: integer; AUnidadFecha: TUnidadFecha = ufNada;
       ACant: integer = 0; AVenc: string = ''; SinVencimiento: boolean = False);
+    function GetCuentaPersona(APersonaID: string): variant;
     // para poner el vencimiento
     function GetVencimiento(AFecha: TDateTime; AUnidadFecha: TUnidadFecha;
       ACant: integer; ANroCuota: integer): TDateTime;
@@ -124,12 +126,13 @@ begin
     DataSet.FieldByName('CUOTA_NRO').AsString + SEPARADOR_CUOTA +
     DataSet.FieldByName('CANTIDAD_CUOTAS').AsString + SEPARADOR +
     Personas.Persona.FieldByName('NOMBRECOMPLETO').AsString + DescMatricula;
+  // ponemos el monto de la deuda
+  DataSet.FieldByName('MONTO_DEUDA').AsFloat :=
+    Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat;
   // insertamos el detalle del asiento
-  if Cuentas.Cuenta.Lookup('PERSONAID', Personas.PersonaID.AsString, 'ID') = null then
-    raise Exception.Create('No se encontro la cuenta de la persona seleccionada')
-  else
-    CuentaID := Cuentas.Cuenta.Lookup('PERSONAID', Personas.PersonaID.AsString, 'ID');
-  Asientos.NuevoAsientoDetalle(CuentaID, mvDebito, Arancel.ArancelMONTO.AsFloat,
+  CuentaID := GetCuentaPersona(Personas.PersonaID.AsString);
+  Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,
+    Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat,
     DeudaID.AsString);
 end;
 
@@ -241,6 +244,14 @@ begin
   GeneradorCuotas(ACantCuotas, AUnidadFecha, ACant);
 end;
 
+function TGeneraDeudaDataModule.GetCuentaPersona(APersonaID: string): variant;
+begin
+  if Cuentas.Cuenta.Lookup('PERSONAID', APersonaID, 'ID') = null then
+    raise Exception.Create('No se encontro la cuenta de la persona seleccionada')
+  else
+    Result := Cuentas.Cuenta.Lookup('PERSONAID', APersonaID, 'ID');
+end;
+
 procedure TGeneraDeudaDataModule.SaveChanges;
 begin
   inherited SaveChanges;
@@ -272,7 +283,7 @@ procedure TGeneraDeudaDataModule.GeneradorCuotas(ACantCuotas: integer;
   AUnidadFecha: TUnidadFecha; ACant: integer; AVenc: string; SinVencimiento: boolean);
 var
   i: integer;
-  ArancelID, matriculaID: string;
+  ArancelID, matriculaID, cuentaID: string;
 begin
   // para meter las siguientes cuotas guardamos los valores
   ArancelID := DeudaARANCELID.AsString;
@@ -297,7 +308,9 @@ begin
     raise Exception.Create('Parametros no validos');
 
   // insertar un movimiento para registrar la deuda
-  Asientos.NuevoAsiento('Generacion de deuda nro: ' + DeudaID.AsString);
+  cuentaID := GetCuentaPersona(Personas.PersonaID.AsString);
+  Asientos.NuevoAsiento('Generacion de deuda. Cuenta: ' + cuentaID +
+    SEPARADOR + 'Arancel: ' + DeudaARANCELID.AsString);
 
   // desde la segunda cuota
   for i := 2 to ACantCuotas do

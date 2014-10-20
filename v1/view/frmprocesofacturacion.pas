@@ -19,6 +19,7 @@ type
     procedure DateEditVenEditingDone(Sender: TObject);
     procedure DBGridDetEditingDone(Sender: TObject);
     procedure DBNavigatorDetBeforeAction(Sender: TObject; Button: TDBNavButtonType);
+    procedure DBNavigatorDetClick(Sender: TObject; Button: TDBNavButtonType);
     procedure FormShow(Sender: TObject);
     procedure RadioCondicionChange(Sender: TObject);
   private
@@ -169,6 +170,16 @@ begin
   //    Abort;
   //  end;
   //end;
+end;
+
+procedure TProcesoFacturacion.DBNavigatorDetClick(Sender: TObject;
+  Button: TDBNavButtonType);
+begin
+  if not (Sender is TDBNavigator) then
+    Abort;
+  case Button of
+    nbDelete: CustomController.ActualizarTotales(Self);
+  end;
 end;
 
 procedure TProcesoFacturacion.FormShow(Sender: TObject);

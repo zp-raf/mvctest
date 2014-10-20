@@ -42,6 +42,8 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TQueryDataModule)
+    DeudaViewMONTO_DEUDA: TFloatField;
+    DeudaViewMONTO_FACTURADO: TFloatField;
     ImpuestoACTIVO: TSmallintField;
     ImpuestoFACTOR: TFloatField;
     ImpuestoID: TLongintField;
@@ -325,7 +327,22 @@ begin
 end;
 
 procedure TFacturasDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField);
+var
+  montoMaximo: double;
 begin
+  try
+    montoMaximo := DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_DEUDA') -
+      DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_FACTURADO');
+  except
+    on E: EDatabaseError do
+    begin
+      Abort;
+    end;
+  end;
+
+  if Sender.AsFloat > montoMaximo then
+    Sender.AsFloat := montoMaximo;
+
   // iva 10
   if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
     Exit
@@ -465,10 +482,13 @@ begin
       qryDetalleDEUDAID.Value := DeudaViewID.Value;
       qryDetalleDETALLE.Value := DeudaViewDESCRIPCION.Value;
       if (ImpuestoViewINCLUIDO.AsInteger = 1) or (ImpuestoView.IsEmpty) then
-        qryDetallePRECIO_UNITARIO.AsFloat := DeudaViewSALDO.AsFloat
+        qryDetallePRECIO_UNITARIO.AsFloat :=
+          (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat)
       else if ImpuestoViewINCLUIDO.AsInteger = 0 then
         qryDetallePRECIO_UNITARIO.AsFloat :=
-          DeudaViewSALDO.AsFloat + DeudaViewSALDO.AsFloat * ImpuestoViewFACTOR.AsFloat;
+          (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) +
+          (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) *
+          ImpuestoViewFACTOR.AsFloat;
       // determinamos que impuesto tiene y lo ponemos en el campo apropiado
       if ImpuestoViewIMP_ID.AsInteger in impIVA10 then
         qryDetalleIVA10.AsFloat :=

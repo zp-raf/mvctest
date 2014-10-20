@@ -18,12 +18,13 @@ type
     procedure SetCustomModel(AValue: TPagoDataModule);
   public
     constructor Create(AModel: TPagoDataModule); overload;
-    function PagoListo: boolean;
-    procedure NuevoPago(EsCobro: boolean; ADocumentoID: string;
-      ATipoDoc: TTipoDocumento);
+    procedure AnularPago(PagoID: string);
     procedure Cancel(Sender: IView);
     procedure CerrarPago(Sender: IView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
+    procedure NuevoPago(EsCobro: boolean; ADocumentoID: string;
+      ATipoDoc: TTipoDocumento);
+    function PagoListo: boolean;
     property CustomModel: TPagoDataModule read GetCustomModel write SetCustomModel;
     //property AsientoController: TAsientosController;
   end;
@@ -47,7 +48,13 @@ end;
 procedure TPagoController.NuevoPago(EsCobro: boolean; ADocumentoID: string;
   ATipoDoc: TTipoDocumento);
 begin
+  Model.OpenDataSets;
   CustomModel.NuevoPago(EsCobro, ADocumentoID, ATipoDoc);
+end;
+
+procedure TPagoController.AnularPago(PagoID: string);
+begin
+  CustomModel.AnularPago(PagoID);
 end;
 
 procedure TPagoController.Cancel(Sender: IView);

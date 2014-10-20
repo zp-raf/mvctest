@@ -58,9 +58,11 @@ type
     MovimientoDetMOVIMIENTOID: TLongintField;
     MovimientoDetPAGOID: TLongintField;
     MovimientoDetTIPO_MOVIMIENTO: TStringField;
+    MovimientoDEUDAID: TLongintField;
     MovimientoFECHA: TDateField;
     MovimientoID: TLongintField;
     MovimientoNUMERO: TLongintField;
+    MovimientoPAGOID: TLongintField;
     procedure DataModuleDestroy(Sender: TObject);
     procedure MovimientoAfterScroll(DataSet: TDataSet);
     procedure MovimientoDetAfterInsert(DataSet: TDataSet);
@@ -90,6 +92,7 @@ type
     procedure DataModuleCreate(Sender: TObject); override;
     procedure Disconnect; override;
     procedure NuevoAsiento(ADescripcion: string);
+    procedure NuevoAsiento(ADescripcion: string; APagoID: string);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
@@ -150,6 +153,12 @@ begin
   MovimientoDESCRIPCION.AsString := ADescripcion;
   Estado := asEditando;
   (MasterDataModule as ISubject).Notify;
+end;
+
+procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string; APagoID: string);
+begin
+  NuevoAsiento(ADescripcion);
+  MovimientoPAGOID.AsString := APagoID;
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;

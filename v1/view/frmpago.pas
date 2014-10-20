@@ -62,6 +62,7 @@ type
     PairSplitterSide2: TPairSplitterSide;
     GroupBoxTotales: TGroupBox;
     procedure FormCreate(Sender: TObject);
+    procedure FormHide(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     FCustomController: TPagoController;
@@ -88,16 +89,24 @@ implementation
 
 procedure TProcesoPago.FormShow(Sender: TObject);
 begin
-  inherited;
+  //inherited;
+  if GetOwner <> nil then
+    TForm(GetOwner).Enabled := False;
   //CustomController.NuevoPago(True, '409', doFactura);
-  //Controller.OpenDataSets(Self);
+  if not (fsModal in FormState) then
+    Controller.OpenDataSets(Self);
 end;
 
 procedure TProcesoPago.FormCreate(Sender: TObject);
 begin
   ButtonPanel1.OKButton.ModalResult := mrOk;
   ButtonPanel1.CancelButton.ModalResult := mrCancel;
-  Controller.OpenDataSets(Self);
+end;
+
+procedure TProcesoPago.FormHide(Sender: TObject);
+begin
+  if GetOwner <> nil then
+    TForm(GetOwner).Enabled := True;
 end;
 
 procedure TProcesoPago.SetCustomController(AValue: TPagoController);

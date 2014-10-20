@@ -2,8 +2,8 @@ inherited FacturasDataModule: TFacturasDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 321
-  HorizontalOffset = 869
-  VerticalOffset = 263
+  HorizontalOffset = 870
+  VerticalOffset = 420
   Width = 447
   object dsFactura: TDataSource[0]
     DataSet = qryFactura
@@ -1192,14 +1192,20 @@ inherited FacturasDataModule: TFacturasDataModule
         Size = 0
       end    
       item
+        Name = 'MONTO_DEUDA'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
         Name = 'SALDO'
         DataType = ftFloat
         Precision = -1
         Size = 0
       end    
       item
-        Name = 'FACTURAID'
-        DataType = ftInteger
+        Name = 'MONTO_FACTURADO'
+        DataType = ftFloat
         Precision = -1
         Size = 0
       end>
@@ -1209,7 +1215,9 @@ inherited FacturasDataModule: TFacturasDataModule
     SQL.Strings = (
       'select * from v_deudas'
       'where v_deudas.personaid = :personaid'
-      'and v_deudas.facturaid is null'
+      'and v_deudas.saldo > 0'
+      'and v_deudas.monto_facturado <> v_deudas.monto_deuda'
+      'and v_deudas.activo = 1'
     )
     Params = <    
       item
@@ -1332,6 +1340,32 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+    end
+    object DeudaViewMONTO_FACTURADO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO_FACTURADO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object DeudaViewMONTO_DEUDA: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO_DEUDA'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
     end
   end
   object Impuesto: TSQLQuery[14]

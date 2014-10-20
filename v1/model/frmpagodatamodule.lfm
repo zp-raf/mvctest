@@ -701,6 +701,7 @@ inherited PagoDataModule: TPagoDataModule
     end
   end
   object DeudaView: TSQLQuery[7]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -763,14 +764,20 @@ inherited PagoDataModule: TPagoDataModule
         Size = 0
       end    
       item
+        Name = 'MONTO_DEUDA'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
         Name = 'SALDO'
         DataType = ftFloat
         Precision = -1
         Size = 0
       end    
       item
-        Name = 'FACTURAID'
-        DataType = ftInteger
+        Name = 'MONTO_FACTURADO'
+        DataType = ftFloat
         Precision = -1
         Size = 0
       end>
@@ -780,7 +787,6 @@ inherited PagoDataModule: TPagoDataModule
     SQL.Strings = (
       'select * from v_deudas'
       'where v_deudas.id = :deudaid'
-      'and v_deudas.facturaid is not null'
     )
     Params = <    
       item
@@ -903,6 +909,32 @@ inherited PagoDataModule: TPagoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+    end
+    object DeudaViewMONTO_FACTURADO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO_FACTURADO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object DeudaViewMONTO_DEUDA: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO_DEUDA'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
     end
   end
 end
