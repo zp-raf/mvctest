@@ -217,13 +217,13 @@ begin
       qryFacturaSUBTOTAL_IVA5.AsFloat + qryDetalleIVA5.AsFloat;
     qryFacturaSUBTOTAL_IVA10.AsFloat :=
       qryFacturaSUBTOTAL_IVA10.AsFloat + qryDetalleIVA10.AsFloat;
-    // totales iva
-    qryFacturaIVA5.AsFloat := qryFacturaIVA5.AsFloat +
-      qryFacturaSUBTOTAL_IVA5.AsFloat * I5Fac;
-    qryFacturaIVA10.AsFloat :=
-      qryFacturaIVA10.AsFloat + qryFacturaSUBTOTAL_IVA10.AsFloat * I10Fac;
     qryDetalle.Next;
   end;
+  // totales iva
+  qryFacturaIVA5.AsFloat := Round((qryFacturaSUBTOTAL_IVA5.AsFloat * I5Fac) /
+    (1 + I5Fac));
+  qryFacturaIVA10.AsFloat := Round((qryFacturaSUBTOTAL_IVA10.AsFloat * I10Fac) /
+    (1 + I10Fac));
   // sumatoria de iva5 e iva10
   qryFacturaIVA_TOTAL.AsFloat :=
     qryFacturaIVA_TOTAL.AsFloat + qryFacturaIVA10.AsFloat + qryFacturaIVA5.AsFloat;
@@ -473,14 +473,15 @@ begin
     ImpuestoView.ParamByName('arancelid').AsString := DeudaViewARANCELID.AsString;
     ImpuestoView.Open;
     ImpuestoView.First;
+    NuevaFacturaDetalle;
+    qryDetalleCANTIDAD.AsInteger := 1;
+    qryDetalleDEUDAID.Value := DeudaViewID.Value;
+    qryDetalleDETALLE.Value := DeudaViewDESCRIPCION.Value;
     // por ahora se maneja que tiene un solo impuesto pero en el futuro
     // puede tener mas por eso se hace el loop
     while not ImpuestoView.EOF do
     begin
-      NuevaFacturaDetalle;
-      qryDetalleCANTIDAD.AsInteger := 1;
-      qryDetalleDEUDAID.Value := DeudaViewID.Value;
-      qryDetalleDETALLE.Value := DeudaViewDESCRIPCION.Value;
+      // revisamos si es un impuesto incluido y segun eso ponemos el precio unitario
       if (ImpuestoViewINCLUIDO.AsInteger = 1) or (ImpuestoView.IsEmpty) then
         qryDetallePRECIO_UNITARIO.AsFloat :=
           (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat)
@@ -489,16 +490,25 @@ begin
           (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) +
           (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) *
           ImpuestoViewFACTOR.AsFloat;
-      // determinamos que impuesto tiene y lo ponemos en el campo apropiado
+      // determinamos que factor de impuesto tiene y lo ponemos en el campo apropiado
       if ImpuestoViewIMP_ID.AsInteger in impIVA10 then
+      begin
         qryDetalleIVA10.AsFloat :=
-          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat
+          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+        Break;
+      end
       else if ImpuestoViewIMP_ID.AsInteger in impIVA5 then
+      begin
         qryDetalleIVA5.AsFloat :=
-          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat
+          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+        Break;
+      end
       else
+      begin
         qryDetalleEXENTA.AsFloat :=
           qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+        Break;
+      end;
       ImpuestoView.Next;
     end;
     DeudaView.Next;
