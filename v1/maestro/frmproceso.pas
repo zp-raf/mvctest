@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, frmMaestro, mvc;
+  ButtonPanel, frmMaestro, mvc, observerSubject;
 
 type
 
@@ -16,10 +16,6 @@ type
     ButtonPanel1: TButtonPanel;
     procedure CloseButtonClick(Sender: TObject);
     procedure HelpButtonClick(Sender: TObject);
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var

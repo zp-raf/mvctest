@@ -1,0 +1,168 @@
+inherited ProcesoDocumentos: TProcesoDocumentos
+  Left = 675
+  Height = 600
+  Top = 270
+  Width = 800
+  Caption = 'Documentos'
+  ClientHeight = 580
+  ClientWidth = 800
+  Constraints.MinHeight = 600
+  Constraints.MinWidth = 800
+  OnDestroy = FormDestroy
+  inherited StatusBar1: TStatusBar
+    Top = 557
+    Width = 800
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 517
+    Width = 788
+  end
+  object PageControlDocs: TPageControl[2]
+    Left = 8
+    Height = 448
+    Top = 8
+    Width = 786
+    ActivePage = TabSheetFactura
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 0
+    TabOrder = 2
+    object TabSheetFactura: TTabSheet
+      Caption = 'Facturas sin cobrar'
+      ClientHeight = 420
+      ClientWidth = 778
+      OnShow = TabSheetFacturaShow
+      object DBGridFactura: TDBGrid
+        AnchorSideLeft.Control = TabSheetFactura
+        AnchorSideTop.Control = TabSheetFactura
+        AnchorSideRight.Control = TabSheetFactura
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = TabSheetFactura
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 420
+        Top = 0
+        Width = 778
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWindow
+        Columns = <>
+        DataSource = DocumentosDataModule.dsFacturas
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+        TabOrder = 0
+      end
+    end
+    object TabSheetFacturasCobradas: TTabSheet
+      Caption = 'Facturas cobradas'
+      ClientHeight = 420
+      ClientWidth = 778
+      OnShow = TabSheetFacturasCobradasShow
+      object DBGrid1: TDBGrid
+        AnchorSideLeft.Control = TabSheetFacturasCobradas
+        AnchorSideTop.Control = TabSheetFacturasCobradas
+        AnchorSideRight.Control = TabSheetFacturasCobradas
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = TabSheetFacturasCobradas
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 420
+        Top = 0
+        Width = 778
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWindow
+        Columns = <>
+        DataSource = DocumentosDataModule.dsFacturasCobradas
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+        TabOrder = 0
+      end
+    end
+    object TabSheetCobro: TTabSheet
+      Caption = 'Cobros'
+      ClientHeight = 420
+      ClientWidth = 778
+      OnShow = TabSheetCobroShow
+      object DBGridCobro: TDBGrid
+        AnchorSideLeft.Control = TabSheetCobro
+        AnchorSideTop.Control = TabSheetCobro
+        AnchorSideRight.Control = TabSheetCobro
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = TabSheetCobro
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 420
+        Top = 0
+        Width = 778
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWindow
+        Columns = <>
+        DataSource = DocumentosDataModule.dsCobros
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+        TabOrder = 0
+      end
+    end
+  end
+  object PanelAcciones: TPanel[3]
+    Left = 8
+    Height = 43
+    Top = 465
+    Width = 788
+    Anchors = [akLeft, akRight, akBottom]
+    ChildSizing.TopBottomSpacing = 8
+    ChildSizing.HorizontalSpacing = 16
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 5
+    ClientHeight = 43
+    ClientWidth = 788
+    TabOrder = 3
+    object ButtonCobrar: TButton
+      Left = 0
+      Height = 25
+      Top = 8
+      Width = 62
+      Caption = 'Cobrar'
+      OnClick = ButtonCobrarClick
+      TabOrder = 0
+    end
+    object ButtonVer: TButton
+      Left = 78
+      Height = 25
+      Top = 8
+      Width = 43
+      Caption = 'Ver'
+      OnClick = ButtonVerClick
+      TabOrder = 1
+    end
+    object ButtonImprimir: TButton
+      Left = 137
+      Height = 25
+      Top = 8
+      Width = 72
+      Caption = 'Imprimir'
+      TabOrder = 2
+    end
+    object ButtonAnular: TButton
+      Left = 225
+      Height = 25
+      Top = 8
+      Width = 61
+      Caption = 'Anular'
+      OnClick = ButtonAnularClick
+      TabOrder = 3
+    end
+    object ButtonAnularPago: TButton
+      Left = 302
+      Height = 25
+      Top = 8
+      Width = 91
+      Caption = 'Anular Pago'
+      OnClick = ButtonAnularPagoClick
+      TabOrder = 4
+    end
+  end
+  inherited MainMenu: TMainMenu[4]
+    left = 336
+    top = 32
+  end
+  inherited AppProps: TApplicationProperties[5]
+    left = 408
+    top = 32
+  end
+end

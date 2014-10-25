@@ -6,13 +6,15 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Menus, ctrl, mvc, observerSubject;
+  Menus, ComCtrls, ctrl, mvc, observerSubject, mensajes, frmquerydatamodule;
 
 resourcestring
   rsError = 'Error';
   rsInformation = 'Informacion';
   rsWarning = 'Advertencia';
   rsConfirmation = 'Confimación';
+  rsProvidedCont = 'Provided controller does not implements basic controller ' +
+    'funcionality';
 
 type
 
@@ -22,10 +24,12 @@ type
     La logica del negocio se maneja en el controlador. }
 
   TMaestro = class(TForm, IObserver, IView, IFormView)
+    StatusBar1: TStatusBar;
   private
     FController: IController;
     function GetController: IController;
     procedure SetController(AValue: IController);
+    procedure SetConnStatus(connected: boolean; host: string; username: string);
   published
     AppProps: TApplicationProperties;
     MainMenu: TMainMenu;
@@ -34,7 +38,7 @@ type
     MenuItemSalir: TMenuItem;
     MenuItemAyuda: TMenuItem;
     MenuItemAbout: TMenuItem;
-    procedure AppPropsException(Sender: TObject; E: Exception);
+    procedure AppPropsException(Sender: TObject; E: Exception); virtual;
     procedure CloseView(Sender: IController);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -46,7 +50,7 @@ type
       por eso le cambiamos el nombre del metodo Update de la interfaz
       por otro para que no haya conflictos ni cosas indeseadas }
     procedure IObserver.Update = ObserverUpdate;
-    procedure ObserverUpdate(const Subject: IInterface); virtual; abstract;
+    procedure ObserverUpdate(const Subject: IInterface); virtual;
     function ShowErrorMessage(AMsg: string): TModalResult;
     function ShowErrorMessage(ATitle: string; AMsg: string): TModalResult;
     function ShowInfoMessage(AMsg: string): TModalResult;
@@ -58,7 +62,6 @@ type
     property Controller: IController read GetController write SetController;
   public
     constructor Create(AOwner: IFormView; AController: IController); overload;
-
   { TODO: Aca faltaria un metodo Update() que sea llamado por el sujeto al cual esta
     adherido este observador. Por ejemplo para mostrar el estado de conexion de la
     base de datos en un Text. }
@@ -71,6 +74,7 @@ implementation
 
 {$R *.lfm}
 
+
 { TMaestro }
 
 procedure TMaestro.MenuItemAboutClick(Sender: TObject);
@@ -81,6 +85,32 @@ end;
 procedure TMaestro.MenuItemAyudaClick(Sender: TObject);
 begin
   Controller.ShowHelp(Self as IFormView);
+end;
+
+function TMaestro.GetController: IController;
+begin
+  Result := FController;
+end;
+
+procedure TMaestro.SetController(AValue: IController);
+begin
+  if FController = AValue then
+    Exit;
+  FController := AValue;
+end;
+
+procedure TMaestro.SetConnStatus(connected: boolean; host: string; username: string);
+begin
+  if connected then
+  begin
+    StatusBar1.Panels.Items[1].Text := 'Server: ' + host;
+    StatusBar1.Panels.Items[0].Text := username;
+  end
+  else
+  begin
+    StatusBar1.Panels.Items[1].Text := 'Desconectado';
+    StatusBar1.Panels.Items[0].Text := '';
+  end;
 end;
 
 procedure TMaestro.AppPropsException(Sender: TObject; E: Exception);
@@ -98,7 +128,6 @@ begin
   Controller.CloseQuery(Self, CanClose);
   if CanClose then
   begin
-    Controller := nil; // liberamos la referencia al objeto asi se destruye
     if GetOwner <> nil then
     begin
       TForm(GetOwner).Enabled := True;
@@ -107,20 +136,10 @@ begin
   end;
 end;
 
-procedure TMaestro.SetController(AValue: IController);
-begin
-  if FController = AValue then
-    Exit;
-  FController := AValue;
-end;
-
-function TMaestro.GetController: IController;
-begin
-  Result := FController;
-end;
-
 procedure TMaestro.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  if FController <> nil then
+    (FController.GetModel.MasterDataModule as ISubject).Detach(Sender as IObserver);
   CloseAction := caFree;
   if GetOwner <> nil then
   begin
@@ -135,11 +154,21 @@ begin
     TForm(GetOwner).Enabled := False;
   //if Visible then
   //  ObserverUpdate(nil); // actualizamos la vista
+  Controller.Connect(Self);
+  Controller.CloseDataSets(Self);
+  Controller.OpenDataSets(Self);
 end;
 
 procedure TMaestro.MenuItemSalirClick(Sender: TObject);
 begin
   Controller.Close(Self as IFormView);
+end;
+
+procedure TMaestro.ObserverUpdate(const Subject: IInterface);
+begin
+  if (Subject is IDBModel) then
+    SetConnStatus((Subject as IDBModel).GetDBStatus.Connected,
+      (Subject as IDBModel).GetDBStatus.Host, (Subject as IDBModel).GetDBStatus.User);
 end;
 
 function TMaestro.ShowErrorMessage(AMsg: string): TModalResult;
@@ -184,7 +213,10 @@ end;
 
 constructor TMaestro.Create(AOwner: IFormView; AController: IController);
 begin
-  inherited Create((AOwner as TComponent));
+  if AOwner is TComponent then
+    inherited Create((AOwner as TComponent))
+  else
+    inherited Create(nil);
   Controller := AController;
 end;
 

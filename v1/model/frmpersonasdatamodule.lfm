@@ -1,8 +1,8 @@
 inherited PersonasDataModule: TPersonasDataModule
   OnCreate = DataModuleCreate
   Height = 322
-  HorizontalOffset = 602
-  VerticalOffset = 183
+  HorizontalOffset = 1084
+  VerticalOffset = 341
   Width = 306
   object Persona: TSQLQuery[0]
     FieldDefs = <    
@@ -61,6 +61,7 @@ inherited PersonasDataModule: TPersonasDataModule
         Size = 0
       end>
     Filtered = True
+    AfterScroll = PersonaAfterScroll
     OnFilterRecord = FilterRecord
     OnNewRecord = PersonaNewRecord
     Database = sgcdDataModule.db
@@ -69,11 +70,149 @@ inherited PersonasDataModule: TPersonasDataModule
       'select * from persona'
     )
     Params = <>
-    left = 34
+    left = 32
     top = 30
+    object PersonaID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PersonaNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object PersonaAPELLIDO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'APELLIDO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object PersonaCEDULA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CEDULA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object PersonaRUC: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUC'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PersonaFECHANAC: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHANAC'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PersonaSEXO: TStringField
+      DisplayWidth = 1
+      FieldKind = fkData
+      FieldName = 'SEXO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 1
+    end
+    object PersonaNOMBRECOMPLETO: TStringField
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'NOMBRECOMPLETO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object PersonaACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
   end
   object Direccion: TSQLQuery[1]
-    FieldDefs = <>
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'IDPERSONA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CIUDAD'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'BARRIO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DEPARTAMENTO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
     AfterInsert = DireccionAfterInsert
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -82,16 +221,121 @@ inherited PersonasDataModule: TPersonasDataModule
     )
     Params = <    
       item
-        DataType = ftUnknown
-        Name = 'id'
+        DataType = ftInteger
+        Name = 'ID'
         ParamType = ptInput
+        Size = 4
       end>
-    DataSource = dsPersona
     left = 128
     top = 104
+    object DireccionID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object DireccionIDPERSONA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'IDPERSONA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object DireccionDIRECCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DIRECCION'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object DireccionCIUDAD: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CIUDAD'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object DireccionBARRIO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'BARRIO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DireccionDEPARTAMENTO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DEPARTAMENTO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DireccionDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   object Telefono: TSQLQuery[2]
-    FieldDefs = <>
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'IDPERSONA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PREFIJO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
     AfterInsert = TelefonoAfterInsert
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -100,27 +344,195 @@ inherited PersonasDataModule: TPersonasDataModule
     )
     Params = <    
       item
-        DataType = ftUnknown
-        Name = 'id'
+        DataType = ftInteger
+        Name = 'ID'
         ParamType = ptInput
+        Size = 4
       end>
-    DataSource = dsPersona
     left = 34
     top = 182
+    object TelefonoID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object TelefonoIDPERSONA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'IDPERSONA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object TelefonoPREFIJO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'PREFIJO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TelefonoNUMERO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NUMERO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object TelefonoDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
-  object dsPersona: TDatasource[3]
+  object dsPersona: TDataSource[3]
     DataSet = Persona
     left = 34
     top = 104
   end
-  object dsDireccion: TDatasource[4]
+  object dsDireccion: TDataSource[4]
     DataSet = Direccion
     left = 216
     top = 104
   end
-  object dsTelefono: TDatasource[5]
+  object dsTelefono: TDataSource[5]
     DataSet = Telefono
     left = 34
     top = 256
+  end
+  object PersonasRoles: TSQLQuery[6]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'APELLIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SEXO'
+        DataType = ftString
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'FECHANAC'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRECOMPLETO'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESALUMNO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESVEEDOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESINTERVENTOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESENCARGADO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESPROVEEDOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESCOORDINADOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESADMINISTRATIVO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESPROFESOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    Active = True
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from V_PERSONAS_ROLES'
+    )
+    Params = <>
+    left = 227
+    top = 272
+  end
+  object dsPersonasRoles: TDataSource[7]
+    DataSet = PersonasRoles
+    left = 227
+    top = 214
   end
 end

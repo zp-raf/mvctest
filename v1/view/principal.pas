@@ -13,14 +13,16 @@ type
   { TPrincipal1 }
 
   TPrincipal1 = class(TMaestro)
-    Button1: TButton;
-    MainMenu1: TMainMenu;
+    Asientos: TButton;
     Academico: TMenuItem;
     Administrativo: TMenuItem;
     ayuda2: TMenuItem;
     asistenciaProfesores: TMenuItem;
     aboutUs1: TMenuItem;
     ayuda1: TMenuItem;
+    ButtonComprobantes: TButton;
+    Documentos: TButton;
+    Pagos: TButton;
     gestionCurso: TMenuItem;
     academias: TMenuItem;
     grupos: TMenuItem;
@@ -40,9 +42,10 @@ type
     cuotaxarancel: TMenuItem;
     examenabm: TMenuItem;
     calificar: TMenuItem;
-    generarDeuda: TMenuItem;
+    MenuItemGenerarDeuda: TMenuItem;
     certificadoEstudio: TMenuItem;
     historicoMovimiento: TMenuItem;
+    MenuItemABMCuentas: TMenuItem;
     reportRegAsistencia: TMenuItem;
     reporte1: TMenuItem;
     calcularnota: TMenuItem;
@@ -68,18 +71,22 @@ type
     personasext: TMenuItem;
     reservaEquipo1: TMenuItem;
     registroAnecdotico1: TMenuItem;
-    StatusBar1: TStatusBar;
     trabajoPractico1: TMenuItem;
+    procedure AsientosClick(Sender: TObject);
+    procedure ButtonComprobantesClick(Sender: TObject);
+    procedure DocumentosClick(Sender: TObject);
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure generarDeudaClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure MenuItemGenerarDeudaClick(Sender: TObject);
+    procedure MenuItemABMCuentasClick(Sender: TObject);
+    procedure notaCreditoClick(Sender: TObject);
+    procedure PagosClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
-    procedure setConnStatus(connected: boolean; host: string);
-    procedure setLoggedUser(username: string);
     //procedure ayuda1Click(Sender: TObject);
-    procedure ObserverUpdate(const Subject: IInterface); override;
     procedure academiasClick(Sender: TObject);
     procedure allpersonasClick(Sender: TObject);
+    function GetCustomController: TPrincipalController;
   end;
 
 var
@@ -91,14 +98,6 @@ implementation
 
 { TPrincipal1 }
 
-procedure TPrincipal1.setConnStatus(connected: boolean; host: string);
-begin
-  if connected then
-    StatusBar1.Panels.Items[1].Text := 'Server: ' + host
-  else
-    StatusBar1.Panels.Items[1].Text := 'Desconectado';
-end;
-
 procedure TPrincipal1.SalirClick(Sender: TObject);
 begin
   Controller.Close(Self as IFormView);
@@ -106,7 +105,22 @@ end;
 
 procedure TPrincipal1.facturasClick(Sender: TObject);
 begin
-  (Controller as TPrincipalController).OpenFacturasForm(Self);
+  GetCustomController.OpenFacturasForm(Self);
+end;
+
+procedure TPrincipal1.AsientosClick(Sender: TObject);
+begin
+  GetCustomController.OpenAsientosFrom(Self);
+end;
+
+procedure TPrincipal1.ButtonComprobantesClick(Sender: TObject);
+begin
+  GetCustomController.OpenComprobantesForm(Self);
+end;
+
+procedure TPrincipal1.DocumentosClick(Sender: TObject);
+begin
+  GetCustomController.OpenDocumentosForm(Self);
 end;
 
 procedure TPrincipal1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -115,14 +129,30 @@ begin
   Application.Terminate;
 end;
 
-procedure TPrincipal1.generarDeudaClick(Sender: TObject);
+procedure TPrincipal1.FormShow(Sender: TObject);
 begin
-  (Controller as TPrincipalController).OpenVentaForm(Self);
+  inherited;
+  Controller.Connect(Self);
 end;
 
-procedure TPrincipal1.setLoggedUser(username: string);
+procedure TPrincipal1.MenuItemGenerarDeudaClick(Sender: TObject);
 begin
-  StatusBar1.Panels.Items[0].Text := username;
+  GetCustomController.OpenDeudaForm(Self);
+end;
+
+procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMCuentasForm(Self);
+end;
+
+procedure TPrincipal1.notaCreditoClick(Sender: TObject);
+begin
+  GetCustomController.OpenNotaCreditoForm(Self);
+end;
+
+procedure TPrincipal1.PagosClick(Sender: TObject);
+begin
+  GetCustomController.OpenPagosForm(Self);
 end;
 
 //procedure TPrincipal1.ayuda1Click(Sender: TObject);
@@ -132,21 +162,19 @@ end;
 //  //ShellExecute(Handle, 'open', 'help\ABMs\index.html', nil, nil, 1);
 //end;
 
-procedure TPrincipal1.ObserverUpdate(const Subject: IInterface);
-begin
-  //setConnStatus(Controller.IsDBConnected(Self),
-  //  (Controller as TPrincipalController).GetHostName(Self));
-  //setLoggedUser((Controller as TPrincipalController).GetUserName(Self));
-end;
-
 procedure TPrincipal1.academiasClick(Sender: TObject);
 begin
-  (Controller as TPrincipalController).ABMAcad(Self);
+  GetCustomController.ABMAcad(Self);
 end;
 
 procedure TPrincipal1.allpersonasClick(Sender: TObject);
 begin
-  (Controller as TPrincipalController).allpersonasClick(Self);
+  GetCustomController.allpersonasClick(Self);
+end;
+
+function TPrincipal1.GetCustomController: TPrincipalController;
+begin
+  Result := (Controller as TPrincipalController);
 end;
 
 end.

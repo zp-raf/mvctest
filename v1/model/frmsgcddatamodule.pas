@@ -12,6 +12,7 @@ resourcestring
   rsFromRdbDatab = ' from rdb$database';
   rsGEN_ID = 'GEN_ID';
   rsSelectNextVa = 'select next value for ';
+  rsErrorGenerator = 'Error al utilizar generator';
 
 type
 
@@ -20,6 +21,7 @@ type
   { para que pueda mandar actualizaciones a las vistas añadidas tiene que
     implementar la interfaz ISubject que tiene todos los metodos pertinentes }
   TSgcdDataModule = class(TDataModule, ISubject, IDBModel)
+    qryGenerators: TSQLQuery;
     procedure DataModuleDestroy(Sender: TObject);
   private
     FSubject: ISubject;
@@ -36,6 +38,7 @@ type
     function DevuelveValor(AQry: string; NombreCampoADevolver: string): string;
     function GetDBStatus: TDBInfo;
     function NextValue(gen: string): integer;
+    procedure Rollback;
 
     { En la arquitectura Observer-Subject el sujeto notifica a los observadores
       (en nuestro caso las vistas) para que se actualicen. }
@@ -92,8 +95,8 @@ procedure TSgcdDataModule.Disconnect;
 begin
   if DB.Connected and tran.Active then
   begin
-    tran.CloseDataSets;
-    tran.Rollback;
+    //tran.CloseDataSets;
+    //tran.Rollback;
     DB.Connected := False;
   end
   else if not DB.Connected then
@@ -147,7 +150,15 @@ end;
 
 function TSgcdDataModule.NextValue(gen: string): integer;
 begin
+  //qryGenerators.Open;
+  //if not qryGenerators.Locate('RDB$GENERATOR_NAME', gen, [loCaseInsensitive]) then
+  //  raise EDatabaseError.Create(rsErrorGenerator);
   Result := StrToInt(DevuelveValor(rsSelectNextVa + gen + rsFromRdbDatab, rsGEN_ID));
+end;
+
+procedure TSgcdDataModule.Rollback;
+begin
+  tran.Rollback;
 end;
 
 end.

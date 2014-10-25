@@ -2,10 +2,10 @@ object sgcdDataModule: TsgcdDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
-  Height = 98
+  Height = 193
   HorizontalOffset = 733
   VerticalOffset = 291
-  Width = 166
+  Width = 234
   object db: TIBConnection
     Connected = True
     LoginPrompt = False
@@ -22,7 +22,7 @@ object sgcdDataModule: TsgcdDataModule
     top = 48
   end
   object tran: TSQLTransaction
-    Active = False
+    Active = True
     Action = caNone
     Database = db
     left = 16
@@ -35,5 +35,25 @@ object sgcdDataModule: TsgcdDataModule
     Params = <>
     left = 79
     top = 33
+  end
+  object qryGenerators: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'RDB$GENERATOR_NAME'
+        DataType = ftFixedChar
+        Precision = -1
+        Size = 93
+      end>
+    Database = db
+    Transaction = tran
+    ReadOnly = True
+    SQL.Strings = (
+      'SELECT RDB$GENERATOR_NAME'
+      'FROM RDB$GENERATORS'
+      'WHERE RDB$SYSTEM_FLAG=0'
+    )
+    Params = <>
+    left = 61
+    top = 104
   end
 end

@@ -1,0 +1,116 @@
+inherited AbmCuentas: TAbmCuentas
+  Caption = 'ABM Cuentas'
+  ClientHeight = 461
+  OnCreate = FormCreate
+  inherited PanelDetail: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEdit1: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 120
+      Width = 608
+      DataField = 'CODIGO'
+      DataSource = CuentaDataModule.dsCuenta
+      Anchors = [akTop, akLeft, akRight]
+      CharCase = ecNormal
+      MaxLength = 255
+      TabOrder = 2
+    end
+    object DBEdit2: TDBEdit[1]
+      Left = 16
+      Height = 23
+      Top = 21
+      Width = 608
+      DataField = 'NOMBRE'
+      DataSource = CuentaDataModule.dsCuenta
+      Anchors = [akTop, akLeft, akRight]
+      CharCase = ecNormal
+      MaxLength = 255
+      TabOrder = 0
+    end
+    object Nombre: TLabel[2]
+      AnchorSideLeft.Control = DBEdit2
+      AnchorSideBottom.Control = DBEdit2
+      Left = 16
+      Height = 15
+      Top = 6
+      Width = 106
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre (requerido)'
+      ParentColor = False
+    end
+    object Codigo: TLabel[3]
+      AnchorSideLeft.Control = DBEdit1
+      AnchorSideBottom.Control = DBEdit1
+      Left = 16
+      Height = 15
+      Top = 105
+      Width = 101
+      Anchors = [akLeft, akBottom]
+      Caption = 'Codigo (requerido)'
+      ParentColor = False
+    end
+    object DBRadioGroupTipo: TDBRadioGroup[4]
+      Left = 16
+      Height = 65
+      Top = 160
+      Width = 168
+      Caption = 'Naturaleza (requerido)'
+      DataField = 'NATURALEZA'
+      DataSource = CuentaDataModule.dsCuenta
+      Items.Strings = (
+        'Deudora'
+        'Acreedora'
+      )
+      TabOrder = 3
+      Values.Strings = (
+        'D'
+        'A'
+      )
+    end
+    object DBLookupComboBox1: TDBLookupComboBox[5]
+      Left = 16
+      Height = 23
+      Top = 72
+      Width = 608
+      Anchors = [akTop, akLeft, akRight]
+      AutoComplete = True
+      DataField = 'CUENTA_PADRE'
+      DataSource = CuentaDataModule.dsCuenta
+      KeyField = 'ID'
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = CuentaDataModule.dsCuentaAux
+      LookupCache = False
+      NullValueKey = 46
+      OnEditingDone = DBLookupComboBox1EditingDone
+      ScrollListDataset = True
+      TabOrder = 1
+    end
+    object LabelCuentaPadre: TLabel[6]
+      AnchorSideLeft.Control = DBLookupComboBox1
+      AnchorSideBottom.Control = DBLookupComboBox1
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 71
+      Anchors = [akLeft, akBottom]
+      Caption = 'Cuenta Padre'
+      ParentColor = False
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = CuentaDataModule.dsCuenta
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = CuentaDataModule.dsCuenta
+      Hints.Strings = (      )
+    end
+  end
+end

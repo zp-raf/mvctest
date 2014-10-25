@@ -3,11 +3,29 @@ object Maestro: TMaestro
   Height = 241
   Top = 296
   Width = 320
+  ClientHeight = 221
+  ClientWidth = 320
   Menu = MainMenu
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnShow = FormShow
   LCLVersion = '1.2.4.0'
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 198
+    Width = 320
+    Panels = <    
+      item
+        Text = 'User'
+        Width = 80
+      end    
+      item
+        Text = 'Host'
+        Width = 50
+      end>
+    SimplePanel = False
+  end
   object MainMenu: TMainMenu
     left = 16
     top = 64

@@ -1,7 +1,7 @@
 inherited Principal1: TPrincipal1
-  Left = 863
+  Left = 666
   Height = 100
-  Top = 506
+  Top = 389
   Width = 455
   Anchors = []
   Caption = 'SGCD'
@@ -11,24 +11,50 @@ inherited Principal1: TPrincipal1
   Constraints.MinHeight = 100
   Constraints.MinWidth = 310
   OnClose = FormClose
-  object StatusBar1: TStatusBar[0]
-    Left = 0
-    Height = 23
+  OnShow = FormShow
+  inherited StatusBar1: TStatusBar
     Top = 57
     Width = 455
-    Panels = <    
-      item
-        Text = 'User'
-        Width = 80
-      end    
-      item
-        Text = 'Host'
-        Width = 50
-      end>
-    SimplePanel = False
   end
-  inherited MainMenu: TMainMenu[1]
-    left = 80
+  object Asientos: TButton[1]
+    Left = 264
+    Height = 25
+    Top = 16
+    Width = 75
+    Caption = 'Asientos'
+    OnClick = AsientosClick
+    TabOrder = 1
+  end
+  object Pagos: TButton[2]
+    Left = 352
+    Height = 25
+    Top = 16
+    Width = 75
+    Caption = 'Pagos'
+    OnClick = PagosClick
+    TabOrder = 2
+  end
+  object Documentos: TButton[3]
+    Left = 173
+    Height = 25
+    Top = 16
+    Width = 75
+    Caption = 'Documentos'
+    OnClick = DocumentosClick
+    TabOrder = 3
+  end
+  object ButtonComprobantes: TButton[4]
+    Left = 24
+    Height = 25
+    Top = 16
+    Width = 141
+    AutoSize = True
+    Caption = 'ButtonComprobantes'
+    OnClick = ButtonComprobantesClick
+    TabOrder = 4
+  end
+  inherited MainMenu: TMainMenu[5]
+    left = 64
     top = 8
     object Academico: TMenuItem[1]
       Caption = 'A&cademico'
@@ -123,6 +149,10 @@ inherited Principal1: TPrincipal1
         object talonarios: TMenuItem
           Caption = 'ABM &Talonarios'
         end
+        object MenuItemABMCuentas: TMenuItem
+          Caption = 'ABM C&uentas'
+          OnClick = MenuItemABMCuentasClick
+        end
         object multas: TMenuItem
           Caption = 'Actualizar &multas'
         end
@@ -132,6 +162,7 @@ inherited Principal1: TPrincipal1
         end
         object notaCredito: TMenuItem
           Caption = 'Nota de &crédito'
+          OnClick = notaCreditoClick
         end
         object recibo: TMenuItem
           Caption = 'Emisión de &recibos'
@@ -139,9 +170,9 @@ inherited Principal1: TPrincipal1
         object historico: TMenuItem
           Caption = '&Historico de Movimientos'
         end
-        object generarDeuda: TMenuItem
+        object MenuItemGenerarDeuda: TMenuItem
           Caption = 'Generar &deudas'
-          OnClick = generarDeudaClick
+          OnClick = MenuItemGenerarDeudaClick
         end
         object cuentasCobrar: TMenuItem
           Caption = 'Cuentas por c&obrar'
@@ -193,7 +224,7 @@ inherited Principal1: TPrincipal1
       OnClick = SalirClick
     end
   end
-  inherited AppProps: TApplicationProperties[2]
+  inherited AppProps: TApplicationProperties[6]
     left = 184
     top = 8
   end

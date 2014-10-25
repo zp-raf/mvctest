@@ -1,0 +1,416 @@
+inherited ProcesoPago: TProcesoPago
+  Left = 568
+  Height = 680
+  Top = 147
+  Width = 1080
+  Caption = 'Cobro'
+  ClientHeight = 660
+  ClientWidth = 1080
+  Constraints.MinHeight = 680
+  Constraints.MinWidth = 1080
+  OnCreate = FormCreate
+  OnHide = FormHide
+  OnShow = FormShow
+  Position = poDesktopCenter
+  ShowInTaskBar = stAlways
+  inherited StatusBar1: TStatusBar
+    Top = 637
+    Width = 1080
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 597
+    Width = 1068
+    OKButton.OnClick = OKButtonClick
+    CancelButton.OnClick = CancelButtonClick
+    ShowButtons = [pbOK, pbCancel, pbHelp]
+  end
+  object GroupBoxTotales: TGroupBox[2]
+    Left = 8
+    Height = 224
+    Top = 0
+    Width = 1064
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Totales'
+    ClientHeight = 206
+    ClientWidth = 1060
+    TabOrder = 1
+    object LabelEfectivo: TLabel
+      AnchorSideBottom.Side = asrCenter
+      Left = 36
+      Height = 15
+      Top = 48
+      Width = 42
+      BorderSpacing.Right = 8
+      Caption = 'Efectivo'
+      ParentColor = False
+    end
+    object LabelTotal: TLabel
+      AnchorSideBottom.Side = asrCenter
+      Left = 9
+      Height = 15
+      Top = 17
+      Width = 69
+      BorderSpacing.Right = 8
+      Caption = 'Total a pagar'
+      ParentColor = False
+    end
+    object DBEditTotal: TDBEdit
+      AnchorSideLeft.Control = LabelTotal
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideBottom.Control = LabelTotal
+      AnchorSideBottom.Side = asrCenter
+      Left = 86
+      Height = 23
+      Top = 12
+      Width = 168
+      DataField = 'MONTO'
+      DataSource = PagoDataModule.dsPago
+      ReadOnly = True
+      Anchors = [akLeft, akBottom]
+      CharCase = ecNormal
+      Color = clInfoBk
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object LabelCheques: TLabel
+      AnchorSideBottom.Side = asrCenter
+      Left = 32
+      Height = 15
+      Top = 80
+      Width = 46
+      BorderSpacing.Right = 8
+      Caption = 'Cheques'
+      ParentColor = False
+    end
+    object LabelTarjetas: TLabel
+      AnchorSideBottom.Side = asrCenter
+      Left = 37
+      Height = 15
+      Top = 112
+      Width = 41
+      BorderSpacing.Right = 8
+      Caption = 'Tarjetas'
+      ParentColor = False
+    end
+    object LabelTotalPagado: TLabel
+      AnchorSideBottom.Side = asrCenter
+      Left = 8
+      Height = 15
+      Top = 144
+      Width = 70
+      BorderSpacing.Right = 8
+      Caption = 'Total pagado'
+      ParentColor = False
+    end
+    object LabelVuelto: TLabel
+      AnchorSideBottom.Side = asrCenter
+      Left = 44
+      Height = 15
+      Top = 176
+      Width = 34
+      BorderSpacing.Right = 8
+      Caption = 'Vuelto'
+      ParentColor = False
+    end
+    object DBEditEfectivo: TDBEdit
+      AnchorSideLeft.Control = LabelEfectivo
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelEfectivo
+      AnchorSideTop.Side = asrCenter
+      Left = 86
+      Height = 23
+      Top = 44
+      Width = 168
+      DataField = 'EFECTIVO'
+      DataSource = PagoDataModule.dsPago
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object DBEditCheques: TDBEdit
+      AnchorSideLeft.Control = LabelCheques
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelCheques
+      AnchorSideTop.Side = asrCenter
+      Left = 86
+      Height = 23
+      Top = 76
+      Width = 168
+      DataField = 'CHEQUES'
+      DataSource = PagoDataModule.dsPago
+      ReadOnly = True
+      CharCase = ecNormal
+      Color = clInfoBk
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object DBEditTarjeta: TDBEdit
+      AnchorSideLeft.Control = LabelTarjetas
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelTarjetas
+      AnchorSideTop.Side = asrCenter
+      Left = 86
+      Height = 23
+      Top = 108
+      Width = 168
+      DataField = 'TARJETAS'
+      DataSource = PagoDataModule.dsPago
+      ReadOnly = True
+      CharCase = ecNormal
+      Color = clInfoBk
+      MaxLength = 0
+      TabOrder = 3
+    end
+    object DBEditPagado: TDBEdit
+      AnchorSideLeft.Control = LabelTotalPagado
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelTotalPagado
+      AnchorSideTop.Side = asrCenter
+      Left = 86
+      Height = 23
+      Top = 140
+      Width = 168
+      DataField = 'TOTALPAGADO'
+      DataSource = PagoDataModule.dsPago
+      ReadOnly = True
+      CharCase = ecNormal
+      Color = clInfoBk
+      MaxLength = 0
+      TabOrder = 4
+    end
+    object DBEditVuelto: TDBEdit
+      AnchorSideLeft.Control = LabelVuelto
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelVuelto
+      AnchorSideTop.Side = asrCenter
+      Left = 86
+      Height = 23
+      Top = 172
+      Width = 168
+      DataField = 'VUELTO'
+      DataSource = PagoDataModule.dsPago
+      ReadOnly = True
+      CharCase = ecNormal
+      Color = clInfoBk
+      MaxLength = 0
+      TabOrder = 5
+    end
+  end
+  object GroupBoxDetalles: TGroupBox[3]
+    AnchorSideLeft.Control = GroupBoxTotales
+    AnchorSideTop.Control = GroupBoxTotales
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 368
+    Top = 224
+    Width = 1062
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Caption = 'Detalles'
+    ClientHeight = 350
+    ClientWidth = 1058
+    TabOrder = 2
+    object PairSplitter1: TPairSplitter
+      AnchorSideLeft.Control = GroupBoxDetalles
+      AnchorSideTop.Control = GroupBoxDetalles
+      AnchorSideRight.Control = GroupBoxDetalles
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = GroupBoxDetalles
+      AnchorSideBottom.Side = asrBottom
+      Left = 0
+      Height = 350
+      Top = 0
+      Width = 1058
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Position = 400
+      object PairSplitterSide1: TPairSplitterSide
+        Cursor = crArrow
+        Left = 0
+        Height = 350
+        Top = 0
+        Width = 400
+        ClientWidth = 400
+        ClientHeight = 350
+        object DBGridCheques: TDBGrid
+          AnchorSideLeft.Control = PairSplitterSide1
+          AnchorSideTop.Control = LabelDetCheques
+          AnchorSideTop.Side = asrBottom
+          AnchorSideRight.Control = PairSplitterSide1
+          AnchorSideRight.Side = asrBottom
+          AnchorSideBottom.Control = DBNavigatorCheques
+          Left = 8
+          Height = 298
+          Top = 23
+          Width = 384
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          BorderSpacing.Left = 8
+          BorderSpacing.Top = 8
+          BorderSpacing.Right = 8
+          BorderSpacing.Bottom = 4
+          Color = clWindow
+          Columns = <          
+            item
+              Title.Caption = 'MONTO'
+              Width = 80
+              FieldName = 'MONTO'
+            end          
+            item
+              Title.Caption = 'NRO_CHEQUE'
+              Width = 120
+              FieldName = 'NRO_CHEQUE'
+            end          
+            item
+              Title.Caption = 'EMISOR_CHEQUE'
+              Width = 108
+              FieldName = 'EMISOR_CHEQUE'
+            end>
+          DataSource = PagoDataModule.dsCheques
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
+          TabOrder = 0
+        end
+        object LabelDetCheques: TLabel
+          AnchorSideLeft.Control = PairSplitterSide1
+          AnchorSideTop.Control = PairSplitterSide1
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 46
+          BorderSpacing.Left = 8
+          Caption = 'Cheques'
+          ParentColor = False
+        end
+        object DBNavigatorCheques: TDBNavigator
+          AnchorSideLeft.Control = PairSplitterSide1
+          AnchorSideTop.Side = asrBottom
+          AnchorSideBottom.Control = PairSplitterSide1
+          AnchorSideBottom.Side = asrBottom
+          Left = 8
+          Height = 25
+          Top = 325
+          Width = 241
+          Anchors = [akLeft, akBottom]
+          BevelOuter = bvNone
+          BorderSpacing.Left = 8
+          ChildSizing.EnlargeHorizontal = crsScaleChilds
+          ChildSizing.EnlargeVertical = crsScaleChilds
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsScaleChilds
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 100
+          ClientHeight = 25
+          ClientWidth = 241
+          ConfirmDelete = False
+          DataSource = PagoDataModule.dsCheques
+          Options = []
+          TabOrder = 1
+          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+        end
+      end
+      object PairSplitterSide2: TPairSplitterSide
+        Cursor = crArrow
+        Left = 405
+        Height = 350
+        Top = 0
+        Width = 653
+        ClientWidth = 653
+        ClientHeight = 350
+        object LabelDetTarjetas: TLabel
+          AnchorSideLeft.Control = PairSplitterSide2
+          AnchorSideTop.Control = PairSplitterSide2
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 41
+          BorderSpacing.Left = 8
+          Caption = 'Tarjetas'
+          ParentColor = False
+        end
+        object DBGridTarjetas: TDBGrid
+          AnchorSideLeft.Control = PairSplitterSide2
+          AnchorSideTop.Control = LabelDetTarjetas
+          AnchorSideTop.Side = asrBottom
+          AnchorSideRight.Control = PairSplitterSide2
+          AnchorSideRight.Side = asrBottom
+          AnchorSideBottom.Control = DBNavigatorTarjetas
+          Left = 8
+          Height = 298
+          Top = 23
+          Width = 637
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          BorderSpacing.Left = 8
+          BorderSpacing.Top = 8
+          BorderSpacing.Right = 8
+          BorderSpacing.Bottom = 4
+          Color = clWindow
+          Columns = <          
+            item
+              Title.Caption = 'MONTO'
+              Width = 80
+              FieldName = 'MONTO'
+            end          
+            item
+              Title.Caption = 'NRO_TARJETA'
+              Width = 120
+              FieldName = 'NRO_TARJETA'
+            end          
+            item
+              Title.Caption = 'EMISOR_TARJETA'
+              Width = 109
+              FieldName = 'EMISOR_TARJETA'
+            end          
+            item
+              Title.Caption = 'COMPROBANTE_TARJETA'
+              Width = 155
+              FieldName = 'COMPROBANTE_TARJETA'
+            end          
+            item
+              PickList.Strings = (
+                'TARJETA_CREDITO'
+                'TARJETA_DEBITO'
+              )
+              Title.Caption = 'TIPOPAGO'
+              Width = 128
+              FieldName = 'TIPOPAGO'
+            end>
+          DataSource = PagoDataModule.dsTarjetas
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
+          TabOrder = 0
+        end
+        object DBNavigatorTarjetas: TDBNavigator
+          AnchorSideLeft.Control = PairSplitterSide2
+          AnchorSideTop.Side = asrBottom
+          AnchorSideBottom.Control = PairSplitterSide2
+          AnchorSideBottom.Side = asrBottom
+          Left = 8
+          Height = 25
+          Top = 325
+          Width = 241
+          Anchors = [akLeft, akBottom]
+          BevelOuter = bvNone
+          BorderSpacing.Left = 8
+          BorderSpacing.Top = 4
+          ChildSizing.EnlargeHorizontal = crsScaleChilds
+          ChildSizing.EnlargeVertical = crsScaleChilds
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsScaleChilds
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 100
+          ClientHeight = 25
+          ClientWidth = 241
+          ConfirmDelete = False
+          DataSource = PagoDataModule.dsTarjetas
+          Options = []
+          TabOrder = 1
+          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+        end
+      end
+    end
+  end
+  inherited MainMenu: TMainMenu[4]
+    left = 760
+    top = 24
+  end
+  inherited AppProps: TApplicationProperties[5]
+    left = 848
+    top = 24
+  end
+end

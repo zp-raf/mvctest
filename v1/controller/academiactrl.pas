@@ -5,13 +5,13 @@ unit academiactrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmacademiadatamodule;
+  Classes, SysUtils, ctrl;
 
 type
 
   { TAcademiaController }
 
-  TAcademiaController = class(TController)
+  TAcademiaController = class(TABMController)
   end;
 
 var

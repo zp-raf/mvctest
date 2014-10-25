@@ -1,0 +1,193 @@
+inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
+  OnCreate = DataModuleCreate
+  Height = 242
+  HorizontalOffset = 800
+  VerticalOffset = 259
+  Width = 292
+  object dsDeuda: TDataSource[0]
+    DataSet = Deuda
+    left = 40
+    top = 32
+  end
+  object Deuda: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ARANCELID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATRICULAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'CANTIDAD_CUOTAS'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CUOTA_NRO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VENCIMIENTO'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MONTO_DEUDA'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end>
+    BeforePost = DeudaBeforePost
+    OnNewRecord = DeudaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from deuda'
+    )
+    Params = <>
+    left = 40
+    top = 112
+    object DeudaID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object DeudaARANCELID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ARANCELID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object DeudaMATRICULAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATRICULAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DeudaACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object DeudaDESCRIPCION: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 512
+    end
+    object DeudaCANTIDAD_CUOTAS: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CANTIDAD_CUOTAS'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DeudaCUOTA_NRO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CUOTA_NRO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DeudaVENCIMIENTO: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VENCIMIENTO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DeudaMONTO_DEUDA: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO_DEUDA'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+  end
+  object dsPers: TDataSource[2]
+    DataSet = PersonasDataModule.Persona
+    left = 120
+    top = 32
+  end
+  object dsCuota: TDataSource[3]
+    DataSet = CuotaArancelDataModule.CuotaXArancel
+    left = 120
+    top = 112
+  end
+  object dsCod: TDataSource[4]
+    left = 200
+    top = 32
+  end
+  object dsAran: TDataSource[5]
+    DataSet = ArancelesDataModule.Arancel
+    left = 200
+    top = 112
+  end
+end

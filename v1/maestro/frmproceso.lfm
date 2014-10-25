@@ -1,7 +1,7 @@
 inherited Proceso: TProceso
   Height = 348
   Width = 453
-  ClientHeight = 348
+  ClientHeight = 328
   ClientWidth = 453
   object ButtonPanel1: TButtonPanel[0]
     Left = 6
