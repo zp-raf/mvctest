@@ -1,4 +1,4 @@
-unit buscaralctrl;
+unit buscarpersctrl;
 
 {$mode objfpc}{$H+}
 
@@ -11,22 +11,25 @@ type
 
   { TBuscarAlumnosController }
 
-  TBuscarAlumnosController = class(TController)
+  TBuscarPersonasController = class(TController)
   public
     procedure Aceptar(Sender: IFormView);
     procedure Cancelar(Sender: IFormView);
   end;
 
+var
+  BuscarPersonasController: TBuscarPersonasController;
+
 implementation
 
 { TBuscarAlumnosController }
 
-procedure TBuscarAlumnosController.Aceptar(Sender: IFormView);
+procedure TBuscarPersonasController.Aceptar(Sender: IFormView);
 begin
 
 end;
 
-procedure TBuscarAlumnosController.Cancelar(Sender: IFormView);
+procedure TBuscarPersonasController.Cancelar(Sender: IFormView);
 begin
 
 end;

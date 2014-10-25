@@ -1,0 +1,5 @@
+inherited ReciboDataModule: TReciboDataModule
+  inherited tal: TSQLQuery
+    IndexName = ''
+  end
+end

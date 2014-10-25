@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, ctrl, frmdocumentosdatamodule, mvc, frmfacturadatamodule2,
-  frmpagodatamodule, pagoctrl, frmpago, Controls;
+  frmpagodatamodule, pagoctrl, frmpago, Controls, sgcdTypes;
 
 type
 
@@ -19,6 +19,7 @@ type
     procedure SetCustomModel(AValue: TDocumentosDataModule);
     procedure SetPagoController(AValue: TPagoController);
   public
+    procedure BeforeDestruction; override;
     constructor Create(AModel: IModel);
     procedure AnularDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
     procedure AnularDoc(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
@@ -49,6 +50,12 @@ begin
   if FPagoController = AValue then
     Exit;
   FPagoController := AValue;
+end;
+
+procedure TDocumentosController.BeforeDestruction;
+begin
+  CustomModel := nil;
+  inherited BeforeDestruction;
 end;
 
 constructor TDocumentosController.Create(AModel: IModel);

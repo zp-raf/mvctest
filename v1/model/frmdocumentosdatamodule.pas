@@ -62,8 +62,8 @@ type
     FacturasViewTIPO_COMPROBANTE: TLongintField;
     FacturasViewTOTAL: TFloatField;
     FacturasViewVALIDO: TSmallintField;
+    procedure BeforeDestruction; override;
     procedure DataModuleCreate(Sender: TObject); override;
-    procedure DataModuleDestroy(Sender: TObject);
     //property Codigos: TCodigosDataModule read FCodigos write SetCodigos;
     property Pagos: TPagoDataModule read FPagos write SetPagos;
   end;
@@ -85,6 +85,12 @@ begin
   FPagos := AValue;
 end;
 
+procedure TDocumentosDataModule.BeforeDestruction;
+begin
+  FPagos := nil;
+  inherited BeforeDestruction;
+end;
+
 procedure TDocumentosDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
@@ -95,13 +101,6 @@ begin
   AuxQryList.Add(TObject(FacturasView));
   AuxQryList.Add(TObject(CobrosView));
   AuxQryList.Add(TObject(FacturasCobradasView));
-end;
-
-procedure TDocumentosDataModule.DataModuleDestroy(Sender: TObject);
-begin
-  inherited;
-  //FCodigos.Free;
-  FPagos.Free;
 end;
 
 //procedure TDocumentosDataModule.SetCodigos(AValue: TCodigosDataModule);

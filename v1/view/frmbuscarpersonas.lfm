@@ -1,25 +1,21 @@
-inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
-  Left = 66
+object PopupSeleccionPersonas: TPopupSeleccionPersonas
+  Left = 500
   Height = 512
-  Top = 82
-  Width = 1024
+  Top = 300
+  Width = 1128
   HorzScrollBar.Page = 586
   VertScrollBar.Page = 525
   Caption = 'Seleccionar Personas'
-  ClientHeight = 492
-  ClientWidth = 1024
+  ClientHeight = 512
+  ClientWidth = 1128
   Constraints.MinHeight = 512
   Constraints.MinWidth = 1024
-  OnClose = FormClose
-  inherited StatusBar1: TStatusBar
-    Top = 469
-    Width = 1024
-  end
-  object DBGrid1: TDBGrid[1]
+  LCLVersion = '1.2.4.0'
+  object DBGrid1: TDBGrid
     Left = 8
-    Height = 354
+    Height = 350
     Top = 96
-    Width = 1011
+    Width = 1115
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWindow
     Columns = <    
@@ -87,12 +83,12 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
         Width = 70
         FieldName = 'ESVEEDOR'
       end>
-    DataSource = PersonasDataModule.dsPersonasRoles
+    DataSource = FacturasDataModule.dsPersonasRoles
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
     ReadOnly = True
     TabOrder = 1
   end
-  object LabeledEdit1: TLabeledEdit[2]
+  object LabeledEdit1: TLabeledEdit
     AnchorSideLeft.Control = DBGrid1
     AnchorSideBottom.Control = DBGrid1
     Left = 8
@@ -113,27 +109,27 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
     EditLabel.ParentColor = False
     TabOrder = 0
   end
-  object ButtonOK: TButton[3]
-    Left = 847
+  object ButtonOK: TButton
+    Left = 951
     Height = 25
-    Top = 456
+    Top = 460
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Aceptar'
     ModalResult = 1
     TabOrder = 2
   end
-  object ButtonCancel: TButton[4]
-    Left = 935
+  object ButtonCancel: TButton
+    Left = 1039
     Height = 25
-    Top = 456
+    Top = 460
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Cancelar'
     ModalResult = 2
     TabOrder = 3
   end
-  object Personas: TRadioGroup[5]
+  object Personas: TRadioGroup
     AnchorSideLeft.Side = asrBottom
     Left = 256
     Height = 88
@@ -159,13 +155,5 @@ inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
       'Proveedores'
     )
     TabOrder = 4
-  end
-  inherited MainMenu: TMainMenu[6]
-    left = 104
-    top = 0
-  end
-  inherited AppProps: TApplicationProperties[7]
-    left = 184
-    top = 0
   end
 end

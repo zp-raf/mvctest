@@ -5,7 +5,7 @@ unit pagoctrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmpagodatamodule, mvc, asientosctrl;
+  Classes, SysUtils, ctrl, frmpagodatamodule, mvc, asientosctrl, sgcdtypes;
 
 type
 

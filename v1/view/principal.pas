@@ -20,6 +20,7 @@ type
     asistenciaProfesores: TMenuItem;
     aboutUs1: TMenuItem;
     ayuda1: TMenuItem;
+    ButtonComprobantes: TButton;
     Documentos: TButton;
     Pagos: TButton;
     gestionCurso: TMenuItem;
@@ -72,6 +73,7 @@ type
     registroAnecdotico1: TMenuItem;
     trabajoPractico1: TMenuItem;
     procedure AsientosClick(Sender: TObject);
+    procedure ButtonComprobantesClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -111,6 +113,11 @@ begin
   GetCustomController.OpenAsientosFrom(Self);
 end;
 
+procedure TPrincipal1.ButtonComprobantesClick(Sender: TObject);
+begin
+  GetCustomController.OpenComprobantesForm(Self);
+end;
+
 procedure TPrincipal1.DocumentosClick(Sender: TObject);
 begin
   GetCustomController.OpenDocumentosForm(Self);
@@ -140,7 +147,7 @@ end;
 
 procedure TPrincipal1.notaCreditoClick(Sender: TObject);
 begin
-   GetCustomController.OpenNotaCreditoForm(Self);
+  GetCustomController.OpenNotaCreditoForm(Self);
 end;
 
 procedure TPrincipal1.PagosClick(Sender: TObject);

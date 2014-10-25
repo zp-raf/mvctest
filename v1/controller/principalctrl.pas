@@ -46,7 +46,11 @@ uses
   // Documentos
   frmdocumentosdatamodule,
   frmprocesodocumentos,
-  documentosctrl;
+  documentosctrl,
+  // Comprobantes(test)
+  frmcomprobantedatamodule,
+  frmprocesocomprobante,
+  comprobantectrl;
 
 type
 
@@ -63,6 +67,7 @@ type
     procedure OpenPagosForm(Sender: IFormView);
     procedure OpenDocumentosForm(Sender: IFormView);
     procedure OpenNotaCreditoForm(Sender: IFormView);
+    procedure OpenComprobantesForm(Sender: IFormView);
   end;
 
 var
@@ -140,6 +145,15 @@ begin
     (Sender as TComponent), Model.MasterDataModule)));
   ProcesoNotaCredito.Show;
   (Model.MasterDataModule as ISubject).Attach(ProcesoNotaCredito as IObserver);
+end;
+
+procedure TPrincipalController.OpenComprobantesForm(Sender: IFormView);
+begin
+  ProcesoComprobante := TProcesoComprobante.Create(Sender,
+    TComprobanteController.Create(TComprobanteDataModule.Create(
+    (Sender as TComponent), Model.MasterDataModule)));
+  ProcesoComprobante.Show;
+  (Model.MasterDataModule as ISubject).Attach(ProcesoComprobante as IObserver);
 end;
 
 procedure TPrincipalController.OpenDocumentosForm(Sender: IFormView);

@@ -31,7 +31,8 @@ type
     function GetModel: IModel;
   public
     constructor Create(AModel: IModel);
-    destructor Destroy; override;
+    //destructor Destroy; override;
+    procedure BeforeDestruction; override;
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
     procedure CloseDataSets(Sender: IView);
@@ -238,19 +239,27 @@ begin
   //FModelPtr := Pointer(AModel);
 end;
 
-destructor TController.Destroy;
-  //var
-  //  x: Pointer;
+procedure TController.BeforeDestruction;
 begin
-  //Model := nil;
-  //TQueryDataModule(FModelPtr).Free;
-  //if Model <> nil then
-  //begin
-  //  x := Pointer(Model);
-  //  Model := nil;
-  //  TQueryDataModule(x).Free;
-  //end;
+  if Model <> nil then
+  begin
+    Model := nil;
+    (Model as TDataModule).Free;
+  end;
+  inherited BeforeDestruction;
 end;
+
+//destructor TController.Destroy;
+//  var
+//    x: Pointer;
+//begin
+//  if Model <> nil then
+//  begin
+//    x := Pointer(Model);
+//    Model := nil;
+//    TQueryDataModule(x).Free;
+//  end;
+//end;
 
 procedure TController.Close(Sender: IView);
 begin
@@ -270,7 +279,10 @@ end;
 procedure TController.CloseQuery(Sender: IView; var CanClose: boolean);
 begin
   if CanClose then
+  begin
+    (Model.MasterDataModule as ISubject).Detach(Sender as IObserver);
     Exit;
+  end;
   case Sender.ShowConfirmationMessage(rsExitSalir, rsExitQuestion) of
     mrYes:
     begin

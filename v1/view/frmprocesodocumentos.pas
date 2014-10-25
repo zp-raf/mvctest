@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, ExtCtrls, StdCtrls, DBGrids, frmproceso,
   frmdocumentosdatamodule, mvc, documentosctrl, frmMaestro, frmfacturadatamodule2,
-  frmpagodatamodule, frmpago;
+  frmpagodatamodule, frmpago, sgcdtypes;
 
 type
 
@@ -39,13 +39,14 @@ type
   private
     FCobroForm: TProcesoPago;
     FCustomController: TDocumentosController;
+    function GetCustomController: TDocumentosController;
     procedure SetCobroForm(AValue: TProcesoPago);
     procedure SetCustomController(AValue: TDocumentosController);
     { private declarations }
   public
     constructor Create(AOwner: IFormView; AController: TDocumentosController); overload;
     property CustomController: TDocumentosController
-      read FCustomController write SetCustomController;
+      read GetCustomController write SetCustomController;
     property CobroForm: TProcesoPago read FCobroForm write SetCobroForm;
   end;
 
@@ -147,6 +148,11 @@ begin
   if FCobroForm = AValue then
     Exit;
   FCobroForm := AValue;
+end;
+
+function TProcesoDocumentos.GetCustomController: TDocumentosController;
+begin
+  Result := Controller as TDocumentosController;
 end;
 
 constructor TProcesoDocumentos.Create(AOwner: IFormView;

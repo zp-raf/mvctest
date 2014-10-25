@@ -1,156 +1,15 @@
 inherited FacturasDataModule: TFacturasDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 321
-  HorizontalOffset = 870
-  VerticalOffset = 420
-  Width = 447
-  object qry: TSQLQuery[0]
-    FieldDefs = <>
-    AfterClose = qryAfterClose
-    AfterOpen = qryAfterOpen
-    Params = <>
-    left = 30
-    top = 55
-  end
-  object dsFactura: TDataSource[1]
-    DataSet = qryFactura
-    left = 24
-    top = 24
-  end
-  object qryFactura: TSQLQuery[2]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TALONARIOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'PERSONAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NUMERO'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'FECHA_EMISION'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'CONTADO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'VENCIMIENTO'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'RUC'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NOMBRE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'DIRECCION'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NOTA_REMISION'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'TELEFONO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'SUBTOTAL_EXENTAS'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SUBTOTAL_IVA5'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SUBTOTAL_IVA10'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TOTAL'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA5'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA10'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA_TOTAL'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'VALIDO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end>
-    AfterScroll = qryFacturaAfterScroll
-    OnNewRecord = qryFacturaNewRecord
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
+  Height = 399
+  HorizontalOffset = 684
+  VerticalOffset = 399
+  Width = 562
+  inherited qryCabecera: TSQLQuery
     SQL.Strings = (
-      'select * from factura;'
+      'select * from factura'
     )
-    Params = <>
-    left = 104
-    top = 24
-    object qryFacturaID: TLongintField
+    object qryCabeceraID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ID'
@@ -160,7 +19,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
-    object qryFacturaTALONARIOID: TLongintField
+    object qryCabeceraTALONARIOID: TLongintField[1]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'TALONARIOID'
@@ -170,7 +29,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
-    object qryFacturaPERSONAID: TLongintField
+    object qryCabeceraPERSONAID: TLongintField[2]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'PERSONAID'
@@ -180,7 +39,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = False
     end
-    object qryFacturaNUMERO: TLongintField
+    object qryCabeceraNUMERO: TLongintField[3]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'NUMERO'
@@ -190,7 +49,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = False
     end
-    object qryFacturaFECHA_EMISION: TDateField
+    object qryCabeceraFECHA_EMISION: TDateField[4]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'FECHA_EMISION'
@@ -200,7 +59,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
-    object qryFacturaCONTADO: TSmallintField
+    object qryCabeceraCONTADO: TSmallintField[5]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'CONTADO'
@@ -210,7 +69,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
-    object qryFacturaVENCIMIENTO: TDateField
+    object qryCabeceraVENCIMIENTO: TDateField[6]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'VENCIMIENTO'
@@ -220,7 +79,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = False
     end
-    object qryFacturaRUC: TStringField
+    object qryCabeceraRUC: TStringField[7]
       DisplayWidth = 255
       FieldKind = fkData
       FieldName = 'RUC'
@@ -231,7 +90,7 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryFacturaNOMBRE: TStringField
+    object qryCabeceraNOMBRE: TStringField[8]
       DisplayWidth = 255
       FieldKind = fkData
       FieldName = 'NOMBRE'
@@ -242,7 +101,7 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryFacturaDIRECCION: TStringField
+    object qryCabeceraDIRECCION: TStringField[9]
       DisplayWidth = 255
       FieldKind = fkData
       FieldName = 'DIRECCION'
@@ -253,7 +112,7 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryFacturaNOTA_REMISION: TStringField
+    object qryCabeceraNOTA_REMISION: TStringField[10]
       DisplayWidth = 255
       FieldKind = fkData
       FieldName = 'NOTA_REMISION'
@@ -264,7 +123,7 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryFacturaTELEFONO: TStringField
+    object qryCabeceraTELEFONO: TStringField[11]
       DisplayWidth = 255
       FieldKind = fkData
       FieldName = 'TELEFONO'
@@ -275,7 +134,7 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryFacturaSUBTOTAL_EXENTAS: TFloatField
+    object qryCabeceraSUBTOTAL_EXENTAS: TFloatField[12]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'SUBTOTAL_EXENTAS'
@@ -288,7 +147,7 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryFacturaSUBTOTAL_IVA5: TFloatField
+    object qryCabeceraSUBTOTAL_IVA5: TFloatField[13]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'SUBTOTAL_IVA5'
@@ -301,7 +160,7 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryFacturaSUBTOTAL_IVA10: TFloatField
+    object qryCabeceraSUBTOTAL_IVA10: TFloatField[14]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'SUBTOTAL_IVA10'
@@ -314,7 +173,7 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryFacturaTOTAL: TFloatField
+    object qryCabeceraTOTAL: TFloatField[15]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'TOTAL'
@@ -327,7 +186,7 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryFacturaIVA5: TFloatField
+    object qryCabeceraIVA5: TFloatField[16]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'IVA5'
@@ -340,7 +199,7 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryFacturaIVA10: TFloatField
+    object qryCabeceraIVA10: TFloatField[17]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'IVA10'
@@ -353,7 +212,7 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryFacturaIVA_TOTAL: TFloatField
+    object qryCabeceraIVA_TOTAL: TFloatField[18]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'IVA_TOTAL'
@@ -366,7 +225,7 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryFacturaVALIDO: TSmallintField
+    object qryCabeceraVALIDO: TSmallintField[19]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'VALIDO'
@@ -377,70 +236,10 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = True
     end
   end
-  object qryDetalle: TSQLQuery[3]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'FACTURAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'DEUDAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'CANTIDAD'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'DETALLE'
-        DataType = ftString
-        Precision = -1
-        Size = 1024
-      end    
-      item
-        Name = 'PRECIO_UNITARIO'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'EXENTA'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA5'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA10'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end>
-    Filtered = True
-    AfterInsert = qryDetalleAfterInsert
-    BeforePost = qryDetalleBeforePost
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
+  inherited qryDetalle: TSQLQuery
     SQL.Strings = (
       'select * from factura_detalle'
-      'where facturaid = :facturaid'
+      'where factura_detalle.facturaid = :facturaid'
     )
     Params = <    
       item
@@ -448,9 +247,7 @@ inherited FacturasDataModule: TFacturasDataModule
         Name = 'facturaid'
         ParamType = ptInput
       end>
-    left = 104
-    top = 98
-    object qryDetalleID: TLongintField
+    object qryDetalleID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ID'
@@ -460,7 +257,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
-    object qryDetalleFACTURAID: TLongintField
+    object qryDetalleFACTURAID: TLongintField[1]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'FACTURAID'
@@ -470,7 +267,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
-    object qryDetalleDEUDAID: TLongintField
+    object qryDetalleDEUDAID: TLongintField[2]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'DEUDAID'
@@ -480,7 +277,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = False
     end
-    object qryDetalleCANTIDAD: TLongintField
+    object qryDetalleCANTIDAD: TLongintField[3]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'CANTIDAD'
@@ -490,8 +287,8 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
-    object qryDetalleDETALLE: TStringField
-      DisplayWidth = 255
+    object qryDetalleDETALLE: TStringField[4]
+      DisplayWidth = 1024
       FieldKind = fkData
       FieldName = 'DETALLE'
       Index = 4
@@ -499,9 +296,9 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-      Size = 255
+      Size = 1024
     end
-    object qryDetallePRECIO_UNITARIO: TFloatField
+    object qryDetallePRECIO_UNITARIO: TFloatField[5]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'PRECIO_UNITARIO'
@@ -515,7 +312,7 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryDetalleEXENTA: TFloatField
+    object qryDetalleEXENTA: TFloatField[6]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'EXENTA'
@@ -523,11 +320,12 @@ inherited FacturasDataModule: TFacturasDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
       MaxValue = 0
       MinValue = 0
+      Precision = -1
     end
-    object qryDetalleIVA5: TFloatField
+    object qryDetalleIVA5: TFloatField[7]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'IVA5'
@@ -535,11 +333,12 @@ inherited FacturasDataModule: TFacturasDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
       MaxValue = 0
       MinValue = 0
+      Precision = -1
     end
-    object qryDetalleIVA10: TFloatField
+    object qryDetalleIVA10: TFloatField[8]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'IVA10'
@@ -547,929 +346,10 @@ inherited FacturasDataModule: TFacturasDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
-      MaxValue = 0
-      MinValue = 0
-    end
-  end
-  object dsDetalle: TDataSource[4]
-    DataSet = qryDetalle
-    left = 24
-    top = 98
-  end
-  object qryNumero: TSQLQuery[5]
-    FieldDefs = <    
-      item
-        Name = 'NUM'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end>
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
-    ReadOnly = True
-    SQL.Strings = (
-      'select * from GET_NUMERO_FACTURA(:TALONARIOID)'
-    )
-    Params = <    
-      item
-        DataType = ftLargeint
-        Name = 'TALONARIOID'
-        ParamType = ptInput
-      end>
-    left = 248
-    top = 24
-    object qryNumeroNUM: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUM'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-  end
-  object Props: TXMLPropStorage[6]
-    StoredValues = <    
-      item
-        Name = 'talonarioID'
-      end    
-      item
-        Name = 'codigosiva10'
-      end    
-      item
-        Name = 'codigosiva5'
-      end>
-    FileName = 'conf.xml'
-    OnSavingProperties = PropsSavingProperties
-    OnSaveProperties = PropsSaveProperties
-    OnRestoringProperties = PropsRestoringProperties
-    OnRestoreProperties = PropsRestoreProperties
-    left = 192
-    top = 96
-  end
-  object dsNum: TDataSource[7]
-    DataSet = qryNumero
-    left = 192
-    top = 24
-  end
-  object tal: TSQLQuery[8]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TIPO'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOMBRE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'RUBRO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'DIRECCION'
-        DataType = ftString
-        Precision = -1
-        Size = 512
-      end    
-      item
-        Name = 'TELEFONO'
-        DataType = ftString
-        Precision = -1
-        Size = 512
-      end    
-      item
-        Name = 'TIMBRADO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'VALIDO_DESDE'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'VALIDO_HASTA'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'RUC'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'SUCURSAL'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'CAJA'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NUMERO_INI'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NUMERO_FIN'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'COPIAS'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end>
-    Filtered = True
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
-    ReadOnly = True
-    SQL.Strings = (
-      'select * from talonario'
-      'where tipo = 1 and id = :talonarioid'
-    )
-    Params = <    
-      item
-        DataType = ftUnknown
-        Name = 'talonarioid'
-        ParamType = ptInput
-      end>
-    left = 104
-    top = 176
-    object talID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ID'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talTIMBRADO: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'TIMBRADO'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talTIPO: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'TIPO'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talNOMBRE: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NOMBRE'
-      Index = 3
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talRUBRO: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'RUBRO'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talDIRECCION: TStringField
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'DIRECCION'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 512
-    end
-    object talTELEFONO: TStringField
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'TELEFONO'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 512
-    end
-    object talVALIDO_DESDE: TDateField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VALIDO_DESDE'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talVALIDO_HASTA: TDateField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VALIDO_HASTA'
-      Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talRUC: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'RUC'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object talSUCURSAL: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'SUCURSAL'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talCAJA: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'CAJA'
-      Index = 11
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talNUMERO_INI: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUMERO_INI'
-      Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talNUMERO_FIN: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUMERO_FIN'
-      Index = 13
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talCOPIAS: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'COPIAS'
-      Index = 14
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talACTIVO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ACTIVO'
-      Index = 15
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-  end
-  object dstal: TDataSource[9]
-    DataSet = tal
-    left = 24
-    top = 176
-  end
-  object frDBReporteDet: TfrDBDataSet[10]
-    left = 376
-    top = 176
-  end
-  object frDBReporteCab: TfrDBDataSet[11]
-    left = 272
-    top = 176
-  end
-  object frReport1: TfrReport[12]
-    InitialZoom = pzDefault
-    Options = []
-    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
-    DataType = dtDataSet
-    left = 192
-    top = 176
-  end
-  object ImpuestoView: TSQLQuery[13]
-    FieldDefs = <    
-      item
-        Name = 'AR_ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'AR_NOMBRE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'MONTO'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'AR_ACT'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'GRUPO_PROD'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'EXENTAS'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SERVICIOS'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IMP_ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IMP_NOMBRE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'FACTOR'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'INCLUIDO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IMP_ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end>
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
-    ReadOnly = True
-    SQL.Strings = (
-      'select * from v_aranceles_impuestos'
-      'where ar_id = :arancelid'
-    )
-    Params = <    
-      item
-        DataType = ftUnknown
-        Name = 'arancelid'
-        ParamType = ptInput
-      end>
-    left = 104
-    top = 256
-    object ImpuestoViewAR_ID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'AR_ID'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object ImpuestoViewAR_NOMBRE: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'AR_NOMBRE'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object ImpuestoViewMONTO: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'MONTO'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
       Required = False
       MaxValue = 0
       MinValue = 0
       Precision = -1
-    end
-    object ImpuestoViewAR_ACT: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'AR_ACT'
-      Index = 3
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object ImpuestoViewGRUPO_PROD: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'GRUPO_PROD'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object ImpuestoViewEXENTAS: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'EXENTAS'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object ImpuestoViewSERVICIOS: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'SERVICIOS'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object ImpuestoViewIMP_ID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'IMP_ID'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object ImpuestoViewIMP_NOMBRE: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'IMP_NOMBRE'
-      Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object ImpuestoViewFACTOR: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'FACTOR'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-    object ImpuestoViewIMP_ACTIVO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'IMP_ACTIVO'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object ImpuestoViewINCLUIDO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'INCLUIDO'
-      Index = 11
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-  end
-  object DeudaView: TSQLQuery[14]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ARANCELID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'MATRICULAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'CUENTAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'PERSONAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'DESCRIPCION'
-        DataType = ftString
-        Precision = -1
-        Size = 512
-      end    
-      item
-        Name = 'CUOTA_NRO'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'CANTIDAD_CUOTAS'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'VENCIMIENTO'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'MONTO_DEUDA'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SALDO'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'MONTO_FACTURADO'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end>
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
-    ReadOnly = True
-    SQL.Strings = (
-      'select * from v_deudas'
-      'where v_deudas.personaid = :personaid'
-      'and v_deudas.saldo > 0'
-      'and v_deudas.monto_facturado <> v_deudas.monto_deuda'
-      'and v_deudas.activo = 1'
-    )
-    Params = <    
-      item
-        DataType = ftUnknown
-        Name = 'personaid'
-        ParamType = ptInput
-      end>
-    left = 24
-    top = 256
-    object DeudaViewID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ID'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewARANCELID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ARANCELID'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewMATRICULAID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'MATRICULAID'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewDESCRIPCION: TStringField
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'DESCRIPCION'
-      Index = 3
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 512
-    end
-    object DeudaViewCUOTA_NRO: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'CUOTA_NRO'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewCANTIDAD_CUOTAS: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'CANTIDAD_CUOTAS'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewVENCIMIENTO: TDateField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VENCIMIENTO'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewACTIVO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ACTIVO'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewSALDO: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'SALDO'
-      Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = True
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-    object DeudaViewCUENTAID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'CUENTAID'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewPERSONAID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'PERSONAID'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object DeudaViewMONTO_FACTURADO: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'MONTO_FACTURADO'
-      Index = 11
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-    object DeudaViewMONTO_DEUDA: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'MONTO_DEUDA'
-      Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-  end
-  object Impuesto: TSQLQuery[15]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOMBRE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'FACTOR'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'INCLUIDO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end>
-    Database = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
-    ReadOnly = True
-    SQL.Strings = (
-      'select * from impuesto'
-    )
-    Params = <>
-    left = 192
-    top = 256
-    object ImpuestoID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ID'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      ReadOnly = False
-      Required = True
-    end
-    object ImpuestoNOMBRE: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NOMBRE'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object ImpuestoFACTOR: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'FACTOR'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-    object ImpuestoACTIVO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ACTIVO'
-      Index = 3
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object ImpuestoINCLUIDO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'INCLUIDO'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
     end
   end
 end

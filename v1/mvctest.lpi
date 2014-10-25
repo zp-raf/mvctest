@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="363"/>
+      <BuildNr Value="396"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -52,7 +52,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="52">
+    <Units Count="59">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -337,12 +337,12 @@
         <UnitName Value="frmcodigosdatamodule"/>
       </Unit40>
       <Unit41>
-        <Filename Value="view\frmprocesofacturacion.pas"/>
+        <Filename Value="view\frmprocesocomprobante.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoFacturacion"/>
+        <ComponentName Value="ProcesoComprobante"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmprocesofacturacion"/>
+        <UnitName Value="frmprocesocomprobante"/>
       </Unit41>
       <Unit42>
         <Filename Value="controller\facturactrl2.pas"/>
@@ -358,17 +358,17 @@
         <UnitName Value="frmfacturadatamodule2"/>
       </Unit43>
       <Unit44>
-        <Filename Value="view\frmbuscaralumnos.pas"/>
+        <Filename Value="view\frmbuscarpersonas.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="PopupSeleccionAlumnos"/>
+        <ComponentName Value="PopupSeleccionPersonas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmbuscaralumnos"/>
+        <UnitName Value="frmbuscarpersonas"/>
       </Unit44>
       <Unit45>
-        <Filename Value="controller\buscaralctrl.pas"/>
+        <Filename Value="controller\buscarpersctrl.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="buscaralctrl"/>
+        <UnitName Value="buscarpersctrl"/>
       </Unit45>
       <Unit46>
         <Filename Value="view\frmprocnotacredito.pas"/>
@@ -412,6 +412,53 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="documentosctrl"/>
       </Unit51>
+      <Unit52>
+        <Filename Value="model\frmcomprobantedatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ComprobanteDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmcomprobantedatamodule"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="view\frmprocesofacturacion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoFacturacion"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesofacturacion"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="controller\comprobantectrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="comprobantectrl"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="controller\reciboctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="reciboctrl"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="model\frmrecibodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ReciboDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmrecibodatamodule"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="view\frmprocesorecibo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoRecibo"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesorecibo"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="base\sgcdtypes.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="sgcdTypes"/>
+      </Unit58>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

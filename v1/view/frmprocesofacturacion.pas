@@ -7,32 +7,14 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, frmproceso, mvc,
-  facturactrl2, frmfacturadatamodule2, frmMaestro, frmbuscaralumnos, buscaralctrl;
+  facturactrl2, frmfacturadatamodule2, frmMaestro, frmcomprobantedatamodule,
+  frmbuscarpersonas;
 
 type
 
   { TProcesoFacturacion }
 
   TProcesoFacturacion = class(TProceso)
-    procedure btSeleccionarClick(Sender: TObject);
-    procedure ButtonLimpiarClick(Sender: TObject);
-    procedure DateEditVenEditingDone(Sender: TObject);
-    procedure DBGridDetEditingDone(Sender: TObject);
-    procedure DBNavigatorDetBeforeAction(Sender: TObject; Button: TDBNavButtonType);
-    procedure DBNavigatorDetClick(Sender: TObject; Button: TDBNavButtonType);
-    procedure FormShow(Sender: TObject);
-    procedure RadioCondicionChange(Sender: TObject);
-  private
-    FABMController: IABMController;
-    FCustomController: TFacturaController;
-    function GetController: IABMController;
-    function GetCustomController: TFacturaController;
-    procedure SetController(AValue: IABMController);
-    procedure SetCustomController(AValue: TFacturaController);
-  public
-    constructor Create(AOwner: IFormView; AController: TFacturaController);
-      overload;
-  published
     btSeleccionar: TButton;
     ButtonLimpiar: TButton;
     Cabecera: TGroupBox;
@@ -76,6 +58,28 @@ type
     LabelSubtotal5: TLabel;
     LabelSubtotal10: TLabel;
     Totales: TGroupBox;
+  private
+    FABMController: IABMController;
+    FCustomController: TFacturaController;
+    //FPopup: TPopupSeleccionPersonas;
+    function GetController: IABMController;
+    function GetCustomController: TFacturaController;
+    procedure SetController(AValue: IABMController);
+    procedure SetCustomController(AValue: TFacturaController);
+    //procedure SetPopup(AValue: TPopupSeleccionPersonas);
+  public
+    constructor Create(AOwner: IFormView; AController: TFacturaController);
+      overload;
+  published
+    procedure btSeleccionarClick(Sender: TObject);
+    procedure ButtonLimpiarClick(Sender: TObject);
+    procedure DateEditVenEditingDone(Sender: TObject);
+    procedure DBGridDetEditingDone(Sender: TObject);
+    procedure DBNavigatorDetBeforeAction(Sender: TObject; Button: TDBNavButtonType);
+    procedure DBNavigatorDetClick(Sender: TObject; Button: TDBNavButtonType);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure RadioCondicionChange(Sender: TObject);
     procedure Edit;
     procedure Insert;
     procedure Delete;
@@ -88,10 +92,12 @@ type
     { Aca esta el controlador especifico del modulo }
     property CustomController: TFacturaController
       read GetCustomController write SetCustomController;
+    //property Popup: TPopupSeleccionPersonas read FPopup write SetPopup;
   end;
 
 var
   ProcesoFacturacion: TProcesoFacturacion;
+  Popup: TPopupSeleccionPersonas;
 
 implementation
 
@@ -100,14 +106,11 @@ implementation
 { TProcesoFacturacion }
 
 procedure TProcesoFacturacion.btSeleccionarClick(Sender: TObject);
-var
-  PopUp: TPopupSeleccionAlumnos;
 begin
-  Controller.OpenDataSets(Self);
   try
-    PopUp := TPopupSeleccionAlumnos.Create(Self, TBuscarAlumnosController.Create(
-      Controller.Model));
-    case PopUp.ShowModal of
+    Popup := TPopupSeleccionPersonas.Create(Self);
+    Controller.Connect(Self);
+    case Popup.ShowModal of
       mrOk:
       begin
         Controller.Connect(Self);
@@ -116,11 +119,12 @@ begin
       end
       else
       begin
+        Controller.CloseDataSets(Self);
         Exit;
       end;
     end;
   finally
-    PopUp.Free;
+    Popup.Free;
   end;
 end;
 
@@ -182,6 +186,11 @@ begin
   end;
 end;
 
+procedure TProcesoFacturacion.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  inherited;
+end;
+
 procedure TProcesoFacturacion.FormShow(Sender: TObject);
 begin
   inherited;
@@ -222,6 +231,13 @@ begin
   FCustomController := AValue;
 end;
 
+//procedure TProcesoFacturacion.SetPopup(AValue: TPopupSeleccionPersonas);
+//begin
+//  if FPopup = AValue then
+//    Exit;
+//  FPopup := AValue;
+//end;
+
 constructor TProcesoFacturacion.Create(AOwner: IFormView;
   AController: TFacturaController);
 var
@@ -242,6 +258,7 @@ begin
     inherited Create(AOwner, Cont);
     ABMController := ABMCont;
     CustomController := AController;
+    //Popup := TPopupSeleccionPersonas.Create(Self);
   end;
 end;
 
@@ -355,6 +372,7 @@ begin
   ABMController.Rollback(Self);
   ShowInfoMessage('Factura descartada');
   Limpiar;
+  Controller.CloseDataSets(Self);
 end;
 
 {

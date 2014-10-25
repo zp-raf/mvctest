@@ -6,9 +6,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, ButtonPanel, StdCtrls, DbCtrls, EditBtn, PairSplitter, DBGrids,
+  Menus, ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
   frmproceso, notacreditoctrl, mvc, frmNotaCreditoDataModule,
-  frmMaestro, frmbuscaralumnos, buscaralctrl;
+  frmMaestro, frmbuscarpersonas, buscarpersctrl;
 
 type
 
@@ -19,8 +19,7 @@ type
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure DateEditVenEditingDone(Sender: TObject);
     procedure DBGridDetEditingDone(Sender: TObject);
-    procedure DBNavigatorDetBeforeAction(Sender: TObject;
-      Button: TDBNavButtonType);
+    procedure DBNavigatorDetBeforeAction(Sender: TObject; Button: TDBNavButtonType);
     procedure FormShow(Sender: TObject);
     procedure RadioCondicionChange(Sender: TObject);
   private
@@ -31,10 +30,10 @@ type
     procedure SetController(AValue: IABMController);
     procedure SetCustomController(AValue: TNotaCreditoController);
 
-public
-   constructor Create(AOwner: IFormView; AController: TNotaCreditoController);
+  public
+    constructor Create(AOwner: IFormView; AController: TNotaCreditoController);
       overload;
-published
+  published
     btSeleccionar: TButton;
     ButtonLimpiar: TButton;
     Cabecera: TGroupBox;
@@ -78,18 +77,18 @@ published
     PairSplitterSide2: TPairSplitterSide;
     RadioCondicion: TDBRadioGroup;
     Totales: TGroupBox;
-   procedure Edit;
-      procedure Insert;
-      procedure Delete;
-      procedure Refresh;
-      procedure ObserverUpdate(const Subject: IInterface); override;
-      property ABMController: IABMController read GetController write SetController;
-      procedure Limpiar;
-      procedure OKButtonClick(Sender: TObject);
-      procedure CancelButtonClick(Sender: TObject);
-      { Aca esta el controlador especifico del modulo }
-      property CustomController: TNotaCreditoController
-        read GetCustomController write SetCustomController;
+    procedure Edit;
+    procedure Insert;
+    procedure Delete;
+    procedure Refresh;
+    procedure ObserverUpdate(const Subject: IInterface); override;
+    property ABMController: IABMController read GetController write SetController;
+    procedure Limpiar;
+    procedure OKButtonClick(Sender: TObject);
+    procedure CancelButtonClick(Sender: TObject);
+    { Aca esta el controlador especifico del modulo }
+    property CustomController: TNotaCreditoController
+      read GetCustomController write SetCustomController;
   private
     { private declarations }
   public
@@ -107,7 +106,7 @@ implementation
 
 procedure TProcesoNotaCredito.ButtonLimpiarClick(Sender: TObject);
 begin
-   Limpiar;
+  Limpiar;
 end;
 
 procedure TProcesoNotaCredito.DateEditVenEditingDone(Sender: TObject);
@@ -120,7 +119,7 @@ end;
 
 procedure TProcesoNotaCredito.DBGridDetEditingDone(Sender: TObject);
 begin
-    CustomController.ActualizarTotales(Self);
+  CustomController.ActualizarTotales(Self);
 end;
 
 procedure TProcesoNotaCredito.DBNavigatorDetBeforeAction(Sender: TObject;
@@ -171,24 +170,24 @@ end;
 constructor TProcesoNotaCredito.Create(AOwner: IFormView;
   AController: TNotaCreditoController);
 var
-    Cont: IController;
-    ABMCont: IABMController;
+  Cont: IController;
+  ABMCont: IABMController;
 begin
     { Aca se chequean el controlador y se asignan las propiedades
        correspondientes. Con queryinterface sacamos una referencia al objeto que
        implementa la interfaz. Hacemos asi por si acaso AController sea un objeto
        compuesto y que hayan subojetos que implementen las interfaces. Esto nos da
        mayor flexibilidad en la implementacion. }
-    (AController as IInterface).QueryInterface(IController, Cont);
-    (AController as IInterface).QueryInterface(IABMController, ABMCont);
-    if (Cont = nil) or (ABMCont = nil) then
-      raise Exception.Create(rsProvidedCont)
-    else
-    begin
-      inherited Create(AOwner, Cont);
-      ABMController := ABMCont;
-      CustomController := AController;
-    end;
+  (AController as IInterface).QueryInterface(IController, Cont);
+  (AController as IInterface).QueryInterface(IABMController, ABMCont);
+  if (Cont = nil) or (ABMCont = nil) then
+    raise Exception.Create(rsProvidedCont)
+  else
+  begin
+    inherited Create(AOwner, Cont);
+    ABMController := ABMCont;
+    CustomController := AController;
+  end;
 end;
 
 procedure TProcesoNotaCredito.Edit;
@@ -269,25 +268,25 @@ end;
 
 procedure TProcesoNotaCredito.OKButtonClick(Sender: TObject);
 begin
-    if RadioCondicion.ItemIndex = -1 then
-    begin
-      ShowErrorMessage('Por favor seleccione una condicion de venta');
-      Exit;
-    end
-    else if (RadioCondicion.ItemIndex = 0) and
-      (not Controller.IsValidDate(DateEditVen.Text) or (DateEditVen.Date < Now)) then
-    begin
-      ShowErrorMessage('Fecha de vencimiento no valida');
-      Exit;
-    end;
-    if not (CustomController.GetFacturaEstado(Self) in [asEditando]) then
-    begin
-      ShowInfoMessage('No se esta procesando ninguna nota de crédito');
-      Exit;
-    end;
-    CustomController.CerrarFactura(Self);
-    ShowInfoMessage('Nota de crédito ingresada correctamente');
-    Limpiar;
+  if RadioCondicion.ItemIndex = -1 then
+  begin
+    ShowErrorMessage('Por favor seleccione una condicion de venta');
+    Exit;
+  end
+  else if (RadioCondicion.ItemIndex = 0) and
+    (not Controller.IsValidDate(DateEditVen.Text) or (DateEditVen.Date < Now)) then
+  begin
+    ShowErrorMessage('Fecha de vencimiento no valida');
+    Exit;
+  end;
+  if not (CustomController.GetFacturaEstado(Self) in [asEditando]) then
+  begin
+    ShowInfoMessage('No se esta procesando ninguna nota de crédito');
+    Exit;
+  end;
+  CustomController.CerrarFactura(Self);
+  ShowInfoMessage('Nota de crédito ingresada correctamente');
+  Limpiar;
 end;
 
 procedure TProcesoNotaCredito.CancelButtonClick(Sender: TObject);
@@ -299,27 +298,26 @@ begin
 end;
 
 procedure TProcesoNotaCredito.btSeleccionarClick(Sender: TObject);
-  var
-    PopUp: TPopupSeleccionAlumnos;
-  begin
-    try
-      PopUp := TPopupSeleccionAlumnos.Create(Self, TBuscarAlumnosController.Create(
-        Controller.Model));
-      case PopUp.ShowModal of
-        mrOk:
-        begin
-          Controller.Connect(Self);
-          // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
-          CustomController.NuevaFactura(Self);
-        end
-        else
-        begin
-          Exit;
-        end;
+var
+  PopUp: TPopupSeleccionPersonas;
+begin
+  try
+    PopUp := TPopupSeleccionPersonas.Create(Self);
+    case PopUp.ShowModal of
+      mrOk:
+      begin
+        Controller.Connect(Self);
+        // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
+        CustomController.NuevaFactura(Self);
+      end
+      else
+      begin
+        Exit;
       end;
-    finally
-      PopUp.Free;
     end;
+  finally
+    PopUp.Free;
+  end;
 end;
 
 end.

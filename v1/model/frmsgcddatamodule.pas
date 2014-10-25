@@ -12,6 +12,7 @@ resourcestring
   rsFromRdbDatab = ' from rdb$database';
   rsGEN_ID = 'GEN_ID';
   rsSelectNextVa = 'select next value for ';
+  rsErrorGenerator = 'Error al utilizar generator';
 
 type
 
@@ -20,6 +21,7 @@ type
   { para que pueda mandar actualizaciones a las vistas añadidas tiene que
     implementar la interfaz ISubject que tiene todos los metodos pertinentes }
   TSgcdDataModule = class(TDataModule, ISubject, IDBModel)
+    qryGenerators: TSQLQuery;
     procedure DataModuleDestroy(Sender: TObject);
   private
     FSubject: ISubject;
@@ -148,6 +150,9 @@ end;
 
 function TSgcdDataModule.NextValue(gen: string): integer;
 begin
+  //qryGenerators.Open;
+  //if not qryGenerators.Locate('RDB$GENERATOR_NAME', gen, [loCaseInsensitive]) then
+  //  raise EDatabaseError.Create(rsErrorGenerator);
   Result := StrToInt(DevuelveValor(rsSelectNextVa + gen + rsFromRdbDatab, rsGEN_ID));
 end;
 

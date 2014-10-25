@@ -7,18 +7,9 @@ interface
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   frmquerydatamodule, frmsgcddatamodule, frmfacturadatamodule2,
-  frmcodigosdatamodule, observerSubject, frmasientosdatamodule;
+  frmcodigosdatamodule, observerSubject, frmasientosdatamodule, sgcdTypes;
 
 const
-  //CREDITO = '1';
-  //DEBITO = '2';
-  FACTURA = '1';
-  RECIBO = '2';
-  NOTA_CREDITO = '3';
-  EFECTIVO = '1';
-  CHEQUE = '2';
-  TARJETA_DEBITO = '3';
-  TARJETA_CREDITO = '4';
   ITEM_SEPARATOR = ', ';
   DESCRIPCION_DEFAULT = 'PAGO DE FACTURA NRO ';
   DESCRIPCION_REVERSION = 'ANULACION DE PAGO NRO ';
@@ -28,10 +19,6 @@ resourcestring
   rsGenPagoDet = 'GENERATOR_PAGO_DETALLE';
 
 type
-
-  TTipoDocumento = (doFactura, doRecibo, doNotaCredito);
-
-  TFormaPago = (paCheque, paEfectivo, paTarjetaDebito, paTarjetaCredito);
 
 
   { TPagoDataModule }
@@ -190,9 +177,9 @@ end;
 
 procedure TPagoDataModule.DataModuleDestroy(Sender: TObject);
 begin
-  Facturas.Free;
-  Asientos.Free;
   inherited;
+  FFactura.Free;
+  FAsientos.Free;
 end;
 
 function TPagoDataModule.GetEstado: boolean;
@@ -281,7 +268,7 @@ begin
   //PagoDetTarjetas.ParamByName('TIPO_PAGO2').Bound := True;
   //objetos auxiliares
   Facturas := TFacturasDataModule.Create(Self, MasterDataModule);
-  Facturas.SetReadOnly(True);
+  //Facturas.SetReadOnly(True);
   Asientos := TAsientosDataModule.Create(Self, MasterDataModule);
   Asientos.ComprobarAsiento := False; // cuando se arregle el tema contable sacar
   // obviamente no esta listo el pago jeje
@@ -298,7 +285,7 @@ end;
 procedure TPagoDataModule.NuevoPago(EsCobro: boolean; ADocumentoID: string;
   ATipoDoc: TTipoDocumento);
 begin
-  Facturas.SetFactura(ADocumentoID);
+  Facturas.LocateComprobante(ADocumentoID);
   NewRecord;
   if EsCobro then
     Pago.FieldByName('ESCOBRO').AsInteger := 1
@@ -319,7 +306,7 @@ begin
       Pago.FieldByName('TIPO_COMPROBANTE').AsString := RECIBO;
     end;
   end;
-  Pago.FieldByName('MONTO').AsFloat := Facturas.GetMontoFactura;
+  Pago.FieldByName('MONTO').AsFloat := Facturas.GetMontoComprobante;
   Listo := False;
   (MasterDataModule as ISubject).Notify;
 end;
@@ -366,7 +353,7 @@ end;
 procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
 begin
   // creamos un nuevo asiento
-  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryFacturaNUMERO.AsString, APagoID);
+  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryCabeceraNUMERO.AsString, APagoID);
   // recorrer la factura y poner los detales de los asientos
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do

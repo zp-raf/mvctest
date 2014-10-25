@@ -38,6 +38,7 @@ type
     procedure SetQryList(AValue: TQryList);
     procedure SetSearchFieldList(AValue: TSearchFieldList);
   published
+    procedure BeforeDestruction; override;
     procedure CloseDataSets;
     procedure Commit;
     procedure Connect; virtual;
@@ -110,22 +111,24 @@ end;
 
 procedure TQueryDataModule.DataModuleCreate(Sender: TObject);
 begin
-  FQryList := TQryList.Create(True);
+  FQryList := TQryList.Create(False);
   FSearchFieldList := TSearchFieldList.Create;
-  FAuxQryList := TQryList.Create(True);
-  FDetailList := TQryList.Create(True);
+  FAuxQryList := TQryList.Create(False);
+  FDetailList := TQryList.Create(False);
   FSearchText := '';
   OnError := @OnErrorEvent;
 end;
 
 procedure TQueryDataModule.DataModuleDestroy(Sender: TObject);
 begin
-  DiscardChanges;
-  CloseDataSets;
-  FQryList.Free;
-  FAuxQryList.Free;
-  FSearchFieldList.Free;
-  FDetailList.Free;
+  if FQryList <> nil then
+    FQryList.Free;
+  if FAuxQryList <> nil then
+    FAuxQryList.Free;
+  if FSearchFieldList <> nil then
+    FSearchFieldList.Free;
+  if FDetailList <> nil then
+    FDetailList.Free;
 end;
 
 constructor TQueryDataModule.Create(AOwner: TComponent; AMaster: IDBModel);
@@ -383,6 +386,7 @@ end;
 procedure TQueryDataModule.Rollback;
 begin
   FMasterDataModule.Rollback;
+  Connect;
 end;
 
 procedure TQueryDataModule.SaveChanges;
@@ -501,6 +505,13 @@ begin
   FSearchFieldList := AValue;
 end;
 
+procedure TQueryDataModule.BeforeDestruction;
+begin
+  DiscardChanges;
+  CloseDataSets;
+  inherited BeforeDestruction;
+end;
+
 procedure TQueryDataModule.CloseDataSets;
 var
   i: integer;
@@ -537,6 +548,7 @@ end;
 procedure TQueryDataModule.Commit;
 begin
   FMasterDataModule.Commit;
+  Connect;
 end;
 
 function TQueryDataModule.GetSearchText: string;

@@ -5,7 +5,8 @@ unit facturactrl2;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmfacturadatamodule2, mvc, DB, Forms, Controls;
+  Classes, SysUtils, ctrl, frmfacturadatamodule2, mvc, DB, Controls,
+  frmcomprobantedatamodule, buscarpersctrl;
 
 type
 
@@ -13,21 +14,26 @@ type
 
   TFacturaController = class(TABMController)
   private
+    FBuscarPersonasController: TBuscarPersonasController;
     FCustomModel: TFacturasDataModule;
     { Aca saca el objeto model pero casteado al tipo que necesitamos para poder
       usar los metodos y funciones especificos del modelo y que no estan
       especificados en la interfaz }
+    procedure SetBuscarPersonasController(AValue: TBuscarPersonasController);
     procedure SetCustomModel(AValue: TFacturasDataModule);
   public
+    procedure BeforeDestruction; override;
     constructor Create(AModel: IModel); overload;
-    destructor Destroy; override;
+    //constructor Create(var AModel); overload;
     procedure ActualizarTotales(Sender: IView);
     procedure Cancel(Sender: IView);
-    procedure NuevaFactura(Sender: IView);
     procedure CerrarFactura(Sender: IView);
-    function GetFacturaEstado(Sender: IView): TEstadoFactura;
+    procedure NuevaFactura(Sender: IView);
     procedure SetVencimiento(ADate: TDateTime);
+    function GetFacturaEstado(Sender: IView): TEstadoComprobante;
     property CustomModel: TFacturasDataModule read FCustomModel write SetCustomModel;
+    property BuscarPersonasController: TBuscarPersonasController
+      read FBuscarPersonasController write SetBuscarPersonasController;
   end;
 
 var
@@ -44,15 +50,20 @@ begin
   FCustomModel := AValue;
 end;
 
-destructor TFacturaController.Destroy;
-  //var
-  //  x: Pointer;
+procedure TFacturaController.BeforeDestruction;
 begin
-  //x := Pointer(FCustomModel);
-  //Model := nil;
-  //FCustomModel := nil;
-  //TFacturasDataModule(x).Free;
-  inherited Destroy;
+  Model := nil;
+  CustomModel.Free;
+  CustomModel := nil;
+  inherited BeforeDestruction;
+end;
+
+procedure TFacturaController.SetBuscarPersonasController(
+  AValue: TBuscarPersonasController);
+begin
+  if FBuscarPersonasController = AValue then
+    Exit;
+  FBuscarPersonasController := AValue;
 end;
 
 procedure TFacturaController.ActualizarTotales(Sender: IView);
@@ -67,9 +78,9 @@ end;
 
 procedure TFacturaController.NuevaFactura(Sender: IView);
 begin
-  CustomModel.NuevaFactura;
+  CustomModel.NuevoComprobante;
   CustomModel.FetchCabecera;
-  CustomModel.FetchDeuda;
+  CustomModel.FetchDetalle;
 end;
 
 procedure TFacturaController.CerrarFactura(Sender: IView);
@@ -79,14 +90,14 @@ begin
   //Model.RefreshDataSets;
 end;
 
-function TFacturaController.GetFacturaEstado(Sender: IView): TEstadoFactura;
+function TFacturaController.GetFacturaEstado(Sender: IView): TEstadoComprobante;
 begin
   Result := CustomModel.Estado;
 end;
 
 procedure TFacturaController.SetVencimiento(ADate: TDateTime);
 begin
-  CustomModel.qryFacturaFECHA_EMISION.AsDateTime := ADate;
+  CustomModel.qryCabeceraFECHA_EMISION.AsDateTime := ADate;
 end;
 
 constructor TFacturaController.Create(AModel: IModel);
@@ -96,6 +107,13 @@ begin
     CustomModel := (AModel as TFacturasDataModule)
   else
     raise Exception.Create(rsModelErr);
+  FBuscarPersonasController := TBuscarPersonasController.Create(Model);
 end;
+
+//constructor TFacturaController.Create(var AModel);
+//begin
+//  CustomModel := TFacturasDataModule(AModel);
+//  FBuscarPersonasController := TBuscarPersonasController.Create(Model);
+//end;
 
 end.

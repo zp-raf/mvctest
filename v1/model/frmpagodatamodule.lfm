@@ -701,7 +701,6 @@ inherited PagoDataModule: TPagoDataModule
     end
   end
   object DeudaView: TSQLQuery[7]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

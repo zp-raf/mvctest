@@ -1,0 +1,17 @@
+inherited ProcesoRecibo: TProcesoRecibo
+  inherited Cabecera: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+  end
+  inherited PairSplitterDetSubTot: TPairSplitter
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited PairSplitterSide1: TPairSplitterSide
+      inherited Detalles: TGroupBox
+        inherited DBNavigatorDet: TDBNavigator
+          Hints.Strings = (          )
+        end
+      end
+    end
+  end
+end
