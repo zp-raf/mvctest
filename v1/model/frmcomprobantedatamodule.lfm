@@ -11,209 +11,23 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     top = 24
   end
   object qryCabecera: TSQLQuery[1]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TALONARIOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'PERSONAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NUMERO'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'FECHA_EMISION'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'CONTADO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'VENCIMIENTO'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'RUC'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NOMBRE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'DIRECCION'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NOTA_REMISION'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'TELEFONO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'SUBTOTAL_EXENTAS'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SUBTOTAL_IVA5'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SUBTOTAL_IVA10'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TOTAL'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA5'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA10'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA_TOTAL'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'VALIDO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end>
+    FieldDefs = <>
     AfterScroll = qryCabeceraAfterScroll
     OnNewRecord = qryCabeceraNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
-    SQL.Strings = (
-      '--select * from %CABECERA%'
-    )
     Params = <>
     left = 116
     top = 24
   end
   object qryDetalle: TSQLQuery[2]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'FACTURAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'DEUDAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'CANTIDAD'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'DETALLE'
-        DataType = ftString
-        Precision = -1
-        Size = 1024
-      end    
-      item
-        Name = 'PRECIO_UNITARIO'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'EXENTA'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA5'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'IVA10'
-        DataType = ftFloat
-        Precision = -1
-        Size = 0
-      end>
+    FieldDefs = <>
     Filtered = True
     AfterInsert = qryDetalleAfterInsert
     BeforePost = qryDetalleBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
-    SQL.Strings = (
-      '--select * from %DETALLE%'
-      '--where %CABECERA.CABECERAID% = :%CABECERAID%'
-    )
-    Params = <    
-      item
-        DataType = ftUnknown
-        Name = '%CABECERAID%'
-        ParamType = ptInput
-      end>
+    Params = <>
     left = 112
     top = 98
   end
@@ -281,292 +95,28 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     top = 176
   end
   object tal: TSQLQuery[8]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TIPO'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOMBRE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'RUBRO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'DIRECCION'
-        DataType = ftString
-        Precision = -1
-        Size = 512
-      end    
-      item
-        Name = 'TELEFONO'
-        DataType = ftString
-        Precision = -1
-        Size = 512
-      end    
-      item
-        Name = 'TIMBRADO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'VALIDO_DESDE'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'VALIDO_HASTA'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'RUC'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'SUCURSAL'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'CAJA'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NUMERO_INI'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NUMERO_FIN'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'COPIAS'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end>
+    FieldDefs = <>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True
     SQL.Strings = (
       'select * from talonario'
-      'where tipo = :tipocomprobante'
-      'and id = :talonarioid'
+      'where tipo = :tipo'
+      'and id = :talonariod'
     )
     Params = <    
       item
         DataType = ftUnknown
-        Name = 'tipocomprobante'
+        Name = 'tipo'
         ParamType = ptInput
       end    
       item
         DataType = ftUnknown
-        Name = 'talonarioid'
+        Name = 'talonariod'
         ParamType = ptInput
       end>
     left = 112
     top = 176
-    object talID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ID'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      ReadOnly = False
-      Required = True
-    end
-    object talTIMBRADO: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'TIMBRADO'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talTIPO: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'TIPO'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talNOMBRE: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NOMBRE'
-      Index = 3
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talRUBRO: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'RUBRO'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talDIRECCION: TStringField
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'DIRECCION'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 512
-    end
-    object talTELEFONO: TStringField
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'TELEFONO'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 512
-    end
-    object talVALIDO_DESDE: TDateField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VALIDO_DESDE'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talVALIDO_HASTA: TDateField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VALIDO_HASTA'
-      Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talRUC: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'RUC'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object talSUCURSAL: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'SUCURSAL'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talCAJA: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'CAJA'
-      Index = 11
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talNUMERO_INI: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUMERO_INI'
-      Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talNUMERO_FIN: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUMERO_FIN'
-      Index = 13
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talCOPIAS: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'COPIAS'
-      Index = 14
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talACTIVO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ACTIVO'
-      Index = 15
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
   end
   object frDBReporteDet: TfrDBDataSet[9]
     left = 384

@@ -1,6 +1,6 @@
 inherited AbmAcademias: TAbmAcademias
-  Left = 473
-  Top = 132
+  Left = 652
+  Top = 343
   Caption = 'ABM Academias'
   ClientHeight = 461
   inherited PanelDetail: TPanel
@@ -56,8 +56,5 @@ inherited AbmAcademias: TAbmAcademias
   end
   inherited MainMenu: TMainMenu
     left = 440
-  end
-  inherited AppProps: TApplicationProperties
-    left = 360
   end
 end

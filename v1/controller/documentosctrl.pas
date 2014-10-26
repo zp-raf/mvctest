@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, ctrl, frmdocumentosdatamodule, mvc,
   frmpagodatamodule, pagoctrl, frmpago, Controls, sgcdTypes,
   facturactrl2, frmprocesofacturacion, frmfacturadatamodule2,
-  frmrecibodatamodule, reciboctrl, frmprocesorecibo, frmquerydatamodule,
+  reciboctrl, frmprocesorecibo, frmquerydatamodule,
   observerSubject;
 
 type
@@ -17,13 +17,13 @@ type
 
   TDocumentosController = class(TController)
   private
-    FCustomModel: TDocumentosDataModule;
     FPagoController: TPagoController;
-    procedure SetCustomModel(AValue: TDocumentosDataModule);
     procedure SetPagoController(AValue: TPagoController);
+  protected
+    function GetCustomModel: TDocumentosDataModule;
   public
-    procedure BeforeDestruction; override;
-    constructor Create(AModel: IModel);
+    constructor Create(AModel: Pointer); overload; override;
+    destructor Destroy; override;
     procedure AnularDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
     procedure AnularDoc(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
     procedure AnularPago(ATipoDoc: TTipoDocumento; Sender: IFormView);
@@ -32,7 +32,6 @@ type
     procedure CobrarDoc(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
     procedure VerDocumento(ATipoDoc: TTipoDocumento; Sender: IFormView);
     procedure VerDocumento(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
-    property CustomModel: TDocumentosDataModule read FCustomModel write SetCustomModel;
     property PagoController: TPagoController read FPagoController
       write SetPagoController;
   end;
@@ -41,13 +40,6 @@ implementation
 
 { TDocumentosController }
 
-procedure TDocumentosController.SetCustomModel(AValue: TDocumentosDataModule);
-begin
-  if FCustomModel = AValue then
-    Exit;
-  FCustomModel := AValue;
-end;
-
 procedure TDocumentosController.SetPagoController(AValue: TPagoController);
 begin
   if FPagoController = AValue then
@@ -55,21 +47,22 @@ begin
   FPagoController := AValue;
 end;
 
-procedure TDocumentosController.BeforeDestruction;
+function TDocumentosController.GetCustomModel: TDocumentosDataModule;
 begin
-  CustomModel := nil;
-  inherited BeforeDestruction;
+  Result := GetModel as TDocumentosDataModule;
 end;
 
-constructor TDocumentosController.Create(AModel: IModel);
+destructor TDocumentosController.Destroy;
+begin
+  PagoController.Free;
+  inherited Destroy;
+end;
+
+constructor TDocumentosController.Create(AModel: Pointer);
 begin
   inherited Create(AModel);
-  if (AModel is TDocumentosDataModule) then
-    CustomModel := (AModel as TDocumentosDataModule)
-  else
-    raise Exception.Create(rsModelErr);
   // el controlador para los pagos
-  FPagoController := TPagoController.Create(CustomModel.Pagos);
+  FPagoController := TPagoController.Create(GetCustomModel.Pagos);
 end;
 
 procedure TDocumentosController.AnularDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
@@ -86,7 +79,7 @@ end;
 procedure TDocumentosController.AnularPago(ATipoDoc: TTipoDocumento; Sender: IFormView);
 begin
   //case ATipoDoc of
-  //  //doFactura: AnularDoc(ATipoDoc, CustomModel.CobrosView.Lookup('ID', CustomModel.FacturasCobradasViewID., Sender);
+  //  //doFactura: AnularDoc(ATipoDoc, GetCustomModel.CobrosView.Lookup('ID', GetCustomModel.FacturasCobradasViewID., Sender);
   //end;
 end;
 
@@ -105,7 +98,7 @@ end;
 procedure TDocumentosController.CobrarDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
 begin
   case ATipoDoc of
-    doFactura: CobrarDoc(ATipoDoc, CustomModel.FacturasViewID.AsString, Sender);
+    doFactura: CobrarDoc(ATipoDoc, GetCustomModel.FacturasViewID.AsString, Sender);
   end;
 end;
 
@@ -142,60 +135,61 @@ procedure TDocumentosController.VerDocumento(ATipoDoc: TTipoDocumento;
   Sender: IFormView);
 begin
 
-  /// aca ya tengo que hacer el case, y usarle a CustomModel.FacturasViewID.AsString por ejemplo
-//     VerDocumento(ATipoDoc, CustomModel.FacturasViewID.AsString,Sender);
+  /// aca ya tengo que hacer el case, y usarle a GetCustomModel.FacturasViewID.AsString por ejemplo
+  //     VerDocumento(ATipoDoc, GetCustomModel.FacturasViewID.AsString,Sender);
 end;
 
 procedure TDocumentosController.VerDocumento(ATipoDoc: TTipoDocumento;
   ADoc: string; Sender: IFormView);
 begin
-  if ADoc = '1'  then
-     ADoc:= CustomModel.CobrosViewID.AsString
+  if ADoc = '1' then
+    ADoc := GetCustomModel.CobrosViewID.AsString
   else if ADoc = '2' then
-    ADoc:= CustomModel.FacturasViewID.AsString
+    ADoc := GetCustomModel.FacturasViewID.AsString
   else if ADoc = '3' then
-    ADoc:= CustomModel.FacturasCobradasViewID.AsString;
+    ADoc := GetCustomModel.FacturasCobradasViewID.AsString;
 
   try
     case ATipoDoc of
-       doFactura:
-       Begin
-         ProcesoFacturacion := TProcesoFacturacion.Create(Sender,
-           TFacturaController.Create(TFacturasDataModule.Create(
-           (Sender as TComponent), Model.MasterDataModule)));
+      doFactura:
+      begin
+        ProcesoFacturacion :=
+          TProcesoFacturacion.Create(Sender, TFacturaController.Create(
+          TFacturasDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
 
         ProcesoFacturacion.Show;
-        (Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
+        (GetModel.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
 
-      //   FacturasDataModule.qryCabeceraID.AsInteger:= StrToInt(ADoc);
+        //   FacturasDataModule.qryCabeceraID.AsInteger:= StrToInt(ADoc);
          {
-            ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Active:= True;
-          ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Edit;
-          ProcesoFacturacion.CustomController.CustomModel.qryCabeceraID.AsInteger:= StrToInt(ADoc);
-          ProcesoFacturacion.CustomController.CustomModel.OpenDataSets;
-          ProcesoFacturacion.CustomController.CustomModel.EditCurrentRecord;
+            ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.Active:= True;
+          ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.Edit;
+          ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabeceraID.AsInteger:= StrToInt(ADoc);
+          ProcesoFacturacion.GetCustomController.GetCustomModel.OpenDataSets;
+          ProcesoFacturacion.GetCustomController.GetCustomModel.EditCurrentRecord;
            }
 
-         ProcesoFacturacion.Edit;
-         ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Active:= True;
-         ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Edit;
-         ProcesoFacturacion.CustomController.CustomModel.qryCabeceraID.AsInteger:= StrToInt(ADoc);
-
+        //ProcesoFacturacion.Edit;
+        //ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.Active := True;
+        //ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.Edit;
+        //ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabeceraID.AsInteger :=
+        //  StrToInt(ADoc);
+        //
            {
             try
-              ProcesoFacturacion.CustomController.CustomModel.qryCabecera.DisableControls;
+              ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.DisableControls;
               try
-                ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Close;
-                ProcesoFacturacion.CustomController.CustomModel.qryCabecera.SQL.Clear;
-                ProcesoFacturacion.CustomController.CustomModel.qryCabecera.SQL.Add
+                ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.Close;
+                ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.SQL.Clear;
+                ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.SQL.Add
                 ('SELECT * FROM FACTURA WHERE ID = '+ ADoc );
                 try
-                   ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Open;
+                   ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.Open;
                 finally
                 end;
 
                finally
-               ProcesoFacturacion.CustomController.CustomModel.qryCabecera.EnableControls;
+               ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.EnableControls;
                ProcesoFacturacion.Show;
                (Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
 
@@ -206,22 +200,19 @@ begin
 
            }
 
-
-
-
-       end;
-       doRecibo:
-       Begin
-       ProcesoPago := TProcesoPago.Create(Sender,
-       TPagoController.Create (TPagoDataModule.Create(
-       (Sender as TComponent), Model.MasterDataModule)));
-       ProcesoPago.Show;
-       (Model.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
-  //     PagoDataModule.Pago.Close;
-       PagoDataModule.PagoID.AsInteger:= StrToInt(ADoc);
-  //     PagoDataModule.Pago.Open;
-      //ProcesoPago.;
-       end;
+      end;
+      doRecibo:
+      begin
+        ProcesoPago := TProcesoPago.Create(Sender,
+          TPagoController.Create(TPagoDataModule.Create(
+          (Sender as TComponent), GetModel.MasterDataModule)));
+        ProcesoPago.Show;
+        (GetModel.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
+        //     PagoDataModule.Pago.Close;
+        PagoDataModule.PagoID.AsInteger := StrToInt(ADoc);
+        //     PagoDataModule.Pago.Open;
+        //ProcesoPago.;
+      end;
     end;
   finally
   end;
@@ -262,6 +253,8 @@ end;
 
 
 }
+
+
 
 
 

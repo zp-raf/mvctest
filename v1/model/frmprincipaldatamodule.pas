@@ -5,14 +5,14 @@ unit frmprincipaldatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, frmquerydatamodule, mvc;
+  frmquerydatamodule, mvc;
 
 type
 
   { TPrincipalDataModule }
 
-  // Esta es solo una clase wrapper. No me gusta hacer esto pero es para evitar
-  // mayores complicaciones
+  // ???: This class adds nothing for the moment. Maybe in the future will do
+  // something useful ;)
   TPrincipalDataModule = class(TQueryDataModule, IModel)
   private
     { private declarations }

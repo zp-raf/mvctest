@@ -18,6 +18,19 @@ const
   TARJETA_DEBITO = '3';
   TARJETA_CREDITO = '4';
 
+//TipoMovimiento: array[Credito..Debito] of shortstring = (
+//  'Credito',
+//  'Debito');
+//TipoComprobante: array[Factura..NotaCredito] of shortstring = (
+//  'Factura',
+//  'Recibo',
+//  'NotaCredito');
+//TipoPago: array[Efectivo..TarjetaCredito] of shortstring = (
+//  'Efectivo',
+//  'Cheque',
+//  'TarjetaDebito',
+//  'TarjetaCredito');
+
 type
 
   TTipoDocumento = (doFactura, doRecibo, doNotaCredito);

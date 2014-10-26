@@ -5,16 +5,20 @@ unit frmprocesocomprobante;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, ComCtrls,
-  frmproceso, mvc, comprobantectrl, frmcomprobantedatamodule, frmMaestro,
-  frmbuscarpersonas, buscarpersctrl;
+  SysUtils, Graphics, Menus,
+  StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
+  frmproceso, comprobantectrl, frmcomprobantedatamodule,
+  frmbuscarpersonas, ctrl;
 
 type
 
   { TProcesoComprobante }
 
   TProcesoComprobante = class(TProceso)
+  protected
+    function GetABMController: TABMController;
+    function GetCustomController: TComprobanteController;
+  published
     ButtonSeleccionarFac: TButton;
     ButtonSeleccionarPers: TButton;
     ButtonLimpiar: TButton;
@@ -45,17 +49,6 @@ type
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
     Totales: TGroupBox;
-  private
-    FABMController: IABMController;
-    FCustomController: TComprobanteController;
-    function GetController: IABMController;
-    function GetCustomController: TComprobanteController;
-    procedure SetController(AValue: IABMController);
-    procedure SetCustomController(AValue: TComprobanteController);
-  public
-    constructor Create(AOwner: IFormView; AController: TComprobanteController);
-      overload;
-  published
     procedure ButtonSeleccionarPersClick(Sender: TObject);
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure DBGridDetEditingDone(Sender: TObject);
@@ -67,13 +60,9 @@ type
     procedure Delete;
     procedure Refresh;
     procedure ObserverUpdate(const Subject: IInterface); override;
-    property ABMController: IABMController read GetController write SetController;
     procedure Limpiar;
     procedure OKButtonClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
-    { Aca esta el controlador especifico del modulo }
-    property CustomController: TComprobanteController
-      read GetCustomController write SetCustomController;
   end;
 
 var
@@ -86,38 +75,30 @@ implementation
 
 { TProcesoComprobante }
 
+function TProcesoComprobante.GetABMController: TABMController;
+begin
+  Result := GetABMController as TABMController;
+end;
+
+function TProcesoComprobante.GetCustomController: TComprobanteController;
+begin
+  Result := GetController as TComprobanteController;
+end;
+
 procedure TProcesoComprobante.ButtonSeleccionarPersClick(Sender: TObject);
 begin
-  //Controller.OpenDataSets(Self);
-  //try
-  //  PopUp := TPopupSeleccionPersonas.Create(Self,
-  //    TBuscarPersonasController.Create(Controller.Model));
-  //  case PopUp.ShowModal of
-  //    mrOk:
-  //    begin
-  //      Controller.Connect(Self);
-  //      // si ya se esta editando simplemente se cancela y se hace otra
-  //      CustomController.NuevoComprobante(Self);
-  //    end
-  //    else
-  //    begin
-  //      Exit;
-  //    end;
-  //  end;
-  //finally
-  //  PopUp.Free;
-  //end;
+
 end;
 
 procedure TProcesoComprobante.ButtonLimpiarClick(Sender: TObject);
 begin
   Limpiar;
-  ABMController.Cancel(Self);
+  GetABMController.Cancel(Self);
 end;
 
 procedure TProcesoComprobante.DBGridDetEditingDone(Sender: TObject);
 begin
-  CustomController.ActualizarTotales(Self);
+  GetCustomController.ActualizarTotales(Self);
 end;
 
 procedure TProcesoComprobante.DBNavigatorDetBeforeAction(Sender: TObject;
@@ -155,57 +136,15 @@ begin
   if not (Sender is TDBNavigator) then
     Abort;
   case Button of
-    nbDelete: CustomController.ActualizarTotales(Self);
+    nbDelete: GetCustomController.ActualizarTotales(Self);
   end;
 end;
 
 procedure TProcesoComprobante.FormShow(Sender: TObject);
 begin
   inherited;
-  //ABMController.NewRecord(Self);
-  Controller.CloseDataSets(Self);
-end;
-
-function TProcesoComprobante.GetController: IABMController;
-begin
-  Result := FABMController;
-end;
-
-function TProcesoComprobante.GetCustomController: TComprobanteController;
-begin
-  Result := FCustomController;
-end;
-
-procedure TProcesoComprobante.SetController(AValue: IABMController);
-begin
-  if FABMController = AValue then
-    Exit;
-  FABMController := AValue;
-end;
-
-procedure TProcesoComprobante.SetCustomController(AValue: TComprobanteController);
-begin
-  if FCustomController = AValue then
-    Exit;
-  FCustomController := AValue;
-end;
-
-constructor TProcesoComprobante.Create(AOwner: IFormView;
-  AController: TComprobanteController);
-var
-  Cont: IController;
-  ABMCont: IABMController;
-begin
-  (AController as IInterface).QueryInterface(IController, Cont);
-  (AController as IInterface).QueryInterface(IABMController, ABMCont);
-  if (Cont = nil) or (ABMCont = nil) then
-    raise Exception.Create(rsProvidedCont)
-  else
-  begin
-    inherited Create(AOwner, Cont);
-    ABMController := ABMCont;
-    CustomController := AController;
-  end;
+  //GetABMController.NewRecord(Self);
+  GetController.CloseDataSets(Self);
 end;
 
 procedure TProcesoComprobante.Edit;
@@ -231,7 +170,7 @@ end;
 procedure TProcesoComprobante.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
-  case CustomController.GetEstadoComprobante(Self) of
+  case GetCustomController.GetEstadoComprobante(Self) of
     asInicial:
     begin
       Cabecera.Enabled := False;
@@ -240,7 +179,7 @@ begin
       DBGridDet.Color := clInactiveCaption;
       ButtonSeleccionarPers.Enabled := True;
       ButtonLimpiar.Enabled := True;
-      Controller.CloseDataSets(Self);
+      GetController.CloseDataSets(Self);
     end;
     asGuardado:
     begin
@@ -250,7 +189,7 @@ begin
       DBGridDet.Color := clInactiveCaption;
       ButtonSeleccionarPers.Enabled := True;
       ButtonLimpiar.Enabled := True;
-      Controller.CloseDataSets(Self);
+      GetController.CloseDataSets(Self);
     end;
     asEditando:
     begin
@@ -264,7 +203,7 @@ begin
     end;
     asLeyendo:
     begin
-      Controller.OpenDataSets(Self);
+      GetController.OpenDataSets(Self);
     end;
   end;
 end;
@@ -281,20 +220,20 @@ end;
 
 procedure TProcesoComprobante.OKButtonClick(Sender: TObject);
 begin
-  if not (CustomController.GetEstadoComprobante(Self) in [asEditando]) then
+  if not (GetCustomController.GetEstadoComprobante(Self) in [asEditando]) then
   begin
     ShowInfoMessage('No se esta procesando ningun comprobante');
     Exit;
   end;
-  CustomController.CerrarComprobante(Self);
+  GetCustomController.CerrarComprobante(Self);
   ShowInfoMessage('Comprobante ingresado correctamente');
   Limpiar;
 end;
 
 procedure TProcesoComprobante.CancelButtonClick(Sender: TObject);
 begin
-  ABMController.Cancel(Self);
-  ABMController.Rollback(Self);
+  GetABMController.Cancel(Self);
+  GetABMController.Rollback(Self);
   ShowInfoMessage('Comprobante descartado');
   Limpiar;
 end;

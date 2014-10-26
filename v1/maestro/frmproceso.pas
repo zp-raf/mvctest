@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, frmMaestro, mvc, observerSubject;
+  ButtonPanel, frmMaestro, mvc;
 
 type
 
@@ -34,7 +34,7 @@ end;
 
 procedure TProceso.CloseButtonClick(Sender: TObject);
 begin
-  Controller.Close(Self as IFormView);
+  GetController.Close(Self as IFormView);
 end;
 
 end.

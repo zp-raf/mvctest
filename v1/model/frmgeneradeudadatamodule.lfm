@@ -10,7 +10,6 @@ inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
     top = 32
   end
   object Deuda: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

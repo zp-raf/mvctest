@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, frmcodigosdatamodule, frmfacturadatamodule2, frmpagodatamodule;
+  frmquerydatamodule, frmfacturadatamodule2, frmpagodatamodule;
 
 type
 

@@ -5,9 +5,8 @@ unit frmpagodatamodule;
 interface
 
 uses
-  Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, frmsgcddatamodule, frmfacturadatamodule2,
-  frmcodigosdatamodule, observerSubject, frmasientosdatamodule, sgcdTypes;
+  SysUtils, sqldb, DB, frmquerydatamodule, frmfacturadatamodule2,
+  observerSubject, frmasientosdatamodule, sgcdTypes;
 
 const
   ITEM_SEPARATOR = ', ';
@@ -24,6 +23,14 @@ type
   { TPagoDataModule }
 
   TPagoDataModule = class(TQueryDataModule)
+  private
+    FAsientos: TAsientosDataModule;
+    FFactura: TFacturasDataModule;
+    FListo: boolean;
+    function GetEstado: boolean;
+    procedure SetAsientos(AValue: TAsientosDataModule);
+    procedure SetFactura(AValue: TFacturasDataModule);
+  published
     Codigos: TSQLQuery;
     CodigosOBJETO: TStringField;
     CodigosSIGNIFICADO: TStringField;
@@ -91,14 +98,6 @@ type
     PagoTOTALPAGADO: TFloatField;
     PagoVALIDO: TSmallintField;
     PagoVUELTO: TFloatField;
-  private
-    FAsientos: TAsientosDataModule;
-    FFactura: TFacturasDataModule;
-    FListo: boolean;
-    function GetEstado: boolean;
-    procedure SetAsientos(AValue: TAsientosDataModule);
-    procedure SetFactura(AValue: TFacturasDataModule);
-  published
     procedure ActualizarTotales;
     procedure AnularPago(APagoID: string);
     procedure Connect; override;
@@ -353,7 +352,8 @@ end;
 procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
 begin
   // creamos un nuevo asiento
-  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryCabeceraNUMERO.AsString, APagoID);
+  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT +
+    Facturas.qryCabeceraNUMERO.AsString, APagoID);
   // recorrer la factura y poner los detales de los asientos
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do

@@ -5,54 +5,44 @@ unit frmgeneradeuda;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls, Spin, EditBtn, frmAbm,
-  frmgeneradeudadatamodule, generardeudactrl, mvc, frmMaestro, mensajes, variants;
-
-resourcestring
-  rsFormatoDeFec = 'Formato de fecha invalido';
+  SysUtils, Forms, Controls, Dialogs, Menus, ExtCtrls, DBCtrls,
+  StdCtrls, Spin, EditBtn, frmAbm, generardeudactrl, mensajes, variants;
 
 type
 
   { TGenerarDeuda }
 
   TGenerarDeuda = class(TAbm)
+  protected
+    function GetCustomController: TGenDeudaController;
+  published
+    DateEditVen: TDateEdit;
+    DBLookupComboBoxAran: TDBLookupComboBox;
+    DBLookupComboBoxVenUnidad: TDBLookupComboBox;
+    DBLookupComboBoxPers: TDBLookupComboBox;
     DBText1: TDBText;
     DBText2: TDBText;
     DBText3: TDBText;
-    procedure DateEditVenEditingDone(Sender: TObject);
-  private
-    FCustomController: TGenDeudaController;
-    procedure SetCustomController(AValue: TGenDeudaController);
-  published
-    DateEditVen: TDateEdit;
+    Fecha: TLabel;
+    FraccionamientoPorDefecto: TCheckBox;
+    GroupBoxVencimiento: TGroupBox;
+    Label4: TLabel;
+    LabelArancel: TLabel;
+    LabelCantCuotas: TLabel;
+    LabelPersona: TLabel;
+    SinVencimiento: TCheckBox;
     SpinEditCant: TSpinEdit;
     SpinEditVenCant: TSpinEdit;
-    DBLookupComboBoxVenUnidad: TDBLookupComboBox;
-    LabelCantCuotas: TLabel;
-    Fecha: TLabel;
-    SinVencimiento: TCheckBox;
-    FraccionamientoPorDefecto: TCheckBox;
-    DBLookupComboBoxPers: TDBLookupComboBox;
-    DBLookupComboBoxAran: TDBLookupComboBox;
-    GroupBoxVencimiento: TGroupBox;
-    LabelPersona: TLabel;
-    LabelArancel: TLabel;
-    Label4: TLabel;
-    procedure DateEditVenEnter(Sender: TObject);
-    procedure EditVenCantEnter(Sender: TObject);
-    procedure SpinEditCantChange(Sender: TObject);
-    procedure FraccionamientoPorDefectoChange(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure OKButtonClick(Sender: TObject); override;
-    procedure SinVencimientoChange(Sender: TObject);
     procedure ABMInsert; override;
     procedure ABMEdit; override;
     procedure ABMDelete; override;
-    property CustomController: TGenDeudaController
-      read FCustomController write SetCustomController;
-  public
-    constructor Create(AOwner: IFormView; AController: TGenDeudaController); overload;
+    procedure DateEditVenEditingDone(Sender: TObject);
+    procedure DateEditVenEnter(Sender: TObject);
+    procedure EditVenCantEnter(Sender: TObject);
+    procedure FraccionamientoPorDefectoChange(Sender: TObject);
+    procedure OKButtonClick(Sender: TObject); override;
+    procedure SinVencimientoChange(Sender: TObject);
+    procedure SpinEditCantChange(Sender: TObject);
   end;
 
 var
@@ -63,11 +53,6 @@ implementation
 {$R *.lfm}
 
 { TGenerarDeuda }
-
-procedure TGenerarDeuda.FormCreate(Sender: TObject);
-begin
-
-end;
 
 procedure TGenerarDeuda.FraccionamientoPorDefectoChange(Sender: TObject);
 begin
@@ -110,15 +95,8 @@ end;
 
 procedure TGenerarDeuda.DateEditVenEditingDone(Sender: TObject);
 begin
-  if not Controller.IsValidDate(DateEditVen.Text) then
-    ShowErrorMessage(rsFormatoDeFec);
-end;
-
-procedure TGenerarDeuda.SetCustomController(AValue: TGenDeudaController);
-begin
-  if FCustomController = AValue then
-    Exit;
-  FCustomController := AValue;
+  if not GetController.IsValidDate(DateEditVen.Text) then
+    ShowErrorMessage(rsInvalidDateFormat);
 end;
 
 procedure TGenerarDeuda.DateEditVenEnter(Sender: TObject);
@@ -142,13 +120,13 @@ begin
   if PanelDetail.Visible and ((FraccionamientoPorDefecto.State = cbGrayed) or
     (SinVencimiento.State = cbGrayed)) then
   begin
-    ShowErrorMessage(rsPorFavorSele);
+    ShowErrorMessage(rsPleaseSelFinanOpt);
     Exit;
   end;
-  if CustomController.CheckAndSave(Self, msg) then
-    ABMController.Commit(Self)
+  if GetCustomController.CheckAndSave(Self, msg) then
+    GetABMController.Commit(Self)
   else
-    ABMController.Rollback(Self);
+    GetABMController.Rollback(Self);
   ShowPanel(PanelList);
 end;
 
@@ -162,6 +140,11 @@ begin
     GroupBoxVencimiento.Enabled := False
   else
     GroupBoxVencimiento.Enabled := True;
+end;
+
+function TGenerarDeuda.GetCustomController: TGenDeudaController;
+begin
+  Result := GetController as TGenDeudaController;
 end;
 
 procedure TGenerarDeuda.ABMInsert;
@@ -182,20 +165,6 @@ end;
 procedure TGenerarDeuda.ABMDelete;
 begin
   inherited ABMDelete;
-end;
-
-constructor TGenerarDeuda.Create(AOwner: IFormView; AController: TGenDeudaController);
-var
-  x: IABMController;
-begin
-  (AController as IInterface).QueryInterface(IABMController, x);
-  if x <> nil then
-  begin
-    inherited Create(AOwner, x);
-    FCustomController := AController;
-  end
-  else
-    raise Exception.Create(rsProvidedCont);
 end;
 
 end.

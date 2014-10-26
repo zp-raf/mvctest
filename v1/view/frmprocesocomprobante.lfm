@@ -389,8 +389,4 @@ inherited ProcesoComprobante: TProcesoComprobante
     inherited MenuAyuda: TMenuItem[2]
     end
   end
-  inherited AppProps: TApplicationProperties[8]
-    left = 504
-    top = 8
-  end
 end

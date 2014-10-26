@@ -5,74 +5,66 @@ unit ctrl;
 interface
 
 uses
-  Classes, SysUtils, manejoerrores, mvc, frmsgcddatamodule, IBConnection, DB,
-  Controls, Forms, observerSubject, FileUtil, dateutils, frmquerydatamodule;
-
-// para modificar mas facilmente los textos de mensajes
-resourcestring
-  rsExitQuestion = '¿Está seguro que desea salir?';
-  rsExitSalir = 'Salir';
-  rsProductCopyright = '© 2014 Rafael Aquino - Federico Pérez';
-  rsProductInitials = 'SGCD';
-  rsProductName = 'Sistema de Gestión de Cursos de Danza ';
-  rsProductVersion = 'Versión 0.0.0.1';
-  rsPendingChanges = 'Hay cambios sin guardar.';
-  rsModelErr = 'El modelo no es del tipo apropiado';
+  SysUtils, manejoerrores, mvc, IBConnection, DB, Controls, Forms,
+  observerSubject, dateutils, frmquerydatamodule, mensajes;
 
 type
 
   { TController }
 
-  TController = class(TInterfacedObject, IController)
+  TController = class abstract(TInterfacedObject, IController)
   private
-    FModel: IModel;
-    //FModelPtr: Pointer;
-    procedure SetModel(AValue: IModel);
-    function GetModel: IModel;
+    { We hold only a pointer to the actual model so we can easily cast it to
+      either CustomDataModule or the TQueryDataModule as needed through setters
+      and getters. A pointer also gives us more flexibility in memory management
+      and circumvents reference counting problems. }
+    FModel: Pointer;
+  protected
+    { In the descendants of this class should be more setters like these
+      (SetModel and GetModel) in order to access specific methods of the custom
+      datamodule class. For example: function GetCustomModel: TSpecificDataModule,
+      etc. }
+    procedure SetModel(AValue: TQueryDataModule);
+    function GetModel: TQueryDataModule;
   public
-    constructor Create(AModel: IModel);
-    //destructor Destroy; override;
-    procedure BeforeDestruction; override;
-    procedure Close(Sender: IView);
-    procedure Close(Sender: IFormView);
+    constructor Create(AModel: Pointer); overload; virtual;
+    destructor Destroy; override;
+    procedure AfterConstruction; override; final;
+    procedure Cancel(Sender: IView);
+    procedure Close(Sender: IView); virtual;
+    procedure Close(Sender: IFormView); virtual; overload;
     procedure CloseDataSets(Sender: IView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean); virtual;
+    procedure Commit(Sender: IView);
     procedure Connect(Sender: IView);
     procedure Disconnect(Sender: IView);
+    procedure EditCurrentRecord(Sender: IView); virtual;
     procedure ErrorHandler(E: Exception; Sender: IView); virtual;
+    procedure ErrorHandler(E: Exception; Sender: IABMView); virtual; overload;
+    procedure NewDetailRecord(Sender: IView);
+    procedure NewRecord(Sender: IView);
     procedure OpenDataSets(Sender: IView);
-    procedure ShowHelp(Sender: IView);
-    procedure ShowHelp(Sender: IFormView);
-    function GetVersion(Sender: IView): string;
-    function IsDBConnected(Sender: IView): boolean;
-    function IsValidDate(ADateStr: string): boolean;
-    property Model: IModel read GetModel write SetModel;
+    procedure RefreshData(Sender: IView);
+    procedure Rollback(Sender: IView);
+    procedure ShowHelp(Sender: IView); virtual;
+    procedure ShowHelp(Sender: IFormView); virtual;
+    procedure Save(Sender: IView); virtual;
+    function GetVersion(Sender: IView): string; virtual; final;
+    function IsDBConnected(Sender: IView): boolean; virtual; final;
+    function IsValidDate(ADateStr: string): boolean; virtual; final;
   end;
 
   { TABMController }
 
-  TABMController = class(TController, IABMController)
-  private
-    //FController: IController;
+  TABMController = class abstract(TController, IABMController)
   public
-    procedure Cancel(Sender: IView);
-    procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
-    procedure Commit(Sender: IView);
-    procedure EditCurrentRecord(Sender: IView);
-    procedure ErrorHandler(E: Exception; Sender: IABMView); virtual; overload;
     procedure FilterData(AFilterText: string; Sender: IView);
-    procedure NewDetailRecord(Sender: IView);
-    procedure NewRecord(Sender: IView);
-    procedure RefreshData(Sender: IView);
-    procedure Rollback(Sender: IView);
-    procedure Save(Sender: IView); virtual;
     function GetCurrentRecordText(Sender: IView): string;
-    //property Controller: IController read FController implements IController;
   end;
 
-var
-  Controller: TController;
-  ABMController: TABMController;
+//var
+//  Controller: TController;
+//  ABMController: TABMController;
 
 implementation
 
@@ -82,79 +74,81 @@ procedure TABMController.FilterData(AFilterText: string; Sender: IView);
 begin
   if Trim(AFilterText) = '' then
   begin
-    Model.UnfilterData;
-    Model.RefreshDataSets;
+    GetModel.UnfilterData;
+    GetModel.RefreshDataSets;
   end
   else
   begin
-    Model.FilterData(AFilterText);
-    Model.RefreshDataSets;
+    GetModel.FilterData(AFilterText);
+    GetModel.RefreshDataSets;
   end;
-end;
-
-procedure TABMController.NewDetailRecord(Sender: IView);
-begin
-  Model.NewDetailRecord;
 end;
 
 function TABMController.GetCurrentRecordText(Sender: IView): string;
 begin
-  Result := Model.GetCurrentRecordText;
+  Result := GetModel.GetCurrentRecordText;
 end;
 
-procedure TABMController.NewRecord(Sender: IView);
+{ TController }
+
+procedure TController.NewDetailRecord(Sender: IView);
 begin
-  Model.NewRecord;
+  GetModel.NewDetailRecord;
 end;
 
-procedure TABMController.RefreshData(Sender: IView);
+procedure TController.NewRecord(Sender: IView);
 begin
-  Model.RefreshDataSets;
+  GetModel.NewRecord;
 end;
 
-procedure TABMController.Rollback(Sender: IView);
+procedure TController.RefreshData(Sender: IView);
 begin
-  Model.Rollback;
-  Model.Connect;
+  GetModel.RefreshDataSets;
 end;
 
-procedure TABMController.Save(Sender: IView);
+procedure TController.Rollback(Sender: IView);
 begin
-  Model.SaveChanges;
-  Model.RefreshDataSets;
+  GetModel.Rollback;
+  GetModel.Connect;
 end;
 
-procedure TABMController.EditCurrentRecord(Sender: IView);
+procedure TController.Save(Sender: IView);
 begin
-  Model.EditCurrentRecord;
+  GetModel.SaveChanges;
+  GetModel.RefreshDataSets;
 end;
 
-procedure TABMController.ErrorHandler(E: Exception; Sender: IABMView);
+procedure TController.EditCurrentRecord(Sender: IView);
+begin
+  GetModel.EditCurrentRecord;
+end;
+
+procedure TController.ErrorHandler(E: Exception; Sender: IABMView);
 var
   viewObj: IView;
 begin
   Sender.QueryInterface(IView, viewObj);
   if viewObj <> nil then
-    inherited ErrorHandler(E, viewObj);
+    ErrorHandler(E, viewObj);
   Sender.Cancel;
 end;
 
-procedure TABMController.Cancel(Sender: IView);
+procedure TController.Cancel(Sender: IView);
 begin
-  Model.DiscardChanges;
-  Model.RefreshDataSets;
+  GetModel.DiscardChanges;
+  GetModel.RefreshDataSets;
 end;
 
-procedure TABMController.CloseQuery(Sender: IView; var CanClose: boolean);
+procedure TController.CloseQuery(Sender: IView; var CanClose: boolean);
 begin
-  if Model.ArePendingChanges then
-    case Sender.ShowConfirmationMessage(rsExitSalir, rsPendingChanges +
+  if GetModel.ArePendingChanges then
+    case Sender.ShowConfirmationMessage(rsExitText, rsPendingChanges +
         #13#10 + rsExitQuestion) of
       mrYes:
       begin
         CanClose := True;
-        Model.DiscardChanges;
-        (Model.MasterDataModule as ISubject).Detach(Sender as IObserver);
+        GetModel.DiscardChanges;
+        (GetModel.MasterDataModule as ISubject).Detach(Sender as IObserver);
       end;
       mrNo:
       begin
@@ -162,30 +156,43 @@ begin
       end;
     end
   else
-    inherited CloseQuery(Sender, CanClose);
+  if CanClose then
+  begin
+    (GetModel.MasterDataModule as ISubject).Detach(Sender as IObserver);
+    Exit;
+    case Sender.ShowConfirmationMessage(rsExitText, rsExitQuestion) of
+      mrYes:
+      begin
+        CanClose := True;
+        (GetModel.MasterDataModule as ISubject).Detach(Sender as IObserver);
+      end;
+      mrNo:
+      begin
+        CanClose := False;
+      end;
+    end;
+  end;
 end;
 
-procedure TABMController.Commit(Sender: IView);
+procedure TController.Commit(Sender: IView);
 begin
-  Model.Commit;
-  Model.Connect;
+  GetModel.Commit;
+  GetModel.Connect;
 end;
-
-{ TController }
 
 procedure TController.Connect(Sender: IView);
 begin
-  Model.Connect;
+  GetModel.Connect;
 end;
 
 procedure TController.Disconnect(Sender: IView);
 begin
-  Model.Disconnect;
+  GetModel.Disconnect;
 end;
 
 function TController.IsDBConnected(Sender: IView): boolean;
 begin
-  Result := Model.GetDBStatus.Connected;
+  Result := GetModel.GetDBStatus.Connected;
 end;
 
 function TController.IsValidDate(ADateStr: string): boolean;
@@ -198,16 +205,42 @@ begin
     Result := False;
 end;
 
-procedure TController.SetModel(AValue: IModel);
+procedure TController.SetModel(AValue: TQueryDataModule);
 begin
-  if FModel = AValue then
+  if FModel = Pointer(AValue) then
     Exit;
-  FModel := AValue;
+  FModel := Pointer(AValue);
 end;
 
-function TController.GetModel: IModel;
+function TController.GetModel: TQueryDataModule;
 begin
-  Result := FModel;
+  Result := TQueryDataModule(FModel);
+end;
+
+constructor TController.Create(AModel: Pointer);
+begin
+  if Assigned(AModel) and (TObject(AModel) is TQueryDataModule) then
+    FModel := AModel
+  else
+    raise Exception.Create(rsCreateErrorInvalidCont);
+end;
+
+destructor TController.Destroy;
+begin
+  inherited Destroy;
+  GetModel.Free;
+end;
+
+{ TController.AfterConstruction
+
+  This procedure test for proper assignment of the model to the FModel field.
+  It raises an exception if an error is detected. }
+
+procedure TController.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  if not Assigned(FModel) then
+    raise Exception.Create(rsModelAsgnErr);
 end;
 
 procedure TController.ErrorHandler(E: Exception; Sender: IView);
@@ -215,7 +248,7 @@ begin
   if E is EDatabaseError then
   begin
     Sender.ShowErrorMessage(GetErrorMessage(E as EDatabaseError));
-    Model.OnError((Sender as TObject), (E as EDatabaseError));
+    GetModel.OnError((Sender as TObject), (E as EDatabaseError));
   end
   else if E is EIBDatabaseError then
     Sender.ShowErrorMessage(GetErrorMessage(E as EIBDatabaseError))
@@ -225,7 +258,7 @@ end;
 
 procedure TController.OpenDataSets(Sender: IView);
 begin
-  Model.OpenDataSets;
+  GetModel.OpenDataSets;
 end;
 
 function TController.GetVersion(Sender: IView): string;
@@ -233,37 +266,9 @@ begin
   Result := rsProductName + #13#10 + rsProductVersion + #13#10 + rsProductCopyright;
 end;
 
-constructor TController.Create(AModel: IModel);
-begin
-  Model := AModel;
-  //FModelPtr := Pointer(AModel);
-end;
-
-procedure TController.BeforeDestruction;
-begin
-  if Model <> nil then
-  begin
-    Model := nil;
-    (Model as TDataModule).Free;
-  end;
-  inherited BeforeDestruction;
-end;
-
-//destructor TController.Destroy;
-//  var
-//    x: Pointer;
-//begin
-//  if Model <> nil then
-//  begin
-//    x := Pointer(Model);
-//    Model := nil;
-//    TQueryDataModule(x).Free;
-//  end;
-//end;
-
 procedure TController.Close(Sender: IView);
 begin
-  // aca tiene que ir codigo para cerrar la vista de text
+  { TODO : aca tiene que ir codigo para cerrar la vista de texto }
 end;
 
 procedure TController.Close(Sender: IFormView);
@@ -273,27 +278,7 @@ end;
 
 procedure TController.CloseDataSets(Sender: IView);
 begin
-  Model.CloseDataSets;
-end;
-
-procedure TController.CloseQuery(Sender: IView; var CanClose: boolean);
-begin
-  if CanClose then
-  begin
-    (Model.MasterDataModule as ISubject).Detach(Sender as IObserver);
-    Exit;
-  end;
-  case Sender.ShowConfirmationMessage(rsExitSalir, rsExitQuestion) of
-    mrYes:
-    begin
-      CanClose := True;
-      (Model.MasterDataModule as ISubject).Detach(Sender as IObserver);
-    end;
-    mrNo:
-    begin
-      CanClose := False;
-    end;
-  end;
+  GetModel.CloseDataSets;
 end;
 
 procedure TController.ShowHelp(Sender: IView);

@@ -7,19 +7,18 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, DBGrids, ButtonPanel, EditBtn, StdCtrls, DBCtrls, frmMaestro,
-  sqldb, LCLType, IBConnection, BufDataset, mvc, observerSubject;
+  sqldb, LCLType, IBConnection, BufDataset, mvc, ctrl, mensajes;
 
 type
 
   { TAbm }
 
   TAbm = class(TMaestro, IABMView)
-  private
-    FABMController: IABMController;
-    function GetController: IABMController;
-    procedure SetController(AValue: IABMController);
+    procedure EditFilterKeyUp(Sender: TObject; var Key: word; {%H-}Shift: TShiftState);
+  protected
+    function GetABMController: TABMController;
   public
-    constructor Create(AOwner: IFormView; AController: IABMController); overload;
+    constructor Create(AOwner: IFormView; AController: Pointer); override;
   published
     ButtonFilter: TButton;
     DBGrid1: TDBGrid;
@@ -39,14 +38,13 @@ type
     procedure CancelButtonClick(Sender: TObject); virtual;
     procedure CloseButtonClick(Sender: TObject); virtual;
     procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: integer);
+    {%H-}Shift: TShiftState; {%H-}X, {%H-}Y: integer);
     procedure DBNavListBeforeAction(Sender: TObject; Button: TDBNavButtonType);
     procedure FormShow(Sender: TObject);
     procedure MenuItemGuardarClick(Sender: TObject);
     procedure OK(Sender: TObject); virtual;
     procedure OKButtonClick(Sender: TObject); virtual;
     procedure ShowPanel(APanel: TPanel);
-    property ABMController: IABMController read GetController write SetController;
   end;
 
 var
@@ -65,8 +63,8 @@ end;
 
 procedure TAbm.OK(Sender: TObject);
 begin
-  ABMController.Save(Self);
-  ABMController.Commit(Self);
+  GetController.Save(Self);
+  GetController.Commit(Self);
   ShowPanel(PanelList);
 end;
 
@@ -81,14 +79,12 @@ var
 begin
   for i := 0 to Self.ComponentCount - 1 do
   begin
-
-    //para comparacion de tipos
+    // look for the TPanel type childs
     if (Components[i] is TPanel) and (Components[i] = (APanel as TComponent)) then
-
-      //hacemos visible el panel pasado como argumento
+      // make it visible and hide the rest of them
       TPanel(Components[i]).Visible := True
     else if Components[i] is TPanel then
-      TPanel(Components[i]).Visible := False; //ocultamos los demas
+      TPanel(Components[i]).Visible := False;
   end;
 end;
 
@@ -115,42 +111,39 @@ begin
   end;
 end;
 
-function TAbm.GetController: IABMController;
+procedure TAbm.EditFilterKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
-  Result := FABMController;
-end;
-
-procedure TAbm.SetController(AValue: IABMController);
-begin
-  if FABMController = AValue then
+  if Sender <> EditFilter then
     Exit;
-  FABMController := AValue;
+  if Key = VK_RETURN then
+    GetABMController.FilterData(Trim(EditFilter.Text), Self);
 end;
 
-constructor TAbm.Create(AOwner: IFormView; AController: IABMController);
-var
-  temp: IController;
+function TAbm.GetABMController: TABMController;
 begin
-  AController.QueryInterface(IController, temp);
-  if temp <> nil then
+  Result := GetController as TABMController;
+end;
+
+constructor TAbm.Create(AOwner: IFormView; AController: Pointer);
+begin
+  if Assigned(AController) and (TObject(AController) is TABMController) then
   begin
     inherited Create(AOwner, AController);
-    FABMController := AController;
   end
   else
-    raise Exception.Create(rsProvidedCont);
+    raise Exception.Create(rsCreateErrorInvalidCont);
 end;
 
 procedure TAbm.ABMInsert;
 begin
   ShowPanel(PanelDetail);
-  ABMController.NewRecord(Self);
+  GetController.NewRecord(Self);
 end;
 
 procedure TAbm.ABMEdit;
 begin
   ShowPanel(PanelDetail);
-  ABMController.EditCurrentRecord(Self);
+  GetController.EditCurrentRecord(Self);
 end;
 
 procedure TAbm.ABMDelete;
@@ -160,18 +153,18 @@ end;
 
 procedure TAbm.ABMRefresh;
 begin
-  ABMController.RefreshData(Self);
+  GetController.RefreshData(Self);
 end;
 
 procedure TAbm.ButtonFilterClick(Sender: TObject);
 begin
-  ABMController.FilterData(EditFilter.Text, Self);
+  GetABMController.FilterData(Trim(EditFilter.Text), Self);
 end;
 
 procedure TAbm.Cancel;
 begin
   ShowPanel(PanelList);
-  ABMController.Cancel(Self);
+  GetController.Cancel(Self);
 end;
 
 procedure TAbm.CancelButtonClick(Sender: TObject);
@@ -188,14 +181,14 @@ procedure TAbm.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);
 begin
   if (Button in [mbRight]) then
-    ShowInfoMessage(ABMController.GetCurrentRecordText(Self));
+    ShowInfoMessage(GetABMController.GetCurrentRecordText(Self));
 end;
 
 procedure TAbm.FormShow(Sender: TObject);
 begin
-  if not ABMController.IsDBConnected(Self) then
-    ABMController.Connect(Self);
-  ABMController.RefreshData(Self);
+  if not GetController.IsDBConnected(Self) then
+    GetController.Connect(Self);
+  GetController.RefreshData(Self);
   ShowPanel(PanelList);
   inherited FormShow(Sender);
 end;

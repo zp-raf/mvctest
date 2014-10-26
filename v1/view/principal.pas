@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, frmMaestro,
-  Menus, ExtCtrls, ComCtrls, StdCtrls, mvc, principalctrl;
+  Menus, ExtCtrls, StdCtrls, mvc, principalctrl;
 
 type
 
@@ -100,7 +100,7 @@ implementation
 
 procedure TPrincipal1.SalirClick(Sender: TObject);
 begin
-  Controller.Close(Self as IFormView);
+  GetController.Close(Self as IFormView);
 end;
 
 procedure TPrincipal1.facturasClick(Sender: TObject);
@@ -132,7 +132,7 @@ end;
 procedure TPrincipal1.FormShow(Sender: TObject);
 begin
   inherited;
-  Controller.Connect(Self);
+  GetController.Connect(Self);
 end;
 
 procedure TPrincipal1.MenuItemGenerarDeudaClick(Sender: TObject);
@@ -174,7 +174,7 @@ end;
 
 function TPrincipal1.GetCustomController: TPrincipalController;
 begin
-  Result := (Controller as TPrincipalController);
+  Result := (GetController as TPrincipalController);
 end;
 
 end.

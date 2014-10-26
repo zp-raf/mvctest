@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, Forms, Controls, Graphics, Dialogs,
   frmquerydatamodule, frmpersonasdatamodule, frmcuotaxarancel,
-  frmcodigosdatamodule, frmaranceldatamodule, dateutils, frmasientosdatamodule,
+  frmaranceldatamodule, dateutils, frmasientosdatamodule,
   frmcuentadatamodule;
 
 resourcestring

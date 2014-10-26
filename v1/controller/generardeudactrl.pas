@@ -5,28 +5,19 @@ unit generardeudactrl;
 interface
 
 uses
-  Classes, SysUtils, mvc, ctrl, frmgeneradeudadatamodule, mensajes,
-  StdCtrls;
-
-resourcestring
-  rsPorFavorSele = 'Por favor seleccione una opcion para fraccionamiento y ' +
-    'vencimiento';
-  rsValorInvalid = 'Valor invalido para unidad de fecha';
+  SysUtils, mvc, ctrl, frmgeneradeudadatamodule, mensajes;
 
 type
 
   { TGenDeudaController }
 
   TGenDeudaController = class(TABMController)
-  private
-    FCustomModel: TGeneraDeudaDataModule;
-    procedure SetCustomModel(AValue: TGeneraDeudaDataModule);
+  protected
+    function GetCustomModel: TGeneraDeudaDataModule;
   public
-    constructor Create(AModel: TGeneraDeudaDataModule);
     function CheckAndSave(Sender: IView; AMsg: TDeudaMsg): boolean;
     function CheckAndSave(Sender: IView; AMsg: TDeudaMsg;
       ADetMsg: TDeudaDetMsg): boolean;
-    procedure ErrorHandler(E: Exception; Sender: IABMView); overload; override;
     // cuotas por defecto
     procedure Save(Sender: IView); override; overload;
     // sin vencimiento
@@ -36,25 +27,15 @@ type
     // con vencimiento
     procedure Save(Sender: IView; ACantCuotas: integer; AUnidadFecha: TUnidadFecha;
       ACant: integer); overload;
-    property CustomModel: TGeneraDeudaDataModule read FCustomModel write SetCustomModel;
   end;
 
 implementation
 
 { TGenDeudaController }
 
-constructor TGenDeudaController.Create(AModel: TGeneraDeudaDataModule);
-var
-  x: IModel;
+function TGenDeudaController.GetCustomModel: TGeneraDeudaDataModule;
 begin
-  (AModel as IInterface).QueryInterface(IModel, x);
-  if x <> nil then
-  begin
-    inherited Create(AModel);
-    FCustomModel := AModel;
-  end
-  else
-    raise Exception.Create(rsModelErr);
+  Result := GetModel as TGeneraDeudaDataModule;
 end;
 
 function TGenDeudaController.CheckAndSave(Sender: IView; AMsg: TDeudaMsg): boolean;
@@ -63,7 +44,7 @@ begin
   // para cuando se acutaliza
   if AMsg.Updating and not AMsg.Inserting then
   begin
-    Model.SaveChanges;
+    GetModel.SaveChanges;
     Exit;
   end;
   // para cuando se añade un nuevo registro
@@ -86,8 +67,8 @@ begin
             ufAnhos, AMsg.CantidadVen);
         else
         begin
-          Sender.ShowErrorMessage(rsValorInvalid);
-          //raise Exception.Create(rsValorInvalid);
+          Sender.ShowErrorMessage(rsInvalidValDate);
+          //raise Exception.Create(rsInvalidValDate);
           Result := False;
         end
       end;
@@ -104,15 +85,15 @@ begin
           ufAnhos, AMsg.CantidadVen);
       else
       begin
-        Sender.ShowErrorMessage(rsValorInvalid);
-        //raise Exception.Create(rsValorInvalid;
+        Sender.ShowErrorMessage(rsInvalidValDate);
+        //raise Exception.Create(rsInvalidValDate;
         Result := False;
       end;
     end;
   end
   else
   begin
-    Sender.ShowErrorMessage(rsPorFavorSele);
+    Sender.ShowErrorMessage(rsPleaseSelFinanOpt);
     Result := False;
   end;
 end;
@@ -120,35 +101,30 @@ end;
 function TGenDeudaController.CheckAndSave(Sender: IView; AMsg: TDeudaMsg;
   ADetMsg: TDeudaDetMsg): boolean;
 begin
-  CustomModel.SetArancel(ADetMsg.ArancelID);
-  CustomModel.SetPersona(ADetMsg.PersonaID);
-  CustomModel.SetMatricula(ADetMsg.MatriculaID);
+  GetCustomModel.SetArancel(ADetMsg.ArancelID);
+  GetCustomModel.SetPersona(ADetMsg.PersonaID);
+  GetCustomModel.SetMatricula(ADetMsg.MatriculaID);
   Result := CheckAndSave(Sender, AMsg);
-end;
-
-procedure TGenDeudaController.ErrorHandler(E: Exception; Sender: IABMView);
-begin
-  inherited ErrorHandler(E, Sender as IView);
 end;
 
 procedure TGenDeudaController.Save(Sender: IView);
 begin
   // fraccionado y venc por defecto
-  CustomModel.GenerarCuotas;
+  GetCustomModel.GenerarCuotas;
   inherited Save(Sender);
 end;
 
 procedure TGenDeudaController.Save(Sender: IView; ACantCuotas: integer);
 begin
   // fraccionado personalizdo y sin vencimiento
-  CustomModel.GenerarCuotas(ACantCuotas);
+  GetCustomModel.GenerarCuotas(ACantCuotas);
   inherited Save(Sender);
 end;
 
 procedure TGenDeudaController.Save(Sender: IView; AVenc: string);
 begin
   // fraccionado personalizado (una cuota) y vencimiento con fecha
-  CustomModel.GenerarCuotas(AVenc);
+  GetCustomModel.GenerarCuotas(AVenc);
   inherited Save(Sender);
 end;
 
@@ -156,15 +132,8 @@ procedure TGenDeudaController.Save(Sender: IView; ACantCuotas: integer;
   AUnidadFecha: TUnidadFecha; ACant: integer);
 begin
   // fraccionado personalizado y vencimiento con unidad de fecha y cantidad
-  CustomModel.GenerarCuotas(ACantCuotas, AUnidadFecha, ACant);
+  GetCustomModel.GenerarCuotas(ACantCuotas, AUnidadFecha, ACant);
   inherited Save(Sender);
-end;
-
-procedure TGenDeudaController.SetCustomModel(AValue: TGeneraDeudaDataModule);
-begin
-  if FCustomModel = AValue then
-    Exit;
-  FCustomModel := AValue;
 end;
 
 end.

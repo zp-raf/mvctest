@@ -62,7 +62,6 @@ inherited PersonasDataModule: TPersonasDataModule
       end>
     Filtered = True
     AfterScroll = PersonaAfterScroll
-    OnFilterRecord = FilterRecord
     OnNewRecord = PersonaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -421,7 +420,6 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 256
   end
   object PersonasRoles: TSQLQuery[6]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -519,7 +517,6 @@ inherited PersonasDataModule: TPersonasDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True

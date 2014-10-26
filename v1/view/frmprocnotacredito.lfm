@@ -1,192 +1,42 @@
 inherited ProcesoNotaCredito: TProcesoNotaCredito
-  Left = 178
-  Height = 673
-  Top = 12
-  Width = 932
+  Left = 565
+  Top = 189
   Caption = 'Nota de Crédito'
-  ClientHeight = 653
-  ClientWidth = 932
+  ClientHeight = 661
   OnShow = FormShow
-  inherited StatusBar1: TStatusBar
-    Top = 584
-    Width = 932
-  end
-  inherited ButtonPanel1: TButtonPanel
-    Top = 613
-    Width = 920
-  end
-  object Cabecera: TGroupBox[2]
+  inherited Cabecera: TGroupBox
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
-    AnchorSideRight.Side = asrBottom
-    Left = 8
-    Height = 152
-    Top = 40
-    Width = 916
-    Anchors = [akTop, akLeft, akRight]
-    BorderSpacing.Left = 8
-    BorderSpacing.Right = 8
-    Caption = 'Cabecera'
-    ClientHeight = 134
-    ClientWidth = 912
-    TabOrder = 2
-    object RadioCondicion: TDBRadioGroup
+    object RadioCondicion: TDBRadioGroup[14]
       Left = 632
       Height = 64
       Top = 15
       Width = 80
       Caption = 'Condicion'
       DataField = 'CONTADO'
-      DataSource = FacturasDataModule.dsFactura
+      DataSource = FacturasDataModule.dsCabecera
       Items.Strings = (
         'Credito'
         'Contado'
       )
-      OnChange = RadioCondicionChange
-      TabOrder = 1
+      TabOrder = 5
       Values.Strings = (
         '0'
         '1'
       )
     end
-    object DBEditDireccion: TDBEdit
-      Left = 8
-      Height = 23
-      Top = 96
-      Width = 504
-      DataField = 'DIRECCION'
-      DataSource = FacturasDataModule.dsFactura
-      CharCase = ecNormal
-      MaxLength = 255
-      TabOrder = 6
-    end
-    object DBEditRuc: TDBEdit
-      Left = 8
-      Height = 23
-      Top = 56
-      Width = 216
-      DataField = 'RUC'
-      DataSource = FacturasDataModule.dsFactura
-      CharCase = ecNormal
-      MaxLength = 255
-      TabOrder = 3
-    end
-    object LabelDireccion: TLabel
-      AnchorSideLeft.Control = DBEditDireccion
-      AnchorSideBottom.Control = DBEditDireccion
-      Left = 8
-      Height = 15
-      Top = 81
-      Width = 50
-      Anchors = [akLeft, akBottom]
-      Caption = 'Direccion'
-      ParentColor = False
-    end
-    object LabelRuc: TLabel
-      AnchorSideLeft.Control = DBEditRuc
-      AnchorSideBottom.Control = DBEditRuc
-      Left = 8
-      Height = 15
-      Top = 41
-      Width = 71
-      Anchors = [akLeft, akBottom]
-      Caption = 'RUC - Cedula'
-      ParentColor = False
-    end
-    object DBEditTelefono: TDBEdit
-      Left = 528
-      Height = 23
-      Top = 96
-      Width = 240
-      DataField = 'TELEFONO'
-      DataSource = FacturasDataModule.dsFactura
-      CharCase = ecNormal
-      MaxLength = 255
-      TabOrder = 7
-    end
-    object LabelTelefono: TLabel
-      AnchorSideLeft.Control = DBEditTelefono
-      AnchorSideBottom.Control = DBEditTelefono
-      Left = 528
-      Height = 15
-      Top = 81
-      Width = 47
-      Anchors = [akLeft, akBottom]
-      Caption = 'Telefono'
-      ParentColor = False
-    end
-    object DBEditNotaRem: TDBEdit
-      Left = 736
-      Height = 23
-      Top = 56
-      Width = 136
-      DataField = 'NOTA_REMISION'
-      DataSource = FacturasDataModule.dsFactura
-      CharCase = ecNormal
-      MaxLength = 255
-      TabOrder = 5
-    end
-    object LabelNotaRem: TLabel
-      AnchorSideLeft.Control = DBEditNotaRem
-      AnchorSideBottom.Control = DBEditNotaRem
+    object LabelVen: TLabel[15]
+      AnchorSideLeft.Control = DateEditVen
+      AnchorSideBottom.Control = DateEditVen
       Left = 736
       Height = 15
-      Top = 41
-      Width = 91
+      Top = -7
+      Width = 67
       Anchors = [akLeft, akBottom]
-      Caption = 'Nota de remision'
+      Caption = 'Vencimiento'
       ParentColor = False
     end
-    object DateEditFecha: TDateEdit
-      Left = 8
-      Height = 23
-      Top = 16
-      Width = 80
-      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
-      OKCaption = 'OK'
-      CancelCaption = 'Cancel'
-      DateOrder = doNone
-      ButtonWidth = 23
-      CharCase = ecNormal
-      NumGlyphs = 1
-      Enabled = False
-      MaxLength = 0
-      TabOrder = 0
-    end
-    object LabelFecha: TLabel
-      AnchorSideLeft.Control = DateEditFecha
-      AnchorSideBottom.Control = DateEditFecha
-      Left = 8
-      Height = 15
-      Top = 1
-      Width = 92
-      Anchors = [akLeft, akBottom]
-      Caption = 'Fecha de emision'
-      ParentColor = False
-    end
-    object DBEditNombre: TDBEdit
-      Left = 240
-      Height = 23
-      Top = 56
-      Width = 376
-      DataField = 'NOMBRE'
-      DataSource = FacturasDataModule.dsFactura
-      CharCase = ecNormal
-      MaxLength = 255
-      TabOrder = 4
-    end
-    object LabelNombre: TLabel
-      AnchorSideLeft.Control = DBEditNombre
-      AnchorSideBottom.Control = DBEditNombre
-      Left = 240
-      Height = 15
-      Top = 41
-      Width = 44
-      Anchors = [akLeft, akBottom]
-      Caption = 'Nombre'
-      ParentColor = False
-    end
-    object DateEditVen: TDateEdit
+    object DateEditVen: TDateEdit[16]
       Left = 736
       Height = 23
       Top = 8
@@ -199,119 +49,46 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
       CharCase = ecNormal
       NumGlyphs = 1
       MaxLength = 10
-      OnEditingDone = DateEditVenEditingDone
-      TabOrder = 2
+      TabOrder = 6
     end
-    object LabelVen: TLabel
-      AnchorSideLeft.Control = DateEditVen
-      AnchorSideBottom.Control = DateEditVen
+    object DBEditNotaRem: TDBEdit[17]
+      Left = 736
+      Height = 23
+      Top = 56
+      Width = 136
+      DataField = 'NOTA_REMISION'
+      DataSource = FacturasDataModule.dsCabecera
+      CharCase = ecNormal
+      MaxLength = 255
+      TabOrder = 7
+    end
+    object LabelNotaRem: TLabel[18]
+      AnchorSideLeft.Control = DBEditNotaRem
+      AnchorSideBottom.Control = DBEditNotaRem
       Left = 736
       Height = 15
-      Top = -7
-      Width = 67
+      Top = 41
+      Width = 91
       Anchors = [akLeft, akBottom]
-      Caption = 'Vencimiento'
-      ParentColor = False
-    end
-    object DBTextNro: TDBText
-      Left = 181
-      Height = 15
-      Top = 16
-      Width = 57
-      DataField = 'NUM'
-      ParentColor = False
-    end
-    object DBTextTimbrado: TDBText
-      Left = 181
-      Height = 15
-      Top = 1
-      Width = 89
-      DataField = 'TIMBRADO'
-      DataSource = FacturasDataModule.dstal
-      ParentColor = False
-    end
-    object LabelNro: TLabel
-      AnchorSideTop.Control = DBTextNro
-      AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = DBTextNro
-      Left = 151
-      Height = 15
-      Top = 16
-      Width = 26
-      Anchors = [akTop, akRight]
-      BorderSpacing.Right = 4
-      Caption = 'Nro.:'
-      ParentColor = False
-    end
-    object LabelTimbrado: TLabel
-      AnchorSideTop.Control = DBTextTimbrado
-      AnchorSideRight.Control = DBTextTimbrado
-      Left = 122
-      Height = 15
-      Top = 1
-      Width = 55
-      Anchors = [akTop, akRight]
-      BorderSpacing.Right = 4
-      Caption = 'Timbrado:'
+      Caption = 'Nota de remision'
       ParentColor = False
     end
   end
-  object PairSplitterDetSubTot: TPairSplitter[3]
+  inherited PairSplitterDetSubTot: TPairSplitter
     AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Cabecera
-    AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
-    AnchorSideRight.Side = asrBottom
-    AnchorSideBottom.Control = ButtonPanel1
-    Cursor = crSizeNS
-    Left = 8
-    Height = 415
-    Top = 192
-    Width = 916
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    BorderSpacing.Left = 8
-    BorderSpacing.Right = 8
-    Position = 256
-    SplitterType = pstVertical
-    object PairSplitterSide1: TPairSplitterSide
-      Cursor = crArrow
-      Left = 0
-      Height = 256
-      Top = 0
-      Width = 916
-      ClientWidth = 916
-      ClientHeight = 256
-      object Detalles: TGroupBox
-        AnchorSideLeft.Control = PairSplitterSide1
-        AnchorSideTop.Control = PairSplitterSide1
-        AnchorSideRight.Control = PairSplitterSide1
-        AnchorSideRight.Side = asrBottom
-        AnchorSideBottom.Control = PairSplitterSide1
-        AnchorSideBottom.Side = asrBottom
-        Left = 0
-        Height = 256
-        Top = 0
-        Width = 916
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        Caption = 'Detalles'
-        ClientHeight = 238
-        ClientWidth = 912
-        TabOrder = 0
-        object DBGridDet: TDBGrid
-          AnchorSideLeft.Control = Detalles
-          AnchorSideTop.Control = Detalles
-          AnchorSideRight.Control = Detalles
-          AnchorSideRight.Side = asrBottom
-          AnchorSideBottom.Control = DBNavigatorDet
-          Left = 8
-          Height = 189
-          Top = 8
-          Width = 896
-          Anchors = [akTop, akLeft, akRight, akBottom]
-          BorderSpacing.Around = 8
-          Color = clWindow
+    Position = 232
+    inherited PairSplitterSide1: TPairSplitterSide
+      Height = 232
+      ClientHeight = 232
+      inherited Detalles: TGroupBox
+        Height = 232
+        ClientHeight = 214
+        inherited DBGridDet: TDBGrid
+          Height = 165
           Columns = <          
             item
+              PickList.Strings = (              )
               ReadOnly = True
               SizePriority = 0
               Title.Caption = 'CANTIDAD'
@@ -320,110 +97,64 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
             end          
             item
               MinSize = 30
+              PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'DETALLE'
               Width = 62
               FieldName = 'DETALLE'
             end          
             item
+              PickList.Strings = (              )
               SizePriority = 0
               Title.Caption = 'PRECIO UNITARIO'
               Width = 112
               FieldName = 'PRECIO_UNITARIO'
             end          
             item
-              ReadOnly = True
-              SizePriority = 0
-              Title.Caption = 'EXENTA'
-              Width = 58
-              FieldName = 'EXENTA'
+              PickList.Strings = (              )
+              Title.Caption = 'Title'
+              Width = 38
             end          
             item
-              ReadOnly = True
-              SizePriority = 0
-              Title.Caption = 'IVA 5%'
-              Width = 52
-              FieldName = 'IVA5'
+              PickList.Strings = (              )
+              Title.Caption = 'Title'
+              Width = 38
             end          
             item
-              ReadOnly = True
-              Title.Caption = 'IVA 10%'
-              Width = 58
-              FieldName = 'IVA10'
+              PickList.Strings = (              )
+              Title.Caption = 'Title'
+              Width = 38
             end>
-          DataSource = FacturasDataModule.dsDetalle
-          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns]
-          OptionsExtra = [dgeCheckboxColumn]
-          TabOrder = 0
-          OnEditingDone = DBGridDetEditingDone
         end
-        object DBNavigatorDet: TDBNavigator
-          AnchorSideLeft.Control = Detalles
-          AnchorSideBottom.Control = Detalles
-          AnchorSideBottom.Side = asrBottom
-          Left = 8
-          Height = 25
-          Top = 205
-          Width = 241
-          Anchors = [akLeft, akBottom]
-          BeforeAction = DBNavigatorDetBeforeAction
-          BevelOuter = bvNone
-          BorderSpacing.Around = 8
-          ChildSizing.EnlargeHorizontal = crsScaleChilds
-          ChildSizing.EnlargeVertical = crsScaleChilds
-          ChildSizing.ShrinkHorizontal = crsScaleChilds
-          ChildSizing.ShrinkVertical = crsScaleChilds
-          ChildSizing.Layout = cclLeftToRightThenTopToBottom
-          ChildSizing.ControlsPerLine = 100
-          ClientHeight = 25
-          ClientWidth = 241
-          ConfirmDelete = False
-          DataSource = FacturasDataModule.dsDetalle
-          Options = []
-          TabOrder = 1
-          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+        inherited DBNavigatorDet: TDBNavigator
+          Top = 181
+          Hints.Strings = (          )
         end
       end
     end
-    object PairSplitterSide2: TPairSplitterSide
-      Cursor = crArrow
-      Left = 0
-      Height = 154
-      Top = 261
-      Width = 916
-      ClientWidth = 916
-      ClientHeight = 154
-      object Totales: TGroupBox
-        AnchorSideLeft.Control = PairSplitterSide2
-        AnchorSideTop.Control = PairSplitterSide2
-        AnchorSideRight.Control = PairSplitterSide2
-        AnchorSideRight.Side = asrBottom
-        AnchorSideBottom.Control = PairSplitterSide2
-        AnchorSideBottom.Side = asrBottom
-        Left = 0
-        Height = 165
-        Top = 0
-        Width = 916
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        Caption = 'Totales'
-        ChildSizing.ControlsPerLine = 3
-        ClientHeight = 147
-        ClientWidth = 912
-        Constraints.MinHeight = 165
-        Constraints.MinWidth = 788
-        TabOrder = 0
-        object DBEditSubTotal: TDBEdit
+    inherited PairSplitterSide2: TPairSplitterSide
+      Height = 163
+      Top = 237
+      ClientHeight = 163
+      inherited Totales: TGroupBox
+        inherited DBEditGranTotal: TDBEdit
+          Top = 64
+        end
+        inherited LabelGranTotal: TLabel
+          Top = 49
+        end
+        object DBEditSubTotal: TDBEdit[2]
           Left = 8
           Height = 23
           Top = 19
           Width = 136
           DataField = 'SUBTOTAL_EXENTAS'
-          DataSource = FacturasDataModule.dsFactura
+          DataSource = FacturasDataModule.dsCabecera
           CharCase = ecNormal
           MaxLength = 0
-          TabOrder = 0
+          TabOrder = 1
         end
-        object LabelSubtotal: TLabel
+        object LabelSubtotal: TLabel[3]
           AnchorSideLeft.Control = DBEditSubTotal
           AnchorSideBottom.Control = DBEditSubTotal
           Left = 8
@@ -434,95 +165,7 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
           Caption = 'Subtotal Exentas'
           ParentColor = False
         end
-        object DBEditGranTotal: TDBEdit
-          Left = 8
-          Height = 23
-          Top = 67
-          Width = 136
-          DataField = 'TOTAL'
-          DataSource = FacturasDataModule.dsFactura
-          CharCase = ecNormal
-          MaxLength = 0
-          TabOrder = 3
-        end
-        object LabelGranTotal: TLabel
-          AnchorSideLeft.Control = DBEditGranTotal
-          AnchorSideBottom.Control = DBEditGranTotal
-          Left = 8
-          Height = 15
-          Top = 52
-          Width = 69
-          Anchors = [akLeft, akBottom]
-          Caption = 'Total a pagar'
-          ParentColor = False
-        end
-        object DBEditIVA5: TDBEdit
-          Left = 8
-          Height = 23
-          Top = 115
-          Width = 136
-          DataField = 'IVA5'
-          DataSource = FacturasDataModule.dsFactura
-          CharCase = ecNormal
-          MaxLength = 0
-          TabOrder = 4
-        end
-        object LabelIVA5: TLabel
-          AnchorSideLeft.Control = DBEditIVA5
-          AnchorSideBottom.Control = DBEditIVA5
-          Left = 8
-          Height = 15
-          Top = 100
-          Width = 37
-          Anchors = [akLeft, akBottom]
-          Caption = 'IVA 5%'
-          ParentColor = False
-        end
-        object DBEditIVA10: TDBEdit
-          Left = 160
-          Height = 23
-          Top = 115
-          Width = 136
-          DataField = 'IVA10'
-          DataSource = FacturasDataModule.dsFactura
-          CharCase = ecNormal
-          MaxLength = 0
-          TabOrder = 5
-        end
-        object LabelIVA10: TLabel
-          AnchorSideLeft.Control = DBEditIVA10
-          AnchorSideBottom.Control = DBEditIVA10
-          Left = 160
-          Height = 15
-          Top = 100
-          Width = 43
-          Anchors = [akLeft, akBottom]
-          Caption = 'IVA 10%'
-          ParentColor = False
-        end
-        object DBEditIVATotal: TDBEdit
-          Left = 312
-          Height = 23
-          Top = 115
-          Width = 136
-          DataField = 'IVA_TOTAL'
-          DataSource = FacturasDataModule.dsFactura
-          CharCase = ecNormal
-          MaxLength = 0
-          TabOrder = 6
-        end
-        object LabelIVATotal: TLabel
-          AnchorSideLeft.Control = DBEditIVATotal
-          AnchorSideBottom.Control = DBEditIVATotal
-          Left = 312
-          Height = 15
-          Top = 100
-          Width = 48
-          Anchors = [akLeft, akBottom]
-          Caption = 'IVA Total'
-          ParentColor = False
-        end
-        object LabelSubtotal5: TLabel
+        object LabelSubtotal5: TLabel[4]
           AnchorSideLeft.Control = DBEditSubTotal5
           AnchorSideBottom.Control = DBEditSubTotal5
           Left = 160
@@ -533,18 +176,29 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
           Caption = 'Subtotal Gravadas 5%'
           ParentColor = False
         end
-        object DBEditSubTotal5: TDBEdit
+        object DBEditSubTotal5: TDBEdit[5]
           Left = 160
           Height = 23
           Top = 19
           Width = 136
           DataField = 'SUBTOTAL_IVA5'
-          DataSource = FacturasDataModule.dsFactura
+          DataSource = FacturasDataModule.dsCabecera
           CharCase = ecNormal
           MaxLength = 0
-          TabOrder = 1
+          TabOrder = 2
         end
-        object LabelSubtotal10: TLabel
+        object DBEditSubTotal10: TDBEdit[6]
+          Left = 312
+          Height = 23
+          Top = 19
+          Width = 136
+          DataField = 'SUBTOTAL_IVA10'
+          DataSource = FacturasDataModule.dsCabecera
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 3
+        end
+        object LabelSubtotal10: TLabel[7]
           AnchorSideLeft.Control = DBEditSubTotal10
           AnchorSideBottom.Control = DBEditSubTotal10
           Left = 312
@@ -555,44 +209,73 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
           Caption = 'Subtotal Gravadas 10%'
           ParentColor = False
         end
-        object DBEditSubTotal10: TDBEdit
-          Left = 312
+        object DBEditIVA5: TDBEdit[8]
+          Left = 8
           Height = 23
-          Top = 19
+          Top = 111
           Width = 136
-          DataField = 'SUBTOTAL_IVA10'
-          DataSource = FacturasDataModule.dsFactura
+          DataField = 'IVA5'
+          DataSource = FacturasDataModule.dsCabecera
           CharCase = ecNormal
           MaxLength = 0
-          TabOrder = 2
+          TabOrder = 4
+        end
+        object LabelIVA5: TLabel[9]
+          AnchorSideLeft.Control = DBEditIVA5
+          AnchorSideBottom.Control = DBEditIVA5
+          Left = 8
+          Height = 15
+          Top = 96
+          Width = 37
+          Anchors = [akLeft, akBottom]
+          Caption = 'IVA 5%'
+          ParentColor = False
+        end
+        object LabelIVA10: TLabel[10]
+          AnchorSideLeft.Control = DBEditIVA10
+          AnchorSideBottom.Control = DBEditIVA10
+          Left = 160
+          Height = 15
+          Top = 96
+          Width = 43
+          Anchors = [akLeft, akBottom]
+          Caption = 'IVA 10%'
+          ParentColor = False
+        end
+        object DBEditIVA10: TDBEdit[11]
+          Left = 160
+          Height = 23
+          Top = 111
+          Width = 136
+          DataField = 'IVA10'
+          DataSource = FacturasDataModule.dsCabecera
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 5
+        end
+        object DBEditIVATotal: TDBEdit[12]
+          Left = 312
+          Height = 23
+          Top = 111
+          Width = 136
+          DataField = 'IVA_TOTAL'
+          DataSource = FacturasDataModule.dsCabecera
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 6
+        end
+        object LabelIVATotal: TLabel[13]
+          AnchorSideLeft.Control = DBEditIVATotal
+          AnchorSideBottom.Control = DBEditIVATotal
+          Left = 312
+          Height = 15
+          Top = 96
+          Width = 48
+          Anchors = [akLeft, akBottom]
+          Caption = 'IVA Total'
+          ParentColor = False
         end
       end
     end
-  end
-  object ButtonLimpiar: TButton[4]
-    Left = 16
-    Height = 25
-    Top = 8
-    Width = 75
-    Caption = 'Limpiar'
-    OnClick = ButtonLimpiarClick
-    TabOrder = 4
-  end
-  object btSeleccionar: TButton[5]
-    AnchorSideLeft.Side = asrBottom
-    AnchorSideTop.Side = asrCenter
-    Left = 96
-    Height = 25
-    Top = 8
-    Width = 131
-    AutoSize = True
-    BorderSpacing.Left = 8
-    Caption = 'Seleccionar Persona'
-    OnClick = btSeleccionarClick
-    TabOrder = 5
-  end
-  inherited MainMenu: TMainMenu[6]
-  end
-  inherited AppProps: TApplicationProperties[7]
   end
 end

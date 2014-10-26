@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, frmsgcddatamodule,
-  frmquerydatamodule, mvc, sqldb, DB;
+  frmquerydatamodule, sqldb, DB;
 
 resourcestring
   rsGenName = 'GEN_ACADEMIA';
@@ -17,7 +17,12 @@ type
 
   { TPersonasDataModule }
 
-  TPersonasDataModule = class(TQueryDataModule, IModel)
+  TPersonasDataModule = class(TQueryDataModule)
+  private
+    { private declarations }
+  public
+    { public declarations }
+  published
     dsPersonasRoles: TDataSource;
     DireccionBARRIO: TStringField;
     DireccionCIUDAD: TStringField;
@@ -49,14 +54,9 @@ type
     TelefonoPREFIJO: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DireccionAfterInsert(DataSet: TDataSet);
-    procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure PersonaAfterScroll(DataSet: TDataSet);
     procedure PersonaNewRecord(DataSet: TDataSet);
     procedure TelefonoAfterInsert(DataSet: TDataSet);
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var
@@ -78,17 +78,13 @@ begin
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('APELLIDO');
   SearchFieldList.Add('CEDULA');
+  Persona.OnFilterRecord:=@FilterRecord;
 end;
 
 procedure TPersonasDataModule.DireccionAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('IDPERSONA').Value := Persona.FieldByName('ID').Value;
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenNameDir);
-end;
-
-procedure TPersonasDataModule.FilterRecord(DataSet: TDataSet; var Accept: boolean);
-begin
-  //FilterRecord(DataSet, Accept);
 end;
 
 procedure TPersonasDataModule.PersonaAfterScroll(DataSet: TDataSet);

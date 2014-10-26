@@ -6,8 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls,
-  frmAbm, frmpersonasdatamodule, personactrl;
+  ExtCtrls, DBCtrls, personactrl, frmAbm;
 
 type
 
@@ -16,6 +15,8 @@ type
   TAbmPersonas = class(TAbm)
   private
     { private declarations }
+  protected
+    function GetCustomController: TPersonaController;
   public
     { public declarations }
   end;
@@ -28,5 +29,10 @@ implementation
 {$R *.lfm}
 
 { TAbmPersonas }
+
+function TAbmPersonas.GetCustomController: TPersonaController;
+begin
+   Result := GetController as TPersonaController;
+end;
 
 end.

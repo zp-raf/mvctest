@@ -1,7 +1,7 @@
 inherited ProcesoFacturacion: TProcesoFacturacion
-  Left = 693
+  Left = 1058
   Height = 681
-  Top = 259
+  Top = 200
   Width = 901
   Caption = 'Factura Venta'
   ClientHeight = 661
@@ -596,10 +596,6 @@ inherited ProcesoFacturacion: TProcesoFacturacion
   end
   inherited MainMenu: TMainMenu[6]
     left = 432
-    top = 8
-  end
-  inherited AppProps: TApplicationProperties[7]
-    left = 504
     top = 8
   end
 end

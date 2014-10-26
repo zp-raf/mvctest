@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls,
-  frmAbm, frmacademiadatamodule, academiactrl, observerSubject;
+  ExtCtrls, DBCtrls, StdCtrls,
+  frmAbm;
 
 type
 
@@ -16,10 +16,6 @@ type
   TAbmAcademias = class(TAbm)
     DBEdit1: TDBEdit;
     Label1: TLabel;
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var

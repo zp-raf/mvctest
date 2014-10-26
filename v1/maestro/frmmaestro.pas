@@ -6,38 +6,30 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Menus, ComCtrls, ctrl, mvc, observerSubject, mensajes, frmquerydatamodule;
-
-resourcestring
-  rsError = 'Error';
-  rsInformation = 'Informacion';
-  rsWarning = 'Advertencia';
-  rsConfirmation = 'Confimación';
-  rsProvidedCont = 'Provided controller does not implements basic controller ' +
-    'funcionality';
+  Menus, ComCtrls, ctrl, mvc, observerSubject, mensajes;
 
 type
 
   { TMaestro }
 
-  { Ahora este form maneja solamente lo que atañe a la presentaacion y nada mas.
-    La logica del negocio se maneja en el controlador. }
-
-  TMaestro = class(TForm, IObserver, IView, IFormView)
-    StatusBar1: TStatusBar;
+  TMaestro = class (TForm, IObserver, IView, IFormView)
   private
-    FController: IController;
-    function GetController: IController;
-    procedure SetController(AValue: IController);
+    FController: Pointer;
     procedure SetConnStatus(connected: boolean; host: string; username: string);
+  protected
+    function GetController: TController;
+    procedure SetController(AValue: TController);
+  public
+    constructor Create(AOwner: IFormView; AController: Pointer); overload; virtual;
+    destructor Destroy; override;
   published
-    AppProps: TApplicationProperties;
     MainMenu: TMainMenu;
     MenuArchivo: TMenuItem;
     MenuAyuda: TMenuItem;
     MenuItemSalir: TMenuItem;
     MenuItemAyuda: TMenuItem;
     MenuItemAbout: TMenuItem;
+    StatusBar1: TStatusBar;
     procedure AppPropsException(Sender: TObject; E: Exception); virtual;
     procedure CloseView(Sender: IController);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -46,9 +38,9 @@ type
     procedure MenuItemAboutClick(Sender: TObject);
     procedure MenuItemAyudaClick(Sender: TObject); virtual;
     procedure MenuItemSalirClick(Sender: TObject);
-    { la clase TComponent ya tiene un metodo update que hace otra cosa
-      por eso le cambiamos el nombre del metodo Update de la interfaz
-      por otro para que no haya conflictos ni cosas indeseadas }
+    { The TComponent class already has an Update method that does something
+      else. For that reason we change the name of the Update method of the
+      IObserver interface to another one to avoid conflicts }
     procedure IObserver.Update = ObserverUpdate;
     procedure ObserverUpdate(const Subject: IInterface); virtual;
     function ShowErrorMessage(AMsg: string): TModalResult;
@@ -59,12 +51,6 @@ type
     function ShowWarningMessage(ATitle: string; AMsg: string): TModalResult;
     function ShowConfirmationMessage(AMsg: string): TModalResult;
     function ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
-    property Controller: IController read GetController write SetController;
-  public
-    constructor Create(AOwner: IFormView; AController: IController); overload;
-  { TODO: Aca faltaria un metodo Update() que sea llamado por el sujeto al cual esta
-    adherido este observador. Por ejemplo para mostrar el estado de conexion de la
-    base de datos en un Text. }
   end;
 
 var
@@ -79,24 +65,24 @@ implementation
 
 procedure TMaestro.MenuItemAboutClick(Sender: TObject);
 begin
-  ShowInfoMessage(Controller.GetVersion(Self));
+  ShowInfoMessage(GetController.GetVersion(Self));
 end;
 
 procedure TMaestro.MenuItemAyudaClick(Sender: TObject);
 begin
-  Controller.ShowHelp(Self as IFormView);
+  GetController.ShowHelp(Self as IFormView);
 end;
 
-function TMaestro.GetController: IController;
+function TMaestro.GetController: TController;
 begin
-  Result := FController;
+  Result := TController(FController);
 end;
 
-procedure TMaestro.SetController(AValue: IController);
+procedure TMaestro.SetController(AValue: TController);
 begin
-  if FController = AValue then
+  if TController(FController) = TController(AValue) then
     Exit;
-  FController := AValue;
+  FController := Pointer(AValue);
 end;
 
 procedure TMaestro.SetConnStatus(connected: boolean; host: string; username: string);
@@ -115,7 +101,7 @@ end;
 
 procedure TMaestro.AppPropsException(Sender: TObject; E: Exception);
 begin
-  Controller.ErrorHandler(E, Self);
+  GetController.ErrorHandler(E, Self);
 end;
 
 procedure TMaestro.CloseView(Sender: IController);
@@ -125,21 +111,19 @@ end;
 
 procedure TMaestro.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
-  Controller.CloseQuery(Self, CanClose);
-  if CanClose then
-  begin
-    if GetOwner <> nil then
-    begin
-      TForm(GetOwner).Enabled := True;
-      TForm(GetOwner).SetFocus;
-    end;
-  end;
+  GetController.CloseQuery(Self, CanClose);
+  //if CanClose then
+  //begin
+  //  if GetOwner <> nil then
+  //  begin
+  //    TForm(GetOwner).Enabled := True;
+  //    TForm(GetOwner).SetFocus;
+  //  end;
+  //end;
 end;
 
 procedure TMaestro.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  if FController <> nil then
-    (FController.GetModel.MasterDataModule as ISubject).Detach(Sender as IObserver);
   CloseAction := caFree;
   if GetOwner <> nil then
   begin
@@ -153,15 +137,15 @@ begin
   if GetOwner <> nil then
     TForm(GetOwner).Enabled := False;
   //if Visible then
-  //  ObserverUpdate(nil); // actualizamos la vista
-  Controller.Connect(Self);
-  Controller.CloseDataSets(Self);
-  Controller.OpenDataSets(Self);
+  //  ObserverUpdate(nil);
+  // actualizamos la vista
+  GetController.Connect(Self);
+  GetController.RefreshData(Self);
 end;
 
 procedure TMaestro.MenuItemSalirClick(Sender: TObject);
 begin
-  Controller.Close(Self as IFormView);
+  GetController.Close(Self as IFormView);
 end;
 
 procedure TMaestro.ObserverUpdate(const Subject: IInterface);
@@ -211,13 +195,24 @@ begin
   Result := MessageDlg(ATitle, AMsg, mtConfirmation, mbYesNo, 0);
 end;
 
-constructor TMaestro.Create(AOwner: IFormView; AController: IController);
+constructor TMaestro.Create(AOwner: IFormView; AController: Pointer);
 begin
+  { We also check the pointer here in order to stop creation of the instance if
+    the controller pointer is not valid }
+  if Assigned(AController) and (TObject(AController) is TController) then
+    FController := AController
+  else
+    raise Exception.Create(rsCreateErrorInvalidCont);
   if AOwner is TComponent then
     inherited Create((AOwner as TComponent))
   else
     inherited Create(nil);
-  Controller := AController;
+end;
+
+destructor TMaestro.Destroy;
+begin
+  TController(FController).Free;
+  inherited Destroy;
 end;
 
 end.

@@ -161,8 +161,4 @@ inherited ProcesoDocumentos: TProcesoDocumentos
     left = 336
     top = 32
   end
-  inherited AppProps: TApplicationProperties[5]
-    left = 408
-    top = 32
-  end
 end

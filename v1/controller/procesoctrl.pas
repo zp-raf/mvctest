@@ -5,7 +5,7 @@ unit procesoctrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, mvc;
+  Classes, SysUtils, ctrl;
 
 type
 

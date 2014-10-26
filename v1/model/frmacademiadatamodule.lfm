@@ -19,7 +19,6 @@ inherited AcademiaDataModule: TAcademiaDataModule
         Size = 255
       end>
     Filtered = True
-    OnFilterRecord = qryFilterRecord
     OnNewRecord = qryNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

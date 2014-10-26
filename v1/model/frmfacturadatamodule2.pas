@@ -5,9 +5,8 @@ unit frmfacturadatamodule2;
 interface
 
 uses
-  Classes, SysUtils, DB, sqldb, FileUtil, LR_DBSet, LR_Class,
-  Forms, Controls, observerSubject, Graphics, Dialogs, XMLPropStorage,
-  frmquerydatamodule, frmsgcddatamodule, mvc, frmcomprobantedatamodule, sgcdTypes;
+  Classes, SysUtils, DB, FileUtil, LR_Class, Forms, Controls, Graphics, Dialogs,
+  frmsgcddatamodule, frmcomprobantedatamodule, sgcdTypes;
 
 resourcestring
   rsGenFacturaID = 'SEQ_FACTURA';

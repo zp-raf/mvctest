@@ -1,15 +1,50 @@
 inherited ProcesoRecibo: TProcesoRecibo
+  Left = 471
+  Top = 195
+  Caption = 'Recibo'
+  ClientHeight = 661
   inherited Cabecera: TGroupBox
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
+    inherited DBEditDireccion: TDBEdit
+      DataSource = ReciboDataModule.dsCabecera
+    end
+    inherited DBEditRuc: TDBEdit
+      DataField = 'CEDULA'
+      DataSource = ReciboDataModule.dsCabecera
+      MaxLength = 0
+    end
+    inherited DBEditTelefono: TDBEdit
+      DataSource = ReciboDataModule.dsCabecera
+    end
+    inherited DBEditNombre: TDBEdit
+      DataSource = ReciboDataModule.dsCabecera
+    end
+    inherited DBTextNro: TDBText
+      DataSource = ReciboDataModule.dsNum
+    end
+    inherited DBTextTimbrado: TDBText
+      DataSource = ReciboDataModule.dsNum
+    end
   end
   inherited PairSplitterDetSubTot: TPairSplitter
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
     inherited PairSplitterSide1: TPairSplitterSide
       inherited Detalles: TGroupBox
+        inherited DBGridDet: TDBGrid
+          DataSource = ReciboDataModule.dsDetalle
+        end
         inherited DBNavigatorDet: TDBNavigator
+          DataSource = ReciboDataModule.dsDetalle
           Hints.Strings = (          )
+        end
+      end
+    end
+    inherited PairSplitterSide2: TPairSplitterSide
+      inherited Totales: TGroupBox
+        inherited DBEditGranTotal: TDBEdit
+          DataSource = ReciboDataModule.dsCabecera
         end
       end
     end

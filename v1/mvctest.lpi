@@ -5,7 +5,7 @@
     <PathDelim Value="\"/>
     <General>
       <Flags>
-        <MainUnitHasUsesSectionForAllUnits Value="False"/>
+        <SaveOnlyProjectUnits Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
@@ -19,12 +19,6 @@
       <EnableI18N LFM="False"/>
     </i18n>
     <VersionInfo>
-      <UseVersionInfo Value="True"/>
-      <AutoIncrementBuild Value="True"/>
-      <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="1"/>
-      <RevisionNr Value="3"/>
-      <BuildNr Value="397"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -43,91 +37,91 @@
         <PackageName Value="lazreport"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <PackageName Value="SQLDBLaz"/>
       </Item2>
       <Item3>
-        <PackageName Value="SQLDBLaz"/>
+        <PackageName Value="FCL"/>
       </Item3>
       <Item4>
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="59">
+    <Units Count="56">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mvctest"/>
       </Unit0>
       <Unit1>
-        <Filename Value="model\frmsgcddatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="sgcdDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmsgcddatamodule"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="base\observersubject.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="observerSubject"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="maestro\frmmaestro.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="Maestro"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmMaestro"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="view\frmtest.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="Test"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmtest"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="base\mvc.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="mvc"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="maestro\frmAbm.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="Abm"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmAbm"/>
-      </Unit6>
-      <Unit7>
         <Filename Value="view\frmabmacademias.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="AbmAcademias"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmacademias"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="view\frmabmpersonas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="AbmPersonas"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmabmpersonas"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="controller\personactrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="personactrl"/>
-      </Unit9>
-      <Unit10>
+      </Unit1>
+      <Unit2>
         <Filename Value="view\principal.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Principal1"/>
+        <HasResources Value="True"/>
+        <UnitName Value="Principal"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="model\frmsgcddatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="sgcdDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmsgcddatamodule"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="model\frmacademiadatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AcademiaDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmacademiadatamodule"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="model\frmprincipaldatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="frmprincipaldatamodule"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="maestro\frmprocesoseleccion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="frmprocesoseleccion"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="maestro\frmproceso.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Proceso"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="Principal"/>
+        <UnitName Value="frmproceso"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="maestro\frmmaestro.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Maestro"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmMaestro"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="maestro\frmAbm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Abm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmAbm"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="controller\academiactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="academiactrl"/>
       </Unit10>
       <Unit11>
         <Filename Value="controller\ctrl.pas"/>
@@ -145,320 +139,280 @@
         <UnitName Value="mensajes"/>
       </Unit13>
       <Unit14>
-        <Filename Value="controller\academiactrl.pas"/>
+        <Filename Value="base\mvc.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="academiactrl"/>
+        <UnitName Value="mvc"/>
       </Unit14>
       <Unit15>
+        <Filename Value="base\observersubject.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="observersubject"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="base\sgcdtypes.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="sgcdTypes"/>
+      </Unit16>
+      <Unit17>
         <Filename Value="model\frmquerydatamodule.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="QueryDataModule"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmquerydatamodule"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="model\frmacademiadatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="AcademiaDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmacademiadatamodule"/>
-      </Unit16>
-      <Unit17>
-        <Filename Value="model\frmprincipaldatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="PrincipalDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmprincipaldatamodule"/>
       </Unit17>
       <Unit18>
-        <Filename Value="maestro\frmproceso.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="Proceso"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmproceso"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="controller\ventactrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="ventactrl"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="model\frmventadatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="VentaDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmventadatamodule"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="view\frmventa.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoVenta"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmventa"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="model\frmaranceldatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="ArancelesDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmaranceldatamodule"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="maestro\frmprocesoseleccion.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoSeleccion"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmprocesoseleccion"/>
-      </Unit23>
-      <Unit24>
         <Filename Value="model\frmpersonasdatamodule.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="PersonasDataModule"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmpersonasdatamodule"/>
-      </Unit24>
-      <Unit25>
-        <Filename Value="controller\procesoctrl.pas"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="view\frmabmpersonas.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="procesoctrl"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="model\frmcuentadatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="CuentaDataModule"/>
         <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmcuentadatamodule"/>
-      </Unit26>
-      <Unit27>
-        <Filename Value="controller\cuentactrl.pas"/>
+        <UnitName Value="frmabmpersonas"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="controller\personactrl.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="cuentactrl"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="controller\movimientoctrl.pas"/>
+        <UnitName Value="personactrl"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="model\manejoerrores.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="movimientoctrl"/>
-      </Unit28>
-      <Unit29>
-        <Filename Value="view\frmabmcuentas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="AbmCuentas"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmabmcuentas"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="view\frmprocesoasientos.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoAsientos"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmprocesoasientos"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="model\frmasientosdatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="AsientosDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmasientosdatamodule"/>
-      </Unit31>
-      <Unit32>
-        <Filename Value="controller\asientosctrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="asientosctrl"/>
-      </Unit32>
-      <Unit33>
-        <Filename Value="controller\pagoctrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="pagoctrl"/>
-      </Unit33>
-      <Unit34>
-        <Filename Value="model\frmpagodatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="PagoDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmpagodatamodule"/>
-      </Unit34>
-      <Unit35>
-        <Filename Value="view\frmpago.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoPago"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmpago"/>
-      </Unit35>
-      <Unit36>
-        <Filename Value="model\frmgeneradeudadatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="GeneraDeudaDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmgeneradeudadatamodule"/>
-      </Unit36>
-      <Unit37>
-        <Filename Value="view\frmgeneradeuda.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="GenerarDeuda"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmgeneradeuda"/>
-      </Unit37>
-      <Unit38>
-        <Filename Value="controller\generardeudactrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="generardeudactrl"/>
-      </Unit38>
-      <Unit39>
-        <Filename Value="model\frmcuotaxarancel.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="CuotaArancelDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmcuotaxarancel"/>
-      </Unit39>
-      <Unit40>
-        <Filename Value="model\frmcodigosdatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="CodigosDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmcodigosdatamodule"/>
-      </Unit40>
-      <Unit41>
-        <Filename Value="view\frmprocesocomprobante.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoComprobante"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmprocesocomprobante"/>
-      </Unit41>
-      <Unit42>
-        <Filename Value="controller\facturactrl2.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="facturactrl2"/>
-      </Unit42>
-      <Unit43>
+        <UnitName Value="manejoerrores"/>
+      </Unit21>
+      <Unit22>
         <Filename Value="model\frmfacturadatamodule2.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FacturasDataModule"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmfacturadatamodule2"/>
-      </Unit43>
-      <Unit44>
-        <Filename Value="view\frmbuscarpersonas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="PopupSeleccionPersonas"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmbuscarpersonas"/>
-      </Unit44>
-      <Unit45>
-        <Filename Value="controller\buscarpersctrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="buscarpersctrl"/>
-      </Unit45>
-      <Unit46>
-        <Filename Value="view\frmprocnotacredito.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoNotaCredito"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmProcNotaCredito"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="model\frmnotacreditodatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="NotaCreditoDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmNotaCreditoDataModule"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="controller\notacreditoctrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="notacreditoctrl"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="view\frmprocesodocumentos.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoDocumentos"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmprocesodocumentos"/>
-      </Unit49>
-      <Unit50>
-        <Filename Value="model\frmdocumentosdatamodule.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="DocumentosDataModule"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmdocumentosdatamodule"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="controller\documentosctrl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="documentosctrl"/>
-      </Unit51>
-      <Unit52>
+      </Unit22>
+      <Unit23>
         <Filename Value="model\frmcomprobantedatamodule.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ComprobanteDataModule"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmcomprobantedatamodule"/>
-      </Unit52>
-      <Unit53>
+      </Unit23>
+      <Unit24>
         <Filename Value="view\frmprocesofacturacion.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ProcesoFacturacion"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmprocesofacturacion"/>
-      </Unit53>
-      <Unit54>
+      </Unit24>
+      <Unit25>
+        <Filename Value="view\frmprocesocomprobante.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoComprobante"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesocomprobante"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="controller\buscarpersctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="buscarpersctrl"/>
+      </Unit26>
+      <Unit27>
         <Filename Value="controller\comprobantectrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="comprobantectrl"/>
-      </Unit54>
-      <Unit55>
-        <Filename Value="controller\reciboctrl.pas"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="controller\documentosctrl.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="reciboctrl"/>
-      </Unit55>
-      <Unit56>
-        <Filename Value="model\frmrecibodatamodule.pas"/>
+        <UnitName Value="documentosctrl"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="controller\facturactrl2.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="ReciboDataModule"/>
+        <UnitName Value="facturactrl2"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="controller\generardeudactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="generardeudactrl"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="controller\movimientoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="movimientoctrl"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="controller\pagoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="pagoctrl"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="view\frmabmcuentas.pas"/>
+        <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="frmrecibodatamodule"/>
-      </Unit56>
-      <Unit57>
+        <UnitName Value="frmabmcuentas"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="view\frmbuscarpersonas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PopupSeleccionPersonas"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmbuscarpersonas"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="view\frmgeneradeuda.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="frmgeneradeuda"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="view\frmpago.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoPago"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmpago"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="view\frmprocesoasientos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoAsientos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoasientos"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="view\frmprocesodocumentos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoDocumentos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesodocumentos"/>
+      </Unit38>
+      <Unit39>
         <Filename Value="view\frmprocesorecibo.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ProcesoRecibo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmprocesorecibo"/>
-      </Unit57>
-      <Unit58>
-        <Filename Value="base\sgcdtypes.pas"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="view\frmprocnotacredito.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="sgcdTypes"/>
-      </Unit58>
+        <ComponentName Value="ProcesoNotaCredito"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmProcNotaCredito"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="model\frmaranceldatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ArancelesDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmaranceldatamodule"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="model\frmasientosdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AsientosDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmasientosdatamodule"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="model\frmcodigosdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="frmcodigosdatamodule"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="model\frmcuentadatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="frmcuentadatamodule"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="model\frmcuotaxarancel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CuotaArancelDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmcuotaxarancel"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="model\frmdocumentosdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DocumentosDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmdocumentosdatamodule"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="model\frmgeneradeudadatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="GeneraDeudaDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmgeneradeudadatamodule"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="model\frmpagodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PagoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmpagodatamodule"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="controller\asientosctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="asientosctrl"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="controller\cuentactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cuentactrl"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="controller\notacreditoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="notacreditoctrl"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="controller\procesoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="procesoctrl"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="controller\reciboctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="reciboctrl"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="model\frmrecibodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ReciboDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmrecibodatamodule"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="model\frmnotacreditodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="NotaCreditoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmNotaCreditoDataModule"/>
+      </Unit55>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -469,7 +423,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="maestro;base;model;controller;view"/>
+      <OtherUnitFiles Value="view;model;controller;maestro;base"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
