@@ -5,8 +5,11 @@ unit documentosctrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmdocumentosdatamodule, mvc, frmfacturadatamodule2,
-  frmpagodatamodule, pagoctrl, frmpago, Controls, sgcdTypes;
+  Classes, SysUtils, ctrl, frmdocumentosdatamodule, mvc,
+  frmpagodatamodule, pagoctrl, frmpago, Controls, sgcdTypes,
+  facturactrl2, frmprocesofacturacion, frmfacturadatamodule2,
+  frmrecibodatamodule, reciboctrl, frmprocesorecibo, frmquerydatamodule,
+  observerSubject;
 
 type
 
@@ -139,11 +142,128 @@ procedure TDocumentosController.VerDocumento(ATipoDoc: TTipoDocumento;
   Sender: IFormView);
 begin
 
+  /// aca ya tengo que hacer el case, y usarle a CustomModel.FacturasViewID.AsString por ejemplo
+//     VerDocumento(ATipoDoc, CustomModel.FacturasViewID.AsString,Sender);
 end;
 
 procedure TDocumentosController.VerDocumento(ATipoDoc: TTipoDocumento;
   ADoc: string; Sender: IFormView);
 begin
+  if ADoc = '1'  then
+     ADoc:= CustomModel.CobrosViewID.AsString
+  else if ADoc = '2' then
+    ADoc:= CustomModel.FacturasViewID.AsString
+  else if ADoc = '3' then
+    ADoc:= CustomModel.FacturasCobradasViewID.AsString;
+
+  try
+    case ATipoDoc of
+       doFactura:
+       Begin
+         ProcesoFacturacion := TProcesoFacturacion.Create(Sender,
+           TFacturaController.Create(TFacturasDataModule.Create(
+           (Sender as TComponent), Model.MasterDataModule)));
+
+        ProcesoFacturacion.Show;
+        (Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
+
+      //   FacturasDataModule.qryCabeceraID.AsInteger:= StrToInt(ADoc);
+         {
+            ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Active:= True;
+          ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Edit;
+          ProcesoFacturacion.CustomController.CustomModel.qryCabeceraID.AsInteger:= StrToInt(ADoc);
+          ProcesoFacturacion.CustomController.CustomModel.OpenDataSets;
+          ProcesoFacturacion.CustomController.CustomModel.EditCurrentRecord;
+           }
+
+         ProcesoFacturacion.Edit;
+         ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Active:= True;
+         ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Edit;
+         ProcesoFacturacion.CustomController.CustomModel.qryCabeceraID.AsInteger:= StrToInt(ADoc);
+
+           {
+            try
+              ProcesoFacturacion.CustomController.CustomModel.qryCabecera.DisableControls;
+              try
+                ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Close;
+                ProcesoFacturacion.CustomController.CustomModel.qryCabecera.SQL.Clear;
+                ProcesoFacturacion.CustomController.CustomModel.qryCabecera.SQL.Add
+                ('SELECT * FROM FACTURA WHERE ID = '+ ADoc );
+                try
+                   ProcesoFacturacion.CustomController.CustomModel.qryCabecera.Open;
+                finally
+                end;
+
+               finally
+               ProcesoFacturacion.CustomController.CustomModel.qryCabecera.EnableControls;
+               ProcesoFacturacion.Show;
+               (Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
+
+               end;
+            finally
+
+            end;
+
+           }
+
+
+
+
+       end;
+       doRecibo:
+       Begin
+       ProcesoPago := TProcesoPago.Create(Sender,
+       TPagoController.Create (TPagoDataModule.Create(
+       (Sender as TComponent), Model.MasterDataModule)));
+       ProcesoPago.Show;
+       (Model.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
+  //     PagoDataModule.Pago.Close;
+       PagoDataModule.PagoID.AsInteger:= StrToInt(ADoc);
+  //     PagoDataModule.Pago.Open;
+      //ProcesoPago.;
+       end;
+    end;
+  finally
+  end;
+
+
+
+{
+
+ProcesoFacturacion := TProcesoFacturacion.Create(Sender,
+  TFacturaController.Create(TFacturasDataModule.Create(
+  (Sender as TComponent), Model.MasterDataModule)));
+ProcesoFacturacion.Show;
+(Model.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
+
+
+try
+  //CobroForm := TProcesoPago.Create(Sender, PagoController);
+  case ATipoDoc of
+    doFactura:
+    begin
+      PagoController.NuevoPago(True, ADoc, ATipoDoc);
+    end;
+  end;
+  //case CobroForm.ShowModal of
+  //  mrOk:
+  //  begin
+  //    Model.Connect;
+  //  end;
+  //  mrCancel:
+  //  begin
+  //    Model.Connect;
+  //  end;
+  //end;
+finally
+  //CobroForm.Free;
+  //CobroForm := nil;
+end;
+
+
+}
+
+
 
 end;
 

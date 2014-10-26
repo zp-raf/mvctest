@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, ExtCtrls, StdCtrls, DBGrids, frmproceso,
   frmdocumentosdatamodule, mvc, documentosctrl, frmMaestro, frmfacturadatamodule2,
-  frmpagodatamodule, frmpago, sgcdtypes;
+  frmpagodatamodule, frmpago, sgcdtypes ;
 
 type
 
@@ -114,11 +114,11 @@ end;
 procedure TProcesoDocumentos.ButtonVerClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetCobro.PageIndex then
-    CustomController.VerDocumento(doRecibo, Self)
+    CustomController.VerDocumento(doRecibo, '1',  Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
-    CustomController.VerDocumento(doFactura, Self)
+    CustomController.VerDocumento(doFactura, '2', Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFacturasCobradas.PageIndex then
-    CustomController.VerDocumento(doFactura, Self);
+    CustomController.VerDocumento(doFactura, '3', Self);
 end;
 
 procedure TProcesoDocumentos.FormDestroy(Sender: TObject);

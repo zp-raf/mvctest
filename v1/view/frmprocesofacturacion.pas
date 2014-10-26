@@ -264,7 +264,7 @@ end;
 
 procedure TProcesoFacturacion.Edit;
 begin
-
+     inherited;
 end;
 
 procedure TProcesoFacturacion.Insert;
