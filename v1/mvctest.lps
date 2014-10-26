@@ -36,13 +36,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmMaestro"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
+        <TopLine Value="4"/>
         <CursorPos X="3" Y="26"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="view\frmtest.pas"/>
@@ -130,13 +130,19 @@
         <Filename Value="base\mensajes.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mensajes"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="3" Y="14"/>
         <UsageCount Value="20"/>
+        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="controller\academiactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="academiactrl"/>
-        <EditorIndex Value="3"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -336,6 +342,9 @@
         <Filename Value="controller\generardeudactrl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="generardeudactrl"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="106"/>
+        <CursorPos X="28" Y="28"/>
         <UsageCount Value="20"/>
       </Unit38>
       <Unit39>
@@ -501,15 +510,23 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="4" HistoryIndex="3">
       <Position1>
         <Filename Value="maestro\frmAbm.pas"/>
         <Caret Line="16" Column="20" TopLine="1"/>
       </Position1>
       <Position2>
         <Filename Value="maestro\frmmaestro.pas"/>
-        <Caret Line="26" Column="3" TopLine="15"/>
+        <Caret Line="26" Column="3" TopLine="4"/>
       </Position2>
+      <Position3>
+        <Filename Value="base\mensajes.pas"/>
+        <Caret Line="22" Column="12" TopLine="10"/>
+      </Position3>
+      <Position4>
+        <Filename Value="base\mensajes.pas"/>
+        <Caret Line="14" Column="15" TopLine="7"/>
+      </Position4>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
