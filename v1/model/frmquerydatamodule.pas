@@ -5,7 +5,8 @@ unit frmquerydatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, frmsgcddatamodule, mvc, mensajes, sqldb, DB, strutils;
+  Classes, SysUtils, FileUtil, frmsgcddatamodule, mvc, mensajes, sqldb, DB,
+  strutils;
 
 type
 
@@ -47,11 +48,11 @@ type
     procedure DiscardChanges; virtual;
     procedure Disconnect; virtual;
     procedure FilterData(ASearchText: string);
-    procedure FilterRecord(DataSet: TDataSet; var Accept: boolean);
+    procedure FilterRecord(DataSet: TDataSet; var Accept: boolean); virtual;
     procedure EditCurrentRecord;
     procedure NewRecord;
     procedure NewDetailRecord;
-    procedure OnErrorEvent(Sender: TObject; E: EDatabaseError);
+    procedure OnErrorEvent(Sender: TObject; {%H-}E: EDatabaseError); virtual;
     procedure OpenDataSets;
     procedure RefreshDataSets; virtual;
     procedure Rollback; virtual;
@@ -167,10 +168,14 @@ begin
 end;
 
 procedure TQueryDataModule.FilterData(ASearchText: string);
-//var
-//  i: integer;
+var
+  i: integer;
 begin
   FSearchText := ASearchText;
+  for i := 0 to Pred(FQryList.Count) do
+  begin
+    (FQryList.Items[i] as TDataSet).Filtered := True;
+  end;
   //if Trim(FSearchText) = '' then
   //  for i := 0 to (FQryList.Count - 1) do
   //  begin
@@ -185,37 +190,33 @@ end;
 
 procedure TQueryDataModule.FilterRecord(DataSet: TDataSet; var Accept: boolean);
 var
-  i: integer;
-  FirstTime: boolean;
-  res: boolean;
+  i, FoundFields: integer;
 begin
-  if Trim(FSearchText) = '' then
+  Accept := False;
+
+  if (Trim(FSearchText) = '') or (FSearchFieldList.Count = 0) then
   begin
     Accept := True;
     Exit;
   end;
 
-  FirstTime := True;
-  if FSearchFieldList.Count = 0 then
-    Accept := True
-  else
-    for i := 0 to (FSearchFieldList.Count - 1) do
+  FoundFields := 0;
+  for i := 0 to Pred(FSearchFieldList.Count) do
+  begin
+    if DataSet.FindField(FSearchFieldList[i]) = nil then
+      Continue
+    else
+      Inc(FoundFields);
+    if AnsiContainsText(DataSet.FieldByName(FSearchFieldList[i]).AsString,
+      FSearchText) then
     begin
-      if FirstTime then
-      begin
-        res := AnsiContainsText(DataSet.FieldByName(FSearchFieldList[i]).AsString,
-          FSearchText);
-        Accept := res;
-      end
-      else
-      begin
-        Accept := res or AnsiContainsText(DataSet.FieldByName(
-          FSearchFieldList[i]).AsString, FSearchText);
-        res := AnsiContainsText(DataSet.FieldByName(
-          FSearchFieldList[i]).AsString, FSearchText);
-        FirstTime := False;
-      end;
+      Accept := True;
+      Break;
     end;
+  end;
+  // Check if all searchfields were found in the dataset
+  if FoundFields = 0 then
+    Accept := True;
 end;
 
 procedure TQueryDataModule.EditCurrentRecord;
@@ -346,41 +347,9 @@ begin
 end;
 
 procedure TQueryDataModule.RefreshDataSets;
-var
-  i: integer;
 begin
-  for i := 0 to FQryList.Count - 1 do
-  begin
-    with TSQLQuery(FQryList.Items[i]) do
-    begin
-      try
-        DisableControls;
-        if not (State in [dsEdit, dsInsert]) then
-        begin
-          Close;
-          Open;
-        end;
-      finally
-        EnableControls;
-      end;
-    end;
-  end;
-  for i := 0 to FDetailList.Count - 1 do
-  begin
-    with TSQLQuery(FDetailList.Items[i]) do
-    begin
-      try
-        DisableControls;
-        if not (State in [dsEdit, dsInsert]) then
-        begin
-          Close;
-          Open;
-        end;
-      finally
-        EnableControls;
-      end;
-    end;
-  end;
+  CloseDataSets;
+  OpenDataSets;
 end;
 
 procedure TQueryDataModule.Rollback;

@@ -116,6 +116,7 @@ inherited Abm: TAbm
       Width = 288
       Anchors = [akLeft, akBottom]
       BorderSpacing.Bottom = 4
+      OnKeyUp = EditFilterKeyUp
       TabOrder = 0
     end
     object LabelFilter: TLabel
@@ -156,9 +157,5 @@ inherited Abm: TAbm
       inherited MenuItemSalir: TMenuItem[1]
       end
     end
-  end
-  inherited AppProps: TApplicationProperties[5]
-    left = 392
-    top = 0
   end
 end

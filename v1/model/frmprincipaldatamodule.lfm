@@ -1,7 +1,6 @@
-object PrincipalDataModule: TPrincipalDataModule
-  OldCreateOrder = False
+inherited PrincipalDataModule: TPrincipalDataModule
   Height = 150
-  HorizontalOffset = 1284
-  VerticalOffset = 486
-  Width = 150
+  HorizontalOffset = 1038
+  VerticalOffset = 430
+  Width = 179
 end

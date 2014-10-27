@@ -5,9 +5,8 @@ unit frmprocesoasientos;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, StdCtrls, DBCtrls, ExtCtrls, DBGrids, PairSplitter, Buttons,
-  maskedit, frmproceso, frmasientosdatamodule, asientosctrl, mvc, frmMaestro, observerSubject;
+  SysUtils, Graphics, StdCtrls, ExtCtrls, DBGrids, Buttons, maskedit, Forms,
+  frmproceso, frmasientosdatamodule, asientosctrl, mvc, ctrl;
 
 resourcestring
   rsReversionDeA = 'Reversion de asiento';
@@ -17,25 +16,16 @@ type
   { TProcesoAsientos }
 
   TProcesoAsientos = class(TProceso)
+  protected
+    function GetABMController: TABMController;
+    function GetCustomController: TAsientosController;
+  published
     BitBtnCerrarAsiento: TBitBtn;
     BitBtnNuevoDetalle: TBitBtn;
     DBGrid1: TDBGrid;
     DBGrid2: TDBGrid;
     DBGridCuenta: TDBGrid;
     RadioGroup1: TRadioGroup;
-    procedure BitBtnCerrarAsientoClick(Sender: TObject);
-    procedure BitBtnNuevoDetalleClick(Sender: TObject);
-  private
-    FABMController: IABMController;
-    FCustomController: TAsientosController;
-    function GetController: IABMController;
-    function GetCustomController: TAsientosController;
-    procedure SetController(AValue: IABMController);
-    procedure SetCustomController(AValue: TAsientosController);
-  public
-    constructor Create(AOwner: IFormView; AController: TAsientosController);
-      overload;
-  published
     BitBtnNuevo: TBitBtn;
     Monto: TLabel;
     MaskEditMonto: TMaskEdit;
@@ -44,18 +34,15 @@ type
     GroupBox2: TGroupBox;
     Haber: TLabel;
     LabeledEditDesscripcion: TLabeledEdit;
+    procedure BitBtnCerrarAsientoClick(Sender: TObject);
+    procedure BitBtnNuevoDetalleClick(Sender: TObject);
     procedure BitBtnNuevoClick(Sender: TObject);
-    procedure MaskEditMontoKeyPress(Sender: TObject; var Key: char);
-    procedure OKButtonClick(Sender: TObject);
-    procedure BitBtnReversarClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
+    procedure BitBtnReversarClick(Sender: TObject);
     procedure Limpiar;
+    procedure MaskEditMontoKeyPress(Sender: TObject; var Key: char);
     procedure ObserverUpdate(const Subject: IInterface); override;
-    property ABMController: IABMController read GetController write SetController;
-    { Aca esta el controlador especifico del modulo }
-    property CustomController: TAsientosController
-      read GetCustomController write SetCustomController;
+    procedure OKButtonClick(Sender: TObject);
   end;
 
 var
@@ -110,37 +97,6 @@ begin
   end;
 end;
 
-constructor TProcesoAsientos.Create(AOwner: IFormView;
-  AController: TAsientosController);
-var
-  Cont: IController;
-  ABMCont: IABMController;
-begin
-  (AController as IInterface).QueryInterface(IController, Cont);
-  (AController as IInterface).QueryInterface(IABMController, ABMCont);
-  if (Cont = nil) or (ABMCont = nil) then
-    raise Exception.Create(rsProvidedCont)
-  else
-  begin
-    inherited Create(AOwner, Cont);
-    ABMController := ABMCont;
-    CustomController := AController;
-  end;
-end;
-
-procedure TProcesoAsientos.FormCreate(Sender: TObject);
-begin
-  //DBLookupComboBoxDebe.ListSource := GetCustomController.GetCuentaDebeDataSource;
-  //DBLookupComboBoxDebe.KeyField := 'ID';
-  //DBLookupComboBoxDebe.ListField := 'NOMBRE';
-  //DBLookupComboBoxDebe.ScrollListDataset := True;
-
-  //DBLookupComboBoxCuenta.ListSource := GetCustomController.GetCuentaHaberDataSource;
-  //DBLookupComboBoxCuenta.KeyField := 'ID';
-  //DBLookupComboBoxCuenta.ListField := 'NOMBRE';
-  //DBLookupComboBoxDebe.ScrollListDataset := True;
-end;
-
 procedure TProcesoAsientos.Limpiar;
 begin
   MaskEditMonto.Clear;
@@ -163,8 +119,8 @@ end;
 
 procedure TProcesoAsientos.OKButtonClick(Sender: TObject);
 begin
-  ABMController.Commit(Self);
-  ABMController.Connect(Self);
+  GetABMController.Commit(Self);
+  GetABMController.Connect(Self);
   Limpiar;
   ShowInfoMessage('Los nuevos asientos fueron guardados');
 end;
@@ -188,25 +144,6 @@ begin
   GetCustomController.CerrarAsiento(Self);
 end;
 
-function TProcesoAsientos.GetController: IABMController;
-begin
-  Result := FABMController;
-end;
-
-procedure TProcesoAsientos.SetController(AValue: IABMController);
-begin
-  if FABMController = AValue then
-    Exit;
-  FABMController := AValue;
-end;
-
-procedure TProcesoAsientos.SetCustomController(AValue: TAsientosController);
-begin
-  if FCustomController = AValue then
-    Exit;
-  FCustomController := AValue;
-end;
-
 procedure TProcesoAsientos.BitBtnReversarClick(Sender: TObject);
 begin
   GetCustomController.ReversarAsiento(rsReversionDeA, Self);
@@ -215,16 +152,21 @@ end;
 
 procedure TProcesoAsientos.CancelButtonClick(Sender: TObject);
 begin
-  //ABMController.Cancel(Self);
-  ABMController.Rollback(Self);
-  //ABMController.Connect(Self);
+  //GetABMController.Cancel(Self);
+  GetABMController.Rollback(Self);
+  //GetABMController.Connect(Self);
   Limpiar;
   ShowInfoMessage('Los asientos no guardados fueron descartados');
 end;
 
+function TProcesoAsientos.GetABMController: TABMController;
+begin
+  Result := GetController as TABMController;
+end;
+
 function TProcesoAsientos.GetCustomController: TAsientosController;
 begin
-  Result := FCustomController;
+  Result := GetController as TAsientosController;
 end;
 
 end.

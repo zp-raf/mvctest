@@ -5,43 +5,29 @@ unit comprobantectrl;
 interface
 
 uses
-  Classes, SysUtils, mvc, ctrl, frmcomprobantedatamodule;
+  mvc, ctrl, frmcomprobantedatamodule;
 
 type
 
   { TComprobanteController }
 
   TComprobanteController = class(TABMController)
-  private
-    FCustomModel: TComprobanteDataModule;
-    procedure SetCustomModel(AValue: TComprobanteDataModule);
+  protected
+    function GetCustomModel: TComprobanteDataModule;
   public
-    constructor Create(AModel: IModel); overload;
     procedure ActualizarTotales(Sender: IView);
     procedure CerrarComprobante(Sender: IView);
     procedure NuevoComprobante(Sender: IView);
     function GetEstadoComprobante(Sender: IView): TEstadoComprobante;
-    property CustomModel: TComprobanteDataModule read FCustomModel write SetCustomModel;
   end;
 
 implementation
 
 { TComprobanteController }
 
-constructor TComprobanteController.Create(AModel: IModel);
+function TComprobanteController.GetCustomModel: TComprobanteDataModule;
 begin
-  inherited Create(AModel);
-  if (AModel is TComprobanteDataModule) then
-    CustomModel := (AModel as TComprobanteDataModule)
-  else
-    raise Exception.Create(rsModelErr);
-end;
-
-procedure TComprobanteController.SetCustomModel(AValue: TComprobanteDataModule);
-begin
-  if FCustomModel = AValue then
-    Exit;
-  FCustomModel := AValue;
+  Result := GetModel as TComprobanteDataModule;
 end;
 
 procedure TComprobanteController.ActualizarTotales(Sender: IView);
@@ -60,7 +46,6 @@ begin
 end;
 
 function TComprobanteController.GetEstadoComprobante(Sender: IView): TEstadoComprobante;
-
 begin
 
 end;

@@ -5,9 +5,8 @@ unit frmabmcuentas;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls, frmAbm,
-  frmcuentadatamodule, cuentactrl;
+  Forms, Controls, Menus, ExtCtrls, DBCtrls, StdCtrls, frmAbm,
+  cuentactrl;
 
 resourcestring
   rsControllerErr = 'El controlador no es del tipo adecuado';
@@ -17,26 +16,18 @@ type
   { TAbmCuentas }
 
   TAbmCuentas = class(TAbm)
+  protected
+    function GetCustomController: TCuentaController;
+  published
     DBLookupComboBox1: TDBLookupComboBox;
     LabelCuentaPadre: TLabel;
-    procedure DBLookupComboBox1EditingDone(Sender: TObject);
-  private
-    FCustomController: TCuentaController;
-    procedure SetCustomController(AValue: TCuentaController);
-  published
     DBEdit1: TDBEdit;
     DBEdit2: TDBEdit;
     DBRadioGroupTipo: TDBRadioGroup;
     Codigo: TLabel;
     Nombre: TLabel;
     procedure ABMInsert; override;
-    procedure FormCreate(Sender: TObject);
-    property CustomController: TCuentaController
-      read FCustomController write SetCustomController;
-  private
-    { private declarations }
-  public
-    { public declarations }
+    procedure DBLookupComboBox1EditingDone(Sender: TObject);
   end;
 
 var
@@ -52,32 +43,22 @@ procedure TAbmCuentas.DBLookupComboBox1EditingDone(Sender: TObject);
 var
   EsCuentaHija: boolean;
 begin
-  CustomController.ActualizarDetallesCuenta(Self, EsCuentaHija{%H-});
+  GetCustomController.ActualizarDetallesCuenta(Self, EsCuentaHija{%H-});
   if EsCuentaHija then
     DBRadioGroupTipo.Enabled := False
   else
     DBRadioGroupTipo.Enabled := True;
 end;
 
-procedure TAbmCuentas.SetCustomController(AValue: TCuentaController);
+function TAbmCuentas.GetCustomController: TCuentaController;
 begin
-  if FCustomController = AValue then
-    Exit;
-  FCustomController := AValue;
+  Result := GetController as TCuentaController;
 end;
 
 procedure TAbmCuentas.ABMInsert;
 begin
   inherited ABMInsert;
   DBRadioGroupTipo.Enabled := True;
-end;
-
-procedure TAbmCuentas.FormCreate(Sender: TObject);
-begin
-  if (Controller is TCuentaController) then
-    CustomController := (Controller as TCuentaController)
-  else
-    raise Exception.Create(rsControllerErr);
 end;
 
 end.

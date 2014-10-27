@@ -5,16 +5,20 @@ unit frmprocesofacturacion;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, frmproceso, mvc,
-  facturactrl2, frmfacturadatamodule2, frmMaestro, frmcomprobantedatamodule,
-  frmbuscarpersonas;
+  SysUtils, FileUtil, Forms, Controls, Graphics, Menus,
+  StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, frmproceso,
+  facturactrl2, frmcomprobantedatamodule,
+  frmbuscarpersonas, ctrl, mensajes;
 
 type
 
   { TProcesoFacturacion }
 
   TProcesoFacturacion = class(TProceso)
+  protected
+    function GetABMController: TABMController;
+    function GetCustomController: TFacturaController;
+  published
     btSeleccionar: TButton;
     ButtonLimpiar: TButton;
     Cabecera: TGroupBox;
@@ -58,24 +62,11 @@ type
     LabelSubtotal5: TLabel;
     LabelSubtotal10: TLabel;
     Totales: TGroupBox;
-  private
-    FABMController: IABMController;
-    FCustomController: TFacturaController;
-    //FPopup: TPopupSeleccionPersonas;
-    function GetController: IABMController;
-    function GetCustomController: TFacturaController;
-    procedure SetController(AValue: IABMController);
-    procedure SetCustomController(AValue: TFacturaController);
-    //procedure SetPopup(AValue: TPopupSeleccionPersonas);
-  public
-    constructor Create(AOwner: IFormView; AController: TFacturaController);
-      overload;
-  published
     procedure btSeleccionarClick(Sender: TObject);
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure DateEditVenEditingDone(Sender: TObject);
     procedure DBGridDetEditingDone(Sender: TObject);
-    procedure DBNavigatorDetBeforeAction(Sender: TObject; Button: TDBNavButtonType);
+    procedure DBNavigatorDetBeforeAction(Sender: TObject; {%H-}Button: TDBNavButtonType);
     procedure DBNavigatorDetClick(Sender: TObject; Button: TDBNavButtonType);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -85,19 +76,13 @@ type
     procedure Delete;
     procedure Refresh;
     procedure ObserverUpdate(const Subject: IInterface); override;
-    property ABMController: IABMController read GetController write SetController;
     procedure Limpiar;
     procedure OKButtonClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
-    { Aca esta el controlador especifico del modulo }
-    property CustomController: TFacturaController
-      read GetCustomController write SetCustomController;
-    //property Popup: TPopupSeleccionPersonas read FPopup write SetPopup;
   end;
 
 var
   ProcesoFacturacion: TProcesoFacturacion;
-  Popup: TPopupSeleccionPersonas;
 
 implementation
 
@@ -106,20 +91,22 @@ implementation
 { TProcesoFacturacion }
 
 procedure TProcesoFacturacion.btSeleccionarClick(Sender: TObject);
+var
+  Popup: TPopupSeleccionPersonas;
 begin
   try
     Popup := TPopupSeleccionPersonas.Create(Self);
-    Controller.Connect(Self);
+    GetController.Connect(Self);
     case Popup.ShowModal of
       mrOk:
       begin
-        Controller.Connect(Self);
+        GetController.Connect(Self);
         // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
-        CustomController.NuevaFactura(Self);
+        GetCustomController.NuevaFactura(Self);
       end
       else
       begin
-        Controller.CloseDataSets(Self);
+        GetController.CloseDataSets(Self);
         Exit;
       end;
     end;
@@ -131,20 +118,20 @@ end;
 procedure TProcesoFacturacion.ButtonLimpiarClick(Sender: TObject);
 begin
   Limpiar;
-  ABMController.Cancel(Self);
+  GetABMController.Cancel(Self);
 end;
 
 procedure TProcesoFacturacion.DateEditVenEditingDone(Sender: TObject);
 begin
   if DateEditVen.Date < Now then
-    ShowErrorMessage('Fecha no permitida')
+    ShowErrorMessage(rsDateNotAllow)
   else
-    CustomController.SetVencimiento(DateEditVen.Date);
+    GetCustomController.SetVencimiento(DateEditVen.Date);
 end;
 
 procedure TProcesoFacturacion.DBGridDetEditingDone(Sender: TObject);
 begin
-  CustomController.ActualizarTotales(Self);
+  GetCustomController.ActualizarTotales(Self);
 end;
 
 procedure TProcesoFacturacion.DBNavigatorDetBeforeAction(Sender: TObject;
@@ -182,7 +169,7 @@ begin
   if not (Sender is TDBNavigator) then
     Abort;
   case Button of
-    nbDelete: CustomController.ActualizarTotales(Self);
+    nbDelete: GetCustomController.ActualizarTotales(Self);
   end;
 end;
 
@@ -194,8 +181,8 @@ end;
 procedure TProcesoFacturacion.FormShow(Sender: TObject);
 begin
   inherited;
-  //ABMController.NewRecord(Self);
-  Controller.CloseDataSets(Self);
+  //GetABMController.NewRecord(Self);
+  GetController.CloseDataSets(Self);
 end;
 
 procedure TProcesoFacturacion.RadioCondicionChange(Sender: TObject);
@@ -207,64 +194,19 @@ begin
   end;
 end;
 
-function TProcesoFacturacion.GetController: IABMController;
+function TProcesoFacturacion.GetABMController: TABMController;
 begin
-  Result := FABMController;
+  Result := GetController as TABMController;
 end;
 
 function TProcesoFacturacion.GetCustomController: TFacturaController;
 begin
-  Result := FCustomController;
-end;
-
-procedure TProcesoFacturacion.SetController(AValue: IABMController);
-begin
-  if FABMController = AValue then
-    Exit;
-  FABMController := AValue;
-end;
-
-procedure TProcesoFacturacion.SetCustomController(AValue: TFacturaController);
-begin
-  if FCustomController = AValue then
-    Exit;
-  FCustomController := AValue;
-end;
-
-//procedure TProcesoFacturacion.SetPopup(AValue: TPopupSeleccionPersonas);
-//begin
-//  if FPopup = AValue then
-//    Exit;
-//  FPopup := AValue;
-//end;
-
-constructor TProcesoFacturacion.Create(AOwner: IFormView;
-  AController: TFacturaController);
-var
-  Cont: IController;
-  ABMCont: IABMController;
-begin
-  { Aca se chequean el controlador y se asignan las propiedades
-     correspondientes. Con queryinterface sacamos una referencia al objeto que
-     implementa la interfaz. Hacemos asi por si acaso AController sea un objeto
-     compuesto y que hayan subojetos que implementen las interfaces. Esto nos da
-     mayor flexibilidad en la implementacion. }
-  (AController as IInterface).QueryInterface(IController, Cont);
-  (AController as IInterface).QueryInterface(IABMController, ABMCont);
-  if (Cont = nil) or (ABMCont = nil) then
-    raise Exception.Create(rsProvidedCont)
-  else
-  begin
-    inherited Create(AOwner, Cont);
-    ABMController := ABMCont;
-    CustomController := AController;
-    //Popup := TPopupSeleccionPersonas.Create(Self);
-  end;
+  Result := GetController as TFacturaController;
 end;
 
 procedure TProcesoFacturacion.Edit;
 begin
-
+  inherited;
 end;
 
 procedure TProcesoFacturacion.Insert;
@@ -294,7 +236,7 @@ begin
       DBGridDet.Color := clInactiveCaption;
       btSeleccionar.Enabled := True;
       ButtonLimpiar.Enabled := True;
-      Controller.CloseDataSets(Self);
+      GetController.CloseDataSets(Self);
     end;
     asGuardado:
     begin
@@ -304,7 +246,7 @@ begin
       DBGridDet.Color := clInactiveCaption;
       btSeleccionar.Enabled := True;
       ButtonLimpiar.Enabled := True;
-      Controller.CloseDataSets(Self);
+      GetController.CloseDataSets(Self);
     end;
     asEditando:
     begin
@@ -319,7 +261,7 @@ begin
     end;
     asLeyendo:
     begin
-      Controller.OpenDataSets(Self);
+      GetController.OpenDataSets(Self);
     end;
   end;
 end;
@@ -351,28 +293,28 @@ begin
     Exit;
   end
   else if (RadioCondicion.ItemIndex = 0) and
-    (not Controller.IsValidDate(DateEditVen.Text) or (DateEditVen.Date < Now)) then
+    (not GetController.IsValidDate(DateEditVen.Text) or (DateEditVen.Date < Now)) then
   begin
     ShowErrorMessage('Fecha de vencimiento no valida');
     Exit;
   end;
-  if not (CustomController.GetFacturaEstado(Self) in [asEditando]) then
+  if not (GetCustomController.GetFacturaEstado(Self) in [asEditando]) then
   begin
     ShowInfoMessage('No se esta procesando ninguna factura');
     Exit;
   end;
-  CustomController.CerrarFactura(Self);
+  GetCustomController.CerrarFactura(Self);
   ShowInfoMessage('Factura ingresada correctamente');
   Limpiar;
 end;
 
 procedure TProcesoFacturacion.CancelButtonClick(Sender: TObject);
 begin
-  ABMController.Cancel(Self);
-  ABMController.Rollback(Self);
+  GetABMController.Cancel(Self);
+  GetABMController.Rollback(Self);
   ShowInfoMessage('Factura descartada');
   Limpiar;
-  Controller.CloseDataSets(Self);
+  GetController.CloseDataSets(Self);
 end;
 
 {

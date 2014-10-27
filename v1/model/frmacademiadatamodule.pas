@@ -5,7 +5,7 @@ unit frmacademiadatamodule;
 interface
 
 uses
-  Classes, SysUtils, sqldb, DB, FileUtil, frmsgcddatamodule, frmquerydatamodule, mvc;
+  Classes, SysUtils, sqldb, DB, FileUtil, frmsgcddatamodule, frmquerydatamodule;
 
 resourcestring
   rsGenName = 'SEQ_ACADEMIA';
@@ -14,18 +14,13 @@ type
 
   { TAcademiaDataModule }
 
-  TAcademiaDataModule = class(TQueryDataModule, IModel)
+  TAcademiaDataModule = class(TQueryDataModule)
     DataSource1: TDataSource;
     qry: TSQLQuery;
     qryID: TLongintField;
     qryNOMBRE: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
-    procedure qryFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure qryNewRecord(DataSet: TDataSet);
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var
@@ -39,11 +34,7 @@ begin
   inherited;
   QryList.Add(TObject(qry));
   SearchFieldList.Add('NOMBRE');
-end;
-
-procedure TAcademiaDataModule.qryFilterRecord(DataSet: TDataSet; var Accept: boolean);
-begin
-  FilterRecord(DataSet, Accept);
+  qry.OnFilterRecord:=@FilterRecord;
 end;
 
 procedure TAcademiaDataModule.qryNewRecord(DataSet: TDataSet);

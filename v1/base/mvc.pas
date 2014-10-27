@@ -5,9 +5,8 @@ unit mvc;
 interface
 
 uses
-  Classes, SysUtils, Forms, mensajes, contnrs, DB, observerSubject;
+  Classes, SysUtils, Forms, mensajes, contnrs, DB;
 
-// Aca defino los metodos basicos que tiene que tener cada parte
 type
 
   TErrorEvent = procedure(Sender: TObject; E: EDatabaseError) of object;
@@ -48,20 +47,15 @@ type
     function ShowWarningMessage(ATitle: string; AMsg: string): TModalResult;
     function ShowConfirmationMessage(AMsg: string): TModalResult;
     function ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
-    { La relacion controlador-vista es de uno a muchos por eso aca esta una
-      referencia al controlador.}
-    { TODO : Esto se podria mejorar teniendo un puntero
-      que apunte al controlador para evitar problemas de referenciado. }
-    function GetController: IController;
-    procedure SetController(AValue: IController);
-    property Controller: IController read GetController write SetController;
+    //function GetController: IController;
+    //procedure SetController(AValue: IController);
+    //property Controller: IController read GetController write SetController;
   end;
 
 
   { IFormView }
 
   IFormView = interface(IView)
-    { Esto es para las vistas que sean graficas. }
     ['{A1AB24E3-C419-44E2-B390-D4653F8C5E88}']
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -72,9 +66,6 @@ type
   IABMView = interface
     ['{C8D5D732-64B6-4F9A-B41E-2E6471C54D6E}']
     procedure Cancel;
-    function GetController: IABMController;
-    procedure SetController(AValue: IABMController);
-    property ABMController: IABMController read GetController write SetController;
   end;
 
   { IDBModel }
@@ -94,13 +85,6 @@ type
   { IModel }
 
   IModel = interface
-    { TODO : Por ahora solo tiene esto pero deberia tener algun metodo que notifique a
-      las vistas que deben actualizarse. Por ejemplo para mostrar algun texto que
-      indique el estado de conexion a la base de datos.
-      Los datasources de las vistas no necesitan ser actualizados ya que tienen
-      su propio controlador y metodo de notificacion.
-      La logica de datos se debe manejar aca (generators,
-      llamadas a procedimientos, etc) }
     ['{91D626B4-415B-4FB2-8B98-620B8F24A406}']
     procedure CloseDataSets;
     procedure Commit;
@@ -148,40 +132,37 @@ type
 
   IController = interface
     ['{B1D8EBC6-C5B4-4F72-9CA3-6E4B74F51858}']
+    procedure Cancel(Sender: IView);
+    procedure Commit(Sender: IView);
     procedure Close(Sender: IView);
     procedure Close(Sender: IFormView);
     procedure CloseDataSets(Sender: IView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean);
     procedure Connect(Sender: IView);
     procedure Disconnect(Sender: IView);
+    procedure EditCurrentRecord(Sender: IView);
     procedure ErrorHandler(E: Exception; Sender: IView);
+    procedure NewDetailRecord(Sender: IView);
+    procedure NewRecord(Sender: IView);
     procedure OpenDataSets(Sender: IView);
+    procedure RefreshData(Sender: IView);
+    procedure Rollback(Sender: IView);
+    procedure Save(Sender: IView);
     procedure ShowHelp(Sender: IView);
     procedure ShowHelp(Sender: IFormView);
-    function IsDBConnected(Sender: IView): boolean;
     function GetVersion(Sender: IView): string;
-    { El modelo MVC dice que los eventos deben ser manejados por el controlador.
-      El controlador debe ser capaz de manejar una vista grafica o de linea de
-      comandos sin modificaciones }
-    function GetModel: IModel;
+    //function GetModel: IModel;
+    function IsDBConnected(Sender: IView): boolean;
     function IsValidDate(ADateStr: string): boolean;
-    procedure SetModel(AValue: IModel);
-    property Model: IModel read GetModel write SetModel;
+    //procedure SetModel(AValue: IModel);
+    //property Model: IModel read GetModel write SetModel;
   end;
 
   { IABMController }
 
   IABMController = interface(IController)
     ['{DCFA8850-3248-48F4-BC94-72A140AA75F4}']
-    procedure Cancel(Sender: IView);
-    procedure Commit(Sender: IView);
-    procedure EditCurrentRecord(Sender: IView);
     procedure FilterData(AFilterText: string; Sender: IView);
-    procedure NewDetailRecord(Sender: IView);
-    procedure NewRecord(Sender: IView);
-    procedure RefreshData(Sender: IView);
-    procedure Rollback(Sender: IView);
-    procedure Save(Sender: IView);
     function GetCurrentRecordText(Sender: IView): string;
   end;
 

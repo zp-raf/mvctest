@@ -8,7 +8,6 @@ inherited ProcesoAsientos: TProcesoAsientos
   ClientWidth = 768
   Constraints.MinHeight = 512
   Constraints.MinWidth = 768
-  OnCreate = FormCreate
   inherited StatusBar1: TStatusBar
     Top = 469
     Width = 768
@@ -397,10 +396,6 @@ inherited ProcesoAsientos: TProcesoAsientos
   end
   inherited MainMenu: TMainMenu[4]
     left = 312
-    top = 0
-  end
-  inherited AppProps: TApplicationProperties[5]
-    left = 512
     top = 0
   end
 end

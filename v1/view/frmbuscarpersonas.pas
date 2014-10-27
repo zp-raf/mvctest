@@ -5,9 +5,8 @@ unit frmbuscarpersonas;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  DBGrids, ExtCtrls, ButtonPanel, StdCtrls, ComCtrls, sqldb, DB,
-  strutils, mensajes, mvc, buscarpersctrl;
+  Forms,
+  DBGrids, ExtCtrls, StdCtrls;
 
 type
 

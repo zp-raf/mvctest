@@ -409,8 +409,4 @@ inherited ProcesoPago: TProcesoPago
     left = 760
     top = 24
   end
-  inherited AppProps: TApplicationProperties[5]
-    left = 848
-    top = 24
-  end
 end

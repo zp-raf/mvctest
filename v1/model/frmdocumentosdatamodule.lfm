@@ -2,8 +2,8 @@ inherited DocumentosDataModule: TDocumentosDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 233
-  HorizontalOffset = 945
-  VerticalOffset = 538
+  HorizontalOffset = 689
+  VerticalOffset = 264
   Width = 337
   object FacturasView: TSQLQuery[0]
     FieldDefs = <    
@@ -409,12 +409,12 @@ inherited DocumentosDataModule: TDocumentosDataModule
       Size = 255
     end
   end
-  object dsFacturas: TDataSource[2]
+  object dsFacturas: TDatasource[2]
     DataSet = FacturasView
     left = 40
     top = 125
   end
-  object dsCobros: TDataSource[3]
+  object dsCobros: TDatasource[3]
     DataSet = CobrosView
     left = 131
     top = 125
@@ -663,7 +663,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
       Required = False
     end
   end
-  object dsFacturasCobradas: TDataSource[5]
+  object dsFacturasCobradas: TDatasource[5]
     DataSet = FacturasCobradasView
     left = 246
     top = 132

@@ -5,46 +5,32 @@ unit cuentactrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, frmcuentadatamodule, mvc;
+  ctrl, frmcuentadatamodule, mvc;
 
 type
 
   { TCuentaController }
 
   TCuentaController = class(TABMController)
-  private
-    FCustomModel: TCuentaDataModule;
-    procedure SetCustomModel(AValue: TCuentaDataModule);
+  protected
+    function GetCustomModel: TCuentaDataModule;
   public
-    constructor Create(AModel: IModel); overload;
     procedure ActualizarDetallesCuenta(Sender: IFormView; var EsCuentaHija: boolean);
-    property CustomModel: TCuentaDataModule read FCustomModel write SetCustomModel;
   end;
 
 implementation
 
 { TCuentaController }
 
-procedure TCuentaController.SetCustomModel(AValue: TCuentaDataModule);
+function TCuentaController.GetCustomModel: TCuentaDataModule;
 begin
-  if FCustomModel = AValue then
-    Exit;
-  FCustomModel := AValue;
-end;
-
-constructor TCuentaController.Create(AModel: IModel);
-begin
-  inherited Create(AModel);
-  if (AModel is TCuentaDataModule) then
-    CustomModel := (AModel as TCuentaDataModule)
-  else
-    raise Exception.Create(rsModelErr);
+  Result := GetModel as TCuentaDataModule;
 end;
 
 procedure TCuentaController.ActualizarDetallesCuenta(Sender: IFormView;
   var EsCuentaHija: boolean);
 begin
-  CustomModel.ActualizarDetallesCuenta(Self, EsCuentaHija);
+  GetCustomModel.ActualizarDetallesCuenta(Self, EsCuentaHija);
 end;
 
 end.

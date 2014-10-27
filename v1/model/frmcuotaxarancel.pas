@@ -5,7 +5,7 @@ unit frmcuotaxarancel;
 interface
 
 uses
-  Classes, SysUtils, sqldb, DB, FileUtil, frmquerydatamodule, mvc, frmcodigosdatamodule;
+  Classes, SysUtils, sqldb, DB, FileUtil, frmquerydatamodule, frmcodigosdatamodule;
 
 resourcestring
   rsGenName = 'GEN_CUOTAXARANCEL';

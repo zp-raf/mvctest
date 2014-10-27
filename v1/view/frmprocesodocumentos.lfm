@@ -1,7 +1,7 @@
 inherited ProcesoDocumentos: TProcesoDocumentos
-  Left = 675
+  Left = 493
   Height = 600
-  Top = 270
+  Top = 89
   Width = 800
   Caption = 'Documentos'
   ClientHeight = 580
@@ -159,10 +159,6 @@ inherited ProcesoDocumentos: TProcesoDocumentos
   end
   inherited MainMenu: TMainMenu[4]
     left = 336
-    top = 32
-  end
-  inherited AppProps: TApplicationProperties[5]
-    left = 408
     top = 32
   end
 end

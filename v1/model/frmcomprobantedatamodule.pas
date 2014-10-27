@@ -43,7 +43,6 @@ type
     ImpuestoViewIMP_NOMBRE: TStringField;
     ImpuestoViewINCLUIDO: TSmallintField;
     ImpuestoViewMONTO: TFloatField;
-    Props: TXMLPropStorage;
     qryDetalle: TSQLQuery;
     qryCabecera: TSQLQuery;
     qryNumero: TSQLQuery;
@@ -109,7 +108,7 @@ type
     procedure LocateComprobante(AID: string);
     procedure NuevoComprobante;
     procedure NuevoComprobanteDetalle;
-    procedure OnComprobanteError(Sender: TObject; E: EDatabaseError); virtual;
+    procedure OnComprobanteError(Sender: TObject; {%H-}E: EDatabaseError); virtual;
     procedure qryDetalleAfterInsert(DataSet: TDataSet); virtual;
     procedure qryDetalleBeforePost(DataSet: TDataSet);
     procedure qryCabeceraAfterScroll(DataSet: TDataSet); virtual; abstract;

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, IBConnection, sqldb, FileUtil, Forms,
-  observerSubject, DB, Dialogs, mvc, mensajes;
+  observerSubject, Dialogs, mvc, mensajes;
 
 resourcestring
   rsFromRdbDatab = ' from rdb$database';

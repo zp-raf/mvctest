@@ -22,6 +22,4 @@ inherited Proceso: TProceso
   end
   inherited MainMenu: TMainMenu[1]
   end
-  inherited AppProps: TApplicationProperties[2]
-  end
 end

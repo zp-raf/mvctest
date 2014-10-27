@@ -6,18 +6,10 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, mvc, frmcuentadatamodule,
-  observerSubject;
+  frmquerydatamodule, frmcuentadatamodule,
+  observerSubject, mensajes;
 
 resourcestring
-  rsSeHaSeleccio = 'Se ha seleccionado la misma cuenta para debe y haber';
-  rsAsientoNoEnc = 'Asiento no encontrado';
-  rsErrorAlRever = 'Error al reversar movimiento. Asiento invalido';
-  rsNuevoAsientoError = 'Creacion de asiento en proceso. Finalice el asiento ' +
-    'e intente de nuevo.';
-  rsNoHayNigunAs = 'No hay nigun asiento en proceso.';
-  rsLosMontosDeb = 'Los montos debe y haber no coinciden. Por favor revise los' +
-    ' datos e intente de nuevo';
   rsGenNameMov = 'GEN_MOVIMIENTO';
   rsGenNameMovDet = 'GEN_MOVIMIENTO_DET';
 
@@ -147,7 +139,7 @@ procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string);
 begin
   Connect;
   if (Estado in [asEditando]) then
-    raise Exception.Create(rsNuevoAsientoError);
+    raise Exception.Create(rsNewEntryError);
   Movimiento.Insert;
   MovimientoFECHA.AsDateTime := Now;
   MovimientoDESCRIPCION.AsString := ADescripcion;
@@ -165,7 +157,7 @@ procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
   ATipoMov: TTipoMovimiento; AMonto: double);
 begin
   if (Estado in [asInicial, asGuardado]) then
-    raise Exception.Create(rsNoHayNigunAs);
+    raise Exception.Create(rsNoEntryInProc);
   MovimientoDet.Insert;
   MovimientoDetCUENTAID.AsString := ACuenta;
   MovimientoDetMONTO.AsFloat := AMonto;
@@ -258,7 +250,7 @@ var
   sumaDebe, sumaHaber: double;
 begin
   if not (Estado in [asEditando]) then
-    raise Exception.Create(rsNoHayNigunAs);
+    raise Exception.Create(rsNoEntryInProc);
   if ComprobarAsiento then
   begin
     sumaDebe := 0.0;
@@ -275,7 +267,7 @@ begin
     end;
 
     if sumaDebe <> sumaHaber then
-      raise Exception.Create(rsLosMontosDeb);
+      raise Exception.Create(rsDebCredAmountSumError);
   end;
   Movimiento.ApplyUpdates;
   MovimientoDet.ApplyUpdates;
@@ -308,7 +300,7 @@ var
 begin
   // buscamos el asiento
   if not Movimiento.Locate('ID', AAsientoID, [loCaseInsensitive]) then
-    raise Exception.Create(rsAsientoNoEnc);
+    raise Exception.Create(rsEntryNotFound);
   try
     // guardamos todos los movimientos en una lista para luego introducirlos
     // de nuevo pero en movimiento contrario
