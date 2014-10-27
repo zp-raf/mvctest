@@ -63,7 +63,9 @@
       <Unit2>
         <Filename Value="view\principal.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="Principal1"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="Principal"/>
       </Unit2>
       <Unit3>
@@ -85,7 +87,9 @@
       <Unit5>
         <Filename Value="model\frmprincipaldatamodule.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="PrincipalDataModule"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmprincipaldatamodule"/>
       </Unit5>
       <Unit6>
@@ -269,7 +273,9 @@
       <Unit35>
         <Filename Value="view\frmgeneradeuda.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="GenerarDeuda"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmgeneradeuda"/>
       </Unit35>
       <Unit36>

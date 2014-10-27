@@ -218,8 +218,4 @@ inherited GenerarDeuda: TGenerarDeuda
   inherited MainMenu: TMainMenu
     left = 592
   end
-  inherited AppProps: TApplicationProperties
-    left = 584
-    top = 88
-  end
 end

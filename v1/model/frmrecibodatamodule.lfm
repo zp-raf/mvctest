@@ -1,7 +1,7 @@
 inherited ReciboDataModule: TReciboDataModule
   Height = 333
-  HorizontalOffset = 638
-  VerticalOffset = 482
+  HorizontalOffset = 626
+  VerticalOffset = 267
   Width = 542
   inherited qryCabecera: TSQLQuery
     FieldDefs = <    
@@ -325,7 +325,6 @@ inherited ReciboDataModule: TReciboDataModule
     end
   end
   inherited qryNumero: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     SQL.Strings = (
       'select * from GET_NUMERO_RECIBO(:TALONARIOID)'
     )

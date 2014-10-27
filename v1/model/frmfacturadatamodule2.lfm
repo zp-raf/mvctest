@@ -3,7 +3,7 @@ inherited FacturasDataModule: TFacturasDataModule
   OnDestroy = DataModuleDestroy
   Height = 399
   HorizontalOffset = 684
-  VerticalOffset = 399
+  VerticalOffset = 319
   Width = 562
   inherited qryCabecera: TSQLQuery
     SQL.Strings = (

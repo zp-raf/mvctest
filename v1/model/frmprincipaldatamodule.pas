@@ -13,6 +13,7 @@ type
 
   // ???: This class adds nothing for the moment. Maybe in the future will do
   // something useful ;)
+  // tembo la erea xD
   TPrincipalDataModule = class(TQueryDataModule, IModel)
   private
     { private declarations }

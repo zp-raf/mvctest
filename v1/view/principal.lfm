@@ -224,8 +224,4 @@ inherited Principal1: TPrincipal1
       OnClick = SalirClick
     end
   end
-  inherited AppProps: TApplicationProperties[6]
-    left = 184
-    top = 8
-  end
-end
+ end

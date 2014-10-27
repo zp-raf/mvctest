@@ -2,10 +2,10 @@ inherited ComprobanteDataModule: TComprobanteDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 333
-  HorizontalOffset = 931
-  VerticalOffset = 482
+  HorizontalOffset = 523
+  VerticalOffset = 287
   Width = 542
-  object dsCabecera: TDataSource[0]
+  object dsCabecera: TDatasource[0]
     DataSet = qryCabecera
     left = 32
     top = 24
@@ -31,7 +31,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     left = 112
     top = 98
   end
-  object dsDetalle: TDataSource[3]
+  object dsDetalle: TDatasource[3]
     DataSet = qryDetalle
     left = 32
     top = 98
@@ -69,32 +69,17 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = False
     end
   end
-  object Props: TXMLPropStorage[5]
-    StoredValues = <    
-      item
-        Name = 'talonarioID'
-      end    
-      item
-        Name = 'codigosiva10'
-      end    
-      item
-        Name = 'codigosiva5'
-      end>
-    FileName = 'conf.xml'
-    left = 200
-    top = 96
-  end
-  object dsNum: TDataSource[6]
+  object dsNum: TDatasource[5]
     DataSet = qryNumero
     left = 200
     top = 24
   end
-  object dstal: TDataSource[7]
+  object dstal: TDatasource[6]
     DataSet = tal
     left = 32
     top = 176
   end
-  object tal: TSQLQuery[8]
+  object tal: TSQLQuery[7]
     FieldDefs = <>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -118,15 +103,16 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     left = 112
     top = 176
   end
-  object frDBReporteDet: TfrDBDataSet[9]
+  object frDBReporteDet: TfrDBDataSet[8]
     left = 384
     top = 176
   end
-  object frDBReporteCab: TfrDBDataSet[10]
+  object frDBReporteCab: TfrDBDataSet[9]
     left = 280
     top = 176
   end
-  object frReport1: TfrReport[11]
+  object frReport1: TfrReport[10]
+    DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
@@ -134,7 +120,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     left = 200
     top = 176
   end
-  object ImpuestoView: TSQLQuery[12]
+  object ImpuestoView: TSQLQuery[11]
     FieldDefs = <    
       item
         Name = 'AR_ID'
@@ -304,7 +290,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = False
     end
   end
-  object DeudaView: TSQLQuery[13]
+  object DeudaView: TSQLQuery[12]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -543,7 +529,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Precision = -1
     end
   end
-  object Impuesto: TSQLQuery[14]
+  object Impuesto: TSQLQuery[13]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -623,7 +609,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = True
     end
   end
-  object dsPersonasRoles: TDataSource[15]
+  object dsPersonasRoles: TDatasource[14]
     left = 279
     top = 104
   end

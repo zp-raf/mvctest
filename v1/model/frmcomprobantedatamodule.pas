@@ -43,7 +43,6 @@ type
     ImpuestoViewIMP_NOMBRE: TStringField;
     ImpuestoViewINCLUIDO: TSmallintField;
     ImpuestoViewMONTO: TFloatField;
-    Props: TXMLPropStorage;
     qryDetalle: TSQLQuery;
     qryCabecera: TSQLQuery;
     qryNumero: TSQLQuery;
