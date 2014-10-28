@@ -278,4 +278,7 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
       end
     end
   end
+  inherited ButtonSeleccionarPers: TButton
+    Visible = False
+  end
 end

@@ -1,7 +1,6 @@
 inherited AbmCuentas: TAbmCuentas
   Caption = 'ABM Cuentas'
   ClientHeight = 461
-  OnCreate = FormCreate
   inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner

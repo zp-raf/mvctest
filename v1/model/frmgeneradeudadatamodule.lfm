@@ -65,6 +65,7 @@ inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
         Precision = -1
         Size = 0
       end>
+    AfterPost = DeudaAfterPost
     BeforePost = DeudaBeforePost
     OnNewRecord = DeudaNewRecord
     Database = sgcdDataModule.db

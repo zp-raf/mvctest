@@ -10,7 +10,6 @@ inherited AsientosDataModule: TAsientosDataModule
     top = 24
   end
   object Movimiento: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -48,9 +47,7 @@ inherited AsientosDataModule: TAsientosDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     AfterScroll = MovimientoAfterScroll
-    OnFilterRecord = MovimientoFilterRecord
     OnNewRecord = MovimientoNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -58,7 +55,7 @@ inherited AsientosDataModule: TAsientosDataModule
       'select * from movimiento'
     )
     Params = <>
-    left = 40
+    left = 32
     top = 24
     object MovimientoID: TLongintField
       DisplayWidth = 10

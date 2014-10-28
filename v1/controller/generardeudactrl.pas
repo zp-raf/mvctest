@@ -18,6 +18,8 @@ type
     function CheckAndSave(Sender: IView; AMsg: TDeudaMsg): boolean;
     function CheckAndSave(Sender: IView; AMsg: TDeudaMsg;
       ADetMsg: TDeudaDetMsg): boolean;
+    procedure EliminarDeuda;
+    procedure EliminarDeuda(AID: string);
     // cuotas por defecto
     procedure Save(Sender: IView); override; overload;
     // sin vencimiento
@@ -105,6 +107,17 @@ begin
   GetCustomModel.SetPersona(ADetMsg.PersonaID);
   GetCustomModel.SetMatricula(ADetMsg.MatriculaID);
   Result := CheckAndSave(Sender, AMsg);
+end;
+
+procedure TGenDeudaController.EliminarDeuda;
+begin
+  EliminarDeuda(GetCustomModel.DeudaID.AsString);
+end;
+
+procedure TGenDeudaController.EliminarDeuda(AID: string);
+begin
+  GetCustomModel.EliminarDeuda(AID);
+  GetModel.SaveChanges;
 end;
 
 procedure TGenDeudaController.Save(Sender: IView);

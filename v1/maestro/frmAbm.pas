@@ -108,6 +108,10 @@ begin
       ABMRefresh;
       Abort;
     end;
+    nbDelete:
+    begin
+      ABMDelete;
+    end;
   end;
 end;
 

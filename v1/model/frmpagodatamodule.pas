@@ -353,7 +353,7 @@ procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string)
 begin
   // creamos un nuevo asiento
   Asientos.NuevoAsiento(DESCRIPCION_DEFAULT +
-    Facturas.qryCabeceraNUMERO.AsString, APagoID);
+    Facturas.qryCabeceraNUMERO.AsString, '', APagoID);
   // recorrer la factura y poner los detales de los asientos
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do
@@ -364,11 +364,11 @@ begin
     if EsCobro then
       Asientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvCredito,
         Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
-        Facturas.qryDetalleDEUDAID.AsString)
+        Facturas.qryDetalleDEUDAID.AsString, '')
     else
       Asientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvDebito,
         Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
-        Facturas.qryDetalleDEUDAID.AsString);
+        Facturas.qryDetalleDEUDAID.AsString, '');
     Facturas.qryDetalle.Next;
   end;
   Asientos.CerrarAsiento;

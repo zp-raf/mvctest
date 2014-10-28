@@ -321,8 +321,7 @@ begin
   begin
     with TSQLQuery(FAuxQryList.Items[i]) do
     begin
-      if not Active then
-        Active := True;
+      Open;
     end;
   end;
 
@@ -331,8 +330,7 @@ begin
   begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
-      if not Active then
-        Active := True;
+      Open;
     end;
   end;
   // detalles
@@ -340,8 +338,7 @@ begin
   begin
     with TSQLQuery(FDetailList.Items[i]) do
     begin
-      if not Active then
-        Active := True;
+      Open;
     end;
   end;
 end;
@@ -490,8 +487,7 @@ begin
   begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
-      if Active then
-        Active := False;
+      Close;
     end;
   end;
   // antes de los principales los auxiliares
@@ -499,8 +495,7 @@ begin
   begin
     with TSQLQuery(FAuxQryList.Items[i]) do
     begin
-      if Active then
-        Active := False;
+      Close;
     end;
   end;
 
@@ -508,8 +503,7 @@ begin
   begin
     with TSQLQuery(FDetailList.Items[i]) do
     begin
-      if Active then
-        Active := False;
+      Close;
     end;
   end;
 end;

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, frmpersonasdatamodule, frmcuotaxarancel,
+  frmquerydatamodule, frmpersonasdatamodule, frmcuotaxarancel, variants,
   frmaranceldatamodule, dateutils, frmasientosdatamodule,
   frmcuentadatamodule;
 
@@ -46,6 +46,7 @@ type
     DeudaVENCIMIENTO: TDateField;
     dsDeuda: TDatasource;
     Deuda: TSQLQuery;
+    procedure DeudaAfterPost(DataSet: TDataSet);
   private
     FArancel: TArancelesDataModule;
     FAsientos: TAsientosDataModule;
@@ -70,6 +71,7 @@ type
     procedure DeudaBeforePost(DataSet: TDataSet);
     procedure DeudaNewRecord(DataSet: TDataSet);
     procedure Disconnect; override;
+    procedure EliminarDeuda(ADeudaID: string);
     // cuotas por defecto
     procedure GenerarCuotas; overload;
     // sin vencimiento
@@ -119,6 +121,9 @@ var
   DescMatricula: string;
   CuentaID: string;
 begin
+  // si se esta editando no hay que hacer nada de lo que sigue!
+  if (DataSet.State in [dsEdit]) then
+    Exit;
   DescMatricula := '';
   // aca ponemos la descripcion de la deuda
   DataSet.FieldByName('DESCRIPCION').AsString :=
@@ -129,11 +134,25 @@ begin
   // ponemos el monto de la deuda
   DataSet.FieldByName('MONTO_DEUDA').AsFloat :=
     Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat;
-  // insertamos el detalle del asiento
+
+  // insertar un movimiento para registrar la deuda
   CuentaID := GetCuentaPersona(Personas.PersonaID.AsString);
+  //Asientos.NuevoAsiento('Generacion de deuda. Cuenta: ' + cuentaID +
+  //  SEPARADOR + 'Arancel: ' + DataSet.FieldByName('ARANCELID').AsString);
+  Asientos.NuevoAsiento('Generacion de deuda. ' + DataSet.FieldByName(
+    'DESCRIPCION').AsString, DataSet.FieldByName('ID').AsString, '');
+  // insertamos el detalle del asiento
   Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,
-    Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat,
-    DeudaID.AsString);
+    Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat);
+end;
+
+procedure TGeneraDeudaDataModule.DeudaAfterPost(DataSet: TDataSet);
+begin
+  // si no hay ningun asiento en proceso hay que salir!
+  if (Asientos.Estado in [asInicial, asGuardado]) then
+    Exit;
+  // ahora recien podemos cerrar el asiento o si no nos da error de FK
+  Asientos.PostAsiento;
 end;
 
 procedure TGeneraDeudaDataModule.SetArancel(AValue: TArancelesDataModule);
@@ -201,6 +220,50 @@ begin
   inherited Disconnect;
 end;
 
+procedure TGeneraDeudaDataModule.EliminarDeuda(ADeudaID: string);
+var
+  // aca ponemos temporalmente los movimientos a reversar
+  V: variant;
+  i: integer;
+begin
+  Connect;
+  if not Deuda.Locate('ID', ADeudaID, [loCaseInsensitive]) then
+    raise Exception.Create('Deuda no encontrada');
+  Deuda.Edit;
+  DeudaACTIVO.AsInteger := 0;
+  Deuda.Post;
+  try
+    //FAsientos.SearchText := ADeudaID;
+    //FAsientos.RefreshDataSets;
+    //// hay que ir hasta el ultimo registro para obtener el numero real de registros
+    //ShowMessage(IntToStr(FAsientos.Movimiento.RecordCount));
+    //FAsientos.Movimiento.Last;
+    //SetLength(Movs, FAsientos.Movimiento.RecordCount);
+    //FAsientos.Movimiento.First;
+    //i := 0;
+    //while not FAsientos.Movimiento.EOF do
+    //begin
+    //  Movs[i] := FAsientos.MovimientoID.AsString;
+    //  Inc(i);
+    //  FAsientos.Movimiento.Next;
+    //end;
+    //SetLength(Movs, 1);
+    V := FAsientos.Movimiento.Lookup('DEUDAID', ADeudaID, 'ID');
+    if VarIsArray(V) then
+      // ahora reversar todos los movimientos que tenga la deuda
+      for i := 0 to Pred(Length(V)) do
+      begin
+        FAsientos.ReversarAsiento(V[i], 'Eliminacion de deuda ' + ADeudaID);
+      end
+    else
+      FAsientos.ReversarAsiento(V, 'Eliminacion de deuda ' + ADeudaID);
+  finally
+    //FAsientos.Movimiento.Filter := '';
+    //FAsientos.Movimiento.Filtered := False;
+    //FAsientos.RefreshDataSets;
+  end;
+end;
+
 procedure TGeneraDeudaDataModule.GenerarCuotas;
 var
   CantCuotas, CantVenc: integer;
@@ -255,8 +318,7 @@ end;
 procedure TGeneraDeudaDataModule.SaveChanges;
 begin
   inherited SaveChanges;
-  // ahora cuando se guardo todo se cierra el asiento tambien
-  Asientos.CerrarAsiento;
+  Asientos.SaveChanges;
 end;
 
 procedure TGeneraDeudaDataModule.SetArancel(AID: string);
@@ -283,7 +345,7 @@ procedure TGeneraDeudaDataModule.GeneradorCuotas(ACantCuotas: integer;
   AUnidadFecha: TUnidadFecha; ACant: integer; AVenc: string; SinVencimiento: boolean);
 var
   i: integer;
-  ArancelID, matriculaID, cuentaID: string;
+  ArancelID, matriculaID: string;
 begin
   // para meter las siguientes cuotas guardamos los valores
   ArancelID := DeudaARANCELID.AsString;
@@ -307,11 +369,6 @@ begin
   else
     raise Exception.Create('Parametros no validos');
 
-  // insertar un movimiento para registrar la deuda
-  cuentaID := GetCuentaPersona(Personas.PersonaID.AsString);
-  Asientos.NuevoAsiento('Generacion de deuda. Cuenta: ' + cuentaID +
-    SEPARADOR + 'Arancel: ' + DeudaARANCELID.AsString);
-
   // desde la segunda cuota
   for i := 2 to ACantCuotas do
   begin
@@ -333,6 +390,7 @@ begin
     else
       raise Exception.Create('Parametros no validos');
   end;
+  Deuda.Post;
 end;
 
 function TGeneraDeudaDataModule.GetVencimiento(AFecha: TDateTime;

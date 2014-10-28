@@ -164,7 +164,8 @@ end;
 
 procedure TGenerarDeuda.ABMDelete;
 begin
-  inherited ABMDelete;
+  GetCustomController.EliminarDeuda;
+  Abort;
 end;
 
 end.

@@ -136,6 +136,7 @@ end;
 procedure TController.Cancel(Sender: IView);
 begin
   GetModel.DiscardChanges;
+  Rollback(Sender);
   GetModel.RefreshDataSets;
 end;
 

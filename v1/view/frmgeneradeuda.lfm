@@ -2,8 +2,6 @@ inherited GenerarDeuda: TGenerarDeuda
   Left = 628
   Top = 314
   Caption = 'Generar Deuda'
-  ClientHeight = 461
-  OnCreate = FormCreate
   inherited ButtonPanel: TButtonPanel
     OKButton.OnClick = OKButtonClick
   end

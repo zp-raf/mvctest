@@ -355,7 +355,7 @@ inherited ProcesoComprobante: TProcesoComprobante
   object ButtonSeleccionarPers: TButton[5]
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Side = asrCenter
-    Left = 96
+    Left = 224
     Height = 25
     Top = 8
     Width = 131
@@ -366,7 +366,7 @@ inherited ProcesoComprobante: TProcesoComprobante
     TabOrder = 4
   end
   object ButtonSeleccionarFac: TButton[6]
-    Left = 232
+    Left = 96
     Height = 25
     Top = 8
     Width = 124

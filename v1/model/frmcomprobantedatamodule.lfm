@@ -5,7 +5,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
   HorizontalOffset = 523
   VerticalOffset = 287
   Width = 542
-  object dsCabecera: TDatasource[0]
+  object dsCabecera: TDataSource[0]
     DataSet = qryCabecera
     left = 32
     top = 24
@@ -31,7 +31,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     left = 112
     top = 98
   end
-  object dsDetalle: TDatasource[3]
+  object dsDetalle: TDataSource[3]
     DataSet = qryDetalle
     left = 32
     top = 98
@@ -69,12 +69,12 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = False
     end
   end
-  object dsNum: TDatasource[5]
+  object dsNum: TDataSource[5]
     DataSet = qryNumero
     left = 200
     top = 24
   end
-  object dstal: TDatasource[6]
+  object dstal: TDataSource[6]
     DataSet = tal
     left = 32
     top = 176
@@ -86,13 +86,13 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     ReadOnly = True
     SQL.Strings = (
       'select * from talonario'
-      'where tipo = :tipo'
+      'where tipo = :tipocomprobante'
       'and id = :talonariod'
     )
     Params = <    
       item
         DataType = ftUnknown
-        Name = 'tipo'
+        Name = 'tipocomprobante'
         ParamType = ptInput
       end    
       item
@@ -609,7 +609,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = True
     end
   end
-  object dsPersonasRoles: TDatasource[14]
+  object dsPersonasRoles: TDataSource[14]
     left = 279
     top = 104
   end

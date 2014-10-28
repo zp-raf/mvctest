@@ -17,7 +17,6 @@ type
   TProcesoDocumentos = class(TProceso)
   private
     FCobroForm: TProcesoPago;
-    FCustomController: TDocumentosController;
     procedure SetCobroForm(AValue: TProcesoPago);
   protected
     function GetCustomController: TDocumentosController;

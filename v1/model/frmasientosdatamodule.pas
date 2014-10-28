@@ -58,7 +58,6 @@ type
     procedure DataModuleDestroy(Sender: TObject);
     procedure MovimientoAfterScroll(DataSet: TDataSet);
     procedure MovimientoDetAfterInsert(DataSet: TDataSet);
-    procedure MovimientoFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure MovimientoNewRecord(DataSet: TDataSet);
   private
     FComprobarAsiento: boolean;
@@ -84,15 +83,15 @@ type
     procedure DataModuleCreate(Sender: TObject); override;
     procedure Disconnect; override;
     procedure NuevoAsiento(ADescripcion: string);
-    procedure NuevoAsiento(ADescripcion: string; APagoID: string);
+    procedure NuevoAsiento(ADescripcion: string; ADeudaID: string; APagoID: string);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double);
-    procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
-      AMonto: double; ADeudaID: string);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double; ADeudaID: string; APagoID: string);
     procedure NuevoAsientoDetalle(ATipoMov: TTipoMovimiento; AMonto: double);
     procedure OnAsientoError(Sender: TObject; E: EDatabaseError);
+    // This procedure posts data without applying
+    procedure PostAsiento;
     procedure RefreshDataSets; override;
     procedure ReversarAsiento(ADescripcion: string);
     procedure ReversarAsiento(AAsientoID: string; ADescripcion: string);
@@ -119,8 +118,11 @@ begin
   inherited DataModuleCreate(Sender);
   OnError := @OnAsientoError;
   QryList.Add(TObject(Movimiento));
-  QryList.Add(TObject(MovimientoDet));
-  SearchFieldList.Add('DESCRIPCION');
+  DetailList.Add(TObject(MovimientoDet));
+  //SearchFieldList.Add('DESCRIPCION');
+  //SearchFieldList.Add('DEUDAID');
+  //SearchFieldList.Add('PAGOID');
+  Movimiento.OnFilterRecord := nil;
   Estado := asInicial;
   // modelo de cuentas
   FCuenta := TCuentaDataModule.Create(Self, MasterDataModule);
@@ -137,20 +139,30 @@ end;
 
 procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string);
 begin
-  Connect;
+  FMasterDataModule.Connect;
+  Movimiento.Open;
+  MovimientoDet.Open;
   if (Estado in [asEditando]) then
     raise Exception.Create(rsNewEntryError);
-  Movimiento.Insert;
+  Movimiento.Append;
   MovimientoFECHA.AsDateTime := Now;
   MovimientoDESCRIPCION.AsString := ADescripcion;
   Estado := asEditando;
   (MasterDataModule as ISubject).Notify;
 end;
 
-procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string; APagoID: string);
+procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string;
+  ADeudaID: string; APagoID: string);
 begin
   NuevoAsiento(ADescripcion);
-  MovimientoPAGOID.AsString := APagoID;
+  if Trim(ADeudaID) = '' then
+    MovimientoDEUDAID.Clear
+  else
+    MovimientoDEUDAID.AsString := ADeudaID;
+  if Trim(APagoID) = '' then
+    MovimientoPAGOID.Clear
+  else
+    MovimientoPAGOID.AsString := APagoID;
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
@@ -158,7 +170,7 @@ procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
 begin
   if (Estado in [asInicial, asGuardado]) then
     raise Exception.Create(rsNoEntryInProc);
-  MovimientoDet.Insert;
+  MovimientoDet.Append;
   MovimientoDetCUENTAID.AsString := ACuenta;
   MovimientoDetMONTO.AsFloat := AMonto;
   case ATipoMov of
@@ -169,18 +181,17 @@ begin
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
-  ATipoMov: TTipoMovimiento; AMonto: double; ADeudaID: string);
-begin
-  NuevoAsientoDetalle(ACuenta, ATipoMov, AMonto);
-  MovimientoDetDEUDAID.AsString := ADeudaID;
-end;
-
-procedure TAsientosDataModule.NuevoAsientoDetalle(ACuenta: string;
   ATipoMov: TTipoMovimiento; AMonto: double; ADeudaID: string; APagoID: string);
 begin
   NuevoAsientoDetalle(ACuenta, ATipoMov, AMonto);
-  MovimientoDetDEUDAID.AsString := ADeudaID;
-  MovimientoDetPAGOID.AsString := APagoID;
+  if Trim(ADeudaID) = '' then
+    MovimientoDetDEUDAID.Clear
+  else
+    MovimientoDetDEUDAID.AsString := ADeudaID;
+  if Trim(APagoID) = '' then
+    MovimientoDetPAGOID.Clear
+  else
+    MovimientoDetPAGOID.AsString := APagoID;
 end;
 
 procedure TAsientosDataModule.NuevoAsientoDetalle(ATipoMov: TTipoMovimiento;
@@ -195,6 +206,13 @@ begin
   Rollback;
   ResetearEstado;
   (MasterDataModule as ISubject).Notify;
+end;
+
+procedure TAsientosDataModule.PostAsiento;
+begin
+  Movimiento.Post;
+  MovimientoDet.Post;
+  Estado := asGuardado;
 end;
 
 procedure TAsientosDataModule.MovimientoDetAfterInsert(DataSet: TDataSet);
@@ -212,18 +230,17 @@ end;
 
 procedure TAsientosDataModule.MovimientoAfterScroll(DataSet: TDataSet);
 begin
+  // chequeamos que no hay datos sin postear porque o si no el close nos borra todo
+  if not MovimientoDet.Active then
+    Exit;
+  if MovimientoDet.UpdateStatus <> usUnmodified then
+    Exit;
   try
     MovimientoDet.Close;
     MovimientoDet.ParamByName('ID').AsInteger := DataSet.FieldByName('ID').AsInteger;
   finally
     MovimientoDet.Open;
   end;
-end;
-
-procedure TAsientosDataModule.MovimientoFilterRecord(DataSet: TDataSet;
-  var Accept: boolean);
-begin
-  FilterRecord(DataSet, Accept);
 end;
 
 procedure TAsientosDataModule.MovimientoNewRecord(DataSet: TDataSet);
