@@ -12,6 +12,7 @@ inherited Principal1: TPrincipal1
   Constraints.MinWidth = 310
   OnClose = FormClose
   OnShow = FormShow
+  ShowInTaskBar = stAlways
   inherited StatusBar1: TStatusBar
     Top = 57
     Width = 455
