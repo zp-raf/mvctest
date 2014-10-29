@@ -43,17 +43,7 @@ inherited Principal1: TPrincipal1
     OnClick = DocumentosClick
     TabOrder = 3
   end
-  object ButtonComprobantes: TButton[4]
-    Left = 24
-    Height = 25
-    Top = 16
-    Width = 141
-    AutoSize = True
-    Caption = 'ButtonComprobantes'
-    OnClick = ButtonComprobantesClick
-    TabOrder = 4
-  end
-  inherited MainMenu: TMainMenu[5]
+  inherited MainMenu: TMainMenu[4]
     left = 64
     top = 8
     object Academico: TMenuItem[1]
@@ -224,4 +214,4 @@ inherited Principal1: TPrincipal1
       OnClick = SalirClick
     end
   end
- end
+end

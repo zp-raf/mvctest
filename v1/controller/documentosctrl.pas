@@ -16,14 +16,9 @@ type
   { TDocumentosController }
 
   TDocumentosController = class(TController)
-  private
-    FPagoController: TPagoController;
-    procedure SetPagoController(AValue: TPagoController);
   protected
     function GetCustomModel: TDocumentosDataModule;
   public
-    constructor Create(AModel: Pointer); overload; override;
-    destructor Destroy; override;
     procedure AnularDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
     procedure AnularDoc(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
     procedure AnularPago(ATipoDoc: TTipoDocumento; Sender: IFormView);
@@ -32,37 +27,15 @@ type
     procedure CobrarDoc(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
     procedure VerDocumento(ATipoDoc: TTipoDocumento; Sender: IFormView);
     procedure VerDocumento(ATipoDoc: TTipoDocumento; ADoc: string; Sender: IFormView);
-    property PagoController: TPagoController read FPagoController
-      write SetPagoController;
   end;
 
 implementation
 
 { TDocumentosController }
 
-procedure TDocumentosController.SetPagoController(AValue: TPagoController);
-begin
-  if FPagoController = AValue then
-    Exit;
-  FPagoController := AValue;
-end;
-
 function TDocumentosController.GetCustomModel: TDocumentosDataModule;
 begin
   Result := GetModel as TDocumentosDataModule;
-end;
-
-destructor TDocumentosController.Destroy;
-begin
-  PagoController.Free;
-  inherited Destroy;
-end;
-
-constructor TDocumentosController.Create(AModel: Pointer);
-begin
-  inherited Create(AModel);
-  // el controlador para los pagos
-  FPagoController := TPagoController.Create(GetCustomModel.Pagos);
 end;
 
 procedure TDocumentosController.AnularDoc(ATipoDoc: TTipoDocumento; Sender: IFormView);
@@ -104,30 +77,31 @@ end;
 
 procedure TDocumentosController.CobrarDoc(ATipoDoc: TTipoDocumento;
   ADoc: string; Sender: IFormView);
-//var
-//  CobroForm: TProcesoPago;
+var
+  PagoController: TPagoController;
 begin
   try
-    //CobroForm := TProcesoPago.Create(Sender, PagoController);
+    PagoController := TPagoController.Create(GetCustomModel.Pagos);
+    ProcesoPago := TProcesoPago.Create(Sender, PagoController);
     case ATipoDoc of
       doFactura:
       begin
         PagoController.NuevoPago(True, ADoc, ATipoDoc);
       end;
     end;
-    //case CobroForm.ShowModal of
-    //  mrOk:
-    //  begin
-    //    Model.Connect;
-    //  end;
-    //  mrCancel:
-    //  begin
-    //    Model.Connect;
-    //  end;
-    //end;
+    case ProcesoPago.ShowModal of
+      mrOk:
+      begin
+        GetModel.Connect;
+      end;
+      mrCancel:
+      begin
+        GetModel.Connect;
+      end;
+    end;
   finally
-    //CobroForm.Free;
-    //CobroForm := nil;
+    ProcesoPago.Free;
+    PagoController.Free;
   end;
 end;
 
@@ -155,7 +129,8 @@ begin
       begin
         ProcesoFacturacion :=
           TProcesoFacturacion.Create(Sender, TFacturaController.Create(
-          TFacturasDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+          TFacturasDataModule.Create((Sender as TComponent),
+          GetModel.MasterDataModule)));
 
         ProcesoFacturacion.Show;
         (GetModel.MasterDataModule as ISubject).Attach(ProcesoFacturacion as IObserver);
@@ -174,7 +149,7 @@ begin
         //ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.Edit;
         //ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabeceraID.AsInteger :=
         //  StrToInt(ADoc);
-        //
+
            {
             try
               ProcesoFacturacion.GetCustomController.GetCustomModel.qryCabecera.DisableControls;
@@ -253,7 +228,6 @@ end;
 
 
 }
-
 
 
 

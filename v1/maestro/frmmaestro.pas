@@ -12,7 +12,7 @@ type
 
   { TMaestro }
 
-  TMaestro = class (TForm, IObserver, IView, IFormView)
+  TMaestro = class(TForm, IObserver, IView, IFormView)
   private
     FController: Pointer;
     procedure SetConnStatus(connected: boolean; host: string; username: string);
@@ -211,7 +211,8 @@ end;
 
 destructor TMaestro.Destroy;
 begin
-  TController(FController).Free;
+  if Assigned(FController) then
+    FreeAndNil(TController(FController));
   inherited Destroy;
 end;
 

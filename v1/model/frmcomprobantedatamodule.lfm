@@ -80,14 +80,111 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     top = 176
   end
   object tal: TSQLQuery[7]
-    FieldDefs = <>
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIPO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'RUBRO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TELEFONO'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'VALIDO_DESDE'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO_HASTA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SUCURSAL'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CAJA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO_INI'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NUMERO_FIN'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'COPIAS'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True
     SQL.Strings = (
       'select * from talonario'
       'where tipo = :tipocomprobante'
-      'and id = :talonariod'
+      'and id = :talonarioid'
     )
     Params = <    
       item
@@ -97,7 +194,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       end    
       item
         DataType = ftUnknown
-        Name = 'talonariod'
+        Name = 'talonarioid'
         ParamType = ptInput
       end>
     left = 112

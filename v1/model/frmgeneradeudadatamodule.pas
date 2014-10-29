@@ -32,6 +32,20 @@ type
 
   TGeneraDeudaDataModule = class(TQueryDataModule)
     DeudaMONTO_DEUDA: TFloatField;
+    DeudaView: TSQLQuery;
+    DeudaViewACTIVO: TSmallintField;
+    DeudaViewARANCELID: TLongintField;
+    DeudaViewCANTIDAD_CUOTAS: TLongintField;
+    DeudaViewCUENTAID: TLongintField;
+    DeudaViewCUOTA_NRO: TLongintField;
+    DeudaViewDESCRIPCION: TStringField;
+    DeudaViewID: TLongintField;
+    DeudaViewMATRICULAID: TLongintField;
+    DeudaViewMONTO_DEUDA: TFloatField;
+    DeudaViewMONTO_FACTURADO: TFloatField;
+    DeudaViewPERSONAID: TLongintField;
+    DeudaViewSALDO: TFloatField;
+    DeudaViewVENCIMIENTO: TDateField;
     dsAran: TDataSource;
     dsCod: TDataSource;
     dsCuota: TDataSource;
@@ -190,6 +204,7 @@ procedure TGeneraDeudaDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(Deuda));
+  AuxQryList.Add(TObject(DeudaView));
   FPersonas := TPersonasDataModule.Create(Self, FMasterDataModule);
   FPersonas.SetReadOnly(True);
   FPersonas.UnfilterData;
@@ -227,41 +242,29 @@ var
   i: integer;
 begin
   Connect;
-  if not Deuda.Locate('ID', ADeudaID, [loCaseInsensitive]) then
+  if not DeudaView.Locate('ID', ADeudaID, [loCaseInsensitive]) then
     raise Exception.Create('Deuda no encontrada');
+  // si ya esta inactiva para que se va a desactivar? :D
+  if DeudaACTIVO.AsInteger = 0 then
+    Exit;
   Deuda.Edit;
   DeudaACTIVO.AsInteger := 0;
   Deuda.Post;
-  try
-    //FAsientos.SearchText := ADeudaID;
-    //FAsientos.RefreshDataSets;
-    //// hay que ir hasta el ultimo registro para obtener el numero real de registros
-    //ShowMessage(IntToStr(FAsientos.Movimiento.RecordCount));
-    //FAsientos.Movimiento.Last;
-    //SetLength(Movs, FAsientos.Movimiento.RecordCount);
-    //FAsientos.Movimiento.First;
-    //i := 0;
-    //while not FAsientos.Movimiento.EOF do
-    //begin
-    //  Movs[i] := FAsientos.MovimientoID.AsString;
-    //  Inc(i);
-    //  FAsientos.Movimiento.Next;
-    //end;
-    //SetLength(Movs, 1);
-    V := FAsientos.Movimiento.Lookup('DEUDAID', ADeudaID, 'ID');
-    if VarIsArray(V) then
-      // ahora reversar todos los movimientos que tenga la deuda
-      for i := 0 to Pred(Length(V)) do
-      begin
-        FAsientos.ReversarAsiento(V[i], 'Eliminacion de deuda ' + ADeudaID);
-      end
-    else
-      FAsientos.ReversarAsiento(V, 'Eliminacion de deuda ' + ADeudaID);
-  finally
-    //FAsientos.Movimiento.Filter := '';
-    //FAsientos.Movimiento.Filtered := False;
-    //FAsientos.RefreshDataSets;
-  end;
+  // no hay que reversar el movimiento; hay que insertar uno con el saldo
+  // o si no se va a tener inconsistencia
+  //V := FAsientos.Movimiento.Lookup('DEUDAID', ADeudaID, 'ID');
+  //if VarIsArray(V) then
+  //  // ahora reversar todos los movimientos que tenga la deuda
+  //  for i := 0 to Pred(Length(V)) do
+  //  begin
+  //    FAsientos.ReversarAsiento(V[i], 'Eliminacion de deuda ' + ADeudaID);
+  //  end
+  //else
+  //  FAsientos.ReversarAsiento(V, 'Eliminacion de deuda ' + ADeudaID);
+  FAsientos.NuevoAsiento('Eliminacion de deuda ' + ADeudaID, ADeudaID, '');
+  FAsientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvCredito,
+    DeudaViewSALDO.AsFloat);
+  FAsientos.PostAsiento;
 end;
 
 procedure TGeneraDeudaDataModule.GenerarCuotas;

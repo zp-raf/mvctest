@@ -1,14 +1,13 @@
 inherited ProcesoDocumentos: TProcesoDocumentos
-  Left = 493
+  Left = 561
   Height = 600
-  Top = 89
+  Top = 287
   Width = 800
   Caption = 'Documentos'
   ClientHeight = 580
   ClientWidth = 800
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
-  OnDestroy = FormDestroy
   inherited StatusBar1: TStatusBar
     Top = 557
     Width = 800

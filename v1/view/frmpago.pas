@@ -60,8 +60,6 @@ procedure TProcesoPago.FormShow(Sender: TObject);
 begin
   if GetOwner <> nil then
     TForm(GetOwner).Enabled := False;
-  if not (fsModal in FormState) then
-    GetController.OpenDataSets(Self);
 end;
 
 procedure TProcesoPago.FormCreate(Sender: TObject);

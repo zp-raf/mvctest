@@ -15,13 +15,8 @@ type
   { TProcesoDocumentos }
 
   TProcesoDocumentos = class(TProceso)
-  private
-    FCobroForm: TProcesoPago;
-    procedure SetCobroForm(AValue: TProcesoPago);
   protected
     function GetCustomController: TDocumentosController;
-  public
-    constructor Create(AOwner: IFormView; AController: TDocumentosController); overload;
   published
     ButtonAnularPago: TButton;
     ButtonAnular: TButton;
@@ -40,11 +35,9 @@ type
     procedure ButtonAnularPagoClick(Sender: TObject);
     procedure ButtonCobrarClick(Sender: TObject);
     procedure ButtonVerClick(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure TabSheetCobroShow(Sender: TObject);
     procedure TabSheetFacturasCobradasShow(Sender: TObject);
     procedure TabSheetFacturaShow(Sender: TObject);
-    property CobroForm: TProcesoPago read FCobroForm write SetCobroForm;
   end;
 
 var
@@ -77,21 +70,7 @@ end;
 procedure TProcesoDocumentos.ButtonCobrarClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
-  begin
     GetCustomController.CobrarDoc(doFactura, Self);
-    case CobroForm.ShowModal of
-      mrOk:
-      begin
-        GetController.CloseDataSets(Self);
-        GetController.OpenDataSets(Self);
-      end;
-      mrCancel:
-      begin
-        GetController.CloseDataSets(Self);
-        GetController.OpenDataSets(Self);
-      end;
-    end;
-  end;
 end;
 
 procedure TProcesoDocumentos.ButtonAnularClick(Sender: TObject);
@@ -118,12 +97,6 @@ begin
     GetCustomController.VerDocumento(doFactura, '3', Self);
 end;
 
-procedure TProcesoDocumentos.FormDestroy(Sender: TObject);
-begin
-  if CobroForm <> nil then
-    CobroForm.Free;
-end;
-
 procedure TProcesoDocumentos.TabSheetFacturaShow(Sender: TObject);
 begin
   ButtonCobrar.Enabled := True;
@@ -133,23 +106,9 @@ begin
   ButtonAnularPago.Enabled := False;
 end;
 
-procedure TProcesoDocumentos.SetCobroForm(AValue: TProcesoPago);
-begin
-  if FCobroForm = AValue then
-    Exit;
-  FCobroForm := AValue;
-end;
-
 function TProcesoDocumentos.GetCustomController: TDocumentosController;
 begin
   Result := GetController as TDocumentosController;
-end;
-
-constructor TProcesoDocumentos.Create(AOwner: IFormView;
-  AController: TDocumentosController);
-begin
-  inherited Create(AOwner, AController);
-  FCobroForm := TProcesoPago.Create(Self, GetCustomController.PagoController);
 end;
 
 end.

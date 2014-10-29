@@ -337,7 +337,7 @@ begin
           mov[x].TipoMovimiento := mvDebito; // movimiento contrario
       end;
       MovimientoDet.Next;
-      x := x + 1;
+      Inc(x);
     end;
     // si no se metio una descripcion se usa la que esta por defecto
     if (Trim(ADescripcion) = '') then
@@ -346,7 +346,7 @@ begin
     else
       PDescripcion := ADescripcion;
     // insertamos el asiento de reversion
-    NuevoAsiento(PDescripcion);
+    NuevoAsiento(PDescripcion, MovimientoDEUDAID.AsString, MovimientoPAGOID.AsString);
     for x := 0 to Length(mov) - 1 do
     begin
       NuevoAsientoDetalle(mov[x].CuentaID, mov[x].TipoMovimiento, mov[x].Monto);

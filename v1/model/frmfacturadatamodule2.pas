@@ -5,8 +5,8 @@ unit frmfacturadatamodule2;
 interface
 
 uses
-  Classes, SysUtils, DB, FileUtil, LR_Class, Forms, Controls, Graphics, Dialogs,
-  frmsgcddatamodule, frmcomprobantedatamodule, sgcdTypes;
+  Classes, SysUtils, DB, sqldb, FileUtil, LR_Class, LR_DBSet, Forms, Controls,
+  Graphics, Dialogs, frmsgcddatamodule, frmcomprobantedatamodule, sgcdTypes;
 
 resourcestring
   rsGenFacturaID = 'SEQ_FACTURA';
@@ -138,7 +138,7 @@ end;
 procedure TFacturasDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited DataModuleCreate(Sender);
- // dsPersonasRoles.DataSet := Personas.PersonasRoles;
+  // dsPersonasRoles.DataSet := Personas.PersonasRoles;
   SetTipoComprobante(doFactura);
   CabeceraGenName := rsGenFacturaID;
   DetalleGenName := rsGenFacturaDetalleID;
@@ -171,7 +171,10 @@ end;
 procedure TFacturasDataModule.FetchCabecera(APersonaID: string);
 begin
   inherited FetchCabecera(APersonaID);
-  qryCabeceraRUC.AsString := Personas.PersonaRUC.AsString;
+  if Personas.PersonaRUC.IsNull then
+    qryCabeceraRUC.AsString := Personas.PersonaCEDULA.AsString
+  else
+    qryCabeceraRUC.AsString := Personas.PersonaRUC.AsString;
 end;
 
 procedure TFacturasDataModule.GetImpuestos;
