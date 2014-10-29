@@ -2,10 +2,11 @@ inherited FacturasDataModule: TFacturasDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 399
-  HorizontalOffset = 684
-  VerticalOffset = 319
+  HorizontalOffset = 743
+  VerticalOffset = 376
   Width = 562
   inherited qryCabecera: TSQLQuery
+    AfterScroll = qryCabeceraAfterScroll
     SQL.Strings = (
       'select * from factura'
     )
@@ -521,5 +522,13 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
+  end
+  inherited frDBReporteDet: TfrDBDataSet
+    DataSet = qryDetalle
+    DataSource = dsDetalle
+  end
+  inherited frDBReporteCab: TfrDBDataSet
+    DataSet = qryCabecera
+    DataSource = dsCabecera
   end
 end

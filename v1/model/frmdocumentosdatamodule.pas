@@ -14,8 +14,6 @@ type
 
   TDocumentosDataModule = class(TQueryDataModule)
   private
-    FPagos: TPagoDataModule;
-    procedure SetPagos(AValue: TPagoDataModule);
     //FCodigos: TCodigosDataModule;
     //procedure SetCodigos(AValue: TCodigosDataModule);
   published
@@ -62,10 +60,8 @@ type
     FacturasViewTIPO_COMPROBANTE: TLongintField;
     FacturasViewTOTAL: TFloatField;
     FacturasViewVALIDO: TSmallintField;
-    procedure BeforeDestruction; override;
     procedure DataModuleCreate(Sender: TObject); override;
     //property Codigos: TCodigosDataModule read FCodigos write SetCodigos;
-    property Pagos: TPagoDataModule read FPagos write SetPagos;
   end;
 
 
@@ -78,26 +74,12 @@ implementation
 
 { TDocumentosDataModule }
 
-procedure TDocumentosDataModule.SetPagos(AValue: TPagoDataModule);
-begin
-  if FPagos = AValue then
-    Exit;
-  FPagos := AValue;
-end;
-
-procedure TDocumentosDataModule.BeforeDestruction;
-begin
-  FPagos := nil;
-  inherited BeforeDestruction;
-end;
-
 procedure TDocumentosDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   //FCodigos := TCodigosDataModule.Create(Self, MasterDataModule);
   //FCodigos.SetObject('TIPO_COMPROBANTE');
   //AuxQryList.Add(TObject(FCodigos.Codigos));
-  FPagos := TPagoDataModule.Create(Self, MasterDataModule);
   AuxQryList.Add(TObject(FacturasView));
   AuxQryList.Add(TObject(CobrosView));
   AuxQryList.Add(TObject(FacturasCobradasView));

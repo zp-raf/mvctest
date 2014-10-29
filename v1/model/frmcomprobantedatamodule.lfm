@@ -2,8 +2,8 @@ inherited ComprobanteDataModule: TComprobanteDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 333
-  HorizontalOffset = 523
-  VerticalOffset = 287
+  HorizontalOffset = 673
+  VerticalOffset = 331
   Width = 542
   object dsCabecera: TDataSource[0]
     DataSet = qryCabecera
@@ -80,7 +80,6 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     top = 176
   end
   object tal: TSQLQuery[7]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

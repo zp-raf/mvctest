@@ -409,12 +409,12 @@ inherited DocumentosDataModule: TDocumentosDataModule
       Size = 255
     end
   end
-  object dsFacturas: TDatasource[2]
+  object dsFacturas: TDataSource[2]
     DataSet = FacturasView
     left = 40
     top = 125
   end
-  object dsCobros: TDatasource[3]
+  object dsCobros: TDataSource[3]
     DataSet = CobrosView
     left = 131
     top = 125
@@ -663,7 +663,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
       Required = False
     end
   end
-  object dsFacturasCobradas: TDatasource[5]
+  object dsFacturasCobradas: TDataSource[5]
     DataSet = FacturasCobradasView
     left = 246
     top = 132

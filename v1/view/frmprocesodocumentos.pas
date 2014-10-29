@@ -70,31 +70,31 @@ end;
 procedure TProcesoDocumentos.ButtonCobrarClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
-    GetCustomController.CobrarDoc(doFactura, Self);
+    GetCustomController.CobrarDoc(dtFacturaNocobrada, Self);
 end;
 
 procedure TProcesoDocumentos.ButtonAnularClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetCobro.PageIndex then
-    GetCustomController.AnularDoc(doRecibo, Self)
+    GetCustomController.AnularDoc(dtRecibo, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
-    GetCustomController.AnularDoc(doFactura, Self);
+    GetCustomController.AnularDoc(dtFacturaNocobrada, Self);
 end;
 
 procedure TProcesoDocumentos.ButtonAnularPagoClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetFacturasCobradas.PageIndex then
-    GetCustomController.AnularPago(doFactura, Self);
+    GetCustomController.AnularPago(dtFacturaCobrada, Self);
 end;
 
 procedure TProcesoDocumentos.ButtonVerClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetCobro.PageIndex then
-    GetCustomController.VerDocumento(doRecibo, '1', Self)
+    GetCustomController.VerDocumento(dtRecibo, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
-    GetCustomController.VerDocumento(doFactura, '2', Self)
+    GetCustomController.VerDocumento(dtFacturaNocobrada, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFacturasCobradas.PageIndex then
-    GetCustomController.VerDocumento(doFactura, '3', Self);
+    GetCustomController.VerDocumento(dtFacturaCobrada, Self);
 end;
 
 procedure TProcesoDocumentos.TabSheetFacturaShow(Sender: TObject);

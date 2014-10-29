@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-08-01 18:01:45"/>
+    <ReportLastChange Value="2014-10-28 22:53:47"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -17,7 +17,7 @@
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="False"/>
-      <SelectedPrinter Value="PDFCreator"/>
+      <SelectedPrinter Value="HP Deskjet F2100 series"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>

@@ -188,6 +188,7 @@ end;
 
 procedure TComprobanteDataModule.LocateComprobante(AID: string);
 begin
+  OpenDataSets;
   if (Estado in [asEditando]) then
     raise Exception.Create(rsNoSePuedeSetFac)
   else if not qryCabecera.Locate('ID', AID, [loCaseInsensitive]) then

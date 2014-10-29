@@ -236,10 +236,10 @@ begin
 end;
 
 procedure TGeneraDeudaDataModule.EliminarDeuda(ADeudaID: string);
-var
-  // aca ponemos temporalmente los movimientos a reversar
-  V: variant;
-  i: integer;
+//var
+//   aca ponemos temporalmente los movimientos a reversar
+//  V: variant;
+//  i: integer;
 begin
   Connect;
   if not DeudaView.Locate('ID', ADeudaID, [loCaseInsensitive]) then

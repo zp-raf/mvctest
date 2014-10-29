@@ -23,6 +23,8 @@ type
   { TPagoDataModule }
 
   TPagoDataModule = class(TQueryDataModule)
+    dsPagoDet: TDataSource;
+    PagoDet: TSQLQuery;
   private
     FAsientos: TAsientosDataModule;
     FFactura: TFacturasDataModule;
@@ -258,6 +260,7 @@ begin
   QryList.Add(TObject(Pago));
   DetailList.Add(TObject(PagoDetCheques));
   DetailList.Add(TObject(PagoDetTarjetas));
+  AuxQryList.Add(TObject(PagoDet));
   //parametros para los datasets
   //PagoDetCheques.ParamByName('TIPO_PAGO').AsString := CHEQUE;
   //PagoDetCheques.ParamByName('TIPO_PAGO').Bound := True;
@@ -314,10 +317,13 @@ procedure TPagoDataModule.PagoAfterScroll(DataSet: TDataSet);
 begin
   PagoDetCheques.Close;
   PagoDetTarjetas.Close;
-  PagoDetCheques.ParamByName('PAGOID').Value := Pago.FieldByName('ID').Value;
-  PagoDetTarjetas.ParamByName('PAGOID').Value := Pago.FieldByName('ID').Value;
+  PagoDet.Close;
+  PagoDetCheques.ParamByName('PAGOID').Value := DataSet.FieldByName('ID').Value;
+  PagoDetTarjetas.ParamByName('PAGOID').Value := DataSet.FieldByName('ID').Value;
+  PagoDet.ParamByName('PAGOID').Value := DataSet.FieldByName('ID').Value;
   PagoDetCheques.Open;
   PagoDetTarjetas.Open;
+  PagoDet.Open;
 end;
 
 procedure TPagoDataModule.PagoDetChequesAfterInsert(DataSet: TDataSet);
@@ -352,8 +358,8 @@ end;
 procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
 begin
   // creamos un nuevo asiento
-  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT +
-    Facturas.qryCabeceraNUMERO.AsString, '', APagoID);
+  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryCabeceraNUMERO.AsString,
+    '', APagoID);
   // recorrer la factura y poner los detales de los asientos
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do

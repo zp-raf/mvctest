@@ -37,6 +37,9 @@ type
 
   TFormaPago = (paCheque, paEfectivo, paTarjetaDebito, paTarjetaCredito);
 
+  // Para la ventana de documentos
+  TDocViewerDocType = (dtFacturaNocobrada = 1, dtFacturaCobrada = 2, dtRecibo = 3);
+
 implementation
 
 end.
