@@ -30,7 +30,7 @@ type
     clases: TMenuItem;
     examenes: TMenuItem;
     equipos: TMenuItem;
-    historico: TMenuItem;
+    extracto: TMenuItem;
     cuentasCobrar: TMenuItem;
     cuentasPagar: TMenuItem;
     cargarRecibo: TMenuItem;
@@ -73,6 +73,7 @@ type
     trabajoPractico1: TMenuItem;
     procedure AsientosClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
+    procedure extractoClick(Sender: TObject);
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -114,6 +115,11 @@ end;
 procedure TPrincipal1.DocumentosClick(Sender: TObject);
 begin
   GetCustomController.OpenDocumentosForm(Self);
+end;
+
+procedure TPrincipal1.extractoClick(Sender: TObject);
+begin
+  GetCustomController;
 end;
 
 procedure TPrincipal1.FormClose(Sender: TObject; var CloseAction: TCloseAction);

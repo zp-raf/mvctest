@@ -158,8 +158,9 @@ inherited Principal1: TPrincipal1
         object recibo: TMenuItem
           Caption = 'Emisión de &recibos'
         end
-        object historico: TMenuItem
-          Caption = '&Historico de Movimientos'
+        object extracto: TMenuItem
+          Caption = '&Extracto de cuenta'
+          OnClick = extractoClick
         end
         object MenuItemGenerarDeuda: TMenuItem
           Caption = 'Generar &deudas'
