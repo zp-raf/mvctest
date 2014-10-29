@@ -46,7 +46,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="58">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -425,6 +425,22 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmNotaCreditoDataModule"/>
       </Unit55>
+      <Unit56>
+        <Filename Value="model\frmreportedatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ReporteDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmreportedatamodule"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="model\frmreporteextractodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ReporteExtractoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmreporteextractodatamodule"/>
+      </Unit57>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

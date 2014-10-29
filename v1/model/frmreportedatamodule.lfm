@@ -1,0 +1,56 @@
+inherited ReporteDataModule: TReporteDataModule
+  OnCreate = DataModuleCreate
+  Height = 247
+  HorizontalOffset = 392
+  VerticalOffset = 217
+  Width = 349
+  object Cabecera: TSQLQuery[0]
+    FieldDefs = <>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    Params = <>
+    left = 64
+    top = 40
+  end
+  object Detalle: TSQLQuery[1]
+    FieldDefs = <>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    Params = <>
+    DataSource = dsCabecera
+    left = 64
+    top = 120
+  end
+  object dsCabecera: TDataSource[2]
+    DataSet = Cabecera
+    left = 136
+    top = 40
+  end
+  object dsDetalle: TDataSource[3]
+    DataSet = Detalle
+    left = 136
+    top = 120
+  end
+  object frDBDataSetCabecera: TfrDBDataSet[4]
+    DataSet = Cabecera
+    DataSource = dsCabecera
+    left = 246
+    top = 40
+  end
+  object frDBDataSetDetalle: TfrDBDataSet[5]
+    DataSet = Detalle
+    DataSource = dsDetalle
+    left = 248
+    top = 120
+  end
+  object frReport1: TfrReport[6]
+    InitialZoom = pzDefault
+    Options = []
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    DataType = dtDataSet
+    left = 248
+    top = 184
+  end
+end

@@ -1,0 +1,12 @@
+inherited ReporteExtractoDataModule: TReporteExtractoDataModule
+  Height = 247
+  HorizontalOffset = 392
+  VerticalOffset = 217
+  Width = 349
+  inherited frDBDataSetCabecera: TfrDBDataSet
+    DataSource = nil
+  end
+  inherited frDBDataSetDetalle: TfrDBDataSet
+    DataSource = nil
+  end
+end

@@ -21,7 +21,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   frmcodigosdatamodule, frmcomprobantedatamodule, frmcuentadatamodule,
   frmcuotaxarancel, frmdocumentosdatamodule, frmfacturadatamodule2,
   frmgeneradeudadatamodule, frmpagodatamodule,
-  manejoerrores, frmrecibodatamodule, frmNotaCreditoDataModule;
+  manejoerrores, frmrecibodatamodule, frmNotaCreditoDataModule, 
+frmreporteextractodatamodule;
 
 
 {$R *.res}
