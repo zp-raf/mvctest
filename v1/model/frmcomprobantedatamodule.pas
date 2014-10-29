@@ -292,7 +292,7 @@ begin
     doNotaCredito: x := NOTA_CREDITO;
   end;
   tal.Close;
-  tal.ParamByName('tipocomprobante').AsString := x;
+//  tal.ParamByName('tipocomprobante').AsString := x;
   tal.Open;
 end;
 

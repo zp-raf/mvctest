@@ -1,0 +1,705 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{7A17644E-09B8-4F43-8D30-0EEE23DCD549}</ProjectGuid>
+			<MainSource>retacon.dpr</MainSource>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<ProjectVersion>12.0</ProjectVersion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_Define>RETACON;$(DCC_Define)</DCC_Define>
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_UsePackage>vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;visualclx;visualdbclx;dsnapcrba;dsnapcon;VclSmp;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;soaprtl;dbexpress;dbxcds;indy;dclOffice2k;B304vr60;RxCtl6;RxDB6;RxBDE6;SMCmpntD6;DBVRTV6;parsdpk;roshka</DCC_UsePackage>
+			<DCC_DependencyCheckOutputName>retacon.exe</DCC_DependencyCheckOutputName>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;WinTypes=Windows;WinProcs=Windows;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_Platform>x86</DCC_Platform>
+			<DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+			<DCC_N>true</DCC_N>
+			<DCC_S>false</DCC_S>
+			<DCC_K>false</DCC_K>
+			<DCC_E>false</DCC_E>
+			<DCC_F>false</DCC_F>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_DebugInformation>false</DCC_DebugInformation>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="retacon.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="framework\genericos\Acceso\Acceso.pas">
+				<Form>frmAcceso</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Datos\dmDatos.pas">
+				<Form>Datos</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Maestros\ClienteMaestro.pas">
+				<Form>frmClienteMaestro</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Maestros\ClienteMaestroDetalle.pas">
+				<Form>frmClienteMaestroDetalle</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Maestros\ClienteMaestroDetalleEstado.pas">
+				<Form>frmClienteMaestroDetalleEstado</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Lanzador\Lanzador.pas">
+				<Form>frmLanzador</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Buscador\Buscar.pas">
+				<Form>frmBuscar</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Buscador\frmPrint\frmPrint.pas">
+				<Form>FormPrint</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Reports\reports.pas">
+				<Form>frmReports</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\ReportConfig\ReportConfig.pas">
+				<Form>frmReportConfig</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\versionInfo.pas"/>
+			<DCCReference Include="framework\clases\reportes.pas"/>
+			<DCCReference Include="framework\clases\updates.pas"/>
+			<DCCReference Include="framework\clases\mail.pas"/>
+			<DCCReference Include="framework\clases\rshkSystem.pas"/>
+			<DCCReference Include="framework\clases\log.pas"/>
+			<DCCReference Include="framework\clases\FormNode.pas"/>
+			<DCCReference Include="framework\clases\FormList.pas"/>
+			<DCCReference Include="framework\clases\FormManager.pas"/>
+			<DCCReference Include="framework\genericos\Salir\Salir.pas">
+				<Form>frmSalir</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\rshkUtils.pas"/>
+			<DCCReference Include="ventanas\BPartner\BPartner.pas">
+				<Form>frmBPartner</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Locales\Locales.pas">
+				<Form>frmLocales</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\DBRecord.pas"/>
+			<DCCReference Include="framework\clases\User.pas"/>
+			<DCCReference Include="framework\clases\DBAmbientVariablesManager.pas"/>
+			<DCCReference Include="ventanas\FormasPago\FormasPago.pas">
+				<Form>frmFormasPagoP</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\TerminosPago\TerminosPago.pas">
+				<Form>frmTerminosPago</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\Calendario\Calendario.pas">
+				<Form>frmCalendario</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\Feriados\Feriados.pas">
+				<Form>frmFeriados</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\Anhos\Anhos.pas">
+				<Form>frmAnhos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\PeriodosContables\PeriodosContables.pas">
+				<Form>frmPeriodosContables</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\PlanesCuentas\PlanesCuentas.pas">
+				<Form>frmPlanesCuentas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Bancos\Bancos.pas">
+				<Form>frmBancos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Monedas\Monedas.pas">
+				<Form>frmMonedas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\Combinaciones\Combinaciones.pas">
+				<Form>frmCombinaciones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\Formatos\FormatoCuentaContable.pas">
+				<Form>frmFormatoCuentaContable</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\CentrosCosto\CentrosCosto.pas">
+				<Form>frmCentrosCosto</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Asientos\Asientos.pas">
+				<Form>frmAsientos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\CategoriaMayor\CategoriaMayor.pas">
+				<Form>frmCategoriaMayor</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\IBAdminUser.pas"/>
+			<DCCReference Include="ventanas\FactorConversion\FactorConversion.pas">
+				<Form>frmFactorConversion</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\TipoCambioMonetario\TipoCambioMonetario.pas">
+				<Form>frmTipoCambioMonetario</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Sistema\Configuraciones\frmConfiguraciones.pas">
+				<Form>Configuraciones</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\splshReportes\splshReportes.pas">
+				<Form>frmSplashReportes</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\LibroCompraVenta\LibroCompraVenta.pas">
+				<Form>frmLibroCompraVenta</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Ficha\Ficha.pas">
+				<Form>frmFicha</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Maestros\EsquemaContable\EsquemaContable.pas">
+				<Form>frmEsquemaContable</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Maestros\MetodoCosteo\MetodoCosteo.pas">
+				<Form>frmMetodoCosteo</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\OrdenesPago\OrdenesPago.pas">
+				<Form>frmOrdenesPago</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Cheques\Cheques.pas">
+				<Form>frmCheques</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Facturas\Facturas.pas">
+				<Form>frmFacturas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\AutorizacionOP\AutorizacionOP.pas">
+				<Form>frmAutorizacionOP</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Depositos\DepositosBancarios.pas">
+				<Form>frmDepositosBancarios</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\VMateriales\Materiales.pas">
+				<Form>frmMateriales</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\VMateriales\VMateriales.pas">
+				<Form>frmVMateriales</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Unidades\Unidades.pas">
+				<Form>frmUnidades</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Impuestos\Impuestos.pas">
+				<Form>frmImpuestos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Obras\Obras.pas">
+				<Form>frmObras</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\SucursalesContabilidad\SucursalesContabilidad.pas">
+				<Form>frmSucursalesContabilidad</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\AutorizacionOP\frmConfig.pas">
+				<Form>frmConfigWindow</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\FactoresCambio\FactoresCambio.pas">
+				<Form>frmFactoresCambio</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\TiposMateriales\TiposMateriales.pas">
+				<Form>frmClasificacionesMateriales</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\changePasswd\changePasswd.pas">
+				<Form>frmChangePasswd</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\trazabilidad\trazabilidad.pas">
+				<Form>frmTrazabilidad</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\Field.pas"/>
+			<DCCReference Include="framework\clases\Fields.pas"/>
+			<DCCReference Include="ventanas\Seleccionador\Seleccionador.pas">
+				<Form>frmSeleccionador</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorSalidas.pas">
+				<Form>frmSeleccionadorSalidas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorEMyOC.pas">
+				<Form>frmSeleccionadorEMyOC</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorEntregaCyL.pas">
+				<Form>frmSeleccionadorEntregaCyL</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorOrdenPago.pas">
+				<Form>frmSeleccionadorOrdenPago</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ShowVA\ShowVA.pas">
+				<Form>frmShowVA</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\AcercaDe\AcercaDe.pas">
+				<Form>frmAcercaDe</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\splash\Splash.pas">
+				<Form>frmSplash</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\GeneraDocs\GeneraDocs.pas">
+				<Form>frmGeneraDocs</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\FileClass.pas"/>
+			<DCCReference Include="framework\clases\Padding.pas"/>
+			<DCCReference Include="framework\genericos\ParamWindow\ParamWindow.pas">
+				<Form>frmParamWindow</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\GeneracionOP\GeneracionOP.pas">
+				<Form>frmGeneracionOP</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\GeneracionFichas\GeneracionFichas.pas">
+				<Form>frmGeneracionFichas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\nCC\NCC.pas">
+				<Form>frmCC</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Facturas\FacturasCompra\FacturasCompra.pas">
+				<Form>frmFacturasCompra</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Facturas\FacturasVenta\FacturasVenta.pas">
+				<Form>frmFacturasVenta</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\LibroCompraVenta\LibroCompra\LibroCompra.pas">
+				<Form>frmLibroCompra</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\LibroCompraVenta\LibroVenta\LibroVenta.pas">
+				<Form>frmLibroVenta</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\SearchResult.pas"/>
+			<DCCReference Include="ventanas\DocumentosBancarios\DocumentosBancarios.pas">
+				<Form>frmDocumentoBancario</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\NotasDebito\NotasDebito.pas">
+				<Form>frmNotasDebito</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\AutorizacionOP\MontoAutorizadoXProveedor\MontoAutorizadoXProveedor.pas">
+				<Form>frmMontoAutorizadoXProveedor</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\chequeras\chequeras.pas">
+				<Form>frmChequeras</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\OrdenesPago\impresion\ImpresionOP.pas">
+				<Form>frmImpresionOP</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\OrdenesPago\impresion\confirmacion\ConfirmacionImpCheque.pas">
+				<Form>frmConfirmacionImpCheque</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Ficha\Proveedor\FichaProveedor.pas">
+				<Form>frmFichaProveedor</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Ficha\Clientes\FichaClientes.pas">
+				<Form>frmFichaClientes</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\OrdenesPago\configuracion\ConfImpresionCheque.pas">
+				<Form>frmConfImpresionCheque</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Cobros\cobros.pas">
+				<Form>frmCobros</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RendicionCobro\RendicionCobro.pas">
+				<Form>frmRendicionCobros</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Otros\FillDataWizard.pas">
+				<Form>frmFillDataWizard</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\NotasCredito\NotasCredito.pas">
+				<Form>frmNotasCredito</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\NotaDebitoCliente\NotaDebitoCliente.pas">
+				<Form>frmNotaDebitoCliente</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\RecordInfo.pas"/>
+			<DCCReference Include="ventanas\Facturas\Certificado\Certificado.pas">
+				<Form>frmCertificados</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorLiqSueldos.pas">
+				<Form>frmSeleccionadorLiqSueldos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RecibosProv\RecibosProv.pas">
+				<Form>frmRecibosProveedor</Form>
+			</DCCReference>
+			<DCCReference Include="framework\clases\AdminUserConfig.pas">
+				<Form>frmAdminUserConfig</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Retencion\Retencion.pas">
+				<Form>frmRetencion</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\NotaDebitoInterna\NotaDebitoInterna.pas">
+				<Form>frmNotaDebitoInterna</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\GrupoBienes\GrupoBienes.pas">
+				<Form>frmGruposBienes</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\TiposBienes\TiposBienes.pas">
+				<Form>frmTiposBienes</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Bienes\Bienes.pas">
+				<Form>frmBienes</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\CoeficientesRevaluo\CoeficientesRevaluo.pas">
+				<Form>frmCoeficientesRevaluo</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\CuadrosRevaluo\CuadrosRevaluo.pas">
+				<Form>frmCuadrosRevaluo</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\FrentesContabilidad\FrentesContabilidad.pas">
+				<Form>frmFrentesContabilidad</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\SplashInfo\SplashInfo.pas">
+				<Form>frmSplashInfo</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\EnvioTicket\EnvioTicket.pas">
+				<Form>frmEnvioTicket</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorNotasRemision.pas">
+				<Form>frmSeleccionadorNotasRemision</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\NotasRemision\NotasRemision.pas">
+				<Form>frmNotasRemision</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Camiones\Camiones.pas">
+				<Form>frmCamiones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Destinos\Destinos.pas">
+				<Form>frmDestinos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorFacturas.pas">
+				<Form>frmSeleccionadorFacturas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Despachos\Despachos.pas">
+				<Form>frmDespachos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\AutorizaDocumentos\AutorizaDocumentos.pas">
+				<Form>frmAutorizaDocumentos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\AutorizaNotasRemision\AutorizaNotasRemision.pas">
+				<Form>frmAutorizaNotasRemision</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ImprimirAutorizacion\ImprimirAutorizacion.pas">
+				<Form>qrAutorizaciones</Form>
+				<DesignClass>TQuickRep</DesignClass>
+			</DCCReference>
+			<DCCReference Include="ventanas\WizardFichas\WizardFichas.pas">
+				<Form>frmWizzardFichas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ChequeReponer\ChequeReponer.pas">
+				<Form>frmChequeReponer</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Contabilidad\CopiaCombinacionesContabilidad\CopiaCombinacionesContabilidad.pas">
+				<Form>frmCopiaCombinacionesContabilidad</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ConfiguracionRetenciones\ConfiguracionRetenciones.pas">
+				<Form>frmConfiguracionRetenciones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\TalonariosRetencion\TalonariosRetencion.pas">
+				<Form>frmTalonariosRetencion</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ConfirmacionImpresionTalonario\ConfirmacionImpresionTalonario.pas">
+				<Form>frmConfirmacionImpresionTalonario</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\WizardImpresionRetencion\WizardImpresionRetencion.pas">
+				<Form>frmWizardImpresionRetencion</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\CierreDocXObra\CierreDocXObra.pas">
+				<Form>frmCierreDocXObra</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\CierreDocXObra\DocXObraXPeriodos.pas">
+				<Form>frmDocXObraXPeriodos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Timbrados\Timbrado.pas">
+				<Form>frmTimbrados</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorFacturasMultiples.pas">
+				<Form>frmSeleccionadorFacturasMultiples</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Maestros\ClienteMaestroDetalleEstadoImpuestos.pas">
+				<Form>frmClienteMaestroDetalleEstadoImpuestos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\PedidosTesoreria\PedidosTesoreria.pas">
+				<Form>frmPedidosTesoreria</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorRangoFechas.pas">
+				<Form>frmSeleccionadorRangoFechas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ImpresionDocumentos\ImpresionDocumento.pas">
+				<Form>ImpresionDocumentos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ConfirmacionImpresionTalonarios\ConfirmacionImpresionTalonarioDoc.pas">
+				<Form>ConfirmacionImpresionDocTalonario</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\TimbradoVentas\TimbradoVentas.pas">
+				<Form>frmTimbradoVentas</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\TalonariosDocumentos\TalonariosDocumentos.pas">
+				<Form>frmTalonariosDocumentos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ConfiguracionesImpresionDoc\ConfigImpresionDoc.pas">
+				<Form>frmConfigImpresionDoc</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\NotasDebito\NotasCreditoBancarias.pas">
+				<Form>frmNotasCreditoBancaria</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\OrdenesCobro\OrdenesCobro.pas">
+				<Form>frmOrdenesCobro</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\OrdenesPago\OPAdisposicion.pas">
+				<Form>frmOPAdisposicion</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorFecha.pas">
+				<Form>frmSeleccionadorFecha</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\DetallesPagos\DetallesPagos.pas">
+				<Form>frmDetallesPagos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Cargos\Cargos.pas">
+				<Form>frmCargos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Eventos\Eventos.pas">
+				<Form>frmEventos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Cursos\Cursos.pas">
+				<Form>frmCursos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Turnos\Turnos.pas">
+				<Form>frmTurnos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\TextosReferencia\TextosReferencia.pas">
+				<Form>frmTextosReferencia</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\CausasLiquidacion\CausasLiquidacion.pas">
+				<Form>frmCausasLiquidacion</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\DetalleMonetario\DetalleMonetario.pas">
+				<Form>frmDetalleMonetario</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Contratos\Contratos.pas">
+				<Form>frmContratos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\ClasificacionEmpleados\ClasificacionEmpleados.pas">
+				<Form>frmClasificacionEmpleados</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\LiquidacionEmpleados\LiquidacionEmpleados.pas">
+				<Form>frmLiquidacionEmpleados</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\RegistroVacaciones\RegistroVacaciones.pas">
+				<Form>frmRegistroVacaciones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\SolicitudesAnticipos\SolicitudesAnticipos.pas">
+				<Form>frmSolicitudesAnticipos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\AsistenciaDiaria\AsistenciaDiaria2.pas">
+				<Form>frmAsistenciaDiaria</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\PlanillaIPS\PlanillaIPS.pas">
+				<Form>frmPlanillaIPS</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\ReciboInternoRRHH\ReciboInternoRRHH.pas">
+				<Form>frmReciboInternoRRHH</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Prestamos\Prestamos.pas">
+				<Form>frmPrestamos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Paises\Paises.pas">
+				<Form>frmPaises</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Ciudades\Ciudades.pas">
+				<Form>frmCiudades</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Barrios\Barrios.pas">
+				<Form>frmBarrios</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\LiquidacionSalarios\Liquidaciones.pas">
+				<Form>frmLiquidaciones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\Empleados_x_Obra\Empleados_x_Obras.pas">
+				<Form>frmEmpleados_x_Obras</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\TipoIngresoEgreso\TipoIngresoEgreso.pas">
+				<Form>frmTipoIngresoEgreso</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\PlanillaVacaciones\PlanillaVacaciones.pas">
+				<Form>frmPlanillaVacaciones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\DistribucionLiquidaciones\DistribucionLiquidaciones.pas">
+				<Form>frmDistribucionLiquidaciones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\CuentasBancarias\CuentasBancarias.pas">
+				<Form>frmCuentasBancarias</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\DistribucionSalarios\DistribucionSalarios.pas">
+				<Form>frmDistribucionSalarios</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\FrentesObra\FrentesObra.pas">
+				<Form>frmFrentesObra</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Lanzador\LanzadorRRHH.pas">
+				<Form>frmLanzadorRRHH</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Lanzador\LanzadorMaestros\LanzadorMaestros.pas">
+				<Form>frmLanzadorMaestros</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\BPartnerRRHH\BPartnerRRHH.pas">
+				<Form>frmBPartnerRRHH</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\LiquidacionEmpleados\MontosDistribuir.pas">
+				<Form>frmMontosDistribuir</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ProduccionActividades\ProduccionActividades.pas">
+				<Form>frmProdActividades</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Parametrizador\ParametrizadorSP.pas">
+				<Form>frmParametrizadorStoredProcedure</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Parametrizador\Parametrizador.pas">
+				<Form>frmParametrizador</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ProduccionVolquete\ProduccionVolquete.pas">
+				<Form>frmProdVolquete</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ProduccionVolqueteViaje\ProduccionVolqueteViaje.pas">
+				<Form>frmVolqueteViaje</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\MovimientosBancarios\MovimientosBancarios.pas">
+				<Form>frmMovimientosBancarios</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\DatosObras\DatosObras.pas">
+				<Form>frmDatosObras</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Sistema\changeRole\changeRole.pas">
+				<Form>frmChangeRole</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\TalonariosSigteNumero\SiguienteNumero.pas">
+				<Form>frmSiguienteNumero</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\AnulacionImpresionRetencion\AnulacionImpresion.pas">
+				<Form>frmAnulacionImpresion</Form>
+			</DCCReference>
+			<DCCReference Include="framework\genericos\Historial\Historial.pas">
+				<Form>frmHistorial</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\CierreDocXAnho\CierreDocXAnho.pas">
+				<Form>frmCierreDocXAnho</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorPeriodos.pas">
+				<Form>frmSeleccionadorPeriodos</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\NotaCredito\NotaCredito.pas">
+				<Form>frmNotaCredito</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\NotaCredito\NotaCreditoInterna\NotaCreditoInterna.pas">
+				<Form>frmNotaCreditoInterna</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Facturas\FacturasVentaTalonarios\FacturaVentaTalonarios.pas">
+				<Form>frmFacturasVentaTalonario</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Facturas\ParametrizadorSPFacturaVenta\ParametrizadorSPFacturaVenta.pas">
+				<Form>frmParametrizadorSPFacturaVenta</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\EditImputDocConf\EditImputDocConf.pas">
+				<Form>frmEditImputDocConf</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\ExcepcionCargaDoc\ExcepcionCargaDoc.pas">
+				<Form>frmExcepcionCargaDoc</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorEmpresas.pas">
+				<Form>frmSeleccionadorEmpresas</Form>
+			</DCCReference>
+			<DCCReference Include="tape\Genericos\GridConfiguraciones\GridConfiguraciones.pas">
+				<Form>frmGridConfiguraciones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\GridExcepciones\GridExcepciones.pas">
+				<Form>frmGridExcepciones</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorObrasCierreDoc.pas">
+				<Form>frmSeleccionadorObrasCierreDoc</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\Seleccionador\SeleccionadorDocCierreDoc.pas">
+				<Form>frmSeleccionadorDocCierreDoc</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\AsistenciaDiaria\AsistenciaReal.pas">
+				<Form>frmAsistenciaReal</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\FrentesContabilidadGlobal\FrentesContabilidadGlobal.pas">
+				<Form>frmFrentesObrasContabilidadGlobal</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\SucursalesContabilidadGlobal\SucursalesContabilidadGlobal.pas">
+				<Form>frmSucursalesContabilidadGlobal</Form>
+			</DCCReference>
+			<DCCReference Include="ventanas\RRHH\TipoIngresoEgresoGlobal\TipoIngresoEgresoGlobal.pas">
+				<Form>frmTipoIngresoEgresoGlobal</Form>
+			</DCCReference>
+			<DCCReference Include="tape\Administracion\Usuarios\Usuarios.pas">
+				<Form>frmUsuarios</Form>
+			</DCCReference>
+			<DCCReference Include="tape\Administracion\CopiarVariableAmbiente\CopiarVariableAmbiente.pas">
+				<Form>frmCopiarVariableAmbiente</Form>
+			</DCCReference>
+			<DCCReference Include="tape\Administracion\empleadosXobras\empleadosXobras.pas">
+				<Form>frmEmpleadosObras</Form>
+			</DCCReference>
+			<DCCReference Include="tape\Administracion\recusosXobras\recusosXobras.pas">
+				<Form>frmRecursosObras</Form>
+			</DCCReference>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Source>
+						<Source Name="MainSource">retacon.dpr</Source>
+					</Source>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">0</VersionInfo>
+						<VersionInfo Name="MinorVer">1</VersionInfo>
+						<VersionInfo Name="Release">4</VersionInfo>
+						<VersionInfo Name="Build">13</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1034</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName">ROSHKA</VersionInfoKeys>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">0.1.4.13</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName">Petacon</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName">Petacon</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+				</Delphi.Personality>
+				<ModelSupport>False</ModelSupport>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>
