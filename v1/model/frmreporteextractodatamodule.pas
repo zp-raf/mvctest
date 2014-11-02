@@ -78,7 +78,7 @@ begin
   inherited;
   FCuentas := TCuentaDataModule.Create(Self, FMasterDataModule);
   AuxQryList.Add(TObject(FCuentas.CuentasContables));
-  ReportFile := 'D:\Projects\mvctest\trunk\v1\reportes\historico_saldos_3.lrf';
+  ReportFile := 'reportes\historico_saldos_3.lrf';
 end;
 
 end.

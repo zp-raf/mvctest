@@ -50,8 +50,9 @@ type
     procedure ShowHelp(Sender: IFormView); virtual;
     procedure Save(Sender: IView); virtual;
     function GetVersion(Sender: IView): string; virtual; final;
-    function IsDBConnected(Sender: IView): boolean; virtual; final;
-    function IsValidDate(ADateStr: string): boolean; virtual; final;
+    function IsDBConnected(Sender: IView): boolean; virtual;
+    function IsValidDate(ADateStr: string): boolean; virtual;
+    function IsValidDate(ADate: TDateTime): boolean; virtual;
   end;
 
   { TABMController }
@@ -204,6 +205,14 @@ begin
     Result := True
   else
     Result := False;
+end;
+
+function TController.IsValidDate(ADate: TDateTime): boolean;
+begin
+  if ADate < StrToDate('01/01/1900') then
+    Result := False
+  else
+    Result := True;
 end;
 
 procedure TController.SetModel(AValue: TQueryDataModule);

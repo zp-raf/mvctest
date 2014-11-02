@@ -50,24 +50,12 @@ end;
 
 procedure TProcesoReporteExtracto.OKButtonClick(Sender: TObject);
 begin
-  // chequear que las fechas esten bien
-  if DateEditInicio.Date > DateEditFin.Date then
-  begin
-    ShowErrorMessage(rsInvalidDateRange);
-    Exit;
-  end;
-  if not GetController.IsValidDate(DateEditFin.Text) and not
-    GetController.IsValidDate(DateEditInicio.Text) then
-  begin
-    ShowErrorMessage(rsInvalidDate);
-    Exit;
-  end;
   if DBLookupComboBoxPersona.Text = '' then
   begin
     ShowErrorMessage(rsPleaseSelectAccount);
     Exit;
   end;
-  GetCustomController.ShowReport(DateEditInicio.Date, DateEditFin.Date);
+  GetCustomController.ShowReport(DateEditInicio.Date, DateEditFin.Date, Self);
 end;
 
 end.
