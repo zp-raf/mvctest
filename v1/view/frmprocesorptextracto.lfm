@@ -1,0 +1,101 @@
+inherited ProcesoReporteExtracto: TProcesoReporteExtracto
+  Left = 690
+  Top = 219
+  ClientHeight = 328
+  Constraints.MinHeight = 348
+  Constraints.MinWidth = 453
+  inherited ButtonPanel1: TButtonPanel
+    OKButton.OnClick = OKButtonClick
+  end
+  object DBLookupComboBoxPersona: TDBLookupComboBox[2]
+    Left = 16
+    Height = 23
+    Top = 24
+    Width = 416
+    KeyField = 'ID'
+    ListField = 'NOMBRE'
+    ListFieldIndex = 0
+    ListSource = CuentaDataModule.dsCuentasContables
+    LookupCache = False
+    ScrollListDataset = True
+    TabOrder = 2
+  end
+  object LabelCuenta: TLabel[3]
+    AnchorSideLeft.Control = DBLookupComboBoxPersona
+    AnchorSideBottom.Control = DBLookupComboBoxPersona
+    Left = 16
+    Height = 15
+    Top = 9
+    Width = 38
+    Anchors = [akLeft, akBottom]
+    Caption = 'Cuenta'
+    ParentColor = False
+  end
+  object GroupBoxRangoFecha: TGroupBox[4]
+    Left = 16
+    Height = 88
+    Top = 64
+    Width = 256
+    Caption = 'Rango de Fecha'
+    ClientHeight = 70
+    ClientWidth = 252
+    TabOrder = 3
+    object DateEditInicio: TDateEdit
+      Left = 8
+      Height = 23
+      Top = 24
+      Width = 80
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OKCaption = 'OK'
+      CancelCaption = 'Cancel'
+      DateOrder = doDMY
+      ButtonWidth = 23
+      CharCase = ecNormal
+      NumGlyphs = 1
+      MaxLength = 10
+      TabOrder = 0
+    end
+    object DateEditFin: TDateEdit
+      Left = 136
+      Height = 23
+      Top = 24
+      Width = 80
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OKCaption = 'OK'
+      CancelCaption = 'Cancel'
+      DefaultToday = True
+      DateOrder = doDMY
+      ButtonWidth = 23
+      CharCase = ecNormal
+      NumGlyphs = 1
+      MaxLength = 10
+      TabOrder = 1
+    end
+    object LabelInicio: TLabel
+      AnchorSideLeft.Control = DateEditInicio
+      AnchorSideBottom.Control = DateEditInicio
+      Left = 8
+      Height = 15
+      Top = 9
+      Width = 29
+      Anchors = [akLeft, akBottom]
+      Caption = 'Inicio'
+      ParentColor = False
+    end
+    object LabelFin: TLabel
+      AnchorSideLeft.Control = DateEditFin
+      AnchorSideBottom.Control = DateEditFin
+      Left = 136
+      Height = 15
+      Top = 9
+      Width = 16
+      Anchors = [akLeft, akBottom]
+      Caption = 'Fin'
+      ParentColor = False
+    end
+  end
+  inherited MainMenu: TMainMenu[5]
+    left = 400
+    top = 56
+  end
+end

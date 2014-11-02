@@ -77,7 +77,7 @@ implementation
 
 function TProcesoComprobante.GetABMController: TABMController;
 begin
-  Result := GetABMController as TABMController;
+  Result := GetController as TABMController;
 end;
 
 function TProcesoComprobante.GetCustomController: TComprobanteController;

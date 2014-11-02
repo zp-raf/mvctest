@@ -122,14 +122,14 @@ end;
 
 procedure TQueryDataModule.DataModuleDestroy(Sender: TObject);
 begin
-  if FQryList <> nil then
-    FQryList.Free;
-  if FAuxQryList <> nil then
-    FAuxQryList.Free;
-  if FSearchFieldList <> nil then
-    FSearchFieldList.Free;
-  if FDetailList <> nil then
-    FDetailList.Free;
+  if Assigned(FQryList) then
+    FreeAndNil(FQryList);
+  if Assigned(FAuxQryList) then
+    FreeAndNil(FAuxQryList);
+  if Assigned(FSearchFieldList) then
+    FreeAndNil(FSearchFieldList);
+  if Assigned(FDetailList) then
+    FreeAndNil(FDetailList);
 end;
 
 constructor TQueryDataModule.Create(AOwner: TComponent; AMaster: IDBModel);

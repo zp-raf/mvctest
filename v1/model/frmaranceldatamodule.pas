@@ -22,10 +22,6 @@ type
     dsAranceles: TDataSource;
     procedure ArancelFilterRecord(DataSet: TDataSet; var Accept: Boolean);
     procedure DataModuleCreate(Sender: TObject); override;
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var

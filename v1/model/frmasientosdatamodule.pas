@@ -224,7 +224,8 @@ end;
 
 procedure TAsientosDataModule.DataModuleDestroy(Sender: TObject);
 begin
-  FCuenta.Free;
+  if Assigned(FCuenta) then
+    FreeAndNil(FCuenta);
   inherited;
 end;
 

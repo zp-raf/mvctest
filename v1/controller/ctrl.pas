@@ -229,7 +229,11 @@ end;
 destructor TController.Destroy;
 begin
   inherited Destroy;
-  GetModel.Free;
+  if Assigned(FModel) then
+  begin
+    GetModel.Free;
+    FModel := nil;
+  end;
 end;
 
 { TController.AfterConstruction

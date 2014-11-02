@@ -1,0 +1,10 @@
+inherited ProcesoReporte: TProcesoReporte
+  ClientHeight = 328
+  inherited StatusBar1: TStatusBar
+    Top = 305
+    Width = 453
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 265
+  end
+end

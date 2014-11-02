@@ -57,7 +57,9 @@ implementation
 
 procedure TSgcdDataModule.DataModuleDestroy(Sender: TObject);
 begin
-
+  inherited;
+  if Assigned(FSubject) then
+    FreeAndNil(FSubject);
 end;
 
 procedure TSgcdDataModule.Commit;

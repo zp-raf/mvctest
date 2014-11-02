@@ -42,7 +42,11 @@ uses
   // Documentos
   frmdocumentosdatamodule,
   frmprocesodocumentos,
-  documentosctrl;
+  documentosctrl,
+  // Extracto de cuenta
+  frmreporteextractodatamodule,
+  frmprocesorptextracto,
+  reporteextractoctrl;
 
 type
 
@@ -59,6 +63,7 @@ type
     procedure OpenFacturasForm(Sender: IFormView);
     procedure OpenNotaCreditoForm(Sender: IFormView);
     procedure OpenPagosForm(Sender: IFormView);
+    procedure OpenExtractoRepForm(Sender: IFormView);
   end;
 
 var
@@ -127,6 +132,15 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoPago.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
+end;
+
+procedure TPrincipalController.OpenExtractoRepForm(Sender: IFormView);
+begin
+  ProcesoReporteExtracto := TProcesoReporteExtracto.Create(Sender,
+    TRepExtractoController.Create(TReporteExtractoDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoReporteExtracto.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoReporteExtracto as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

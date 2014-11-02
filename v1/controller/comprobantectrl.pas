@@ -47,7 +47,7 @@ end;
 
 function TComprobanteController.GetEstadoComprobante(Sender: IView): TEstadoComprobante;
 begin
-
+  Result := GetCustomModel.Estado;
 end;
 
 end.

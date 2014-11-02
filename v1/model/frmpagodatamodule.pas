@@ -179,8 +179,10 @@ end;
 procedure TPagoDataModule.DataModuleDestroy(Sender: TObject);
 begin
   inherited;
-  FFactura.Free;
-  FAsientos.Free;
+  if Assigned(FFactura) then
+    FreeAndNil(FFactura);
+  if Assigned(FAsientos) then
+    FreeAndNil(FAsientos);
 end;
 
 function TPagoDataModule.GetEstado: boolean;

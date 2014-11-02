@@ -156,7 +156,8 @@ end;
 procedure TComprobanteDataModule.DataModuleDestroy(Sender: TObject);
 begin
   inherited;
-  FPersonas.Free;
+  if Assigned(FPersonas) then
+    FreeAndNil(FPersonas);
 end;
 
 procedure TComprobanteDataModule.qryDetalleAfterInsert(DataSet: TDataSet);

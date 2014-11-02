@@ -19,7 +19,6 @@ inherited ReporteDataModule: TReporteDataModule
     Transaction = sgcdDataModule.tran
     ReadOnly = True
     Params = <>
-    DataSource = dsCabecera
     left = 64
     top = 120
   end
@@ -35,13 +34,11 @@ inherited ReporteDataModule: TReporteDataModule
   end
   object frDBDataSetCabecera: TfrDBDataSet[4]
     DataSet = Cabecera
-    DataSource = dsCabecera
     left = 246
     top = 40
   end
   object frDBDataSetDetalle: TfrDBDataSet[5]
     DataSet = Detalle
-    DataSource = dsDetalle
     left = 248
     top = 120
   end

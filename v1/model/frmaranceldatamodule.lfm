@@ -5,7 +5,6 @@ inherited ArancelesDataModule: TArancelesDataModule
   VerticalOffset = 458
   Width = 323
   object Arancel: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

@@ -1,6 +1,5 @@
 inherited FacturasDataModule: TFacturasDataModule
   OnCreate = DataModuleCreate
-  OnDestroy = DataModuleDestroy
   Height = 399
   HorizontalOffset = 743
   VerticalOffset = 376
@@ -525,10 +524,8 @@ inherited FacturasDataModule: TFacturasDataModule
   end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalle
-    DataSource = dsDetalle
   end
   inherited frDBReporteCab: TfrDBDataSet
     DataSet = qryCabecera
-    DataSource = dsCabecera
   end
 end

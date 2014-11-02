@@ -6,6 +6,7 @@
     <General>
       <Flags>
         <SaveOnlyProjectUnits Value="True"/>
+        <MainUnitHasUsesSectionForAllUnits Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
@@ -46,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="58">
+    <Units Count="62">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -441,6 +442,32 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmreporteextractodatamodule"/>
       </Unit57>
+      <Unit58>
+        <Filename Value="view\frmprocesoreporte.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoReporte"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoreporte"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="view\frmprocesorptextracto.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoReporteExtracto"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesorptextracto"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="controller\reporteextractoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="reporteextractoctrl"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="controller\reportectrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="reportectrl"/>
+      </Unit61>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

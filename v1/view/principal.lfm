@@ -1,7 +1,7 @@
 inherited Principal1: TPrincipal1
-  Left = 445
+  Left = 580
   Height = 100
-  Top = 289
+  Top = 347
   Width = 455
   Anchors = []
   Caption = 'SGCD'
@@ -158,10 +158,6 @@ inherited Principal1: TPrincipal1
         object recibo: TMenuItem
           Caption = 'Emisión de &recibos'
         end
-        object extracto: TMenuItem
-          Caption = '&Extracto de cuenta'
-          OnClick = extractoClick
-        end
         object MenuItemGenerarDeuda: TMenuItem
           Caption = 'Generar &deudas'
           OnClick = MenuItemGenerarDeudaClick
@@ -205,8 +201,9 @@ inherited Principal1: TPrincipal1
       object reportRegAsistencia: TMenuItem
         Caption = 'Registro de Asistencia'
       end
-      object historicoMovimiento: TMenuItem
-        Caption = 'Histórico de movimientos'
+      object extracto: TMenuItem
+        Caption = '&Extracto de cuenta'
+        OnClick = extractoClick
       end
     end
     inherited MenuAyuda: TMenuItem[4]

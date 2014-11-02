@@ -24,7 +24,7 @@ type
     frDBDataSetDetalle: TfrDBDataSet;
     frDBDataSetCabecera: TfrDBDataSet;
     frReport1: TfrReport;
-    procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject); override;
     property ReportFile: string read FReportFile write SetReportFile;
   end;
 
@@ -47,8 +47,8 @@ end;
 procedure TReporteDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
-  QryList.Add(TObject(Cabecera));
-  DetailList.Add(TObject(Detalle));
+  //QryList.Add(TObject(Cabecera));
+  //DetailList.Add(TObject(Detalle));
 end;
 
 end.

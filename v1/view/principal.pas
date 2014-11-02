@@ -43,7 +43,6 @@ type
     calificar: TMenuItem;
     MenuItemGenerarDeuda: TMenuItem;
     certificadoEstudio: TMenuItem;
-    historicoMovimiento: TMenuItem;
     MenuItemABMCuentas: TMenuItem;
     reportRegAsistencia: TMenuItem;
     reporte1: TMenuItem;
@@ -119,7 +118,7 @@ end;
 
 procedure TPrincipal1.extractoClick(Sender: TObject);
 begin
-  GetCustomController;
+  GetCustomController.OpenExtractoRepForm(Self);
 end;
 
 procedure TPrincipal1.FormClose(Sender: TObject; var CloseAction: TCloseAction);

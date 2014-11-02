@@ -1,12 +1,186 @@
 inherited ReporteExtractoDataModule: TReporteExtractoDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 247
-  HorizontalOffset = 392
-  VerticalOffset = 217
+  HorizontalOffset = 798
+  VerticalOffset = 411
   Width = 349
+  inherited Cabecera: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'CAB_ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CAB_CODIGO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CAB_CUENTA_PADRE'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CAB_NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CAB_DEBITO_ANTERIOR'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CAB_CREDITO_ANTERIOR'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CAB_SALDO_ANTERIOR'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CAB_DEBITO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CAB_CREDITO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CAB_SALDO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end>
+    AfterOpen = CabeceraAfterOpen
+    SQL.Strings = (
+      'select * from RPT_EXTRACTO_CUENTA(:cuentaid, :fechaini, :fechafin)'
+      ''
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'cuentaid'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fechaini'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fechafin'
+        ParamType = ptInput
+      end>
+    left = 56
+  end
+  inherited Detalle: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'DET_ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DET_CODIGO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DET_CUENTA_PADRE'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DET_NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DET_FECHA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DET_DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DET_DEBITO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DET_CREDITO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DET_SALDO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end>
+    SQL.Strings = (
+      'select * from RPT_EXTRACTO_CUENTA_DETALLE(:saldo_anterior, :cuentaid, :fechaini, :fechafin)'
+      ''
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'saldo_anterior'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'cuentaid'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fechaini'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fechafin'
+        ParamType = ptInput
+      end>
+  end
   inherited frDBDataSetCabecera: TfrDBDataSet
-    DataSource = nil
+    DataSource = dsCabecera
   end
   inherited frDBDataSetDetalle: TfrDBDataSet
-    DataSource = nil
+    DataSource = dsDetalle
+    left = 246
+    top = 112
+  end
+  inherited frReport1: TfrReport
+    left = 256
   end
 end

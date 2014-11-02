@@ -1,5 +1,6 @@
 inherited CuotaArancelDataModule: TCuotaArancelDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 215
   HorizontalOffset = 782
   VerticalOffset = 306

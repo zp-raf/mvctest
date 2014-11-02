@@ -44,6 +44,9 @@ resourcestring
     ' datos e intente de nuevo';
   rsPaymntDiscrd = 'Se descarto el pago no guardado';
   rsPaymentRegistered = 'Pago registrado con exito';
+  rsInvalidDate = 'Fecha invalida introducida';
+  rsInvalidDateRange = 'El rango de fechas no es correcto';
+  rsPleaseSelectAccount = 'Por favor seleccione una cuenta';
 
 type
 

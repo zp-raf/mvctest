@@ -15,7 +15,9 @@ type
   TMaestro = class(TForm, IObserver, IView, IFormView)
   private
     FController: Pointer;
+    FOpenOnShow: boolean;
     procedure SetConnStatus(connected: boolean; host: string; username: string);
+    procedure SetOpenOnShow(AValue: boolean);
   protected
     function GetController: TController;
     procedure SetController(AValue: TController);
@@ -51,6 +53,7 @@ type
     function ShowWarningMessage(ATitle: string; AMsg: string): TModalResult;
     function ShowConfirmationMessage(AMsg: string): TModalResult;
     function ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
+    property OpenOnShow: boolean read FOpenOnShow write SetOpenOnShow;
   end;
 
 var
@@ -99,6 +102,13 @@ begin
   end;
 end;
 
+procedure TMaestro.SetOpenOnShow(AValue: boolean);
+begin
+  if FOpenOnShow = AValue then
+    Exit;
+  FOpenOnShow := AValue;
+end;
+
 procedure TMaestro.AppPropsException(Sender: TObject; E: Exception);
 begin
   GetController.ErrorHandler(E, Self);
@@ -139,8 +149,11 @@ begin
   //if Visible then
   //  ObserverUpdate(nil);
   // actualizamos la vista
-  GetController.Connect(Self);
-  GetController.RefreshData(Self);
+  if OpenOnShow then
+  begin
+    GetController.Connect(Self);
+    GetController.RefreshData(Self);
+  end;
 end;
 
 procedure TMaestro.MenuItemSalirClick(Sender: TObject);
@@ -207,6 +220,7 @@ begin
     inherited Create((AOwner as TComponent))
   else
     inherited Create(nil);
+  OpenOnShow := True;
 end;
 
 destructor TMaestro.Destroy;

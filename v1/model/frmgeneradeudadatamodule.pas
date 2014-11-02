@@ -60,6 +60,7 @@ type
     DeudaVENCIMIENTO: TDateField;
     dsDeuda: TDatasource;
     Deuda: TSQLQuery;
+    procedure DataModuleDestroy(Sender: TObject);
     procedure DeudaAfterPost(DataSet: TDataSet);
   private
     FArancel: TArancelesDataModule;
@@ -167,6 +168,21 @@ begin
     Exit;
   // ahora recien podemos cerrar el asiento o si no nos da error de FK
   Asientos.PostAsiento;
+end;
+
+procedure TGeneraDeudaDataModule.DataModuleDestroy(Sender: TObject);
+begin
+  inherited;
+  if Assigned(FArancel) then
+    FreeAndNil(FArancel);
+  if Assigned(FAsientos) then
+    FreeAndNil(FAsientos);
+  if Assigned(FCuentas) then
+    FreeAndNil(FCuentas);
+  if Assigned(FCuota) then
+    FreeAndNil(FCuota);
+  if Assigned(FPersonas) then
+    FreeAndNil(FPersonas);
 end;
 
 procedure TGeneraDeudaDataModule.SetArancel(AValue: TArancelesDataModule);

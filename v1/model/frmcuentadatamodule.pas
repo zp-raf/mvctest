@@ -28,6 +28,13 @@ type
     CuentaNOMBRE: TStringField;
     CuentaNOMBRE_CODIGO: TStringField;
     CuentaPERSONAID: TLongintField;
+    CuentasContablesCODIGO: TStringField;
+    CuentasContablesCODIGO_NOMBRE: TStringField;
+    CuentasContablesCUENTA_PADRE: TLongintField;
+    CuentasContablesID: TLongintField;
+    CuentasContablesNATURALEZA: TStringField;
+    CuentasContablesNOMBRE: TStringField;
+    dsCuentasContables: TDataSource;
     dsCuentaAux: TDataSource;
     dsCuenta: TDataSource;
     Cuenta: TSQLQuery;

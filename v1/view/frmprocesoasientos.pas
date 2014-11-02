@@ -112,7 +112,7 @@ end;
 
 procedure TProcesoAsientos.MaskEditMontoKeyPress(Sender: TObject; var Key: char);
 begin
-  if (Key in ['0'..'9', DecimalSeparator, #8, #9]) then
+  if (Key in ['0'..'9', {%H-}DecimalSeparator, #8, #9]) then
     Exit;
   key := #0;
 end;

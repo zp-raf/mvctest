@@ -9,20 +9,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   frmsgcddatamodule, // database connection
   ctrl, observerSubject, mvc,
   // home
-  Principal, frmabmpersonas, frmabmcuentas,
-  frmbuscarpersonas, frmgeneradeuda, frmpago,
-  frmprocesoasientos, frmprocesocomprobante, frmprocesodocumentos,
-  frmprocesofacturacion, frmprocesorecibo, frmprocnotacredito,
-  principalctrl, personactrl, asientosctrl,
-  buscarpersctrl, comprobantectrl, cuentactrl, documentosctrl, facturactrl2,
-  generardeudactrl, movimientoctrl, notacreditoctrl, pagoctrl, procesoctrl,
-  reciboctrl, frmprincipaldatamodule, frmquerydatamodule,
-  frmpersonasdatamodule, frmaranceldatamodule, frmasientosdatamodule,
-  frmcodigosdatamodule, frmcomprobantedatamodule, frmcuentadatamodule,
-  frmcuotaxarancel, frmdocumentosdatamodule, frmfacturadatamodule2,
-  frmgeneradeudadatamodule, frmpagodatamodule,
-  manejoerrores, frmrecibodatamodule, frmNotaCreditoDataModule, 
-frmreporteextractodatamodule;
+  Principal, principalctrl, frmprincipaldatamodule;
 
 
 {$R *.res}

@@ -1,6 +1,5 @@
 inherited DocumentosDataModule: TDocumentosDataModule
   OnCreate = DataModuleCreate
-  OnDestroy = DataModuleDestroy
   Height = 233
   HorizontalOffset = 689
   VerticalOffset = 264

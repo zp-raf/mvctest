@@ -15,6 +15,7 @@ type
   { TCuotaArancelDataModule }
 
   TCuotaArancelDataModule = class(TQueryDataModule)
+    procedure DataModuleDestroy(Sender: TObject);
   private
     FCodigos: TCodigosDataModule;
     procedure SetCodigos(AValue: TCodigosDataModule);
@@ -46,6 +47,13 @@ implementation
 {$R *.lfm}
 
 { TCuotaArancelDataModule }
+
+procedure TCuotaArancelDataModule.DataModuleDestroy(Sender: TObject);
+begin
+  inherited;
+  if Assigned(FCodigos) then
+    FreeAndNil(FCodigos);
+end;
 
 procedure TCuotaArancelDataModule.SetCodigos(AValue: TCodigosDataModule);
 begin
