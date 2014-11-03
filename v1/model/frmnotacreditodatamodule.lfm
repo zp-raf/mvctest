@@ -1,4 +1,9 @@
 inherited NotaCreditoDataModule: TNotaCreditoDataModule
+  OnCreate = DataModuleCreate
+  Height = 399
+  HorizontalOffset = 478
+  VerticalOffset = 228
+  Width = 562
   inherited qryCabecera: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
@@ -109,10 +114,16 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
         DataType = ftSmallint
         Precision = -1
         Size = 0
+      end    
+      item
+        Name = 'FACTURAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
     Active = True
     SQL.Strings = (
-      'select * from nota_credito'
+      'select * from NOTA_CREDITO'
     )
     object qryCabeceraID: TLongintField[0]
       DisplayWidth = 10
@@ -320,6 +331,16 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ReadOnly = False
       Required = True
     end
+    object qryCabeceraFACTURAID: TLongintField[18]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FACTURAID'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   inherited qryDetalle: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
@@ -386,15 +407,8 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       end>
     Active = True
     SQL.Strings = (
-      'select * from nota_credito_detalle'
-      'where nota_credito_detalle.notacreditoid = :notacreditoid'
+      'select * from NOTA_CREDITO_DETALLE'
     )
-    Params = <    
-      item
-        DataType = ftUnknown
-        Name = 'notacreditoid'
-        ParamType = ptInput
-      end>
     object qryDetalleID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData

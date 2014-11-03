@@ -2,10 +2,10 @@ inherited ComprobanteDataModule: TComprobanteDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 333
-  HorizontalOffset = 673
-  VerticalOffset = 331
+  HorizontalOffset = 456
+  VerticalOffset = 308
   Width = 542
-  object dsCabecera: TDataSource[0]
+  object dsCabecera: TDatasource[0]
     DataSet = qryCabecera
     left = 32
     top = 24
@@ -31,7 +31,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     left = 112
     top = 98
   end
-  object dsDetalle: TDataSource[3]
+  object dsDetalle: TDatasource[3]
     DataSet = qryDetalle
     left = 32
     top = 98
@@ -69,12 +69,12 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = False
     end
   end
-  object dsNum: TDataSource[5]
+  object dsNum: TDatasource[5]
     DataSet = qryNumero
     left = 200
     top = 24
   end
-  object dstal: TDataSource[6]
+  object dstal: TDatasource[6]
     DataSet = tal
     left = 32
     top = 176
@@ -208,7 +208,6 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     top = 176
   end
   object frReport1: TfrReport[10]
-    DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
@@ -705,7 +704,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = True
     end
   end
-  object dsPersonasRoles: TDataSource[14]
+  object dsPersonasRoles: TDatasource[14]
     left = 279
     top = 104
   end

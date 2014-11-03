@@ -13,9 +13,6 @@ resourcestring
   rsGenFacturaDetalleID = 'SEQ_FACTURA_DETALLE';
 
 const
-  //mientras tanto pongo aca los codigos de los impuestos
-  IVA10 = '3';
-  IVA5 = '4';
   //mientras tanto pongo aca el id del talonario
   TALONARIO = '1';
 

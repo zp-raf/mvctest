@@ -18,18 +18,22 @@ const
   TARJETA_DEBITO = '3';
   TARJETA_CREDITO = '4';
 
-//TipoMovimiento: array[Credito..Debito] of shortstring = (
-//  'Credito',
-//  'Debito');
-//TipoComprobante: array[Factura..NotaCredito] of shortstring = (
-//  'Factura',
-//  'Recibo',
-//  'NotaCredito');
-//TipoPago: array[Efectivo..TarjetaCredito] of shortstring = (
-//  'Efectivo',
-//  'Cheque',
-//  'TarjetaDebito',
-//  'TarjetaCredito');
+  //TipoMovimiento: array[Credito..Debito] of shortstring = (
+  //  'Credito',
+  //  'Debito');
+  //TipoComprobante: array[Factura..NotaCredito] of shortstring = (
+  //  'Factura',
+  //  'Recibo',
+  //  'NotaCredito');
+  //TipoPago: array[Efectivo..TarjetaCredito] of shortstring = (
+  //  'Efectivo',
+  //  'Cheque',
+  //  'TarjetaDebito',
+  //  'TarjetaCredito');
+
+  //mientras tanto pongo aca los codigos de los impuestos
+  IVA10 = '3';
+  IVA5 = '4';
 
 type
 

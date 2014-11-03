@@ -5,14 +5,16 @@ unit frmProcNotaCredito;
 interface
 
 uses
-  frmprocesorecibo, StdCtrls, DBCtrls, EditBtn,
-  notacreditoctrl, ctrl;
+  frmprocesorecibo, StdCtrls, DBCtrls, EditBtn, ComCtrls, Menus, ButtonPanel,
+  PairSplitter, DBGrids, notacreditoctrl, ctrl;
 
 type
 
   { TProcesoNotaCredito }
 
   TProcesoNotaCredito = class(TProcesoRecibo)
+    DBEdit1: TDBEdit;
+    Label1: TLabel;
   protected
     function GetABMController: TABMController;
     function GetCustomController: TNotaCreditoController;
