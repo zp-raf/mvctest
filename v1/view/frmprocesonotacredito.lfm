@@ -1,101 +1,80 @@
-inherited ProcesoFacturacion: TProcesoFacturacion
-  Left = 516
-  Top = 152
-  Width = 901
-  Caption = 'Factura Venta'
+inherited ProcesoNotaCredito: TProcesoNotaCredito
+  Left = 544
+  Top = 154
+  Caption = 'Nota de credito'
   ClientHeight = 730
-  ClientWidth = 901
-  inherited StatusBar1: TStatusBar
-    Width = 901
-  end
-  inherited ButtonPanel1: TButtonPanel
-    Width = 889
-  end
   inherited Cabecera: TGroupBox
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
-    Width = 885
-    ClientWidth = 881
+    Height = 184
+    ClientHeight = 166
     inherited DBEditDireccion: TDBEdit
-      DataSource = FacturasDataModule.dsCabecera
+      DataSource = NotaCreditoDataModule.dsCabecera
+      MaxLength = 0
     end
     inherited DBEditRuc: TDBEdit
-      DataSource = FacturasDataModule.dsCabecera
+      DataSource = NotaCreditoDataModule.dsCabecera
+      MaxLength = 0
     end
     inherited DBEditTelefono: TDBEdit
-      DataSource = FacturasDataModule.dsCabecera
+      DataSource = NotaCreditoDataModule.dsCabecera
+      MaxLength = 0
     end
     inherited DBEditNombre: TDBEdit
-      DataSource = FacturasDataModule.dsCabecera
+      DataSource = NotaCreditoDataModule.dsCabecera
+      MaxLength = 0
     end
     inherited DBTextNro: TDBText
-      DataSource = FacturasDataModule.dsNum
+      DataSource = NotaCreditoDataModule.dsNum
     end
     inherited DBTextTimbrado: TDBText
+      Top = 0
       DataSource = NotaCreditoDataModule.dstal
     end
-    inherited DBEditNotaRem: TDBEdit
-      DataSource = FacturasDataModule.dsCabecera
+    inherited LabelTimbrado: TLabel
+      Top = 0
     end
-    object DateEditVen: TDateEdit[16]
-      Left = 736
+    inherited DBEditNotaRem: TDBEdit
+      DataSource = NotaCreditoDataModule.dsCabecera
+      MaxLength = 0
+    end
+    object DBEditFactura: TDBEdit[16]
+      Left = 8
       Height = 23
-      Top = 8
-      Width = 88
-      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
-      OKCaption = 'OK'
-      CancelCaption = 'Cancel'
-      DateOrder = doDMY
-      ButtonWidth = 23
+      Top = 136
+      Width = 336
+      DataField = 'NUMERO_FACTURA'
+      DataSource = NotaCreditoDataModule.dsCabecera
       CharCase = ecNormal
-      NumGlyphs = 1
-      MaxLength = 10
-      OnEditingDone = DateEditVenEditingDone
+      MaxLength = 0
       TabOrder = 6
     end
-    object LabelVen: TLabel[17]
-      AnchorSideLeft.Control = DateEditVen
-      AnchorSideBottom.Control = DateEditVen
-      Left = 736
+    object LabelFactNro: TLabel[17]
+      AnchorSideLeft.Control = DBEditFactura
+      AnchorSideBottom.Control = DBEditFactura
+      Left = 8
       Height = 15
-      Top = -7
-      Width = 67
+      Top = 121
+      Width = 65
       Anchors = [akLeft, akBottom]
-      Caption = 'Vencimiento'
+      Caption = 'Factura Nro.'
       ParentColor = False
-    end
-    object RadioCondicion: TDBRadioGroup[18]
-      Left = 624
-      Height = 64
-      Top = 16
-      Width = 80
-      Caption = 'Condicion'
-      DataField = 'CONTADO'
-      DataSource = FacturasDataModule.dsCabecera
-      Items.Strings = (
-        'Credito'
-        'Contado'
-      )
-      OnChange = RadioCondicionChange
-      TabOrder = 7
-      Values.Strings = (
-        '0'
-        '1'
-      )
     end
   end
   inherited PairSplitterDetSubTot: TPairSplitter
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
-    Width = 885
+    Height = 437
+    Top = 224
+    Position = 264
     inherited PairSplitterSide1: TPairSplitterSide
-      Width = 885
-      ClientWidth = 885
+      Height = 264
+      ClientHeight = 264
       inherited Detalles: TGroupBox
-        Width = 885
-        ClientWidth = 881
+        Height = 264
+        ClientHeight = 246
         inherited DBGridDet: TDBGrid
-          Width = 865
+          Height = 197
           Columns = <          
             item
               PickList.Strings = (              )
@@ -138,49 +117,51 @@ inherited ProcesoFacturacion: TProcesoFacturacion
               Width = 45
               FieldName = 'IVA10'
             end>
-          DataSource = FacturasDataModule.dsDetalle
+          DataSource = NotaCreditoDataModule.dsDetalle
         end
         inherited DBNavigatorDet: TDBNavigator
-          DataSource = FacturasDataModule.dsDetalle
+          Top = 213
+          DataSource = NotaCreditoDataModule.dsDetalle
           Hints.Strings = (          )
         end
       end
     end
     inherited PairSplitterSide2: TPairSplitterSide
-      Width = 885
-      ClientWidth = 885
+      Height = 168
+      Top = 269
+      ClientHeight = 168
       inherited Totales: TGroupBox
-        Width = 885
-        ClientWidth = 881
+        Height = 168
+        ClientHeight = 150
         inherited DBEditGranTotal: TDBEdit
-          DataSource = FacturasDataModule.dsCabecera
+          DataSource = NotaCreditoDataModule.dsCabecera
         end
         inherited DBEditSubTotal: TDBEdit
-          DataSource = FacturasDataModule.dsCabecera
+          DataSource = NotaCreditoDataModule.dsCabecera
         end
         inherited DBEditSubTotal5: TDBEdit
-          DataSource = FacturasDataModule.dsCabecera
+          DataSource = NotaCreditoDataModule.dsCabecera
         end
         inherited DBEditSubTotal10: TDBEdit
-          DataSource = FacturasDataModule.dsCabecera
+          DataSource = NotaCreditoDataModule.dsCabecera
         end
         inherited DBEditIVA5: TDBEdit
-          DataSource = FacturasDataModule.dsCabecera
+          DataSource = NotaCreditoDataModule.dsCabecera
         end
         inherited DBEditIVA10: TDBEdit
-          DataSource = FacturasDataModule.dsCabecera
+          DataSource = NotaCreditoDataModule.dsCabecera
         end
         inherited DBEditIVATotal: TDBEdit
-          DataSource = FacturasDataModule.dsCabecera
+          DataSource = NotaCreditoDataModule.dsCabecera
         end
       end
     end
   end
   inherited ButtonSeleccionarPers: TButton
     OnClick = ButtonSeleccionarPersClick
+    Visible = False
   end
   inherited ButtonSeleccionarFac: TButton
-    Enabled = False
-    Visible = False
+    OnClick = ButtonSeleccionarFacClick
   end
 end

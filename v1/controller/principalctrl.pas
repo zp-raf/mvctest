@@ -36,8 +36,9 @@ uses
   frmgeneradeudadatamodule,
   frmgeneradeuda,
   generardeudactrl,
+  // nota credito
   frmNotaCreditoDataModule,
-  frmProcNotaCredito,
+  frmprocesonotacredito,
   notacreditoctrl,
   // Documentos
   frmdocumentosdatamodule,

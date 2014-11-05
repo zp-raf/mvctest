@@ -1,14 +1,143 @@
 inherited FacturasDataModule: TFacturasDataModule
   OnCreate = DataModuleCreate
   Height = 399
-  HorizontalOffset = 743
-  VerticalOffset = 376
+  HorizontalOffset = 1029
+  VerticalOffset = 329
   Width = 562
   inherited qryCabecera: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TALONARIOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftFixedChar
+        Precision = -1
+        Size = 8
+      end    
+      item
+        Name = 'NUMERO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA_EMISION'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CONTADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VENCIMIENTO'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOTA_REMISION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TELEFONO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SUBTOTAL_EXENTAS'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SUBTOTAL_IVA5'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SUBTOTAL_IVA10'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TOTAL'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'IVA5'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'IVA10'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'IVA_TOTAL'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
     AfterScroll = qryCabeceraAfterScroll
     SQL.Strings = (
       'select * from factura'
     )
+    left = 112
     object qryCabeceraID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
@@ -235,8 +364,89 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = True
     end
+    object StringField1: TStringField[20]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'TIMBRADO_VENTA'
+      Index = 20
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = AuxTalonario
+      LookupKeyFields = 'ID'
+      LookupResultField = 'TIMBRADO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraTIMBRADO: TStringField[21]
+      DisplayWidth = 8
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 8
+    end
   end
   inherited qryDetalle: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FACTURAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DEUDAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CANTIDAD'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DETALLE'
+        DataType = ftString
+        Precision = -1
+        Size = 1024
+      end    
+      item
+        Name = 'PRECIO_UNITARIO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'EXENTA'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'IVA5'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'IVA10'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end>
     SQL.Strings = (
       'select * from factura_detalle'
       'where factura_detalle.facturaid = :facturaid'
@@ -247,6 +457,7 @@ inherited FacturasDataModule: TFacturasDataModule
         Name = 'facturaid'
         ParamType = ptInput
       end>
+    top = 96
     object qryDetalleID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
@@ -351,6 +562,17 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
+  end
+  inherited qryNumero: TSQLQuery
+    SQL.Strings = (
+      'select * from GET_NUMERO_FACTURA(:TALONARIOID)'
+    )
+    Params = <    
+      item
+        DataType = ftLargeint
+        Name = 'TALONARIOID'
+        ParamType = ptInput
+      end>
   end
   inherited tal: TSQLQuery
     object talID: TLongintField[0]
@@ -527,5 +749,8 @@ inherited FacturasDataModule: TFacturasDataModule
   end
   inherited frDBReporteCab: TfrDBDataSet
     DataSet = qryCabecera
+  end
+  inherited AuxTalonario: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
   end
 end

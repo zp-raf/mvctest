@@ -8,6 +8,14 @@ uses
   Classes, SysUtils, ExtCtrls, StdCtrls, Spin, EditBtn, DBCtrls;
 
 resourcestring
+  // Comprobante
+  rsNoHayDeudas = 'No hay deudas para la persona seleccionada';
+  rsNoSeEstaCreando = 'No se esta creando un comprobante';
+  rsYaSeEstaCreando = 'Ya se esta creando un comprobante';
+  rsPersonaNoEncontrada = 'Persona no encontrada';
+  rsNoSeEncontroDoc = 'No se encontro el documento';
+  rsNoSePuedeSetFac = 'No se puede completar la accion. Se esta editando un comprobante';
+  rsTalonarioNoEncontrado = 'Talonario no encontrado';
   // Controller related
   rsExitQuestion = '¿Está seguro que desea salir?';
   rsExitText = 'Salir';
@@ -40,7 +48,8 @@ resourcestring
   rsNewEntryError = 'Creacion de asiento en proceso. Finalice el asiento ' +
     'e intente de nuevo.';
   rsNoEntryInProc = 'No hay nigun asiento en proceso.';
-  rsDebCredAmountSumError = 'Los montos debe y haber no coinciden. Por favor revise los' +
+  rsDebCredAmountSumError =
+    'Los montos debe y haber no coinciden. Por favor revise los' +
     ' datos e intente de nuevo';
   rsPaymntDiscrd = 'Se descarto el pago no guardado';
   rsPaymentRegistered = 'Pago registrado con exito';

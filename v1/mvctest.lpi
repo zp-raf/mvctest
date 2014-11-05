@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="62">
+    <Units Count="64">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -314,12 +314,12 @@
         <UnitName Value="frmprocesorecibo"/>
       </Unit39>
       <Unit40>
-        <Filename Value="view\frmprocnotacredito.pas"/>
+        <Filename Value="maestro\frmprocesofacturabase.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="ProcesoNotaCredito"/>
+        <ComponentName Value="ProcesoFacturaBase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmProcNotaCredito"/>
+        <UnitName Value="frmprocesofacturabase"/>
       </Unit40>
       <Unit41>
         <Filename Value="model\frmaranceldatamodule.pas"/>
@@ -468,6 +468,22 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="reportectrl"/>
       </Unit61>
+      <Unit62>
+        <Filename Value="view\frmprocesonotacredito.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoNotaCredito"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesonotacredito"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="view\frmbuscarfacturas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PopupSeleccionarFactura"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmbuscarfacturas"/>
+      </Unit63>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

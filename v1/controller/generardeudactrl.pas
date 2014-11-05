@@ -5,7 +5,7 @@ unit generardeudactrl;
 interface
 
 uses
-  SysUtils, mvc, ctrl, frmgeneradeudadatamodule, mensajes;
+  SysUtils, mvc, ctrl, frmgeneradeudadatamodule, mensajes, DB;
 
 type
 
@@ -116,8 +116,16 @@ end;
 
 procedure TGenDeudaController.EliminarDeuda(AID: string);
 begin
-  GetCustomModel.EliminarDeuda(AID);
-  GetModel.SaveChanges;
+  try
+    GetCustomModel.EliminarDeuda(AID);
+    GetModel.SaveChanges;
+  except
+    on E: EDatabaseError do
+    begin
+      GetModel.Rollback;
+      raise;
+    end;
+  end;
 end;
 
 procedure TGenDeudaController.Save(Sender: IView);

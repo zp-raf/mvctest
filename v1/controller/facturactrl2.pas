@@ -5,14 +5,14 @@ unit facturactrl2;
 interface
 
 uses
-  ctrl, frmfacturadatamodule2, mvc, Controls,
+  ctrl, frmfacturadatamodule2, mvc, Controls, sgcdTypes, comprobantectrl,
   frmcomprobantedatamodule, buscarpersctrl;
 
 type
 
   { TFacturaController }
 
-  TFacturaController = class(TABMController)
+  TFacturaController = class(TComprobanteController)
   private
     FBuscarPersonasController: TBuscarPersonasController;
     procedure SetBuscarPersonasController(AValue: TBuscarPersonasController);
@@ -21,12 +21,10 @@ type
   public
     constructor Create(AModel: Pointer); overload; override;
     //constructor Create(var AModel); overload;
-    procedure ActualizarTotales(Sender: IView);
     procedure Cancel(Sender: IView);
-    procedure CerrarFactura(Sender: IView);
-    procedure NuevaFactura(Sender: IView);
+    procedure CerrarComprobante(Sender: IView); override;
+    procedure NuevoComprobante(Sender: IView); override;
     procedure SetVencimiento(ADate: TDateTime);
-    function GetFacturaEstado(Sender: IView): TEstadoComprobante;
     property BuscarPersonasController: TBuscarPersonasController
       read FBuscarPersonasController write SetBuscarPersonasController;
   end;
@@ -51,33 +49,23 @@ begin
   FBuscarPersonasController := AValue;
 end;
 
-procedure TFacturaController.ActualizarTotales(Sender: IView);
-begin
-  GetCustomModel.ActualizarTotales;
-end;
-
 procedure TFacturaController.Cancel(Sender: IView);
 begin
   GetModel.DiscardChanges;
 end;
 
-procedure TFacturaController.NuevaFactura(Sender: IView);
+procedure TFacturaController.NuevoComprobante(Sender: IView);
 begin
   GetCustomModel.NuevoComprobante;
-  GetCustomModel.FetchCabecera;
-  GetCustomModel.FetchDetalle;
+  GetCustomModel.FetchCabeceraPersona;
+  GetCustomModel.FetchDetallePersona;
 end;
 
-procedure TFacturaController.CerrarFactura(Sender: IView);
+procedure TFacturaController.CerrarComprobante(Sender: IView);
 begin
   GetModel.SaveChanges;
   GetModel.Commit;
   //GetModel.RefreshDataSets;
-end;
-
-function TFacturaController.GetFacturaEstado(Sender: IView): TEstadoComprobante;
-begin
-  Result := GetCustomModel.Estado;
 end;
 
 procedure TFacturaController.SetVencimiento(ADate: TDateTime);

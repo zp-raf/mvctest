@@ -134,6 +134,20 @@ begin
   Sender.Cancel;
 end;
 
+procedure TController.ErrorHandler(E: Exception; Sender: IView);
+begin
+  if E is EDatabaseError then
+  begin
+    Sender.ShowErrorMessage(GetErrorMessage(E as EDatabaseError));
+    //GetModel.DoOnErrorEvent(Sender as TObject, E as EDatabaseError);
+    (GetModel.MasterDataModule as ISubject).Notify;
+  end
+  else if E is EIBDatabaseError then
+    Sender.ShowErrorMessage(GetErrorMessage(E as EIBDatabaseError))
+  else
+    Sender.ShowErrorMessage(GetErrorMessage(E));
+end;
+
 procedure TController.Cancel(Sender: IView);
 begin
   GetModel.DiscardChanges;
@@ -151,10 +165,12 @@ begin
         CanClose := True;
         GetModel.DiscardChanges;
         (GetModel.MasterDataModule as ISubject).Detach(Sender as IObserver);
+        Exit;
       end;
       mrNo:
       begin
         CanClose := False;
+        Exit;
       end;
     end
   else
@@ -167,10 +183,12 @@ begin
       begin
         CanClose := True;
         (GetModel.MasterDataModule as ISubject).Detach(Sender as IObserver);
+        Exit;
       end;
       mrNo:
       begin
         CanClose := False;
+        Exit;
       end;
     end;
   end;
@@ -255,19 +273,6 @@ begin
   inherited AfterConstruction;
   if not Assigned(FModel) then
     raise Exception.Create(rsModelAsgnErr);
-end;
-
-procedure TController.ErrorHandler(E: Exception; Sender: IView);
-begin
-  if E is EDatabaseError then
-  begin
-    Sender.ShowErrorMessage(GetErrorMessage(E as EDatabaseError));
-    GetModel.OnError((Sender as TObject), (E as EDatabaseError));
-  end
-  else if E is EIBDatabaseError then
-    Sender.ShowErrorMessage(GetErrorMessage(E as EIBDatabaseError))
-  else
-    Sender.ShowErrorMessage(GetErrorMessage(E));
 end;
 
 procedure TController.OpenDataSets(Sender: IView);

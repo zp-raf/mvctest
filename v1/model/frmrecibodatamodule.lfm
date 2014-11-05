@@ -4,6 +4,7 @@ inherited ReciboDataModule: TReciboDataModule
   VerticalOffset = 267
   Width = 542
   inherited qryCabecera: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -22,6 +23,12 @@ inherited ReciboDataModule: TReciboDataModule
         DataType = ftInteger
         Precision = -1
         Size = 0
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftFixedChar
+        Precision = -1
+        Size = 8
       end    
       item
         Name = 'NUMERO'
@@ -191,6 +198,32 @@ inherited ReciboDataModule: TReciboDataModule
       MinValue = 0
       Precision = -1
     end
+    object qryCabeceraTIMBRADO: TStringField[11]
+      DisplayWidth = 8
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 8
+    end
+    object StringField1: TStringField[12]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'TIMBRADO_VENTA'
+      Index = 12
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = AuxTalonario
+      LookupKeyFields = 'ID'
+      LookupResultField = 'TIMBRADO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   inherited qryDetalle: TSQLQuery
     FieldDefs = <    
@@ -325,8 +358,18 @@ inherited ReciboDataModule: TReciboDataModule
     end
   end
   inherited qryNumero: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     SQL.Strings = (
       'select * from GET_NUMERO_RECIBO(:TALONARIOID)'
     )
+    Params = <    
+      item
+        DataType = ftLargeint
+        Name = 'TALONARIOID'
+        ParamType = ptInput
+      end>
+  end
+  inherited AuxTalonario: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
   end
 end

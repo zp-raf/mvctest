@@ -1,0 +1,129 @@
+object PopupSeleccionarFactura: TPopupSeleccionarFactura
+  Left = 393
+  Height = 501
+  Top = 322
+  Width = 804
+  Caption = 'Seleccionar Factura'
+  ClientHeight = 501
+  ClientWidth = 804
+  Constraints.MinHeight = 501
+  Constraints.MinWidth = 804
+  LCLVersion = '1.2.4.0'
+  object DBGrid1: TDBGrid
+    Left = 8
+    Height = 400
+    Top = 56
+    Width = 788
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'FECHA_EMISION'
+        Width = 104
+        FieldName = 'FECHA_EMISION'
+      end    
+      item
+        Title.Caption = 'NUMERO'
+        Width = 65
+        FieldName = 'NUMERO'
+      end    
+      item
+        PickList.Strings = (
+          '10453073'
+          '10369812'
+          '10439758'
+          '10453074'
+          '10453075'
+          '001'
+        )
+        Title.Caption = 'TIMBRADO'
+        Width = 75
+        FieldName = 'TIMBRADO_VENTA'
+      end    
+      item
+        Title.Caption = 'RUC'
+        Width = 38
+        FieldName = 'RUC'
+      end    
+      item
+        Title.Caption = 'NOMBRE'
+        FieldName = 'NOMBRE'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'VALIDO'
+        Width = 56
+        FieldName = 'VALIDO'
+      end    
+      item
+        Title.Caption = 'TOTAL'
+        Width = 52
+        FieldName = 'TOTAL'
+      end    
+      item
+        Title.Caption = 'SUBTOTAL_EXENTAS'
+        Width = 127
+        FieldName = 'SUBTOTAL_EXENTAS'
+      end    
+      item
+        Title.Caption = 'SUBTOTAL_IVA5'
+        Width = 102
+        FieldName = 'SUBTOTAL_IVA5'
+      end    
+      item
+        Title.Caption = 'SUBTOTAL_IVA10'
+        Width = 108
+        FieldName = 'SUBTOTAL_IVA10'
+      end    
+      item
+        Title.Caption = 'VENCIMIENTO'
+        Width = 93
+        FieldName = 'VENCIMIENTO'
+      end>
+    DataSource = NotaCreditoDataModule.dsFacturas
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object ButtonAceptar: TButton
+    Left = 636
+    Height = 25
+    Top = 463
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Aceptar'
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object ButtonCancelar: TButton
+    Left = 721
+    Height = 25
+    Top = 463
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Cancelar'
+    ModalResult = 2
+    TabOrder = 2
+  end
+  object LabeledEdit1: TLabeledEdit
+    AnchorSideLeft.Control = DBGrid1
+    AnchorSideBottom.Control = DBGrid1
+    Left = 8
+    Height = 23
+    Top = 29
+    Width = 296
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 4
+    EditLabel.AnchorSideLeft.Control = LabeledEdit1
+    EditLabel.AnchorSideRight.Control = LabeledEdit1
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = LabeledEdit1
+    EditLabel.Left = 8
+    EditLabel.Height = 15
+    EditLabel.Top = 11
+    EditLabel.Width = 296
+    EditLabel.Caption = 'Escriba para filtrar los resultados'
+    EditLabel.ParentColor = False
+    TabOrder = 3
+  end
+end

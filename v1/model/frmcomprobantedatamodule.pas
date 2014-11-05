@@ -6,25 +6,30 @@ interface
 
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_DBSet, LR_Class, Forms, Controls,
-  Graphics, Dialogs, XMLPropStorage, frmquerydatamodule,
+  Graphics, Dialogs, XMLPropStorage, frmquerydatamodule, mensajes,
   frmpersonasdatamodule, sgcdTypes, observerSubject;
 
-resourcestring
-  rsNoHayDeudas = 'No hay deudas para la persona seleccionada';
-  rsNoSeEstaCreando = 'No se esta creando un comprobante';
-  rsYaSeEstaCreando = 'Ya se esta creando un comprobante';
-  rsPersonaNoEncontrada = 'Persona no encontrada';
-  rsNoSeEncontroDoc = 'No se encontro el documento';
-  rsNoSePuedeSetFac = 'No se puede completar la accion. Se esta editando un comprobante';
-  rsTalonarioNoEncontrado = 'Talonario no encontrado';
-
 type
-
-  TEstadoComprobante = (asInicial, asEditando, asGuardado, asLeyendo);
 
   { TComprobanteDataModule }
 
   TComprobanteDataModule = class(TQueryDataModule)
+    AuxTalonarioACTIVO: TSmallintField;
+    AuxTalonarioCAJA: TStringField;
+    AuxTalonarioCOPIAS: TLongintField;
+    AuxTalonarioDIRECCION: TStringField;
+    AuxTalonarioID: TLongintField;
+    AuxTalonarioNOMBRE: TStringField;
+    AuxTalonarioNUMERO_FIN: TLongintField;
+    AuxTalonarioNUMERO_INI: TLongintField;
+    AuxTalonarioRUBRO: TStringField;
+    AuxTalonarioRUC: TStringField;
+    AuxTalonarioSUCURSAL: TStringField;
+    AuxTalonarioTELEFONO: TStringField;
+    AuxTalonarioTIMBRADO: TStringField;
+    AuxTalonarioTIPO: TLongintField;
+    AuxTalonarioVALIDO_DESDE: TDateField;
+    AuxTalonarioVALIDO_HASTA: TDateField;
     dsPersonasRoles: TDataSource;
     DeudaView: TSQLQuery;
     dsDetalle: TDataSource;
@@ -47,6 +52,7 @@ type
     qryCabecera: TSQLQuery;
     qryNumero: TSQLQuery;
     qryNumeroNUM: TLongintField;
+    AuxTalonario: TSQLQuery;
     tal: TSQLQuery;
     talACTIVO: TSmallintField;
     talCAJA: TStringField;
@@ -95,25 +101,56 @@ type
     procedure SetPersonas(AValue: TPersonasDataModule);
     procedure SetTalonarioID(AValue: string);
   published
+    { Procedimiento para calcular los totales de cada comprobante. Cada
+      comprobante debe implementar este procedimiento. }
     procedure ActualizarTotales; virtual; abstract;
+    function ArePendingChanges: boolean; override;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
+    { Procedimiento para calcular y cargar el monto en el comprobante de acuerdo
+      a los impuestos que le corresponden. Debe ser implementado por cada
+      comprobante ya que cada uno tiene una forma diferente de calculo}
     procedure DeterminarImpuesto; virtual; abstract;
     procedure DiscardChanges; override;
-    procedure FetchCabecera;
-    procedure FetchCabecera(APersonaID: string); virtual;
-    procedure FetchDetalle;
-    procedure FetchDetalle(APersonaID: string); virtual;
+    { Procedimiento para traer informacion para la cabecera del comrpobante,
+      en el caso de rellenar la informacion a partir de los datos de una persona.
+      Este procedimiento no recibe parametros; actua como intermediario de
+      FetchCabeceraPersona(APersonaID: string) pasandole el ID del registro del
+      cursor actual del dataset de personas.}
+    procedure FetchCabeceraPersona; virtual;
+    { Procedimiento para traer informacion para la cabecera del comrpobante,
+      en el caso de rellenar la informacion a partir de los datos de una persona.
+      En caso de no encontrarse la persona levanta un excepcion EDatabaseError.}
+    procedure FetchCabeceraPersona(APersonaID: string); virtual;
+    { Procedimiento para llenar el detalle del comprobante con la deuda de la
+      persona especidifacda.
+      Este procedimiento no recibe parametros; actua como intermediario de
+      FetchDetalle(APersonaID: string) pasandole el ID del registro del
+      cursor actual del dataset de personas.}
+    procedure FetchDetallePersona; virtual;
+    { Procedimiento para llenar el detalle del comprobante con la deuda de la
+      persona especidifacda.
+      En caso de no encontrarse la persona levanta un excepcion EDatabaseError.}
+    procedure FetchDetallePersona(APersonaID: string); virtual;
+    { Este procedimiento debe traer los factores de impuesto de su lugar de
+      almacenamiento. Cada comprobante debe implementarlo. }
     procedure GetImpuestos; virtual; abstract;
+    { Busca y pone el cursor en el registro de la cabecera del comprobante
+      especificado.
+      Si no se encuentra el comprobante levanta una excepcion EDatabaseError. }
     procedure LocateComprobante(AID: string);
     procedure NuevoComprobante;
     procedure NuevoComprobanteDetalle;
     procedure OnComprobanteError(Sender: TObject; {%H-}E: EDatabaseError); virtual;
     procedure qryDetalleAfterInsert(DataSet: TDataSet); virtual;
     procedure qryDetalleBeforePost(DataSet: TDataSet);
+    { Procedimiento para mover el dataset de detalle cuando se mueve el de
+      cabecera. }
     procedure qryCabeceraAfterScroll(DataSet: TDataSet); virtual; abstract;
     procedure qryCabeceraNewRecord(DataSet: TDataSet); virtual;
+    procedure Rollback; override;
     procedure SaveChanges; override;
+    procedure SetNumero; virtual; abstract;
     procedure SetTipoComprobante(ATipoComprobante: TTipoDocumento);
     function GetMontoComprobante: double;
     property Estado: TEstadoComprobante read FEstado write SetEstado;
@@ -141,6 +178,7 @@ begin
   OnError := @OnComprobanteError;
   QryList.Add(TObject(qryCabecera));
   DetailList.Add(TObject(qryDetalle));
+  AuxQryList.Add(TObject(AuxTalonario));
   AuxQryList.Add(TObject(tal));
   AuxQryList.Add(TObject(ImpuestoView));
   AuxQryList.Add(TObject(DeudaView));
@@ -168,16 +206,16 @@ end;
 
 procedure TComprobanteDataModule.qryCabeceraNewRecord(DataSet: TDataSet);
 begin
-  tal.Close;
-  tal.ParamByName('TALONARIOID').AsString := TALONARIOID;
-  tal.Open;
-  if not tal.Locate('ID', TalonarioID, [loCaseInsensitive]) then
-    raise EDatabaseError.Create(rsTalonarioNoEncontrado);
-  DataSet.FieldByName('TALONARIOID').AsString := TalonarioID;
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(CabeceraGenName);
   DataSet.FieldByName('FECHA_EMISION').AsDateTime := Now;
   DataSet.FieldByName('VALIDO').AsInteger := 1;
   DataSet.FieldByName('TOTAL').AsFloat := 0;
+end;
+
+procedure TComprobanteDataModule.Rollback;
+begin
+  Estado := asInicial;
+  inherited Rollback;
 end;
 
 procedure TComprobanteDataModule.SaveChanges;
@@ -190,11 +228,19 @@ end;
 procedure TComprobanteDataModule.LocateComprobante(AID: string);
 begin
   OpenDataSets;
-  if (Estado in [asEditando]) then
-    raise Exception.Create(rsNoSePuedeSetFac)
-  else if not qryCabecera.Locate('ID', AID, [loCaseInsensitive]) then
-    raise Exception.Create(rsNoSeEncontroDoc);
-  Estado := asLeyendo;
+  try
+    if (Estado in [asEditando]) then
+      raise Exception.Create(rsNoSePuedeSetFac)
+    else if not qryCabecera.Locate('ID', AID, [loCaseInsensitive]) then
+      raise Exception.Create(rsNoSeEncontroDoc);
+    Estado := asLeyendo;
+  except
+    on E: EDatabaseError do
+    begin
+      DoOnErrorEvent(Self, E);
+      raise;
+    end;
+  end;
 end;
 
 procedure TComprobanteDataModule.DiscardChanges;
@@ -210,78 +256,98 @@ begin
     Abort;
 end;
 
-procedure TComprobanteDataModule.FetchCabecera;
+procedure TComprobanteDataModule.FetchCabeceraPersona;
 begin
-  FetchCabecera(FPersonas.PersonasRoles.FieldByName('ID').AsString);
+  FetchCabeceraPersona(FPersonas.PersonasRoles.FieldByName('ID').AsString);
 end;
 
-procedure TComprobanteDataModule.FetchCabecera(APersonaID: string);
+procedure TComprobanteDataModule.FetchCabeceraPersona(APersonaID: string);
 begin
-  // si no se esta haciendo una factura
-  if not (Estado in [asEditando]) then
-    raise EDatabaseError.Create(rsNoSeEstaCreando);
-  // traer nombre, ruc
-  if not FPersonas.Persona.Locate('ID', APersonaID, [loCaseInsensitive]) then
-    raise Exception.Create(rsPersonaNoEncontrada);
-  qryCabecera.FieldByName('PERSONAID').AsString :=
-    FPersonas.PersonasRoles.FieldByName('ID').AsString;
-  qryCabecera.FieldByName('NOMBRE').AsString := FPersonas.PersonaNOMBRECOMPLETO.AsString;
-  // traer direccion, telefono
-  qryCabecera.FieldByName('DIRECCION').AsString := FPersonas.DireccionDIRECCION.AsString;
-  qryCabecera.FieldByName('TELEFONO').AsString :=
-    FPersonas.TelefonoPREFIJO.AsString + fpersonas.TelefonoNUMERO.AsString;
-end;
+  try
+    // si no se esta haciendo una factura
+    if not (Estado in [asEditando]) then
+      raise EDatabaseError.Create(rsNoSeEstaCreando);
+    // traer nombre, ruc
+    if not FPersonas.Persona.Locate('ID', APersonaID, [loCaseInsensitive]) then
+      raise Exception.Create(rsPersonaNoEncontrada);
 
-procedure TComprobanteDataModule.FetchDetalle;
-begin
-  FetchDetalle(FPersonas.PersonasRoles.FieldByName('ID').AsString);
-end;
-
-procedure TComprobanteDataModule.FetchDetalle(APersonaID: string);
-begin
-  // si no se esta haciendo una factura
-  if not (Estado in [asEditando]) then
-    raise EDatabaseError.Create(rsNoSeEstaCreando);
-  DeudaView.Close;
-  DeudaView.ParamByName('personaid').AsString := APersonaID;
-  DeudaView.Open;
-  if DeudaView.IsEmpty then
-    raise EDatabaseError.Create(rsNoHayDeudas);
-  // recorremos y cargamos la deuda
-  DeudaView.First;
-  while not DeudaView.EOF do
-  begin
-    ImpuestoView.Close;
-    ImpuestoView.ParamByName('arancelid').AsString := DeudaViewARANCELID.AsString;
-    ImpuestoView.Open;
-    ImpuestoView.First;
-
-    NuevoComprobanteDetalle;
-    qryDetalle.FieldByName('CANTIDAD').AsInteger := 1;
-    qryDetalle.FieldByName('DEUDAID').Value := DeudaViewID.Value;
-    qryDetalle.FieldByName('DETALLE').Value := DeudaViewDESCRIPCION.Value;
-    // por ahora se maneja que tiene un solo impuesto pero en el futuro
-    // puede tener mas por eso se hace el loop
-    while not ImpuestoView.EOF do
+    qryCabecera.FieldByName('PERSONAID').AsString :=
+      FPersonas.PersonasRoles.FieldByName('ID').AsString;
+    qryCabecera.FieldByName('NOMBRE').AsString :=
+      FPersonas.PersonaNOMBRECOMPLETO.AsString;
+    // traer direccion, telefono
+    qryCabecera.FieldByName('DIRECCION').AsString :=
+      FPersonas.DireccionDIRECCION.AsString;
+    qryCabecera.FieldByName('TELEFONO').AsString :=
+      FPersonas.TelefonoPREFIJO.AsString + fpersonas.TelefonoNUMERO.AsString;
+  except
+    on E: EDatabaseError do
     begin
-      // revisamos si es un impuesto incluido y segun eso ponemos el precio unitario
-      if (ImpuestoViewINCLUIDO.AsInteger = 1) or (ImpuestoView.IsEmpty) then
-        qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
-          (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat)
-      else if ImpuestoViewINCLUIDO.AsInteger = 0 then
-        qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
-          (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) +
-          (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) *
-          ImpuestoViewFACTOR.AsFloat;
-      // vemos que factor de impuesto tiene para poner en el campo apropiado del comprobante
-      DeterminarImpuesto;
-      Break; // sacar esto en el futuro
-      ImpuestoView.Next;
+      DoOnErrorEvent(Self, E);
+      raise;
     end;
-    DeudaView.Next;
   end;
-  ActualizarTotales;
-  (MasterDataModule as ISubject).Notify;
+end;
+
+procedure TComprobanteDataModule.FetchDetallePersona;
+begin
+  FetchDetallePersona(FPersonas.PersonasRoles.FieldByName('ID').AsString);
+end;
+
+procedure TComprobanteDataModule.FetchDetallePersona(APersonaID: string);
+begin
+  // si no se esta haciendo una factura
+  try
+    if not (Estado in [asEditando]) then
+      raise EDatabaseError.Create(rsNoSeEstaCreando);
+
+    DeudaView.Close;
+    DeudaView.ParamByName('personaid').AsString := APersonaID;
+    DeudaView.Open;
+    if DeudaView.IsEmpty then
+      raise EDatabaseError.Create(rsNoHayDeudas);
+    // recorremos y cargamos la deuda
+    DeudaView.First;
+    while not DeudaView.EOF do
+    begin
+      ImpuestoView.Close;
+      ImpuestoView.ParamByName('arancelid').AsString := DeudaViewARANCELID.AsString;
+      ImpuestoView.Open;
+      ImpuestoView.First;
+
+      NuevoComprobanteDetalle;
+      qryDetalle.FieldByName('CANTIDAD').AsInteger := 1;
+      qryDetalle.FieldByName('DEUDAID').Value := DeudaViewID.Value;
+      qryDetalle.FieldByName('DETALLE').Value := DeudaViewDESCRIPCION.Value;
+      // por ahora se maneja que tiene un solo impuesto pero en el futuro
+      // puede tener mas por eso se hace el loop
+      while not ImpuestoView.EOF do
+      begin
+        // revisamos si es un impuesto incluido y segun eso ponemos el precio unitario
+        if (ImpuestoViewINCLUIDO.AsInteger = 1) or (ImpuestoView.IsEmpty) then
+          qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
+            (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat)
+        else if ImpuestoViewINCLUIDO.AsInteger = 0 then
+          qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
+            (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) +
+            (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) *
+            ImpuestoViewFACTOR.AsFloat;
+        // vemos que factor de impuesto tiene para poner en el campo apropiado del comprobante
+        DeterminarImpuesto;
+        Break; // ???: sacar esto en el futuro cuando se resuelva el tema de impuestos
+        ImpuestoView.Next;
+      end;
+      DeudaView.Next;
+    end;
+    ActualizarTotales;
+    (MasterDataModule as ISubject).Notify;
+  except
+    on E: EDatabaseError do
+    begin
+      DoOnErrorEvent(Self, E);
+      raise;
+    end;
+  end;
 end;
 
 procedure TComprobanteDataModule.SetTipoComprobante(ATipoComprobante: TTipoDocumento);
@@ -300,29 +366,62 @@ end;
 
 function TComprobanteDataModule.GetMontoComprobante: double;
 begin
-  if not (Estado in [asLeyendo]) then
-    raise  Exception.Create(rsNoSePuedeSetFac);
-  Result := qryCabecera.FieldByName('TOTAL').AsFloat;
+  try
+    if not (Estado in [asLeyendo]) then
+      raise  Exception.Create(rsNoSePuedeSetFac);
+    Result := qryCabecera.FieldByName('TOTAL').AsFloat;
+  except
+    on E: EDatabaseError do
+    begin
+      DoOnErrorEvent(Self, E);
+      raise;
+    end;
+  end;
 end;
 
 procedure TComprobanteDataModule.NuevoComprobante;
 begin
-  if (Estado in [asEditando]) then
-    raise EDatabaseError.Create(rsYaSeEstaCreando);
-  // antes que nada traemos los factores para iva10 e iva5
-  GetImpuestos;
-  NewRecord;
-  Estado := asEditando;
-  (MasterDataModule as ISubject).Notify;
+  try
+    if (Estado in [asEditando]) then
+      raise EDatabaseError.Create(rsYaSeEstaCreando);
+    // antes que nada traemos los factores para iva10 e iva5
+    GetImpuestos;
+    NewRecord;
+    // ponemos el numero de comprobante y talonario
+    tal.Close;
+    tal.ParamByName('TALONARIOID').AsString := TalonarioID;
+    tal.Open;
+    if not tal.Locate('ID', TalonarioID, [loCaseInsensitive]) then
+      raise EDatabaseError.Create(rsTalonarioNoEncontrado);
+    qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID;
+    SetNumero;
+    Estado := asEditando;
+    (MasterDataModule as ISubject).Notify;
+  except
+    on E: EDatabaseError do
+    begin
+      DoOnErrorEvent(Self, E);
+      raise;
+    end;
+  end;
 end;
 
 procedure TComprobanteDataModule.NuevoComprobanteDetalle;
 begin
-  if (Estado in [asInicial, asGuardado]) then
-    raise EDatabaseError.Create(rsNoSeEstaCreando);
-  qryDetalle.Append;
-  // TODO: cada uno de los campos del detalle (?)
-  (MasterDataModule as ISubject).Notify;
+  try
+    if (Estado in [asInicial, asGuardado]) then
+      raise EDatabaseError.Create(rsNoSeEstaCreando);
+
+    qryDetalle.Append;
+    // TODO: cada uno de los campos del detalle (?)
+    (MasterDataModule as ISubject).Notify;
+  except
+    on E: EDatabaseError do
+    begin
+      DoOnErrorEvent(Self, E);
+      raise;
+    end;
+  end;
 end;
 
 procedure TComprobanteDataModule.OnComprobanteError(Sender: TObject; E: EDatabaseError);
@@ -366,6 +465,14 @@ begin
   if FTalonarioID = AValue then
     Exit;
   FTalonarioID := AValue;
+end;
+
+function TComprobanteDataModule.ArePendingChanges: boolean;
+begin
+  if (Estado in [asInicial, asGuardado]) then
+    Result := False
+  else
+    Result := True;
 end;
 
 end.

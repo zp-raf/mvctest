@@ -5,80 +5,29 @@ unit frmprocesofacturacion;
 interface
 
 uses
-  SysUtils, FileUtil, Forms, Controls, Graphics, Menus,
-  StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, frmproceso,
-  facturactrl2, frmcomprobantedatamodule,
-  frmbuscarpersonas, ctrl, mensajes;
+  SysUtils, FileUtil, Forms, Controls, Graphics, Menus, StdCtrls, DBCtrls,
+  EditBtn, PairSplitter, DBGrids, ComCtrls, ButtonPanel, frmproceso,
+  facturactrl2, frmcomprobantedatamodule, frmprocesofacturabase, sgcdTypes,
+  frmbuscarpersonas, ctrl, mensajes, Classes;
 
 type
 
   { TProcesoFacturacion }
 
-  TProcesoFacturacion = class(TProceso)
+  TProcesoFacturacion = class(TProcesoFacturaBase)
+    DateEditVen: TDateEdit;
+    LabelVen: TLabel;
+    RadioCondicion: TDBRadioGroup;
   protected
-    function GetABMController: TABMController;
     function GetCustomController: TFacturaController;
   published
-    btSeleccionar: TButton;
-    ButtonLimpiar: TButton;
-    Cabecera: TGroupBox;
-    RadioCondicion: TDBRadioGroup;
-    DateEditFecha: TDateEdit;
-    DateEditVen: TDateEdit;
-    DBEditDireccion: TDBEdit;
-    DBEditSubTotal5: TDBEdit;
-    DBEditSubTotal10: TDBEdit;
-    DBEditNombre: TDBEdit;
-    DBEditRuc: TDBEdit;
-    DBEditTelefono: TDBEdit;
-    DBEditNotaRem: TDBEdit;
-    DBEditSubTotal: TDBEdit;
-    DBEditGranTotal: TDBEdit;
-    DBEditIVA5: TDBEdit;
-    DBEditIVA10: TDBEdit;
-    DBEditIVATotal: TDBEdit;
-    DBGridDet: TDBGrid;
-    DBNavigatorDet: TDBNavigator;
-    DBTextNro: TDBText;
-    DBTextTimbrado: TDBText;
-    Detalles: TGroupBox;
-    LabelGranTotal: TLabel;
-    LabelDireccion: TLabel;
-    LabelVen: TLabel;
-    LabelNro: TLabel;
-    LabelTimbrado: TLabel;
-    LabelRuc: TLabel;
-    LabelTelefono: TLabel;
-    LabelNotaRem: TLabel;
-    LabelFecha: TLabel;
-    LabelIVA5: TLabel;
-    LabelIVA10: TLabel;
-    LabelIVATotal: TLabel;
-    LabelNombre: TLabel;
-    PairSplitterDetSubTot: TPairSplitter;
-    PairSplitterSide1: TPairSplitterSide;
-    PairSplitterSide2: TPairSplitterSide;
-    LabelSubtotal: TLabel;
-    LabelSubtotal5: TLabel;
-    LabelSubtotal10: TLabel;
-    Totales: TGroupBox;
-    procedure btSeleccionarClick(Sender: TObject);
-    procedure ButtonLimpiarClick(Sender: TObject);
     procedure DateEditVenEditingDone(Sender: TObject);
-    procedure DBGridDetEditingDone(Sender: TObject);
-    procedure DBNavigatorDetBeforeAction(Sender: TObject; {%H-}Button: TDBNavButtonType);
-    procedure DBNavigatorDetClick(Sender: TObject; Button: TDBNavButtonType);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormShow(Sender: TObject);
-    procedure RadioCondicionChange(Sender: TObject);
-    procedure Edit;
-    procedure Insert;
-    procedure Delete;
-    procedure Refresh;
+    procedure Limpiar; override;
     procedure ObserverUpdate(const Subject: IInterface); override;
-    procedure Limpiar;
-    procedure OKButtonClick(Sender: TObject);
-    procedure CancelButtonClick(Sender: TObject);
+    procedure OKButtonClick(Sender: TObject); override;
+    procedure OnPopupCancel; override;
+    procedure OnPopupOk; override;
+    procedure RadioCondicionChange(Sender: TObject);
   end;
 
 var
@@ -90,99 +39,12 @@ implementation
 
 { TProcesoFacturacion }
 
-procedure TProcesoFacturacion.btSeleccionarClick(Sender: TObject);
-var
-  Popup: TPopupSeleccionPersonas;
-begin
-  try
-    Popup := TPopupSeleccionPersonas.Create(Self);
-    GetController.Connect(Self);
-    case Popup.ShowModal of
-      mrOk:
-      begin
-        GetController.Connect(Self);
-        // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
-        GetCustomController.NuevaFactura(Self);
-      end
-      else
-      begin
-        GetController.CloseDataSets(Self);
-        Exit;
-      end;
-    end;
-  finally
-    Popup.Free;
-  end;
-end;
-
-procedure TProcesoFacturacion.ButtonLimpiarClick(Sender: TObject);
-begin
-  Limpiar;
-  GetABMController.Cancel(Self);
-end;
-
 procedure TProcesoFacturacion.DateEditVenEditingDone(Sender: TObject);
 begin
   if DateEditVen.Date < Now then
     ShowErrorMessage(rsDateNotAllow)
   else
     GetCustomController.SetVencimiento(DateEditVen.Date);
-end;
-
-procedure TProcesoFacturacion.DBGridDetEditingDone(Sender: TObject);
-begin
-  GetCustomController.ActualizarTotales(Self);
-end;
-
-procedure TProcesoFacturacion.DBNavigatorDetBeforeAction(Sender: TObject;
-  Button: TDBNavButtonType);
-begin
-  //if not (Sender is TDBNavigator) then
-  //  Abort;
-  //case Button of
-  //  nbInsert:
-  //  begin
-  //    Insert;
-  //    Abort;
-  //  end;
-  //  nbEdit:
-  //  begin
-  //    Edit;
-  //    Abort;
-  //  end;
-  //  nbRefresh:
-  //  begin
-  //    Refresh;
-  //    Abort;
-  //  end;
-  //  nbDelete:
-  //  begin
-  //    Delete;
-  //    Abort;
-  //  end;
-  //end;
-end;
-
-procedure TProcesoFacturacion.DBNavigatorDetClick(Sender: TObject;
-  Button: TDBNavButtonType);
-begin
-  if not (Sender is TDBNavigator) then
-    Abort;
-  case Button of
-    nbDelete: GetCustomController.ActualizarTotales(Self);
-  end;
-end;
-
-procedure TProcesoFacturacion.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  inherited;
-end;
-
-procedure TProcesoFacturacion.FormShow(Sender: TObject);
-begin
-  inherited;
-  //GetABMController.NewRecord(Self);
-  GetController.CloseDataSets(Self);
 end;
 
 procedure TProcesoFacturacion.RadioCondicionChange(Sender: TObject);
@@ -194,9 +56,16 @@ begin
   end;
 end;
 
-function TProcesoFacturacion.GetABMController: TABMController;
+procedure TProcesoFacturacion.OnPopupCancel;
 begin
-  Result := GetController as TABMController;
+  GetController.CloseDataSets(Self);
+end;
+
+procedure TProcesoFacturacion.OnPopupOk;
+begin
+  GetController.Connect(Self);
+  // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
+  GetCustomController.NuevoComprobante(Self);
 end;
 
 function TProcesoFacturacion.GetCustomController: TFacturaController;
@@ -204,83 +73,20 @@ begin
   Result := GetController as TFacturaController;
 end;
 
-procedure TProcesoFacturacion.Edit;
-begin
-  inherited;
-end;
-
-procedure TProcesoFacturacion.Insert;
-begin
-
-end;
-
-procedure TProcesoFacturacion.Delete;
-begin
-
-end;
-
-procedure TProcesoFacturacion.Refresh;
-begin
-
-end;
-
 procedure TProcesoFacturacion.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
-  case GetCustomController.GetFacturaEstado(Self) of
-    asInicial:
-    begin
-      Cabecera.Enabled := False;
-      Detalles.Enabled := False;
-      Totales.Enabled := False;
-      DBGridDet.Color := clInactiveCaption;
-      btSeleccionar.Enabled := True;
-      ButtonLimpiar.Enabled := True;
-      GetController.CloseDataSets(Self);
-    end;
-    asGuardado:
-    begin
-      Cabecera.Enabled := False;
-      Detalles.Enabled := False;
-      Totales.Enabled := False;
-      DBGridDet.Color := clInactiveCaption;
-      btSeleccionar.Enabled := True;
-      ButtonLimpiar.Enabled := True;
-      GetController.CloseDataSets(Self);
-    end;
+  case GetCustomController.GetEstadoComprobante(Self) of
     asEditando:
     begin
-      Cabecera.Enabled := True;
-      Detalles.Enabled := True;
-      Totales.Enabled := True;
-      DBGridDet.Color := clWindow;
-      btSeleccionar.Enabled := False;
-      ButtonLimpiar.Enabled := False;
-      DBGridDet.AutoSizeColumns;
       DateEditVen.Date := now; // no me gusta esto pero bue...
-    end;
-    asLeyendo:
-    begin
-      GetController.OpenDataSets(Self);
     end;
   end;
 end;
 
 procedure TProcesoFacturacion.Limpiar;
 begin
-  DBEditDireccion.Clear;
-  DBEditRuc.Clear;
-  DBEditTelefono.Clear;
-  DBEditNotaRem.Clear;
-  DBEditSubTotal.Clear;
-  DBEditGranTotal.Clear;
-  DBEditIVA5.Clear;
-  DBEditIVA10.Clear;
-  DBEditIVATotal.Clear;
-  DBEditSubTotal5.Clear;
-  DBEditSubTotal10.Clear;
-  DBEditNombre.Clear;
-  DateEditFecha.Clear;
+  inherited;
   DateEditVen.Clear;
   RadioCondicion.ItemIndex := -1;
 end;
@@ -298,23 +104,7 @@ begin
     ShowErrorMessage('Fecha de vencimiento no valida');
     Exit;
   end;
-  if not (GetCustomController.GetFacturaEstado(Self) in [asEditando]) then
-  begin
-    ShowInfoMessage('No se esta procesando ninguna factura');
-    Exit;
-  end;
-  GetCustomController.CerrarFactura(Self);
-  ShowInfoMessage('Factura ingresada correctamente');
-  Limpiar;
-end;
-
-procedure TProcesoFacturacion.CancelButtonClick(Sender: TObject);
-begin
-  GetABMController.Cancel(Self);
-  GetABMController.Rollback(Self);
-  ShowInfoMessage('Factura descartada');
-  Limpiar;
-  GetController.CloseDataSets(Self);
+  inherited;
 end;
 
 {

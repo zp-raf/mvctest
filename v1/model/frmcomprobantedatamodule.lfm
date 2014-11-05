@@ -5,7 +5,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
   HorizontalOffset = 456
   VerticalOffset = 308
   Width = 542
-  object dsCabecera: TDatasource[0]
+  object dsCabecera: TDataSource[0]
     DataSet = qryCabecera
     left = 32
     top = 24
@@ -31,7 +31,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     left = 112
     top = 98
   end
-  object dsDetalle: TDatasource[3]
+  object dsDetalle: TDataSource[3]
     DataSet = qryDetalle
     left = 32
     top = 98
@@ -48,14 +48,9 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     Transaction = sgcdDataModule.tran
     ReadOnly = True
     SQL.Strings = (
-      'select * from GET_NUMERO_FACTURA(:TALONARIOID)'
+      ''
     )
-    Params = <    
-      item
-        DataType = ftLargeint
-        Name = 'TALONARIOID'
-        ParamType = ptInput
-      end>
+    Params = <>
     left = 256
     top = 24
     object qryNumeroNUM: TLongintField
@@ -69,12 +64,12 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = False
     end
   end
-  object dsNum: TDatasource[5]
+  object dsNum: TDataSource[5]
     DataSet = qryNumero
     left = 200
     top = 24
   end
-  object dstal: TDatasource[6]
+  object dstal: TDataSource[6]
     DataSet = tal
     left = 32
     top = 176
@@ -704,8 +699,284 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = True
     end
   end
-  object dsPersonasRoles: TDatasource[14]
+  object dsPersonasRoles: TDataSource[14]
     left = 279
     top = 104
+  end
+  object AuxTalonario: TSQLQuery[15]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIPO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'RUBRO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TELEFONO'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'VALIDO_DESDE'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO_HASTA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SUCURSAL'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CAJA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO_INI'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NUMERO_FIN'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'COPIAS'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from talonario'
+    )
+    Params = <>
+    left = 279
+    top = 260
+    object AuxTalonarioID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object AuxTalonarioTIPO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TIPO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object AuxTalonarioNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object AuxTalonarioRUBRO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUBRO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object AuxTalonarioDIRECCION: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'DIRECCION'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 512
+    end
+    object AuxTalonarioTELEFONO: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'TELEFONO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 512
+    end
+    object AuxTalonarioTIMBRADO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object AuxTalonarioVALIDO_DESDE: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO_DESDE'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object AuxTalonarioVALIDO_HASTA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO_HASTA'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object AuxTalonarioRUC: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUC'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AuxTalonarioSUCURSAL: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'SUCURSAL'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object AuxTalonarioCAJA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CAJA'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object AuxTalonarioNUMERO_INI: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO_INI'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object AuxTalonarioNUMERO_FIN: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO_FIN'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object AuxTalonarioCOPIAS: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'COPIAS'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object AuxTalonarioACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
   end
 end

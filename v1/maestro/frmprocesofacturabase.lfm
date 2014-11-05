@@ -1,0 +1,262 @@
+inherited ProcesoFacturaBase: TProcesoFacturaBase
+  Left = 591
+  Height = 750
+  Top = 177
+  Width = 900
+  ClientHeight = 730
+  ClientWidth = 900
+  Constraints.MinHeight = 750
+  Constraints.MinWidth = 900
+  OnShow = FormShow
+  inherited StatusBar1: TStatusBar
+    Top = 707
+    Width = 900
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 667
+    Width = 888
+  end
+  inherited Cabecera: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    Height = 144
+    Width = 884
+    ClientHeight = 126
+    ClientWidth = 880
+    object DBEditNotaRem: TDBEdit[14]
+      Left = 736
+      Height = 23
+      Top = 56
+      Width = 136
+      DataField = 'NOTA_REMISION'
+      CharCase = ecNormal
+      MaxLength = 255
+      TabOrder = 5
+    end
+    object LabelNotaRem: TLabel[15]
+      AnchorSideLeft.Control = DBEditNotaRem
+      AnchorSideBottom.Control = DBEditNotaRem
+      Left = 736
+      Height = 15
+      Top = 41
+      Width = 91
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nota de remision'
+      ParentColor = False
+    end
+  end
+  inherited PairSplitterDetSubTot: TPairSplitter
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    Cursor = crDefault
+    Height = 477
+    Top = 184
+    Width = 884
+    Position = 312
+    inherited PairSplitterSide1: TPairSplitterSide
+      Height = 312
+      Width = 884
+      ClientWidth = 884
+      ClientHeight = 312
+      inherited Detalles: TGroupBox
+        Height = 312
+        Width = 884
+        ClientHeight = 294
+        ClientWidth = 880
+        inherited DBGridDet: TDBGrid
+          Height = 245
+          Width = 864
+          Columns = <          
+            item
+              PickList.Strings = (              )
+              ReadOnly = True
+              SizePriority = 0
+              Title.Caption = 'CANTIDAD'
+              Width = 74
+              FieldName = 'CANTIDAD'
+            end          
+            item
+              MinSize = 30
+              PickList.Strings = (              )
+              ReadOnly = True
+              Title.Caption = 'DETALLE'
+              Width = 62
+              FieldName = 'DETALLE'
+            end          
+            item
+              PickList.Strings = (              )
+              SizePriority = 0
+              Title.Caption = 'PRECIO UNITARIO'
+              Width = 112
+              FieldName = 'PRECIO_UNITARIO'
+            end          
+            item
+              PickList.Strings = (              )
+              Title.Caption = 'EXENTA'
+              FieldName = 'EXENTA'
+            end          
+            item
+              PickList.Strings = (              )
+              Title.Caption = 'IVA5'
+              FieldName = 'IVA5'
+            end          
+            item
+              PickList.Strings = (              )
+              Title.Caption = 'IVA10'
+              FieldName = 'IVA10'
+            end>
+        end
+        inherited DBNavigatorDet: TDBNavigator
+          Top = 261
+          Hints.Strings = (          )
+        end
+      end
+    end
+    inherited PairSplitterSide2: TPairSplitterSide
+      Height = 160
+      Top = 317
+      Width = 884
+      ClientWidth = 884
+      ClientHeight = 160
+      inherited Totales: TGroupBox
+        Width = 884
+        ClientWidth = 880
+        inherited DBEditGranTotal: TDBEdit
+          Top = 64
+        end
+        inherited LabelGranTotal: TLabel
+          Top = 49
+        end
+        object DBEditSubTotal: TDBEdit[2]
+          Left = 8
+          Height = 23
+          Top = 19
+          Width = 136
+          DataField = 'SUBTOTAL_EXENTAS'
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 1
+        end
+        object LabelSubtotal: TLabel[3]
+          AnchorSideLeft.Control = DBEditSubTotal
+          AnchorSideBottom.Control = DBEditSubTotal
+          Left = 8
+          Height = 15
+          Top = 4
+          Width = 86
+          Anchors = [akLeft, akBottom]
+          Caption = 'Subtotal Exentas'
+          ParentColor = False
+        end
+        object LabelSubtotal5: TLabel[4]
+          AnchorSideLeft.Control = DBEditSubTotal5
+          AnchorSideBottom.Control = DBEditSubTotal5
+          Left = 160
+          Height = 15
+          Top = 4
+          Width = 114
+          Anchors = [akLeft, akBottom]
+          Caption = 'Subtotal Gravadas 5%'
+          ParentColor = False
+        end
+        object DBEditSubTotal5: TDBEdit[5]
+          Left = 160
+          Height = 23
+          Top = 19
+          Width = 136
+          DataField = 'SUBTOTAL_IVA5'
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 2
+        end
+        object DBEditSubTotal10: TDBEdit[6]
+          Left = 312
+          Height = 23
+          Top = 19
+          Width = 136
+          DataField = 'SUBTOTAL_IVA10'
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 3
+        end
+        object LabelSubtotal10: TLabel[7]
+          AnchorSideLeft.Control = DBEditSubTotal10
+          AnchorSideBottom.Control = DBEditSubTotal10
+          Left = 312
+          Height = 15
+          Top = 4
+          Width = 120
+          Anchors = [akLeft, akBottom]
+          Caption = 'Subtotal Gravadas 10%'
+          ParentColor = False
+        end
+        object DBEditIVA5: TDBEdit[8]
+          Left = 8
+          Height = 23
+          Top = 111
+          Width = 136
+          DataField = 'IVA5'
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 4
+        end
+        object LabelIVA5: TLabel[9]
+          AnchorSideLeft.Control = DBEditIVA5
+          AnchorSideBottom.Control = DBEditIVA5
+          Left = 8
+          Height = 15
+          Top = 96
+          Width = 37
+          Anchors = [akLeft, akBottom]
+          Caption = 'IVA 5%'
+          ParentColor = False
+        end
+        object LabelIVA10: TLabel[10]
+          AnchorSideLeft.Control = DBEditIVA10
+          AnchorSideBottom.Control = DBEditIVA10
+          Left = 160
+          Height = 15
+          Top = 96
+          Width = 43
+          Anchors = [akLeft, akBottom]
+          Caption = 'IVA 10%'
+          ParentColor = False
+        end
+        object DBEditIVA10: TDBEdit[11]
+          Left = 160
+          Height = 23
+          Top = 111
+          Width = 136
+          DataField = 'IVA10'
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 5
+        end
+        object DBEditIVATotal: TDBEdit[12]
+          Left = 312
+          Height = 23
+          Top = 111
+          Width = 136
+          DataField = 'IVA_TOTAL'
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 6
+        end
+        object LabelIVATotal: TLabel[13]
+          AnchorSideLeft.Control = DBEditIVATotal
+          AnchorSideBottom.Control = DBEditIVATotal
+          Left = 312
+          Height = 15
+          Top = 96
+          Width = 48
+          Anchors = [akLeft, akBottom]
+          Caption = 'IVA Total'
+          ParentColor = False
+        end
+      end
+    end
+  end
+  inherited ButtonSeleccionarPers: TButton
+    OnClick = ButtonSeleccionarPersClick
+  end
+end

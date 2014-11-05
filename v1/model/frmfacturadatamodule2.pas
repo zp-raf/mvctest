@@ -61,12 +61,13 @@ type
     procedure ActualizarTotales; override;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DeterminarImpuesto; override;
-    procedure FetchCabecera(APersonaID: string); override; overload;
+    procedure FetchCabeceraPersona(APersonaID: string); override; overload;
     procedure GetImpuestos; override;
     procedure qryCabeceraAfterScroll(DataSet: TDataSet); override;
     procedure qryCabeceraNewRecord(DataSet: TDataSet); override;
     procedure qryDetalleAfterInsert(DataSet: TDataSet); override;
     procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
+    procedure SetNumero; override;
     property IVA10Codigo: string read FIVA10Codigo write SetIVA10Codigo;
     property IVA5Codigo: string read FIVA5Codigo write SetIVA5Codigo;
   end;
@@ -165,9 +166,9 @@ begin
   end;
 end;
 
-procedure TFacturasDataModule.FetchCabecera(APersonaID: string);
+procedure TFacturasDataModule.FetchCabeceraPersona(APersonaID: string);
 begin
-  inherited FetchCabecera(APersonaID);
+  inherited FetchCabeceraPersona(APersonaID);
   if Personas.PersonaRUC.IsNull then
     qryCabeceraRUC.AsString := Personas.PersonaCEDULA.AsString
   else
@@ -248,6 +249,20 @@ begin
   else
     qryDetalleEXENTA.AsFloat :=
       qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+end;
+
+procedure TFacturasDataModule.SetNumero;
+begin
+  try
+    qryNumero.Close;
+    qryNumero.ParamByName('TALONARIOID').AsString := TalonarioID;
+    qryNumero.Open;
+    qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID; // por si acaso...
+    qryCabecera.FieldByName('NUMERO').AsString := qryNumeroNUM.AsString;
+  except
+    on E: EDatabaseError do
+      DoOnErrorEvent(Self, E);
+  end;
 end;
 
 end.

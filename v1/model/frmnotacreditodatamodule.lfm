@@ -1,5 +1,6 @@
 inherited NotaCreditoDataModule: TNotaCreditoDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 399
   HorizontalOffset = 478
   VerticalOffset = 228
@@ -21,6 +22,18 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       end    
       item
         Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FACTURAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIMBRADO'
         DataType = ftInteger
         Precision = -1
         Size = 0
@@ -114,14 +127,8 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
         DataType = ftSmallint
         Precision = -1
         Size = 0
-      end    
-      item
-        Name = 'FACTURAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
       end>
-    Active = True
+    OnNewRecord = qryCabeceraNewRecord
     SQL.Strings = (
       'select * from NOTA_CREDITO'
     )
@@ -341,9 +348,47 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ReadOnly = False
       Required = False
     end
+    object lookUpNUMERO_FACTURA: TLongintField[19]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'NUMERO_FACTURA'
+      Index = 19
+      KeyFields = 'FACTURAID'
+      LookupCache = False
+      LookupDataSet = FacturasDataModule.qryCabecera
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NUMERO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+    end
+    object StringField1: TStringField[20]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'TIMBRADO_VENTA'
+      Index = 20
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = AuxTalonario
+      LookupKeyFields = 'ID'
+      LookupResultField = 'TIMBRADO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraTIMBRADO: TLongintField[21]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   inherited qryDetalle: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -359,6 +404,12 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       end    
       item
         Name = 'DEUDAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FACTURADETALLEID'
         DataType = ftInteger
         Precision = -1
         Size = 0
@@ -398,17 +449,18 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
         DataType = ftFloat
         Precision = -1
         Size = 0
-      end    
-      item
-        Name = 'CONTRA_FACTURA'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
       end>
-    Active = True
+    AfterInsert = qryDetalleAfterInsert
     SQL.Strings = (
       'select * from NOTA_CREDITO_DETALLE'
+      'where notacreditoid = :notacreditoid'
     )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'notacreditoid'
+        ParamType = ptInput
+      end>
     object qryDetalleID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
@@ -469,6 +521,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = qryDetallePRECIO_UNITARIOChange
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -512,10 +565,10 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryDetalleCONTRA_FACTURA: TLongintField[9]
+    object qryDetalleFACTURADETALLEID: TLongintField[9]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'CONTRA_FACTURA'
+      FieldName = 'FACTURADETALLEID'
       Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -524,8 +577,23 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
     end
   end
   inherited qryNumero: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     SQL.Strings = (
       'select * from GET_NUMERO_NOTA_CREDITO(:TALONARIOID)'
     )
+    Params = <    
+      item
+        DataType = ftLargeint
+        Name = 'TALONARIOID'
+        ParamType = ptInput
+      end>
+  end
+  inherited AuxTalonario: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    left = 280
+  end
+  object dsFacturas: TDataSource[16]
+    left = 368
+    top = 260
   end
 end

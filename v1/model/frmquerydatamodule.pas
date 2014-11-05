@@ -5,16 +5,14 @@ unit frmquerydatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, frmsgcddatamodule, mvc, mensajes, sqldb, DB,
-  strutils;
+  Classes, SysUtils, FileUtil, Forms, frmsgcddatamodule, mvc, mensajes, sqldb,
+  DB, strutils, sgcdTypes;
 
 type
 
   { TQueryDataModule }
 
   TQueryDataModule = class(TDataModule, IModel)
-  public
-    constructor Create(AOwner: TComponent; AMaster: IDBModel); overload;
   private
     FAuxQryList: TQryList;
     FOnError: TErrorEvent;
@@ -38,9 +36,11 @@ type
     FMasterDataModule: IDBModel;
     procedure SetQryList(AValue: TQryList);
     procedure SetSearchFieldList(AValue: TSearchFieldList);
+  public
+    constructor Create(AOwner: TComponent; AMaster: IDBModel); overload;
   published
     procedure BeforeDestruction; override;
-    procedure CloseDataSets;
+    procedure CloseDataSets; virtual;
     procedure Commit;
     procedure Connect; virtual;
     procedure DataModuleCreate(Sender: TObject); virtual;
@@ -52,14 +52,14 @@ type
     procedure EditCurrentRecord;
     procedure NewRecord;
     procedure NewDetailRecord;
-    procedure OnErrorEvent(Sender: TObject; {%H-}E: EDatabaseError); virtual;
-    procedure OpenDataSets;
+    procedure DoOnErrorEvent(Sender: TObject; {%H-}E: EDatabaseError); virtual;
+    procedure OpenDataSets; virtual;
     procedure RefreshDataSets; virtual;
     procedure Rollback; virtual;
     procedure SaveChanges; virtual;
     procedure SetReadOnly(Option: boolean);
     procedure UnfilterData;
-    function ArePendingChanges: boolean;
+    function ArePendingChanges: boolean; virtual;
     function GetCurrentRecordText: string;
     function GetDBStatus: TDBInfo;
     property AuxQryList: TQryList read GetAuxQryList write SetAuxQryList;
@@ -117,7 +117,6 @@ begin
   FAuxQryList := TQryList.Create(False);
   FDetailList := TQryList.Create(False);
   FSearchText := '';
-  OnError := @OnErrorEvent;
 end;
 
 procedure TQueryDataModule.DataModuleDestroy(Sender: TObject);
@@ -307,9 +306,10 @@ begin
   end;
 end;
 
-procedure TQueryDataModule.OnErrorEvent(Sender: TObject; E: EDatabaseError);
+procedure TQueryDataModule.DoOnErrorEvent(Sender: TObject; E: EDatabaseError);
 begin
-
+  if Assigned(FOnError) then
+    FOnError(Sender, E);
 end;
 
 procedure TQueryDataModule.OpenDataSets;

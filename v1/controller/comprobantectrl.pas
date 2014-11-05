@@ -5,7 +5,7 @@ unit comprobantectrl;
 interface
 
 uses
-  mvc, ctrl, frmcomprobantedatamodule;
+  mvc, ctrl, frmcomprobantedatamodule, sgcdTypes;
 
 type
 
@@ -13,11 +13,11 @@ type
 
   TComprobanteController = class(TABMController)
   protected
-    function GetCustomModel: TComprobanteDataModule;
+    function GetComprobanteModel: TComprobanteDataModule;
   public
-    procedure ActualizarTotales(Sender: IView);
-    procedure CerrarComprobante(Sender: IView);
-    procedure NuevoComprobante(Sender: IView);
+    procedure ActualizarTotales(Sender: IView); virtual;
+    procedure CerrarComprobante(Sender: IView); virtual; abstract;
+    procedure NuevoComprobante(Sender: IView); virtual; abstract;
     function GetEstadoComprobante(Sender: IView): TEstadoComprobante;
   end;
 
@@ -25,29 +25,19 @@ implementation
 
 { TComprobanteController }
 
-function TComprobanteController.GetCustomModel: TComprobanteDataModule;
+function TComprobanteController.GetComprobanteModel: TComprobanteDataModule;
 begin
   Result := GetModel as TComprobanteDataModule;
 end;
 
 procedure TComprobanteController.ActualizarTotales(Sender: IView);
 begin
-
-end;
-
-procedure TComprobanteController.CerrarComprobante(Sender: IView);
-begin
-
-end;
-
-procedure TComprobanteController.NuevoComprobante(Sender: IView);
-begin
-
+  GetComprobanteModel.ActualizarTotales;
 end;
 
 function TComprobanteController.GetEstadoComprobante(Sender: IView): TEstadoComprobante;
 begin
-  Result := GetCustomModel.Estado;
+  Result := GetComprobanteModel.Estado;
 end;
 
 end.

@@ -5,15 +5,12 @@ unit mvc;
 interface
 
 uses
-  Classes, SysUtils, Forms, mensajes, contnrs, DB;
+  Classes, SysUtils, Forms, mensajes, contnrs, DB, sgcdTypes;
 
 type
 
-  TErrorEvent = procedure(Sender: TObject; E: EDatabaseError) of object;
-
   { Forward declarations }
 
-  TQryList = class;
   IController = interface;
   IModel = interface;
   IDBModel = interface;
@@ -21,17 +18,6 @@ type
   IView = interface;
   IABMController = interface;
   IABMView = interface;
-
-  { TQryList }
-
-  TQryList = class(TFPObjectList)
-  end;
-
-
-  { TSearchFieldList }
-
-  TSearchFieldList = class(TStringList)
-  end;
 
   { IView }
 

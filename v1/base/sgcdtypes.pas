@@ -5,7 +5,7 @@ unit sgcdTypes;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, db, contnrs;
 
 const
   //CREDITO = '1';
@@ -37,12 +37,22 @@ const
 
 type
 
+  TErrorEvent = procedure(Sender: TObject; E: EDatabaseError) of object;
+
+  TQryList = class(TFPObjectList)
+  end;
+
+  TSearchFieldList = class(TStringList)
+  end;
+
   TTipoDocumento = (doFactura, doRecibo, doNotaCredito);
 
   TFormaPago = (paCheque, paEfectivo, paTarjetaDebito, paTarjetaCredito);
 
   // Para la ventana de documentos
   TDocViewerDocType = (dtFacturaNocobrada = 1, dtFacturaCobrada = 2, dtRecibo = 3);
+
+  TEstadoComprobante = (asInicial, asEditando, asGuardado, asLeyendo);
 
 implementation
 
