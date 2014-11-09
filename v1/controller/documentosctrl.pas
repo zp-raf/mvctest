@@ -18,6 +18,7 @@ type
   protected
     function GetCustomModel: TDocumentosDataModule;
   public
+    constructor Create(AModel: Pointer); overload; override;
     procedure AnularDoc(ATipoDoc: TDocViewerDocType; Sender: IFormView);
     procedure AnularDoc(ATipoDoc: TDocViewerDocType; ADoc: string; Sender: IFormView);
     procedure AnularPago(ATipoDoc: TDocViewerDocType; Sender: IFormView);
@@ -28,6 +29,7 @@ type
     procedure VerDocumento(ATipoDoc: TDocViewerDocType; ADoc: string; Sender: IFormView);
   end;
 
+
 implementation
 
 { TDocumentosController }
@@ -37,41 +39,61 @@ begin
   Result := GetModel as TDocumentosDataModule;
 end;
 
+constructor TDocumentosController.Create(AModel: Pointer);
+begin
+  inherited Create(AModel);
+end;
+
 procedure TDocumentosController.AnularDoc(ATipoDoc: TDocViewerDocType;
   Sender: IFormView);
 begin
-
+  case ATipoDoc of
+    dtFacturaNocobrada:
+    begin
+      AnularDoc(ATipoDoc, GetCustomModel.FacturasViewID.AsString, Sender);
+    end;
+  end;
 end;
 
 procedure TDocumentosController.AnularDoc(ATipoDoc: TDocViewerDocType;
   ADoc: string; Sender: IFormView);
 begin
-
+  case ATipoDoc of
+    dtFacturaNocobrada:
+    begin
+      GetCustomModel.AnularFactura(ADoc);
+      Sender.ShowInfoMessage('Operacion exitosa');
+      Commit(Sender);
+      RefreshData(Sender);
+    end;
+  end;
 end;
 
 procedure TDocumentosController.AnularPago(ATipoDoc: TDocViewerDocType;
   Sender: IFormView);
 begin
-  {
-   case ATipoDoc of
-     doFactura: AnularDoc(ATipoDoc, GetCustomModel.CobrosView.Lookup('ID', GetCustomModel.FacturasCobradasViewID., Sender);
-   end;
-  }
+  try
+    case ATipoDoc of
+      dtFacturaCobrada: AnularDoc(ATipoDoc,
+          GetCustomModel.FacturasCobradasView.FieldByName('ID').AsString, Sender);
+    end;
+  except
+    on E: Exception do
+      raise;
+  end;
 end;
 
 procedure TDocumentosController.AnularPago(ATipoDoc: TDocViewerDocType;
   ADoc: string; Sender: IFormView);
 begin
-  {
-   case ATipoDoc of
-     doFactura:
-     begin
-       //PagoController.AnularPago();
-     end;
-     end;
-   end;
-  }
+  case ATipoDoc of
+    dtFacturaCobrada:
+    begin
+      GetCustomModel.AnularPago(GetCustomModel.GetPagoDoc(ADoc, doFactura));
+    end;
+  end;
 end;
+
 
 procedure TDocumentosController.CobrarDoc(ATipoDoc: TDocViewerDocType;
   Sender: IFormView);
@@ -85,12 +107,13 @@ end;
 procedure TDocumentosController.CobrarDoc(ATipoDoc: TDocViewerDocType;
   ADoc: string; Sender: IFormView);
 var
+  ProcesoPago: TProcesoPago;
   PagoController: TPagoController;
 begin
   try
-    PagoController := TPagoController.Create(TPagoDataModule.Create(
-      Sender as TComponent, GetModel.MasterDataModule));
+    PagoController := TPagoController.Create(GetCustomModel.Pagos);
     ProcesoPago := TProcesoPago.Create(Sender, PagoController);
+    (GetModel.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
     case ATipoDoc of
       dtFacturaNocobrada:
       begin
@@ -100,16 +123,16 @@ begin
     case ProcesoPago.ShowModal of
       mrOk:
       begin
-        GetModel.Connect;
+        GetCustomModel.Connect;
       end;
       mrCancel:
       begin
-        GetModel.Connect;
+        GetCustomModel.Connect;
       end;
     end;
   finally
+    (GetModel.MasterDataModule as ISubject).Detach(ProcesoPago as IObserver);
     ProcesoPago.Free;
-    //PagoController.Free;
   end;
 end;
 
@@ -128,37 +151,20 @@ end;
 procedure TDocumentosController.VerDocumento(ATipoDoc: TDocViewerDocType;
   ADoc: string; Sender: IFormView);
 begin
-
+  // ???: en esta parte se posiciona el cursor del documento correspondiente
+  //      para poder mostrar el reporte pero todavia no se muestra nada
   case ATipoDoc of
     dtFacturaNocobrada:
     begin
-      try
-        FacturasDataModule :=
-          TFacturasDataModule.Create(Sender as TComponent, GetModel.MasterDataModule);
-        FacturasDataModule.LocateComprobante(ADoc);
-      finally
-        FacturasDataModule.Free;
-      end;
+      GetCustomModel.Facturas.LocateComprobante(ADoc);
     end;
     dtFacturaCobrada:
     begin
-      try
-        FacturasDataModule :=
-          TFacturasDataModule.Create(Sender as TComponent, GetModel.MasterDataModule);
-        FacturasDataModule.LocateComprobante(ADoc);
-      finally
-        FacturasDataModule.Free;
-      end;
+      GetCustomModel.Facturas.LocateComprobante(ADoc);
     end;
     dtRecibo:
     begin
-      try
-        PagoDataModule := TPagoDataModule.Create(Sender as TComponent,
-          GetModel.MasterDataModule);
-        PagoDataModule.Pago.Locate('ID', ADoc, []);
-      finally
-        PagoDataModule.Free;
-      end;
+      GetCustomModel.Pagos.Pago.Locate('ID', ADoc, []);
     end;
   end;
 end;

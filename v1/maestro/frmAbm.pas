@@ -63,8 +63,7 @@ end;
 
 procedure TAbm.OK(Sender: TObject);
 begin
-  GetController.Save(Self);
-  GetController.Commit(Self);
+  GetController.OK(Self);
   ShowPanel(PanelList);
 end;
 

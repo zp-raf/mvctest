@@ -2,7 +2,7 @@ inherited ComprobanteDataModule: TComprobanteDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 333
-  HorizontalOffset = 456
+  HorizontalOffset = 391
   VerticalOffset = 308
   Width = 542
   object dsCabecera: TDataSource[0]

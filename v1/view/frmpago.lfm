@@ -8,6 +8,7 @@ inherited ProcesoPago: TProcesoPago
   ClientWidth = 1080
   Constraints.MinHeight = 680
   Constraints.MinWidth = 1080
+  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poDesktopCenter

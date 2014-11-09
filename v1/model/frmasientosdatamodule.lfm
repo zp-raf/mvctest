@@ -1,10 +1,10 @@
 inherited AsientosDataModule: TAsientosDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 220
+  Height = 391
   HorizontalOffset = 867
   VerticalOffset = 336
-  Width = 363
+  Width = 400
   object dsCuenta: TDataSource[0]
     left = 312
     top = 24
@@ -265,5 +265,253 @@ inherited AsientosDataModule: TAsientosDataModule
     DataSet = MovimientoDet
     left = 184
     top = 104
+  end
+  object MovimientoDetView: TSQLQuery[5]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NUMERO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DEUDAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PAGOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DET_ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DET_NUMERO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MOVIMIENTOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CUENTAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MONTO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIPO_MOVIMIENTO'
+        DataType = ftFixedChar
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'DET_DEUDAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DET_PAGOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_movimientos_det'
+    )
+    Params = <>
+    DataSource = dsMovimientoDet
+    left = 48
+    top = 216
+    object MovimientoDetViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewNUMERO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewFECHA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MovimientoDetViewDEUDAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DEUDAID'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewPAGOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PAGOID'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewDET_ID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DET_ID'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewDET_NUMERO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DET_NUMERO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewMOVIMIENTOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MOVIMIENTOID'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewCUENTAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CUENTAID'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewMONTO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MONTO'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object MovimientoDetViewTIPO_MOVIMIENTO: TStringField
+      DisplayWidth = 1
+      FieldKind = fkData
+      FieldName = 'TIPO_MOVIMIENTO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1
+    end
+    object MovimientoDetViewDET_DEUDAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DET_DEUDAID'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDetViewDET_PAGOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DET_PAGOID'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsMovimientoDetView: TDataSource[6]
+    DataSet = MovimientoDetView
+    left = 178
+    top = 219
   end
 end

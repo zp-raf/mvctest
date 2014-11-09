@@ -59,6 +59,7 @@ type
     qryDetalleIVA5: TFloatField;
     qryDetallePRECIO_UNITARIO: TFloatField;
     procedure ActualizarTotales; override;
+    procedure AnularFactura(AID: string);
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DeterminarImpuesto; override;
     procedure FetchCabeceraPersona(APersonaID: string); override; overload;
@@ -131,6 +132,24 @@ begin
   qryCabeceraTOTAL.AsFloat :=
     qryCabeceraTOTAL.AsFloat + qryCabeceraSUBTOTAL_EXENTAS.AsFloat +
     qryCabeceraSUBTOTAL_IVA5.AsFloat + qryCabeceraSUBTOTAL_IVA10.AsFloat;
+end;
+
+procedure TFacturasDataModule.AnularFactura(AID: string);
+begin
+  try
+    LocateComprobante(AID);
+    if qryCabeceraVALIDO.AsString = DB_FALSE then
+      raise Exception.Create('La factura ya esta anulada');
+    qryCabecera.Edit;
+    qryCabeceraVALIDO.AsString := DB_FALSE;
+    SaveChanges;
+    Estado := asGuardado;
+  except
+    on E: EDatabaseError do
+    begin
+      DoOnErrorEvent(Self, E);
+    end;
+  end;
 end;
 
 procedure TFacturasDataModule.DataModuleCreate(Sender: TObject);

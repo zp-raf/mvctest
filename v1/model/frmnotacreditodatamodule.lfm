@@ -2,11 +2,10 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 399
-  HorizontalOffset = 478
-  VerticalOffset = 228
+  HorizontalOffset = 384
+  VerticalOffset = 230
   Width = 562
   inherited qryCabecera: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -577,7 +576,6 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
     end
   end
   inherited qryNumero: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     SQL.Strings = (
       'select * from GET_NUMERO_NOTA_CREDITO(:TALONARIOID)'
     )
@@ -589,7 +587,6 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       end>
   end
   inherited AuxTalonario: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     left = 280
   end
   object dsFacturas: TDataSource[16]

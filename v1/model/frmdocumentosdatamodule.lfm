@@ -1,5 +1,6 @@
 inherited DocumentosDataModule: TDocumentosDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 233
   HorizontalOffset = 689
   VerticalOffset = 264
@@ -43,6 +44,12 @@ inherited DocumentosDataModule: TDocumentosDataModule
         Size = 0
       end    
       item
+        Name = 'VENCIMIENTO'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
         Name = 'RUC'
         DataType = ftString
         Precision = -1
@@ -67,25 +74,13 @@ inherited DocumentosDataModule: TDocumentosDataModule
         Size = 0
       end    
       item
-        Name = 'COMPROBANTEID'
+        Name = 'PAGOID'
         DataType = ftInteger
         Precision = -1
         Size = 0
       end    
       item
-        Name = 'TIPO_COMPROBANTE'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TIPO_COMP'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'COMPROBANTE_VALIDO'
+        Name = 'PAGO_VALIDO'
         DataType = ftSmallint
         Precision = -1
         Size = 0
@@ -95,7 +90,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
     ReadOnly = True
     SQL.Strings = (
       'select * from v_facturas'
-      'where comprobanteid is null'
+      'where pagoid is null'
     )
     Params = <>
     left = 40
@@ -206,42 +201,31 @@ inherited DocumentosDataModule: TDocumentosDataModule
       ReadOnly = False
       Required = False
     end
-    object FacturasViewCOMPROBANTEID: TLongintField
+    object FacturasViewPAGOID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'COMPROBANTEID'
+      FieldName = 'PAGOID'
       Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object FacturasViewTIPO_COMP: TStringField
-      DisplayWidth = 255
+    object FacturasViewPAGO_VALIDO: TSmallintField
+      DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'TIPO_COMP'
+      FieldName = 'PAGO_VALIDO'
       Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 255
     end
-    object FacturasViewTIPO_COMPROBANTE: TLongintField
+    object FacturasViewVENCIMIENTO: TDateField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'TIPO_COMPROBANTE'
+      FieldName = 'VENCIMIENTO'
       Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object FacturasViewCOMPROBANTE_VALIDO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'COMPROBANTE_VALIDO'
-      Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -457,6 +441,12 @@ inherited DocumentosDataModule: TDocumentosDataModule
         Size = 0
       end    
       item
+        Name = 'VENCIMIENTO'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
         Name = 'RUC'
         DataType = ftString
         Precision = -1
@@ -481,25 +471,13 @@ inherited DocumentosDataModule: TDocumentosDataModule
         Size = 0
       end    
       item
-        Name = 'COMPROBANTEID'
+        Name = 'PAGOID'
         DataType = ftInteger
         Precision = -1
         Size = 0
       end    
       item
-        Name = 'TIPO_COMPROBANTE'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'TIPO_COMP'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'COMPROBANTE_VALIDO'
+        Name = 'PAGO_VALIDO'
         DataType = ftSmallint
         Precision = -1
         Size = 0
@@ -509,7 +487,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
     ReadOnly = True
     SQL.Strings = (
       'select * from v_facturas'
-      'where comprobanteid is not null'
+      'where pagoid is not null'
     )
     Params = <>
     left = 240
@@ -620,42 +598,31 @@ inherited DocumentosDataModule: TDocumentosDataModule
       ReadOnly = False
       Required = False
     end
-    object FacturasCobradasViewCOMPROBANTEID: TLongintField
+    object FacturasCobradasViewPAGOID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'COMPROBANTEID'
+      FieldName = 'PAGOID'
       Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object FacturasCobradasViewTIPO_COMPROBANTE: TLongintField
+    object FacturasCobradasViewPAGO_VALIDO: TSmallintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'TIPO_COMPROBANTE'
+      FieldName = 'PAGO_VALIDO'
       Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object FacturasCobradasViewTIPO_COMP: TStringField
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'TIPO_COMP'
-      Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object FacturasCobradasViewCOMPROBANTE_VALIDO: TSmallintField
+    object FacturasCobradasViewVENCIMIENTO: TDateField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'COMPROBANTE_VALIDO'
-      Index = 13
+      FieldName = 'VENCIMIENTO'
+      Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False

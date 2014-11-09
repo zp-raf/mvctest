@@ -5,8 +5,8 @@ unit frmpagodatamodule;
 interface
 
 uses
-  SysUtils, sqldb, DB, frmquerydatamodule, frmfacturadatamodule2,
-  observerSubject, frmasientosdatamodule, sgcdTypes;
+  SysUtils, sqldb, DB, frmquerydatamodule, frmfacturadatamodule2, mensajes,
+  observerSubject, frmasientosdatamodule, sgcdTypes, frmrecibodatamodule;
 
 const
   ITEM_SEPARATOR = ', ';
@@ -23,16 +23,20 @@ type
   { TPagoDataModule }
 
   TPagoDataModule = class(TQueryDataModule)
-    dsPagoDet: TDataSource;
-    PagoDet: TSQLQuery;
   private
     FAsientos: TAsientosDataModule;
     FFactura: TFacturasDataModule;
     FListo: boolean;
+    FPuedeImprimirRecibo: boolean;
+    FRecibos: TReciboDataModule;
     function GetEstado: boolean;
     procedure SetAsientos(AValue: TAsientosDataModule);
     procedure SetFactura(AValue: TFacturasDataModule);
+    procedure SetPuedeImprimirRecibo(AValue: boolean);
+    procedure SetRecibos(AValue: TReciboDataModule);
   published
+    dsPagoDet: TDataSource;
+    PagoDet: TSQLQuery;
     Codigos: TSQLQuery;
     CodigosOBJETO: TStringField;
     CodigosSIGNIFICADO: TStringField;
@@ -106,6 +110,7 @@ type
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
     procedure Disconnect; override;
+    procedure ImprimirRecibo;
     procedure NuevoPago(EsCobro: boolean; ADocumentoID: string;
       ATipoDoc: TTipoDocumento);
     procedure PagoDetChequesAfterPost(DataSet: TDataSet);
@@ -123,6 +128,9 @@ type
     property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
     property Facturas: TFacturasDataModule read FFactura write SetFactura;
     property Listo: boolean read GetEstado write FListo;
+    property Recibos: TReciboDataModule read FRecibos write SetRecibos;
+    property PuedeImprimirRecibo: boolean read FPuedeImprimirRecibo
+      write SetPuedeImprimirRecibo;
   private
     { private declarations }
   public
@@ -176,6 +184,20 @@ begin
   FFactura := AValue;
 end;
 
+procedure TPagoDataModule.SetPuedeImprimirRecibo(AValue: boolean);
+begin
+  if FPuedeImprimirRecibo = AValue then
+    Exit;
+  FPuedeImprimirRecibo := AValue;
+end;
+
+procedure TPagoDataModule.SetRecibos(AValue: TReciboDataModule);
+begin
+  if FRecibos = AValue then
+    Exit;
+  FRecibos := AValue;
+end;
+
 procedure TPagoDataModule.DataModuleDestroy(Sender: TObject);
 begin
   inherited;
@@ -183,6 +205,8 @@ begin
     FreeAndNil(FFactura);
   if Assigned(FAsientos) then
     FreeAndNil(FAsientos);
+  if Assigned(FRecibos) then
+    FreeAndNil(FRecibos);
 end;
 
 function TPagoDataModule.GetEstado: boolean;
@@ -233,18 +257,30 @@ end;
 
 procedure TPagoDataModule.AnularPago(APagoID: string);
 begin
-  if not Pago.Locate('ID', APagoID, [loCaseInsensitive]) then
-    raise Exception.Create('No se encontro el pago');
   try
-    Asientos.MovimientoDet.Filter := 'PAGOID = ' + PagoID.AsString;
-    Asientos.MovimientoDet.Filtered := True;
-    Asientos.MovimientoDet.Refresh;
-    Asientos.MovimientoDet.First;
-  finally
-    // le sacamos el filtro
-    Asientos.MovimientoDet.Filter := '';
-    Asientos.MovimientoDet.Filtered := False;
-    Asientos.MovimientoDet.Refresh;
+    if not Pago.Locate('ID', APagoID, [loCaseInsensitive]) then
+    begin
+      raise Exception.Create('No se encontro el pago');
+      Exit;
+    end;
+    try
+      Asientos.MovimientoDetView.Close;
+      Asientos.MovimientoDetView.ServerFilter := 'PAGOID = ' + PagoID.AsString;
+      Asientos.MovimientoDet.ServerFiltered := True;
+      Asientos.MovimientoDet.Open;
+      if (Asientos.MovimientoDet.RecordCount <> 1) then
+        raise EDatabaseError.Create(rsRollbackPaymentEntryError);
+      Asientos.ReversarAsiento(Asientos.MovimientoDet.FieldByName('ID').AsString,
+        DESCRIPCION_REVERSION + ' ' + APagoID);
+      Asientos.PostAsiento;
+    finally
+      Asientos.MovimientoDetView.Close;
+      Asientos.MovimientoDetView.ServerFilter := '';
+      Asientos.MovimientoDet.ServerFiltered := False;
+    end;
+  except
+    on E: EDatabaseError do
+      DoOnErrorEvent(Self, E);
   end;
 end;
 
@@ -275,8 +311,10 @@ begin
   //Facturas.SetReadOnly(True);
   Asientos := TAsientosDataModule.Create(Self, MasterDataModule);
   Asientos.ComprobarAsiento := False; // cuando se arregle el tema contable sacar
+  PuedeImprimirRecibo := False;
   // obviamente no esta listo el pago jeje
   Listo := False;
+  Recibos := TReciboDataModule.Create(Self, MasterDataModule);
 end;
 
 procedure TPagoDataModule.Disconnect;
@@ -286,11 +324,26 @@ begin
   inherited Disconnect;
 end;
 
+procedure TPagoDataModule.ImprimirRecibo;
+begin
+  if Listo then
+  begin
+    Recibos.NuevoComprobante(PagoID.AsString);
+    Recibos.FetchCabeceraFactura(PagoCOMPROBANTEID.AsString);
+    Recibos.FetchDetalleFactura(PagoCOMPROBANTEID.AsString);
+    Recibos.SaveChanges;
+    // falta que se imprima el reporte con el recibo
+  end;
+end;
+
 procedure TPagoDataModule.NuevoPago(EsCobro: boolean; ADocumentoID: string;
   ATipoDoc: TTipoDocumento);
 begin
+  Connect;
   Facturas.LocateComprobante(ADocumentoID);
-  NewRecord;
+  if Facturas.qryCabecera.FieldByName('VALIDO').AsString = DB_FALSE then
+    raise Exception.Create('La factura esta anulada y no se puede cobrar');
+  Pago.Insert;
   if EsCobro then
     Pago.FieldByName('ESCOBRO').AsInteger := 1
   else
@@ -399,6 +452,8 @@ begin
   PagoDetTarjetas.ApplyUpdates;
   // y reigstramos el movimiento
   RegistrarMovimiento(co, pa);
+  if PuedeImprimirRecibo then
+    ImprimirRecibo;
   // y comiteamos
   MasterDataModule.Commit;
   Listo := False;

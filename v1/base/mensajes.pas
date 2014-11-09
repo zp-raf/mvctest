@@ -56,6 +56,12 @@ resourcestring
   rsInvalidDate = 'Fecha invalida introducida';
   rsInvalidDateRange = 'El rango de fechas no es correcto';
   rsPleaseSelectAccount = 'Por favor seleccione una cuenta';
+  rsGenNotDefined = 'No se definieron los generadores de cabecera o detalle';
+  rsPrintReceiptConfirmation = 'Imprimir recibo';
+  rsPrintReceiptQuestion = '¿Desea imprimir recibo?';
+  rsRollbackPaymentEntryError = 'Error al buscar asiento: el asiento no existe'
+    +' o existe una inconsisitencia';
+  rsUnsupportedDocType = 'Tipo de documento no admitido';
 
 type
 

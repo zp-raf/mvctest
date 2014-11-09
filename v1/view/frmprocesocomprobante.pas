@@ -199,6 +199,8 @@ begin
       ButtonSeleccionarPers.Enabled := True;
       ButtonLimpiar.Enabled := True;
       GetController.CloseDataSets(Self);
+      ButtonPanel1.CancelButton.Enabled := False;
+      ButtonPanel1.OKButton.Enabled := False;
     end;
     asGuardado:
     begin
@@ -209,6 +211,8 @@ begin
       ButtonSeleccionarPers.Enabled := True;
       ButtonLimpiar.Enabled := True;
       GetController.CloseDataSets(Self);
+      ButtonPanel1.CancelButton.Enabled := False;
+      ButtonPanel1.OKButton.Enabled := False;
     end;
     asEditando:
     begin
@@ -219,6 +223,8 @@ begin
       ButtonSeleccionarPers.Enabled := False;
       ButtonLimpiar.Enabled := False;
       DBGridDet.AutoSizeColumns;
+      ButtonPanel1.CancelButton.Enabled := True;
+      ButtonPanel1.OKButton.Enabled := True;
     end;
     asLeyendo:
     begin

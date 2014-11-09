@@ -31,6 +31,8 @@ type
     CuentaID: string;
     TipoMovimiento: TTipoMovimiento;
     Monto: double;
+    Deuda: string;
+    Pago: string;
   end;
 
   TMovimientoList = array of TMovimientoRec;
@@ -38,6 +40,28 @@ type
   { TAsientosDataModule }
 
   TAsientosDataModule = class(TQueryDataModule)
+    dsMovimientoDetView: TDataSource;
+    MovimientoDetViewCUENTAID: TLongintField;
+    MovimientoDetViewDESCRIPCION: TStringField;
+    MovimientoDetViewDET_DEUDAID: TLongintField;
+    MovimientoDetViewDET_ID: TLongintField;
+    MovimientoDetViewDET_NUMERO: TLongintField;
+    MovimientoDetViewDET_PAGOID: TLongintField;
+    MovimientoDetViewDEUDAID: TLongintField;
+    MovimientoDetViewFECHA: TDateField;
+    MovimientoDetViewID: TLongintField;
+    MovimientoDetViewMONTO: TFloatField;
+    MovimientoDetViewMOVIMIENTOID: TLongintField;
+    MovimientoDetViewNUMERO: TLongintField;
+    MovimientoDetViewPAGOID: TLongintField;
+    MovimientoDetViewTIPO_MOVIMIENTO: TStringField;
+  private
+    FComprobarAsiento: boolean;
+    FCuenta: TCuentaDataModule;
+    FEstado: TEstadoAsiento;
+    procedure ResetearEstado;
+    procedure SetComprobarAsiento(AValue: boolean);
+  published
     dsMovimiento: TDataSource;
     dsMovimientoDet: TDataSource;
     Movimiento: TSQLQuery;
@@ -55,17 +79,7 @@ type
     MovimientoID: TLongintField;
     MovimientoNUMERO: TLongintField;
     MovimientoPAGOID: TLongintField;
-    procedure DataModuleDestroy(Sender: TObject);
-    procedure MovimientoAfterScroll(DataSet: TDataSet);
-    procedure MovimientoDetAfterInsert(DataSet: TDataSet);
-    procedure MovimientoNewRecord(DataSet: TDataSet);
-  private
-    FComprobarAsiento: boolean;
-    FCuenta: TCuentaDataModule;
-    FEstado: TEstadoAsiento;
-    procedure ResetearEstado;
-    procedure SetComprobarAsiento(AValue: boolean);
-  published
+    MovimientoDetView: TSQLQuery;
     dsCuenta: TDataSource;
     qryAsientosCUENTA_DEBE: TLongintField;
     qryAsientosCUENTA_HABER: TLongintField;
@@ -79,9 +93,14 @@ type
     qryAsientosMOVIMIENTOID: TLongintField;
     qryAsientosNUMERO: TLongintField;
     procedure CerrarAsiento;
+    procedure CheckAsiento;
     procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure Disconnect; override;
+    procedure DataModuleDestroy(Sender: TObject);
+    procedure MovimientoAfterScroll(DataSet: TDataSet);
+    procedure MovimientoDetAfterInsert(DataSet: TDataSet);
+    procedure MovimientoNewRecord(DataSet: TDataSet);
     procedure NuevoAsiento(ADescripcion: string);
     procedure NuevoAsiento(ADescripcion: string; ADeudaID: string; APagoID: string);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
@@ -119,6 +138,7 @@ begin
   OnError := @OnAsientoError;
   QryList.Add(TObject(Movimiento));
   DetailList.Add(TObject(MovimientoDet));
+  AuxQryList.Add(TObject(MovimientoDetView));
   //SearchFieldList.Add('DESCRIPCION');
   //SearchFieldList.Add('DEUDAID');
   //SearchFieldList.Add('PAGOID');
@@ -139,7 +159,8 @@ end;
 
 procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string);
 begin
-  FMasterDataModule.Connect;
+  if not GetDBStatus.Connected then
+    Connect;
   Movimiento.Open;
   MovimientoDet.Open;
   if (Estado in [asEditando]) then
@@ -210,6 +231,7 @@ end;
 
 procedure TAsientosDataModule.PostAsiento;
 begin
+  CheckAsiento;
   Movimiento.Post;
   MovimientoDet.Post;
   Estado := asGuardado;
@@ -264,6 +286,15 @@ begin
 end;
 
 procedure TAsientosDataModule.CerrarAsiento;
+begin
+  CheckAsiento;
+  Movimiento.ApplyUpdates;
+  MovimientoDet.ApplyUpdates;
+  Estado := asGuardado;
+  (MasterDataModule as ISubject).Notify;
+end;
+
+procedure TAsientosDataModule.CheckAsiento;
 var
   sumaDebe, sumaHaber: double;
 begin
@@ -287,10 +318,6 @@ begin
     if sumaDebe <> sumaHaber then
       raise Exception.Create(rsDebCredAmountSumError);
   end;
-  Movimiento.ApplyUpdates;
-  MovimientoDet.ApplyUpdates;
-  Estado := asGuardado;
-  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TAsientosDataModule.Connect;
@@ -317,6 +344,7 @@ var
   x: integer;
 begin
   // buscamos el asiento
+  Movimiento.Open;
   if not Movimiento.Locate('ID', AAsientoID, [loCaseInsensitive]) then
     raise Exception.Create(rsEntryNotFound);
   try
@@ -329,30 +357,35 @@ begin
     x := 0;
     while not MovimientoDet.EOF do
     begin
-      mov[x].CuentaID := MovimientoDetCUENTAID.AsString;
-      mov[x].Monto := MovimientoDetMONTO.AsFloat;
-      case MovimientoDetTIPO_MOVIMIENTO.AsString of
+      mov[x].CuentaID := MovimientoDet.FieldByName('CUENTAID').AsString;
+      mov[x].Monto := MovimientoDet.FieldByName('MONTO').AsFloat;
+      case MovimientoDet.FieldByName('TIPO_MOVIMIENTO').AsString of
         DEBITO:
           mov[x].TipoMovimiento := mvCredito; // movimiento contrario
         CREDITO:
           mov[x].TipoMovimiento := mvDebito; // movimiento contrario
       end;
+      mov[x].Deuda := MovimientoDet.FieldByName('DEUDAID').AsString;
+      mov[x].Pago := MovimientoDet.FieldByName('PAGOID').AsString;
       MovimientoDet.Next;
       Inc(x);
     end;
     // si no se metio una descripcion se usa la que esta por defecto
     if (Trim(ADescripcion) = '') then
-      PDescripcion := DESCRIPCION_POR_DEFECTO + MovimientoNUMERO.AsString +
-        ' - ' + MovimientoFECHA.AsString
+      PDescripcion := DESCRIPCION_POR_DEFECTO +
+        Movimiento.FieldByName('NUMERO').AsString + ' - ' +
+        Movimiento.FieldByName('FECHA').AsString
     else
       PDescripcion := ADescripcion;
     // insertamos el asiento de reversion
-    NuevoAsiento(PDescripcion, MovimientoDEUDAID.AsString, MovimientoPAGOID.AsString);
+    NuevoAsiento(PDescripcion, Movimiento.FieldByName('DEUDAID').AsString,
+      Movimiento.FieldByName('PAGOID').AsString);
     for x := 0 to Length(mov) - 1 do
     begin
-      NuevoAsientoDetalle(mov[x].CuentaID, mov[x].TipoMovimiento, mov[x].Monto);
+      NuevoAsientoDetalle(mov[x].CuentaID, mov[x].TipoMovimiento, mov[x].Monto,
+        mov[x].Deuda, mov[x].Pago);
     end;
-    CerrarAsiento;
+    //CerrarAsiento;
   finally
     (MasterDataModule as ISubject).Notify;
   end;

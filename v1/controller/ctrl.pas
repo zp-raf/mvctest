@@ -44,6 +44,7 @@ type
     procedure NewDetailRecord(Sender: IView);
     procedure NewRecord(Sender: IView);
     procedure OpenDataSets(Sender: IView);
+    procedure OK(Sender: IView); virtual;
     procedure RefreshData(Sender: IView);
     procedure Rollback(Sender: IView);
     procedure ShowHelp(Sender: IView); virtual;
@@ -257,10 +258,7 @@ destructor TController.Destroy;
 begin
   inherited Destroy;
   if Assigned(FModel) then
-  begin
-    GetModel.Free;
-    FModel := nil;
-  end;
+    FreeAndNil(FModel);
 end;
 
 { TController.AfterConstruction
@@ -278,6 +276,12 @@ end;
 procedure TController.OpenDataSets(Sender: IView);
 begin
   GetModel.OpenDataSets;
+end;
+
+procedure TController.OK(Sender: IView);
+begin
+  Save(Sender);
+  Commit(Sender);
 end;
 
 function TController.GetVersion(Sender: IView): string;

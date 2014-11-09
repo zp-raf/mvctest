@@ -199,7 +199,8 @@ end;
 procedure TNotaCreditoDataModule.DataModuleDestroy(Sender: TObject);
 begin
   inherited;
-  FFacturas.Free;
+  if Assigned(FFacturas) then
+    FreeAndNil(FFacturas);
 end;
 
 procedure TNotaCreditoDataModule.SetFacturas(AValue: TFacturasDataModule);
@@ -304,7 +305,6 @@ begin
   while not Facturas.qryDetalle.EOF do
   begin
     NuevoComprobanteDetalle;
-    qryDetalleFACTURADETALLEID.Value := Facturas.qryDetalle.FieldByName('ID').Value;
     qryDetalleDEUDAID.Value := Facturas.qryDetalle.FieldByName('DEUDAID').Value;
     qryDetalleCANTIDAD.Value := Facturas.qryDetalle.FieldByName('CANTIDAD').Value;
     qryDetalleDETALLE.Value := Facturas.qryDetalle.FieldByName('DETALLE').Value;

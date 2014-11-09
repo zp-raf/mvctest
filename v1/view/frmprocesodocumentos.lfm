@@ -2,33 +2,38 @@ inherited ProcesoDocumentos: TProcesoDocumentos
   Left = 561
   Height = 600
   Top = 287
-  Width = 800
+  Width = 890
   Caption = 'Documentos'
   ClientHeight = 580
-  ClientWidth = 800
+  ClientWidth = 890
   Constraints.MinHeight = 600
-  Constraints.MinWidth = 800
+  Constraints.MinWidth = 890
   inherited StatusBar1: TStatusBar
     Top = 557
-    Width = 800
+    Width = 890
   end
   inherited ButtonPanel1: TButtonPanel
     Top = 517
-    Width = 788
+    Width = 878
+    OKButton.Enabled = False
+    OKButton.OnClick = OKButtonClick
+    CancelButton.Enabled = False
+    CancelButton.OnClick = CancelButtonClick
+    ShowButtons = [pbClose, pbHelp]
   end
   object PageControlDocs: TPageControl[2]
     Left = 8
     Height = 448
     Top = 8
-    Width = 786
-    ActivePage = TabSheetFactura
+    Width = 876
+    ActivePage = TabSheetFacturasCobradas
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 2
     object TabSheetFactura: TTabSheet
       Caption = 'Facturas sin cobrar'
       ClientHeight = 420
-      ClientWidth = 778
+      ClientWidth = 868
       OnShow = TabSheetFacturaShow
       object DBGridFactura: TDBGrid
         AnchorSideLeft.Control = TabSheetFactura
@@ -40,21 +45,68 @@ inherited ProcesoDocumentos: TProcesoDocumentos
         Left = 0
         Height = 420
         Top = 0
-        Width = 778
+        Width = 868
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
-        Columns = <>
+        Columns = <        
+          item
+            Title.Caption = 'TIMBRADO'
+            Width = 75
+            FieldName = 'TIMBRADO'
+          end        
+          item
+            Title.Caption = 'NUMERO'
+            Width = 65
+            FieldName = 'NUMERO'
+          end        
+          item
+            Title.Caption = 'FECHA_EMISION'
+            Width = 104
+            FieldName = 'FECHA_EMISION'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'CONTADO'
+            Width = 73
+            FieldName = 'CONTADO'
+          end        
+          item
+            Title.Caption = 'VENCIMIENTO'
+            FieldName = 'VENCIMIENTO'
+          end        
+          item
+            Title.Caption = 'RUC'
+            Width = 55
+            FieldName = 'RUC'
+          end        
+          item
+            Title.Caption = 'NOMBRE'
+            Width = 160
+            FieldName = 'NOMBRE'
+          end        
+          item
+            Title.Caption = 'TOTAL'
+            Width = 52
+            FieldName = 'TOTAL'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'VALIDO'
+            Width = 56
+            FieldName = 'VALIDO'
+          end>
         DataSource = DocumentosDataModule.dsFacturas
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+        ReadOnly = True
         TabOrder = 0
       end
     end
     object TabSheetFacturasCobradas: TTabSheet
       Caption = 'Facturas cobradas'
       ClientHeight = 420
-      ClientWidth = 778
+      ClientWidth = 868
       OnShow = TabSheetFacturasCobradasShow
-      object DBGrid1: TDBGrid
+      object DBGridFacturasCobradas: TDBGrid
         AnchorSideLeft.Control = TabSheetFacturasCobradas
         AnchorSideTop.Control = TabSheetFacturasCobradas
         AnchorSideRight.Control = TabSheetFacturasCobradas
@@ -64,12 +116,69 @@ inherited ProcesoDocumentos: TProcesoDocumentos
         Left = 0
         Height = 420
         Top = 0
-        Width = 778
+        Width = 868
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
-        Columns = <>
+        Columns = <        
+          item
+            Title.Caption = 'TIMBRADO'
+            Width = 75
+            FieldName = 'TIMBRADO'
+          end        
+          item
+            Title.Caption = 'NUMERO'
+            Width = 65
+            FieldName = 'NUMERO'
+          end        
+          item
+            Title.Caption = 'FECHA_EMISION'
+            Width = 104
+            FieldName = 'FECHA_EMISION'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'CONTADO'
+            Width = 73
+            FieldName = 'CONTADO'
+          end        
+          item
+            Title.Caption = 'VENCIMIENTO'
+            FieldName = 'VENCIMIENTO'
+          end        
+          item
+            Title.Caption = 'RUC'
+            Width = 38
+            FieldName = 'RUC'
+          end        
+          item
+            Title.Caption = 'NOMBRE'
+            FieldName = 'NOMBRE'
+          end        
+          item
+            Title.Caption = 'TOTAL'
+            Width = 52
+            FieldName = 'TOTAL'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'VALIDO'
+            Width = 56
+            FieldName = 'VALIDO'
+          end        
+          item
+            Title.Caption = 'PAGOID'
+            Width = 58
+            FieldName = 'PAGOID'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'PAGO_VALIDO'
+            Width = 93
+            FieldName = 'PAGO_VALIDO'
+          end>
         DataSource = DocumentosDataModule.dsFacturasCobradas
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+        ReadOnly = True
         TabOrder = 0
       end
     end
@@ -78,6 +187,7 @@ inherited ProcesoDocumentos: TProcesoDocumentos
       ClientHeight = 420
       ClientWidth = 778
       OnShow = TabSheetCobroShow
+      TabVisible = False
       object DBGridCobro: TDBGrid
         AnchorSideLeft.Control = TabSheetCobro
         AnchorSideTop.Control = TabSheetCobro
@@ -94,6 +204,7 @@ inherited ProcesoDocumentos: TProcesoDocumentos
         Columns = <>
         DataSource = DocumentosDataModule.dsCobros
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+        ReadOnly = True
         TabOrder = 0
       end
     end
@@ -102,14 +213,14 @@ inherited ProcesoDocumentos: TProcesoDocumentos
     Left = 8
     Height = 43
     Top = 465
-    Width = 788
+    Width = 878
     Anchors = [akLeft, akRight, akBottom]
     ChildSizing.TopBottomSpacing = 8
     ChildSizing.HorizontalSpacing = 16
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 5
     ClientHeight = 43
-    ClientWidth = 788
+    ClientWidth = 878
     TabOrder = 3
     object ButtonCobrar: TButton
       Left = 0
@@ -150,14 +261,14 @@ inherited ProcesoDocumentos: TProcesoDocumentos
       Left = 302
       Height = 25
       Top = 8
-      Width = 91
-      Caption = 'Anular Pago'
+      Width = 97
+      Caption = 'Anular Cobro'
       OnClick = ButtonAnularPagoClick
       TabOrder = 4
     end
   end
   inherited MainMenu: TMainMenu[4]
-    left = 336
-    top = 32
+    left = 88
+    top = 0
   end
 end

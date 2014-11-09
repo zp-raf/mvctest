@@ -1,6 +1,6 @@
 inherited ProcesoFacturacion: TProcesoFacturacion
-  Left = 516
-  Top = 152
+  Left = 687
+  Top = 162
   Width = 901
   Caption = 'Factura Venta'
   ClientHeight = 730

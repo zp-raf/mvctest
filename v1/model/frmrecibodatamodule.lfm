@@ -1,6 +1,8 @@
 inherited ReciboDataModule: TReciboDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 333
-  HorizontalOffset = 626
+  HorizontalOffset = 391
   VerticalOffset = 267
   Width = 542
   inherited qryCabecera: TSQLQuery
@@ -20,6 +22,12 @@ inherited ReciboDataModule: TReciboDataModule
       end    
       item
         Name = 'FACTURAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PAGOID'
         DataType = ftInteger
         Precision = -1
         Size = 0
@@ -75,6 +83,12 @@ inherited ReciboDataModule: TReciboDataModule
       item
         Name = 'TOTAL'
         DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO'
+        DataType = ftSmallint
         Precision = -1
         Size = 0
       end>
@@ -224,6 +238,26 @@ inherited ReciboDataModule: TReciboDataModule
       Required = False
       Size = 255
     end
+    object qryCabeceraPAGOID: TLongintField[13]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PAGOID'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryCabeceraVALIDO: TSmallintField[14]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
   end
   inherited qryDetalle: TSQLQuery
     FieldDefs = <    
@@ -279,6 +313,7 @@ inherited ReciboDataModule: TReciboDataModule
         Name = 'reciboid'
         ParamType = ptInput
       end>
+    top = 96
     object qryDetalleID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
@@ -358,7 +393,6 @@ inherited ReciboDataModule: TReciboDataModule
     end
   end
   inherited qryNumero: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     SQL.Strings = (
       'select * from GET_NUMERO_RECIBO(:TALONARIOID)'
     )
@@ -371,5 +405,10 @@ inherited ReciboDataModule: TReciboDataModule
   end
   inherited AuxTalonario: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
+    Active = True
+  end
+  object dsFacturas: TDataSource[16]
+    left = 376
+    top = 256
   end
 end

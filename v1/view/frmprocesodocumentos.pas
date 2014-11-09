@@ -15,6 +15,8 @@ type
   { TProcesoDocumentos }
 
   TProcesoDocumentos = class(TProceso)
+    procedure CancelButtonClick(Sender: TObject);
+    procedure OKButtonClick(Sender: TObject);
   protected
     function GetCustomController: TDocumentosController;
   published
@@ -23,7 +25,7 @@ type
     ButtonCobrar: TButton;
     ButtonVer: TButton;
     ButtonImprimir: TButton;
-    DBGrid1: TDBGrid;
+    DBGridFacturasCobradas: TDBGrid;
     DBGridFactura: TDBGrid;
     DBGridCobro: TDBGrid;
     PageControlDocs: TPageControl;
@@ -104,6 +106,16 @@ begin
   ButtonImprimir.Enabled := True;
   ButtonAnular.Enabled := True;
   ButtonAnularPago.Enabled := False;
+end;
+
+procedure TProcesoDocumentos.CancelButtonClick(Sender: TObject);
+begin
+  GetController.Rollback(Self);
+end;
+
+procedure TProcesoDocumentos.OKButtonClick(Sender: TObject);
+begin
+  GetController.Commit(Self);
 end;
 
 function TProcesoDocumentos.GetCustomController: TDocumentosController;

@@ -5,8 +5,8 @@ unit frmpago;
 interface
 
 uses
-  Forms, Controls, StdCtrls, DBGrids, DBCtrls, PairSplitter, frmproceso,
-  pagoctrl;
+  Forms, Controls, StdCtrls, DBGrids, DBCtrls, PairSplitter, ComCtrls, Menus,
+  ButtonPanel, frmproceso, pagoctrl, mensajes;
 
 type
 
@@ -40,6 +40,7 @@ type
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
     procedure CancelButtonClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Limpiar;
@@ -68,6 +69,11 @@ begin
   ButtonPanel1.CancelButton.ModalResult := mrCancel;
 end;
 
+procedure TProcesoPago.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  CloseAction := caFree;
+end;
+
 function TProcesoPago.GetCustomController: TPagoController;
 begin
   Result := GetController as TPagoController;
@@ -85,7 +91,20 @@ end;
 
 procedure TProcesoPago.OKButtonClick(Sender: TObject);
 begin
-  GetCustomController.CerrarPago(Self);
+  try
+    case ShowConfirmationMessage(rsPrintReceiptConfirmation, rsPrintReceiptQuestion) of
+      mrYes:
+      begin
+        GetCustomController.ImprimirRecibo(Self);
+      end;
+      mrNo:
+      begin
+        Exit;
+      end;
+    end;
+  finally
+    GetCustomController.CerrarPago(Self);
+  end;
 end;
 
 procedure TProcesoPago.ObserverUpdate(const Subject: IInterface);

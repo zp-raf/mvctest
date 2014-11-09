@@ -14,6 +14,20 @@ type
   { TComprobanteDataModule }
 
   TComprobanteDataModule = class(TQueryDataModule)
+  private
+    FCabeceraGenName: string;
+    FDetalleGenName: string;
+    FEstado: TEstadoComprobante;
+    FPersonas: TPersonasDataModule;
+    FTalonarioID: string;
+    procedure SetCabeceraGenName(AValue: string);
+    procedure SetDetalleGenName(AValue: string);
+    procedure SetEstado(AValue: TEstadoComprobante);
+    procedure SetPersonas(AValue: TPersonasDataModule);
+    procedure SetTalonarioID(AValue: string);
+  public
+    procedure AfterConstruction; override;
+  published
     AuxTalonarioACTIVO: TSmallintField;
     AuxTalonarioCAJA: TStringField;
     AuxTalonarioCOPIAS: TLongintField;
@@ -89,18 +103,6 @@ type
     ImpuestoID: TLongintField;
     ImpuestoNOMBRE: TStringField;
     ImpuestoView: TSQLQuery;
-  private
-    FCabeceraGenName: string;
-    FDetalleGenName: string;
-    FEstado: TEstadoComprobante;
-    FPersonas: TPersonasDataModule;
-    FTalonarioID: string;
-    procedure SetCabeceraGenName(AValue: string);
-    procedure SetDetalleGenName(AValue: string);
-    procedure SetEstado(AValue: TEstadoComprobante);
-    procedure SetPersonas(AValue: TPersonasDataModule);
-    procedure SetTalonarioID(AValue: string);
-  published
     { Procedimiento para calcular los totales de cada comprobante. Cada
       comprobante debe implementar este procedimiento. }
     procedure ActualizarTotales; virtual; abstract;
@@ -437,6 +439,16 @@ begin
   if FEstado = AValue then
     Exit;
   FEstado := AValue;
+end;
+
+procedure TComprobanteDataModule.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  if tal.ParamByName('TIPOCOMPROBANTE').IsNull {or not
+    (tal.ParamByName('TIPOCOMPROBANTE').AsInteger in TipoDoc)} then
+    raise Exception.Create(rsDocTypeNotSelected);
+  if (Trim(CabeceraGenName) = '') or (Trim(DetalleGenName) = '') then
+    raise Exception.Create(rsGenNotDefined);
 end;
 
 procedure TComprobanteDataModule.SetCabeceraGenName(AValue: string);

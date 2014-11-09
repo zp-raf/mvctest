@@ -12,6 +12,7 @@ resourcestring
   rsGenName = 'GEN_ACADEMIA';
   rsGenNameDir = 'GEN_DIRECCION';
   rsGenNameTel = 'GEN_TEL';
+  rsDocTypeNotSelected = 'No se selecciono el tipo de comprobante';
 
 type
 

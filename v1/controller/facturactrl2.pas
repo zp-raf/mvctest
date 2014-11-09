@@ -70,7 +70,7 @@ end;
 
 procedure TFacturaController.SetVencimiento(ADate: TDateTime);
 begin
-  GetCustomModel.qryCabeceraFECHA_EMISION.AsDateTime := ADate;
+  GetCustomModel.qryCabecera.FieldByName('FECHA_EMISION').AsDateTime := ADate;
 end;
 
 constructor TFacturaController.Create(AModel: Pointer);

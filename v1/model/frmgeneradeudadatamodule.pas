@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, Forms, Controls, Graphics, Dialogs,
   frmquerydatamodule, frmpersonasdatamodule, frmcuotaxarancel, variants,
-  frmaranceldatamodule, dateutils, frmasientosdatamodule,
+  frmaranceldatamodule, dateutils, frmasientosdatamodule, observerSubject,
   frmcuentadatamodule;
 
 resourcestring
@@ -155,10 +155,11 @@ begin
   //Asientos.NuevoAsiento('Generacion de deuda. Cuenta: ' + cuentaID +
   //  SEPARADOR + 'Arancel: ' + DataSet.FieldByName('ARANCELID').AsString);
   Asientos.NuevoAsiento('Generacion de deuda. ' + DataSet.FieldByName(
-    'DESCRIPCION').AsString, DataSet.FieldByName('ID').AsString, '');
+    'DESCRIPCION').AsString, '', '');
   // insertamos el detalle del asiento
   Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,
-    Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat);
+    Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat,
+    DataSet.FieldByName('ID').AsString, '');
 end;
 
 procedure TGeneraDeudaDataModule.DeudaAfterPost(DataSet: TDataSet);
@@ -252,35 +253,49 @@ begin
 end;
 
 procedure TGeneraDeudaDataModule.EliminarDeuda(ADeudaID: string);
-//var
-//   aca ponemos temporalmente los movimientos a reversar
-//  V: variant;
-//  i: integer;
 begin
-  Connect;
-  if not DeudaView.Locate('ID', ADeudaID, [loCaseInsensitive]) then
-    raise Exception.Create('Deuda no encontrada');
-  // si ya esta inactiva para que se va a desactivar? :D
-  if DeudaACTIVO.AsInteger = 0 then
-    Exit;
-  Deuda.Edit;
-  DeudaACTIVO.AsInteger := 0;
-  Deuda.Post;
-  // no hay que reversar el movimiento; hay que insertar uno con el saldo
-  // o si no se va a tener inconsistencia
-  //V := FAsientos.Movimiento.Lookup('DEUDAID', ADeudaID, 'ID');
-  //if VarIsArray(V) then
-  //  // ahora reversar todos los movimientos que tenga la deuda
-  //  for i := 0 to Pred(Length(V)) do
-  //  begin
-  //    FAsientos.ReversarAsiento(V[i], 'Eliminacion de deuda ' + ADeudaID);
-  //  end
-  //else
-  //  FAsientos.ReversarAsiento(V, 'Eliminacion de deuda ' + ADeudaID);
-  FAsientos.NuevoAsiento('Eliminacion de deuda ' + ADeudaID, ADeudaID, '');
-  FAsientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvCredito,
-    DeudaViewSALDO.AsFloat);
-  FAsientos.PostAsiento;
+  try
+    Connect;
+    { Filtrar los movimientos por deuda. Si hay mas de un registro quiere decir
+      que ya se hizo alguna operacion con la deuda y no se puede continuar. Solo
+      se debe poder eliminar una deuda recien creada o que no se 'toco' todavia,
+      como una facilidad al usuario. }
+    if not Deuda.Locate('ID', ADeudaID, [loCaseInsensitive]) then
+    begin
+      raise Exception.Create('Deuda no encontrada');
+      Exit;
+    end;
+    // si ya esta inactiva para que se va a desactivar? :D
+    if DeudaACTIVO.AsInteger = 0 then
+      raise Exception.Create('La Deuda ya esta anulada');
+    Deuda.Edit;
+    DeudaACTIVO.AsInteger := 0;
+    Deuda.Post;
+    try
+      // buscamos el movimiento que corresponde a la deuda; esta en el movimiento detalle
+      Asientos.MovimientoDetView.Close;
+      Asientos.MovimientoDetView.ServerFilter := 'DET_DEUDAID = ' + ADeudaID;
+      Asientos.MovimientoDetView.ServerFiltered := True;
+      Asientos.MovimientoDetView.Open;
+      if Asientos.MovimientoDetView.RecordCount = 0 then
+        raise Exception.Create('Asientos de deuda no encontrados')
+      else if Asientos.MovimientoDetView.RecordCount > 1 then
+        raise Exception.Create('No esta permitido eliminar esta deuda');
+      Asientos.ReversarAsiento(Asientos.MovimientoDetView.FieldByName('ID').AsString,
+        'Eliminacion de deuda ' + ADeudaID);
+      Asientos.PostAsiento;
+    finally
+      Asientos.MovimientoDetView.Close;
+      Asientos.MovimientoDetView.ServerFilter := '';
+      Asientos.MovimientoDetView.ServerFiltered := False;
+    end;
+  except
+    on E: EDatabaseError do
+    begin
+      Rollback;
+      (MasterDataModule as ISubject).Notify;
+    end;
+  end;
 end;
 
 procedure TGeneraDeudaDataModule.GenerarCuotas;
