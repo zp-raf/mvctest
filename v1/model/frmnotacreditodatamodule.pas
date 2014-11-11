@@ -5,12 +5,14 @@ unit frmNotaCreditoDataModule;
 interface
 
 uses
-  frmcomprobantedatamodule, LR_DBSet, LR_Class, DB, sqldb,
-  frmfacturadatamodule2, Classes, sgcdTypes, SysUtils;
+  frmcomprobantedatamodule, LR_DBSet, LR_Class, DB, sqldb, mensajes, variants,
+  frmfacturadatamodule2, Classes, sgcdTypes, SysUtils, frmasientosdatamodule;
 
 resourcestring
   rsGenNotaCredito = 'SEQ_NOTA_CREDITO';
   rsGenNotaCreditoDetalle = 'SEQ_NOTA_CREDITO_DETALLE';
+  rsDescripcionPorDefecto = 'Emision de nota de credito nro. ';
+  rsDescripcionAnulacion = 'Aunlacion de nota de credito nro. ';
 
 const
   TALONARIO_NC = '16';
@@ -20,19 +22,29 @@ type
   { TNotaCreditoDataModule }
 
   TNotaCreditoDataModule = class(TComprobanteDataModule)
-    dsFacturas: TDataSource;
-    qryCabeceraTIMBRADO: TLongintField;
-    procedure DataModuleDestroy(Sender: TObject);
+    qryDetalleCANTIDAD: TLongintField;
+    qryDetalleDETALLE: TStringField;
+    qryDetalleDEUDAID: TLongintField;
+    qryDetalleEXENTA: TFloatField;
+    qryDetalleFACTURADETALLEID: TLongintField;
+    qryDetalleID: TLongintField;
+    qryDetalleIVA10: TFloatField;
+    qryDetalleIVA5: TFloatField;
+    qryDetalleNOTACREDITOID: TLongintField;
+    qryDetallePRECIO_UNITARIO: TFloatField;
   private
+    FAsientos: TAsientosDataModule;
     FFacturas: TFacturasDataModule;
     FIVA10Codigo: string;
     FIVA5Codigo: string;
+    procedure SetAsientos(AValue: TAsientosDataModule);
     procedure SetFacturas(AValue: TFacturasDataModule);
     procedure SetIVA10Codigo(AValue: string);
     procedure SetIVA5Codigo(AValue: string);
   published
+    dsFacturas: TDataSource;
+    qryCabeceraTIMBRADO: TLongintField;
     lookUpNUMERO_FACTURA: TLongintField;
-    qryDetalleFACTURADETALLEID: TLongintField;
     StringField1: TStringField;
     qryCabeceraDIRECCION: TStringField;
     qryCabeceraFACTURAID: TLongintField;
@@ -53,18 +65,11 @@ type
     qryCabeceraTELEFONO: TStringField;
     qryCabeceraTOTAL: TFloatField;
     qryCabeceraVALIDO: TSmallintField;
-    qryDetalleCANTIDAD: TLongintField;
-    qryDetalleDETALLE: TStringField;
-    qryDetalleDEUDAID: TLongintField;
-    qryDetalleEXENTA: TFloatField;
-    qryDetalleID: TLongintField;
-    qryDetalleIVA10: TFloatField;
-    qryDetalleIVA5: TFloatField;
-    qryDetalleNOTACREDITOID: TLongintField;
-    qryDetallePRECIO_UNITARIO: TFloatField;
     procedure ActualizarTotales; override;
+    procedure AnularNotaCredito(ANotaID: string);
     procedure CloseDataSets; override;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DataModuleDestroy(Sender: TObject);
     procedure DeterminarImpuesto; override;
     procedure FetchCabeceraFactura(AFacturaID: string);
     procedure FetchCabeceraFactura;
@@ -76,8 +81,10 @@ type
     procedure qryCabeceraNewRecord(DataSet: TDataSet); override;
     procedure qryDetalleAfterInsert(DataSet: TDataSet); override;
     procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
-    procedure RegistrarMovimiento;
+    procedure RegistrarMovimiento(EsVenta: boolean; ANotaID: string);
+    procedure SaveChanges; override;
     procedure SetNumero; override;
+    property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
     property Facturas: TFacturasDataModule read FFacturas write SetFacturas;
     property IVA10Codigo: string read FIVA10Codigo write SetIVA10Codigo;
     property IVA5Codigo: string read FIVA5Codigo write SetIVA5Codigo;
@@ -101,6 +108,8 @@ implementation
 procedure TNotaCreditoDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
+  FAsientos := TAsientosDataModule.Create(Self, MasterDataModule);
+  FAsientos.ComprobarAsiento := False;
   FFacturas := TFacturasDataModule.Create(Self, MasterDataModule);
   dsFacturas.DataSet := FFacturas.qryCabecera;
   SetTipoComprobante(doNotaCredito);
@@ -170,9 +179,60 @@ begin
   ActualizarTotales;
 end;
 
-procedure TNotaCreditoDataModule.RegistrarMovimiento;
+procedure TNotaCreditoDataModule.RegistrarMovimiento(EsVenta: boolean; ANotaID: string);
+var
+  CuentaID: string;
 begin
+  try
+    if (qryCabecera.State in [dsEdit, dsInsert]) then
+      raise Exception.Create(rsCreatingDoc);
+    if not qryCabecera.Locate('ID', ANotaID, []) then
+      raise EDatabaseError.Create(rsNoSeEncontroDoc);
+    qryDetalle.First;
+    // hay que buscar la cuenta que le correponde a la persona
+    Asientos.Cuenta.Cuenta.Open;
+    CuentaID := Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
+      qryCabecera.FieldByName('PERSONAID').AsString, 'ID');
+    Asientos.NuevoAsiento(rsDescripcionPorDefecto +
+      qryCabecera.FieldByName('NUMERO').AsString, doNotaCredito,
+      qryCabecera.FieldByName('ID').AsString);
+    while not qryDetalle.EOF do
+    begin
+      if EsVenta then
+        Asientos.NuevoAsientoDetalle(CuentaID, mvCredito,
+          qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
+          'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '')
+      else
+        Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,
+          qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
+          'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
+      qryDetalle.Next;
+    end;
+    Asientos.PostAsiento;
+  except
+    on E: Exception do
+    begin
+      raise;
+      Rollback;
+    end;
+    on E: EDatabaseError do
+    begin
+      raise;
+      Rollback;
+    end;
+  end;
+end;
 
+procedure TNotaCreditoDataModule.SaveChanges;
+begin
+  inherited SaveChanges;
+  if (Asientos.Estado in [asGuardado]) then
+  begin
+    Asientos.Movimiento.ApplyUpdates;
+    Asientos.MovimientoDet.ApplyUpdates;
+  end
+  else
+    raise EDatabaseError.Create('Error al registrar movimiento');
 end;
 
 procedure TNotaCreditoDataModule.SetNumero;
@@ -201,6 +261,8 @@ begin
   inherited;
   if Assigned(FFacturas) then
     FreeAndNil(FFacturas);
+  if Assigned(FAsientos) then
+    FreeAndNil(FAsientos);
 end;
 
 procedure TNotaCreditoDataModule.SetFacturas(AValue: TFacturasDataModule);
@@ -208,6 +270,13 @@ begin
   if FFacturas = AValue then
     Exit;
   FFacturas := AValue;
+end;
+
+procedure TNotaCreditoDataModule.SetAsientos(AValue: TAsientosDataModule);
+begin
+  if FAsientos = AValue then
+    Exit;
+  FAsientos := AValue;
 end;
 
 procedure TNotaCreditoDataModule.SetIVA5Codigo(AValue: string);
@@ -252,6 +321,33 @@ begin
   qryCabeceraTOTAL.AsFloat :=
     qryCabeceraTOTAL.AsFloat + qryCabeceraSUBTOTAL_EXENTAS.AsFloat +
     qryCabeceraSUBTOTAL_IVA5.AsFloat + qryCabeceraSUBTOTAL_IVA10.AsFloat;
+end;
+
+procedure TNotaCreditoDataModule.AnularNotaCredito(ANotaID: string);
+var
+  NCNum: string;
+begin
+  try
+    if not qryCabecera.Locate('ID', ANotaID, []) then
+      raise EDatabaseError.Create('No se encuentra la nota de credito');
+    NCNum := qryCabecera.FieldByName('NUMERO').AsString;
+    qryCabecera.Edit;
+    qryCabecera.FieldByName('VALIDO').AsString := DB_FALSE;
+    qryCabecera.Post;
+    if not Asientos.Movimiento.Locate('DOCUMENTOID;TIPO_DOCUMENTO',
+      VarArrayOf([ANotaID, NOTA_CREDITO]), []) then
+      raise EDatabaseError.Create(
+        'No se puede revertir el movimiento. Movimiento no encontrado');
+    Asientos.ReversarAsiento(rsDescripcionAnulacion + NCNum);
+    Asientos.PostAsiento;
+    SaveChanges;
+  except
+    on E: EDatabaseError do
+    begin
+      Rollback;
+      raise;
+    end;
+  end;
 end;
 
 procedure TNotaCreditoDataModule.CloseDataSets;
@@ -305,14 +401,17 @@ begin
   while not Facturas.qryDetalle.EOF do
   begin
     NuevoComprobanteDetalle;
-    qryDetalleDEUDAID.Value := Facturas.qryDetalle.FieldByName('DEUDAID').Value;
-    qryDetalleCANTIDAD.Value := Facturas.qryDetalle.FieldByName('CANTIDAD').Value;
-    qryDetalleDETALLE.Value := Facturas.qryDetalle.FieldByName('DETALLE').Value;
-    qryDetallePRECIO_UNITARIO.Value :=
-      Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').Value;
-    qryDetalleEXENTA.Value := Facturas.qryDetalle.FieldByName('EXENTA').Value;
-    qryDetalleIVA5.Value := Facturas.qryDetalle.FieldByName('IVA5').Value;
-    qryDetalleIVA10.Value := Facturas.qryDetalle.FieldByName('IVA10').Value;
+    qryDetalleFACTURADETALLEID.AsString :=
+      Facturas.qryDetalle.FieldByName('ID').AsString;
+    qryDetalleDEUDAID.AsString := Facturas.qryDetalle.FieldByName('DEUDAID').AsString;
+    qryDetalleCANTIDAD.AsInteger :=
+      Facturas.qryDetalle.FieldByName('CANTIDAD').AsInteger;
+    qryDetalleDETALLE.AsString := Facturas.qryDetalle.FieldByName('DETALLE').AsString;
+    qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
+      Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
+    qryDetalleEXENTA.AsFloat := Facturas.qryDetalle.FieldByName('EXENTA').AsFloat;
+    qryDetalleIVA5.AsFloat := Facturas.qryDetalle.FieldByName('IVA5').AsFloat;
+    qryDetalleIVA10.AsFloat := Facturas.qryDetalle.FieldByName('IVA10').AsFloat;
     Facturas.qryDetalle.Next;
   end;
   ActualizarTotales;

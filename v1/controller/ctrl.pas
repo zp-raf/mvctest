@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, manejoerrores, mvc, IBConnection, DB, Controls, Forms,
-  observerSubject, dateutils, frmquerydatamodule, mensajes;
+  observerSubject, dateutils, frmquerydatamodule, mensajes, DBGrids;
 
 type
 
@@ -52,6 +52,7 @@ type
     procedure Save(Sender: IView); virtual;
     function GetVersion(Sender: IView): string; virtual; final;
     function IsDBConnected(Sender: IView): boolean; virtual;
+    function IsDBGridEmpty(Grid: TDBGrid; Sender: IFormView): boolean;
     function IsValidDate(ADateStr: string): boolean; virtual;
     function IsValidDate(ADate: TDateTime): boolean; virtual;
   end;
@@ -214,6 +215,11 @@ end;
 function TController.IsDBConnected(Sender: IView): boolean;
 begin
   Result := GetModel.GetDBStatus.Connected;
+end;
+
+function TController.IsDBGridEmpty(Grid: TDBGrid; Sender: IFormView): boolean;
+begin
+  Result := Grid.DataSource.DataSet.IsEmpty;
 end;
 
 function TController.IsValidDate(ADateStr: string): boolean;

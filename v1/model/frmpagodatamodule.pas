@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, sqldb, DB, frmquerydatamodule, frmfacturadatamodule2, mensajes,
-  observerSubject, frmasientosdatamodule, sgcdTypes, frmrecibodatamodule;
+  observerSubject, frmasientosdatamodule, sgcdTypes, frmrecibodatamodule, Dialogs;
 
 const
   ITEM_SEPARATOR = ', ';
@@ -264,23 +264,31 @@ begin
       Exit;
     end;
     try
-      Asientos.MovimientoDetView.Close;
-      Asientos.MovimientoDetView.ServerFilter := 'PAGOID = ' + PagoID.AsString;
-      Asientos.MovimientoDet.ServerFiltered := True;
+      Pago.Edit;
+      Pago.FieldByName('VALIDO').AsString := DB_FALSE;
+      Pago.Post;
+      Asientos.Movimiento.Open;
       Asientos.MovimientoDet.Open;
-      if (Asientos.MovimientoDet.RecordCount <> 1) then
+      Asientos.MovimientoDetView.Close;
+      Asientos.MovimientoDetView.ServerFilter := 'PAGOID = ' + APagoID;
+      Asientos.MovimientoDetView.ServerFiltered := True;
+      Asientos.MovimientoDetView.Open;
+      if (Asientos.MovimientoDetView.RecordCount <> 1) then
         raise EDatabaseError.Create(rsRollbackPaymentEntryError);
-      Asientos.ReversarAsiento(Asientos.MovimientoDet.FieldByName('ID').AsString,
+      Asientos.ReversarAsiento(Asientos.MovimientoDetView.FieldByName('ID').AsString,
         DESCRIPCION_REVERSION + ' ' + APagoID);
       Asientos.PostAsiento;
     finally
       Asientos.MovimientoDetView.Close;
       Asientos.MovimientoDetView.ServerFilter := '';
-      Asientos.MovimientoDet.ServerFiltered := False;
+      Asientos.MovimientoDetView.ServerFiltered := False;
     end;
   except
     on E: EDatabaseError do
-      DoOnErrorEvent(Self, E);
+    begin
+      Rollback;
+      raise;
+    end;
   end;
 end;
 
@@ -446,15 +454,17 @@ begin
   else if PagoESCOBRO.AsInteger = 0 then
     co := False;
   pa := PagoID.AsString;
-  // guardamos el pago
   Pago.ApplyUpdates;
-  PagoDetCheques.ApplyUpdates;
-  PagoDetTarjetas.ApplyUpdates;
-  // y reigstramos el movimiento
-  RegistrarMovimiento(co, pa);
-  if PuedeImprimirRecibo then
-    ImprimirRecibo;
-  // y comiteamos
+  // si se esta editando el pago no hace falta registrar el movimiento y los detalles
+  if (Pago.UpdateStatus in [usInserted]) then
+  begin
+    PagoDetCheques.ApplyUpdates;
+    PagoDetTarjetas.ApplyUpdates;
+    // y reigstramos el movimiento
+    RegistrarMovimiento(co, pa);
+    if PuedeImprimirRecibo then
+      ImprimirRecibo;
+  end;
   MasterDataModule.Commit;
   Listo := False;
 end;

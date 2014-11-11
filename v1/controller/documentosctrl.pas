@@ -15,6 +15,9 @@ type
   { TDocumentosController }
 
   TDocumentosController = class(TController)
+  private
+    FPagoController: TPagoController;
+    procedure SetPagoController(AValue: TPagoController);
   protected
     function GetCustomModel: TDocumentosDataModule;
   public
@@ -27,12 +30,21 @@ type
     procedure CobrarDoc(ATipoDoc: TDocViewerDocType; ADoc: string; Sender: IFormView);
     procedure VerDocumento(ATipoDoc: TDocViewerDocType; Sender: IFormView);
     procedure VerDocumento(ATipoDoc: TDocViewerDocType; ADoc: string; Sender: IFormView);
+    property PagoController: TPagoController read FPagoController
+      write SetPagoController;
   end;
 
 
 implementation
 
 { TDocumentosController }
+
+procedure TDocumentosController.SetPagoController(AValue: TPagoController);
+begin
+  if FPagoController = AValue then
+    Exit;
+  FPagoController := AValue;
+end;
 
 function TDocumentosController.GetCustomModel: TDocumentosDataModule;
 begin
@@ -42,6 +54,7 @@ end;
 constructor TDocumentosController.Create(AModel: Pointer);
 begin
   inherited Create(AModel);
+  PagoController := TPagoController.Create(GetCustomModel.Pagos);
 end;
 
 procedure TDocumentosController.AnularDoc(ATipoDoc: TDocViewerDocType;
@@ -51,6 +64,10 @@ begin
     dtFacturaNocobrada:
     begin
       AnularDoc(ATipoDoc, GetCustomModel.FacturasViewID.AsString, Sender);
+    end;
+    dtNotaCredito:
+    begin
+      AnularDoc(ATipoDoc, GetCustomModel.NotaCreditoViewID.AsString, Sender);
     end;
   end;
 end;
@@ -66,6 +83,13 @@ begin
       Commit(Sender);
       RefreshData(Sender);
     end;
+    dtNotaCredito:
+    begin
+      GetCustomModel.AnularNotaCredito(ADoc);
+      Sender.ShowInfoMessage('Operacion exitosa');
+      Commit(Sender);
+      RefreshData(Sender);
+    end;
   end;
 end;
 
@@ -74,7 +98,7 @@ procedure TDocumentosController.AnularPago(ATipoDoc: TDocViewerDocType;
 begin
   try
     case ATipoDoc of
-      dtFacturaCobrada: AnularDoc(ATipoDoc,
+      dtFacturaCobrada: AnularPago(ATipoDoc,
           GetCustomModel.FacturasCobradasView.FieldByName('ID').AsString, Sender);
     end;
   except
@@ -89,7 +113,7 @@ begin
   case ATipoDoc of
     dtFacturaCobrada:
     begin
-      GetCustomModel.AnularPago(GetCustomModel.GetPagoDoc(ADoc, doFactura));
+      PagoController.AnularPago(GetCustomModel.GetPagoDoc(ADoc, doFactura));
     end;
   end;
 end;
@@ -108,10 +132,8 @@ procedure TDocumentosController.CobrarDoc(ATipoDoc: TDocViewerDocType;
   ADoc: string; Sender: IFormView);
 var
   ProcesoPago: TProcesoPago;
-  PagoController: TPagoController;
 begin
   try
-    PagoController := TPagoController.Create(GetCustomModel.Pagos);
     ProcesoPago := TProcesoPago.Create(Sender, PagoController);
     (GetModel.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
     case ATipoDoc of

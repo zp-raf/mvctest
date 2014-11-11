@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, ExtCtrls, StdCtrls, DBGrids, frmproceso,
+  Menus, ExtCtrls, StdCtrls, DBGrids, ButtonPanel, frmproceso,
   frmdocumentosdatamodule, mvc, documentosctrl, frmfacturadatamodule2,
   frmpagodatamodule, frmpago, sgcdtypes;
 
@@ -15,8 +15,11 @@ type
   { TProcesoDocumentos }
 
   TProcesoDocumentos = class(TProceso)
+    DBGridNotaCredito: TDBGrid;
+    TabSheetNotaCredito: TTabSheet;
     procedure CancelButtonClick(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
+    procedure TabSheetNotaCreditoShow(Sender: TObject);
   protected
     function GetCustomController: TDocumentosController;
   published
@@ -53,6 +56,10 @@ implementation
 
 procedure TProcesoDocumentos.TabSheetCobroShow(Sender: TObject);
 begin
+  if GetController.IsDBGridEmpty(DBGridCobro, Self) then
+    PanelAcciones.Enabled := False
+  else
+    PanelAcciones.Enabled := True;
   ButtonCobrar.Enabled := False;
   ButtonVer.Enabled := True;
   ButtonImprimir.Enabled := True;
@@ -62,11 +69,28 @@ end;
 
 procedure TProcesoDocumentos.TabSheetFacturasCobradasShow(Sender: TObject);
 begin
+  if GetController.IsDBGridEmpty(DBGridFacturasCobradas, Self) then
+    PanelAcciones.Enabled := False
+  else
+    PanelAcciones.Enabled := True;
   ButtonCobrar.Enabled := False;
   ButtonVer.Enabled := True;
   ButtonImprimir.Enabled := True;
   ButtonAnular.Enabled := False;
   ButtonAnularPago.Enabled := True;
+end;
+
+procedure TProcesoDocumentos.TabSheetFacturaShow(Sender: TObject);
+begin
+  if GetController.IsDBGridEmpty(DBGridFactura, Self) then
+    PanelAcciones.Enabled := False
+  else
+    PanelAcciones.Enabled := True;
+  ButtonCobrar.Enabled := True;
+  ButtonVer.Enabled := True;
+  ButtonImprimir.Enabled := True;
+  ButtonAnular.Enabled := True;
+  ButtonAnularPago.Enabled := False;
 end;
 
 procedure TProcesoDocumentos.ButtonCobrarClick(Sender: TObject);
@@ -80,7 +104,9 @@ begin
   if PageControlDocs.ActivePageIndex = TabSheetCobro.PageIndex then
     GetCustomController.AnularDoc(dtRecibo, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
-    GetCustomController.AnularDoc(dtFacturaNocobrada, Self);
+    GetCustomController.AnularDoc(dtFacturaNocobrada, Self)
+  else if PageControlDocs.ActivePageIndex = TabSheetNotaCredito.PageIndex then
+    GetCustomController.AnularDoc(dtNotaCredito, Self);
 end;
 
 procedure TProcesoDocumentos.ButtonAnularPagoClick(Sender: TObject);
@@ -99,15 +125,6 @@ begin
     GetCustomController.VerDocumento(dtFacturaCobrada, Self);
 end;
 
-procedure TProcesoDocumentos.TabSheetFacturaShow(Sender: TObject);
-begin
-  ButtonCobrar.Enabled := True;
-  ButtonVer.Enabled := True;
-  ButtonImprimir.Enabled := True;
-  ButtonAnular.Enabled := True;
-  ButtonAnularPago.Enabled := False;
-end;
-
 procedure TProcesoDocumentos.CancelButtonClick(Sender: TObject);
 begin
   GetController.Rollback(Self);
@@ -116,6 +133,19 @@ end;
 procedure TProcesoDocumentos.OKButtonClick(Sender: TObject);
 begin
   GetController.Commit(Self);
+end;
+
+procedure TProcesoDocumentos.TabSheetNotaCreditoShow(Sender: TObject);
+begin
+  if GetController.IsDBGridEmpty(DBGridNotaCredito, Self) then
+    PanelAcciones.Enabled := False
+  else
+    PanelAcciones.Enabled := True;
+  ButtonCobrar.Enabled := False;
+  ButtonVer.Enabled := True;
+  ButtonImprimir.Enabled := True;
+  ButtonAnular.Enabled := True;
+  ButtonAnularPago.Enabled := False;
 end;
 
 function TProcesoDocumentos.GetCustomController: TDocumentosController;

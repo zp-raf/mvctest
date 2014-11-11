@@ -50,7 +50,7 @@ end;
 procedure TPagoController.AnularPago(PagoID: string);
 begin
   GetCustomModel.AnularPago(PagoID);
-  GetModel.SaveChanges;
+  GetCustomModel.Asientos.SaveChanges;
   GetModel.Commit;
 end;
 

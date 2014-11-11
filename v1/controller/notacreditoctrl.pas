@@ -38,14 +38,22 @@ begin
 end;
 
 procedure TNotaCreditoController.CerrarComprobante(Sender: IView);
+var
+  NotaID: string;
 begin
   try
+    NotaID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
+    GetCustomModel.qryCabecera.ApplyUpdates;
+    GetCustomModel.qryDetalle.ApplyUpdates;
+    GetCustomModel.RegistrarMovimiento(True, NotaID);
     GetModel.SaveChanges;
-    GetCustomModel.RegistrarMovimiento;
     GetModel.Commit;
   except
     on E: EDatabaseError do
+    begin
       Rollback(Sender);
+      raise;
+    end;
   end;
 end;
 

@@ -415,7 +415,6 @@ begin
       raise EDatabaseError.Create(rsNoSeEstaCreando);
 
     qryDetalle.Append;
-    // TODO: cada uno de los campos del detalle (?)
     (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do

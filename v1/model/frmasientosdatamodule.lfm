@@ -10,6 +10,7 @@ inherited AsientosDataModule: TAsientosDataModule
     top = 24
   end
   object Movimiento: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -46,7 +47,20 @@ inherited AsientosDataModule: TAsientosDataModule
         DataType = ftInteger
         Precision = -1
         Size = 0
+      end    
+      item
+        Name = 'DOCUMENTOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIPO_DOCUMENTO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
+    Active = True
     AfterScroll = MovimientoAfterScroll
     OnNewRecord = MovimientoNewRecord
     Database = sgcdDataModule.db
@@ -113,6 +127,26 @@ inherited AsientosDataModule: TAsientosDataModule
       FieldKind = fkData
       FieldName = 'PAGOID'
       Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoDOCUMENTOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DOCUMENTOID'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MovimientoTIPO_DOCUMENTO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TIPO_DOCUMENTO'
+      Index = 7
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -267,7 +301,6 @@ inherited AsientosDataModule: TAsientosDataModule
     top = 104
   end
   object MovimientoDetView: TSQLQuery[5]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -360,7 +393,6 @@ inherited AsientosDataModule: TAsientosDataModule
       'select * from v_movimientos_det'
     )
     Params = <>
-    DataSource = dsMovimientoDet
     left = 48
     top = 216
     object MovimientoDetViewID: TLongintField

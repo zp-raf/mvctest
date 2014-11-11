@@ -2,8 +2,8 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 399
-  HorizontalOffset = 384
-  VerticalOffset = 230
+  HorizontalOffset = 991
+  VerticalOffset = 386
   Width = 562
   inherited qryCabecera: TSQLQuery
     FieldDefs = <    
@@ -460,6 +460,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
         Name = 'notacreditoid'
         ParamType = ptInput
       end>
+    top = 96
     object qryDetalleID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
@@ -490,32 +491,42 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ReadOnly = False
       Required = False
     end
-    object qryDetalleCANTIDAD: TLongintField[3]
+    object qryDetalleFACTURADETALLEID: TLongintField[3]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FACTURADETALLEID'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryDetalleCANTIDAD: TLongintField[4]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'CANTIDAD'
-      Index = 3
+      Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
     end
-    object qryDetalleDETALLE: TStringField[4]
+    object qryDetalleDETALLE: TStringField[5]
       DisplayWidth = 1024
       FieldKind = fkData
       FieldName = 'DETALLE'
-      Index = 4
+      Index = 5
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
       Size = 1024
     end
-    object qryDetallePRECIO_UNITARIO: TFloatField[5]
+    object qryDetallePRECIO_UNITARIO: TFloatField[6]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'PRECIO_UNITARIO'
-      Index = 5
+      Index = 6
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -525,23 +536,10 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryDetalleEXENTA: TFloatField[6]
+    object qryDetalleEXENTA: TFloatField[7]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'EXENTA'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
-    end
-    object qryDetalleIVA5: TFloatField[7]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'IVA5'
       Index = 7
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -551,10 +549,10 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryDetalleIVA10: TFloatField[8]
+    object qryDetalleIVA5: TFloatField[8]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'IVA10'
+      FieldName = 'IVA5'
       Index = 8
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -564,15 +562,18 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryDetalleFACTURADETALLEID: TLongintField[9]
+    object qryDetalleIVA10: TFloatField[9]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'FACTURADETALLEID'
+      FieldName = 'IVA10'
       Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
     end
   end
   inherited qryNumero: TSQLQuery

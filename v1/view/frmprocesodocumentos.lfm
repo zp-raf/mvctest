@@ -22,13 +22,13 @@ inherited ProcesoDocumentos: TProcesoDocumentos
     ShowButtons = [pbClose, pbHelp]
   end
   object PageControlDocs: TPageControl[2]
-    Left = 8
+    Left = 6
     Height = 448
     Top = 8
     Width = 876
-    ActivePage = TabSheetFacturasCobradas
+    ActivePage = TabSheetNotaCredito
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 1
+    TabIndex = 3
     TabOrder = 2
     object TabSheetFactura: TTabSheet
       Caption = 'Facturas sin cobrar'
@@ -72,16 +72,16 @@ inherited ProcesoDocumentos: TProcesoDocumentos
           end        
           item
             Title.Caption = 'VENCIMIENTO'
+            Width = 93
             FieldName = 'VENCIMIENTO'
           end        
           item
             Title.Caption = 'RUC'
-            Width = 55
+            Width = 38
             FieldName = 'RUC'
           end        
           item
             Title.Caption = 'NOMBRE'
-            Width = 160
             FieldName = 'NOMBRE'
           end        
           item
@@ -94,6 +94,12 @@ inherited ProcesoDocumentos: TProcesoDocumentos
             Title.Caption = 'VALIDO'
             Width = 56
             FieldName = 'VALIDO'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'COMPRA'
+            Width = 65
+            FieldName = 'COMPRA'
           end>
         DataSource = DocumentosDataModule.dsFacturas
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
@@ -143,6 +149,7 @@ inherited ProcesoDocumentos: TProcesoDocumentos
           end        
           item
             Title.Caption = 'VENCIMIENTO'
+            Width = 93
             FieldName = 'VENCIMIENTO'
           end        
           item
@@ -175,6 +182,12 @@ inherited ProcesoDocumentos: TProcesoDocumentos
             Title.Caption = 'PAGO_VALIDO'
             Width = 93
             FieldName = 'PAGO_VALIDO'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'COMPRA'
+            Width = 65
+            FieldName = 'COMPRA'
           end>
         DataSource = DocumentosDataModule.dsFacturasCobradas
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
@@ -185,7 +198,7 @@ inherited ProcesoDocumentos: TProcesoDocumentos
     object TabSheetCobro: TTabSheet
       Caption = 'Cobros'
       ClientHeight = 420
-      ClientWidth = 778
+      ClientWidth = 868
       OnShow = TabSheetCobroShow
       TabVisible = False
       object DBGridCobro: TDBGrid
@@ -198,13 +211,87 @@ inherited ProcesoDocumentos: TProcesoDocumentos
         Left = 0
         Height = 420
         Top = 0
-        Width = 778
+        Width = 868
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
         DataSource = DocumentosDataModule.dsCobros
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
         ReadOnly = True
+        TabOrder = 0
+      end
+    end
+    object TabSheetNotaCredito: TTabSheet
+      Caption = 'Nota de Credito'
+      ClientHeight = 420
+      ClientWidth = 868
+      OnShow = TabSheetNotaCreditoShow
+      object DBGridNotaCredito: TDBGrid
+        AnchorSideLeft.Control = TabSheetNotaCredito
+        AnchorSideTop.Control = TabSheetNotaCredito
+        AnchorSideRight.Control = TabSheetNotaCredito
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = TabSheetNotaCredito
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 420
+        Top = 0
+        Width = 868
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'TIMBRADO'
+            Width = 75
+            FieldName = 'TIMBRADO'
+          end        
+          item
+            Title.Caption = 'NUMERO'
+            Width = 65
+            FieldName = 'NUMERO'
+          end        
+          item
+            Title.Caption = 'FECHA_EMISION'
+            Width = 104
+            FieldName = 'FECHA_EMISION'
+          end        
+          item
+            Title.Caption = 'PERSONAID'
+            Width = 78
+            FieldName = 'PERSONAID'
+          end        
+          item
+            Title.Caption = 'FACTURAID'
+            Width = 78
+            FieldName = 'FACTURAID'
+          end        
+          item
+            Title.Caption = 'RUC'
+            Width = 55
+            FieldName = 'RUC'
+          end        
+          item
+            Title.Caption = 'NOMBRE'
+            Width = 160
+            FieldName = 'NOMBRE'
+          end        
+          item
+            Title.Caption = 'TOTAL'
+            Width = 52
+            FieldName = 'TOTAL'
+          end        
+          item
+            Title.Caption = 'VALIDO'
+            Width = 56
+            FieldName = 'VALIDO'
+          end        
+          item
+            Title.Caption = 'COMPRA'
+            Width = 65
+            FieldName = 'COMPRA'
+          end>
+        DataSource = DocumentosDataModule.dsNotaCredito
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
         TabOrder = 0
       end
     end
@@ -268,7 +355,7 @@ inherited ProcesoDocumentos: TProcesoDocumentos
     end
   end
   inherited MainMenu: TMainMenu[4]
-    left = 88
+    left = 792
     top = 0
   end
 end

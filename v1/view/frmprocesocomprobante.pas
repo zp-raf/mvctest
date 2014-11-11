@@ -250,9 +250,14 @@ begin
     ShowInfoMessage('No se esta procesando ningun comprobante');
     Exit;
   end;
-  GetComprobanteController.CerrarComprobante(Self);
-  ShowInfoMessage('Comprobante ingresado correctamente');
-  Limpiar;
+  try
+    GetComprobanteController.CerrarComprobante(Self);
+    ShowInfoMessage('Comprobante ingresado correctamente');
+    Limpiar;
+  except
+    on e: Exception do
+      ShowInfoMessage('Comprobante descartado');
+  end;
 end;
 
 procedure TProcesoComprobante.CancelButtonClick(Sender: TObject);

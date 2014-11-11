@@ -1,14 +1,20 @@
 inherited DocumentosDataModule: TDocumentosDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 233
+  Height = 258
   HorizontalOffset = 689
   VerticalOffset = 264
-  Width = 337
+  Width = 473
   object FacturasView: TSQLQuery[0]
     FieldDefs = <    
       item
         Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'COMPRA'
         DataType = ftInteger
         Precision = -1
         Size = 0
@@ -91,6 +97,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
     SQL.Strings = (
       'select * from v_facturas'
       'where pagoid is null'
+      'or pago_valido = 0'
     )
     Params = <>
     left = 40
@@ -226,6 +233,16 @@ inherited DocumentosDataModule: TDocumentosDataModule
       FieldKind = fkData
       FieldName = 'VENCIMIENTO'
       Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object FacturasViewCOMPRA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'COMPRA'
+      Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -411,6 +428,12 @@ inherited DocumentosDataModule: TDocumentosDataModule
         Size = 0
       end    
       item
+        Name = 'COMPRA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
         Name = 'NUMERO'
         DataType = ftInteger
         Precision = -1
@@ -488,6 +511,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
     SQL.Strings = (
       'select * from v_facturas'
       'where pagoid is not null'
+      'and pago_valido = 1'
     )
     Params = <>
     left = 240
@@ -628,10 +652,220 @@ inherited DocumentosDataModule: TDocumentosDataModule
       ReadOnly = False
       Required = False
     end
+    object FacturasCobradasViewCOMPRA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'COMPRA'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object dsFacturasCobradas: TDataSource[5]
     DataSet = FacturasCobradasView
     left = 246
     top = 132
+  end
+  object NotaCreditoView: TSQLQuery[6]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'COMPRA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FACTURAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA_EMISION'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TOTAL'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_notas_credito'
+    )
+    Params = <>
+    left = 360
+    top = 40
+    object NotaCreditoViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object NotaCreditoViewCOMPRA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'COMPRA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object NotaCreditoViewPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object NotaCreditoViewFACTURAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FACTURAID'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object NotaCreditoViewTIMBRADO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object NotaCreditoViewNUMERO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object NotaCreditoViewFECHA_EMISION: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA_EMISION'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object NotaCreditoViewRUC: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUC'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object NotaCreditoViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object NotaCreditoViewTOTAL: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TOTAL'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object NotaCreditoViewVALIDO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsNotaCredito: TDataSource[7]
+    DataSet = NotaCreditoView
+    left = 360
+    top = 128
   end
 end

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, frmcuentadatamodule,
+  frmquerydatamodule, frmcuentadatamodule, sgcdTypes,
   observerSubject, mensajes;
 
 resourcestring
@@ -55,6 +55,8 @@ type
     MovimientoDetViewNUMERO: TLongintField;
     MovimientoDetViewPAGOID: TLongintField;
     MovimientoDetViewTIPO_MOVIMIENTO: TStringField;
+    MovimientoDOCUMENTOID: TLongintField;
+    MovimientoTIPO_DOCUMENTO: TLongintField;
   private
     FComprobarAsiento: boolean;
     FCuenta: TCuentaDataModule;
@@ -102,6 +104,8 @@ type
     procedure MovimientoDetAfterInsert(DataSet: TDataSet);
     procedure MovimientoNewRecord(DataSet: TDataSet);
     procedure NuevoAsiento(ADescripcion: string);
+    procedure NuevoAsiento(ADescripcion: string; ATipoDoc: TTipoDocumento;
+      ADocID: string);
     procedure NuevoAsiento(ADescripcion: string; ADeudaID: string; APagoID: string);
     procedure NuevoAsientoDetalle(ACuenta: string; ATipoMov: TTipoMovimiento;
       AMonto: double);
@@ -170,6 +174,18 @@ begin
   MovimientoDESCRIPCION.AsString := ADescripcion;
   Estado := asEditando;
   (MasterDataModule as ISubject).Notify;
+end;
+
+procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string;
+  ATipoDoc: TTipoDocumento; ADocID: string);
+begin
+  NuevoAsiento(ADescripcion, '', '');
+  case ATipoDoc of
+    doFactura: Movimiento.FieldByName('TIPO_DOCUMENTO').AsString := FACTURA;
+    doNotaCredito: Movimiento.FieldByName('TIPO_DOCUMENTO').AsString := NOTA_CREDITO;
+    doRecibo: Movimiento.FieldByName('TIPO_DOCUMENTO').AsString := RECIBO;
+  end;
+  Movimiento.FieldByName('DOCUMENTOID').AsString := ADocID;
 end;
 
 procedure TAsientosDataModule.NuevoAsiento(ADescripcion: string;
@@ -345,6 +361,7 @@ var
 begin
   // buscamos el asiento
   Movimiento.Open;
+  MovimientoDet.Open;
   if not Movimiento.Locate('ID', AAsientoID, [loCaseInsensitive]) then
     raise Exception.Create(rsEntryNotFound);
   try

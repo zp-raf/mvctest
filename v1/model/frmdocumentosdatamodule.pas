@@ -6,23 +6,41 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, frmfacturadatamodule2, frmpagodatamodule, sgcdTypes, mensajes;
+  frmquerydatamodule, frmfacturadatamodule2, frmpagodatamodule, sgcdTypes,
+  mensajes, frmNotaCreditoDataModule;
 
 type
 
   { TDocumentosDataModule }
 
   TDocumentosDataModule = class(TQueryDataModule)
+    dsNotaCredito: TDataSource;
+    FacturasCobradasViewCOMPRA: TLongintField;
     FacturasCobradasViewPAGOID: TLongintField;
     FacturasCobradasViewPAGO_VALIDO: TSmallintField;
     FacturasCobradasViewVENCIMIENTO: TDateField;
+    FacturasViewCOMPRA: TLongintField;
     FacturasViewPAGOID: TLongintField;
     FacturasViewPAGO_VALIDO: TSmallintField;
     FacturasViewVENCIMIENTO: TDateField;
+    NotaCreditoView: TSQLQuery;
+    NotaCreditoViewCOMPRA: TLongintField;
+    NotaCreditoViewFACTURAID: TLongintField;
+    NotaCreditoViewFECHA_EMISION: TDateField;
+    NotaCreditoViewID: TLongintField;
+    NotaCreditoViewNOMBRE: TStringField;
+    NotaCreditoViewNUMERO: TLongintField;
+    NotaCreditoViewPERSONAID: TLongintField;
+    NotaCreditoViewRUC: TStringField;
+    NotaCreditoViewTIMBRADO: TStringField;
+    NotaCreditoViewTOTAL: TFloatField;
+    NotaCreditoViewVALIDO: TSmallintField;
   private
     FFacturas: TFacturasDataModule;
+    FNotaCredito: TNotaCreditoDataModule;
     FPagos: TPagoDataModule;
     procedure SetFacturas(AValue: TFacturasDataModule);
+    procedure SetNotaCredito(AValue: TNotaCreditoDataModule);
     procedure SetPagos(AValue: TPagoDataModule);
     //FCodigos: TCodigosDataModule;
     //procedure SetCodigos(AValue: TCodigosDataModule);
@@ -63,12 +81,14 @@ type
     FacturasViewTOTAL: TFloatField;
     FacturasViewVALIDO: TSmallintField;
     procedure AnularFactura(AFacturaID: string);
+    procedure AnularNotaCredito(ANotaID: string);
     procedure AnularPago(APagoID: string);
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
     function GetPagoDoc(ADoc: string; ATipoDoc: TTipoDocumento): string;
     //property Codigos: TCodigosDataModule read FCodigos write SetCodigos;
     property Facturas: TFacturasDataModule read FFacturas write SetFacturas;
+    property NotaCredito: TNotaCreditoDataModule read FNotaCredito write SetNotaCredito;
     property Pagos: TPagoDataModule read FPagos write SetPagos;
   end;
 
@@ -87,8 +107,10 @@ begin
   inherited;
   if Assigned(FFacturas) then
     FreeAndNil(FFacturas);
-  //if Assigned(FPagos) then
-  //  FreeAndNil(FPagos);
+  if Assigned(FPagos) then
+    FreeAndNil(FPagos);
+  if Assigned(FNotaCredito) then
+    FreeAndNil(FNotaCredito);
 end;
 
 function TDocumentosDataModule.GetPagoDoc(ADoc: string;
@@ -125,6 +147,13 @@ begin
   FFacturas := AValue;
 end;
 
+procedure TDocumentosDataModule.SetNotaCredito(AValue: TNotaCreditoDataModule);
+begin
+  if FNotaCredito = AValue then
+    Exit;
+  FNotaCredito := AValue;
+end;
+
 procedure TDocumentosDataModule.SetPagos(AValue: TPagoDataModule);
 begin
   if FPagos = AValue then
@@ -146,9 +175,32 @@ begin
   end;
 end;
 
+procedure TDocumentosDataModule.AnularNotaCredito(ANotaID: string);
+begin
+  try
+    NotaCredito.Connect;
+    NotaCredito.AnularNotaCredito(ANotaID);
+  except
+    on E: EDatabaseError do
+    begin
+      Rollback;
+      Connect;
+    end;
+  end;
+end;
+
 procedure TDocumentosDataModule.AnularPago(APagoID: string);
 begin
-
+  try
+    Pagos.Connect;
+    Pagos.AnularPago(APagoID);
+  except
+    on E: EDatabaseError do
+    begin
+      Rollback;
+      Connect;
+    end;
+  end;
 end;
 
 procedure TDocumentosDataModule.DataModuleCreate(Sender: TObject);
@@ -158,10 +210,12 @@ begin
   //FCodigos.SetObject('TIPO_COMPROBANTE');
   //AuxQryList.Add(TObject(FCodigos.Codigos));
   Facturas := TFacturasDataModule.Create(Self, MasterDataModule);
+  NotaCredito := TNotaCreditoDataModule.Create(Self, MasterDataModule);
   Pagos := TPagoDataModule.Create(Self, MasterDataModule);
   AuxQryList.Add(TObject(FacturasView));
   AuxQryList.Add(TObject(CobrosView));
   AuxQryList.Add(TObject(FacturasCobradasView));
+  AuxQryList.Add(TObject(NotaCreditoView));
 end;
 
 //procedure TDocumentosDataModule.SetCodigos(AValue: TCodigosDataModule);

@@ -44,7 +44,7 @@ const
 type
 
   // Para la ventana de documentos
-  TDocViewerDocType = (dtFacturaNocobrada = 1, dtFacturaCobrada = 2, dtRecibo = 3);
+  TDocViewerDocType = (dtFacturaNocobrada = 1, dtFacturaCobrada = 2, dtRecibo = 3, dtNotaCredito = 4);
   // Para querydatamodule
   TErrorEvent = procedure(Sender: TObject; E: EDatabaseError) of object;
   TEstadoComprobante = (asInicial, asEditando, asGuardado, asLeyendo);
