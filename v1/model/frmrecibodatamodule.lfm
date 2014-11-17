@@ -95,6 +95,7 @@ inherited ReciboDataModule: TReciboDataModule
     SQL.Strings = (
       'select * from recibo'
     )
+    left = 112
     object qryCabeceraID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
@@ -258,8 +259,67 @@ inherited ReciboDataModule: TReciboDataModule
       ReadOnly = False
       Required = True
     end
+    object DateField1: TDateField[15]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'VALIDO_DESDE'
+      Index = 15
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'VALIDO_DESDE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+    end
+    object DateField2: TDateField[16]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'VALIDO_HASTA'
+      Index = 16
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'VALIDO_HASTA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+    end
+    object StringField2: TStringField[17]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'SUCURSAL'
+      Index = 17
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'SUCURSAL'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField3: TStringField[18]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'CAJA'
+      Index = 18
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'CAJA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   inherited qryDetalle: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -403,11 +463,25 @@ inherited ReciboDataModule: TReciboDataModule
         ParamType = ptInput
       end>
   end
+  inherited tal: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+  end
+  inherited frDBReporteDet: TfrDBDataSet
+    DataSet = qryDetalle
+    DataSource = dsDetalle
+  end
+  inherited frDBReporteCab: TfrDBDataSet
+    DataSet = qryCabecera
+    DataSource = dsCabecera
+  end
+  inherited frReport1: TfrReport
+    Dataset = frDBReporteCab
+  end
   inherited AuxTalonario: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
     Active = True
   end
-  object dsFacturas: TDataSource[16]
+  object dsFacturas: TDatasource[16]
     left = 376
     top = 256
   end

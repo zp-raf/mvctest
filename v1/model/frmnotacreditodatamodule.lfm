@@ -2,8 +2,8 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 399
-  HorizontalOffset = 991
-  VerticalOffset = 386
+  HorizontalOffset = 650
+  VerticalOffset = 265
   Width = 562
   inherited qryCabecera: TSQLQuery
     FieldDefs = <    
@@ -131,6 +131,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
     SQL.Strings = (
       'select * from NOTA_CREDITO'
     )
+    left = 112
     object qryCabeceraID: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
@@ -386,6 +387,50 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ReadOnly = False
       Required = False
     end
+    object DateField1: TDateField[22]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'VALIDO_HASTA'
+      Index = 22
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'VALIDO_HASTA'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object StringField2: TStringField[23]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'SUCURSAL'
+      Index = 23
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'SUCURSAL'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField3: TStringField[24]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'CAJA'
+      Index = 24
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'CAJA'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   inherited qryDetalle: TSQLQuery
     FieldDefs = <    
@@ -587,10 +632,16 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
         ParamType = ptInput
       end>
   end
+  inherited frDBReporteDet: TfrDBDataSet
+    DataSet = qryDetalle
+  end
+  inherited frDBReporteCab: TfrDBDataSet
+    DataSet = qryCabecera
+  end
   inherited AuxTalonario: TSQLQuery
     left = 280
   end
-  object dsFacturas: TDataSource[16]
+  object dsFacturas: TDatasource[16]
     left = 368
     top = 260
   end

@@ -21,7 +21,11 @@ type
   { TReciboDataModule }
 
   TReciboDataModule = class(TComprobanteDataModule)
+    DateField1: TDateField;
+    DateField2: TDateField;
     qryCabeceraVALIDO: TSmallintField;
+    StringField2: TStringField;
+    StringField3: TStringField;
   private
     FFacturas: TFacturasDataModule;
     procedure SetFacturas(AValue: TFacturasDataModule);

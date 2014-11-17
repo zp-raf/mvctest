@@ -22,6 +22,7 @@ type
   { TNotaCreditoDataModule }
 
   TNotaCreditoDataModule = class(TComprobanteDataModule)
+    DateField1: TDateField;
     qryDetalleCANTIDAD: TLongintField;
     qryDetalleDETALLE: TStringField;
     qryDetalleDEUDAID: TLongintField;
@@ -32,6 +33,8 @@ type
     qryDetalleIVA5: TFloatField;
     qryDetalleNOTACREDITOID: TLongintField;
     qryDetallePRECIO_UNITARIO: TFloatField;
+    StringField2: TStringField;
+    StringField3: TStringField;
   private
     FAsientos: TAsientosDataModule;
     FFacturas: TFacturasDataModule;

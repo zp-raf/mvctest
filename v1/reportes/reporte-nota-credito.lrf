@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-08-01 18:01:45"/>
+    <ReportLastChange Value="2014-11-16 22:54:04"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -17,7 +17,7 @@
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="False"/>
-      <SelectedPrinter Value="PDFCreator"/>
+      <SelectedPrinter Value="HP Deskjet F2100 series"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>
@@ -1791,9 +1791,191 @@
         </Object42>
       </Page1>
       <FVal>
-        <Count Value="0"/>
+        <Count Value="26"/>
+        <Objects1>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="NUMERO"/>
+          <Item Value="NUMERO"/>
+        </Objects1>
+        <Objects2>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="FECHA_EMISION"/>
+          <Item Value="FECHA_EMISION"/>
+        </Objects2>
+        <Objects3>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="NOMBRE"/>
+          <Item Value="NOMBRE"/>
+        </Objects3>
+        <Objects4>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="DIRECCION"/>
+          <Item Value="DIRECCION"/>
+        </Objects4>
+        <Objects5>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="TELEFONO"/>
+          <Item Value="TELEFONO"/>
+        </Objects5>
+        <Objects6>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="TOTAL"/>
+          <Item Value="TOTAL"/>
+        </Objects6>
+        <Objects7>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="TIMBRADO"/>
+          <Item Value="TIMBRADO"/>
+        </Objects7>
+        <Objects8>
+          <Typ Value="0"/>
+          <OtherKind Value="0"/>
+          <Dataset Value=""/>
+          <Field Value=""/>
+          <Item Value="VALIDO_DESDE"/>
+        </Objects8>
+        <Objects9>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="VALIDO_HASTA"/>
+          <Item Value="VALIDO_HASTA"/>
+        </Objects9>
+        <Objects10>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="SUCURSAL"/>
+          <Item Value="SUCURSAL"/>
+        </Objects10>
+        <Objects11>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="CAJA"/>
+          <Item Value="CAJA"/>
+        </Objects11>
+        <Objects12>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryDetalle"/>
+          <Field Value="CANTIDAD"/>
+          <Item Value="CANTIDAD"/>
+        </Objects12>
+        <Objects13>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryDetalle"/>
+          <Field Value="DETALLE"/>
+          <Item Value="DETALLE"/>
+        </Objects13>
+        <Objects14>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryDetalle"/>
+          <Field Value="PRECIO_UNITARIO"/>
+          <Item Value="PRECIO_UNITARIO"/>
+        </Objects14>
+        <Objects15>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="RUC"/>
+          <Item Value="RUC"/>
+        </Objects15>
+        <Objects16>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="NOTA_REMISION"/>
+          <Item Value="NOTA_REMISIO"/>
+        </Objects16>
+        <Objects17>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="IVA5"/>
+          <Item Value="IVA5"/>
+        </Objects17>
+        <Objects18>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="IVA10"/>
+          <Item Value="IVA10"/>
+        </Objects18>
+        <Objects19>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="IVA_TOTAL"/>
+          <Item Value="IVA_TOTAL"/>
+        </Objects19>
+        <Objects20>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="SUBTOTAL_IVA5"/>
+          <Item Value="SUBTOTAL_IVA5"/>
+        </Objects20>
+        <Objects21>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="SUBTOTAL_IVA10"/>
+          <Item Value="SUBTOTAL_IVA10"/>
+        </Objects21>
+        <Objects22>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="SUBTOTAL_EXENTAS"/>
+          <Item Value="SUBTOTAL_EXENTAS"/>
+        </Objects22>
+        <Objects23>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabecera"/>
+          <Field Value="NUMERO_FACTURA"/>
+          <Item Value="NUMERO_FACTURA"/>
+        </Objects23>
+        <Objects24>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryDetalle"/>
+          <Field Value="EXENTA"/>
+          <Item Value="EXENTA_DET"/>
+        </Objects24>
+        <Objects25>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryDetalle"/>
+          <Field Value="IVA5"/>
+          <Item Value="IVA5_DET"/>
+        </Objects25>
+        <Objects26>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryDetalle"/>
+          <Field Value="IVA10"/>
+          <Item Value="IVA10_DET"/>
+        </Objects26>
       </FVal>
-      <ParentVars Value="var1&#xD;&#xA;"/>
+      <ParentVars Value="CABECERA&#xD;&#xA; NUMERO&#xD;&#xA; FECHA_EMISION&#xD;&#xA; RUC&#xD;&#xA; NOMBRE&#xD;&#xA; DIRECCION&#xD;&#xA; TELEFONO&#xD;&#xA; NOTA_REMISIO&#xD;&#xA; TOTAL&#xD;&#xA; IVA5&#xD;&#xA; IVA10&#xD;&#xA; IVA_TOTAL&#xD;&#xA; SUBTOTAL_IVA5&#xD;&#xA; SUBTOTAL_IVA10&#xD;&#xA; SUBTOTAL_EXENTAS&#xD;&#xA; TIMBRADO&#xD;&#xA; VALIDO_DESDE&#xD;&#xA; VALIDO_HASTA&#xD;&#xA; SUCURSAL&#xD;&#xA; CAJA&#xD;&#xA; NUMERO_FACTURA&#xD;&#xA;DETALLE&#xD;&#xA; CANTIDAD&#xD;&#xA; DETALLE&#xD;&#xA; PRECIO_UNITARIO&#xD;&#xA; EXENTA_DET&#xD;&#xA; IVA5_DET&#xD;&#xA; IVA10_DET&#xD;&#xA;"/>
     </Pages>
   </LazReport>
 </CONFIG>
