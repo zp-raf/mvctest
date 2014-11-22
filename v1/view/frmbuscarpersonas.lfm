@@ -2,24 +2,24 @@ inherited PopupSeleccionPersonas: TPopupSeleccionPersonas
   Left = 488
   Height = 512
   Top = 268
-  Width = 1128
+  Width = 1024
   HorzScrollBar.Page = 586
   VertScrollBar.Page = 525
   Caption = 'Seleccionar Personas'
   ClientHeight = 492
-  ClientWidth = 1128
+  ClientWidth = 1024
   Constraints.MinHeight = 512
   Constraints.MinWidth = 1024
   inherited StatusBar1: TStatusBar
     Top = 469
-    Width = 1128
+    Width = 1024
     Visible = False
   end
   object DBGrid1: TDBGrid[1]
     Left = 8
     Height = 380
     Top = 56
-    Width = 1115
+    Width = 1011
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWindow
     Columns = <    
@@ -82,18 +82,6 @@ inherited PopupSeleccionPersonas: TPopupSeleccionPersonas
         Title.Caption = 'ESENCARGADO'
         Width = 98
         FieldName = 'ESENCARGADO'
-      end    
-      item
-        ButtonStyle = cbsCheckboxColumn
-        Title.Caption = 'ESINTERVENTOR'
-        Width = 104
-        FieldName = 'ESINTERVENTOR'
-      end    
-      item
-        ButtonStyle = cbsCheckboxColumn
-        Title.Caption = 'ESVEEDOR'
-        Width = 70
-        FieldName = 'ESVEEDOR'
       end>
     DataSource = FacturasDataModule.dsPersonasRoles
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
@@ -123,7 +111,7 @@ inherited PopupSeleccionPersonas: TPopupSeleccionPersonas
     OnChange = LabeledEdit1Change
   end
   object ButtonOK: TButton[3]
-    Left = 951
+    Left = 847
     Height = 25
     Top = 440
     Width = 75
@@ -133,7 +121,7 @@ inherited PopupSeleccionPersonas: TPopupSeleccionPersonas
     TabOrder = 2
   end
   object ButtonCancel: TButton[4]
-    Left = 1039
+    Left = 935
     Height = 25
     Top = 440
     Width = 75

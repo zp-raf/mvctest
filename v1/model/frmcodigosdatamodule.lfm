@@ -30,7 +30,6 @@ inherited CodigosDataModule: TCodigosDataModule
         Precision = -1
         Size = 255
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (

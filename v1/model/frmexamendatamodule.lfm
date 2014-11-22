@@ -1,0 +1,263 @@
+inherited ExamenesDataModule: TExamenesDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 318
+  HorizontalOffset = 616
+  VerticalOffset = 294
+  Width = 325
+  object Examen: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESARROLLOMATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PUNTAJEMAX'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'OBSERVACIONES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PESO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end>
+    AfterScroll = ExamenAfterScroll
+    OnNewRecord = ExamenNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from examen'
+    )
+    Params = <>
+    left = 62
+    top = 82
+    object ExamenID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object ExamenDESARROLLOMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DESARROLLOMATERIAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ExamenFECHA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ExamenPUNTAJEMAX: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PUNTAJEMAX'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object ExamenOBSERVACIONES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBSERVACIONES'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ExamenACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ExamenPESO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PESO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object StringField3: TStringField
+      DisplayWidth = 1547
+      FieldKind = fkLookup
+      FieldName = 'SECCION'
+      Index = 7
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_MAT_DETALLADO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 1547
+    end
+  end
+  object dsExamen: TDataSource[1]
+    DataSet = Examen
+    left = 73
+    top = 173
+  end
+  object ExamenPersonaExterna: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'EXAMENID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERSONAEXTERNAPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ROL'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    AfterInsert = ExamenPersonaExternaAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from examen_personaexterna'
+      'where examenid = :examenid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'examenid'
+        ParamType = ptInput
+      end>
+    left = 165
+    top = 64
+    object ExamenPersonaExternaEXAMENID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'EXAMENID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object ExamenPersonaExternaPERSONAEXTERNAPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAEXTERNAPERSONAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object ExamenPersonaExternaROL: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ROL'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField1: TStringField
+      DisplayWidth = 511
+      FieldKind = fkLookup
+      FieldName = 'NOMBRECOMPLETO'
+      Index = 3
+      KeyFields = 'PERSONAEXTERNAPERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRECOMPLETO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object StringField2: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'ROL_EXAMEN'
+      Index = 4
+      KeyFields = 'ROL'
+      LookupCache = False
+      LookupDataSet = CodigosDataModule.Codigos
+      LookupKeyFields = 'VALOR'
+      LookupResultField = 'SIGNIFICADO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsExamenPersonaExterna: TDataSource[3]
+    DataSet = ExamenPersonaExterna
+    left = 200
+    top = 144
+  end
+end

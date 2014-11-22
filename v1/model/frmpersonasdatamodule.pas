@@ -50,10 +50,8 @@ type
     PersonasRolesESALUMNO: TLongintField;
     PersonasRolesESCOORDINADOR: TLongintField;
     PersonasRolesESENCARGADO: TLongintField;
-    PersonasRolesESINTERVENTOR: TLongintField;
     PersonasRolesESPROFESOR: TLongintField;
     PersonasRolesESPROVEEDOR: TLongintField;
-    PersonasRolesESVEEDOR: TLongintField;
     PersonasRolesFECHANAC: TDateField;
     PersonasRolesID: TLongintField;
     PersonasRolesNOMBRE: TStringField;
@@ -128,7 +126,7 @@ begin
     roExterno:
     begin
       AFilterStr := AFilterStr +
-        '(ESVEEDOR = 1 OR ESINTERVENTOR = 1 OR ESENCARGADO = 1 OR ESPROVEEDOR = 1)';
+        '(ESENCARGADO = 1 OR ESPROVEEDOR = 1)';
     end;
     roAlumno:
     begin

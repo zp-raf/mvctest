@@ -120,8 +120,16 @@ end;
 
 procedure TController.Save(Sender: IView);
 begin
-  GetModel.SaveChanges;
-  GetModel.RefreshDataSets;
+  try
+    GetModel.SaveChanges;
+    GetModel.RefreshDataSets;
+  except
+    on e: EDatabaseError do
+    begin
+      EditCurrentRecord(Sender);
+      raise;
+    end;
+  end;
 end;
 
 procedure TController.EditCurrentRecord(Sender: IView);

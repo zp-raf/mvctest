@@ -73,6 +73,7 @@ type
     trabajoPractico1: TMenuItem;
     procedure AsientosClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
+    procedure examenabmClick(Sender: TObject);
     procedure extractoClick(Sender: TObject);
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -117,6 +118,11 @@ end;
 procedure TPrincipal1.DocumentosClick(Sender: TObject);
 begin
   GetCustomController.OpenDocumentosForm(Self);
+end;
+
+procedure TPrincipal1.examenabmClick(Sender: TObject);
+begin
+  GetCustomController.OpenExamenesForm(Self);
 end;
 
 procedure TPrincipal1.extractoClick(Sender: TObject);

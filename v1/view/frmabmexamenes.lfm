@@ -1,0 +1,289 @@
+inherited AbmExamenes: TAbmExamenes
+  Left = 845
+  Top = 355
+  Caption = 'ABM Examenes'
+  ClientHeight = 461
+  inherited PanelDetail: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBLookupComboBoxSeccion: TDBLookupComboBox[0]
+      Left = 16
+      Height = 23
+      Top = 24
+      Width = 336
+      AutoComplete = True
+      AutoDropDown = True
+      DataField = 'DESARROLLOMATERIAID'
+      DataSource = ExamenesDataModule.dsExamen
+      KeyField = 'ID'
+      ListField = 'NOMBRE_MAT_DETALLADO'
+      ListFieldIndex = 0
+      ListSource = DesarrolloMateriaDataModule.dsDesarrolloView
+      LookupCache = False
+      TabOrder = 0
+    end
+    object DateEditFecha: TDateEdit[1]
+      Left = 16
+      Height = 23
+      Top = 72
+      Width = 80
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OnAcceptDate = DateEditFechaAcceptDate
+      OKCaption = 'OK'
+      CancelCaption = 'Cancel'
+      DateOrder = doNone
+      ButtonWidth = 23
+      CharCase = ecNormal
+      NumGlyphs = 1
+      MaxLength = 0
+      OnEditingDone = DateEditFechaEditingDone
+      TabOrder = 1
+    end
+    object DBMemoObservaciones: TDBMemo[2]
+      Left = 392
+      Height = 154
+      Top = 24
+      Width = 238
+      DataField = 'OBSERVACIONES'
+      DataSource = ExamenesDataModule.dsExamen
+      TabOrder = 5
+    end
+    object DBCheckBoxActivo: TDBCheckBox[3]
+      Left = 16
+      Height = 23
+      Top = 112
+      Width = 90
+      Caption = 'Activo'
+      DataField = 'ACTIVO'
+      DataSource = ExamenesDataModule.dsExamen
+      TabOrder = 4
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object LabelSeccion: TLabel[4]
+      AnchorSideLeft.Control = DBLookupComboBoxSeccion
+      AnchorSideBottom.Control = DBLookupComboBoxSeccion
+      Left = 16
+      Height = 15
+      Top = 9
+      Width = 41
+      Anchors = [akLeft, akBottom]
+      Caption = 'Seccion'
+      ParentColor = False
+    end
+    object LabelFecha: TLabel[5]
+      AnchorSideLeft.Control = DateEditFecha
+      AnchorSideBottom.Control = DateEditFecha
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 31
+      Anchors = [akLeft, akBottom]
+      Caption = 'Fecha'
+      ParentColor = False
+    end
+    object LabelPuntajeMax: TLabel[6]
+      AnchorSideLeft.Control = FloatSpinEditPuntajeMax
+      AnchorSideBottom.Control = FloatSpinEditPuntajeMax
+      Left = 144
+      Height = 15
+      Top = 57
+      Width = 86
+      Anchors = [akLeft, akBottom]
+      Caption = 'Puntaje Maximo'
+      ParentColor = False
+    end
+    object LabelPeso: TLabel[7]
+      AnchorSideLeft.Control = FloatSpinEditPeso
+      AnchorSideBottom.Control = FloatSpinEditPeso
+      Left = 272
+      Height = 15
+      Top = 57
+      Width = 25
+      Anchors = [akLeft, akBottom]
+      Caption = 'Peso'
+      ParentColor = False
+    end
+    object LabelObservaciones: TLabel[8]
+      AnchorSideLeft.Control = DBMemoObservaciones
+      AnchorSideBottom.Control = DBMemoObservaciones
+      Left = 392
+      Height = 15
+      Top = 9
+      Width = 77
+      Anchors = [akLeft, akBottom]
+      Caption = 'Observaciones'
+      ParentColor = False
+    end
+    object FloatSpinEditPeso: TFloatSpinEdit[9]
+      Left = 272
+      Height = 23
+      Top = 72
+      Width = 106
+      Increment = 1
+      MaxValue = 100
+      MinValue = 0
+      OnChange = FloatSpinEditPesoChange
+      TabOrder = 3
+      Value = 0
+    end
+    object FloatSpinEditPuntajeMax: TFloatSpinEdit[10]
+      Left = 144
+      Height = 23
+      Top = 72
+      Width = 106
+      Increment = 1
+      MaxValue = 200
+      MinValue = 0
+      OnChange = FloatSpinEditPuntajeMaxChange
+      TabOrder = 2
+      Value = 0
+    end
+    object DBGrid2: TDBGrid[11]
+      Left = 16
+      Height = 176
+      Top = 192
+      Width = 616
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Color = clWindow
+      Columns = <      
+        item
+          PickList.Strings = (
+            'Ana Maria Acosta Ortellado'
+            'Laura Esmilce Aguilera Montiel'
+            'Hannah Giselle Alvarez Agüero'
+            'Nadia Patricia Da Rosa Baez'
+            'Eliana Gisell Cords'
+            'Sandra Maria Patricia Kronas Oviedo'
+            'Marians Martinez Montenegro'
+            'Maria Luisa Martinez Caballero'
+            'Maria Paola Oviedo Caceres'
+            'Lorena Estefany Ramirez Delgado'
+            'Ruth Karina Samudia Benitez'
+            'Dora Margarita Silvero Chamorro'
+            'Cecilia Paola Vega Chavez'
+            'Veronica Alejandra Cabrera Aquino'
+            'Maria del Carmen Cañete Torres'
+            'Maria Alejandra Elizabeth Duré Aranda'
+            'Alejandra Linda Gray Murray'
+            'Ivonne Montserrat Martinez Maqueda'
+            'Ana Lucia Mendoza Ruiz Diaz'
+            'María Victoria Mendoza Ruiz Díaz'
+            'Fabiana Ismelda Paredes Ramírez'
+            'Karen KAtiana Rojas Roa'
+            'Génesis Esther Sosa Fernández'
+            'Evelyn Libanes Soto González'
+            'Claudia Beatriz Torres Rivas'
+            'Jessica Basilia Torres Martínez'
+            'Manuel Pérez Vargas'
+            'Ana Carolina Mendieta Castillo'
+            'Alma María Judith Oliver Benítez'
+            'Rebeca Sánchez Giménez'
+            'Norma Beatriz Vargas Zeballos'
+            'Fiorella Virgilli Labella'
+            'MARIA IRENE SILVA DE AQUINO'
+            'Santiago Javier Aquino Silva'
+            'Juana Pabla  Carrillo de Lopez'
+            'Pedro Pablo Oviedo'
+            'Alcides Javier Acosta'
+            'Ives Maurice  Beauvais'
+            'Juan Antonio Ledesma Jorgge'
+            'Rafael Alejandro Aquino Silva'
+            'Manuel Pérez Vargas'
+            'Luis Perez Pucho'
+            'Arsenio Erico'
+            'Pedro Acosta'
+            'Mario Santander'
+            'Angelica Benitez'
+            'Liz Mora'
+            'Natalia Ramos'
+            'Viviana Galeano'
+            'Liz Peña'
+            'Lizzie Paniagua'
+            'Rocio Rolón'
+            'Julian Miltos'
+            'Mario Luis Aquino Trinidad'
+          )
+          Title.Caption = 'NOMBRECOMPLETO'
+          Width = 200
+          FieldName = 'NOMBRECOMPLETO'
+        end      
+        item
+          Title.Caption = 'ROL_EXAMEN'
+          Width = 150
+          FieldName = 'ROL_EXAMEN'
+        end>
+      DataSource = ExamenesDataModule.dsExamenPersonaExterna
+      TabOrder = 6
+    end
+    object DBNavigator1: TDBNavigator[12]
+      Left = 16
+      Height = 25
+      Top = 368
+      Width = 241
+      Anchors = [akLeft, akBottom]
+      BevelOuter = bvNone
+      ChildSizing.EnlargeHorizontal = crsScaleChilds
+      ChildSizing.EnlargeVertical = crsScaleChilds
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 100
+      ClientHeight = 25
+      ClientWidth = 241
+      DataSource = ExamenesDataModule.dsExamenPersonaExterna
+      Options = []
+      TabOrder = 7
+      VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'FECHA'
+          Width = 52
+          FieldName = 'FECHA'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'SECCION'
+          FieldName = 'SECCION'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'PUNTAJEMAX'
+          FieldName = 'PUNTAJEMAX'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'PESO'
+          Width = 43
+          FieldName = 'PESO'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          Width = 57
+          FieldName = 'ACTIVO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'OBSERVACIONES'
+          Width = 106
+          FieldName = 'OBSERVACIONES'
+        end>
+      DataSource = ExamenesDataModule.dsExamen
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = ExamenesDataModule.dsExamen
+      Hints.Strings = (      )
+    end
+  end
+end

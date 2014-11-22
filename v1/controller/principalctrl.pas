@@ -55,7 +55,11 @@ uses
   // Asignacion de aranceles
   frmasignacionarancelesdatamodule,
   frmasignacionaranceles,
-  asignacionctrl;
+  asignacionctrl,
+  // ABMExamenes
+  frmexamendatamodule,
+  frmabmexamenes,
+  examenctrl;
 
 type
 
@@ -75,6 +79,7 @@ type
     procedure OpenExtractoRepForm(Sender: IFormView);
     procedure OpenMatriculacionForm(Sender: IFormView);
     procedure OpenAsignacionFrom(Sender: IFormView);
+    procedure OpenExamenesForm(Sender: IFormView);
   end;
 
 var
@@ -172,6 +177,15 @@ begin
   ProcesoAsignacionAranceles.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoAsignacionAranceles as
     IObserver);
+end;
+
+procedure TPrincipalController.OpenExamenesForm(Sender: IFormView);
+begin
+  AbmExamenes :=
+    TAbmExamenes.Create(Sender, TExamenesController.Create(
+    TExamenesDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  AbmExamenes.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmExamenes as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

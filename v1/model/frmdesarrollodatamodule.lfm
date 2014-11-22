@@ -5,7 +5,6 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
   VerticalOffset = 404
   Width = 462
   object DesarrolloMateria: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -118,6 +117,7 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
     top = 162
   end
   object DesarrolloView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -213,7 +213,7 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
         Name = 'NOMBRE_MAT_DETALLADO'
         DataType = ftString
         Precision = -1
-        Size = 1281
+        Size = 1547
       end>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -234,12 +234,12 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
       '    NOMBRE_GRUPO,'
       '    NOMBRE_MOD,'
       '    NOMBRE_COMPLETO,'
-      '    NOMBRE_MATERIA_DET ||'' - ''||NOMBRE_COMPLETO AS NOMBRE_MAT_DETALLADO'
+      '    NOMBRE_MATERIA_DET ||'' - ''||NOMBRE_COMPLETO|| '' - Seccion ''||NOMBRE_SECCION AS NOMBRE_MAT_DETALLADO'
       'from v_desarrollo_mat_activo_det'
     )
     Params = <>
     left = 336
-    top = 44
+    top = 40
     object DesarrolloViewID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData

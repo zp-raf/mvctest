@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="74">
+    <Units Count="77">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -561,6 +561,27 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmmodulodatamodule"/>
       </Unit73>
+      <Unit74>
+        <Filename Value="view\frmabmexamenes.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmExamenes"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmexamenes"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="model\frmexamendatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ExamenesDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmexamendatamodule"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="controller\examenctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="examenctrl"/>
+      </Unit76>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

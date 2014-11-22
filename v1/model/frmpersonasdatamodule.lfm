@@ -423,18 +423,6 @@ inherited PersonasDataModule: TPersonasDataModule
         Size = 0
       end    
       item
-        Name = 'ESVEEDOR'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ESINTERVENTOR'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
         Name = 'ESENCARGADO'
         DataType = ftInteger
         Precision = -1
@@ -464,7 +452,6 @@ inherited PersonasDataModule: TPersonasDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True
@@ -472,7 +459,7 @@ inherited PersonasDataModule: TPersonasDataModule
       'select * from V_PERSONAS_ROLES'
     )
     Params = <>
-    left = 227
+    left = 224
     top = 272
     object PersonasRolesID: TLongintField
       DisplayWidth = 10
@@ -569,31 +556,11 @@ inherited PersonasDataModule: TPersonasDataModule
       ReadOnly = False
       Required = False
     end
-    object PersonasRolesESVEEDOR: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ESVEEDOR'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object PersonasRolesESINTERVENTOR: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ESINTERVENTOR'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
     object PersonasRolesESENCARGADO: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESENCARGADO'
-      Index = 11
+      Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -603,7 +570,7 @@ inherited PersonasDataModule: TPersonasDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESPROVEEDOR'
-      Index = 12
+      Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -613,7 +580,7 @@ inherited PersonasDataModule: TPersonasDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESCOORDINADOR'
-      Index = 13
+      Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -623,7 +590,7 @@ inherited PersonasDataModule: TPersonasDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESADMINISTRATIVO'
-      Index = 14
+      Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -633,7 +600,7 @@ inherited PersonasDataModule: TPersonasDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESPROFESOR'
-      Index = 15
+      Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False

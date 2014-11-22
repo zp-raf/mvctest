@@ -63,6 +63,7 @@ inherited Principal1: TPrincipal1
         Caption = '&Exámenes'
         object examenabm: TMenuItem
           Caption = 'ABM &Exámenes'
+          OnClick = examenabmClick
         end
         object calificar: TMenuItem
           Caption = '&Calificar exámenes'
