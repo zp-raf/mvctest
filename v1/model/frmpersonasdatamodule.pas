@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, frmsgcddatamodule,
-  frmquerydatamodule, sqldb, DB;
+  frmquerydatamodule, sqldb, DB, sgcdTypes;
 
 resourcestring
   rsGenName = 'GEN_ACADEMIA';
@@ -19,10 +19,6 @@ type
   { TPersonasDataModule }
 
   TPersonasDataModule = class(TQueryDataModule)
-  private
-    { private declarations }
-  public
-    { public declarations }
   published
     dsPersonasRoles: TDataSource;
     DireccionBARRIO: TStringField;
@@ -47,6 +43,22 @@ type
     PersonaRUC: TStringField;
     PersonaSEXO: TStringField;
     PersonasRoles: TSQLQuery;
+    PersonasRolesACTIVO: TSmallintField;
+    PersonasRolesAPELLIDO: TStringField;
+    PersonasRolesCEDULA: TStringField;
+    PersonasRolesESADMINISTRATIVO: TLongintField;
+    PersonasRolesESALUMNO: TLongintField;
+    PersonasRolesESCOORDINADOR: TLongintField;
+    PersonasRolesESENCARGADO: TLongintField;
+    PersonasRolesESINTERVENTOR: TLongintField;
+    PersonasRolesESPROFESOR: TLongintField;
+    PersonasRolesESPROVEEDOR: TLongintField;
+    PersonasRolesESVEEDOR: TLongintField;
+    PersonasRolesFECHANAC: TDateField;
+    PersonasRolesID: TLongintField;
+    PersonasRolesNOMBRE: TStringField;
+    PersonasRolesNOMBRECOMPLETO: TStringField;
+    PersonasRolesSEXO: TStringField;
     Telefono: TSQLQuery;
     TelefonoDESCRIPCION: TStringField;
     TelefonoID: TLongintField;
@@ -55,6 +67,7 @@ type
     TelefonoPREFIJO: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DireccionAfterInsert(DataSet: TDataSet);
+    procedure FilterData(ASearchText: string; ARol: TRolPersona); overload;
     procedure PersonaAfterScroll(DataSet: TDataSet);
     procedure PersonaNewRecord(DataSet: TDataSet);
     procedure TelefonoAfterInsert(DataSet: TDataSet);
@@ -79,13 +92,61 @@ begin
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('APELLIDO');
   SearchFieldList.Add('CEDULA');
-  Persona.OnFilterRecord:=@FilterRecord;
+  Persona.OnFilterRecord := @FilterRecord;
 end;
 
 procedure TPersonasDataModule.DireccionAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('IDPERSONA').Value := Persona.FieldByName('ID').Value;
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenNameDir);
+end;
+
+procedure TPersonasDataModule.FilterData(ASearchText: string; ARol: TRolPersona);
+var
+  AFilterStr: string;
+  i: integer;
+begin
+  if (SearchFieldList.Count > 0) and (Trim(ASearchText) <> '') then
+  begin
+    AFilterStr := '(UPPER(' + SearchFieldList[0] + ') LIKE ' +
+      QuotedStr('%' + UpperCase(ASearchText) + '%');
+    for i := 1 to Pred(SearchFieldList.Count) do
+    begin
+      AFilterStr := AFilterStr + ' OR UPPER(' + SearchFieldList[i] + ') LIKE ' +
+        QuotedStr('%' + UpperCase(ASearchText) + '%');
+    end;
+    AFilterStr := AFilterStr + ')';
+    // ???: sacar esto cuando se halle mejor solucion a este problema
+    if not (ARol in [roCualquiera]) then
+      AFilterStr := AFilterStr + ' AND ';
+  end;
+  case ARol of
+    roCualquiera:
+    begin
+      // nada
+    end;
+    roExterno:
+    begin
+      AFilterStr := AFilterStr +
+        '(ESVEEDOR = 1 OR ESINTERVENTOR = 1 OR ESENCARGADO = 1 OR ESPROVEEDOR = 1)';
+    end;
+    roAlumno:
+    begin
+      AFilterStr := AFilterStr + '(ESALUMNO = 1)';
+    end;
+    roProveedor:
+    begin
+      AFilterStr := AFilterStr + '(ESPROVEEDOR = 1)';
+    end;
+  end;
+  //ShowMessage(AFilterStr);
+  PersonasRoles.Close;
+  PersonasRoles.ServerFilter := AFilterStr;
+  if not (Trim(AFilterStr) = '') then
+    PersonasRoles.ServerFiltered := True
+  else
+    PersonasRoles.ServerFiltered := False;
+  PersonasRoles.Open;
 end;
 
 procedure TPersonasDataModule.PersonaAfterScroll(DataSet: TDataSet);

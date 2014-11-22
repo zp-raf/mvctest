@@ -1,0 +1,191 @@
+inherited ModuloDataModule: TModuloDataModule
+  OnCreate = DataModuleCreate
+  Height = 228
+  HorizontalOffset = 633
+  VerticalOffset = 366
+  Width = 315
+  object Modulo: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'FUNDAMENTACION'
+        DataType = ftString
+        Precision = -1
+        Size = 4096
+      end    
+      item
+        Name = 'OBJETIVOS'
+        DataType = ftString
+        Precision = -1
+        Size = 4096
+      end    
+      item
+        Name = 'REQUISITOS'
+        DataType = ftString
+        Precision = -1
+        Size = 4096
+      end    
+      item
+        Name = 'PERFILEGRESADO'
+        DataType = ftString
+        Precision = -1
+        Size = 4096
+      end    
+      item
+        Name = 'HABILITADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DURACION_UNIDAD'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DURACION_CANTIDAD'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    OnNewRecord = ModuloNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from modulo'
+    )
+    Params = <>
+    left = 109
+    top = 133
+    object ModuloID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object ModuloNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object ModuloDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ModuloFUNDAMENTACION: TStringField
+      DisplayWidth = 4096
+      FieldKind = fkData
+      FieldName = 'FUNDAMENTACION'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4096
+    end
+    object ModuloOBJETIVOS: TStringField
+      DisplayWidth = 4096
+      FieldKind = fkData
+      FieldName = 'OBJETIVOS'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4096
+    end
+    object ModuloREQUISITOS: TStringField
+      DisplayWidth = 4096
+      FieldKind = fkData
+      FieldName = 'REQUISITOS'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4096
+    end
+    object ModuloPERFILEGRESADO: TStringField
+      DisplayWidth = 4096
+      FieldKind = fkData
+      FieldName = 'PERFILEGRESADO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4096
+    end
+    object ModuloHABILITADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'HABILITADO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ModuloDURACION_UNIDAD: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DURACION_UNIDAD'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ModuloDURACION_CANTIDAD: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DURACION_CANTIDAD'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object dsModulo: TDataSource[1]
+    DataSet = Modulo
+    left = 194
+    top = 64
+  end
+end

@@ -67,6 +67,7 @@ type
     FAsientos: TAsientosDataModule;
     FCuentas: TCuentaDataModule;
     FCuota: TCuotaArancelDataModule;
+    FMatricula: string;
     FPersonas: TPersonasDataModule;
     procedure SetArancel(AValue: TArancelesDataModule);
     procedure SetAsientos(AValue: TAsientosDataModule);
@@ -105,6 +106,7 @@ type
     property Cuentas: TCuentaDataModule read FCuentas write SetCuentas;
     property Cuota: TCuotaArancelDataModule read FCuota write SetCuota;
     property Personas: TPersonasDataModule read FPersonas write SetPersonas;
+    property Matricula: string read FMatricula write SetMatricula;
   end;
 
 var
@@ -133,29 +135,29 @@ end;
 
 procedure TGeneraDeudaDataModule.DeudaBeforePost(DataSet: TDataSet);
 var
-  DescMatricula: string;
+  DescOriginal: string;
   CuentaID: string;
 begin
   // si se esta editando no hay que hacer nada de lo que sigue!
   if (DataSet.State in [dsEdit]) then
     Exit;
-  DescMatricula := '';
+  if DataSet.FieldByName('DESCRIPCION').IsNull then
+    DescOriginal := ''
+  else
+    DescOriginal := DataSet.FieldByName('DESCRIPCION').AsString;
   // aca ponemos la descripcion de la deuda
   DataSet.FieldByName('DESCRIPCION').AsString :=
-    Arancel.ArancelNOMBRE.AsString + ESPACIO +
+    Personas.Persona.FieldByName('NOMBRECOMPLETO').AsString + ' - ' +
+    DescOriginal + SEPARADOR + Arancel.ArancelNOMBRE.AsString + ESPACIO +
     DataSet.FieldByName('CUOTA_NRO').AsString + SEPARADOR_CUOTA +
-    DataSet.FieldByName('CANTIDAD_CUOTAS').AsString + SEPARADOR +
-    Personas.Persona.FieldByName('NOMBRECOMPLETO').AsString + DescMatricula;
+    DataSet.FieldByName('CANTIDAD_CUOTAS').AsString + SEPARADOR;
   // ponemos el monto de la deuda
   DataSet.FieldByName('MONTO_DEUDA').AsFloat :=
     Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat;
 
   // insertar un movimiento para registrar la deuda
   CuentaID := GetCuentaPersona(Personas.PersonaID.AsString);
-  //Asientos.NuevoAsiento('Generacion de deuda. Cuenta: ' + cuentaID +
-  //  SEPARADOR + 'Arancel: ' + DataSet.FieldByName('ARANCELID').AsString);
-  Asientos.NuevoAsiento('Generacion de deuda. ' + DataSet.FieldByName(
-    'DESCRIPCION').AsString, '', '');
+  Asientos.NuevoAsiento(DataSet.FieldByName('DESCRIPCION').AsString, '', '');
   // insertamos el detalle del asiento
   Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,
     Arancel.ArancelMONTO.AsFloat / DataSet.FieldByName('CANTIDAD_CUOTAS').AsFloat,
@@ -373,13 +375,14 @@ begin
   //  Exit;
   //if not Matriculas.Matricula.Locate('ID', AID, [loCaseInsensitive]) then
   //  raise Exception.Create(rsMatriculaNoE);
+  FMatricula := AID;
 end;
 
 procedure TGeneraDeudaDataModule.GeneradorCuotas(ACantCuotas: integer;
   AUnidadFecha: TUnidadFecha; ACant: integer; AVenc: string; SinVencimiento: boolean);
 var
   i: integer;
-  ArancelID, matriculaID: string;
+  ArancelID, matriculaID, Descripcion: string;
 begin
   // para meter las siguientes cuotas guardamos los valores
   ArancelID := DeudaARANCELID.AsString;
@@ -387,6 +390,10 @@ begin
     matriculaID := DeudaMATRICULAID.AsString
   else
     matriculaID := '';
+  if not DeudaDESCRIPCION.IsNull then
+    Descripcion := DeudaDESCRIPCION.AsString
+  else
+    Descripcion := '';
 
   // se modifica el registro actual que es la primera cuota
   DeudaCANTIDAD_CUOTAS.AsInteger := ACantCuotas;
@@ -415,6 +422,10 @@ begin
       DeudaMATRICULAID.AsString := matriculaID
     else
       DeudaMATRICULAID.Clear;
+    if Descripcion <> '' then
+      DeudaDESCRIPCION.AsString := Descripcion
+    else
+      DeudaDESCRIPCION.Clear;
     // Ponemos el vencimiento. Aca ya no se necesita tantos chequeos porque ya se
     // cheqeuo mas arriba.
     if not SinVencimiento then

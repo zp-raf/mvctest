@@ -47,7 +47,15 @@ uses
   // Extracto de cuenta
   frmreporteextractodatamodule,
   frmprocesorptextracto,
-  reporteextractoctrl;
+  reporteextractoctrl,
+  // Matriculacion
+  frmmatriculadatamodule,
+  frmprocesomatriculacion,
+  matriculactrl,
+  // Asignacion de aranceles
+  frmasignacionarancelesdatamodule,
+  frmasignacionaranceles,
+  asignacionctrl;
 
 type
 
@@ -65,6 +73,8 @@ type
     procedure OpenNotaCreditoForm(Sender: IFormView);
     procedure OpenPagosForm(Sender: IFormView);
     procedure OpenExtractoRepForm(Sender: IFormView);
+    procedure OpenMatriculacionForm(Sender: IFormView);
+    procedure OpenAsignacionFrom(Sender: IFormView);
   end;
 
 var
@@ -142,6 +152,26 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoReporteExtracto.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoReporteExtracto as IObserver);
+end;
+
+procedure TPrincipalController.OpenMatriculacionForm(Sender: IFormView);
+begin
+  ProcesoMatriculacion := TProcesoMatriculacion.Create(Sender,
+    TMatriculaController.Create(TMatriculaDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoMatriculacion.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoMatriculacion as IObserver);
+end;
+
+procedure TPrincipalController.OpenAsignacionFrom(Sender: IFormView);
+begin
+  ProcesoAsignacionAranceles :=
+    TProcesoAsignacionAranceles.Create(Sender,
+    TAsignacionArancelesController.Create(TAsignacionArancelesDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoAsignacionAranceles.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoAsignacionAranceles as
+    IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

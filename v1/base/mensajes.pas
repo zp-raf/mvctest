@@ -59,11 +59,11 @@ resourcestring
   rsGenNotDefined = 'No se definieron los generadores de cabecera o detalle';
   rsPrintReceiptConfirmation = 'Imprimir recibo';
   rsPrintReceiptQuestion = '¿Desea imprimir recibo?';
-  rsRollbackPaymentEntryError = 'Error al buscar asiento: el asiento no existe'
-    +' o existe una inconsisitencia';
+  rsRollbackPaymentEntryError =
+    'Error al buscar asiento: el asiento no existe' + ' o existe una inconsisitencia';
   rsUnsupportedDocType = 'Tipo de documento no admitido';
   rsCreatingDoc = 'Comprobante en proceso de creacion, no se puede registrar '
-    +'movimiento';
+    + 'movimiento';
 
 type
 

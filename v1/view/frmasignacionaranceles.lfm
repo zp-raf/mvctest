@@ -1,0 +1,217 @@
+inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
+  Left = 629
+  Height = 480
+  Top = 259
+  Width = 640
+  Caption = 'Asignacion de aranceles por defecto'
+  ClientHeight = 460
+  ClientWidth = 640
+  Constraints.MinHeight = 480
+  Constraints.MinWidth = 640
+  inherited StatusBar1: TStatusBar
+    Top = 437
+    Width = 640
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 397
+    Width = 628
+    OKButton.OnClick = OKButtonClick
+    ShowButtons = [pbOK, pbClose, pbHelp]
+  end
+  object PageControlAranceles: TPageControl[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = ButtonPanel1
+    Left = 0
+    Height = 391
+    Top = 0
+    Width = 640
+    ActivePage = TabSheetDesarrollo
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 2
+    TabOrder = 2
+    object TabSheetModulos: TTabSheet
+      Caption = 'Por Modulos'
+      ClientHeight = 363
+      ClientWidth = 632
+      object DBGridModulos: TDBGrid
+        AnchorSideLeft.Control = TabSheetModulos
+        AnchorSideTop.Control = TabSheetModulos
+        AnchorSideRight.Control = TabSheetModulos
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = DBNavigator1
+        Left = 0
+        Height = 338
+        Top = 0
+        Width = 632
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'MODULO'
+            Width = 200
+            FieldName = 'MODULO'
+          end        
+          item
+            Title.Caption = 'ARANCEL'
+            Width = 200
+            FieldName = 'ARANCEL'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'ACTIVO'
+            FieldName = 'ACTIVO'
+          end>
+        DataSource = AsignacionArancelesDataModule.dsModuloAranceles
+        TabOrder = 0
+      end
+      object DBNavigator1: TDBNavigator
+        AnchorSideLeft.Control = TabSheetModulos
+        AnchorSideBottom.Control = TabSheetModulos
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 25
+        Top = 338
+        Width = 241
+        Anchors = [akLeft, akBottom]
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 241
+        DataSource = AsignacionArancelesDataModule.dsModuloAranceles
+        Options = []
+        TabOrder = 1
+        VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+      end
+    end
+    object TabSheetMaterias: TTabSheet
+      Caption = 'Por Materias'
+      ClientHeight = 363
+      ClientWidth = 632
+      object DBGridModulos1: TDBGrid
+        AnchorSideLeft.Control = TabSheetMaterias
+        AnchorSideTop.Control = TabSheetMaterias
+        AnchorSideRight.Control = TabSheetMaterias
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = DBNavigator2
+        Left = 0
+        Height = 338
+        Top = 0
+        Width = 632
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'MATERIA'
+            Width = 200
+            FieldName = 'MATERIA'
+          end        
+          item
+            Title.Caption = 'ARANCEL'
+            Width = 200
+            FieldName = 'ARANCEL'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'ACTIVO'
+            FieldName = 'ACTIVO'
+          end>
+        DataSource = AsignacionArancelesDataModule.dsMateriaAranceles
+        TabOrder = 0
+      end
+      object DBNavigator2: TDBNavigator
+        AnchorSideLeft.Control = TabSheetMaterias
+        AnchorSideBottom.Control = TabSheetMaterias
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 25
+        Top = 338
+        Width = 241
+        Anchors = [akLeft, akBottom]
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 241
+        DataSource = AsignacionArancelesDataModule.dsMateriaAranceles
+        Options = []
+        TabOrder = 1
+        VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+      end
+    end
+    object TabSheetDesarrollo: TTabSheet
+      Caption = 'Por Secciones'
+      ClientHeight = 363
+      ClientWidth = 632
+      object DBGridModulos2: TDBGrid
+        AnchorSideLeft.Control = TabSheetDesarrollo
+        AnchorSideTop.Control = TabSheetDesarrollo
+        AnchorSideRight.Control = TabSheetDesarrollo
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = DBNavigator3
+        Left = 0
+        Height = 338
+        Top = 0
+        Width = 632
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'SECCION'
+            Width = 200
+            FieldName = 'SECCION'
+          end        
+          item
+            Title.Caption = 'ARANCEL'
+            Width = 200
+            FieldName = 'ARANCEL'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'ACTIVO'
+            FieldName = 'ACTIVO'
+          end>
+        DataSource = AsignacionArancelesDataModule.dsDesarrolloAranceles
+        TabOrder = 0
+      end
+      object DBNavigator3: TDBNavigator
+        AnchorSideLeft.Control = TabSheetDesarrollo
+        AnchorSideBottom.Control = TabSheetDesarrollo
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 25
+        Top = 338
+        Width = 241
+        Anchors = [akLeft, akBottom]
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 241
+        DataSource = AsignacionArancelesDataModule.dsDesarrolloAranceles
+        Options = []
+        TabOrder = 1
+        VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+      end
+    end
+  end
+  inherited MainMenu: TMainMenu[3]
+    left = 408
+    top = 0
+  end
+end

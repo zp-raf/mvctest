@@ -1,19 +1,23 @@
-object PopupSeleccionPersonas: TPopupSeleccionPersonas
-  Left = 312
+inherited PopupSeleccionPersonas: TPopupSeleccionPersonas
+  Left = 488
   Height = 512
-  Top = 225
+  Top = 268
   Width = 1128
   HorzScrollBar.Page = 586
   VertScrollBar.Page = 525
   Caption = 'Seleccionar Personas'
-  ClientHeight = 512
+  ClientHeight = 492
   ClientWidth = 1128
   Constraints.MinHeight = 512
   Constraints.MinWidth = 1024
-  LCLVersion = '1.0.14.0'
-  object DBGrid1: TDBGrid
+  inherited StatusBar1: TStatusBar
+    Top = 469
+    Width = 1128
+    Visible = False
+  end
+  object DBGrid1: TDBGrid[1]
     Left = 8
-    Height = 400
+    Height = 380
     Top = 56
     Width = 1115
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -44,41 +48,49 @@ object PopupSeleccionPersonas: TPopupSeleccionPersonas
         FieldName = 'SEXO'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ESALUMNO'
         Width = 78
         FieldName = 'ESALUMNO'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ESPROVEEDOR'
         Width = 93
         FieldName = 'ESPROVEEDOR'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ESADMINISTRATIVO'
         Width = 123
         FieldName = 'ESADMINISTRATIVO'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ESCOORDINADOR'
         Width = 112
         FieldName = 'ESCOORDINADOR'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ESPROFESOR'
         Width = 84
         FieldName = 'ESPROFESOR'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ESENCARGADO'
         Width = 98
         FieldName = 'ESENCARGADO'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ESINTERVENTOR'
         Width = 104
         FieldName = 'ESINTERVENTOR'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ESVEEDOR'
         Width = 70
         FieldName = 'ESVEEDOR'
@@ -88,7 +100,7 @@ object PopupSeleccionPersonas: TPopupSeleccionPersonas
     ReadOnly = True
     TabOrder = 1
   end
-  object LabeledEdit1: TLabeledEdit
+  object LabeledEdit1: TLabeledEdit[2]
     AnchorSideLeft.Control = DBGrid1
     AnchorSideBottom.Control = DBGrid1
     Left = 8
@@ -102,34 +114,35 @@ object PopupSeleccionPersonas: TPopupSeleccionPersonas
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = LabeledEdit1
     EditLabel.Left = 8
-    EditLabel.Height = 16
-    EditLabel.Top = 6
+    EditLabel.Height = 15
+    EditLabel.Top = 7
     EditLabel.Width = 240
     EditLabel.Caption = 'Filtrar los resultados'
     EditLabel.ParentColor = False
     TabOrder = 0
+    OnChange = LabeledEdit1Change
   end
-  object ButtonOK: TButton
+  object ButtonOK: TButton[3]
     Left = 951
     Height = 25
-    Top = 460
+    Top = 440
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Aceptar'
     ModalResult = 1
     TabOrder = 2
   end
-  object ButtonCancel: TButton
+  object ButtonCancel: TButton[4]
     Left = 1039
     Height = 25
-    Top = 460
+    Top = 440
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Cancelar'
     ModalResult = 2
     TabOrder = 3
   end
-  object Personas: TRadioGroup
+  object Personas: TRadioGroup[5]
     AnchorSideLeft.Side = asrBottom
     Left = 256
     Height = 40
@@ -156,6 +169,9 @@ object PopupSeleccionPersonas: TPopupSeleccionPersonas
       'Alumnos'
       'Proveedores'
     )
+    OnClick = PersonasClick
     TabOrder = 4
+  end
+  inherited MainMenu: TMainMenu[6]
   end
 end

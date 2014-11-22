@@ -1,0 +1,52 @@
+inherited PopupSeleccionAlumnos: TPopupSeleccionAlumnos
+  Left = 524
+  Top = 223
+  Width = 1024
+  ClientHeight = 492
+  ClientWidth = 1024
+  OnCreate = FormCreate
+  inherited StatusBar1: TStatusBar
+    Width = 1024
+  end
+  inherited DBGrid1: TDBGrid
+    Height = 360
+    Width = 1011
+    Columns = <    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'CEDULA'
+        Width = 59
+        FieldName = 'CEDULA'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'NOMBRECOMPLETO'
+        Width = 127
+        FieldName = 'NOMBRECOMPLETO'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'FECHANAC'
+        Width = 77
+        FieldName = 'FECHANAC'
+      end    
+      item
+        PickList.Strings = (
+          'M'
+          'F'
+        )
+        Title.Caption = 'SEXO'
+        Width = 43
+        FieldName = 'SEXO'
+      end>
+    DataSource = MatriculaDataModule.dsAlumnos
+  end
+  inherited ButtonOK: TButton
+    Left = 847
+    Top = 420
+  end
+  inherited ButtonCancel: TButton
+    Left = 935
+    Top = 420
+  end
+end

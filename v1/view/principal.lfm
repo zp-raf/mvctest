@@ -51,6 +51,7 @@ inherited Principal1: TPrincipal1
       Caption = 'A&cademico'
       object matricular: TMenuItem
         Caption = '&Matricular alumnos'
+        OnClick = matricularClick
       end
       object clases: TMenuItem
         Caption = 'ABM &Clases'
@@ -180,6 +181,10 @@ inherited Principal1: TPrincipal1
           Caption = 'Cargar n&ota de crédito'
           Visible = False
         end
+      end
+      object MenuItemAsignacion: TMenuItem
+        Caption = '&Asignacion de aranceles'
+        OnClick = MenuItemAsignacionClick
       end
       object equipos: TMenuItem
         Caption = 'ABM &Equipos'

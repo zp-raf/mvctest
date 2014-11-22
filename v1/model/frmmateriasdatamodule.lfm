@@ -1,0 +1,546 @@
+inherited MateriasDataModule: TMateriasDataModule
+  OnCreate = DataModuleCreate
+  Height = 326
+  HorizontalOffset = 852
+  VerticalOffset = 370
+  Width = 391
+  object Materia: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'GRUPOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'HABILITADA'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DURACION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'JUSTIFICACION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'OBJETIVOS'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CONTENIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'ESTRATEGIAS'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'MATERIALES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'EVALUACION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'BIBLIOGRAFIA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    OnNewRecord = MateriaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from materia'
+    )
+    Params = <>
+    left = 78
+    top = 36
+    object MateriaID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object MateriaMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MateriaGRUPOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'GRUPOID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MateriaNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object MateriaHABILITADA: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'HABILITADA'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MateriaDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriaDURACION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DURACION'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriaJUSTIFICACION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'JUSTIFICACION'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriaOBJETIVOS: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBJETIVOS'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriaCONTENIDO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CONTENIDO'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriaESTRATEGIAS: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'ESTRATEGIAS'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriaMATERIALES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'MATERIALES'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriaEVALUACION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'EVALUACION'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriaBIBLIOGRAFIA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'BIBLIOGRAFIA'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsMateria: TDataSource[1]
+    DataSet = Materia
+    left = 80
+    top = 112
+  end
+  object MateriasDetView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE_MODULO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_GRUPO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_DETALLE'
+        DataType = ftString
+        Precision = -1
+        Size = 769
+      end    
+      item
+        Name = 'GRUPOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'HABILITADA'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DURACION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'JUSTIFICACION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'OBJETIVOS'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CONTENIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'ESTRATEGIAS'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'MATERIALES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'EVALUACION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'BIBLIOGRAFIA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_materias_det'
+    )
+    Params = <>
+    left = 203
+    top = 56
+    object MateriasDetViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MateriasDetViewNOMBRE_MODULO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MODULO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewNOMBRE_GRUPO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_GRUPO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewNOMBRE_DETALLE: TStringField
+      DisplayWidth = 769
+      FieldKind = fkData
+      FieldName = 'NOMBRE_DETALLE'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 769
+    end
+    object MateriasDetViewGRUPOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'GRUPOID'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MateriasDetViewHABILITADA: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'HABILITADA'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MateriasDetViewDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewDURACION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DURACION'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewJUSTIFICACION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'JUSTIFICACION'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewOBJETIVOS: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBJETIVOS'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewCONTENIDO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CONTENIDO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewESTRATEGIAS: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'ESTRATEGIAS'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewMATERIALES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'MATERIALES'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewEVALUACION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'EVALUACION'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MateriasDetViewBIBLIOGRAFIA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'BIBLIOGRAFIA'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsMateriasDetView: TDataSource[3]
+    DataSet = MateriasDetView
+    left = 215
+    top = 133
+  end
+end

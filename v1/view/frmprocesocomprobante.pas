@@ -91,7 +91,8 @@ procedure TProcesoComprobante.ButtonSeleccionarPersClick(Sender: TObject);
 var
   Popup: TPopupSeleccionPersonas;
 begin
-  Popup := TPopupSeleccionPersonas.Create(Self);
+  Popup := TPopupSeleccionPersonas.Create(Self,
+    GetComprobanteController.BuscarPersonaController);
   try
     GetController.Connect(Self);
     case Popup.ShowModal of

@@ -26,8 +26,11 @@ type
       etc. }
     procedure SetModel(AValue: TQueryDataModule);
     function GetModel: TQueryDataModule;
+    { This method sets to nil the pointer to the model so it won't be freed
+      once the controller is }
+    procedure ClearModelPtr;
   public
-    constructor Create(AModel: Pointer); overload; virtual;
+    constructor Create(AModel: Pointer); virtual;
     destructor Destroy; override;
     procedure AfterConstruction; override; final;
     procedure Cancel(Sender: IView);
@@ -250,6 +253,11 @@ end;
 function TController.GetModel: TQueryDataModule;
 begin
   Result := TQueryDataModule(FModel);
+end;
+
+procedure TController.ClearModelPtr;
+begin
+  FModel := nil;
 end;
 
 constructor TController.Create(AModel: Pointer);

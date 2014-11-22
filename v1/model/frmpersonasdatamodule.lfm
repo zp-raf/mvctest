@@ -5,61 +5,7 @@ inherited PersonasDataModule: TPersonasDataModule
   VerticalOffset = 341
   Width = 306
   object Persona: TSQLQuery[0]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOMBRE'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'APELLIDO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'CEDULA'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'RUC'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'FECHANAC'
-        DataType = ftDate
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SEXO'
-        DataType = ftString
-        Precision = -1
-        Size = 1
-      end    
-      item
-        Name = 'NOMBRECOMPLETO'
-        DataType = ftString
-        Precision = -1
-        Size = 511
-      end    
-      item
-        Name = 'ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end>
+    FieldDefs = <>
     Filtered = True
     AfterScroll = PersonaAfterScroll
     OnNewRecord = PersonaNewRecord
@@ -420,6 +366,7 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 256
   end
   object PersonasRoles: TSQLQuery[6]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -517,6 +464,7 @@ inherited PersonasDataModule: TPersonasDataModule
         Precision = -1
         Size = 0
       end>
+    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True
@@ -526,6 +474,171 @@ inherited PersonasDataModule: TPersonasDataModule
     Params = <>
     left = 227
     top = 272
+    object PersonasRolesID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesCEDULA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CEDULA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PersonasRolesNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PersonasRolesAPELLIDO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'APELLIDO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object PersonasRolesSEXO: TStringField
+      DisplayWidth = 1
+      FieldKind = fkData
+      FieldName = 'SEXO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1
+    end
+    object PersonasRolesFECHANAC: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHANAC'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesNOMBRECOMPLETO: TStringField
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'NOMBRECOMPLETO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object PersonasRolesACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesESALUMNO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESALUMNO'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesESVEEDOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESVEEDOR'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesESINTERVENTOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESINTERVENTOR'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesESENCARGADO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESENCARGADO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesESPROVEEDOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESPROVEEDOR'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesESCOORDINADOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESCOORDINADOR'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesESADMINISTRATIVO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESADMINISTRATIVO'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object PersonasRolesESPROFESOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESPROFESOR'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object dsPersonasRoles: TDataSource[7]
     DataSet = PersonasRoles

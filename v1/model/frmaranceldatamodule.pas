@@ -20,6 +20,7 @@ type
     ArancelMONTO: TFloatField;
     ArancelNOMBRE: TStringField;
     dsAranceles: TDataSource;
+    ArancelesDetView: TSQLQuery;
     procedure ArancelFilterRecord(DataSet: TDataSet; var Accept: Boolean);
     procedure DataModuleCreate(Sender: TObject); override;
   end;
@@ -36,7 +37,8 @@ implementation
 procedure TArancelesDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
-  QryList.Add(Arancel);
+  QryList.Add(TObject(Arancel));
+  AuxQryList.Add(TObject(ArancelesDetView));
   SearchFieldList.Add('NOMBRE');
 end;
 

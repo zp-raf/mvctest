@@ -19,6 +19,9 @@ type
     procedure SetConnStatus(connected: boolean; host: string; username: string);
     procedure SetOpenOnShow(AValue: boolean);
   protected
+    { This procedure nils the controller pointer so it won't be destroyed once
+      this view is }
+    procedure ClearControllerPtr;
     function GetController: TController;
     procedure SetController(AValue: TController);
   public
@@ -107,6 +110,11 @@ begin
   if FOpenOnShow = AValue then
     Exit;
   FOpenOnShow := AValue;
+end;
+
+procedure TMaestro.ClearControllerPtr;
+begin
+  FController := nil;
 end;
 
 procedure TMaestro.AppPropsException(Sender: TObject; E: Exception);

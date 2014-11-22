@@ -1,0 +1,492 @@
+inherited ProcesoMatriculacion: TProcesoMatriculacion
+  Left = 565
+  Height = 640
+  Top = 177
+  Width = 800
+  Caption = 'Matriculacion'
+  ClientHeight = 620
+  ClientWidth = 800
+  Constraints.MinHeight = 640
+  Constraints.MinWidth = 800
+  inherited StatusBar1: TStatusBar
+    Top = 597
+    Width = 800
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 557
+    Width = 788
+    OKButton.OnClick = OKButtonClick
+    CancelButton.OnClick = CancelButtonClick
+  end
+  object GroupBoxMatricula: TGroupBox[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = ButtonPanel1
+    Left = 6
+    Height = 511
+    Top = 40
+    Width = 788
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 6
+    BorderSpacing.Right = 6
+    ClientHeight = 493
+    ClientWidth = 784
+    TabOrder = 2
+    object PairSplitter1: TPairSplitter
+      AnchorSideLeft.Control = GroupBoxMatricula
+      AnchorSideTop.Control = GroupBoxMatricula
+      AnchorSideRight.Control = GroupBoxMatricula
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = GroupBoxMatricula
+      AnchorSideBottom.Side = asrBottom
+      Cursor = crVSplit
+      Left = 0
+      Height = 493
+      Top = 0
+      Width = 784
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Position = 264
+      SplitterType = pstVertical
+      object PairSplitterSide1: TPairSplitterSide
+        Cursor = crArrow
+        Left = 0
+        Height = 264
+        Top = 0
+        Width = 784
+        ClientWidth = 784
+        ClientHeight = 264
+        Constraints.MinHeight = 264
+        object LabelMaterias: TLabel
+          Left = 6
+          Height = 15
+          Top = 0
+          Width = 108
+          Caption = 'Materias - Secciones'
+          ParentColor = False
+        end
+        object BitBtnAgregar: TBitBtn
+          AnchorSideBottom.Side = asrBottom
+          Left = 6
+          Height = 26
+          Top = 232
+          Width = 100
+          Anchors = [akLeft, akBottom]
+          AutoSize = True
+          BorderSpacing.Left = 6
+          BorderSpacing.Bottom = 6
+          Caption = '&Matricular'
+          Glyph.Data = {
+            36040000424D3604000000000000360000002800000010000000100000000100
+            2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFC00FFFFF700806D5EFF7B604BFF7D624DFF806D
+            5EFFFFFFF700FFFFFC00FDFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFB00FFFFF2007C614CFFECCEB5FFECCEB5FF7C61
+            4CFFFFFFF200FFFFFB00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFC00FFFFFB00FFFFF500FFFFED00856346FFEFCFB2FFCBAB8EFF8563
+            46FFFFFFEB00FFFFF500FFFFFB00FFFFFC00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFF800FFFFF200FFFFED00FFFFE6008E6342FFF6D0AEFFD2AC8AFF8E63
+            42FFFFFFE600FFFFED00FFFFF200FFFFF700FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00806D5EFF7C614DFF836248FF8A6343FF8E6342FFD2AC8AFFD4AB8AFF9063
+            41FF8E6342FF876246FF7E624AFF826D5EFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF007C614CFFE6CCB4FFD3B59CFFD4B497FFD5B395FFD4B294FFCFAC8BFFCFA9
+            89FFCCA688FFC6A487FFDCBEA3FF7E614CFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF007C614CFFEED4BCFFEFD2B7FFF2D2B5FFF1CFB2FFEDCFB2FFEFCFB2FFF5CF
+            B1FFF4CEB0FFEFCDB0FFEBCDB2FF7F634BFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00806D5EFF7A624CFF836248FF8A6343FF8A6343FFEDCFB4FFEDCFB4FF8C63
+            43FF8C6342FF856346FF7F634BFF816F5EFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFF700FFFFF200FFFFEB00FFFFE6008A6245FFECCEB5FFECCEB5FF8A62
+            45FFFFFFE600FFFFEB00FFFFF100FFFFF700FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFC00FFFFFB00FFFFF500FFFFED00836248FFEACEB6FFEACEB6FF8362
+            48FFFFFFEB00FFFFF500FFFFF900FFFFFC00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFB00FFFFF2007C614CFFE8CDB8FFE8CDB8FF7C61
+            4CFFFFFFF200FFFFFA00FFFFFF00FFFFFE00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFC00FFFFF700806D5EFF7C614CFF7C614CFF806D
+            5EFFFFFFF700FFFFFC00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+          }
+          OnClick = BitBtnAgregarClick
+          TabOrder = 0
+        end
+        object BitBtnEliminar: TBitBtn
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideBottom.Side = asrBottom
+          Left = 120
+          Height = 26
+          Top = 232
+          Width = 89
+          Anchors = [akLeft, akBottom]
+          AutoSize = True
+          BorderSpacing.Left = 16
+          Caption = 'Eliminar'
+          Glyph.Data = {
+            36040000424D3604000000000000360000002800000010000000100000000100
+            2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00806D5EFF7C614CFF806249FF816249FF816249FF816249FF816249FF8362
+            48FF816348FF816249FF7C614CFF806D5EFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF007C614CFFE6CCB4FFD1B69CFFD2B59AFFD1B398FFD2B295FFCBAB8EFFCBA9
+            8CFFC8A689FFC6A389FFDCBDA4FF7E614CFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF007C614CFFEED4BCFFEDD2B8FFEFD2B7FFEDCFB4FFEFCFB2FFEECEB1FFF1CF
+            B2FFF0CEB1FFEFCCB2FFEBCCB3FF7E614CFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00806D5EFF7C614CFF806249FF816249FF816249FF826449FF816348FF8362
+            48FF836248FF84624AFF7E614CFF806D5EFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+          }
+          OnClick = BitBtnEliminarClick
+          TabOrder = 1
+        end
+        object Panel1: TPanel
+          Left = 6
+          Height = 210
+          Top = 16
+          Width = 772
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          BevelOuter = bvNone
+          ChildSizing.TopBottomSpacing = 4
+          ChildSizing.HorizontalSpacing = 16
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.Layout = cclTopToBottomThenLeftToRight
+          ChildSizing.ControlsPerLine = 1
+          ClientHeight = 210
+          ClientWidth = 772
+          TabOrder = 2
+          object DBGridMaterias: TDBGrid
+            Left = 0
+            Height = 200
+            Top = 4
+            Width = 375
+            Color = clWindow
+            Columns = <            
+              item
+                Title.Caption = 'NOMBRE'
+                FieldName = 'NOMBRE'
+              end            
+              item
+                Title.Caption = 'MODULO'
+                Width = 66
+                FieldName = 'MODULO'
+              end            
+              item
+                Title.Caption = 'GRUPO'
+                Width = 54
+                FieldName = 'GRUPO'
+              end>
+            DataSource = MatriculaDataModule.dsMatHabView
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+            ReadOnly = True
+            TabOrder = 0
+          end
+          object DBGridSecciones: TDBGrid
+            AnchorSideRight.Side = asrBottom
+            Left = 391
+            Height = 200
+            Top = 4
+            Width = 375
+            BorderSpacing.Left = 6
+            BorderSpacing.Right = 6
+            BorderSpacing.Bottom = 6
+            Color = clWindow
+            Columns = <            
+              item
+                Title.Caption = 'NOMBRE_PERIODO'
+                Width = 118
+                FieldName = 'NOMBRE_PERIODO'
+              end            
+              item
+                Title.Caption = 'NOMBRE_SECCION'
+                Width = 118
+                FieldName = 'NOMBRE_SECCION'
+              end            
+              item
+                Title.Caption = 'PROFESOR'
+                Width = 72
+                FieldName = 'NOMBRE_COMPLETO'
+              end>
+            DataSource = MatriculaDataModule.dsDesarrolloMatActivoDetView
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+            ReadOnly = True
+            TabOrder = 1
+          end
+        end
+      end
+      object PairSplitterSide2: TPairSplitterSide
+        Cursor = crArrow
+        Left = 0
+        Height = 224
+        Top = 269
+        Width = 784
+        ClientWidth = 784
+        ClientHeight = 224
+        object DBGridMatricula: TDBGrid
+          AnchorSideLeft.Control = PairSplitterSide2
+          AnchorSideRight.Control = PairSplitterSide2
+          AnchorSideRight.Side = asrBottom
+          AnchorSideBottom.Control = PairSplitterSide2
+          AnchorSideBottom.Side = asrBottom
+          Left = 6
+          Height = 202
+          Top = 16
+          Width = 772
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          BorderSpacing.Left = 6
+          BorderSpacing.Right = 6
+          BorderSpacing.Bottom = 6
+          Color = clWindow
+          Columns = <          
+            item
+              ReadOnly = True
+              Title.Caption = 'FECHA'
+              Width = 52
+              FieldName = 'FECHA'
+            end          
+            item
+              PickList.Strings = (
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+                '2007'
+              )
+              Title.Caption = 'PERIODO'
+              FieldName = 'PERIODO'
+            end          
+            item
+              PickList.Strings = (
+                'Didactica '
+                'Didactica '
+                'Tecnica Teatral '
+                'Tecnica Teatral '
+                'Maquillaje '
+                'Maquillaje '
+                'Atuendo Español'
+                'Atuendo Español'
+                'Coreografia Español'
+                'Coreografia Español'
+                'Tecnica Teatral '
+                'Tecnica Teatral '
+                'Maquillaje '
+                'Maquillaje '
+                'Atuendo Español'
+                'Atuendo Español'
+                'Coreografia Español'
+                'Coreografia Español'
+                'Tecnologia Español'
+                'Tecnologia Español'
+                'Maquillaje '
+                'Maquillaje '
+                'Atuendo Español'
+                'Atuendo Español'
+                'Coreografia Español'
+                'Tecnologia Español'
+                'Tecnologia Español'
+              )
+              ReadOnly = True
+              Title.Caption = 'MATERIA'
+              Width = 65
+              FieldName = 'MATERIA'
+            end          
+            item
+              PickList.Strings = (
+                'A'
+                'B'
+                'A'
+                'B'
+                'A'
+                'B'
+                'B'
+                'A'
+                'A'
+                'B'
+                'A'
+                'B'
+                'A'
+                'B'
+                'A'
+                'B'
+                'A'
+                'B'
+                'A'
+                'B'
+                'B'
+                'B'
+                'A'
+                'B'
+                'B'
+                'A'
+                'B'
+              )
+              ReadOnly = True
+              Title.Caption = 'SECCION'
+              FieldName = 'SECCION'
+            end          
+            item
+              PickList.Strings = (
+                'Lizzie Paniagua'
+                'Lizzie Paniagua'
+                'Mario Santander'
+                'Mario Santander'
+                'Pedro Acosta'
+                'Pedro Acosta'
+                'Liz Mora'
+                'Angelica Benitez'
+                'Liz Peña'
+                'Liz Peña'
+                'Mario Santander'
+                'Mario Santander'
+                'Pedro Acosta'
+                'Pedro Acosta'
+                'Natalia Ramos'
+                'Natalia Ramos'
+                'Natalia Ramos'
+                'Natalia Ramos'
+                'Liz Mora'
+                'Angelica Benitez'
+                'Pedro Acosta'
+                'Pedro Acosta'
+                'Angelica Benitez'
+                'Liz Mora'
+                'Viviana Galeano'
+                'Angelica Benitez'
+                'Liz Mora'
+              )
+              Title.Caption = 'PROFESOR'
+              Width = 72
+              FieldName = 'PROFESOR'
+            end          
+            item
+              ButtonStyle = cbsCheckboxColumn
+              ReadOnly = True
+              Title.Caption = 'ACTIVA'
+              Width = 56
+              FieldName = 'ACTIVA'
+            end          
+            item
+              ButtonStyle = cbsCheckboxColumn
+              ReadOnly = True
+              Title.Caption = 'CONFIRMADA'
+              Width = 92
+              FieldName = 'CONFIRMADA'
+            end          
+            item
+              ButtonStyle = cbsCheckboxColumn
+              ReadOnly = True
+              Title.Caption = 'DERECHOEXAMEN'
+              Width = 115
+              FieldName = 'DERECHOEXAMEN'
+            end          
+            item
+              Title.Caption = 'OBSERVACIONES'
+              Width = 106
+              FieldName = 'OBSERVACIONES'
+            end>
+          DataSource = MatriculaDataModule.dsMatricula
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+          TabOrder = 0
+        end
+        object LabelMatriculas: TLabel
+          AnchorSideLeft.Control = DBGridMatricula
+          AnchorSideBottom.Control = DBGridMatricula
+          Left = 6
+          Height = 15
+          Top = 1
+          Width = 55
+          Anchors = [akLeft, akBottom]
+          Caption = 'Matriculas'
+          ParentColor = False
+        end
+      end
+    end
+  end
+  object ButtonSeleccionarAlumno: TButton[3]
+    Left = 8
+    Height = 25
+    Top = 8
+    Width = 132
+    AutoSize = True
+    Caption = 'Seleccionar Alumno'
+    OnClick = ButtonSeleccionarAlumnoClick
+    TabOrder = 3
+  end
+  object DBTextAlumno: TDBText[4]
+    AnchorSideLeft.Control = ButtonSeleccionarAlumno
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = ButtonSeleccionarAlumno
+    AnchorSideTop.Side = asrCenter
+    Left = 148
+    Height = 15
+    Top = 13
+    Width = 85
+    BorderSpacing.Left = 8
+    DataField = 'NOMBRECOMPLETO'
+    DataSource = MatriculaDataModule.dsAlumnos
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  inherited MainMenu: TMainMenu[5]
+    left = 664
+    top = 0
+    object MenuItemOpciones: TMenuItem[1]
+      Caption = '&Opciones'
+      object MenuItemGenerar: TMenuItem
+        Caption = '&Generar deuda al guardar'
+        OnClick = MenuItemGenerarClick
+      end
+    end
+    inherited MenuAyuda: TMenuItem[2]
+    end
+  end
+end

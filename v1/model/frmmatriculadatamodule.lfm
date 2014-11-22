@@ -1,0 +1,685 @@
+inherited MatriculaDataModule: TMatriculaDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 329
+  HorizontalOffset = 757
+  VerticalOffset = 362
+  Width = 519
+  object dsMatricula: TDataSource[0]
+    DataSet = Matricula
+    left = 112
+    top = 16
+  end
+  object Matricula: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESARROLLOMATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ALUMNOPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVA'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CONFIRMADA'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'OBSERVACIONES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DERECHOEXAMEN'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NUMERO'
+        DataType = ftString
+        Precision = -1
+        Size = 12
+      end>
+    Filtered = True
+    OnNewRecord = MatriculaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from matricula'
+      'where activa = 1'
+      'and alumnopersonaid = :alumnoid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'alumnoid'
+        ParamType = ptInput
+      end>
+    left = 48
+    top = 16
+    object MatriculaID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object MatriculaDESARROLLOMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DESARROLLOMATERIAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MatriculaALUMNOPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ALUMNOPERSONAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MatriculaFECHA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MatriculaACTIVA: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVA'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MatriculaCONFIRMADA: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CONFIRMADA'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MatriculaOBSERVACIONES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBSERVACIONES'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object MatriculaDERECHOEXAMEN: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DERECHOEXAMEN'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object MatriculaNUMERO: TStringField
+      DisplayWidth = 12
+      FieldKind = fkData
+      FieldName = 'NUMERO'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 12
+    end
+    object StringField1: TStringField
+      DisplayWidth = 511
+      FieldKind = fkLookup
+      FieldName = 'MATERIA'
+      Index = 9
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_MATERIA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object StringField2: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'SECCION'
+      Index = 10
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_SECCION'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField3: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'PERIODO'
+      Index = 11
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_PERIODO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField4: TStringField
+      DisplayWidth = 511
+      FieldKind = fkLookup
+      FieldName = 'PROFESOR'
+      Index = 12
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_COMPLETO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+  end
+  object dsAlumnos: TDataSource[2]
+    DataSet = PersonasDataModule.PersonasRoles
+    left = 184
+    top = 16
+  end
+  object MateriasHabilitadasView: TSQLQuery[3]
+    FieldDefs = <    
+      item
+        Name = 'AREA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'GRUPOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ID_MAT'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'GRUPO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'MODULO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select v.AREA, v.GRUPOID, v.ID, v.ID_MAT, v.MODULOID,'
+      'm.nombre, g.nombre as grupo, mo.nombre as modulo'
+      'from v_materias_habilitadas_alumnos v'
+      'join materia m on v.id_mat = m.id'
+      'join grupo g on v.grupoid = g.id'
+      'join modulo mo on v.area = mo.id'
+      'where v.id = :alumnoid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'alumnoid'
+        ParamType = ptInput
+      end>
+    left = 72
+    top = 96
+    object SQLQueryMatHabID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID_MAT'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQueryMatHabPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MateriasHabilitadasViewGRUPOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'GRUPOID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MateriasHabilitadasViewAREA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'AREA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MateriasHabilitadasViewMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MateriasHabilitadasViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object MateriasHabilitadasViewGRUPO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'GRUPO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object MateriasHabilitadasViewMODULO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'MODULO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+  end
+  object dsMatHabView: TDataSource[4]
+    DataSet = MateriasHabilitadasView
+    left = 168
+    top = 120
+  end
+  object DesarrolloMatActivoDetView: TSQLQuery[5]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SECCIONID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERIODOLECTIVOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'EMPLEADOPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'GRUPOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE_SECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_MATERIA'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'NOMBRE_MATERIA_DET'
+        DataType = ftString
+        Precision = -1
+        Size = 767
+      end    
+      item
+        Name = 'NOMBRE_PERIODO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_GRUPO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_MOD'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_COMPLETO'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_desarrollo_mat_activo_det'
+      'where materiaid = :id_mat'
+    )
+    Params = <    
+      item
+        DataType = ftInteger
+        Name = 'ID_MAT'
+        ParamType = ptInput
+        Size = 4
+      end>
+    DataSource = dsMatHabView
+    left = 168
+    top = 176
+    object DesarrolloMatActivoDetViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloMatActivoDetViewSECCIONID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'SECCIONID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloMatActivoDetViewMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATERIAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloMatActivoDetViewACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloMatActivoDetViewPERIODOLECTIVOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERIODOLECTIVOID'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloMatActivoDetViewEMPLEADOPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'EMPLEADOPERSONAID'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloMatActivoDetViewGRUPOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'GRUPOID'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloMatActivoDetViewMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloMatActivoDetViewNOMBRE_SECCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_SECCION'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DesarrolloMatActivoDetViewNOMBRE_MATERIA: TStringField
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MATERIA'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object DesarrolloMatActivoDetViewNOMBRE_MATERIA_DET: TStringField
+      DisplayWidth = 767
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MATERIA_DET'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 767
+    end
+    object DesarrolloMatActivoDetViewNOMBRE_PERIODO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_PERIODO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DesarrolloMatActivoDetViewNOMBRE_GRUPO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_GRUPO'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DesarrolloMatActivoDetViewNOMBRE_MOD: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MOD'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DesarrolloMatActivoDetViewNOMBRE_COMPLETO: TStringField
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'NOMBRE_COMPLETO'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+  end
+  object dsDesarrolloMatActivoDetView: TDataSource[6]
+    DataSet = DesarrolloMatActivoDetView
+    left = 272
+    top = 200
+  end
+  object XMLPropStorage1: TXMLPropStorage[7]
+    StoredValues = <    
+      item
+        Name = 'aranceles'
+      end>
+    FileName = 'conf.xml'
+    left = 416
+    top = 16
+  end
+end

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, frmMaestro,
-  Menus, ExtCtrls, StdCtrls, mvc, principalctrl;
+  Menus, ExtCtrls, StdCtrls, ComCtrls, mvc, principalctrl;
 
 type
 
@@ -21,6 +21,7 @@ type
     aboutUs1: TMenuItem;
     ayuda1: TMenuItem;
     Documentos: TButton;
+    MenuItemAsignacion: TMenuItem;
     Pagos: TButton;
     gestionCurso: TMenuItem;
     academias: TMenuItem;
@@ -76,6 +77,8 @@ type
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure matricularClick(Sender: TObject);
+    procedure MenuItemAsignacionClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
     procedure notaCreditoClick(Sender: TObject);
@@ -131,6 +134,16 @@ procedure TPrincipal1.FormShow(Sender: TObject);
 begin
   inherited;
   GetController.Connect(Self);
+end;
+
+procedure TPrincipal1.matricularClick(Sender: TObject);
+begin
+  GetCustomController.OpenMatriculacionForm(Self);
+end;
+
+procedure TPrincipal1.MenuItemAsignacionClick(Sender: TObject);
+begin
+  GetCustomController.OpenAsignacionFrom(Self);
 end;
 
 procedure TPrincipal1.MenuItemGenerarDeudaClick(Sender: TObject);

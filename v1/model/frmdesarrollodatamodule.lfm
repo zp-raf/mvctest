@@ -1,0 +1,417 @@
+inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
+  OnCreate = DataModuleCreate
+  Height = 368
+  HorizontalOffset = 837
+  VerticalOffset = 404
+  Width = 462
+  object DesarrolloMateria: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SECCIONID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERIODOLECTIVOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'EMPLEADOPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    OnNewRecord = DesarrolloMateriaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from desarrollomateria'
+    )
+    Params = <>
+    left = 83
+    top = 90
+    object DesarrolloMateriaID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object DesarrolloMateriaSECCIONID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'SECCIONID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object DesarrolloMateriaMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATERIAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object DesarrolloMateriaACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object DesarrolloMateriaPERIODOLECTIVOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERIODOLECTIVOID'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object DesarrolloMateriaEMPLEADOPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'EMPLEADOPERSONAID'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object dsDesarrolloMateria: TDataSource[1]
+    left = 86
+    top = 162
+  end
+  object DesarrolloView: TSQLQuery[2]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SECCIONID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERIODOLECTIVOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'EMPLEADOPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'GRUPOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE_SECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_MATERIA'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'NOMBRE_MATERIA_DET'
+        DataType = ftString
+        Precision = -1
+        Size = 767
+      end    
+      item
+        Name = 'NOMBRE_PERIODO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_GRUPO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_MOD'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_COMPLETO'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'NOMBRE_MAT_DETALLADO'
+        DataType = ftString
+        Precision = -1
+        Size = 1281
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select     ID,'
+      '    SECCIONID,'
+      '    MATERIAID,'
+      '    ACTIVO,'
+      '    PERIODOLECTIVOID,'
+      '    EMPLEADOPERSONAID,'
+      '    GRUPOID,'
+      '    MODULOID,'
+      '    NOMBRE_SECCION,'
+      '    NOMBRE_MATERIA,'
+      '    NOMBRE_MATERIA_DET,'
+      '    NOMBRE_PERIODO,'
+      '    NOMBRE_GRUPO,'
+      '    NOMBRE_MOD,'
+      '    NOMBRE_COMPLETO,'
+      '    NOMBRE_MATERIA_DET ||'' - ''||NOMBRE_COMPLETO AS NOMBRE_MAT_DETALLADO'
+      'from v_desarrollo_mat_activo_det'
+    )
+    Params = <>
+    left = 336
+    top = 44
+    object DesarrolloViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloViewSECCIONID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'SECCIONID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloViewMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATERIAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloViewACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloViewPERIODOLECTIVOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERIODOLECTIVOID'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloViewEMPLEADOPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'EMPLEADOPERSONAID'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloViewGRUPOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'GRUPOID'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloViewMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DesarrolloViewNOMBRE_SECCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_SECCION'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DesarrolloViewNOMBRE_MATERIA: TStringField
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MATERIA'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object DesarrolloViewNOMBRE_MATERIA_DET: TStringField
+      DisplayWidth = 767
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MATERIA_DET'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 767
+    end
+    object DesarrolloViewNOMBRE_PERIODO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_PERIODO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DesarrolloViewNOMBRE_GRUPO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_GRUPO'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DesarrolloViewNOMBRE_MOD: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MOD'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DesarrolloViewNOMBRE_COMPLETO: TStringField
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'NOMBRE_COMPLETO'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object DesarrolloViewNOMBRE_MAT_DETALLADO: TStringField
+      DisplayWidth = 1281
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MAT_DETALLADO'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1281
+    end
+  end
+  object dsDesarrolloView: TDataSource[3]
+    DataSet = DesarrolloView
+    left = 324
+    top = 100
+  end
+end

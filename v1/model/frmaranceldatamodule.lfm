@@ -5,6 +5,7 @@ inherited ArancelesDataModule: TArancelesDataModule
   VerticalOffset = 458
   Width = 323
   object Arancel: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -42,6 +43,7 @@ inherited ArancelesDataModule: TArancelesDataModule
         Precision = -1
         Size = 0
       end>
+    Active = True
     OnFilterRecord = ArancelFilterRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -121,5 +123,30 @@ inherited ArancelesDataModule: TArancelesDataModule
     DataSet = Arancel
     left = 56
     top = 96
+  end
+  object ArancelesDetView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DETALLE'
+        DataType = ftString
+        Precision = -1
+        Size = 279
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select id, nombre || '' - '' || cast(monto as numeric(10,2)) as detalle from arancel'
+    )
+    Params = <>
+    left = 221
+    top = 40
   end
 end

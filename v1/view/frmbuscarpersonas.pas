@@ -5,33 +5,37 @@ unit frmbuscarpersonas;
 interface
 
 uses
-  Forms,
-  DBGrids, ExtCtrls, StdCtrls;
+  Forms, frmMaestro, personactrl, DBGrids, ExtCtrls, StdCtrls, Classes, sgcdTypes;
+
+const
+  TODOS = 0;
+  EXTERNOS = 1;
+  ALUMNOS = 2;
+  PROVEEDORES = 3;
 
 type
 
   { TPopupSeleccionPersonas }
 
-  TPopupSeleccionPersonas = class(TForm)
-  private
-    //FCustomController: TBuscarPersonasController;
-    //procedure SetCustomController(AValue: TBuscarPersonasController);
+  TPopupSeleccionPersonas = class(TMaestro)
+
+  protected
+    function GetCustomContoller: TBuscarPersonaController;
   public
-    //constructor Create(AOwner: IFormView; AController: TBuscarPersonasController);
-    //  overload;
+    destructor Destroy; override;
   published
     ButtonCancel: TButton;
     ButtonOK: TButton;
     DBGrid1: TDBGrid;
     LabeledEdit1: TLabeledEdit;
     Personas: TRadioGroup;
-    //procedure SQLQuery1FilterRecord(DataSet: TDataSet; var Accept: boolean);
-    //property CustomController: TBuscarPersonasController
-    //  read FCustomController write SetCustomController;
+    procedure FilterData(AText: string; AGroupBoxIndex: integer);
+    procedure LabeledEdit1Change(Sender: TObject);
+    procedure PersonasClick(Sender: TObject);
   end;
 
-//var
-//  PopupSeleccionPersonas: TPopupSeleccionPersonas;
+var
+  PopupSeleccionPersonas: TPopupSeleccionPersonas;
 
 implementation
 
@@ -74,27 +78,47 @@ implementation
 //  end;
 //end;
 
-//constructor TPopupSeleccionPersonas.Create(AOwner: IFormView;
-//  AController: TBuscarPersonasController);
-//var
-//  Cont: IController;
-//begin
-//  (AController as IInterface).QueryInterface(IController, Cont);
-//  if (Cont = nil) then
-//    raise Exception.Create(rsProvidedCont)
-//  else
-//  begin
-//    inherited Create(AOwner, Cont);
-//    CustomController := AController;
-//  end;
-//end;
+procedure TPopupSeleccionPersonas.LabeledEdit1Change(Sender: TObject);
+begin
+  FilterData(LabeledEdit1.Text, Personas.ItemIndex);
+end;
 
-//procedure TPopupSeleccionPersonas.SetCustomController(
-//  AValue: TBuscarPersonasController);
-//begin
-//  if FCustomController = AValue then
-//    Exit;
-//  FCustomController := AValue;
-//end;
+procedure TPopupSeleccionPersonas.PersonasClick(Sender: TObject);
+begin
+  FilterData(LabeledEdit1.Text, Personas.ItemIndex);
+end;
+
+function TPopupSeleccionPersonas.GetCustomContoller: TBuscarPersonaController;
+begin
+  Result := GetController as TBuscarPersonaController;
+end;
+
+destructor TPopupSeleccionPersonas.Destroy;
+begin
+  ClearControllerPtr;
+  inherited Destroy;
+end;
+
+procedure TPopupSeleccionPersonas.FilterData(AText: string; AGroupBoxIndex: integer);
+begin
+  case AGroupBoxIndex of
+    TODOS:
+    begin
+      GetCustomContoller.FilterData(AText, roCualquiera, Self);
+    end;
+    EXTERNOS:
+    begin
+      GetCustomContoller.FilterData(AText, roExterno, Self);
+    end;
+    ALUMNOS:
+    begin
+      GetCustomContoller.FilterData(AText, roAlumno, Self);
+    end;
+    PROVEEDORES:
+    begin
+      GetCustomContoller.FilterData(AText, roProveedor, Self);
+    end;
+  end;
+end;
 
 end.

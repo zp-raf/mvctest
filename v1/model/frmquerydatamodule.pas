@@ -41,7 +41,7 @@ type
   published
     procedure BeforeDestruction; override;
     procedure CloseDataSets; virtual;
-    procedure Commit;
+    procedure Commit; virtual;
     procedure Connect; virtual;
     procedure DataModuleCreate(Sender: TObject); virtual;
     procedure DataModuleDestroy(Sender: TObject);

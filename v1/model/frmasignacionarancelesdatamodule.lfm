@@ -1,0 +1,408 @@
+inherited AsignacionArancelesDataModule: TAsignacionArancelesDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 341
+  HorizontalOffset = 891
+  VerticalOffset = 380
+  Width = 397
+  object ModuloAranceles: TSQLQuery[0]
+    FieldDefs = <    
+      item
+        Name = 'ARANCELID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Filtered = True
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from modulo_aranceles'
+    )
+    Params = <>
+    left = 48
+    top = 24
+    object ModuloArancelesARANCELID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ARANCELID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object ModuloArancelesMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object ModuloArancelesACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField1: TStringField
+      DisplayWidth = 279
+      FieldKind = fkLookup
+      FieldName = 'ARANCEL'
+      Index = 3
+      KeyFields = 'ARANCELID'
+      LookupCache = False
+      LookupDataSet = ArancelesDataModule.ArancelesDetView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'DETALLE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 279
+    end
+    object StringField2: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'MODULO'
+      Index = 4
+      KeyFields = 'MODULOID'
+      LookupCache = False
+      LookupDataSet = ModuloDataModule.Modulo
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object MateriaAranceles: TSQLQuery[1]
+    FieldDefs = <    
+      item
+        Name = 'ARANCELID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from materia_aranceles'
+    )
+    Params = <>
+    left = 176
+    top = 32
+    object MateriaArancelesARANCELID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ARANCELID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object MateriaArancelesMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATERIAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object MateriaArancelesACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField3: TStringField
+      DisplayWidth = 279
+      FieldKind = fkLookup
+      FieldName = 'ARANCEL'
+      Index = 3
+      KeyFields = 'ARANCELID'
+      LookupCache = False
+      LookupDataSet = ArancelesDataModule.ArancelesDetView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'DETALLE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 279
+    end
+    object StringField4: TStringField
+      DisplayWidth = 769
+      FieldKind = fkLookup
+      FieldName = 'MATERIA'
+      Index = 4
+      KeyFields = 'MATERIAID'
+      LookupCache = False
+      LookupDataSet = MateriasDataModule.MateriasDetView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_DETALLE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 769
+    end
+  end
+  object DesarrolloAranceles: TSQLQuery[2]
+    FieldDefs = <    
+      item
+        Name = 'ARANCELID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESARROLLOMATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from desarrollo_aranceles'
+    )
+    Params = <>
+    left = 280
+    top = 40
+    object DesarrolloArancelesARANCELID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ARANCELID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object DesarrolloArancelesDESARROLLOMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DESARROLLOMATERIAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object DesarrolloArancelesACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField5: TStringField
+      DisplayWidth = 279
+      FieldKind = fkLookup
+      FieldName = 'ARANCEL'
+      Index = 3
+      KeyFields = 'ARANCELID'
+      LookupCache = False
+      LookupDataSet = ArancelesDataModule.ArancelesDetView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'DETALLE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 279
+    end
+    object StringField6: TStringField
+      DisplayWidth = 1281
+      FieldKind = fkLookup
+      FieldName = 'SECCION'
+      Index = 4
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_MAT_DETALLADO'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1281
+    end
+  end
+  object dsModuloAranceles: TDataSource[3]
+    DataSet = ModuloAranceles
+    left = 48
+    top = 104
+  end
+  object dsMateriaAranceles: TDataSource[4]
+    DataSet = MateriaAranceles
+    left = 180
+    top = 112
+  end
+  object dsDesarrolloAranceles: TDataSource[5]
+    DataSet = DesarrolloAranceles
+    left = 304
+    top = 112
+  end
+  object ArancelesAsigandosView: TSQLQuery[6]
+    FieldDefs = <    
+      item
+        Name = 'MATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESARROLLOMATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ARANCELID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'with v as('
+      'select  coalesce(MATERIAID, -99) as MATERIAID,'
+      '        coalesce(DESARROLLOMATERIAID, -99) as DESARROLLOMATERIAID,'
+      '        coalesce(MODULOID, -99) as MODULOID,'
+      '        ARANCELID,'
+      '        ACTIVO'
+      'from V_ARANCELES_ASIGNADOS_ALL)'
+      'select * from v'
+      'where moduloid = :moduloid'
+      'or materiaid = :materiaid'
+      'or desarrollomateriaid = :desarrollomateriaid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'moduloid'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'materiaid'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'desarrollomateriaid'
+        ParamType = ptInput
+      end>
+    left = 64
+    top = 208
+    object ArancelesAsigandosViewMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATERIAID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ArancelesAsigandosViewDESARROLLOMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DESARROLLOMATERIAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ArancelesAsigandosViewMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ArancelesAsigandosViewARANCELID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ARANCELID'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ArancelesAsigandosViewACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+end
