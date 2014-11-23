@@ -1,0 +1,112 @@
+inherited EscalaDataModule: TEscalaDataModule
+  OnCreate = DataModuleCreate
+  Height = 293
+  HorizontalOffset = 614
+  VerticalOffset = 279
+  Width = 317
+  object Escala: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'LIMITEINF'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'LIMITESUP'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOTA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Active = True
+    OnNewRecord = EscalaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from escala'
+    )
+    Params = <>
+    left = 102
+    top = 77
+    object EscalaID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object EscalaLIMITEINF: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'LIMITEINF'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object EscalaLIMITESUP: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'LIMITESUP'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object EscalaNOTA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NOTA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object EscalaVALIDO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object dsEscala: TDataSource[1]
+    DataSet = Escala
+    left = 200
+    top = 62
+  end
+end

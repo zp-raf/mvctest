@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="82">
+    <Units Count="88">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -616,6 +616,48 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="seleccionexamenctrl"/>
       </Unit81>
+      <Unit82>
+        <Filename Value="model\frmescaladatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="EscalaDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmescaladatamodule"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="controller\escalactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="escalactrl"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="view\frmprocesoescala.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoEscala"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoescala"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="model\frmtrabajosdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="TrabajosDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmtrabajosdatamodule"/>
+      </Unit85>
+      <Unit86>
+        <Filename Value="controller\trabajosctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="trabajosctrl"/>
+      </Unit86>
+      <Unit87>
+        <Filename Value="view\frmabmtrabajos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmTrabajos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmtrabajos"/>
+      </Unit87>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

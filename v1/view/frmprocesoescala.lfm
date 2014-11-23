@@ -1,0 +1,65 @@
+inherited ProcesoEscala: TProcesoEscala
+  Caption = 'Escala'
+  ClientHeight = 328
+  inherited StatusBar1: TStatusBar
+    Top = 305
+    Width = 453
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 265
+    OKButton.OnClick = OKButtonClick
+    CancelButton.OnClick = CancelButtonClick
+  end
+  object DBGrid1: TDBGrid[2]
+    Left = 6
+    Height = 212
+    Top = 24
+    Width = 441
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'LIMITEINF'
+        FieldName = 'LIMITEINF'
+      end    
+      item
+        Title.Caption = 'LIMITESUP'
+        FieldName = 'LIMITESUP'
+      end    
+      item
+        Title.Caption = 'NOTA'
+        FieldName = 'NOTA'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'VALIDO'
+        FieldName = 'VALIDO'
+      end>
+    DataSource = EscalaDataModule.dsEscala
+    TabOrder = 2
+  end
+  object DBNavigator1: TDBNavigator[3]
+    Left = 6
+    Height = 25
+    Top = 240
+    Width = 241
+    Anchors = [akLeft, akBottom]
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 241
+    DataSource = EscalaDataModule.dsEscala
+    Options = []
+    TabOrder = 3
+    VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+  end
+  inherited MainMenu: TMainMenu[4]
+    left = 416
+    top = 8
+  end
+end

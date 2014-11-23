@@ -15,7 +15,7 @@ type
   protected
     function GetCustomModel: TNotaCreditoDataModule;
   public
-    procedure Cancel(Sender: IView);
+    procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
     procedure NuevoComprobante(Sender: IView); override;
   end;

@@ -74,12 +74,14 @@ inherited Principal1: TPrincipal1
         end
         object escala: TMenuItem
           Caption = '&Escala'
+          OnClick = escalaClick
         end
       end
       object trabajoPractico1: TMenuItem
         Caption = '&Trabajos prácticos'
         object trabajos: TMenuItem
           Caption = '&ABM Trabajos'
+          OnClick = trabajosClick
         end
         object entregas: TMenuItem
           Caption = '&Entrega de Trabajos'

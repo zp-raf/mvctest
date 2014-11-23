@@ -1,0 +1,276 @@
+inherited AbmTrabajos: TAbmTrabajos
+  Left = 786
+  Top = 293
+  Caption = 'ABM Trabajos'
+  ClientHeight = 461
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (
+            'Didactica  Primero - Lizzie Paniagua - Seccion A'
+            'Didactica  Primero - Lizzie Paniagua - Seccion B'
+            'Tecnica Teatral  Primero - Mario Santander - Seccion A'
+            'Tecnica Teatral  Primero - Mario Santander - Seccion B'
+            'Maquillaje  Primero - Pedro Acosta - Seccion A'
+            'Maquillaje  Primero - Pedro Acosta - Seccion B'
+            'Atuendo Español Primero - Liz Mora - Seccion B'
+            'Atuendo Español Primero - Angelica Benitez - Seccion A'
+            'Coreografia Español Primero - Liz Peña - Seccion A'
+            'Coreografia Español Primero - Liz Peña - Seccion B'
+            'Tecnica Teatral  Segundo - Mario Santander - Seccion A'
+            'Tecnica Teatral  Segundo - Mario Santander - Seccion B'
+            'Maquillaje  Segundo - Pedro Acosta - Seccion A'
+            'Maquillaje  Segundo - Pedro Acosta - Seccion B'
+            'Atuendo Español Segundo - Natalia Ramos - Seccion A'
+            'Atuendo Español Segundo - Natalia Ramos - Seccion B'
+            'Coreografia Español Segundo - Natalia Ramos - Seccion A'
+            'Coreografia Español Segundo - Natalia Ramos - Seccion B'
+            'Tecnologia Español Segundo - Liz Mora - Seccion A'
+            'Tecnologia Español Segundo - Angelica Benitez - Seccion B'
+            'Maquillaje  Tercero - Pedro Acosta - Seccion B'
+            'Maquillaje  Tercero - Pedro Acosta - Seccion B'
+            'Atuendo Español Tercero - Angelica Benitez - Seccion A'
+            'Atuendo Español Tercero - Liz Mora - Seccion B'
+            'Coreografia Español Tercero - Viviana Galeano - Seccion B'
+            'Tecnologia Español Tercero - Angelica Benitez - Seccion A'
+            'Tecnologia Español Tercero - Liz Mora - Seccion B'
+          )
+          Title.Caption = 'NOMBRE_MAT_DETALLADO'
+          Width = 166
+          FieldName = 'NOMBRE_MAT_DETALLADO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'FECHAINICIO'
+          Width = 87
+          FieldName = 'FECHAINICIO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'FECHAFIN'
+          Width = 70
+          FieldName = 'FECHAFIN'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'PUNTAJEMAX'
+          FieldName = 'PUNTAJEMAX'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'PESO'
+          Width = 43
+          FieldName = 'PESO'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          Width = 57
+          FieldName = 'ACTIVO'
+        end>
+      DataSource = TrabajosDataModule.dsTrabajo
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = TrabajosDataModule.dsTrabajo
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBLookupComboBoxDesarrollo: TDBLookupComboBox[0]
+      Left = 16
+      Height = 23
+      Top = 23
+      Width = 378
+      DataField = 'DESARROLLOMATERIAID'
+      DataSource = TrabajosDataModule.dsTrabajo
+      KeyField = 'ID'
+      ListField = 'NOMBRE_MAT_DETALLADO'
+      ListFieldIndex = 0
+      ListSource = DesarrolloMateriaDataModule.dsDesarrolloView
+      LookupCache = False
+      TabOrder = 0
+    end
+    object DBEditNombre: TDBEdit[1]
+      Left = 16
+      Height = 23
+      Top = 72
+      Width = 378
+      DataField = 'NOMBRE'
+      DataSource = TrabajosDataModule.dsTrabajo
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object DateEditFechaini: TDateEdit[2]
+      Left = 16
+      Height = 23
+      Top = 120
+      Width = 80
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OnAcceptDate = DateEditFechainiAcceptDate
+      OnCustomDate = DateEditFechainiCustomDate
+      OKCaption = 'OK'
+      CancelCaption = 'Cancel'
+      DateOrder = doDMY
+      ButtonWidth = 23
+      CharCase = ecNormal
+      NumGlyphs = 1
+      MaxLength = 10
+      OnEditingDone = DateEditFechainiEditingDone
+      TabOrder = 2
+    end
+    object DateEditFechaFin: TDateEdit[3]
+      Left = 136
+      Height = 23
+      Top = 120
+      Width = 80
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OnAcceptDate = DateEditFechaFinAcceptDate
+      OnCustomDate = DateEditFechaFinCustomDate
+      OKCaption = 'OK'
+      CancelCaption = 'Cancel'
+      DateOrder = doDMY
+      ButtonWidth = 23
+      CharCase = ecNormal
+      NumGlyphs = 1
+      MaxLength = 10
+      OnEditingDone = DateEditFechaFinEditingDone
+      TabOrder = 3
+    end
+    object FloatSpinEditPuntajeMax: TFloatSpinEdit[4]
+      Left = 264
+      Height = 23
+      Top = 120
+      Width = 130
+      Increment = 1
+      MaxValue = 200
+      MinValue = 0
+      OnChange = FloatSpinEditPuntajeMaxChange
+      TabOrder = 4
+      Value = 0
+    end
+    object FloatSpinEditPeso: TFloatSpinEdit[5]
+      Left = 416
+      Height = 23
+      Top = 120
+      Width = 130
+      Increment = 1
+      MaxValue = 100
+      MinValue = 0
+      OnChange = FloatSpinEditPesoChange
+      TabOrder = 5
+      Value = 0
+    end
+    object DBCheckBoxActivo: TDBCheckBox[6]
+      Left = 416
+      Height = 23
+      Top = 72
+      Width = 90
+      Caption = 'Activo'
+      DataField = 'ACTIVO'
+      DataSource = TrabajosDataModule.dsTrabajo
+      TabOrder = 6
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object LabelDesarrollo: TLabel[7]
+      AnchorSideLeft.Control = DBLookupComboBoxDesarrollo
+      AnchorSideBottom.Control = DBLookupComboBoxDesarrollo
+      Left = 16
+      Height = 15
+      Top = 8
+      Width = 41
+      Anchors = [akLeft, akBottom]
+      Caption = 'Seccion'
+      ParentColor = False
+    end
+    object LabelNombre: TLabel[8]
+      AnchorSideLeft.Control = DBEditNombre
+      AnchorSideBottom.Control = DBEditNombre
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object LabelFechaini: TLabel[9]
+      AnchorSideLeft.Control = DateEditFechaini
+      AnchorSideBottom.Control = DateEditFechaini
+      Left = 16
+      Height = 15
+      Top = 105
+      Width = 63
+      Anchors = [akLeft, akBottom]
+      Caption = 'Fecha inicio'
+      ParentColor = False
+    end
+    object LabelFechaFin: TLabel[10]
+      AnchorSideLeft.Control = DateEditFechaFin
+      AnchorSideBottom.Control = DateEditFechaFin
+      Left = 136
+      Height = 15
+      Top = 105
+      Width = 50
+      Anchors = [akLeft, akBottom]
+      Caption = 'Fecha Fin'
+      ParentColor = False
+    end
+    object LabelPuntajeMax: TLabel[11]
+      AnchorSideLeft.Control = FloatSpinEditPuntajeMax
+      AnchorSideBottom.Control = FloatSpinEditPuntajeMax
+      Left = 264
+      Height = 15
+      Top = 105
+      Width = 86
+      Anchors = [akLeft, akBottom]
+      Caption = 'Puntaje Maximo'
+      ParentColor = False
+    end
+    object LabelPeso: TLabel[12]
+      AnchorSideLeft.Control = FloatSpinEditPeso
+      AnchorSideBottom.Control = FloatSpinEditPeso
+      Left = 416
+      Height = 15
+      Top = 105
+      Width = 25
+      Anchors = [akLeft, akBottom]
+      Caption = 'Peso'
+      ParentColor = False
+    end
+    object DBMemo1: TDBMemo[13]
+      Left = 16
+      Height = 128
+      Top = 168
+      Width = 530
+      DataField = 'DESCRIPCION'
+      DataSource = TrabajosDataModule.dsTrabajo
+      TabOrder = 7
+    end
+    object LabelDescripcion: TLabel[14]
+      AnchorSideLeft.Control = DBMemo1
+      AnchorSideBottom.Control = DBMemo1
+      Left = 16
+      Height = 15
+      Top = 153
+      Width = 62
+      Anchors = [akLeft, akBottom]
+      Caption = 'Descripcion'
+      ParentColor = False
+    end
+  end
+end

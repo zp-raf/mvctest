@@ -74,6 +74,7 @@ type
     procedure AsientosClick(Sender: TObject);
     procedure calificarClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
+    procedure escalaClick(Sender: TObject);
     procedure examenabmClick(Sender: TObject);
     procedure extractoClick(Sender: TObject);
     procedure facturasClick(Sender: TObject);
@@ -90,6 +91,7 @@ type
     procedure academiasClick(Sender: TObject);
     procedure allpersonasClick(Sender: TObject);
     function GetCustomController: TPrincipalController;
+    procedure trabajosClick(Sender: TObject);
   end;
 
 var
@@ -124,6 +126,11 @@ end;
 procedure TPrincipal1.DocumentosClick(Sender: TObject);
 begin
   GetCustomController.OpenDocumentosForm(Self);
+end;
+
+procedure TPrincipal1.escalaClick(Sender: TObject);
+begin
+  GetCustomController.OpenEscalaForm(Self);
 end;
 
 procedure TPrincipal1.examenabmClick(Sender: TObject);
@@ -198,6 +205,11 @@ end;
 function TPrincipal1.GetCustomController: TPrincipalController;
 begin
   Result := (GetController as TPrincipalController);
+end;
+
+procedure TPrincipal1.trabajosClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMTrabajosForm(Self);
 end;
 
 end.

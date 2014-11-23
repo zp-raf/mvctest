@@ -17,7 +17,7 @@ type
   public
     destructor Destroy; override;
     procedure AnularPago(PagoID: string);
-    procedure Cancel(Sender: IView);
+    procedure Cancel(Sender: IView); override;
     procedure CerrarPago(Sender: IView);
     procedure CloseQuery(Sender: IView; var CanClose: boolean); override;
     procedure ImprimirRecibo(Sender: IView);

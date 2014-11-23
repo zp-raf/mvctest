@@ -63,7 +63,15 @@ uses
   // Calificar
   frmcalificaciondatamodule,
   frmprocesocalificacion,
-  calificacionctrl;
+  calificacionctrl,
+  // Escala
+  frmescaladatamodule,
+  frmprocesoescala,
+  escalactrl,
+  // ABM trabajos
+  frmtrabajosdatamodule,
+  frmabmtrabajos,
+  trabajosctrl;
 
 type
 
@@ -85,6 +93,8 @@ type
     procedure OpenAsignacionFrom(Sender: IFormView);
     procedure OpenExamenesForm(Sender: IFormView);
     procedure OpenCalificarForm(Sender: IFormView);
+    procedure OpenEscalaForm(Sender: IFormView);
+    procedure OpenABMTrabajosForm(Sender: IFormView);
   end;
 
 var
@@ -200,6 +210,24 @@ begin
     TCalificacionDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoCalificacion.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoCalificacion as IObserver);
+end;
+
+procedure TPrincipalController.OpenEscalaForm(Sender: IFormView);
+begin
+  ProcesoEscala :=
+    TProcesoEscala.Create(Sender, TEscalaController.Create(
+    TEscalaDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoEscala.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoEscala as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMTrabajosForm(Sender: IFormView);
+begin
+  AbmTrabajos :=
+    TAbmTrabajos.Create(Sender, TTrabajosController.Create(
+    TTrabajosDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  AbmTrabajos.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmTrabajos as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);
