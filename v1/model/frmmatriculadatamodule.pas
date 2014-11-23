@@ -22,6 +22,22 @@ type
   { TMatriculaDataModule }
 
   TMatriculaDataModule = class(TQueryDataModule)
+    AlumnosMatriculasView: TSQLQuery;
+    AlumnosMatriculasViewAPELLIDO: TStringField;
+    AlumnosMatriculasViewCEDULA: TStringField;
+    AlumnosMatriculasViewCONFIRMADA: TSmallintField;
+    AlumnosMatriculasViewCONFIRMADO: TSmallintField;
+    AlumnosMatriculasViewDERECHOEXAMEN: TSmallintField;
+    AlumnosMatriculasViewDESARROLLOMATERIAID: TLongintField;
+    AlumnosMatriculasViewFECHA: TDateField;
+    AlumnosMatriculasViewFECHANAC: TDateField;
+    AlumnosMatriculasViewID: TLongintField;
+    AlumnosMatriculasViewID_MATRICULA: TLongintField;
+    AlumnosMatriculasViewMATERIAID: TLongintField;
+    AlumnosMatriculasViewNOMBRE: TStringField;
+    AlumnosMatriculasViewOBSERVACIONES: TStringField;
+    AlumnosMatriculasViewSECCIONID: TLongintField;
+    AlumnosMatriculasViewSEXO: TStringField;
     SQLQueryMatHabID: TLongintField;
     SQLQueryMatHabPERSONAID: TLongintField;
     StringField1: TStringField;
@@ -94,7 +110,6 @@ type
     dsDesarrolloMatActivoDetView: TDataSource;
     DesarrolloMatActivoDetView: TSQLQuery;
     MateriasHabilitadasViewMODULO: TStringField;
-    XMLPropStorage1: TXMLPropStorage;
     procedure AgregarMatricula(ADesarrolloID: string);
     procedure Commit; override;
     procedure DataModuleCreate(Sender: TObject); override;

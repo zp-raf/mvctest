@@ -67,6 +67,7 @@ inherited Principal1: TPrincipal1
         end
         object calificar: TMenuItem
           Caption = '&Calificar exámenes'
+          OnClick = calificarClick
         end
         object calcularnota: TMenuItem
           Caption = 'C&alcular nota final'

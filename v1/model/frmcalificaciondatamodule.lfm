@@ -1,0 +1,159 @@
+inherited CalificacionDataModule: TCalificacionDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 251
+  HorizontalOffset = 1164
+  VerticalOffset = 459
+  Width = 309
+  object Calificacion: TSQLQuery[0]
+    FieldDefs = <    
+      item
+        Name = 'EXAMENID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATRICULAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PUNTAJEOBTENIDO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'COMENTARIOS'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from calificacion'
+      'where examenid = :examenid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'examenid'
+        ParamType = ptInput
+      end>
+    left = 32
+    top = 24
+    object CalificacionEXAMENID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'EXAMENID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object CalificacionMATRICULAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATRICULAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object FloatField1: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'PUNTAJEMAX'
+      Index = 2
+      KeyFields = 'EXAMENID'
+      LookupCache = False
+      LookupDataSet = ExamenesDataModule.Examen
+      LookupKeyFields = 'ID'
+      LookupResultField = 'PUNTAJEMAX'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object CalificacionPUNTAJEOBTENIDO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PUNTAJEOBTENIDO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object CalificacionCOMENTARIOS: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'COMENTARIOS'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField1: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'CEDULA'
+      Index = 5
+      KeyFields = 'MATRICULAID'
+      LookupCache = False
+      LookupDataSet = MatriculaDataModule.AlumnosMatriculasView
+      LookupKeyFields = 'ID_MATRICULA'
+      LookupResultField = 'CEDULA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField2: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'NOMBRE'
+      Index = 6
+      KeyFields = 'MATRICULAID'
+      LookupCache = False
+      LookupDataSet = MatriculaDataModule.AlumnosMatriculasView
+      LookupKeyFields = 'ID_MATRICULA'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField3: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'APELLIDO'
+      Index = 7
+      KeyFields = 'MATRICULAID'
+      LookupCache = False
+      LookupDataSet = MatriculaDataModule.AlumnosMatriculasView
+      LookupKeyFields = 'ID_MATRICULA'
+      LookupResultField = 'APELLIDO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsCalificacion: TDataSource[1]
+    DataSet = Calificacion
+    left = 40
+    top = 104
+  end
+end

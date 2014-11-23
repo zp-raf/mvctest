@@ -33,7 +33,7 @@ type
     constructor Create(AModel: Pointer); virtual;
     destructor Destroy; override;
     procedure AfterConstruction; override; final;
-    procedure Cancel(Sender: IView);
+    procedure Cancel(Sender: IView); virtual;
     procedure Close(Sender: IView); virtual;
     procedure Close(Sender: IFormView); virtual; overload;
     procedure CloseDataSets(Sender: IView);

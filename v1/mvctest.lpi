@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="77">
+    <Units Count="82">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -582,6 +582,40 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="examenctrl"/>
       </Unit76>
+      <Unit77>
+        <Filename Value="controller\calificacionctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="calificacionctrl"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="model\frmcalificaciondatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CalificacionDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmcalificaciondatamodule"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="view\frmprocesocalificacion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoCalificacion"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesocalificacion"/>
+      </Unit79>
+      <Unit80>
+        <Filename Value="view\frmpopupseleccionexamen.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PopupSeleccionExamen"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmpopupseleccionexamen"/>
+      </Unit80>
+      <Unit81>
+        <Filename Value="controller\seleccionexamenctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="seleccionexamenctrl"/>
+      </Unit81>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

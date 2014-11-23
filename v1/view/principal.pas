@@ -72,6 +72,7 @@ type
     registroAnecdotico1: TMenuItem;
     trabajoPractico1: TMenuItem;
     procedure AsientosClick(Sender: TObject);
+    procedure calificarClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
     procedure examenabmClick(Sender: TObject);
     procedure extractoClick(Sender: TObject);
@@ -113,6 +114,11 @@ end;
 procedure TPrincipal1.AsientosClick(Sender: TObject);
 begin
   GetCustomController.OpenAsientosFrom(Self);
+end;
+
+procedure TPrincipal1.calificarClick(Sender: TObject);
+begin
+  GetCustomController.OpenCalificarForm(Self);
 end;
 
 procedure TPrincipal1.DocumentosClick(Sender: TObject);

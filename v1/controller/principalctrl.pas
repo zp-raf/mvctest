@@ -59,7 +59,11 @@ uses
   // ABMExamenes
   frmexamendatamodule,
   frmabmexamenes,
-  examenctrl;
+  examenctrl,
+  // Calificar
+  frmcalificaciondatamodule,
+  frmprocesocalificacion,
+  calificacionctrl;
 
 type
 
@@ -80,6 +84,7 @@ type
     procedure OpenMatriculacionForm(Sender: IFormView);
     procedure OpenAsignacionFrom(Sender: IFormView);
     procedure OpenExamenesForm(Sender: IFormView);
+    procedure OpenCalificarForm(Sender: IFormView);
   end;
 
 var
@@ -186,6 +191,15 @@ begin
     TExamenesDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
   AbmExamenes.Show;
   (GetModel.MasterDataModule as ISubject).Attach(AbmExamenes as IObserver);
+end;
+
+procedure TPrincipalController.OpenCalificarForm(Sender: IFormView);
+begin
+  ProcesoCalificacion :=
+    TProcesoCalificacion.Create(Sender, TCalificacionController.Create(
+    TCalificacionDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoCalificacion.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoCalificacion as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

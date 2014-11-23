@@ -16,7 +16,7 @@ type
   protected
     function GetCustomModel: TFacturasDataModule;
   public
-    procedure Cancel(Sender: IView);
+    procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
     procedure NuevoComprobante(Sender: IView); override;
     procedure SetVencimiento(ADate: TDateTime);

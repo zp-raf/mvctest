@@ -11,7 +11,6 @@ inherited MatriculaDataModule: TMatriculaDataModule
     top = 16
   end
   object Matricula: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -402,97 +401,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
     top = 120
   end
   object DesarrolloMatActivoDetView: TSQLQuery[5]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SECCIONID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'MATERIAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'PERIODOLECTIVOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'EMPLEADOPERSONAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'GRUPOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'MODULOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'NOMBRE_SECCION'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NOMBRE_MATERIA'
-        DataType = ftString
-        Precision = -1
-        Size = 511
-      end    
-      item
-        Name = 'NOMBRE_MATERIA_DET'
-        DataType = ftString
-        Precision = -1
-        Size = 767
-      end    
-      item
-        Name = 'NOMBRE_PERIODO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NOMBRE_GRUPO'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NOMBRE_MOD'
-        DataType = ftString
-        Precision = -1
-        Size = 255
-      end    
-      item
-        Name = 'NOMBRE_COMPLETO'
-        DataType = ftString
-        Precision = -1
-        Size = 511
-      end>
+    FieldDefs = <>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True
@@ -673,13 +582,262 @@ inherited MatriculaDataModule: TMatriculaDataModule
     left = 272
     top = 200
   end
-  object XMLPropStorage1: TXMLPropStorage[7]
-    StoredValues = <    
+  object AlumnosMatriculasView: TSQLQuery[7]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
       item
-        Name = 'aranceles'
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'APELLIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'FECHANAC'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SEXO'
+        DataType = ftString
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'CONFIRMADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ID_MATRICULA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESARROLLOMATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CONFIRMADA'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'OBSERVACIONES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DERECHOEXAMEN'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SECCIONID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
-    FileName = 'conf.xml'
-    left = 416
-    top = 16
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_alumnos_matriculas'
+    )
+    Params = <>
+    left = 360
+    top = 26
+    object AlumnosMatriculasViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AlumnosMatriculasViewAPELLIDO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'APELLIDO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AlumnosMatriculasViewCEDULA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CEDULA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AlumnosMatriculasViewFECHANAC: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHANAC'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewSEXO: TStringField
+      DisplayWidth = 1
+      FieldKind = fkData
+      FieldName = 'SEXO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1
+    end
+    object AlumnosMatriculasViewCONFIRMADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CONFIRMADO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewID_MATRICULA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID_MATRICULA'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewDESARROLLOMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DESARROLLOMATERIAID'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewFECHA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewCONFIRMADA: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CONFIRMADA'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewOBSERVACIONES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBSERVACIONES'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AlumnosMatriculasViewDERECHOEXAMEN: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DERECHOEXAMEN'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATERIAID'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculasViewSECCIONID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'SECCIONID'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
 end

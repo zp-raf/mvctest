@@ -159,26 +159,7 @@ inherited ExamenesDataModule: TExamenesDataModule
     top = 173
   end
   object ExamenPersonaExterna: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
-    FieldDefs = <    
-      item
-        Name = 'EXAMENID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'PERSONAEXTERNAPERSONAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ROL'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end>
+    FieldDefs = <>
     AfterInsert = ExamenPersonaExternaAfterInsert
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

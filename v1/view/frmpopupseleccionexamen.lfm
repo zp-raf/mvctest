@@ -1,0 +1,119 @@
+inherited PopupSeleccionExamen: TPopupSeleccionExamen
+  Left = 743
+  Height = 480
+  Top = 237
+  Width = 640
+  ClientHeight = 460
+  ClientWidth = 640
+  Constraints.MinHeight = 480
+  Constraints.MinWidth = 640
+  inherited StatusBar1: TStatusBar
+    Top = 437
+    Width = 640
+  end
+  object Aceptar: TButton[1]
+    Left = 480
+    Height = 25
+    Top = 402
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Aceptar'
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object Cancelar: TButton[2]
+    Left = 560
+    Height = 25
+    Top = 402
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Cancelar'
+    ModalResult = 2
+    TabOrder = 2
+  end
+  object DBGrid1: TDBGrid[3]
+    Left = 8
+    Height = 312
+    Top = 80
+    Width = 624
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        PickList.Strings = (
+          'Didactica  Primero - Lizzie Paniagua - Seccion A'
+          'Didactica  Primero - Lizzie Paniagua - Seccion B'
+          'Tecnica Teatral  Primero - Mario Santander - Seccion A'
+          'Tecnica Teatral  Primero - Mario Santander - Seccion B'
+          'Maquillaje  Primero - Pedro Acosta - Seccion A'
+          'Maquillaje  Primero - Pedro Acosta - Seccion B'
+          'Atuendo Español Primero - Liz Mora - Seccion B'
+          'Atuendo Español Primero - Angelica Benitez - Seccion A'
+          'Coreografia Español Primero - Liz Peña - Seccion A'
+          'Coreografia Español Primero - Liz Peña - Seccion B'
+          'Tecnica Teatral  Segundo - Mario Santander - Seccion A'
+          'Tecnica Teatral  Segundo - Mario Santander - Seccion B'
+          'Maquillaje  Segundo - Pedro Acosta - Seccion A'
+          'Maquillaje  Segundo - Pedro Acosta - Seccion B'
+          'Atuendo Español Segundo - Natalia Ramos - Seccion A'
+          'Atuendo Español Segundo - Natalia Ramos - Seccion B'
+          'Coreografia Español Segundo - Natalia Ramos - Seccion A'
+          'Coreografia Español Segundo - Natalia Ramos - Seccion B'
+          'Tecnologia Español Segundo - Liz Mora - Seccion A'
+          'Tecnologia Español Segundo - Angelica Benitez - Seccion B'
+          'Maquillaje  Tercero - Pedro Acosta - Seccion B'
+          'Maquillaje  Tercero - Pedro Acosta - Seccion B'
+          'Atuendo Español Tercero - Angelica Benitez - Seccion A'
+          'Atuendo Español Tercero - Liz Mora - Seccion B'
+          'Coreografia Español Tercero - Viviana Galeano - Seccion B'
+          'Tecnologia Español Tercero - Angelica Benitez - Seccion A'
+          'Tecnologia Español Tercero - Liz Mora - Seccion B'
+        )
+        Title.Caption = 'SECCION'
+        Width = 266
+        FieldName = 'SECCION'
+      end    
+      item
+        Title.Caption = 'FECHA'
+        Width = 73
+        FieldName = 'FECHA'
+      end    
+      item
+        Title.Caption = 'PUNTAJEMAX'
+        FieldName = 'PUNTAJEMAX'
+      end    
+      item
+        Title.Caption = 'PESO'
+        Width = 43
+        FieldName = 'PESO'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'ACTIVO'
+        Width = 57
+        FieldName = 'ACTIVO'
+      end    
+      item
+        Title.Caption = 'OBSERVACIONES'
+        Width = 106
+        FieldName = 'OBSERVACIONES'
+      end>
+    DataSource = ExamenesDataModule.dsExamen
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+    ReadOnly = True
+    TabOrder = 3
+  end
+  object Filtro: TGroupBox[4]
+    Left = 8
+    Height = 73
+    Top = 0
+    Width = 624
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Filtro'
+    TabOrder = 4
+  end
+  inherited MainMenu: TMainMenu[5]
+    left = 584
+    top = 8
+  end
+end
