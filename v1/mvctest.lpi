@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="88">
+    <Units Count="92">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -658,6 +658,35 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmtrabajos"/>
       </Unit87>
+      <Unit88>
+        <Filename Value="view\frmlistaalumnos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoListaALumnos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmListaALumnos"/>
+      </Unit88>
+      <Unit89>
+        <Filename Value="model\frmnotasdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="NotasDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmnotasdatamodule"/>
+      </Unit89>
+      <Unit90>
+        <Filename Value="controller\notasctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="notasctrl"/>
+      </Unit90>
+      <Unit91>
+        <Filename Value="view\frmprocesonotas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoNotas"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesonotas"/>
+      </Unit91>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -44,8 +44,16 @@ inherited Principal1: TPrincipal1
     OnClick = DocumentosClick
     TabOrder = 3
   end
-  inherited MainMenu: TMainMenu[4]
-    left = 64
+  object Listaalumnos: TButton[4]
+    Left = 88
+    Height = 25
+    Top = 16
+    Width = 75
+    Caption = 'Listaalumnos'
+    OnClick = ListaalumnosClick
+    TabOrder = 4
+  end
+  inherited MainMenu: TMainMenu[5]
     top = 8
     object Academico: TMenuItem[1]
       Caption = 'A&cademico'
@@ -71,6 +79,7 @@ inherited Principal1: TPrincipal1
         end
         object calcularnota: TMenuItem
           Caption = 'C&alcular nota final'
+          OnClick = calcularnotaClick
         end
         object escala: TMenuItem
           Caption = '&Escala'

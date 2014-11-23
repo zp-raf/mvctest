@@ -20,6 +20,7 @@ type
     asistenciaProfesores: TMenuItem;
     aboutUs1: TMenuItem;
     ayuda1: TMenuItem;
+    Listaalumnos: TButton;
     Documentos: TButton;
     MenuItemAsignacion: TMenuItem;
     Pagos: TButton;
@@ -72,6 +73,7 @@ type
     registroAnecdotico1: TMenuItem;
     trabajoPractico1: TMenuItem;
     procedure AsientosClick(Sender: TObject);
+    procedure calcularnotaClick(Sender: TObject);
     procedure calificarClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
     procedure escalaClick(Sender: TObject);
@@ -80,6 +82,7 @@ type
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure ListaalumnosClick(Sender: TObject);
     procedure matricularClick(Sender: TObject);
     procedure MenuItemAsignacionClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
@@ -118,6 +121,11 @@ begin
   GetCustomController.OpenAsientosFrom(Self);
 end;
 
+procedure TPrincipal1.calcularnotaClick(Sender: TObject);
+begin
+  GetCustomController.OpenCalcularNotaForm(Self);
+end;
+
 procedure TPrincipal1.calificarClick(Sender: TObject);
 begin
   GetCustomController.OpenCalificarForm(Self);
@@ -153,6 +161,11 @@ procedure TPrincipal1.FormShow(Sender: TObject);
 begin
   inherited;
   GetController.Connect(Self);
+end;
+
+procedure TPrincipal1.ListaalumnosClick(Sender: TObject);
+begin
+  GetCustomController.OpenListaAlumnos(Self);
 end;
 
 procedure TPrincipal1.matricularClick(Sender: TObject);

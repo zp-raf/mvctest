@@ -71,7 +71,13 @@ uses
   // ABM trabajos
   frmtrabajosdatamodule,
   frmabmtrabajos,
-  trabajosctrl;
+  trabajosctrl,
+  // lista alumnos (test)
+  frmListaALumnos,
+  // Calcular nota
+  frmnotasdatamodule,
+  frmprocesonotas,
+  notasctrl;
 
 type
 
@@ -95,6 +101,8 @@ type
     procedure OpenCalificarForm(Sender: IFormView);
     procedure OpenEscalaForm(Sender: IFormView);
     procedure OpenABMTrabajosForm(Sender: IFormView);
+    procedure OpenListaAlumnos(Sender: IFormView);
+    procedure OpenCalcularNotaForm(Sender: IFormView);
   end;
 
 var
@@ -228,6 +236,20 @@ begin
     TTrabajosDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
   AbmTrabajos.Show;
   (GetModel.MasterDataModule as ISubject).Attach(AbmTrabajos as IObserver);
+end;
+
+procedure TPrincipalController.OpenListaAlumnos(Sender: IFormView);
+begin
+  TProcesoListaALumnos.Create(nil).Show;
+end;
+
+procedure TPrincipalController.OpenCalcularNotaForm(Sender: IFormView);
+begin
+  ProcesoNotas := TProcesoNotas.Create(Sender,
+    TNotasController.Create(TNotasDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoNotas.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoNotas as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);
