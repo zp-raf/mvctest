@@ -22,6 +22,7 @@ type
     ayuda1: TMenuItem;
     Listaalumnos: TButton;
     Documentos: TButton;
+    MenuItemDocumentos: TMenuItem;
     MenuItemAsignacion: TMenuItem;
     Pagos: TButton;
     gestionCurso: TMenuItem;
@@ -85,6 +86,7 @@ type
     procedure ListaalumnosClick(Sender: TObject);
     procedure matricularClick(Sender: TObject);
     procedure MenuItemAsignacionClick(Sender: TObject);
+    procedure MenuItemDocumentosClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
     procedure notaCreditoClick(Sender: TObject);
@@ -176,6 +178,11 @@ end;
 procedure TPrincipal1.MenuItemAsignacionClick(Sender: TObject);
 begin
   GetCustomController.OpenAsignacionFrom(Self);
+end;
+
+procedure TPrincipal1.MenuItemDocumentosClick(Sender: TObject);
+begin
+  GetCustomController.OpenDocumentosForm(Self);
 end;
 
 procedure TPrincipal1.MenuItemGenerarDeudaClick(Sender: TObject);

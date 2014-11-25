@@ -297,35 +297,178 @@ inherited NotasDataModule: TNotasDataModule
       Size = 255
     end
   end
-  object CalcularNota: TSQLScript[1]
-    DataBase = sgcdDataModule.db
-    Transaction = sgcdDataModule.tran
-    Directives.Strings = (
-      'SET TERM'
-      'COMMIT'
-      '#IFDEF'
-      '#IFNDEF'
-      '#ELSE'
-      '#ENDIF'
-      '#DEFINE'
-      '#UNDEF'
-      '#UNDEFINE'
-    )
-    Script.Strings = (
-      'execute procedure calcular_nota(:MATRICULAID, :ALUMNOID);'
-    )
-    Terminator = ';'
-    CommentsinSQL = True
-    UseSetTerm = True
-    UseCommit = True
-    UseDefines = True
-    OnException = CalcularNotaException
-    left = 192
-    top = 176
-  end
-  object dsNotasView: TDataSource[2]
+  object dsNotasView: TDataSource[1]
     DataSet = NotasView
     left = 64
     top = 128
+  end
+  object CalcularNotasProc: TSQLQuery[2]
+    FieldDefs = <    
+      item
+        Name = 'PUNTAJE_FINAL'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOTA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'execute procedure get_nota(:matriculaid, :alumnoid);'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'matriculaid'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'alumnoid'
+        ParamType = ptInput
+      end>
+    left = 199
+    top = 136
+    object CalcularNotasProcPUNTAJE_FINAL: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PUNTAJE_FINAL'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object CalcularNotasProcNOTA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NOTA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object Nota: TSQLQuery[3]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATRICULAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA_NOTA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOTA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'OBSERVACIONES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'PUNTAJE'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end>
+    AfterInsert = NotaAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from nota'
+    )
+    Params = <>
+    left = 105
+    top = 64
+    object NotaID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object NotaMATRICULAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATRICULAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object NotaFECHA_NOTA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA_NOTA'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object NotaNOTA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NOTA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object NotaOBSERVACIONES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBSERVACIONES'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object NotaPUNTAJE: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PUNTAJE'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
   end
 end

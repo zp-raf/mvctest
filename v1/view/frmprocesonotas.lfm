@@ -1,28 +1,32 @@
 inherited ProcesoNotas: TProcesoNotas
-  Left = 632
+  Left = 526
   Height = 600
-  Top = 288
-  Width = 900
+  Top = 212
+  Width = 1024
   Caption = 'Notas'
   ClientHeight = 580
-  ClientWidth = 900
+  ClientWidth = 1024
   Constraints.MinHeight = 600
-  Constraints.MinWidth = 900
+  Constraints.MinWidth = 1024
   inherited StatusBar1: TStatusBar
     Top = 557
-    Width = 900
+    Width = 1024
   end
   inherited ButtonPanel1: TButtonPanel
     Top = 517
-    Width = 888
+    Width = 1012
+    OKButton.Caption = 'C&alcular'
+    OKButton.DefaultCaption = False
+    OKButton.OnClick = OKButtonClick
+    ShowButtons = [pbOK, pbClose, pbHelp]
   end
   object DBGrid1: TDBGrid[2]
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Side = asrBottom
-    Left = 4
+    Left = 6
     Height = 413
     Top = 96
-    Width = 890
+    Width = 1014
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Left = 4
     BorderSpacing.Right = 4
@@ -30,73 +34,85 @@ inherited ProcesoNotas: TProcesoNotas
     Color = clWindow
     Columns = <    
       item
+        ReadOnly = True
         Title.Caption = 'CEDULA'
         Width = 59
         FieldName = 'CEDULA'
       end    
       item
+        ReadOnly = True
         Title.Caption = 'APELLIDO'
         Width = 68
         FieldName = 'APELLIDO'
       end    
       item
+        ReadOnly = True
         Title.Caption = 'NOMBRE'
         FieldName = 'NOMBRE'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
+        ReadOnly = True
         Title.Caption = 'CONFIRMADO'
         Width = 93
         FieldName = 'CONFIRMADO'
       end    
       item
+        ReadOnly = True
         Title.Caption = 'SECCION'
         FieldName = 'SECCION'
       end    
       item
+        ReadOnly = True
         Title.Caption = 'FECHA'
         Width = 52
         FieldName = 'FECHA'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
+        ReadOnly = True
         Title.Caption = 'ACTIVA'
         Width = 56
         FieldName = 'ACTIVA'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
+        ReadOnly = True
         Title.Caption = 'CONFIRMADA'
         Width = 92
         FieldName = 'CONFIRMADA'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
+        ReadOnly = True
         Title.Caption = 'DERECHOEXAMEN'
         Width = 115
         FieldName = 'DERECHOEXAMEN'
       end    
       item
+        ReadOnly = True
         Title.Caption = 'PUNTAJE'
         FieldName = 'PUNTAJE'
       end    
       item
+        ReadOnly = True
         Title.Caption = 'NOTA'
         Width = 48
         FieldName = 'NOTA'
       end    
       item
+        ReadOnly = True
         Title.Caption = 'FECHA_NOTA'
         Width = 90
         FieldName = 'FECHA_NOTA'
       end    
       item
         Title.Caption = 'OBS_NOTA'
-        Width = 75
         FieldName = 'OBS_NOTA'
       end>
     DataSource = NotasDataModule.dsNotasView
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiselect, dgPersistentMultiSelect, dgAutoSizeColumns]
+    ReadOnly = True
     Scrollbars = ssAutoBoth
     TabOrder = 2
   end
@@ -199,5 +215,7 @@ inherited ProcesoNotas: TProcesoNotas
     TabOrder = 6
   end
   inherited MainMenu: TMainMenu[7]
+    left = 832
+    top = 0
   end
 end

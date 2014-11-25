@@ -8,6 +8,9 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   frmquerydatamodule, sqldb, DB, sqlscript;
 
+resourcestring
+  rsGenName = 'GEN_NOTA';
+
 type
   TEstadoMatricula = (maConfirmadas, maNoConfirmadas, maTodas);
   TEstadoAlumnos = (alConfirmados, alNoConfirmados, alTodos);
@@ -22,6 +25,17 @@ type
   { TNotasDataModule }
 
   TNotasDataModule = class(TQueryDataModule)
+    CalcularNotasProc: TSQLQuery;
+    CalcularNotasProcNOTA: TLongintField;
+    CalcularNotasProcPUNTAJE_FINAL: TFloatField;
+    Nota: TSQLQuery;
+    NotaFECHA_NOTA: TDateField;
+    NotaID: TLongintField;
+    NotaMATRICULAID: TLongintField;
+    NotaNOTA: TLongintField;
+    NotaOBSERVACIONES: TStringField;
+    NotaPUNTAJE: TFloatField;
+    procedure NotaAfterInsert(DataSet: TDataSet);
   private
     FCriterios: TCriterios;
     procedure SetCriterios(AValue: TCriterios);
@@ -30,7 +44,6 @@ type
   published
     dsNotasView: TDataSource;
     NotasView: TSQLQuery;
-    CalcularNota: TSQLScript;
     NotasViewACTIVA: TSmallintField;
     NotasViewALUMNOPERSONAID: TLongintField;
     NotasViewAPELLIDO: TStringField;
@@ -48,9 +61,7 @@ type
     NotasViewOBS_NOTA: TStringField;
     NotasViewPUNTAJE: TFloatField;
     NotasViewSECCION: TStringField;
-    //procedure CalcularNotas
-    procedure CalcularNotaException(Sender: TObject; Statement: TStrings;
-      TheException: Exception; var Continue: boolean);
+    procedure CalcularNota(AMatriculaID: string; AAlumnoID: string);
     procedure FilterRecord; overload;
     procedure DataModuleCreate(Sender: TObject); override;
   end;
@@ -67,11 +78,17 @@ implementation
 procedure TNotasDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
-  QryList.Add(TObject(NotasView));
+  QryList.Add(TObject(Nota));
+  AuxQryList.Add(TObject(NotasView));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('APELLIDO');
   SearchFieldList.Add('CEDULA');
-  SetReadOnly(True);
+end;
+
+procedure TNotasDataModule.NotaAfterInsert(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenName);
+  DataSet.FieldByName('FECHA_NOTA').AsDateTime := Now;
 end;
 
 procedure TNotasDataModule.SetCriterios(AValue: TCriterios);
@@ -80,11 +97,25 @@ begin
   FilterRecord;
 end;
 
-procedure TNotasDataModule.CalcularNotaException(Sender: TObject;
-  Statement: TStrings; TheException: Exception; var Continue: boolean);
+procedure TNotasDataModule.CalcularNota(AMatriculaID: string; AAlumnoID: string);
 begin
-  Continue := False;
-  MasterDataModule.Rollback;
+  try
+    CalcularNotasProc.Close;
+    CalcularNotasProc.ParamByName('MATRICULAID').AsString := AMatriculaID;
+    CalcularNotasProc.ParamByName('ALUMNOID').AsString := AAlumnoID;
+    CalcularNotasProc.Open;
+    Nota.Insert;
+    NotaMATRICULAID.AsString := AMatriculaID;
+    NotaNOTA.AsInteger := CalcularNotasProcNOTA.AsInteger;
+    NotaPUNTAJE.AsFloat := CalcularNotasProcPUNTAJE_FINAL.AsFloat;
+    Nota.Post;
+  except
+    on E: EDatabaseError do
+    begin
+      Rollback;
+      raise;
+    end;
+  end;
 end;
 
 procedure TNotasDataModule.FilterRecord;

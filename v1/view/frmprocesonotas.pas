@@ -16,6 +16,7 @@ type
   TProcesoNotas = class(TProceso)
     RadioGroup1: TRadioGroup;
     RadioGroup2: TRadioGroup;
+    procedure OKButtonClick(Sender: TObject);
     procedure RadioGroup1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
   protected
@@ -77,6 +78,11 @@ end;
 procedure TProcesoNotas.RadioGroup1Click(Sender: TObject);
 begin
   CambiarCriterios;
+end;
+
+procedure TProcesoNotas.OKButtonClick(Sender: TObject);
+begin
+  GetCustomController.CalcularNotas(Pointer(DBGrid1), Self);
 end;
 
 procedure TProcesoNotas.RadioGroup2Click(Sender: TObject);

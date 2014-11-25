@@ -38,6 +38,7 @@ type
     AlumnosMatriculasViewOBSERVACIONES: TStringField;
     AlumnosMatriculasViewSECCIONID: TLongintField;
     AlumnosMatriculasViewSEXO: TStringField;
+    LongintField1: TLongintField;
     SQLQueryMatHabID: TLongintField;
     SQLQueryMatHabPERSONAID: TLongintField;
     StringField1: TStringField;
@@ -216,6 +217,8 @@ end;
 
 procedure TMatriculaDataModule.GenerarDeuda(AMatriculaID: string);
 begin
+  if not AutoGenerarDeudas then
+    Exit;
   try
     if not Matricula.Locate('ID', AMatriculaID, []) then
       raise Exception.Create('No se encuentra la matricula');

@@ -1,7 +1,7 @@
 inherited Principal1: TPrincipal1
-  Left = 580
+  Left = 665
   Height = 100
-  Top = 347
+  Top = 604
   Width = 455
   Anchors = []
   Caption = 'SGCD'
@@ -25,6 +25,7 @@ inherited Principal1: TPrincipal1
     Caption = 'Asientos'
     OnClick = AsientosClick
     TabOrder = 1
+    Visible = False
   end
   object Pagos: TButton[2]
     Left = 352
@@ -34,6 +35,7 @@ inherited Principal1: TPrincipal1
     Caption = 'Pagos'
     OnClick = PagosClick
     TabOrder = 2
+    Visible = False
   end
   object Documentos: TButton[3]
     Left = 173
@@ -43,6 +45,7 @@ inherited Principal1: TPrincipal1
     Caption = 'Documentos'
     OnClick = DocumentosClick
     TabOrder = 3
+    Visible = False
   end
   object Listaalumnos: TButton[4]
     Left = 88
@@ -52,6 +55,7 @@ inherited Principal1: TPrincipal1
     Caption = 'Listaalumnos'
     OnClick = ListaalumnosClick
     TabOrder = 4
+    Visible = False
   end
   inherited MainMenu: TMainMenu[5]
     top = 8
@@ -145,6 +149,10 @@ inherited Principal1: TPrincipal1
       end
       object financiero: TMenuItem
         Caption = '&Finanzas'
+        object MenuItemDocumentos: TMenuItem
+          Caption = 'Do&cumentos'
+          OnClick = MenuItemDocumentosClick
+        end
         object aranceles: TMenuItem
           Caption = 'ABM Ara&nceles'
         end

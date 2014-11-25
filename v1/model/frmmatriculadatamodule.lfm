@@ -2,8 +2,8 @@ inherited MatriculaDataModule: TMatriculaDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 329
-  HorizontalOffset = 757
-  VerticalOffset = 362
+  HorizontalOffset = 1098
+  VerticalOffset = 585
   Width = 519
   object dsMatricula: TDataSource[0]
     DataSet = Matricula
@@ -11,6 +11,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
     top = 16
   end
   object Matricula: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -235,6 +236,20 @@ inherited MatriculaDataModule: TMatriculaDataModule
       Required = False
       Size = 511
     end
+    object LongintField1: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'MATERIAID'
+      Index = 13
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'MATERIAID'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+    end
   end
   object dsAlumnos: TDataSource[2]
     DataSet = PersonasDataModule.PersonasRoles
@@ -242,6 +257,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
     top = 16
   end
   object MateriasHabilitadasView: TSQLQuery[3]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'AREA'
@@ -295,13 +311,12 @@ inherited MatriculaDataModule: TMatriculaDataModule
     Transaction = sgcdDataModule.tran
     ReadOnly = True
     SQL.Strings = (
-      'select v.AREA, v.GRUPOID, v.ID, v.ID_MAT, v.MODULOID,'
-      'm.nombre, g.nombre as grupo, mo.nombre as modulo'
-      'from v_materias_habilitadas_alumnos v'
-      'join materia m on v.id_mat = m.id'
-      'join grupo g on v.grupoid = g.id'
-      'join modulo mo on v.area = mo.id'
-      'where v.id = :alumnoid'
+      'select V.AREA, V.GRUPOID, V.ID, V.ID_MAT, V.MODULOID, M.NOMBRE, G.NOMBRE as GRUPO, MO.NOMBRE as MODULO'
+      'from V_MATERIAS_HABILITADAS_ALUMNOS V'
+      'join MATERIA M on V.ID_MAT = M.ID'
+      'join GRUPO G on V.GRUPOID = G.ID'
+      'join MODULO MO on V.MODULOID = MO.ID'
+      'where V.ID = :alumnoid'
     )
     Params = <    
       item
@@ -583,7 +598,6 @@ inherited MatriculaDataModule: TMatriculaDataModule
     top = 200
   end
   object AlumnosMatriculasView: TSQLQuery[7]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
