@@ -159,6 +159,7 @@ inherited Principal1: TPrincipal1
         end
         object cuotaxarancel: TMenuItem
           Caption = 'ABM C&uotas de aranceles'
+          OnClick = cuotaxarancelClick
         end
         object talonarios: TMenuItem
           Caption = 'ABM &Talonarios'
@@ -169,6 +170,7 @@ inherited Principal1: TPrincipal1
         end
         object multas: TMenuItem
           Caption = 'Actualizar &multas'
+          OnClick = multasClick
         end
         object facturas: TMenuItem
           Caption = 'Emision de &facturas'
@@ -188,6 +190,7 @@ inherited Principal1: TPrincipal1
         end
         object cuentasCobrar: TMenuItem
           Caption = 'Cuentas por c&obrar'
+          Visible = False
         end
         object cuentasPagar: TMenuItem
           Caption = 'Cuentas por &pagar'
@@ -198,6 +201,7 @@ inherited Principal1: TPrincipal1
         end
         object cargarFactura: TMenuItem
           Caption = 'Cargar f&actura de compra'
+          OnClick = cargarFacturaClick
         end
         object cargarNotaCredito: TMenuItem
           Caption = 'Cargar n&ota de crédito'

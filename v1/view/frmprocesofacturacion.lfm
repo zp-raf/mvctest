@@ -122,18 +122,21 @@ inherited ProcesoFacturacion: TProcesoFacturacion
             end          
             item
               PickList.Strings = (              )
+              ReadOnly = True
               Title.Caption = 'EXENTA'
               Width = 58
               FieldName = 'EXENTA'
             end          
             item
               PickList.Strings = (              )
+              ReadOnly = True
               Title.Caption = 'IVA5'
               Width = 39
               FieldName = 'IVA5'
             end          
             item
               PickList.Strings = (              )
+              ReadOnly = True
               Title.Caption = 'IVA10'
               Width = 45
               FieldName = 'IVA10'
@@ -154,24 +157,35 @@ inherited ProcesoFacturacion: TProcesoFacturacion
         ClientWidth = 881
         inherited DBEditGranTotal: TDBEdit
           DataSource = FacturasDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditSubTotal: TDBEdit
           DataSource = FacturasDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditSubTotal5: TDBEdit
           DataSource = FacturasDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditSubTotal10: TDBEdit
           DataSource = FacturasDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditIVA5: TDBEdit
           DataSource = FacturasDataModule.dsCabecera
+          ReadOnly = True
+        end
+        inherited LabelIVA10: TLabel
+          Top = 97
         end
         inherited DBEditIVA10: TDBEdit
+          Top = 112
           DataSource = FacturasDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditIVATotal: TDBEdit
           DataSource = FacturasDataModule.dsCabecera
+          ReadOnly = True
         end
       end
     end

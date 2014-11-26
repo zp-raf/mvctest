@@ -3,10 +3,14 @@ inherited Proceso: TProceso
   Width = 453
   ClientHeight = 328
   ClientWidth = 453
-  object ButtonPanel1: TButtonPanel[0]
+  inherited StatusBar1: TStatusBar
+    Top = 305
+    Width = 453
+  end
+  object ButtonPanel1: TButtonPanel[1]
     Left = 6
     Height = 34
-    Top = 288
+    Top = 265
     Width = 441
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -19,7 +23,8 @@ inherited Proceso: TProceso
     CancelButton.Name = 'CancelButton'
     CancelButton.DefaultCaption = True
     TabOrder = 0
+    OnKeyUp = ButtonPanel1KeyUp
   end
-  inherited MainMenu: TMainMenu[1]
+  inherited MainMenu: TMainMenu[2]
   end
 end

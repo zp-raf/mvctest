@@ -14,6 +14,8 @@ type
   { TAbm }
 
   TAbm = class(TMaestro, IABMView)
+    procedure ButtonPanelKeyDown(Sender: TObject; var Key: word;
+      Shift: TShiftState);
     procedure EditFilterKeyUp(Sender: TObject; var Key: word; {%H-}Shift: TShiftState);
   protected
     function GetABMController: TABMController;
@@ -112,6 +114,12 @@ begin
       ABMDelete;
     end;
   end;
+end;
+
+procedure TAbm.ButtonPanelKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+begin
+  if Key = VK_RETURN then
+    Abort;
 end;
 
 procedure TAbm.EditFilterKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);

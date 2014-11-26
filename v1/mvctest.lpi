@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="97">
+    <Units Count="98">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -721,6 +721,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmpopupseleccionartrabajos"/>
       </Unit96>
+      <Unit97>
+        <Filename Value="view\frmprocesofacturacompra.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoFacturaCompra"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesofacturacompra"/>
+      </Unit97>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -81,7 +81,9 @@ uses
   // Entrega trabajos
   frmentregadatamodule,
   frmprocesoentrega,
-  entregactrl;
+  entregactrl,
+  // factura compra
+  frmprocesofacturacompra;
 
 type
 
@@ -108,6 +110,7 @@ type
     procedure OpenListaAlumnos(Sender: IFormView);
     procedure OpenCalcularNotaForm(Sender: IFormView);
     procedure OpenEntregaForm(Sender: IFormView);
+    procedure OpenFacturaCompraForm(Sender: IFormView);
   end;
 
 var
@@ -264,6 +267,15 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoEntrega.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoEntrega as IObserver);
+end;
+
+procedure TPrincipalController.OpenFacturaCompraForm(Sender: IFormView);
+begin
+  ProcesoFacturaCompra := TProcesoFacturaCompra.Create(Sender,
+    TFacturaController.Create(TFacturasDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoFacturaCompra.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoFacturaCompra as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

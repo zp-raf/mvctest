@@ -1,0 +1,132 @@
+inherited ProcesoFacturaCompra: TProcesoFacturaCompra
+  Caption = 'Factura Compra'
+  OnShow = FormShow
+  inherited ButtonPanel1: TButtonPanel
+    OKButton.OnClick = OKButtonClick
+    CloseButton.OnClick = CloseButtonClick
+    CancelButton.OnClick = CancelButtonClick
+  end
+  inherited Cabecera: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBTextNro: TDBText
+      Left = 464
+      Visible = False
+    end
+    inherited DBTextTimbrado: TDBText
+      Left = 464
+      Visible = False
+    end
+    inherited LabelNro: TLabel
+      Left = 434
+      Visible = False
+    end
+    inherited LabelTimbrado: TLabel
+      Left = 405
+      Visible = False
+    end
+    object DBEditNro: TDBEdit[19]
+      Left = 135
+      Height = 23
+      Top = 16
+      Width = 80
+      DataField = 'NUMERO'
+      DataSource = FacturasDataModule.dsCabecera
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 8
+    end
+    object DBEditTimbrado: TDBEdit[20]
+      Left = 240
+      Height = 23
+      Top = 16
+      Width = 144
+      DataField = 'TIMBRADO'
+      DataSource = NotaCreditoDataModule.dsCabecera
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 9
+    end
+    object LabelNumeroComp: TLabel[21]
+      AnchorSideLeft.Control = DBEditNro
+      AnchorSideBottom.Control = DBEditNro
+      Left = 135
+      Height = 15
+      Top = 1
+      Width = 20
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nro'
+      ParentColor = False
+    end
+    object LabelTimbradoCompra: TLabel[22]
+      AnchorSideLeft.Control = DBEditTimbrado
+      AnchorSideBottom.Control = DBEditTimbrado
+      Left = 240
+      Height = 15
+      Top = 1
+      Width = 52
+      Anchors = [akLeft, akBottom]
+      Caption = 'Timbrado'
+      ParentColor = False
+    end
+  end
+  inherited PairSplitterDetSubTot: TPairSplitter
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited PairSplitterSide1: TPairSplitterSide
+      inherited Detalles: TGroupBox
+        inherited DBGridDet: TDBGrid
+          Columns = <          
+            item
+              PickList.Strings = (              )
+              ReadOnly = False
+              SizePriority = 0
+              Title.Caption = 'CANTIDAD'
+              Width = 74
+              FieldName = 'CANTIDAD'
+            end          
+            item
+              MinSize = 30
+              PickList.Strings = (              )
+              ReadOnly = False
+              Title.Caption = 'DETALLE'
+              Width = 62
+              FieldName = 'DETALLE'
+            end          
+            item
+              PickList.Strings = (              )
+              SizePriority = 0
+              Title.Caption = 'PRECIO UNITARIO'
+              Width = 112
+              FieldName = 'PRECIO_UNITARIO'
+            end          
+            item
+              PickList.Strings = (              )
+              ReadOnly = True
+              Title.Caption = 'EXENTA'
+              Width = 58
+              FieldName = 'EXENTA'
+            end          
+            item
+              PickList.Strings = (              )
+              ReadOnly = True
+              Title.Caption = 'IVA5'
+              Width = 39
+              FieldName = 'IVA5'
+            end          
+            item
+              PickList.Strings = (              )
+              ReadOnly = True
+              Title.Caption = 'IVA10'
+              Width = 45
+              FieldName = 'IVA10'
+            end>
+          OnKeyDown = DBGridDetKeyDown
+        end
+        inherited DBNavigatorDet: TDBNavigator
+          Hints.Strings = (          )
+        end
+      end
+    end
+  end
+end

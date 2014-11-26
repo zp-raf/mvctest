@@ -76,6 +76,8 @@ type
     procedure AsientosClick(Sender: TObject);
     procedure calcularnotaClick(Sender: TObject);
     procedure calificarClick(Sender: TObject);
+    procedure cargarFacturaClick(Sender: TObject);
+    procedure cuotaxarancelClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
     procedure entregasClick(Sender: TObject);
     procedure escalaClick(Sender: TObject);
@@ -90,6 +92,7 @@ type
     procedure MenuItemDocumentosClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
+    procedure multasClick(Sender: TObject);
     procedure notaCreditoClick(Sender: TObject);
     procedure PagosClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
@@ -132,6 +135,16 @@ end;
 procedure TPrincipal1.calificarClick(Sender: TObject);
 begin
   GetCustomController.OpenCalificarForm(Self);
+end;
+
+procedure TPrincipal1.cargarFacturaClick(Sender: TObject);
+begin
+  GetCustomController.OpenFacturaCompraForm(Self);
+end;
+
+procedure TPrincipal1.cuotaxarancelClick(Sender: TObject);
+begin
+
 end;
 
 procedure TPrincipal1.DocumentosClick(Sender: TObject);
@@ -199,6 +212,11 @@ end;
 procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);
 begin
   GetCustomController.OpenABMCuentasForm(Self);
+end;
+
+procedure TPrincipal1.multasClick(Sender: TObject);
+begin
+
 end;
 
 procedure TPrincipal1.notaCreditoClick(Sender: TObject);

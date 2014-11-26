@@ -142,6 +142,7 @@ type
       Si no se encuentra el comprobante levanta una excepcion EDatabaseError. }
     procedure LocateComprobante(AID: string);
     procedure NuevoComprobante;
+    procedure NuevoComprobanteCompra;
     procedure NuevoComprobanteDetalle;
     procedure OnComprobanteError(Sender: TObject; {%H-}E: EDatabaseError); virtual;
     procedure qryDetalleAfterInsert(DataSet: TDataSet); virtual;
@@ -397,6 +398,33 @@ begin
       raise EDatabaseError.Create(rsTalonarioNoEncontrado);
     qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID;
     SetNumero;
+    Estado := asEditando;
+    (MasterDataModule as ISubject).Notify;
+  except
+    on E: EDatabaseError do
+    begin
+      DoOnErrorEvent(Self, E);
+      raise;
+    end;
+  end;
+end;
+
+procedure TComprobanteDataModule.NuevoComprobanteCompra;
+begin
+  try
+    if (Estado in [asEditando]) then
+      raise EDatabaseError.Create(rsYaSeEstaCreando);
+    // antes que nada traemos los factores para iva10 e iva5
+    GetImpuestos;
+    NewRecord;
+    //// ponemos el numero de comprobante y talonario
+    //tal.Close;
+    //tal.ParamByName('TALONARIOID').AsString := TalonarioID;
+    //tal.Open;
+    //if not tal.Locate('ID', TalonarioID, [loCaseInsensitive]) then
+    //  raise EDatabaseError.Create(rsTalonarioNoEncontrado);
+    //qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID;
+    //SetNumero;
     Estado := asEditando;
     (MasterDataModule as ISubject).Notify;
   except

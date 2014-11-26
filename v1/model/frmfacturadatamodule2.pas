@@ -24,8 +24,10 @@ type
 
   TFacturasDataModule = class(TComprobanteDataModule)
   private
+    FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;
     FIVA5Codigo: string;
+    procedure SetCheckPrecioUnitario(AValue: boolean);
     procedure SetIVA10Codigo(AValue: string);
     procedure SetIVA5Codigo(AValue: string);
   published
@@ -69,6 +71,8 @@ type
     procedure qryDetalleAfterInsert(DataSet: TDataSet); override;
     procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
     procedure SetNumero; override;
+    property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
+      write SetCheckPrecioUnitario;
     property IVA10Codigo: string read FIVA10Codigo write SetIVA10Codigo;
     property IVA5Codigo: string read FIVA5Codigo write SetIVA5Codigo;
   end;
@@ -88,6 +92,13 @@ begin
   if FIVA10Codigo = AValue then
     Exit;
   FIVA10Codigo := AValue;
+end;
+
+procedure TFacturasDataModule.SetCheckPrecioUnitario(AValue: boolean);
+begin
+  if FCheckPrecioUnitario = AValue then
+    Exit;
+  FCheckPrecioUnitario := AValue;
 end;
 
 procedure TFacturasDataModule.SetIVA5Codigo(AValue: string);
@@ -162,6 +173,7 @@ begin
   TalonarioID := TALONARIO;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
+  CheckPrecioUnitario := True;
 end;
 
 procedure TFacturasDataModule.DeterminarImpuesto;
@@ -237,6 +249,8 @@ procedure TFacturasDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField);
 var
   montoMaximo: double;
 begin
+  if not CheckPrecioUnitario then
+    Exit;
   try
     montoMaximo := DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_DEUDA') -
       DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_FACTURADO');

@@ -23,6 +23,7 @@ type
     procedure ActualizarTotales(Sender: IView); virtual;
     procedure CerrarComprobante(Sender: IView); virtual; abstract;
     procedure NuevoComprobante(Sender: IView); virtual; abstract;
+    procedure NuevoComprobanteDetalle(Sender: IView); virtual;
     function GetEstadoComprobante(Sender: IView): TEstadoComprobante;
     property BuscarPersonaController: TBuscarPersonaController
       read FBuscarPersonaController write SetBuscarPersonaController;
@@ -62,6 +63,11 @@ end;
 procedure TComprobanteController.ActualizarTotales(Sender: IView);
 begin
   GetComprobanteModel.ActualizarTotales;
+end;
+
+procedure TComprobanteController.NuevoComprobanteDetalle(Sender: IView);
+begin
+  GetComprobanteModel.NewDetailRecord;
 end;
 
 function TComprobanteController.GetEstadoComprobante(Sender: IView): TEstadoComprobante;

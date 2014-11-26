@@ -31,6 +31,7 @@ inherited Abm: TAbm
     CancelButton.DefaultCaption = True
     CancelButton.OnClick = CancelButtonClick
     TabOrder = 0
+    OnKeyDown = ButtonPanelKeyDown
   end
   object PanelDetail: TPanel[2]
     AnchorSideLeft.Control = Owner
