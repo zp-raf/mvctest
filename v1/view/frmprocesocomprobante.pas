@@ -259,6 +259,7 @@ begin
     on e: Exception do
       ShowInfoMessage('Comprobante descartado');
   end;
+  GetController.CloseDataSets(Self);
 end;
 
 procedure TProcesoComprobante.CancelButtonClick(Sender: TObject);

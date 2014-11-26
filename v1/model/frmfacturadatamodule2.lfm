@@ -5,6 +5,7 @@ inherited FacturasDataModule: TFacturasDataModule
   VerticalOffset = 329
   Width = 562
   inherited qryCabecera: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -155,7 +156,7 @@ inherited FacturasDataModule: TFacturasDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object qryCabeceraPERSONAID: TLongintField[2]
       DisplayWidth = 10
@@ -748,5 +749,9 @@ inherited FacturasDataModule: TFacturasDataModule
   end
   inherited frDBReporteCab: TfrDBDataSet
     DataSet = qryCabecera
+  end
+  inherited AuxTalonario: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    Active = True
   end
 end

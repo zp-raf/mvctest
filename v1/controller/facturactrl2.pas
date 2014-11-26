@@ -6,7 +6,7 @@ interface
 
 uses
   ctrl, frmfacturadatamodule2, mvc, Controls, sgcdTypes, comprobantectrl,
-  frmcomprobantedatamodule, personactrl;
+  frmcomprobantedatamodule, personactrl, DB;
 
 type
 
@@ -18,6 +18,7 @@ type
   public
     procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
+    procedure FetchCabeceraPersona(Sender: IView);
     procedure NuevoComprobante(Sender: IView); override;
     procedure NuevoComprobanteCompra(Sender: IView);
     procedure SetVencimiento(ADate: TDateTime);
@@ -53,7 +54,7 @@ procedure TFacturaController.NuevoComprobanteCompra(Sender: IView);
 begin
   GetCustomModel.CheckPrecioUnitario := False;
   GetCustomModel.NuevoComprobanteCompra;
-  GetCustomModel.FetchCabeceraPersona;
+  GetCustomModel.NuevoComprobanteDetalle;
 end;
 
 procedure TFacturaController.CerrarComprobante(Sender: IView);
@@ -61,6 +62,11 @@ begin
   GetModel.SaveChanges;
   GetModel.Commit;
   //GetModel.RefreshDataSets;
+end;
+
+procedure TFacturaController.FetchCabeceraPersona(Sender: IView);
+begin
+  GetCustomModel.FetchCabeceraPersona;
 end;
 
 procedure TFacturaController.SetVencimiento(ADate: TDateTime);
@@ -72,6 +78,8 @@ procedure TFacturaController.SetPrecioTotal(AField: string; Sender: IFormView);
 begin
   if GetEstadoComprobante(Sender) = asEditando then
   begin
+    if not (GetCustomModel.qryDetalle.State in dsEditModes) then
+      GetCustomModel.qryDetalle.Edit;
     GetCustomModel.qryDetalle.FieldByName(AField).AsFloat :=
       GetCustomModel.qryDetalle.FieldByName('CANTIDAD').AsFloat *
       GetCustomModel.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;

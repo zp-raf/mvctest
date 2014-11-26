@@ -1,9 +1,9 @@
 inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   Caption = 'Factura Compra'
+  ClientHeight = 730
   OnShow = FormShow
   inherited ButtonPanel1: TButtonPanel
     OKButton.OnClick = OKButtonClick
-    CloseButton.OnClick = CloseButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
   inherited Cabecera: TGroupBox
@@ -42,7 +42,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       Top = 16
       Width = 144
       DataField = 'TIMBRADO'
-      DataSource = NotaCreditoDataModule.dsCabecera
+      DataSource = FacturasDataModule.dsCabecera
       CharCase = ecNormal
       MaxLength = 0
       TabOrder = 9
@@ -79,7 +79,6 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
           Columns = <          
             item
               PickList.Strings = (              )
-              ReadOnly = False
               SizePriority = 0
               Title.Caption = 'CANTIDAD'
               Width = 74
@@ -88,7 +87,6 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
             item
               MinSize = 30
               PickList.Strings = (              )
-              ReadOnly = False
               Title.Caption = 'DETALLE'
               Width = 62
               FieldName = 'DETALLE'
@@ -128,5 +126,24 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
         end
       end
     end
+  end
+  inherited ButtonLimpiar: TButton
+    Width = 155
+    AutoSize = True
+    Caption = 'Nueva factura en blacno'
+    OnClick = ButtonLimpiarClick
+  end
+  inherited ButtonSeleccionarPers: TButton
+    AnchorSideLeft.Control = ButtonSeleccionarFac
+    AnchorSideTop.Control = ButtonSeleccionarFac
+    Left = 303
+    OnClick = ButtonSeleccionarPersClick
+  end
+  inherited ButtonSeleccionarFac: TButton
+    AnchorSideLeft.Control = ButtonLimpiar
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = ButtonLimpiar
+    AnchorSideTop.Side = asrCenter
+    Left = 171
   end
 end

@@ -18,12 +18,12 @@ type
     DBEditTimbrado: TDBEdit;
     LabelNumeroComp: TLabel;
     LabelTimbradoCompra: TLabel;
+    procedure ButtonLimpiarClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
-    procedure CloseButtonClick(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
-    procedure FormShow(Sender: TObject); override;
-    procedure OKButtonClick(Sender: TObject); override;
     procedure ObserverUpdate(const Subject: IInterface); override;
+    procedure OKButtonClick(Sender: TObject);
+    procedure OnPopupOk; override;
   private
     { private declarations }
   public
@@ -39,32 +39,46 @@ implementation
 
 { TProcesoFacturaCompra }
 
-procedure TProcesoFacturaCompra.OKButtonClick(Sender: TObject);
-begin
-  inherited;
-  GetCustomController.NuevoComprobanteCompra(Self);
-end;
-
 procedure TProcesoFacturaCompra.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
   case GetCustomController.GetEstadoComprobante(Self) of
-    asInicial: DateEditFecha.Enabled := False;
+    asInicial:
+      DateEditFecha.Enabled := False;
     asEditando: DateEditFecha.Enabled := True;
     asGuardado: DateEditFecha.Enabled := False;
   end;
+  ButtonLimpiar.Enabled := True;
+  ButtonSeleccionarPers.Enabled := True;
 end;
 
-procedure TProcesoFacturaCompra.CancelButtonClick(Sender: TObject);
+procedure TProcesoFacturaCompra.OKButtonClick(Sender: TObject);
 begin
-  GetABMController.Cancel(Self);
-  GetABMController.Rollback(Self);
-  ShowInfoMessage('Comprobante no guardado');
-  Limpiar;
+  inherited;
+end;
+
+procedure TProcesoFacturaCompra.OnPopupOk;
+begin
+  if GetCustomController.GetEstadoComprobante(Self) = asEditando then
+  begin
+    GetCustomController.FetchCabeceraPersona(Self);
+  end
+  else
+  begin
+    GetController.Connect(Self);
+    GetCustomController.NuevoComprobanteCompra(Self);
+    GetCustomController.FetchCabeceraPersona(Self);
+  end;
+end;
+
+procedure TProcesoFacturaCompra.ButtonLimpiarClick(Sender: TObject);
+begin
+  inherited;
+  GetController.OpenDataSets(Self);
   GetCustomController.NuevoComprobanteCompra(Self);
 end;
 
-procedure TProcesoFacturaCompra.CloseButtonClick(Sender: TObject);
+procedure TProcesoFacturaCompra.CancelButtonClick(Sender: TObject);
 begin
   inherited;
 end;
@@ -76,13 +90,7 @@ begin
     (DBGridDet.SelectedField.FieldName = 'IVA5') or
     (DBGridDet.SelectedField.FieldName = 'IVA10')) then
     GetCustomController.SetPrecioTotal(DBGridDet.SelectedField.FieldName, Self);
-end;
-
-procedure TProcesoFacturaCompra.FormShow(Sender: TObject);
-begin
-  inherited;
-  GetController.OpenDataSets(Self);
-  GetCustomController.NuevoComprobanteCompra(Self);
+  DBGridDet.AutoSizeColumns;
 end;
 
 end.

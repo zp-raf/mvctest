@@ -3,7 +3,6 @@ inherited ProcesoFacturacion: TProcesoFacturacion
   Top = 162
   Width = 901
   Caption = 'Factura Venta'
-  ClientHeight = 730
   ClientWidth = 901
   inherited StatusBar1: TStatusBar
     Width = 901

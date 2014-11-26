@@ -64,7 +64,6 @@ end;
 procedure TProcesoFacturacion.OnPopupOk;
 begin
   GetController.Connect(Self);
-  // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
   GetCustomController.NuevoComprobante(Self);
 end;
 

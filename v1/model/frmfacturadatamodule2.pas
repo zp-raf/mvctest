@@ -31,6 +31,9 @@ type
     procedure SetIVA10Codigo(AValue: string);
     procedure SetIVA5Codigo(AValue: string);
   published
+    qryCabeceraTALONARIOID: TLongintField;
+    qryCabeceraTIMBRADO: TStringField;
+    StringField1: TStringField;
     qryCabeceraCONTADO: TSmallintField;
     qryCabeceraDIRECCION: TStringField;
     qryCabeceraFECHA_EMISION: TDateField;
@@ -46,7 +49,6 @@ type
     qryCabeceraSUBTOTAL_EXENTAS: TFloatField;
     qryCabeceraSUBTOTAL_IVA10: TFloatField;
     qryCabeceraSUBTOTAL_IVA5: TFloatField;
-    qryCabeceraTALONARIOID: TLongintField;
     qryCabeceraTELEFONO: TStringField;
     qryCabeceraTOTAL: TFloatField;
     qryCabeceraVALIDO: TSmallintField;
