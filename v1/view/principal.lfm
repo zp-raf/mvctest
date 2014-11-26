@@ -98,6 +98,7 @@ inherited Principal1: TPrincipal1
         end
         object entregas: TMenuItem
           Caption = '&Entrega de Trabajos'
+          OnClick = entregasClick
         end
       end
       object gestionCurso: TMenuItem

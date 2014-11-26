@@ -77,7 +77,11 @@ uses
   // Calcular nota
   frmnotasdatamodule,
   frmprocesonotas,
-  notasctrl;
+  notasctrl,
+  // Entrega trabajos
+  frmentregadatamodule,
+  frmprocesoentrega,
+  entregactrl;
 
 type
 
@@ -103,6 +107,7 @@ type
     procedure OpenABMTrabajosForm(Sender: IFormView);
     procedure OpenListaAlumnos(Sender: IFormView);
     procedure OpenCalcularNotaForm(Sender: IFormView);
+    procedure OpenEntregaForm(Sender: IFormView);
   end;
 
 var
@@ -250,6 +255,15 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoNotas.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoNotas as IObserver);
+end;
+
+procedure TPrincipalController.OpenEntregaForm(Sender: IFormView);
+begin
+  ProcesoEntrega := TProcesoEntrega.Create(Sender,
+    TEntregaController.Create(TEntregaDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoEntrega.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoEntrega as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

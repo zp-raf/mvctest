@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="92">
+    <Units Count="97">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -687,6 +687,40 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmprocesonotas"/>
       </Unit91>
+      <Unit92>
+        <Filename Value="model\frmentregadatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="EntregaDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmentregadatamodule"/>
+      </Unit92>
+      <Unit93>
+        <Filename Value="controller\entregactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="entregactrl"/>
+      </Unit93>
+      <Unit94>
+        <Filename Value="controller\selecciontrabajosctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="selecciontrabajosctrl"/>
+      </Unit94>
+      <Unit95>
+        <Filename Value="view\frmprocesoentrega.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoEntrega"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoentrega"/>
+      </Unit95>
+      <Unit96>
+        <Filename Value="view\frmpopupseleccionartrabajos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PopupSeleccionarTrabajos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmpopupseleccionartrabajos"/>
+      </Unit96>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

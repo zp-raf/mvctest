@@ -1,0 +1,161 @@
+inherited EntregaDataModule: TEntregaDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 247
+  HorizontalOffset = 709
+  VerticalOffset = 321
+  Width = 299
+  object Entrega: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'TRABAJOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ALUMNOPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHAENTREGA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PUNTAJEOBTENIDO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'COMENTARIOS'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    AfterInsert = EntregaAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from entrega'
+      'where trabajoid = :trabajoid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'trabajoid'
+        ParamType = ptInput
+      end>
+    left = 48
+    top = 36
+    object EntregaTRABAJOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TRABAJOID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object EntregaALUMNOPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ALUMNOPERSONAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object EntregaFECHAENTREGA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHAENTREGA'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object EntregaPUNTAJEOBTENIDO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PUNTAJEOBTENIDO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object EntregaCOMENTARIOS: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'COMENTARIOS'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField5: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'CEDULA'
+      Index = 5
+      KeyFields = 'ALUMNOPERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'CEDULA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField6: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'NOMBRE_ALUMNO'
+      Index = 6
+      KeyFields = 'ALUMNOPERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField7: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'APELLIDO_ALUMNO'
+      Index = 7
+      KeyFields = 'ALUMNOPERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'APELLIDO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsEntrega: TDataSource[1]
+    DataSet = Entrega
+    left = 114
+    top = 161
+  end
+end

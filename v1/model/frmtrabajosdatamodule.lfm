@@ -6,7 +6,6 @@ inherited TrabajosDataModule: TTrabajosDataModule
   VerticalOffset = 457
   Width = 294
   object Trabajo: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -70,7 +69,7 @@ inherited TrabajosDataModule: TTrabajosDataModule
     )
     Params = <>
     left = 111
-    top = 54
+    top = 56
     object TrabajoID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -189,5 +188,226 @@ inherited TrabajosDataModule: TTrabajosDataModule
     DataSet = Trabajo
     left = 112
     top = 120
+  end
+  object TrabajosDetView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESARROLLOMATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'FECHAINICIO'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHAFIN'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PUNTAJEMAX'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PESO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PROFESOR'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'MATERIA'
+        DataType = ftString
+        Precision = -1
+        Size = 767
+      end    
+      item
+        Name = 'SECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_trabajos_det'
+    )
+    Params = <>
+    left = 208
+    top = 49
+    object TrabajosDetViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TrabajosDetViewDESARROLLOMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DESARROLLOMATERIAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TrabajosDetViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TrabajosDetViewDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TrabajosDetViewFECHAINICIO: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHAINICIO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TrabajosDetViewFECHAFIN: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHAFIN'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TrabajosDetViewPUNTAJEMAX: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PUNTAJEMAX'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object TrabajosDetViewPESO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PESO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object TrabajosDetViewACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TrabajosDetViewPROFESOR: TStringField
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'PROFESOR'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object TrabajosDetViewMATERIA: TStringField
+      DisplayWidth = 767
+      FieldKind = fkData
+      FieldName = 'MATERIA'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 767
+    end
+    object TrabajosDetViewSECCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'SECCION'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsTrabajosDetView: TDataSource[3]
+    DataSet = TrabajosDetView
+    left = 197
+    top = 146
   end
 end

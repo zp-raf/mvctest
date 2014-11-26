@@ -14,16 +14,6 @@ type
   { TProcesoCalificacion }
 
   TProcesoCalificacion = class(TProceso)
-    DBNavigator1: TDBNavigator;
-    LabelFecha: TLabel;
-    LabelSeccion: TLabel;
-    procedure ButtonSeleccionarExamenClick(Sender: TObject);
-    procedure CancelButtonClick(Sender: TObject);
-    procedure OKButtonClick(Sender: TObject);
-  private
-    { private declarations }
-  public
-    { public declarations }
   protected
     function GetCustomController: TCalificacionController;
   published
@@ -35,6 +25,12 @@ type
     GroupBoxExamen: TGroupBox;
     GroupBoxCalifiaciones: TGroupBox;
     LabelPuntajeMax: TLabel;
+    DBNavigator1: TDBNavigator;
+    LabelFecha: TLabel;
+    LabelSeccion: TLabel;
+    procedure ButtonSeleccionarExamenClick(Sender: TObject);
+    procedure CancelButtonClick(Sender: TObject);
+    procedure OKButtonClick(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
   end;
 
@@ -77,12 +73,14 @@ begin
     edInicial:
     begin
       GetController.CloseDataSets(Self);
+      GroupBoxExamen.Visible := False;
       GroupBoxCalifiaciones.Enabled := False;
       ButtonPanel1.OKButton.Enabled := False;
       ButtonPanel1.CancelButton.Enabled := False;
     end;
     edEditando:
     begin
+      GroupBoxExamen.Visible := True;
       GroupBoxCalifiaciones.Enabled := True;
       ButtonPanel1.OKButton.Enabled := True;
       ButtonPanel1.CancelButton.Enabled := True;
@@ -90,6 +88,7 @@ begin
     edGuardado:
     begin
       GetController.CloseDataSets(Self);
+      GroupBoxExamen.Visible := False;
       GroupBoxCalifiaciones.Enabled := False;
       ButtonPanel1.OKButton.Enabled := False;
       ButtonPanel1.CancelButton.Enabled := False;

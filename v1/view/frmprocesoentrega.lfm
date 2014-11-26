@@ -1,0 +1,438 @@
+inherited ProcesoEntrega: TProcesoEntrega
+  Height = 600
+  Width = 800
+  Caption = 'Entrega de trabajos'
+  ClientHeight = 580
+  ClientWidth = 800
+  Constraints.MinHeight = 600
+  Constraints.MinWidth = 800
+  inherited StatusBar1: TStatusBar
+    Top = 557
+    Width = 800
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 517
+    Width = 788
+    OKButton.OnClick = OKButtonClick
+    CancelButton.OnClick = CancelButtonClick
+  end
+  object GroupBoxCalifiaciones: TGroupBox[2]
+    Left = 6
+    Height = 419
+    Top = 80
+    Width = 788
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Caption = 'Calificaciones del trabajo'
+    ClientHeight = 401
+    ClientWidth = 784
+    TabOrder = 2
+    object DBGrid1: TDBGrid
+      Left = 8
+      Height = 359
+      Top = 4
+      Width = 764
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Color = clWindow
+      Columns = <      
+        item
+          PickList.Strings = (
+            'aacosta'
+            'laguilera'
+            'halvarez'
+            'ndarosa'
+            'ecords'
+            'skronas'
+            'mmartinez'
+            'mmartinezca'
+            'moviedo'
+            'lramirez'
+            'rsamudio'
+            'dsilvero'
+            'cvega'
+            'vcabrera'
+            'mcañete'
+            'mdure'
+            'agray'
+            'imartinez'
+            'amendoza'
+            'mmendoza'
+            'fparedes'
+            'krojas'
+            'gsosa'
+            'esoto'
+            'ctorres'
+            'jtorres'
+            'mperez'
+            'amendieta'
+            'aoliver'
+            'rsanchez'
+            'nvargas'
+            'fvirgilli'
+            '910640'
+            'saquino'
+            '1'
+            'poviedo'
+            'ajacosta'
+            'ibeauvais'
+            'jledesma'
+            '4284486'
+            'mperez'
+            '121313'
+            'aerico'
+            'pacosta'
+            'msantander'
+            'abenitez'
+            'lmora'
+            'nramos'
+            'vgaleano'
+            'lpeña'
+            'lpaniagua'
+            'rrolon'
+            'jmiltos'
+            '621816'
+          )
+          Title.Caption = 'CEDULA'
+          Width = 59
+          FieldName = 'CEDULA'
+        end      
+        item
+          PickList.Strings = (
+            'Acosta Ortellado'
+            'Aguilera Montiel'
+            'Alvarez Agüero'
+            'Da Rosa Baez'
+            'Cords'
+            'Kronas Oviedo'
+            'Martinez Montenegro'
+            'Martinez Caballero'
+            'Oviedo Caceres'
+            'Ramirez Delgado'
+            'Samudia Benitez'
+            'Silvero Chamorro'
+            'Vega Chavez'
+            'Cabrera Aquino'
+            'Cañete Torres'
+            'Duré Aranda'
+            'Gray Murray'
+            'Martinez Maqueda'
+            'Mendoza Ruiz Diaz'
+            'Mendoza Ruiz Díaz'
+            'Paredes Ramírez'
+            'Rojas Roa'
+            'Sosa Fernández'
+            'Soto González'
+            'Torres Rivas'
+            'Torres Martínez'
+            'Pérez Vargas'
+            'Mendieta Castillo'
+            'Oliver Benítez'
+            'Sánchez Giménez'
+            'Vargas Zeballos'
+            'Virgilli Labella'
+            'SILVA DE AQUINO'
+            'Aquino Silva'
+            'Carrillo de Lopez'
+            'Oviedo'
+            'Acosta'
+            'Beauvais'
+            'Ledesma Jorgge'
+            'Aquino Silva'
+            'Pérez Vargas'
+            'Perez Pucho'
+            'Erico'
+            'Acosta'
+            'Santander'
+            'Benitez'
+            'Mora'
+            'Ramos'
+            'Galeano'
+            'Peña'
+            'Paniagua'
+            'Rolón'
+            'Miltos'
+            'Aquino Trinidad'
+          )
+          Title.Caption = 'APELLIDO_ALUMNO'
+          Width = 124
+          FieldName = 'APELLIDO_ALUMNO'
+        end      
+        item
+          PickList.Strings = (
+            'Ana Maria'
+            'Laura Esmilce'
+            'Hannah Giselle'
+            'Nadia Patricia'
+            'Eliana Gisell'
+            'Sandra Maria Patricia'
+            'Marians'
+            'Maria Luisa'
+            'Maria Paola'
+            'Lorena Estefany'
+            'Ruth Karina'
+            'Dora Margarita'
+            'Cecilia Paola'
+            'Veronica Alejandra'
+            'Maria del Carmen'
+            'Maria Alejandra Elizabeth'
+            'Alejandra Linda'
+            'Ivonne Montserrat'
+            'Ana Lucia'
+            'María Victoria'
+            'Fabiana Ismelda'
+            'Karen KAtiana'
+            'Génesis Esther'
+            'Evelyn Libanes'
+            'Claudia Beatriz'
+            'Jessica Basilia'
+            'Manuel'
+            'Ana Carolina'
+            'Alma María Judith'
+            'Rebeca'
+            'Norma Beatriz'
+            'Fiorella'
+            'MARIA IRENE'
+            'Santiago Javier'
+            'Juana Pabla '
+            'Pedro Pablo'
+            'Alcides Javier'
+            'Ives Maurice '
+            'Juan Antonio'
+            'Rafael Alejandro'
+            'Manuel'
+            'Luis'
+            'Arsenio'
+            'Pedro'
+            'Mario'
+            'Angelica'
+            'Liz'
+            'Natalia'
+            'Viviana'
+            'Liz'
+            'Lizzie'
+            'Rocio'
+            'Julian'
+            'Mario Luis'
+          )
+          Title.Caption = 'NOMBRE_ALUMNO'
+          Width = 120
+          FieldName = 'NOMBRE_ALUMNO'
+        end      
+        item
+          Title.Caption = 'FECHAENTREGA'
+          Width = 103
+          FieldName = 'FECHAENTREGA'
+        end      
+        item
+          Title.Caption = 'PUNTAJEOBTENIDO'
+          Width = 122
+          FieldName = 'PUNTAJEOBTENIDO'
+        end      
+        item
+          Title.Caption = 'COMENTARIOS'
+          Width = 98
+          FieldName = 'COMENTARIOS'
+        end>
+      DataSource = EntregaDataModule.dsEntrega
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableInsert]
+      TabOrder = 0
+    end
+    object DBNavigator1: TDBNavigator
+      Left = 8
+      Height = 25
+      Top = 371
+      Width = 241
+      Anchors = [akLeft, akBottom]
+      BevelOuter = bvNone
+      ChildSizing.EnlargeHorizontal = crsScaleChilds
+      ChildSizing.EnlargeVertical = crsScaleChilds
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 100
+      ClientHeight = 25
+      ClientWidth = 241
+      DataSource = EntregaDataModule.dsEntrega
+      Options = []
+      TabOrder = 1
+      VisibleButtons = [nbDelete, nbEdit, nbPost, nbCancel]
+    end
+  end
+  object ButtonSeleccionarExamen: TButton[3]
+    Left = 8
+    Height = 25
+    Top = 16
+    Width = 129
+    AutoSize = True
+    Caption = 'Seleccionar Trabajo'
+    OnClick = ButtonSeleccionarExamenClick
+    TabOrder = 3
+  end
+  object GroupBoxTrabajo: TGroupBox[4]
+    Left = 144
+    Height = 73
+    Top = 8
+    Width = 650
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Datos del Trabajo'
+    ClientHeight = 55
+    ClientWidth = 646
+    TabOrder = 4
+    object DBText1: TDBText
+      AnchorSideLeft.Control = Nombre
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = Nombre
+      AnchorSideTop.Side = asrCenter
+      Left = 64
+      Height = 15
+      Top = 0
+      Width = 191
+      BorderSpacing.Left = 4
+      DataField = 'NOMBRE'
+      DataSource = TrabajosDataModule.dsTrabajosDetView
+      ParentColor = False
+      ParentFont = False
+    end
+    object DBText3: TDBText
+      AnchorSideLeft.Control = LabelPuntajeMax
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelPuntajeMax
+      AnchorSideTop.Side = asrCenter
+      Left = 382
+      Height = 15
+      Top = 32
+      Width = 12
+      BorderSpacing.Left = 4
+      DataField = 'PUNTAJEMAX'
+      DataSource = TrabajosDataModule.dsTrabajosDetView
+      ParentColor = False
+      ParentFont = False
+    end
+    object DBText2: TDBText
+      AnchorSideLeft.Control = LabelFecha
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelFecha
+      AnchorSideTop.Side = asrCenter
+      Left = 82
+      Height = 15
+      Top = 32
+      Width = 58
+      BorderSpacing.Left = 4
+      DataField = 'FECHAINICIO'
+      DataSource = TrabajosDataModule.dsTrabajosDetView
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelPuntajeMax: TLabel
+      Left = 288
+      Height = 15
+      Top = 32
+      Width = 90
+      Caption = 'Puntaje Maximo'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelFecha: TLabel
+      AnchorSideTop.Side = asrCenter
+      Left = 14
+      Height = 15
+      Top = 32
+      Width = 64
+      Caption = 'Fecha inicio'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelSeccion: TLabel
+      AnchorSideLeft.Control = DBText6
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = DBText6
+      AnchorSideTop.Side = asrCenter
+      Left = 238
+      Height = 15
+      Top = 16
+      Width = 43
+      BorderSpacing.Left = 32
+      Caption = 'Seccion'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Nombre: TLabel
+      Left = 14
+      Height = 15
+      Top = 0
+      Width = 46
+      Caption = 'Nombre'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelFechaFin: TLabel
+      Left = 160
+      Height = 15
+      Top = 32
+      Width = 50
+      Caption = 'Fecha fin'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object DBText4: TDBText
+      AnchorSideLeft.Control = LabelFechaFin
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelFechaFin
+      AnchorSideTop.Side = asrCenter
+      Left = 214
+      Height = 15
+      Top = 32
+      Width = 58
+      BorderSpacing.Left = 4
+      DataField = 'FECHAFIN'
+      DataSource = TrabajosDataModule.dsTrabajosDetView
+      ParentColor = False
+    end
+    object DBText5: TDBText
+      AnchorSideLeft.Control = LabelSeccion
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelSeccion
+      AnchorSideTop.Side = asrCenter
+      Left = 285
+      Height = 15
+      Top = 16
+      Width = 8
+      BorderSpacing.Left = 4
+      DataField = 'SECCION'
+      DataSource = TrabajosDataModule.dsTrabajosDetView
+      ParentColor = False
+    end
+    object LabelMateria: TLabel
+      Left = 14
+      Height = 15
+      Top = 16
+      Width = 43
+      Caption = 'Materia'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object DBText6: TDBText
+      AnchorSideLeft.Control = LabelMateria
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelMateria
+      AnchorSideTop.Side = asrCenter
+      Left = 61
+      Height = 15
+      Top = 16
+      Width = 145
+      BorderSpacing.Left = 4
+      DataField = 'MATERIA'
+      DataSource = TrabajosDataModule.dsTrabajosDetView
+      ParentColor = False
+    end
+  end
+  inherited MainMenu: TMainMenu[5]
+    left = 712
+    top = 24
+  end
+end

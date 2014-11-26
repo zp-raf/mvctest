@@ -16,7 +16,21 @@ type
   { TTrabajosDataModule }
 
   TTrabajosDataModule = class(TQueryDataModule)
+    dsTrabajosDetView: TDataSource;
+    TrabajosDetView: TSQLQuery;
     StringField1: TStringField;
+    TrabajosDetViewACTIVO: TSmallintField;
+    TrabajosDetViewDESARROLLOMATERIAID: TLongintField;
+    TrabajosDetViewDESCRIPCION: TStringField;
+    TrabajosDetViewFECHAFIN: TDateField;
+    TrabajosDetViewFECHAINICIO: TDateField;
+    TrabajosDetViewID: TLongintField;
+    TrabajosDetViewMATERIA: TStringField;
+    TrabajosDetViewNOMBRE: TStringField;
+    TrabajosDetViewPESO: TFloatField;
+    TrabajosDetViewPROFESOR: TStringField;
+    TrabajosDetViewPUNTAJEMAX: TFloatField;
+    TrabajosDetViewSECCION: TStringField;
     procedure DataModuleDestroy(Sender: TObject);
   private
     FDesarrollo: TDesarrolloMateriaDataModule;
@@ -68,6 +82,7 @@ begin
   FDesarrollo := TDesarrolloMateriaDataModule.Create(Self, MasterDataModule);
   QryList.Add(TObject(Trabajo));
   AuxQryList.Add(TObject(FDesarrollo.DesarrolloView));
+  AuxQryList.Add(TObject(TrabajosDetView));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('NOMBRE_MAT_DETALLADO');
 end;

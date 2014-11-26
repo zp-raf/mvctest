@@ -77,6 +77,7 @@ type
     procedure calcularnotaClick(Sender: TObject);
     procedure calificarClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
+    procedure entregasClick(Sender: TObject);
     procedure escalaClick(Sender: TObject);
     procedure examenabmClick(Sender: TObject);
     procedure extractoClick(Sender: TObject);
@@ -136,6 +137,11 @@ end;
 procedure TPrincipal1.DocumentosClick(Sender: TObject);
 begin
   GetCustomController.OpenDocumentosForm(Self);
+end;
+
+procedure TPrincipal1.entregasClick(Sender: TObject);
+begin
+  GetCustomController.OpenEntregaForm(Self);
 end;
 
 procedure TPrincipal1.escalaClick(Sender: TObject);

@@ -3,6 +3,7 @@ inherited PopupSeleccionExamen: TPopupSeleccionExamen
   Height = 480
   Top = 237
   Width = 640
+  Caption = 'Seleccionar Examen'
   ClientHeight = 460
   ClientWidth = 640
   Constraints.MinHeight = 480
@@ -70,16 +71,16 @@ inherited PopupSeleccionExamen: TPopupSeleccionExamen
           'Tecnologia Español Tercero - Liz Mora - Seccion B'
         )
         Title.Caption = 'SECCION'
-        Width = 266
         FieldName = 'SECCION'
       end    
       item
         Title.Caption = 'FECHA'
-        Width = 73
+        Width = 52
         FieldName = 'FECHA'
       end    
       item
         Title.Caption = 'PUNTAJEMAX'
+        Width = 90
         FieldName = 'PUNTAJEMAX'
       end    
       item

@@ -4,7 +4,7 @@ inherited ProcesoCalificacion: TProcesoCalificacion
   Top = 263
   Width = 800
   Caption = 'Calificar Examenes'
-  ClientHeight = 580
+  ClientHeight = 600
   ClientWidth = 800
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -72,6 +72,7 @@ inherited ProcesoCalificacion: TProcesoCalificacion
         end      
         item
           Title.Caption = 'PUNTAJEOBTENIDO'
+          Width = 122
           FieldName = 'PUNTAJEOBTENIDO'
         end      
         item

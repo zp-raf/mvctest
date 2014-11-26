@@ -177,7 +177,7 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
         Name = 'NOMBRE_MATERIA'
         DataType = ftString
         Precision = -1
-        Size = 511
+        Size = 513
       end    
       item
         Name = 'NOMBRE_MATERIA_DET'
