@@ -5,6 +5,7 @@ inherited AcademiaDataModule: TAcademiaDataModule
   VerticalOffset = 363
   Width = 150
   object qry: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

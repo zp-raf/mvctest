@@ -7,10 +7,10 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, frmsgcddatamodule,
   frmquerydatamodule, sqldb, DB, sgcdTypes, variants, observerSubject, strutils,
-  frmmodulodatamodule;
+  frmmodulodatamodule, frmacademiadatamodule;
 
 resourcestring
-  rsGenName = 'GEN_ACADEMIA';
+  rsGenName = 'SEQ_ACADEMIA';
   rsGenNameDir = 'GEN_DIRECCION';
   rsGenNameTel = 'GEN_TEL';
   rsDocTypeNotSelected = 'No se selecciono el tipo de comprobante';
@@ -20,19 +20,23 @@ type
   { TPersonasDataModule }
 
   TPersonasDataModule = class(TQueryDataModule)
-    CursaALUMNOPERSONAID: TLongintField;
-    CursaMODULOID: TLongintField;
-    StringField1: TStringField;
-    procedure CursaAfterInsert(DataSet: TDataSet);
-    procedure CursaMODULOIDChange(Sender: TField);
-    procedure DataModuleDestroy(Sender: TObject);
   private
+    FAcademia: TAcademiaDataModule;
     FModulo: TModuloDataModule;
+    procedure SetAcademia(AValue: TAcademiaDataModule);
     procedure SetModulo(AValue: TModuloDataModule);
   published
+    AcademiaAlumnoACADEMIAID: TLongintField;
+    AcademiaAlumnoALUMNOPERSONAID: TLongintField;
+    AcademiaAlumno: TSQLQuery;
+    dsAcademiaAlumno: TDataSource;
+    StringField1: TStringField;
+    StringField2: TStringField;
     AlumnoACTIVO: TSmallintField;
     AlumnoCONFIRMADO: TSmallintField;
     AlumnoPERSONAID: TLongintField;
+    CursaALUMNOPERSONAID: TLongintField;
+    CursaMODULOID: TLongintField;
     dsAlumnoArea: TDataSource;
     dsPersonasRoles: TDataSource;
     DireccionBARRIO: TStringField;
@@ -48,7 +52,6 @@ type
     EmpleadoACTIVO: TSmallintField;
     EmpleadoESADMINISTRATIVO: TSmallintField;
     EmpleadoESCOORDINADOR: TSmallintField;
-    EmpleadoESENCARGADO: TSmallintField;
     EmpleadoESPROFESOR: TSmallintField;
     EmpleadoPERSONAID: TLongintField;
     Persona: TSQLQuery;
@@ -91,6 +94,11 @@ type
     TelefonoIDPERSONA: TLongintField;
     TelefonoNUMERO: TStringField;
     TelefonoPREFIJO: TStringField;
+    procedure AcademiaAlumnoACADEMIAIDChange(Sender: TField);
+    procedure AcademiaAlumnoAfterInsert(DataSet: TDataSet);
+    procedure CursaAfterInsert(DataSet: TDataSet);
+    procedure CursaMODULOIDChange(Sender: TField);
+    procedure DataModuleDestroy(Sender: TObject);
     procedure FilterAlumno;
     procedure FilterEmpleado;
     procedure FilterExterno;
@@ -104,9 +112,10 @@ type
     procedure SetAsAlumno;
     procedure SetAsEmpleado;
     procedure SetAsExterno;
-    procedure SetRol(ARol: TRolPersona);
+    procedure SetRol(ARol: TRolPersona; Option: boolean);
     procedure TelefonoAfterInsert(DataSet: TDataSet);
     function GetRoles: TRoles;
+    property Academia: TAcademiaDataModule read FAcademia write SetAcademia;
     property Modulo: TModuloDataModule read FModulo write SetModulo;
   end;
 
@@ -124,9 +133,23 @@ begin
   inherited;
   if Assigned(FModulo) then
     FreeAndNil(FModulo);
+  if Assigned(FAcademia) then
+    FreeAndNil(FAcademia);
 end;
 
 procedure TPersonasDataModule.CursaAfterInsert(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('ALUMNOPERSONAID').AsInteger :=
+    Persona.FieldByName('ID').AsInteger;
+end;
+
+procedure TPersonasDataModule.AcademiaAlumnoACADEMIAIDChange(Sender: TField);
+begin
+  if AcademiaAlumno.Locate('ACADEMIAID', Sender.AsInteger, []) then
+    AcademiaAlumno.Delete;
+end;
+
+procedure TPersonasDataModule.AcademiaAlumnoAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ALUMNOPERSONAID').AsInteger :=
     Persona.FieldByName('ID').AsInteger;
@@ -143,6 +166,13 @@ begin
   if FModulo = AValue then
     Exit;
   FModulo := AValue;
+end;
+
+procedure TPersonasDataModule.SetAcademia(AValue: TAcademiaDataModule);
+begin
+  if FAcademia = AValue then
+    Exit;
+  FAcademia := AValue;
 end;
 
 procedure TPersonasDataModule.FilterAlumno;
@@ -169,6 +199,7 @@ end;
 procedure TPersonasDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
+  FAcademia := TAcademiaDataModule.Create(Self, MasterDataModule);
   FModulo := TModuloDataModule.Create(Self, MasterDataModule);
   QryList.Add(TObject(Persona));
   DetailList.Add(TObject(Direccion));
@@ -179,6 +210,7 @@ begin
   AuxQryList.Add(TObject(Cursa));
   AuxQryList.Add(TObject(PersonasRoles));
   AuxQryList.Add(TObject(FModulo.ModulosHabilitadosView));
+  AuxQryList.Add(TObject(FAcademia.qry));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('APELLIDO');
   SearchFieldList.Add('CEDULA');
@@ -249,12 +281,15 @@ begin
   Telefono.Close;
   Direccion.Close;
   Cursa.Close;
+  AcademiaAlumno.Close;
   Telefono.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
   Direccion.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
   Cursa.ParamByName('ALUMNOPERSONAID').Value := DataSet.FieldByName('ID').Value;
+  AcademiaAlumno.ParamByName('ALUMNOPERSONAID').Value := DataSet.FieldByName('ID').Value;
   Telefono.Open;
   Direccion.Open;
   Cursa.Open;
+  AcademiaAlumno.Open;
 end;
 
 procedure TPersonasDataModule.PersonaNewRecord(DataSet: TDataSet);
@@ -287,7 +322,6 @@ begin
   EmpleadoACTIVO.AsString := DB_TRUE;
   EmpleadoESADMINISTRATIVO.AsString := DB_FALSE;
   EmpleadoESCOORDINADOR.AsString := DB_FALSE;
-  EmpleadoESENCARGADO.AsString := DB_FALSE;
   EmpleadoESPROFESOR.AsString := DB_FALSE;
   Empleado.Post;
 end;
@@ -302,7 +336,7 @@ begin
   PersonaExterna.Post;
 end;
 
-procedure TPersonasDataModule.SetRol(ARol: TRolPersona);
+procedure TPersonasDataModule.SetRol(ARol: TRolPersona; Option: boolean);
 begin
   if (Persona.State in [dsInactive, dsBrowse]) then
     raise Exception.Create('Imposible cambiar el rol: datos no disponibles');
@@ -320,6 +354,12 @@ begin
       FilterAlumno;
       if Alumno.IsEmpty then
         SetAsAlumno;
+      Alumno.Edit;
+      if Option then
+        AlumnoACTIVO.AsString := DB_TRUE
+      else
+        AlumnoACTIVO.AsString := DB_FALSE;
+      Alumno.Post;
     end;
     //tabla empleado
     roCoordinador:
@@ -328,7 +368,10 @@ begin
       if Empleado.IsEmpty then
         SetAsEmpleado;
       Empleado.Edit;
-      EmpleadoESCOORDINADOR.AsString := DB_TRUE;
+      if Option then
+        EmpleadoESCOORDINADOR.AsString := DB_TRUE
+      else
+        EmpleadoESCOORDINADOR.AsString := DB_FALSE;
       Empleado.Post;
     end;
     roAdministrativo:
@@ -337,7 +380,10 @@ begin
       if Empleado.IsEmpty then
         SetAsEmpleado;
       Empleado.Edit;
-      EmpleadoESADMINISTRATIVO.AsString := DB_TRUE;
+      if Option then
+        EmpleadoESADMINISTRATIVO.AsString := DB_TRUE
+      else
+        EmpleadoESADMINISTRATIVO.AsString := DB_FALSE;
       Empleado.Post;
     end;
     roProfesor:
@@ -346,44 +392,24 @@ begin
       if Empleado.IsEmpty then
         SetAsEmpleado;
       Empleado.Edit;
-      EmpleadoESPROFESOR.AsString := DB_TRUE;
+      if Option then
+        EmpleadoESPROFESOR.AsString := DB_TRUE
+      else
+        EmpleadoESPROFESOR.AsString := DB_FALSE;
       Empleado.Post;
     end;
-    // las tablas empleado y externo
+    // tabla externo
     roEncargado:
     begin
       FilterExterno;
-      FilterEmpleado;
-      if PersonaExterna.IsEmpty and Empleado.IsEmpty then
-      begin
+      if PersonaExterna.IsEmpty then
         SetAsExterno;
-        PersonaExterna.Edit;
-        PersonaExternaESENCARGADO.AsString := DB_TRUE;
-        PersonaExterna.Post;
-      end
-      // si ya esta como externo nomas
-      else if Empleado.IsEmpty then
-      begin
-        PersonaExterna.Edit;
-        PersonaExternaESENCARGADO.AsString := DB_TRUE;
-        PersonaExterna.Post;
-      end
-      // si ya esta como empleado nomas
-      else if PersonaExterna.IsEmpty then
-      begin
-        Empleado.Edit;
-        EmpleadoESENCARGADO.AsString := DB_TRUE;
-        Empleado.Post;
-      end
+      PersonaExterna.Edit;
+      if Option then
+        PersonaExternaESENCARGADO.AsString := DB_TRUE
       else
-      begin
-        PersonaExterna.Edit;
-        PersonaExternaESENCARGADO.AsString := DB_TRUE;
-        PersonaExterna.Post;
-        Empleado.Edit;
-        EmpleadoESENCARGADO.AsString := DB_TRUE;
-        Empleado.Post;
-      end;
+        PersonaExternaESENCARGADO.AsString := DB_FALSE;
+      PersonaExterna.Post;
     end;
     // tabla externo
     roProveedor:
@@ -392,11 +418,15 @@ begin
       if PersonaExterna.IsEmpty then
         SetAsExterno;
       PersonaExterna.Edit;
-      PersonaExternaESPROVEEDOR.AsString := DB_TRUE;
+      if Option then
+        PersonaExternaESPROVEEDOR.AsString := DB_TRUE
+      else
+        PersonaExternaESPROVEEDOR.AsString := DB_FALSE;
       PersonaExterna.Post;
     end;
   end;
 end;
+
 
 procedure TPersonasDataModule.TelefonoAfterInsert(DataSet: TDataSet);
 begin
@@ -426,7 +456,7 @@ begin
   end;
   if RolCount = 0 then
   begin
-    raise Exception.Create('Error al leer los roles');
+    raise Exception.Create('No hay roles para la persona seleccionada');
     Exit;
   end;
   // cargamos el array con los roles

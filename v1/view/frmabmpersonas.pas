@@ -22,6 +22,7 @@ type
   { TAbmPersonas }
 
   TAbmPersonas = class(TAbm)
+    ButtonSeleccionarAcad: TButton;
     ButtonSeleccionarAreas: TButton;
     CheckGroupRoles: TCheckGroup;
     DBGridDireccion: TDBGrid;
@@ -30,6 +31,7 @@ type
     DBNavigator2: TDBNavigator;
     LabelDirecciones: TLabel;
     LabelTelefonos: TLabel;
+    procedure ButtonSeleccionarAcadClick(Sender: TObject);
     procedure ButtonSeleccionarAreasClick(Sender: TObject);
     procedure CheckGroupRolesItemClick(Sender: TObject; Index: integer);
   protected
@@ -105,6 +107,7 @@ begin
     CheckGroupRoles.Checked[i] := False;
   end;
   ButtonSeleccionarAreas.Visible := False;
+  ButtonSeleccionarAcad.Visible := False;
   for i := 0 to Pred(Length(Arr)) do
   begin
     case Arr[i] of
@@ -112,6 +115,7 @@ begin
       begin
         CheckGroupRoles.Checked[ALUMNO] := True;
         ButtonSeleccionarAreas.Visible := True;
+        ButtonSeleccionarAcad.Visible := True;
       end;
       roCoordinador: CheckGroupRoles.Checked[COORDINADOR] := True;
       roAdministrativo: CheckGroupRoles.Checked[ADMINISTRATIVO] := True;
@@ -127,27 +131,45 @@ begin
   case Index of
     ALUMNO:
     begin
-      GetCustomController.SetRol(roAlumno, Self);
+      if CheckGroupRoles.Checked[Index] then
+        GetCustomController.SetRol(roAlumno, True, Self)
+      else
+        GetCustomController.SetRol(roAlumno, False, Self);
     end;
     COORDINADOR:
     begin
-      GetCustomController.SetRol(roCoordinador, Self);
+      if CheckGroupRoles.Checked[Index] then
+        GetCustomController.SetRol(roCoordinador, True, Self)
+      else
+        GetCustomController.SetRol(roCoordinador, False, Self);
     end;
     ADMINISTRATIVO:
     begin
-      GetCustomController.SetRol(roAdministrativo, Self);
+      if CheckGroupRoles.Checked[Index] then
+        GetCustomController.SetRol(roAdministrativo, True, Self)
+      else
+        GetCustomController.SetRol(roAdministrativo, False, Self);
     end;
     PROFESOR:
     begin
-      GetCustomController.SetRol(roProfesor, Self);
+      if CheckGroupRoles.Checked[Index] then
+        GetCustomController.SetRol(roProfesor, True, Self)
+      else
+        GetCustomController.SetRol(roProfesor, False, Self);
     end;
     ENCARGADO:
     begin
-      GetCustomController.SetRol(roEncargado, Self);
+      if CheckGroupRoles.Checked[Index] then
+        GetCustomController.SetRol(roEncargado, True, Self)
+      else
+        GetCustomController.SetRol(roEncargado, False, Self);
     end;
     PROVEEDOR:
     begin
-      GetCustomController.SetRol(roProveedor, Self);
+      if CheckGroupRoles.Checked[Index] then
+        GetCustomController.SetRol(roProveedor, True, Self)
+      else
+        GetCustomController.SetRol(roProveedor, False, Self);
     end;
   end;
 end;
@@ -155,6 +177,11 @@ end;
 procedure TAbmPersonas.ButtonSeleccionarAreasClick(Sender: TObject);
 begin
   GetCustomController.SeleccionarAreas(Self);
+end;
+
+procedure TAbmPersonas.ButtonSeleccionarAcadClick(Sender: TObject);
+begin
+  GetCustomController.SeleccionarAcademias(Self);
 end;
 
 function TAbmPersonas.GetCustomController: TPersonaController;

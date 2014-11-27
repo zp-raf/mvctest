@@ -6,9 +6,16 @@ interface
 
 uses
   Classes, SysUtils, ctrl, frmpersonasdatamodule, sgcdTypes, mvc, DB, Controls,
-  frmseleccionararea;
+  frmseleccionararea, frmseleccionacademias;
 
 type
+
+  { TSeleccionarAcadController }
+
+  TSeleccionarAcadController = class(TController)
+  public
+    destructor Destroy; override;
+  end;
 
   { TSeleccionarAreaController }
 
@@ -23,9 +30,10 @@ type
   protected
     function GetCustomModel: TPersonasDataModule;
   public
+    procedure SeleccionarAcademias(Sender: IFormView);
     procedure SeleccionarAreas(Sender: IFormView);
     procedure SetFechaNac(ADate: TDateTime; Sender: IView);
-    procedure SetRol(ARol: TRolPersona; Sender: IView);
+    procedure SetRol(ARol: TRolPersona; Option: boolean; Sender: IView);
     function GetFechaNac(Sender: IView): TDateTime;
     function GetRol(Sender: IView): TRoles;
   end;
@@ -42,6 +50,14 @@ var
   PersonaController: TPersonaController;
 
 implementation
+
+{ TSeleccionarAcadController }
+
+destructor TSeleccionarAcadController.Destroy;
+begin
+  ClearModelPtr;
+  inherited Destroy;
+end;
 
 { TSeleccionarAreaController }
 
@@ -72,6 +88,28 @@ begin
   Result := GetModel as TPersonasDataModule;
 end;
 
+procedure TPersonaController.SeleccionarAcademias(Sender: IFormView);
+begin
+  PopupSeleccionarAcademia := TPopupSeleccionarAcademia.Create(Sender,
+    TSeleccionarAcadController.Create(GetCustomModel));
+  try
+    case PopupSeleccionarAcademia.ShowModal of
+      mrOk:
+      begin
+        if (GetCustomModel.AcademiaAlumno.State in dsEditModes) then
+          GetCustomModel.AcademiaAlumno.Post;
+      end;
+      mrCancel:
+      begin
+        GetCustomModel.AcademiaAlumno.CancelUpdates;
+      end;
+
+    end;
+  finally
+    PopupSeleccionarAcademia.Free;
+  end;
+end;
+
 procedure TPersonaController.SeleccionarAreas(Sender: IFormView);
 begin
   PopupSeleccionarArea := TPopupSeleccionarArea.Create(Sender,
@@ -100,11 +138,11 @@ begin
   GetCustomModel.Persona.FieldByName('FECHANAC').AsDateTime := ADate;
 end;
 
-procedure TPersonaController.SetRol(ARol: TRolPersona; Sender: IView);
+procedure TPersonaController.SetRol(ARol: TRolPersona; Option: boolean; Sender: IView);
 begin
   if (GetCustomModel.Persona.State in [dsBrowse, dsInactive]) then
     Exit;
-  GetCustomModel.SetRol(ARol);
+  GetCustomModel.SetRol(ARol, Option);
 end;
 
 function TPersonaController.GetFechaNac(Sender: IView): TDateTime;
@@ -123,7 +161,10 @@ begin
       Result := GetCustomModel.GetRoles;
   except
     on E: Exception do
+    begin
       Result := nil;
+      raise;
+    end;
   end;
 end;
 

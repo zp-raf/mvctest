@@ -4,7 +4,7 @@ inherited ProcesoCalificacion: TProcesoCalificacion
   Top = 263
   Width = 800
   Caption = 'Calificar Examenes'
-  ClientHeight = 600
+  ClientHeight = 580
   ClientWidth = 800
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -30,20 +30,20 @@ inherited ProcesoCalificacion: TProcesoCalificacion
   end
   object GroupBoxCalifiaciones: TGroupBox[3]
     Left = 6
-    Height = 432
+    Height = 412
     Top = 80
     Width = 788
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Califiaciones del examen'
-    ClientHeight = 414
+    ClientHeight = 394
     ClientWidth = 784
     TabOrder = 3
     object DBGrid1: TDBGrid
       Left = 8
-      Height = 368
+      Height = 348
       Top = 8
       Width = 768
-      Anchors = [akLeft, akRight, akBottom]
+      Anchors = [akTop, akLeft, akRight, akBottom]
       Color = clWindow
       Columns = <      
         item
@@ -87,7 +87,7 @@ inherited ProcesoCalificacion: TProcesoCalificacion
     object DBNavigator1: TDBNavigator
       Left = 8
       Height = 25
-      Top = 384
+      Top = 364
       Width = 241
       Anchors = [akLeft, akBottom]
       BevelOuter = bvNone

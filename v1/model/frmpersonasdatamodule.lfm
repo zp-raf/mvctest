@@ -6,7 +6,62 @@ inherited PersonasDataModule: TPersonasDataModule
   VerticalOffset = 341
   Width = 656
   object Persona: TSQLQuery[0]
-    FieldDefs = <>
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'APELLIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'FECHANAC'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SEXO'
+        DataType = ftString
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'NOMBRECOMPLETO'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
     Filtered = True
     AfterScroll = PersonaAfterScroll
     OnNewRecord = PersonaNewRecord
@@ -24,7 +79,7 @@ inherited PersonasDataModule: TPersonasDataModule
       FieldName = 'ID'
       Index = 0
       LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = False
       Required = True
     end
@@ -116,6 +171,7 @@ inherited PersonasDataModule: TPersonasDataModule
     end
   end
   object Direccion: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -180,7 +236,7 @@ inherited PersonasDataModule: TPersonasDataModule
       FieldName = 'ID'
       Index = 0
       LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = False
       Required = True
     end
@@ -251,6 +307,7 @@ inherited PersonasDataModule: TPersonasDataModule
     end
   end
   object Telefono: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -303,7 +360,7 @@ inherited PersonasDataModule: TPersonasDataModule
       FieldName = 'ID'
       Index = 0
       LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = False
       Required = True
     end
@@ -367,6 +424,7 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 256
   end
   object PersonasRoles: TSQLQuery[6]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -613,7 +671,6 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 214
   end
   object Alumno: TSQLQuery[8]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'PERSONAID'
@@ -761,7 +818,6 @@ inherited PersonasDataModule: TPersonasDataModule
     end
   end
   object Empleado: TSQLQuery[10]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'PERSONAID'
@@ -833,21 +889,11 @@ inherited PersonasDataModule: TPersonasDataModule
       ReadOnly = False
       Required = True
     end
-    object EmpleadoESENCARGADO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ESENCARGADO'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
     object EmpleadoESCOORDINADOR: TSmallintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESCOORDINADOR'
-      Index = 3
+      Index = 2
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -857,7 +903,7 @@ inherited PersonasDataModule: TPersonasDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESADMINISTRATIVO'
-      Index = 4
+      Index = 3
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -867,7 +913,7 @@ inherited PersonasDataModule: TPersonasDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'ESPROFESOR'
-      Index = 5
+      Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -880,7 +926,6 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 114
   end
   object Cursa: TSQLQuery[12]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ALUMNOPERSONAID'
@@ -945,5 +990,76 @@ inherited PersonasDataModule: TPersonasDataModule
       Required = False
       Size = 255
     end
+  end
+  object AcademiaAlumno: TSQLQuery[13]
+    FieldDefs = <    
+      item
+        Name = 'ACADEMIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ALUMNOPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    AfterInsert = AcademiaAlumnoAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from academia_alumno'
+      'where alumnopersonaid = :alumnopersonaid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'alumnopersonaid'
+        ParamType = ptInput
+      end>
+    left = 477
+    top = 188
+    object AcademiaAlumnoACADEMIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACADEMIAID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+      OnChange = AcademiaAlumnoACADEMIAIDChange
+    end
+    object AcademiaAlumnoALUMNOPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ALUMNOPERSONAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField2: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'ACADEMIA'
+      Index = 2
+      KeyFields = 'ACADEMIAID'
+      LookupCache = False
+      LookupDataSet = AcademiaDataModule.qry
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsAcademiaAlumno: TDataSource[14]
+    DataSet = AcademiaAlumno
+    left = 486
+    top = 247
   end
 end

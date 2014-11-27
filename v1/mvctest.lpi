@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="99">
+    <Units Count="100">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -739,6 +739,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmseleccionararea"/>
       </Unit98>
+      <Unit99>
+        <Filename Value="view\frmseleccionacademias.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PopupSeleccionarAcademia"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmseleccionacademias"/>
+      </Unit99>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
