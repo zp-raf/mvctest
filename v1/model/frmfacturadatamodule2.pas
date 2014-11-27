@@ -23,6 +23,23 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TComprobanteDataModule)
+    qryCabeceraNUMERO_FACT_VENTA: TStringField;
+    talACTIVO: TSmallintField;
+    talCAJA: TStringField;
+    talCOPIAS: TLongintField;
+    talDIRECCION: TStringField;
+    talID: TLongintField;
+    talNOMBRE: TStringField;
+    talNUMERO_FIN: TLongintField;
+    talNUMERO_INI: TLongintField;
+    talRUBRO: TStringField;
+    talRUC: TStringField;
+    talSUCURSAL: TStringField;
+    talTELEFONO: TStringField;
+    talTIMBRADO: TStringField;
+    talTIPO: TLongintField;
+    talVALIDO_DESDE: TDateField;
+    talVALIDO_HASTA: TDateField;
   private
     FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;

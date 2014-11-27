@@ -38,6 +38,12 @@ inherited FacturasDataModule: TFacturasDataModule
         Size = 0
       end    
       item
+        Name = 'NUMERO_FACT_VENTA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
         Name = 'FECHA_EMISION'
         DataType = ftDate
         Precision = -1
@@ -178,51 +184,51 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = False
     end
-    object qryCabeceraFECHA_EMISION: TDateField[4]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'FECHA_EMISION'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object qryCabeceraCONTADO: TSmallintField[5]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'CONTADO'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object qryCabeceraVENCIMIENTO: TDateField[6]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VENCIMIENTO'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object qryCabeceraRUC: TStringField[7]
+    object qryCabeceraNUMERO_FACT_VENTA: TStringField[4]
       DisplayWidth = 255
       FieldKind = fkData
-      FieldName = 'RUC'
-      Index = 7
+      FieldName = 'NUMERO_FACT_VENTA'
+      Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       Size = 255
     end
-    object qryCabeceraNOMBRE: TStringField[8]
+    object qryCabeceraFECHA_EMISION: TDateField[5]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA_EMISION'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryCabeceraCONTADO: TSmallintField[6]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CONTADO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryCabeceraVENCIMIENTO: TDateField[7]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VENCIMIENTO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryCabeceraRUC: TStringField[8]
       DisplayWidth = 255
       FieldKind = fkData
-      FieldName = 'NOMBRE'
+      FieldName = 'RUC'
       Index = 8
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -230,10 +236,10 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryCabeceraDIRECCION: TStringField[9]
+    object qryCabeceraNOMBRE: TStringField[9]
       DisplayWidth = 255
       FieldKind = fkData
-      FieldName = 'DIRECCION'
+      FieldName = 'NOMBRE'
       Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -241,10 +247,10 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryCabeceraNOTA_REMISION: TStringField[10]
+    object qryCabeceraDIRECCION: TStringField[10]
       DisplayWidth = 255
       FieldKind = fkData
-      FieldName = 'NOTA_REMISION'
+      FieldName = 'DIRECCION'
       Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -252,10 +258,10 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryCabeceraTELEFONO: TStringField[11]
+    object qryCabeceraNOTA_REMISION: TStringField[11]
       DisplayWidth = 255
       FieldKind = fkData
-      FieldName = 'TELEFONO'
+      FieldName = 'NOTA_REMISION'
       Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -263,23 +269,21 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryCabeceraSUBTOTAL_EXENTAS: TFloatField[12]
-      DisplayWidth = 10
+    object qryCabeceraTELEFONO: TStringField[12]
+      DisplayWidth = 255
       FieldKind = fkData
-      FieldName = 'SUBTOTAL_EXENTAS'
+      FieldName = 'TELEFONO'
       Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
-      MaxValue = 0
-      MinValue = 0
-      Precision = -1
+      Required = False
+      Size = 255
     end
-    object qryCabeceraSUBTOTAL_IVA5: TFloatField[13]
+    object qryCabeceraSUBTOTAL_EXENTAS: TFloatField[13]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'SUBTOTAL_IVA5'
+      FieldName = 'SUBTOTAL_EXENTAS'
       Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -289,10 +293,10 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryCabeceraSUBTOTAL_IVA10: TFloatField[14]
+    object qryCabeceraSUBTOTAL_IVA5: TFloatField[14]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'SUBTOTAL_IVA10'
+      FieldName = 'SUBTOTAL_IVA5'
       Index = 14
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -302,10 +306,10 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryCabeceraTOTAL: TFloatField[15]
+    object qryCabeceraSUBTOTAL_IVA10: TFloatField[15]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'TOTAL'
+      FieldName = 'SUBTOTAL_IVA10'
       Index = 15
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -315,10 +319,10 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryCabeceraIVA5: TFloatField[16]
+    object qryCabeceraTOTAL: TFloatField[16]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'IVA5'
+      FieldName = 'TOTAL'
       Index = 16
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -328,10 +332,10 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryCabeceraIVA10: TFloatField[17]
+    object qryCabeceraIVA5: TFloatField[17]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'IVA10'
+      FieldName = 'IVA5'
       Index = 17
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -341,10 +345,10 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryCabeceraIVA_TOTAL: TFloatField[18]
+    object qryCabeceraIVA10: TFloatField[18]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'IVA_TOTAL'
+      FieldName = 'IVA10'
       Index = 18
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -354,21 +358,34 @@ inherited FacturasDataModule: TFacturasDataModule
       MinValue = 0
       Precision = -1
     end
-    object qryCabeceraVALIDO: TSmallintField[19]
+    object qryCabeceraIVA_TOTAL: TFloatField[19]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'VALIDO'
+      FieldName = 'IVA_TOTAL'
       Index = 19
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
     end
-    object StringField1: TStringField[20]
+    object qryCabeceraVALIDO: TSmallintField[20]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField1: TStringField[21]
       DisplayWidth = 255
       FieldKind = fkLookup
       FieldName = 'TIMBRADO_VENTA'
-      Index = 20
+      Index = 21
       KeyFields = 'TALONARIOID'
       LookupCache = False
       LookupDataSet = AuxTalonario
@@ -379,11 +396,11 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
-    object qryCabeceraTIMBRADO: TStringField[21]
+    object qryCabeceraTIMBRADO: TStringField[22]
       DisplayWidth = 8
       FieldKind = fkData
       FieldName = 'TIMBRADO'
-      Index = 21
+      Index = 22
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
