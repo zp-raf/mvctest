@@ -117,13 +117,13 @@ inherited Principal1: TPrincipal1
           Caption = 'ABM &Grupos'
         end
         object secciones: TMenuItem
-          Caption = 'ABM &Secciones'
+          Caption = 'ABM &Nombres de Secciones'
         end
         object materias: TMenuItem
           Caption = 'ABM Ma&terias'
         end
         object desarrolloMaterias: TMenuItem
-          Caption = 'ABM A&signación de profesores'
+          Caption = 'ABM &Secciones'
         end
       end
     end
@@ -159,10 +159,11 @@ inherited Principal1: TPrincipal1
         end
         object aranceles: TMenuItem
           Caption = 'ABM Ara&nceles'
+          OnClick = arancelesClick
         end
         object cuotaxarancel: TMenuItem
           Caption = 'ABM C&uotas de aranceles'
-          OnClick = cuotaxarancelClick
+          Visible = False
         end
         object talonarios: TMenuItem
           Caption = 'ABM &Talonarios'
@@ -201,6 +202,7 @@ inherited Principal1: TPrincipal1
         end
         object cargarRecibo: TMenuItem
           Caption = 'Cargar r&ecibo de compra'
+          OnClick = cargarReciboClick
         end
         object cargarFactura: TMenuItem
           Caption = 'Cargar f&actura de compra'
@@ -208,7 +210,7 @@ inherited Principal1: TPrincipal1
         end
         object cargarNotaCredito: TMenuItem
           Caption = 'Cargar n&ota de crédito'
-          Visible = False
+          OnClick = cargarNotaCreditoClick
         end
       end
       object MenuItemAsignacion: TMenuItem

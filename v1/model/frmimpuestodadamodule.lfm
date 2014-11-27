@@ -1,90 +1,92 @@
-inherited CuotaArancelDataModule: TCuotaArancelDataModule
+inherited ImpuestoDataModule: TImpuestoDataModule
   OnCreate = DataModuleCreate
-  OnDestroy = DataModuleDestroy
-  Height = 215
-  HorizontalOffset = 910
-  VerticalOffset = 402
-  Width = 312
-  object CuotaXArancel: TSQLQuery[0]
+  Height = 340
+  HorizontalOffset = 927
+  VerticalOffset = 349
+  Width = 251
+  object Impuesto: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
-        Name = 'ARANCELID'
+        Name = 'ID'
         DataType = ftInteger
         Precision = -1
         Size = 0
       end    
       item
-        Name = 'CANTIDADCUOTA'
-        DataType = ftInteger
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'FACTOR'
+        DataType = ftFloat
         Precision = -1
         Size = 0
       end    
       item
-        Name = 'VENCIMIENTO_UNIDAD'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'VENCIMIENTO_CANTIDAD'
-        DataType = ftInteger
+        Name = 'ACTIVO'
+        DataType = ftSmallint
         Precision = -1
         Size = 0
       end>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
-      'select * from cuotaxarancel'
+      'select * from impuesto'
     )
     Params = <>
-    left = 64
-    top = 32
-    object CuotaXArancelARANCELID: TLongintField
+    left = 153
+    top = 105
+    object ImpuestoID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'ARANCELID'
+      FieldName = 'ID'
       Index = 0
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = False
       Required = True
     end
-    object CuotaXArancelCANTIDADCUOTA: TLongintField
-      DisplayWidth = 10
+    object ImpuestoNOMBRE: TStringField
+      DisplayWidth = 255
       FieldKind = fkData
-      FieldName = 'CANTIDADCUOTA'
+      FieldName = 'NOMBRE'
       Index = 1
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-      OnChange = CuotaXArancelCANTIDADCUOTAChange
+      Size = 255
     end
-    object CuotaXArancelVENCIMIENTO_UNIDAD: TLongintField
+    object ImpuestoFACTOR: TFloatField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'VENCIMIENTO_UNIDAD'
+      FieldName = 'FACTOR'
       Index = 2
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
     end
-    object CuotaXArancelVENCIMIENTO_CANTIDAD: TLongintField
+    object ImpuestoACTIVO: TSmallintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'VENCIMIENTO_CANTIDAD'
+      FieldName = 'ACTIVO'
       Index = 3
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-      OnChange = CuotaXArancelVENCIMIENTO_CANTIDADChange
     end
   end
-  object dsCuotaXArancel: TDataSource[1]
-    DataSet = CuotaXArancel
-    left = 64
-    top = 120
+  object dsImpuesto: TDataSource[1]
+    DataSet = Impuesto
+    left = 119
+    top = 204
   end
 end

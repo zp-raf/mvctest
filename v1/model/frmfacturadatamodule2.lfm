@@ -5,7 +5,6 @@ inherited FacturasDataModule: TFacturasDataModule
   VerticalOffset = 329
   Width = 562
   inherited qryCabecera: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -289,6 +288,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -302,6 +302,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -315,6 +316,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -341,6 +343,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -354,6 +357,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -367,6 +371,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -514,6 +519,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
     end
     object qryDetalleDETALLE: TStringField[4]
       DisplayWidth = 1024
@@ -549,6 +555,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -562,6 +569,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -575,6 +583,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -591,184 +600,10 @@ inherited FacturasDataModule: TFacturasDataModule
         ParamType = ptInput
       end>
   end
-  inherited tal: TSQLQuery
-    object talID: TLongintField[0]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ID'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talTIPO: TLongintField[1]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'TIPO'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talNOMBRE: TStringField[2]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NOMBRE'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talRUBRO: TStringField[3]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'RUBRO'
-      Index = 3
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talDIRECCION: TStringField[4]
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'DIRECCION'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 512
-    end
-    object talTELEFONO: TStringField[5]
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'TELEFONO'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 512
-    end
-    object talTIMBRADO: TStringField[6]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'TIMBRADO'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talVALIDO_DESDE: TDateField[7]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VALIDO_DESDE'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talVALIDO_HASTA: TDateField[8]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VALIDO_HASTA'
-      Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talRUC: TStringField[9]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'RUC'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object talSUCURSAL: TStringField[10]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'SUCURSAL'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talCAJA: TStringField[11]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'CAJA'
-      Index = 11
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talNUMERO_INI: TLongintField[12]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUMERO_INI'
-      Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talNUMERO_FIN: TLongintField[13]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUMERO_FIN'
-      Index = 13
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talCOPIAS: TLongintField[14]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'COPIAS'
-      Index = 14
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talACTIVO: TSmallintField[15]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ACTIVO'
-      Index = 15
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-  end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalle
   end
   inherited frDBReporteCab: TfrDBDataSet
     DataSet = qryCabecera
-  end
-  inherited AuxTalonario: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
-    Active = True
   end
 end

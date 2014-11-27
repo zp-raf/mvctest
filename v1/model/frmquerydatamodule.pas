@@ -50,7 +50,7 @@ type
     procedure FilterData(ASearchText: string);
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean); virtual;
     procedure EditCurrentRecord; virtual;
-    procedure NewRecord;
+    procedure NewRecord; virtual;
     procedure NewDetailRecord;
     procedure DoOnErrorEvent(Sender: TObject; {%H-}E: EDatabaseError); virtual;
     procedure OpenDataSets; virtual;

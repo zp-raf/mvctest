@@ -15,7 +15,8 @@ type
   { TCuotaArancelDataModule }
 
   TCuotaArancelDataModule = class(TQueryDataModule)
-    procedure DataModuleDestroy(Sender: TObject);
+    procedure CuotaXArancelCANTIDADCUOTAChange(Sender: TField);
+    procedure CuotaXArancelVENCIMIENTO_CANTIDADChange(Sender: TField);
   private
     FCodigos: TCodigosDataModule;
     procedure SetCodigos(AValue: TCodigosDataModule);
@@ -29,14 +30,11 @@ type
     procedure Connect; override;
     procedure Disconnect; override;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DataModuleDestroy(Sender: TObject);
     property Codigos: TCodigosDataModule read FCodigos write SetCodigos;
     function GetCantCuotas(ArancelID: string): integer;
     function GetVencimientoUnidad(ArancelID: string): integer;
     function GetVencimientoCantidad(ArancelID: string): integer;
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var
@@ -53,6 +51,19 @@ begin
   inherited;
   if Assigned(FCodigos) then
     FreeAndNil(FCodigos);
+end;
+
+procedure TCuotaArancelDataModule.CuotaXArancelCANTIDADCUOTAChange(Sender: TField);
+begin
+  if Sender.AsInteger < 0 then
+    Sender.Clear;
+end;
+
+procedure TCuotaArancelDataModule.CuotaXArancelVENCIMIENTO_CANTIDADChange(
+  Sender: TField);
+begin
+  if Sender.AsInteger < 0 then
+    Sender.Clear;
 end;
 
 procedure TCuotaArancelDataModule.SetCodigos(AValue: TCodigosDataModule);
@@ -78,7 +89,7 @@ procedure TCuotaArancelDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(CuotaXArancel));
-  FCodigos := TCodigosDataModule.Create(Self, FMasterDataModule);
+  FCodigos := TCodigosDataModule.Create(Self, MasterDataModule);
   FCodigos.SetObject('CUOTAXARANCEL.VENCIMIENTO_UNIDAD');
 end;
 

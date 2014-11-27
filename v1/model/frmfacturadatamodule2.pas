@@ -23,23 +23,6 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TComprobanteDataModule)
-    qryCabeceraNUMERO_FACT_VENTA: TStringField;
-    talACTIVO: TSmallintField;
-    talCAJA: TStringField;
-    talCOPIAS: TLongintField;
-    talDIRECCION: TStringField;
-    talID: TLongintField;
-    talNOMBRE: TStringField;
-    talNUMERO_FIN: TLongintField;
-    talNUMERO_INI: TLongintField;
-    talRUBRO: TStringField;
-    talRUC: TStringField;
-    talSUCURSAL: TStringField;
-    talTELEFONO: TStringField;
-    talTIMBRADO: TStringField;
-    talTIPO: TLongintField;
-    talVALIDO_DESDE: TDateField;
-    talVALIDO_HASTA: TDateField;
   private
     FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;
@@ -48,6 +31,7 @@ type
     procedure SetIVA10Codigo(AValue: string);
     procedure SetIVA5Codigo(AValue: string);
   published
+    qryCabeceraNUMERO_FACT_VENTA: TStringField;
     qryCabeceraTALONARIOID: TLongintField;
     qryCabeceraTIMBRADO: TStringField;
     StringField1: TStringField;
@@ -81,6 +65,7 @@ type
     qryDetallePRECIO_UNITARIO: TFloatField;
     procedure ActualizarTotales; override;
     procedure AnularFactura(AID: string);
+    procedure CheckNoNegativo(Sender: TField);
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DeterminarImpuesto; override;
     procedure FetchCabeceraPersona(APersonaID: string); override; overload;
@@ -125,6 +110,16 @@ begin
   if FIVA5Codigo = AValue then
     Exit;
   FIVA5Codigo := AValue;
+end;
+
+procedure TFacturasDataModule.CheckNoNegativo(Sender: TField);
+begin
+  if Sender.AsFloat < 0 then
+  begin
+    Sender.Clear;
+    raise Exception.Create('El campo ' + Sender.FieldName +
+      ' no permite valores negativos');
+  end;
 end;
 
 procedure TFacturasDataModule.ActualizarTotales;

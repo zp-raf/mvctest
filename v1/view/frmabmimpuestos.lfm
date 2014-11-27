@@ -1,0 +1,77 @@
+inherited AbmImpuestos: TAbmImpuestos
+  Caption = 'ABM Impuestos'
+  ClientHeight = 461
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = ImpuestoDataModule.dsImpuesto
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = ImpuestoDataModule.dsImpuesto
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEdit1: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 23
+      Width = 216
+      DataField = 'NOMBRE'
+      DataSource = ImpuestoDataModule.dsImpuesto
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object DBEdit2: TDBEdit[1]
+      Left = 16
+      Height = 23
+      Top = 72
+      Width = 136
+      DataField = 'FACTOR'
+      DataSource = ImpuestoDataModule.dsImpuesto
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object DBCheckBoxActivo: TDBCheckBox[2]
+      Left = 16
+      Height = 23
+      Top = 112
+      Width = 90
+      Caption = 'Activo'
+      DataField = 'ACTIVO'
+      DataSource = ImpuestoDataModule.dsImpuesto
+      TabOrder = 2
+      ValueChecked = 'True'
+      ValueUnchecked = 'False'
+    end
+    object LabelNombre: TLabel[3]
+      AnchorSideLeft.Control = DBEdit1
+      AnchorSideBottom.Control = DBEdit1
+      Left = 16
+      Height = 15
+      Top = 8
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object LabelFactor: TLabel[4]
+      AnchorSideLeft.Control = DBEdit2
+      AnchorSideBottom.Control = DBEdit2
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 33
+      Anchors = [akLeft, akBottom]
+      Caption = 'Factor'
+      ParentColor = False
+    end
+  end
+end

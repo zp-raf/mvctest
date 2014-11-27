@@ -1,0 +1,245 @@
+inherited AbmAranceles: TAbmAranceles
+  Caption = 'ABM Aranceles'
+  ClientHeight = 461
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = ArancelesDataModule.dsAranceles
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = ArancelesDataModule.dsAranceles
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEditNombre: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 23
+      Width = 320
+      DataField = 'NOMBRE'
+      DataSource = ArancelesDataModule.dsAranceles
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object DBEditDesc: TDBEdit[1]
+      Left = 16
+      Height = 23
+      Top = 73
+      Width = 616
+      DataField = 'DESCRIPCION'
+      DataSource = ArancelesDataModule.dsAranceles
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object LabelNombre: TLabel[2]
+      AnchorSideLeft.Control = DBEditNombre
+      AnchorSideBottom.Control = DBEditNombre
+      Left = 16
+      Height = 15
+      Top = 8
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object LabelDescripcion: TLabel[3]
+      AnchorSideLeft.Control = DBEditDesc
+      AnchorSideBottom.Control = DBEditDesc
+      Left = 16
+      Height = 15
+      Top = 58
+      Width = 62
+      Anchors = [akLeft, akBottom]
+      Caption = 'Descripcion'
+      ParentColor = False
+    end
+    object LabelMonto: TLabel[4]
+      AnchorSideLeft.Control = DBEditMonto
+      AnchorSideBottom.Control = DBEditMonto
+      Left = 16
+      Height = 15
+      Top = 108
+      Width = 36
+      Anchors = [akLeft, akBottom]
+      Caption = 'Monto'
+      ParentColor = False
+    end
+    object DBCheckBoxActivo: TDBCheckBox[5]
+      Left = 16
+      Height = 23
+      Top = 160
+      Width = 90
+      Caption = 'Activo'
+      DataField = 'ACTIVO'
+      DataSource = ArancelesDataModule.dsAranceles
+      TabOrder = 2
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object GroupBoxCuotas: TGroupBox[6]
+      Left = 16
+      Height = 199
+      Top = 192
+      Width = 256
+      Anchors = [akTop, akLeft, akBottom]
+      Caption = 'Cuotas'
+      ClientHeight = 181
+      ClientWidth = 252
+      TabOrder = 3
+      object DBLookupComboBoxVencUnidad: TDBLookupComboBox
+        Left = 8
+        Height = 23
+        Top = 88
+        Width = 136
+        DataField = 'VENCIMIENTO_UNIDAD'
+        DataSource = CuotaArancelDataModule.dsCuotaXArancel
+        KeyField = 'VALOR'
+        ListField = 'SIGNIFICADO'
+        ListFieldIndex = 0
+        ListSource = CodigosDataModule.dsCodigos
+        LookupCache = False
+        TabOrder = 0
+      end
+      object DBEditCantCuotas: TDBEdit
+        Left = 8
+        Height = 23
+        Top = 24
+        Width = 96
+        DataField = 'CANTIDADCUOTA'
+        DataSource = CuotaArancelDataModule.dsCuotaXArancel
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object DBEditVencCant: TDBEdit
+        Left = 8
+        Height = 23
+        Top = 136
+        Width = 96
+        DataField = 'VENCIMIENTO_CANTIDAD'
+        DataSource = CuotaArancelDataModule.dsCuotaXArancel
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 2
+      end
+      object LabelCantCuotas: TLabel
+        AnchorSideLeft.Control = DBEditCantCuotas
+        AnchorSideBottom.Control = DBEditCantCuotas
+        Left = 8
+        Height = 15
+        Top = 9
+        Width = 68
+        Anchors = [akLeft, akBottom]
+        Caption = 'Cant. Cuotas'
+        ParentColor = False
+      end
+      object LabelVencUnidad: TLabel
+        AnchorSideLeft.Control = DBLookupComboBoxVencUnidad
+        AnchorSideBottom.Control = DBLookupComboBoxVencUnidad
+        Left = 8
+        Height = 15
+        Top = 73
+        Width = 126
+        Anchors = [akLeft, akBottom]
+        Caption = 'Unidad del vencimiento'
+        ParentColor = False
+      end
+      object LabelVencCant: TLabel
+        AnchorSideLeft.Control = DBEditVencCant
+        AnchorSideBottom.Control = DBEditVencCant
+        Left = 8
+        Height = 15
+        Top = 121
+        Width = 48
+        Anchors = [akLeft, akBottom]
+        Caption = 'Cantidad'
+        ParentColor = False
+      end
+    end
+    object GroupBoxImpuestos: TGroupBox[7]
+      AnchorSideLeft.Control = GroupBoxCuotas
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = GroupBoxCuotas
+      AnchorSideBottom.Control = GroupBoxCuotas
+      AnchorSideBottom.Side = asrBottom
+      Left = 280
+      Height = 199
+      Top = 192
+      Width = 352
+      Anchors = [akTop, akLeft, akBottom]
+      BorderSpacing.Left = 8
+      Caption = 'Impuestos'
+      ClientHeight = 181
+      ClientWidth = 348
+      TabOrder = 4
+      object DBGrid2: TDBGrid
+        Left = 8
+        Height = 143
+        Top = 9
+        Width = 336
+        Anchors = [akTop, akLeft, akBottom]
+        Color = clWindow
+        Columns = <        
+          item
+            PickList.Strings = (
+              'IVA 10%'
+              'IVA 5%'
+            )
+            Title.Caption = 'IMPUESTO'
+            Width = 72
+            FieldName = 'IMPUESTO'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'INLCUIDO'
+            Width = 69
+            FieldName = 'INLCUIDO'
+          end>
+        DataSource = ArancelesDataModule.dsArancelImpuesto
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableInsert]
+        TabOrder = 0
+      end
+      object DBNavigator1: TDBNavigator
+        AnchorSideLeft.Control = DBGrid2
+        AnchorSideTop.Control = DBGrid2
+        AnchorSideTop.Side = asrBottom
+        Left = 8
+        Height = 25
+        Top = 152
+        Width = 241
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 241
+        DataSource = ArancelesDataModule.dsArancelImpuesto
+        Options = []
+        TabOrder = 1
+        VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+      end
+    end
+    object DBEditMonto: TDBEdit[8]
+      Left = 16
+      Height = 23
+      Top = 123
+      Width = 128
+      DataField = 'MONTO'
+      DataSource = ArancelesDataModule.dsAranceles
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 5
+    end
+  end
+end

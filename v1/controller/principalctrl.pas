@@ -83,7 +83,11 @@ uses
   frmprocesoentrega,
   entregactrl,
   // factura compra
-  frmprocesofacturacompra;
+  frmprocesofacturacompra,
+  // ABM aranceles
+  frmaranceldatamodule,
+  frmabmaranceles,
+  arancelesctrl;
 
 type
 
@@ -111,6 +115,7 @@ type
     procedure OpenCalcularNotaForm(Sender: IFormView);
     procedure OpenEntregaForm(Sender: IFormView);
     procedure OpenFacturaCompraForm(Sender: IFormView);
+    procedure OpenABMAranceles(Sender: IFormView);
   end;
 
 var
@@ -276,6 +281,15 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoFacturaCompra.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoFacturaCompra as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMAranceles(Sender: IFormView);
+begin
+  AbmAranceles := TAbmAranceles.Create(Sender,
+    TArancelesController.Create(TArancelesDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  AbmAranceles.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmAranceles as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

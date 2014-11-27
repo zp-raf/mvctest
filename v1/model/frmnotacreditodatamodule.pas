@@ -70,6 +70,7 @@ type
     qryCabeceraVALIDO: TSmallintField;
     procedure ActualizarTotales; override;
     procedure AnularNotaCredito(ANotaID: string);
+    procedure CheckNoNegativo(Sender: TField);
     procedure CloseDataSets; override;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
@@ -350,6 +351,16 @@ begin
       Rollback;
       raise;
     end;
+  end;
+end;
+
+procedure TNotaCreditoDataModule.CheckNoNegativo(Sender: TField);
+begin
+  if Sender.AsFloat < 0 then
+  begin
+    Sender.Clear;
+    raise Exception.Create('El campo ' + Sender.FieldName +
+      ' no permite valores negativos');
   end;
 end;
 

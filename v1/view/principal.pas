@@ -73,11 +73,13 @@ type
     reservaEquipo1: TMenuItem;
     registroAnecdotico1: TMenuItem;
     trabajoPractico1: TMenuItem;
+    procedure arancelesClick(Sender: TObject);
     procedure AsientosClick(Sender: TObject);
     procedure calcularnotaClick(Sender: TObject);
     procedure calificarClick(Sender: TObject);
     procedure cargarFacturaClick(Sender: TObject);
-    procedure cuotaxarancelClick(Sender: TObject);
+    procedure cargarNotaCreditoClick(Sender: TObject);
+    procedure cargarReciboClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
     procedure entregasClick(Sender: TObject);
     procedure escalaClick(Sender: TObject);
@@ -127,6 +129,11 @@ begin
   GetCustomController.OpenAsientosFrom(Self);
 end;
 
+procedure TPrincipal1.arancelesClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMAranceles(Self);
+end;
+
 procedure TPrincipal1.calcularnotaClick(Sender: TObject);
 begin
   GetCustomController.OpenCalcularNotaForm(Self);
@@ -142,7 +149,12 @@ begin
   GetCustomController.OpenFacturaCompraForm(Self);
 end;
 
-procedure TPrincipal1.cuotaxarancelClick(Sender: TObject);
+procedure TPrincipal1.cargarNotaCreditoClick(Sender: TObject);
+begin
+
+end;
+
+procedure TPrincipal1.cargarReciboClick(Sender: TObject);
 begin
 
 end;

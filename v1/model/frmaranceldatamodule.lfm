@@ -1,11 +1,11 @@
 inherited ArancelesDataModule: TArancelesDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 224
-  HorizontalOffset = 805
-  VerticalOffset = 458
+  HorizontalOffset = 1017
+  VerticalOffset = 442
   Width = 323
   object Arancel: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -43,8 +43,8 @@ inherited ArancelesDataModule: TArancelesDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
-    OnFilterRecord = ArancelFilterRecord
+    AfterScroll = ArancelAfterScroll
+    OnNewRecord = ArancelNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -71,7 +71,7 @@ inherited ArancelesDataModule: TArancelesDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object ArancelNOMBRE: TStringField
       DisplayWidth = 255
@@ -104,6 +104,7 @@ inherited ArancelesDataModule: TArancelesDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = ArancelMONTOChange
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -125,7 +126,6 @@ inherited ArancelesDataModule: TArancelesDataModule
     top = 96
   end
   object ArancelesDetView: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -146,7 +146,93 @@ inherited ArancelesDataModule: TArancelesDataModule
       'select id, nombre || '' - '' || cast(monto as numeric(10,2)) as detalle from arancel'
     )
     Params = <>
-    left = 221
-    top = 40
+    left = 224
+    top = 24
+  end
+  object ArancelImpuesto: TSQLQuery[3]
+    FieldDefs = <    
+      item
+        Name = 'ARANCELID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'IMPUESTOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'INLCUIDO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    AfterInsert = ArancelImpuestoAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from arancel_impuesto'
+      'where arancelid = :arancelid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'arancelid'
+        ParamType = ptInput
+      end>
+    left = 171
+    top = 130
+    object ArancelImpuestoARANCELID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ARANCELID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object ArancelImpuestoIMPUESTOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'IMPUESTOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object ArancelImpuestoINLCUIDO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'INLCUIDO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField1: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'IMPUESTO'
+      Index = 3
+      KeyFields = 'IMPUESTOID'
+      LookupCache = False
+      LookupDataSet = ImpuestoDataModule.Impuesto
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsArancelImpuesto: TDataSource[4]
+    DataSet = ArancelImpuesto
+    left = 248
+    top = 152
   end
 end

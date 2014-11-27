@@ -246,6 +246,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -259,6 +260,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -272,6 +274,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -285,6 +288,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -298,6 +302,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -311,6 +316,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -324,6 +330,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -337,6 +344,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
     end
     object qryCabeceraFACTURAID: TLongintField[18]
       DisplayWidth = 10
@@ -347,6 +355,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      OnChange = CheckNoNegativo
     end
     object lookUpNUMERO_FACTURA: TLongintField[19]
       DisplayWidth = 10
@@ -555,6 +564,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CheckNoNegativo
     end
     object qryDetalleDETALLE: TStringField[5]
       DisplayWidth = 1024
@@ -590,6 +600,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -603,6 +614,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -616,6 +628,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      OnChange = CheckNoNegativo
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -641,7 +654,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   inherited AuxTalonario: TSQLQuery
     left = 280
   end
-  object dsFacturas: TDatasource[16]
+  object dsFacturas: TDataSource[16]
     left = 368
     top = 260
   end

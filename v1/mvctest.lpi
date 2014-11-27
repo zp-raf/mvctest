@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="100">
+    <Units Count="105">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -747,6 +747,40 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmseleccionacademias"/>
       </Unit99>
+      <Unit100>
+        <Filename Value="view\frmabmaranceles.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmAranceles"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmaranceles"/>
+      </Unit100>
+      <Unit101>
+        <Filename Value="controller\arancelesctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="arancelesctrl"/>
+      </Unit101>
+      <Unit102>
+        <Filename Value="model\frmimpuestodadamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ImpuestoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmimpuestodadamodule"/>
+      </Unit102>
+      <Unit103>
+        <Filename Value="view\frmabmimpuestos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmImpuestos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmimpuestos"/>
+      </Unit103>
+      <Unit104>
+        <Filename Value="controller\impuestoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="impuestoctrl"/>
+      </Unit104>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
