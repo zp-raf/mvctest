@@ -28,6 +28,15 @@ type
     ModuloOBJETIVOS: TStringField;
     ModuloPERFILEGRESADO: TStringField;
     ModuloREQUISITOS: TStringField;
+    ModulosHabilitadosView: TSQLQuery;
+    ModulosHabilitadosViewDESCRIPCION: TStringField;
+    ModulosHabilitadosViewFUNDAMENTACION: TStringField;
+    ModulosHabilitadosViewHABILITADO: TSmallintField;
+    ModulosHabilitadosViewID: TLongintField;
+    ModulosHabilitadosViewNOMBRE: TStringField;
+    ModulosHabilitadosViewOBJETIVOS: TStringField;
+    ModulosHabilitadosViewPERFILEGRESADO: TStringField;
+    ModulosHabilitadosViewREQUISITOS: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure ModuloNewRecord(DataSet: TDataSet);
   private

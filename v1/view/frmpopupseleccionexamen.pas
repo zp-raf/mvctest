@@ -13,6 +13,7 @@ type
   { TPopupSeleccionExamen }
 
   TPopupSeleccionExamen = class(TMaestro)
+    procedure FormCreate(Sender: TObject);
   private
     { private declarations }
   public
@@ -32,6 +33,11 @@ implementation
 {$R *.lfm}
 
 { TPopupSeleccionExamen }
+
+procedure TPopupSeleccionExamen.FormCreate(Sender: TObject);
+begin
+  OpenOnShow := False;
+end;
 
 destructor TPopupSeleccionExamen.Destroy;
 begin

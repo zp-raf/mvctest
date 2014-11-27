@@ -10,6 +10,7 @@ inherited PopupSeleccionPersonas: TPopupSeleccionPersonas
   ClientWidth = 1024
   Constraints.MinHeight = 512
   Constraints.MinWidth = 1024
+  OnCreate = FormCreate
   inherited StatusBar1: TStatusBar
     Top = 469
     Width = 1024

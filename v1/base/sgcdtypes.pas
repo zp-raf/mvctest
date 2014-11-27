@@ -51,6 +51,8 @@ type
   TRolPersona = (roCualquiera, roExterno, roVeedor, roInterventor, roEncargado,
     roProveedor, roAlumno, roEmpleado, roAdministrativo, roProfesor, roCoordinador);
 
+  TRoles = array of TRolPersona;
+
   // para las ventanas que manejen un estado de edicion
   TEdicionEstado = (edInicial, edEditando, edGuardado);
 

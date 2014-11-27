@@ -133,19 +133,22 @@ inherited Principal1: TPrincipal1
         Caption = '&Personas'
         object alumnos: TMenuItem
           Caption = '&Alumnos'
+          Visible = False
         end
         object personal: TMenuItem
           Caption = '&Personal'
+          Visible = False
         end
         object personasext: TMenuItem
           Caption = 'P&ersonas Externas'
-        end
-        object confirmar: TMenuItem
-          Caption = 'C&onfimar alumnos y matriculas'
+          Visible = False
         end
         object allpersonas: TMenuItem
-          Caption = '&Cambiar rol'
+          Caption = 'ABM &Personas'
           OnClick = allpersonasClick
+        end
+        object confirmar: TMenuItem
+          Caption = '&Confimar alumnos y matriculas'
         end
       end
       object financiero: TMenuItem

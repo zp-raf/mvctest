@@ -17,6 +17,7 @@ type
     Cancelar: TButton;
     DBGrid1: TDBGrid;
     Filtro: TGroupBox;
+    procedure FormCreate(Sender: TObject);
   private
     { private declarations }
   public
@@ -29,6 +30,13 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TPopupSeleccionarTrabajos }
+
+procedure TPopupSeleccionarTrabajos.FormCreate(Sender: TObject);
+begin
+  OpenOnShow := False;
+end;
 
 end.
 

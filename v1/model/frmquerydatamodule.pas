@@ -49,7 +49,7 @@ type
     procedure Disconnect; virtual;
     procedure FilterData(ASearchText: string);
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean); virtual;
-    procedure EditCurrentRecord;
+    procedure EditCurrentRecord; virtual;
     procedure NewRecord;
     procedure NewDetailRecord;
     procedure DoOnErrorEvent(Sender: TObject; {%H-}E: EDatabaseError); virtual;

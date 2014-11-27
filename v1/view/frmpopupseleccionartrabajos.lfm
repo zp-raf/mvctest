@@ -8,6 +8,7 @@ inherited PopupSeleccionarTrabajos: TPopupSeleccionarTrabajos
   ClientWidth = 800
   Constraints.MinHeight = 500
   Constraints.MinWidth = 800
+  OnCreate = FormCreate
   inherited StatusBar1: TStatusBar
     Top = 457
     Width = 800
@@ -31,7 +32,6 @@ inherited PopupSeleccionarTrabajos: TPopupSeleccionarTrabajos
     Columns = <    
       item
         Title.Caption = 'NOMBRE'
-        Width = 206
         FieldName = 'NOMBRE'
       end    
       item
@@ -41,11 +41,12 @@ inherited PopupSeleccionarTrabajos: TPopupSeleccionarTrabajos
       end    
       item
         Title.Caption = 'FECHAFIN'
-        Width = 73
+        Width = 70
         FieldName = 'FECHAFIN'
       end    
       item
         Title.Caption = 'PUNTAJEMAX'
+        Width = 90
         FieldName = 'PUNTAJEMAX'
       end    
       item
@@ -55,7 +56,7 @@ inherited PopupSeleccionarTrabajos: TPopupSeleccionarTrabajos
       end    
       item
         Title.Caption = 'MATERIA'
-        Width = 160
+        Width = 65
         FieldName = 'MATERIA'
       end    
       item
@@ -64,7 +65,7 @@ inherited PopupSeleccionarTrabajos: TPopupSeleccionarTrabajos
       end    
       item
         Title.Caption = 'PROFESOR'
-        Width = 95
+        Width = 72
         FieldName = 'PROFESOR'
       end    
       item

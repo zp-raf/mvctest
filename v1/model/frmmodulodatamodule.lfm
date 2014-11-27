@@ -67,6 +67,7 @@ inherited ModuloDataModule: TModuloDataModule
         Precision = -1
         Size = 0
       end>
+    Active = True
     OnNewRecord = ModuloNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -187,5 +188,153 @@ inherited ModuloDataModule: TModuloDataModule
     DataSet = Modulo
     left = 194
     top = 64
+  end
+  object ModulosHabilitadosView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'FUNDAMENTACION'
+        DataType = ftString
+        Precision = -1
+        Size = 4096
+      end    
+      item
+        Name = 'OBJETIVOS'
+        DataType = ftString
+        Precision = -1
+        Size = 4096
+      end    
+      item
+        Name = 'REQUISITOS'
+        DataType = ftString
+        Precision = -1
+        Size = 4096
+      end    
+      item
+        Name = 'PERFILEGRESADO'
+        DataType = ftString
+        Precision = -1
+        Size = 4096
+      end    
+      item
+        Name = 'HABILITADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_modulos_habilitados'
+      'where id <> 5'
+    )
+    Params = <>
+    left = 64
+    top = 30
+    object ModulosHabilitadosViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ModulosHabilitadosViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ModulosHabilitadosViewDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ModulosHabilitadosViewFUNDAMENTACION: TStringField
+      DisplayWidth = 4096
+      FieldKind = fkData
+      FieldName = 'FUNDAMENTACION'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4096
+    end
+    object ModulosHabilitadosViewOBJETIVOS: TStringField
+      DisplayWidth = 4096
+      FieldKind = fkData
+      FieldName = 'OBJETIVOS'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4096
+    end
+    object ModulosHabilitadosViewREQUISITOS: TStringField
+      DisplayWidth = 4096
+      FieldKind = fkData
+      FieldName = 'REQUISITOS'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4096
+    end
+    object ModulosHabilitadosViewPERFILEGRESADO: TStringField
+      DisplayWidth = 4096
+      FieldKind = fkData
+      FieldName = 'PERFILEGRESADO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4096
+    end
+    object ModulosHabilitadosViewHABILITADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'HABILITADO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
 end

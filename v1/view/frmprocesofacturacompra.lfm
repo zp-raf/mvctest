@@ -3,7 +3,6 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   ClientHeight = 730
   OnShow = FormShow
   inherited ButtonPanel1: TButtonPanel
-    OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
   inherited Cabecera: TGroupBox
@@ -44,7 +43,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       DataField = 'TIMBRADO'
       DataSource = FacturasDataModule.dsCabecera
       CharCase = ecNormal
-      MaxLength = 0
+      MaxLength = 8
       TabOrder = 9
     end
     object LabelNumeroComp: TLabel[21]

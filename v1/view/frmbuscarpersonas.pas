@@ -18,6 +18,7 @@ type
   { TPopupSeleccionPersonas }
 
   TPopupSeleccionPersonas = class(TMaestro)
+    procedure FormCreate(Sender: TObject);
 
   protected
     function GetCustomContoller: TBuscarPersonaController;
@@ -86,6 +87,11 @@ end;
 procedure TPopupSeleccionPersonas.PersonasClick(Sender: TObject);
 begin
   FilterData(LabeledEdit1.Text, Personas.ItemIndex);
+end;
+
+procedure TPopupSeleccionPersonas.FormCreate(Sender: TObject);
+begin
+  OpenOnShow := False;
 end;
 
 function TPopupSeleccionPersonas.GetCustomContoller: TBuscarPersonaController;

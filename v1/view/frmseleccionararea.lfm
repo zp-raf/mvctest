@@ -1,0 +1,81 @@
+inherited PopupSeleccionarArea: TPopupSeleccionarArea
+  Height = 320
+  Caption = 'Seleccionar Area'
+  ClientHeight = 300
+  Constraints.MinHeight = 320
+  Constraints.MinWidth = 320
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  inherited StatusBar1: TStatusBar
+    Top = 277
+  end
+  object DBGrid1: TDBGrid[1]
+    Left = 8
+    Height = 193
+    Top = 24
+    Width = 307
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        PickList.Strings = (
+          'Paraguayo'
+          'Clasico'
+          'Español'
+        )
+        Title.Caption = 'AREA'
+        Width = 44
+        FieldName = 'AREA'
+      end>
+    DataSource = PersonasDataModule.dsAlumnoArea
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableInsert]
+    TabOrder = 1
+  end
+  object Aceptar: TButton[2]
+    Left = 157
+    Height = 25
+    Top = 247
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Aceptar'
+    ModalResult = 1
+    TabOrder = 2
+  end
+  object Cancelar: TButton[3]
+    Left = 240
+    Height = 25
+    Top = 247
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Cancelar'
+    ModalResult = 2
+    TabOrder = 3
+  end
+  object DBNavigator1: TDBNavigator[4]
+    AnchorSideLeft.Control = DBGrid1
+    AnchorSideTop.Control = DBGrid1
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 25
+    Top = 221
+    Width = 241
+    BevelOuter = bvNone
+    BorderSpacing.Top = 4
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 241
+    DataSource = PersonasDataModule.dsAlumnoArea
+    Options = []
+    TabOrder = 4
+    VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+  end
+  inherited MainMenu: TMainMenu[5]
+    left = 544
+    top = 8
+  end
+end

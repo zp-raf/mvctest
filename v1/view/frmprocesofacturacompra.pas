@@ -22,7 +22,6 @@ type
     procedure CancelButtonClick(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure ObserverUpdate(const Subject: IInterface); override;
-    procedure OKButtonClick(Sender: TObject);
     procedure OnPopupOk; override;
   private
     { private declarations }
@@ -50,11 +49,6 @@ begin
   end;
   ButtonLimpiar.Enabled := True;
   ButtonSeleccionarPers.Enabled := True;
-end;
-
-procedure TProcesoFacturaCompra.OKButtonClick(Sender: TObject);
-begin
-  inherited;
 end;
 
 procedure TProcesoFacturaCompra.OnPopupOk;

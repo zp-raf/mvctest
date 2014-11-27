@@ -1,9 +1,10 @@
 inherited PersonasDataModule: TPersonasDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 322
   HorizontalOffset = 1084
   VerticalOffset = 341
-  Width = 306
+  Width = 656
   object Persona: TSQLQuery[0]
     FieldDefs = <>
     Filtered = True
@@ -366,7 +367,6 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 256
   end
   object PersonasRoles: TSQLQuery[6]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -459,7 +459,7 @@ inherited PersonasDataModule: TPersonasDataModule
       'select * from V_PERSONAS_ROLES'
     )
     Params = <>
-    left = 224
+    left = 227
     top = 272
     object PersonasRolesID: TLongintField
       DisplayWidth = 10
@@ -611,5 +611,339 @@ inherited PersonasDataModule: TPersonasDataModule
     DataSet = PersonasRoles
     left = 227
     top = 214
+  end
+  object Alumno: TSQLQuery[8]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CONFIRMADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from alumno'
+      'where personaid = :personaid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'personaid'
+        ParamType = ptInput
+      end>
+    left = 344
+    top = 24
+    object AlumnoPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object AlumnoACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object AlumnoCONFIRMADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CONFIRMADO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object PersonaExterna: TSQLQuery[9]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESENCARGADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESPROVEEDOR'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from personaexterna'
+      'where personaid = :personaid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'personaid'
+        ParamType = ptInput
+      end>
+    left = 352
+    top = 104
+    object PersonaExternaPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object PersonaExternaESENCARGADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESENCARGADO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PersonaExternaACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PersonaExternaESPROVEEDOR: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESPROVEEDOR'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object Empleado: TSQLQuery[10]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESENCARGADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESCOORDINADOR'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESADMINISTRATIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESPROFESOR'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from empleado'
+      'where personaid = :personaid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'personaid'
+        ParamType = ptInput
+      end>
+    left = 360
+    top = 184
+    object EmpleadoPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object EmpleadoACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object EmpleadoESENCARGADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESENCARGADO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object EmpleadoESCOORDINADOR: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESCOORDINADOR'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object EmpleadoESADMINISTRATIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESADMINISTRATIVO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object EmpleadoESPROFESOR: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESPROFESOR'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object dsAlumnoArea: TDataSource[11]
+    DataSet = Cursa
+    left = 480
+    top = 114
+  end
+  object Cursa: TSQLQuery[12]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ALUMNOPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    AfterInsert = CursaAfterInsert
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from cursa'
+      'where alumnopersonaid = :alumnopersonaid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'alumnopersonaid'
+        ParamType = ptInput
+      end>
+    left = 472
+    top = 50
+    object CursaALUMNOPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ALUMNOPERSONAID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object CursaMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+      OnChange = CursaMODULOIDChange
+    end
+    object StringField1: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'AREA'
+      Index = 2
+      KeyFields = 'MODULOID'
+      LookupCache = False
+      LookupDataSet = ModuloDataModule.ModulosHabilitadosView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
 end

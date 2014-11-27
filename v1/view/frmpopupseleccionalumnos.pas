@@ -31,6 +31,7 @@ implementation
 
 procedure TPopupSeleccionAlumnos.FormCreate(Sender: TObject);
 begin
+  OpenOnShow := False;
   Personas.Enabled := False;
   Personas.ItemIndex := 2;
   PersonasClick(Personas); // para que cambie el control y se filtre

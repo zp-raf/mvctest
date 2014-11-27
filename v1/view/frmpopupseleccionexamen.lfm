@@ -8,6 +8,7 @@ inherited PopupSeleccionExamen: TPopupSeleccionExamen
   ClientWidth = 640
   Constraints.MinHeight = 480
   Constraints.MinWidth = 640
+  OnCreate = FormCreate
   inherited StatusBar1: TStatusBar
     Top = 437
     Width = 640
