@@ -23,8 +23,8 @@ inherited ComprobanteDataModule: TComprobanteDataModule
   object qryDetalle: TSQLQuery[2]
     FieldDefs = <>
     Filtered = True
-    AfterDelete = qryDetalleAfterDelete
     AfterInsert = qryDetalleAfterInsert
+    AfterPost = qryDetalleAfterPost
     BeforePost = qryDetalleBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

@@ -14,10 +14,7 @@ type
   { TComprobanteDataModule }
 
   TComprobanteDataModule = class(TQueryDataModule)
-    procedure qryDetalleAfterDelete(DataSet: TDataSet);
-    procedure qryDetalleAfterEdit(DataSet: TDataSet);
     procedure qryDetalleAfterPost(DataSet: TDataSet);
-    procedure qryDetalleAfterScroll(DataSet: TDataSet);
   private
     FCabeceraGenName: string;
     FDetalleGenName: string;
@@ -314,40 +311,45 @@ begin
     if DeudaView.IsEmpty then
       raise EDatabaseError.Create(rsNoHayDeudas);
     // recorremos y cargamos la deuda
-    DeudaView.First;
-    while not DeudaView.EOF do
-    begin
-      ImpuestoView.Close;
-      ImpuestoView.ParamByName('arancelid').AsString := DeudaViewARANCELID.AsString;
-      ImpuestoView.Open;
-      ImpuestoView.First;
-
-      NuevoComprobanteDetalle;
-      qryDetalle.FieldByName('CANTIDAD').AsInteger := 1;
-      qryDetalle.FieldByName('DEUDAID').Value := DeudaViewID.Value;
-      qryDetalle.FieldByName('DETALLE').Value := DeudaViewDESCRIPCION.Value;
-      // por ahora se maneja que tiene un solo impuesto pero en el futuro
-      // puede tener mas por eso se hace el loop
-      while not ImpuestoView.EOF do
+    try
+      qryDetalle.AfterPost := nil;
+      DeudaView.First;
+      while not DeudaView.EOF do
       begin
-        // revisamos si es un impuesto incluido y segun eso ponemos el precio unitario
-        if (ImpuestoViewINCLUIDO.AsInteger = 1) or (ImpuestoView.IsEmpty) then
-          qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
-            (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat)
-        else if ImpuestoViewINCLUIDO.AsInteger = 0 then
-          qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
-            (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) +
-            (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) *
-            ImpuestoViewFACTOR.AsFloat;
-        // vemos que factor de impuesto tiene para poner en el campo apropiado del comprobante
-        DeterminarImpuesto;
-        Break; // ???: sacar esto en el futuro cuando se resuelva el tema de impuestos
-        ImpuestoView.Next;
+        ImpuestoView.Close;
+        ImpuestoView.ParamByName('arancelid').AsString := DeudaViewARANCELID.AsString;
+        ImpuestoView.Open;
+        ImpuestoView.First;
+
+        NuevoComprobanteDetalle;
+        qryDetalle.FieldByName('CANTIDAD').AsInteger := 1;
+        qryDetalle.FieldByName('DEUDAID').Value := DeudaViewID.Value;
+        qryDetalle.FieldByName('DETALLE').Value := DeudaViewDESCRIPCION.Value;
+        // por ahora se maneja que tiene un solo impuesto pero en el futuro
+        // puede tener mas por eso se hace el loop
+        while not ImpuestoView.EOF do
+        begin
+          // revisamos si es un impuesto incluido y segun eso ponemos el precio unitario
+          if (ImpuestoViewINCLUIDO.AsInteger = 1) or (ImpuestoView.IsEmpty) then
+            qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
+              (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat)
+          else if ImpuestoViewINCLUIDO.AsInteger = 0 then
+            qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
+              (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) +
+              (DeudaViewMONTO_DEUDA.AsFloat - DeudaViewMONTO_FACTURADO.AsFloat) *
+              ImpuestoViewFACTOR.AsFloat;
+          // vemos que factor de impuesto tiene para poner en el campo apropiado del comprobante
+          DeterminarImpuesto;
+          Break; // ???: sacar esto en el futuro cuando se resuelva el tema de impuestos
+          ImpuestoView.Next;
+        end;
+        DeudaView.Next;
       end;
-      DeudaView.Next;
+      ActualizarTotales;
+      (MasterDataModule as ISubject).Notify;
+    finally
+      qryDetalle.AfterPost := @qryDetalleAfterPost;
     end;
-    ActualizarTotales;
-    (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
     begin
@@ -446,8 +448,8 @@ begin
     if (Estado in [asInicial, asGuardado]) then
       raise EDatabaseError.Create(rsNoSeEstaCreando);
 
-    qryDetalle.Append;
-    (MasterDataModule as ISubject).Notify;
+    qryDetalle.Insert;
+    //(MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
     begin
@@ -482,24 +484,9 @@ begin
     raise Exception.Create(rsGenNotDefined);
 end;
 
-procedure TComprobanteDataModule.qryDetalleAfterDelete(DataSet: TDataSet);
-begin
- // ActualizarTotales;
-end;
-
-procedure TComprobanteDataModule.qryDetalleAfterEdit(DataSet: TDataSet);
-begin
-  //ActualizarTotales;
-end;
-
 procedure TComprobanteDataModule.qryDetalleAfterPost(DataSet: TDataSet);
 begin
-//  ActualizarTotales;
-end;
-
-procedure TComprobanteDataModule.qryDetalleAfterScroll(DataSet: TDataSet);
-begin
- // ActualizarTotales;
+  ActualizarTotales;
 end;
 
 procedure TComprobanteDataModule.SetCabeceraGenName(AValue: string);

@@ -3,7 +3,7 @@ inherited ProcesoComprobante: TProcesoComprobante
   Height = 681
   Top = 218
   Width = 901
-  ClientHeight = 681
+  ClientHeight = 661
   ClientWidth = 901
   OnShow = FormShow
   inherited StatusBar1: TStatusBar
@@ -262,7 +262,6 @@ inherited ProcesoComprobante: TProcesoComprobante
           Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns]
           OptionsExtra = [dgeCheckboxColumn]
           TabOrder = 0
-          OnEditingDone = DBGridDetEditingDone
         end
         object DBNavigatorDet: TDBNavigator
           AnchorSideLeft.Control = Detalles

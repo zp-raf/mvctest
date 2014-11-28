@@ -51,7 +51,6 @@ type
     Totales: TGroupBox;
     procedure ButtonSeleccionarPersClick(Sender: TObject);
     procedure ButtonLimpiarClick(Sender: TObject);
-    procedure DBGridDetEditingDone(Sender: TObject);
     procedure DBNavigatorDetBeforeAction(Sender: TObject; Button: TDBNavButtonType);
     procedure DBNavigatorDetClick(Sender: TObject; Button: TDBNavButtonType);
     procedure FormShow(Sender: TObject); virtual;
@@ -114,11 +113,6 @@ procedure TProcesoComprobante.ButtonLimpiarClick(Sender: TObject);
 begin
   Limpiar;
   GetABMController.Cancel(Self);
-end;
-
-procedure TProcesoComprobante.DBGridDetEditingDone(Sender: TObject);
-begin
-//  GetComprobanteController.ActualizarTotales(Self);
 end;
 
 procedure TProcesoComprobante.DBNavigatorDetBeforeAction(Sender: TObject;

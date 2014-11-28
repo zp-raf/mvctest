@@ -69,6 +69,7 @@ type
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DeterminarImpuesto; override;
     procedure FetchCabeceraPersona(APersonaID: string); override; overload;
+    procedure FetchDetallePersona(APersonaID: string); override; overload;
     procedure GetImpuestos; override;
     procedure qryCabeceraAfterScroll(DataSet: TDataSet); override;
     procedure qryCabeceraNewRecord(DataSet: TDataSet); override;
@@ -220,6 +221,16 @@ begin
     qryCabeceraRUC.AsString := Personas.PersonaRUC.AsString;
 end;
 
+procedure TFacturasDataModule.FetchDetallePersona(APersonaID: string);
+begin
+  try
+    qryDetallePRECIO_UNITARIO.OnChange := nil;
+    inherited FetchDetallePersona(APersonaID);
+  finally
+    qryDetallePRECIO_UNITARIO.OnChange := @qryDetallePRECIO_UNITARIOChange;
+  end;
+end;
+
 procedure TFacturasDataModule.GetImpuestos;
 begin
   if (Impuesto.Lookup('ID', IVA10, 'FACTOR') = null) or
@@ -278,24 +289,28 @@ begin
   if Sender.AsFloat > montoMaximo then
     Sender.AsFloat := montoMaximo;
 
-  // iva 10
-  if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
-    Exit
-  else
-    qryDetalleIVA10.AsFloat :=
-      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-  // iva 5
-  if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
-    Exit
-  else
-    qryDetalleIVA5.AsFloat :=
-      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-  // exenta
-  if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
-    Exit
-  else
-    qryDetalleEXENTA.AsFloat :=
-      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+  try
+    // iva 10
+    if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
+      Exit
+    else
+      qryDetalleIVA10.AsFloat :=
+        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+    // iva 5
+    if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
+      Exit
+    else
+      qryDetalleIVA5.AsFloat :=
+        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+    // exenta
+    if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
+      Exit
+    else
+      qryDetalleEXENTA.AsFloat :=
+        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+  finally
+    qryDetalle.Post;
+  end;
 end;
 
 procedure TFacturasDataModule.SetNumero;
