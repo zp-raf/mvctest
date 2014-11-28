@@ -14,6 +14,10 @@ type
   { TComprobanteDataModule }
 
   TComprobanteDataModule = class(TQueryDataModule)
+    procedure qryDetalleAfterDelete(DataSet: TDataSet);
+    procedure qryDetalleAfterEdit(DataSet: TDataSet);
+    procedure qryDetalleAfterPost(DataSet: TDataSet);
+    procedure qryDetalleAfterScroll(DataSet: TDataSet);
   private
     FCabeceraGenName: string;
     FDetalleGenName: string;
@@ -476,6 +480,26 @@ begin
     raise Exception.Create(rsDocTypeNotSelected);
   if (Trim(CabeceraGenName) = '') or (Trim(DetalleGenName) = '') then
     raise Exception.Create(rsGenNotDefined);
+end;
+
+procedure TComprobanteDataModule.qryDetalleAfterDelete(DataSet: TDataSet);
+begin
+ // ActualizarTotales;
+end;
+
+procedure TComprobanteDataModule.qryDetalleAfterEdit(DataSet: TDataSet);
+begin
+  //ActualizarTotales;
+end;
+
+procedure TComprobanteDataModule.qryDetalleAfterPost(DataSet: TDataSet);
+begin
+//  ActualizarTotales;
+end;
+
+procedure TComprobanteDataModule.qryDetalleAfterScroll(DataSet: TDataSet);
+begin
+ // ActualizarTotales;
 end;
 
 procedure TComprobanteDataModule.SetCabeceraGenName(AValue: string);

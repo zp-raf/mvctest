@@ -118,7 +118,7 @@ end;
 
 procedure TProcesoComprobante.DBGridDetEditingDone(Sender: TObject);
 begin
-  GetComprobanteController.ActualizarTotales(Self);
+//  GetComprobanteController.ActualizarTotales(Self);
 end;
 
 procedure TProcesoComprobante.DBNavigatorDetBeforeAction(Sender: TObject;
