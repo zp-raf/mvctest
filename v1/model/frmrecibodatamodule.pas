@@ -163,18 +163,23 @@ end;
 
 procedure TReciboDataModule.FetchDetalleFactura(AFacturaID: string);
 begin
-  Facturas.qryDetalle.First;
-  while not Facturas.qryDetalle.EOF do
-  begin
-    NuevoComprobanteDetalle;
-    qryDetalleDEUDAID.Value := Facturas.qryDetalle.FieldByName('DEUDAID').Value;
-    qryDetalleCANTIDAD.Value := Facturas.qryDetalle.FieldByName('CANTIDAD').Value;
-    qryDetalleDETALLE.Value := Facturas.qryDetalle.FieldByName('DETALLE').Value;
-    qryDetallePRECIO_UNITARIO.AsFloat :=
-      Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
-    qryDetalleTOTAL.AsFloat :=
-      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-    Facturas.qryDetalle.Next;
+  try
+    qryDetalle.AfterPost := nil;
+    Facturas.qryDetalle.First;
+    while not Facturas.qryDetalle.EOF do
+    begin
+      NuevoComprobanteDetalle;
+      qryDetalleDEUDAID.Value := Facturas.qryDetalle.FieldByName('DEUDAID').Value;
+      qryDetalleCANTIDAD.Value := Facturas.qryDetalle.FieldByName('CANTIDAD').Value;
+      qryDetalleDETALLE.Value := Facturas.qryDetalle.FieldByName('DETALLE').Value;
+      qryDetallePRECIO_UNITARIO.AsFloat :=
+        Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
+      qryDetalleTOTAL.AsFloat :=
+        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      Facturas.qryDetalle.Next;
+    end;
+  finally
+    qryDetalle.AfterPost := @qryDetalleAfterPost;
   end;
   ActualizarTotales;
 end;

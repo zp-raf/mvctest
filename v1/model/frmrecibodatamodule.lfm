@@ -6,7 +6,6 @@ inherited ReciboDataModule: TReciboDataModule
   VerticalOffset = 267
   Width = 542
   inherited qryCabecera: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -319,7 +318,6 @@ inherited ReciboDataModule: TReciboDataModule
     end
   end
   inherited qryDetalle: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -463,25 +461,16 @@ inherited ReciboDataModule: TReciboDataModule
         ParamType = ptInput
       end>
   end
-  inherited tal: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
-  end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalle
-    DataSource = dsDetalle
   end
   inherited frDBReporteCab: TfrDBDataSet
     DataSet = qryCabecera
-    DataSource = dsCabecera
   end
   inherited frReport1: TfrReport
     Dataset = frDBReporteCab
   end
-  inherited AuxTalonario: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
-    Active = True
-  end
-  object dsFacturas: TDatasource[16]
+  object dsFacturas: TDataSource[16]
     left = 376
     top = 256
   end

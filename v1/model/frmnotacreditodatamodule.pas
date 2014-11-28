@@ -162,25 +162,28 @@ begin
   if Sender.AsFloat > montoMaximo then
     Sender.AsFloat := montoMaximo;
 
-  // iva 10
-  if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
-    Exit
-  else
-    qryDetalleIVA10.AsFloat :=
-      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-  // iva 5
-  if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
-    Exit
-  else
-    qryDetalleIVA5.AsFloat :=
-      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-  // exenta
-  if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
-    Exit
-  else
-    qryDetalleEXENTA.AsFloat :=
-      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-  ActualizarTotales;
+  try
+    // iva 10
+    if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
+      Exit
+    else
+      qryDetalleIVA10.AsFloat :=
+        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+    // iva 5
+    if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
+      Exit
+    else
+      qryDetalleIVA5.AsFloat :=
+        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+    // exenta
+    if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
+      Exit
+    else
+      qryDetalleEXENTA.AsFloat :=
+        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+  finally
+    qryDetalle.Post;
+  end;
 end;
 
 procedure TNotaCreditoDataModule.RegistrarMovimiento(EsVenta: boolean; ANotaID: string);
@@ -411,22 +414,27 @@ end;
 
 procedure TNotaCreditoDataModule.FetchDetalleFactura(AFacturaID: string);
 begin
-  Facturas.qryDetalle.First;
-  while not Facturas.qryDetalle.EOF do
-  begin
-    NuevoComprobanteDetalle;
-    qryDetalleFACTURADETALLEID.AsString :=
-      Facturas.qryDetalle.FieldByName('ID').AsString;
-    qryDetalleDEUDAID.AsString := Facturas.qryDetalle.FieldByName('DEUDAID').AsString;
-    qryDetalleCANTIDAD.AsInteger :=
-      Facturas.qryDetalle.FieldByName('CANTIDAD').AsInteger;
-    qryDetalleDETALLE.AsString := Facturas.qryDetalle.FieldByName('DETALLE').AsString;
-    qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
-      Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
-    qryDetalleEXENTA.AsFloat := Facturas.qryDetalle.FieldByName('EXENTA').AsFloat;
-    qryDetalleIVA5.AsFloat := Facturas.qryDetalle.FieldByName('IVA5').AsFloat;
-    qryDetalleIVA10.AsFloat := Facturas.qryDetalle.FieldByName('IVA10').AsFloat;
-    Facturas.qryDetalle.Next;
+  try
+    qryDetalle.AfterPost := nil;
+    Facturas.qryDetalle.First;
+    while not Facturas.qryDetalle.EOF do
+    begin
+      NuevoComprobanteDetalle;
+      qryDetalleFACTURADETALLEID.AsString :=
+        Facturas.qryDetalle.FieldByName('ID').AsString;
+      qryDetalleDEUDAID.AsString := Facturas.qryDetalle.FieldByName('DEUDAID').AsString;
+      qryDetalleCANTIDAD.AsInteger :=
+        Facturas.qryDetalle.FieldByName('CANTIDAD').AsInteger;
+      qryDetalleDETALLE.AsString := Facturas.qryDetalle.FieldByName('DETALLE').AsString;
+      qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
+        Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
+      qryDetalleEXENTA.AsFloat := Facturas.qryDetalle.FieldByName('EXENTA').AsFloat;
+      qryDetalleIVA5.AsFloat := Facturas.qryDetalle.FieldByName('IVA5').AsFloat;
+      qryDetalleIVA10.AsFloat := Facturas.qryDetalle.FieldByName('IVA10').AsFloat;
+      Facturas.qryDetalle.Next;
+    end;
+  finally
+    qryDetalle.AfterPost := @qryDetalleAfterPost;
   end;
   ActualizarTotales;
 end;
