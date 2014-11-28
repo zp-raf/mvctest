@@ -87,7 +87,11 @@ uses
   // ABM aranceles
   frmaranceldatamodule,
   frmabmaranceles,
-  arancelesctrl;
+  arancelesctrl,
+  // abm modulos
+  frmmodulodatamodule,
+  frmabmmodulos,
+  moduloctrl;
 
 type
 
@@ -116,6 +120,7 @@ type
     procedure OpenEntregaForm(Sender: IFormView);
     procedure OpenFacturaCompraForm(Sender: IFormView);
     procedure OpenABMAranceles(Sender: IFormView);
+    procedure OpenABMModulos(Sender: IFormView);
   end;
 
 var
@@ -290,6 +295,14 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   AbmAranceles.Show;
   (GetModel.MasterDataModule as ISubject).Attach(AbmAranceles as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMModulos(Sender: IFormView);
+begin
+  AbmModulos := TAbmModulos.Create(Sender, TModuloController.Create(
+    TModuloDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  AbmModulos.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmModulos as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

@@ -94,6 +94,7 @@ type
     procedure MenuItemDocumentosClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
+    procedure modulosClick(Sender: TObject);
     procedure multasClick(Sender: TObject);
     procedure notaCreditoClick(Sender: TObject);
     procedure PagosClick(Sender: TObject);
@@ -224,6 +225,11 @@ end;
 procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);
 begin
   GetCustomController.OpenABMCuentasForm(Self);
+end;
+
+procedure TPrincipal1.modulosClick(Sender: TObject);
+begin
+
 end;
 
 procedure TPrincipal1.multasClick(Sender: TObject);

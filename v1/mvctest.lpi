@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="105">
+    <Units Count="107">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -781,6 +781,19 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="impuestoctrl"/>
       </Unit104>
+      <Unit105>
+        <Filename Value="view\frmabmmodulos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmModulos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmmodulos"/>
+      </Unit105>
+      <Unit106>
+        <Filename Value="controller\moduloctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="moduloctrl"/>
+      </Unit106>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

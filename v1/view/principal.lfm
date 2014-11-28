@@ -112,6 +112,7 @@ inherited Principal1: TPrincipal1
         end
         object modulos: TMenuItem
           Caption = 'ABM &Módulos'
+          OnClick = modulosClick
         end
         object grupos: TMenuItem
           Caption = 'ABM &Grupos'

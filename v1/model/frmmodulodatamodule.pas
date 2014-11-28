@@ -24,6 +24,7 @@ type
     ModuloFUNDAMENTACION: TStringField;
     ModuloHABILITADO: TSmallintField;
     ModuloID: TLongintField;
+    ModuloMODULOGENERAL: TSmallintField;
     ModuloNOMBRE: TStringField;
     ModuloOBJETIVOS: TStringField;
     ModuloPERFILEGRESADO: TStringField;
@@ -39,10 +40,6 @@ type
     ModulosHabilitadosViewREQUISITOS: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure ModuloNewRecord(DataSet: TDataSet);
-  private
-    { private declarations }
-  public
-    { public declarations }
   end;
 
 var
@@ -65,6 +62,7 @@ end;
 procedure TModuloDataModule.ModuloNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenName);
+  DataSet.FieldByName('MODULOGENERAL').AsInteger := 0;
 end;
 
 end.

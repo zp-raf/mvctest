@@ -1,0 +1,66 @@
+inherited AbmModulos: TAbmModulos
+  ClientHeight = 461
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = ModuloDataModule.dsModulo
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = ModuloDataModule.dsModulo
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEditNombre: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 23
+      Width = 328
+      DataField = 'NOMBRE'
+      DataSource = ModuloDataModule.dsModulo
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object LabelNombre: TLabel[1]
+      AnchorSideLeft.Control = DBEditNombre
+      AnchorSideBottom.Control = DBEditNombre
+      Left = 16
+      Height = 15
+      Top = 8
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object DBCheckBoxActivo: TDBCheckBox[2]
+      Left = 16
+      Height = 23
+      Top = 64
+      Width = 90
+      Caption = 'Habilitado'
+      DataField = 'HABILITADO'
+      DataSource = ModuloDataModule.dsModulo
+      TabOrder = 1
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object DBCheckBoxModuloGen: TDBCheckBox[3]
+      Left = 16
+      Height = 23
+      Top = 96
+      Width = 138
+      Caption = 'Modulo General'
+      DataField = 'MODULOGENERAL'
+      DataSource = ModuloDataModule.dsModulo
+      TabOrder = 2
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+  end
+end
