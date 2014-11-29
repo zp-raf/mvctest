@@ -152,7 +152,7 @@ end;
 
 procedure TPrincipal1.cargarNotaCreditoClick(Sender: TObject);
 begin
-
+   GetCustomController.OpenNotaCreditoCompraForm(Self);
 end;
 
 procedure TPrincipal1.cargarReciboClick(Sender: TObject);

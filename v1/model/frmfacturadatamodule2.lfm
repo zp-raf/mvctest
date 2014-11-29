@@ -415,7 +415,6 @@ inherited FacturasDataModule: TFacturasDataModule
     end
   end
   inherited qryDetalle: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

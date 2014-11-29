@@ -6,6 +6,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   VerticalOffset = 265
   Width = 562
   inherited qryCabecera: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -33,15 +34,21 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       end    
       item
         Name = 'TIMBRADO'
-        DataType = ftInteger
+        DataType = ftFixedChar
         Precision = -1
-        Size = 0
+        Size = 8
       end    
       item
         Name = 'NUMERO'
         DataType = ftInteger
         Precision = -1
         Size = 0
+      end    
+      item
+        Name = 'NUMERO_NOTA_COMPRA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
       end    
       item
         Name = 'FECHA_EMISION'
@@ -170,7 +177,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object qryCabeceraFECHA_EMISION: TDateField[4]
       DisplayWidth = 10
@@ -440,6 +447,17 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       Required = False
       Size = 255
     end
+    object qryCabeceraNUMERO_NOTA_COMPRA: TStringField[25]
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NUMERO_NOTA_COMPRA'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   inherited qryDetalle: TSQLQuery
     FieldDefs = <    
@@ -645,6 +663,10 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
         ParamType = ptInput
       end>
   end
+  inherited tal: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    Active = True
+  end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalle
   end
@@ -652,6 +674,8 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
     DataSet = qryCabecera
   end
   inherited AuxTalonario: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    Active = True
     left = 280
   end
   object dsFacturas: TDataSource[16]

@@ -19,11 +19,11 @@ type
     procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
     procedure FetchCabeceraPersona(Sender: IView);
-    function GetPersonasDataSource: TDataSource;
     procedure NuevoComprobante(Sender: IView); override;
     procedure NuevoComprobanteCompra(Sender: IView);
     procedure SetVencimiento(ADate: TDateTime);
     procedure SetPrecioTotal(AField: string; Sender: IFormView);
+    function GetPersonasDataSource: TDataSource;
   end;
 
 var

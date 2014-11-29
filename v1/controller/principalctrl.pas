@@ -95,7 +95,9 @@ uses
   // recibo de compra
   frmrecibodatamodule,
   frmprocesorecibocompra,
-  reciboctrl;
+  reciboctrl,
+  // nota credito compra
+  frmprocesonotacreditocompra;
 
 type
 
@@ -126,6 +128,7 @@ type
     procedure OpenABMAranceles(Sender: IFormView);
     procedure OpenABMModulos(Sender: IFormView);
     procedure OpenReciboCompraForm(Sender: IFormView);
+    procedure OpenNotaCreditoCompraForm(Sender: IFormView);
   end;
 
 var
@@ -317,6 +320,15 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoReciboCompra.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoReciboCompra as IObserver);
+end;
+
+procedure TPrincipalController.OpenNotaCreditoCompraForm(Sender: IFormView);
+begin
+  ProcesoNotaCreditoCompra :=
+    TProcesoNotaCreditoCompra.Create(Sender, TNotaCreditoController.Create(
+    TNotaCreditoDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoNotaCreditoCompra.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoNotaCreditoCompra as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

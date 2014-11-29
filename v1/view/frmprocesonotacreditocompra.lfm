@@ -1,0 +1,116 @@
+inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
+  Left = 737
+  Top = 188
+  Caption = 'Nota de credito compra'
+  inherited ButtonPanel1: TButtonPanel
+    OKButton.OnClick = OKButtonClick
+  end
+  inherited Cabecera: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DateEditFecha: TDateEdit
+      Enabled = True
+    end
+    inherited DBEditNombre: TDBEdit
+      Width = 480
+    end
+    inherited DBTextNro: TDBText
+      Left = 600
+      Visible = False
+    end
+    inherited DBTextTimbrado: TDBText
+      Left = 600
+      Height = 16
+      Top = -3
+      Width = 131
+      AutoSize = False
+      Visible = False
+    end
+    inherited LabelNro: TLabel
+      Left = 570
+      Visible = False
+    end
+    inherited LabelTimbrado: TLabel
+      Left = 541
+      Top = -3
+      Visible = False
+    end
+    object DBEditNro: TDBEdit[18]
+      Left = 128
+      Height = 23
+      Top = 16
+      Width = 96
+      DataField = 'NUMERO_NOTA_COMPRA'
+      DataSource = NotaCreditoDataModule.dsCabecera
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 7
+    end
+    object DBEditTimbrado: TDBEdit[19]
+      Left = 240
+      Height = 23
+      Top = 16
+      Width = 144
+      DataField = 'TIMBRADO'
+      DataSource = NotaCreditoDataModule.dsCabecera
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 8
+    end
+    object LabelTimbradoCompra: TLabel[20]
+      AnchorSideLeft.Control = DBEditTimbrado
+      AnchorSideBottom.Control = DBEditTimbrado
+      Left = 240
+      Height = 15
+      Top = 1
+      Width = 52
+      Anchors = [akLeft, akBottom]
+      Caption = 'Timbrado'
+      ParentColor = False
+    end
+    object LabelNumeroComp: TLabel[21]
+      AnchorSideLeft.Control = DBEditNro
+      AnchorSideBottom.Control = DBEditNro
+      Left = 128
+      Height = 15
+      Top = 1
+      Width = 20
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nro'
+      ParentColor = False
+    end
+  end
+  inherited PairSplitterDetSubTot: TPairSplitter
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited PairSplitterSide1: TPairSplitterSide
+      inherited Detalles: TGroupBox
+        inherited DBGridDet: TDBGrid
+          OnKeyDown = DBGridDetKeyDown
+        end
+        inherited DBNavigatorDet: TDBNavigator
+          Hints.Strings = (          )
+        end
+      end
+    end
+  end
+  inherited ButtonLimpiar: TButton
+    Width = 142
+    AutoSize = True
+    Caption = 'Nueva nota en blanco'
+    OnClick = ButtonLimpiarClick
+  end
+  inherited ButtonSeleccionarPers: TButton
+    AnchorSideLeft.Control = ButtonSeleccionarFac
+    AnchorSideTop.Control = ButtonSeleccionarFac
+    Left = 282
+    OnClick = ButtonSeleccionarPersClick
+    Visible = True
+  end
+  inherited ButtonSeleccionarFac: TButton
+    AnchorSideLeft.Control = ButtonLimpiar
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = ButtonLimpiar
+    Left = 158
+  end
+end

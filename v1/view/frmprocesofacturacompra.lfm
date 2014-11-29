@@ -8,12 +8,17 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   inherited Cabecera: TGroupBox
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
+    inherited DateEditFecha: TDateEdit
+      Enabled = True
+    end
     inherited DBTextNro: TDBText
       Left = 464
       Visible = False
     end
     inherited DBTextTimbrado: TDBText
       Left = 464
+      Height = 1
+      Width = 1
       Visible = False
     end
     inherited LabelNro: TLabel

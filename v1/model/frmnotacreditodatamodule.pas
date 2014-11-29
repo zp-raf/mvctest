@@ -23,6 +23,7 @@ type
 
   TNotaCreditoDataModule = class(TComprobanteDataModule)
     DateField1: TDateField;
+    qryCabeceraNUMERO_NOTA_COMPRA: TStringField;
     qryDetalleCANTIDAD: TLongintField;
     qryDetalleDETALLE: TStringField;
     qryDetalleDEUDAID: TLongintField;

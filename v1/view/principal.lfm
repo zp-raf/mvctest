@@ -210,7 +210,7 @@ inherited Principal1: TPrincipal1
           OnClick = cargarFacturaClick
         end
         object cargarNotaCredito: TMenuItem
-          Caption = 'Cargar n&ota de crédito'
+          Caption = 'Cargar n&ota de crédito de compra'
           OnClick = cargarNotaCreditoClick
         end
       end
