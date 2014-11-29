@@ -23,6 +23,7 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TComprobanteDataModule)
+    qryCabeceraNUMERO_FACT_COMPRA: TStringField;
   private
     FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;
@@ -31,7 +32,6 @@ type
     procedure SetIVA10Codigo(AValue: string);
     procedure SetIVA5Codigo(AValue: string);
   published
-    qryCabeceraNUMERO_FACT_VENTA: TStringField;
     qryCabeceraTALONARIOID: TLongintField;
     qryCabeceraTIMBRADO: TStringField;
     StringField1: TStringField;
@@ -274,20 +274,18 @@ procedure TFacturasDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField);
 var
   montoMaximo: double;
 begin
-  if not CheckPrecioUnitario then
-    Exit;
-  try
-    montoMaximo := DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_DEUDA') -
-      DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_FACTURADO');
-  except
-    on E: EDatabaseError do
-    begin
-      Abort;
+  if CheckPrecioUnitario then
+    try
+      montoMaximo := DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_DEUDA') -
+        DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_FACTURADO');
+      if Sender.AsFloat > montoMaximo then
+        Sender.AsFloat := montoMaximo;
+    except
+      on E: EDatabaseError do
+      begin
+        Abort;
+      end;
     end;
-  end;
-
-  if Sender.AsFloat > montoMaximo then
-    Sender.AsFloat := montoMaximo;
 
   try
     // iva 10

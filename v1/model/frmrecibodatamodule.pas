@@ -23,11 +23,15 @@ type
   TReciboDataModule = class(TComprobanteDataModule)
     DateField1: TDateField;
     DateField2: TDateField;
+    qryCabeceraNUMERO_REC_COMPRA: TStringField;
     qryCabeceraVALIDO: TSmallintField;
     StringField2: TStringField;
     StringField3: TStringField;
+    procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
   private
+    FCheckPrecioUnitario: boolean;
     FFacturas: TFacturasDataModule;
+    procedure SetCheckPrecioUnitario(AValue: boolean);
     procedure SetFacturas(AValue: TFacturasDataModule);
   published
     dsFacturas: TDataSource;
@@ -59,6 +63,7 @@ type
     procedure DeterminarImpuesto; override;
     procedure FetchCabeceraFactura(AFacturaID: string);
     procedure FetchCabeceraFactura;
+    procedure FetchCabeceraPersona(APersonaID: string); override; overload;
     procedure FetchDetalleFactura;
     procedure FetchDetalleFactura(AFacturaID: string);
     procedure GetImpuestos; override;
@@ -67,6 +72,8 @@ type
     procedure qryDetalleAfterInsert(DataSet: TDataSet); override;
     procedure SetNumero; override;
     property Facturas: TFacturasDataModule read FFacturas write SetFacturas;
+    property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
+      write SetCheckPrecioUnitario;
   end;
 
 var
@@ -101,6 +108,7 @@ begin
   CabeceraGenName := rsReciboGenName;
   DetalleGenName := rsReciboDetGenName;
   TalonarioID := TALONARIO_RE;
+  CheckPrecioUnitario := True;
 end;
 
 procedure TReciboDataModule.DataModuleDestroy(Sender: TObject);
@@ -115,6 +123,36 @@ begin
   if FFacturas = AValue then
     Exit;
   FFacturas := AValue;
+end;
+
+procedure TReciboDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField);
+begin
+  //if CheckPrecioUnitario then
+  //  try
+  //    montoMaximo := DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_DEUDA') -
+  //      DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_FACTURADO');
+  //    if Sender.AsFloat > montoMaximo then
+  //      Sender.AsFloat := montoMaximo;
+  //  except
+  //    on E: EDatabaseError do
+  //    begin
+  //      Abort;
+  //    end;
+  //  end;
+
+  try
+    qryDetalleTOTAL.AsFloat :=
+      qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+  finally
+    qryDetalle.Post;
+  end;
+end;
+
+procedure TReciboDataModule.SetCheckPrecioUnitario(AValue: boolean);
+begin
+  if FCheckPrecioUnitario = AValue then
+    Exit;
+  FCheckPrecioUnitario := AValue;
 end;
 
 procedure TReciboDataModule.ActualizarTotales;
@@ -154,6 +192,15 @@ end;
 procedure TReciboDataModule.FetchCabeceraFactura;
 begin
   FetchCabeceraFactura(FFacturas.qryCabeceraID.AsString);
+end;
+
+procedure TReciboDataModule.FetchCabeceraPersona(APersonaID: string);
+begin
+  inherited FetchCabeceraPersona(APersonaID);
+  if Personas.PersonaCEDULA.IsNull then
+    qryCabecera.FieldByName('CEDULA').AsString := Personas.PersonaRUC.AsString
+  else
+    qryCabecera.FieldByName('CEDULA').AsString := Personas.PersonaCEDULA.AsString;
 end;
 
 procedure TReciboDataModule.FetchDetalleFactura;

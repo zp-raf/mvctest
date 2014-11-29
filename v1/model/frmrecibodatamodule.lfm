@@ -2,8 +2,8 @@ inherited ReciboDataModule: TReciboDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 333
-  HorizontalOffset = 391
-  VerticalOffset = 267
+  HorizontalOffset = 542
+  VerticalOffset = 291
   Width = 542
   inherited qryCabecera: TSQLQuery
     FieldDefs = <    
@@ -42,6 +42,12 @@ inherited ReciboDataModule: TReciboDataModule
         DataType = ftInteger
         Precision = -1
         Size = 0
+      end    
+      item
+        Name = 'NUMERO_REC_COMPRA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
       end    
       item
         Name = 'FECHA_EMISION'
@@ -113,7 +119,7 @@ inherited ReciboDataModule: TReciboDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object qryCabeceraFACTURAID: TLongintField[2]
       DisplayWidth = 10
@@ -133,7 +139,7 @@ inherited ReciboDataModule: TReciboDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object qryCabeceraFECHA_EMISION: TDateField[4]
       DisplayWidth = 10
@@ -316,6 +322,17 @@ inherited ReciboDataModule: TReciboDataModule
       Required = False
       Size = 255
     end
+    object qryCabeceraNUMERO_REC_COMPRA: TStringField[19]
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NUMERO_REC_COMPRA'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   inherited qryDetalle: TSQLQuery
     FieldDefs = <    
@@ -432,6 +449,7 @@ inherited ReciboDataModule: TReciboDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = qryDetallePRECIO_UNITARIOChange
       MaxValue = 0
       MinValue = 0
       Precision = -1

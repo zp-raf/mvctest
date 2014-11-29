@@ -15,6 +15,8 @@ type
   { TProcesoComprobante }
 
   TProcesoComprobante = class(TProceso)
+  private
+    FPopup: TPopupSeleccionPersonas;
   protected
     function GetABMController: TABMController;
     function GetComprobanteController: TComprobanteController;
@@ -64,11 +66,11 @@ type
     procedure Limpiar; virtual;
     procedure OKButtonClick(Sender: TObject); virtual;
     procedure CancelButtonClick(Sender: TObject);
+    property Popup: TPopupSeleccionPersonas read FPopup write FPopup;
   end;
 
 var
   ProcesoComprobante: TProcesoComprobante;
-  PopUp: TPopupSeleccionPersonas;
 
 implementation
 
@@ -87,11 +89,10 @@ begin
 end;
 
 procedure TProcesoComprobante.ButtonSeleccionarPersClick(Sender: TObject);
-var
-  Popup: TPopupSeleccionPersonas;
 begin
-  Popup := TPopupSeleccionPersonas.Create(Self,
-    GetComprobanteController.BuscarPersonaController);
+  if not Assigned(FPopup) then
+    Popup := TPopupSeleccionPersonas.Create(Self,
+      GetComprobanteController.BuscarPersonaController);
   try
     GetController.Connect(Self);
     case Popup.ShowModal of
@@ -105,7 +106,7 @@ begin
       end;
     end;
   finally
-    Popup.Free;
+    FreeAndNil(FPopup);
   end;
 end;
 
@@ -251,7 +252,7 @@ begin
     Limpiar;
   except
     on e: Exception do
-      ShowInfoMessage('Comprobante descartado');
+      ShowErrorMessage('Comprobante descartado. Error: ' + e.Message);
   end;
   GetController.CloseDataSets(Self);
 end;

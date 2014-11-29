@@ -37,10 +37,12 @@ type
     StringField3: TStringField;
   private
     FAsientos: TAsientosDataModule;
+    FCheckPrecioUnitario: boolean;
     FFacturas: TFacturasDataModule;
     FIVA10Codigo: string;
     FIVA5Codigo: string;
     procedure SetAsientos(AValue: TAsientosDataModule);
+    procedure SetCheckPrecioUnitario(AValue: boolean);
     procedure SetFacturas(AValue: TFacturasDataModule);
     procedure SetIVA10Codigo(AValue: string);
     procedure SetIVA5Codigo(AValue: string);
@@ -89,6 +91,8 @@ type
     procedure SaveChanges; override;
     procedure SetNumero; override;
     property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
+    property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
+      write SetCheckPrecioUnitario;
     property Facturas: TFacturasDataModule read FFacturas write SetFacturas;
     property IVA10Codigo: string read FIVA10Codigo write SetIVA10Codigo;
     property IVA5Codigo: string read FIVA5Codigo write SetIVA5Codigo;
@@ -122,6 +126,7 @@ begin
   TalonarioID := TALONARIO_NC;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
+  CheckPrecioUnitario := True;
 end;
 
 procedure TNotaCreditoDataModule.qryCabeceraNewRecord(DataSet: TDataSet);
@@ -148,19 +153,19 @@ procedure TNotaCreditoDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField)
 var
   montoMaximo: double;
 begin
-  try
-    montoMaximo := Facturas.qryDetalle.Lookup('ID', qryDetalleFACTURADETALLEID.Value,
-      'PRECIO_UNITARIO') * Facturas.qryDetalle.Lookup('ID',
-      qryDetalleFACTURADETALLEID.Value, 'CANTIDAD');
-  except
-    on E: EDatabaseError do
-    begin
-      Abort;
+  if CheckPrecioUnitario then
+    try
+      montoMaximo := Facturas.qryDetalle.Lookup('ID', qryDetalleFACTURADETALLEID.Value,
+        'PRECIO_UNITARIO') * Facturas.qryDetalle.Lookup('ID',
+        qryDetalleFACTURADETALLEID.Value, 'CANTIDAD');
+      if Sender.AsFloat > montoMaximo then
+        Sender.AsFloat := montoMaximo;
+    except
+      on E: EDatabaseError do
+      begin
+        Abort;
+      end;
     end;
-  end;
-
-  if Sender.AsFloat > montoMaximo then
-    Sender.AsFloat := montoMaximo;
 
   try
     // iva 10
@@ -284,6 +289,13 @@ begin
   if FAsientos = AValue then
     Exit;
   FAsientos := AValue;
+end;
+
+procedure TNotaCreditoDataModule.SetCheckPrecioUnitario(AValue: boolean);
+begin
+  if FCheckPrecioUnitario = AValue then
+    Exit;
+  FCheckPrecioUnitario := AValue;
 end;
 
 procedure TNotaCreditoDataModule.SetIVA5Codigo(AValue: string);

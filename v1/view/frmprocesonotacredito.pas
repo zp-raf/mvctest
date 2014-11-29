@@ -53,12 +53,12 @@ end;
 
 procedure TProcesoNotaCredito.ButtonSeleccionarFacClick(Sender: TObject);
 var
-  Popup: TPopupSeleccionarFactura;
+  PopupFac: TPopupSeleccionarFactura;
 begin
-  Popup := TPopupSeleccionarFactura.Create(Self);
+  PopupFac := TPopupSeleccionarFactura.Create(Self);
   GetController.OpenDataSets(Self);
   try
-    case Popup.ShowModal of
+    case PopupFac.ShowModal of
       mrOk:
       begin
         OnPopupOk;
@@ -69,7 +69,7 @@ begin
       end;
     end;
   finally
-    Popup.Free;
+    PopupFac.Free;
   end;
 end;
 

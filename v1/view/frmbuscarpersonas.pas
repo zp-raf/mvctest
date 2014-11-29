@@ -5,7 +5,8 @@ unit frmbuscarpersonas;
 interface
 
 uses
-  Forms, frmMaestro, personactrl, DBGrids, ExtCtrls, StdCtrls, Classes, sgcdTypes;
+  Forms, frmMaestro, personactrl, DBGrids, ExtCtrls, StdCtrls, Classes, DB,
+  sgcdTypes;
 
 const
   TODOS = 0;
@@ -33,6 +34,7 @@ type
     procedure FilterData(AText: string; AGroupBoxIndex: integer);
     procedure LabeledEdit1Change(Sender: TObject);
     procedure PersonasClick(Sender: TObject);
+    procedure SetDataSource(ADataSource: TDataSource);
   end;
 
 var
@@ -87,6 +89,11 @@ end;
 procedure TPopupSeleccionPersonas.PersonasClick(Sender: TObject);
 begin
   FilterData(LabeledEdit1.Text, Personas.ItemIndex);
+end;
+
+procedure TPopupSeleccionPersonas.SetDataSource(ADataSource: TDataSource);
+begin
+  DBGrid1.DataSource := ADataSource;
 end;
 
 procedure TPopupSeleccionPersonas.FormCreate(Sender: TObject);

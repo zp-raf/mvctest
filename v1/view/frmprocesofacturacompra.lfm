@@ -29,7 +29,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       Height = 23
       Top = 16
       Width = 80
-      DataField = 'NUMERO_FACT_VENTA'
+      DataField = 'NUMERO_FACT_COMPRA'
       DataSource = FacturasDataModule.dsCabecera
       CharCase = ecNormal
       MaxLength = 0
@@ -43,7 +43,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       DataField = 'TIMBRADO'
       DataSource = FacturasDataModule.dsCabecera
       CharCase = ecNormal
-      MaxLength = 8
+      MaxLength = 0
       TabOrder = 9
     end
     object LabelNumeroComp: TLabel[21]

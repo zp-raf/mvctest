@@ -157,7 +157,7 @@ end;
 
 procedure TPrincipal1.cargarReciboClick(Sender: TObject);
 begin
-
+  GetCustomController.OpenReciboCompraForm(Self);
 end;
 
 procedure TPrincipal1.DocumentosClick(Sender: TObject);

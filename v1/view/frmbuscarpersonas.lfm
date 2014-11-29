@@ -84,7 +84,7 @@ inherited PopupSeleccionPersonas: TPopupSeleccionPersonas
         Width = 98
         FieldName = 'ESENCARGADO'
       end>
-    DataSource = FacturasDataModule.dsPersonasRoles
+    DataSource = ComprobanteDataModule.dsPersonasRoles
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
     ReadOnly = True
     TabOrder = 1

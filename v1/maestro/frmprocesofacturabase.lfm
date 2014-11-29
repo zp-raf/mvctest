@@ -256,7 +256,4 @@ inherited ProcesoFacturaBase: TProcesoFacturaBase
       end
     end
   end
-  inherited ButtonSeleccionarPers: TButton
-    OnClick = ButtonSeleccionarPersClick
-  end
 end

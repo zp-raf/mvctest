@@ -1,0 +1,183 @@
+inherited ProcesoReciboCompra: TProcesoReciboCompra
+  Left = 694
+  Height = 600
+  Top = 184
+  Width = 800
+  Caption = 'Cargar Recibo'
+  ClientHeight = 580
+  ClientWidth = 800
+  Constraints.MinHeight = 600
+  Constraints.MinWidth = 800
+  inherited StatusBar1: TStatusBar
+    Top = 557
+    Width = 800
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 517
+    Width = 788
+  end
+  inherited Cabecera: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    Width = 784
+    ClientWidth = 780
+    inherited DBEditDireccion: TDBEdit
+      DataSource = ReciboDataModule.dsCabecera
+    end
+    inherited DBEditRuc: TDBEdit
+      DataSource = ReciboDataModule.dsCabecera
+    end
+    inherited DBEditTelefono: TDBEdit
+      DataSource = ReciboDataModule.dsCabecera
+    end
+    inherited DateEditFecha: TDateEdit
+      Enabled = True
+    end
+    inherited DBEditNombre: TDBEdit
+      DataSource = ReciboDataModule.dsCabecera
+    end
+    inherited DBTextNro: TDBText
+      Left = 536
+      Visible = False
+    end
+    inherited DBTextTimbrado: TDBText
+      Left = 536
+      Top = 0
+      Visible = False
+    end
+    inherited LabelNro: TLabel
+      Left = 506
+      Visible = False
+    end
+    inherited LabelTimbrado: TLabel
+      Left = 477
+      Top = 0
+      Visible = False
+    end
+    object LabelNumero: TLabel[14]
+      AnchorSideLeft.Control = DBEditNumero
+      AnchorSideBottom.Control = DBEditNumero
+      Left = 136
+      Height = 15
+      Top = 1
+      Width = 72
+      Anchors = [akLeft, akBottom]
+      Caption = 'LabelNumero'
+      ParentColor = False
+    end
+    object LabelTimbradoCompra: TLabel[15]
+      AnchorSideLeft.Control = DBEditTimbrado
+      AnchorSideBottom.Control = DBEditTimbrado
+      Left = 240
+      Height = 15
+      Top = 1
+      Width = 123
+      Anchors = [akLeft, akBottom]
+      Caption = 'LabelTimbradoCompra'
+      ParentColor = False
+    end
+    object DBEditNumero: TDBEdit[16]
+      Left = 136
+      Height = 23
+      Top = 16
+      Width = 88
+      DataField = 'NUMERO_REC_COMPRA'
+      DataSource = ReciboDataModule.dsCabecera
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 5
+    end
+    object DBEditTimbrado: TDBEdit[17]
+      Left = 240
+      Height = 23
+      Top = 16
+      Width = 160
+      DataField = 'TIMBRADO'
+      DataSource = ReciboDataModule.dsCabecera
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 6
+    end
+  end
+  inherited PairSplitterDetSubTot: TPairSplitter
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    Height = 319
+    Width = 784
+    Position = 248
+    inherited PairSplitterSide1: TPairSplitterSide
+      Height = 248
+      Width = 784
+      ClientWidth = 784
+      ClientHeight = 248
+      inherited Detalles: TGroupBox
+        Height = 248
+        Width = 784
+        ClientHeight = 230
+        ClientWidth = 780
+        inherited DBGridDet: TDBGrid
+          Height = 181
+          Width = 764
+          Columns = <          
+            item
+              PickList.Strings = (              )
+              ReadOnly = False
+              SizePriority = 0
+              Title.Caption = 'CANTIDAD'
+              Width = 74
+              FieldName = 'CANTIDAD'
+            end          
+            item
+              MinSize = 30
+              PickList.Strings = (              )
+              ReadOnly = False
+              Title.Caption = 'DETALLE'
+              Width = 62
+              FieldName = 'DETALLE'
+            end          
+            item
+              PickList.Strings = (              )
+              SizePriority = 0
+              Title.Caption = 'PRECIO UNITARIO'
+              Width = 112
+              FieldName = 'PRECIO_UNITARIO'
+            end          
+            item
+              PickList.Strings = (              )
+              ReadOnly = True
+              Title.Caption = 'TOTAL'
+              FieldName = 'TOTAL'
+            end>
+          DataSource = ReciboDataModule.dsDetalle
+          OnKeyDown = DBGridDetKeyDown
+        end
+        inherited DBNavigatorDet: TDBNavigator
+          Top = 197
+          DataSource = ReciboDataModule.dsDetalle
+          Hints.Strings = (          )
+        end
+      end
+    end
+    inherited PairSplitterSide2: TPairSplitterSide
+      Height = 66
+      Top = 253
+      Width = 784
+      ClientWidth = 784
+      ClientHeight = 66
+      inherited Totales: TGroupBox
+        Width = 788
+        ClientWidth = 784
+        inherited DBEditGranTotal: TDBEdit
+          DataSource = ReciboDataModule.dsCabecera
+        end
+      end
+    end
+  end
+  inherited ButtonSeleccionarPers: TButton
+    OnClick = ButtonSeleccionarPersClick
+    Visible = True
+  end
+  inherited ButtonSeleccionarFac: TButton
+    Visible = False
+  end
+end

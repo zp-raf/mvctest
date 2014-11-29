@@ -18,6 +18,7 @@ type
     DateEditVen: TDateEdit;
     LabelVen: TLabel;
     RadioCondicion: TDBRadioGroup;
+    procedure ButtonSeleccionarPersClick(Sender: TObject);
   protected
     function GetCustomController: TFacturaController;
   published
@@ -65,6 +66,14 @@ procedure TProcesoFacturacion.OnPopupOk;
 begin
   GetController.Connect(Self);
   GetCustomController.NuevoComprobante(Self);
+end;
+
+procedure TProcesoFacturacion.ButtonSeleccionarPersClick(Sender: TObject);
+begin
+  Popup := TPopupSeleccionPersonas.Create(Self,
+    GetComprobanteController.BuscarPersonaController);
+  Popup.SetDataSource(GetCustomController.GetPersonasDataSource);
+  inherited;
 end;
 
 function TProcesoFacturacion.GetCustomController: TFacturaController;

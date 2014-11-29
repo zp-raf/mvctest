@@ -19,6 +19,7 @@ type
     procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
     procedure FetchCabeceraPersona(Sender: IView);
+    function GetPersonasDataSource: TDataSource;
     procedure NuevoComprobante(Sender: IView); override;
     procedure NuevoComprobanteCompra(Sender: IView);
     procedure SetVencimiento(ADate: TDateTime);
@@ -69,6 +70,11 @@ begin
   GetCustomModel.FetchCabeceraPersona;
 end;
 
+function TFacturaController.GetPersonasDataSource: TDataSource;
+begin
+  Result := GetCustomModel.dsPersonasRoles;
+end;
+
 procedure TFacturaController.SetVencimiento(ADate: TDateTime);
 begin
   GetCustomModel.qryCabecera.FieldByName('FECHA_EMISION').AsDateTime := ADate;
@@ -83,7 +89,8 @@ begin
     GetCustomModel.qryDetalle.FieldByName(AField).AsFloat :=
       GetCustomModel.qryDetalle.FieldByName('CANTIDAD').AsFloat *
       GetCustomModel.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
-    GetCustomModel.ActualizarTotales;
+    //GetCustomModel.ActualizarTotales;
+    GetCustomModel.qryDetalle.Post;
   end;
 end;
 
