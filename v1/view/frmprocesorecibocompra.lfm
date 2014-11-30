@@ -121,7 +121,6 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
           Columns = <          
             item
               PickList.Strings = (              )
-              ReadOnly = False
               SizePriority = 0
               Title.Caption = 'CANTIDAD'
               Width = 74
@@ -130,7 +129,6 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
             item
               MinSize = 30
               PickList.Strings = (              )
-              ReadOnly = False
               Title.Caption = 'DETALLE'
               Width = 62
               FieldName = 'DETALLE'
@@ -146,6 +144,7 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
               PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'TOTAL'
+              Width = 52
               FieldName = 'TOTAL'
             end>
           DataSource = ReciboDataModule.dsDetalle
@@ -179,5 +178,12 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
   end
   inherited ButtonSeleccionarFac: TButton
     Visible = False
+  end
+  inherited MainMenu: TMainMenu
+    inherited MenuItemOpciones: TMenuItem
+      inherited MenuItemTalonario: TMenuItem
+        Enabled = False
+      end
+    end
   end
 end

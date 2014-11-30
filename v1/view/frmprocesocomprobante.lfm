@@ -379,10 +379,8 @@ inherited ProcesoComprobante: TProcesoComprobante
     object MenuItemOpciones: TMenuItem[1]
       Caption = '&Opciones'
       object MenuItemTalonario: TMenuItem
-        Caption = '&Talonario'
-        object MenuItem1: TMenuItem
-          Caption = 'New Item9'
-        end
+        Caption = '&Talonario...'
+        OnClick = MenuItemTalonarioClick
       end
     end
     inherited MenuAyuda: TMenuItem[2]

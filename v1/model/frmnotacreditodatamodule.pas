@@ -124,7 +124,7 @@ begin
   SetTipoComprobante(doNotaCredito);
   CabeceraGenName := rsGenNotaCredito;
   DetalleGenName := rsGenNotaCreditoDetalle;
-  TalonarioID := TALONARIO_NC;
+  //TalonarioID := TALONARIO_NC;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
   CheckPrecioUnitario := True;

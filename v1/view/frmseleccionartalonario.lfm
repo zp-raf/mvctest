@@ -1,0 +1,97 @@
+inherited SeleccionarTalonario: TSeleccionarTalonario
+  Left = 700
+  Height = 480
+  Top = 197
+  Width = 800
+  Caption = 'Seleccionar Talonario'
+  ClientHeight = 460
+  ClientWidth = 800
+  Constraints.MinHeight = 480
+  Constraints.MinWidth = 800
+  inherited StatusBar1: TStatusBar
+    Top = 437
+    Width = 800
+  end
+  object DBGrid1: TDBGrid[1]
+    Left = 8
+    Height = 335
+    Top = 64
+    Width = 784
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'NOMBRE'
+        Width = 224
+        FieldName = 'NOMBRE'
+      end    
+      item
+        Title.Caption = 'RUC'
+        Width = 74
+        FieldName = 'RUC'
+      end    
+      item
+        Title.Caption = 'TIMBRADO'
+        Width = 75
+        FieldName = 'TIMBRADO'
+      end    
+      item
+        Title.Caption = 'VALIDO_HASTA'
+        Width = 99
+        FieldName = 'VALIDO_HASTA'
+      end    
+      item
+        Title.Caption = 'VALIDO_DESDE'
+        Width = 95
+        FieldName = 'VALIDO_DESDE'
+      end    
+      item
+        Title.Caption = 'INI'
+        Width = 30
+        FieldName = 'NUMERO_INI'
+      end    
+      item
+        Title.Caption = 'FIN'
+        Width = 33
+        FieldName = 'NUMERO_FIN'
+      end    
+      item
+        Title.Caption = 'SUCURSAL'
+        Width = 72
+        FieldName = 'SUCURSAL'
+      end    
+      item
+        Title.Caption = 'CAJA'
+        Width = 43
+        FieldName = 'CAJA'
+      end>
+    DataSource = TalonarioDataModule.dsTalonarioView
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+    ReadOnly = True
+    TabOrder = 1
+  end
+  object Cancelar: TButton[2]
+    Left = 717
+    Height = 25
+    Top = 407
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Cancelar'
+    ModalResult = 2
+    TabOrder = 2
+  end
+  object Aceptar: TButton[3]
+    Left = 640
+    Height = 25
+    Top = 407
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Aceptar'
+    ModalResult = 1
+    TabOrder = 3
+  end
+  inherited MainMenu: TMainMenu[4]
+    left = 264
+    top = 0
+  end
+end

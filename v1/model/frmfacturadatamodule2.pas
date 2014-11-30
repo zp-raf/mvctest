@@ -185,7 +185,7 @@ begin
   SetTipoComprobante(doFactura);
   CabeceraGenName := rsGenFacturaID;
   DetalleGenName := rsGenFacturaDetalleID;
-  TalonarioID := TALONARIO;
+  //TalonarioID := TALONARIO;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
   CheckPrecioUnitario := True;

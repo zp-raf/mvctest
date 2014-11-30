@@ -17,8 +17,6 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
     end
     inherited DBTextTimbrado: TDBText
       Left = 464
-      Height = 1
-      Width = 1
       Visible = False
     end
     inherited LabelNro: TLabel
@@ -149,5 +147,12 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
     AnchorSideTop.Control = ButtonLimpiar
     AnchorSideTop.Side = asrCenter
     Left = 171
+  end
+  inherited MainMenu: TMainMenu
+    inherited MenuItemOpciones: TMenuItem
+      inherited MenuItemTalonario: TMenuItem
+        Enabled = False
+      end
+    end
   end
 end

@@ -6,26 +6,31 @@ interface
 
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_DBSet, LR_Class, Forms, Controls,
-  Graphics, Dialogs, XMLPropStorage, frmquerydatamodule, mensajes,
-  frmpersonasdatamodule, sgcdTypes, observerSubject;
+  Graphics, Dialogs, XMLPropStorage, IniPropStorage, frmquerydatamodule,
+  mensajes, frmpersonasdatamodule, sgcdTypes, observerSubject,
+  frmtalonariodatamodule;
 
 type
 
   { TComprobanteDataModule }
 
   TComprobanteDataModule = class(TQueryDataModule)
-    procedure qryDetalleAfterPost(DataSet: TDataSet);
+    Propierties: TXMLPropStorage;
+    procedure PropiertiesRestoreProperties(Sender: TObject);
+    procedure PropiertiesSaveProperties(Sender: TObject);
   private
     FCabeceraGenName: string;
     FDetalleGenName: string;
     FEstado: TEstadoComprobante;
     FPersonas: TPersonasDataModule;
     FTalonarioID: string;
+    FTalonarios: TTalonarioDataModule;
     procedure SetCabeceraGenName(AValue: string);
     procedure SetDetalleGenName(AValue: string);
     procedure SetEstado(AValue: TEstadoComprobante);
     procedure SetPersonas(AValue: TPersonasDataModule);
     procedure SetTalonarioID(AValue: string);
+    procedure SetTalonarios(AValue: TTalonarioDataModule);
   public
     procedure AfterConstruction; override;
   published
@@ -147,6 +152,7 @@ type
     procedure NuevoComprobanteDetalle;
     procedure OnComprobanteError(Sender: TObject; {%H-}E: EDatabaseError); virtual;
     procedure qryDetalleAfterInsert(DataSet: TDataSet); virtual;
+    procedure qryDetalleAfterPost(DataSet: TDataSet);
     procedure qryDetalleBeforePost(DataSet: TDataSet);
     { Procedimiento para mover el dataset de detalle cuando se mueve el de
       cabecera. }
@@ -157,10 +163,12 @@ type
     procedure SetNumero; virtual; abstract;
     procedure SetTipoComprobante(ATipoComprobante: TTipoDocumento);
     function GetMontoComprobante: double;
+    function GetTalonarioDataSource: TDataSource;
     property Estado: TEstadoComprobante read FEstado write SetEstado;
     property Personas: TPersonasDataModule read FPersonas write SetPersonas;
     property CabeceraGenName: string read FCabeceraGenName write SetCabeceraGenName;
     property DetalleGenName: string read FDetalleGenName write SetDetalleGenName;
+    property Talonarios: TTalonarioDataModule read FTalonarios write SetTalonarios;
     property TalonarioID: string read FTalonarioID write SetTalonarioID;
   end;
 
@@ -178,6 +186,7 @@ begin
   inherited;
   FPersonas := TPersonasDataModule.Create(Self, MasterDataModule);
   //FPersonas.SetReadOnly(True);
+  FTalonarios := TTalonarioDataModule.Create(Self, MasterDataModule);
   dsPersonasRoles.DataSet := FPersonas.PersonasRoles;
   OnError := @OnComprobanteError;
   QryList.Add(TObject(qryCabecera));
@@ -191,15 +200,19 @@ begin
   AuxQryList.Add(TObject(FPersonas.Persona));
   AuxQryList.Add(TObject(FPersonas.Direccion));
   AuxQryList.Add(TObject(FPersonas.Telefono));
+  AuxQryList.Add(TObject(FTalonarios.TalonarioView));
   // ponemos en el menu de talonarios los talonarios
-
+  Propierties.Restore;
 end;
 
 procedure TComprobanteDataModule.DataModuleDestroy(Sender: TObject);
 begin
+  Propierties.Save;
   inherited;
   if Assigned(FPersonas) then
     FreeAndNil(FPersonas);
+  if Assigned(FTalonarios) then
+    FreeAndNil(FTalonarios);
 end;
 
 procedure TComprobanteDataModule.qryDetalleAfterInsert(DataSet: TDataSet);
@@ -371,6 +384,13 @@ begin
   tal.Close;
   tal.ParamByName('tipocomprobante').AsString := x;
   tal.Open;
+  with Talonarios do
+  begin
+    TalonarioView.Close;
+    TalonarioView.ServerFilter := 'TIPO = ' + x;
+    TalonarioView.ServerFiltered := True;
+    TalonarioView.Open;
+  end;
 end;
 
 function TComprobanteDataModule.GetMontoComprobante: double;
@@ -386,6 +406,11 @@ begin
       raise;
     end;
   end;
+end;
+
+function TComprobanteDataModule.GetTalonarioDataSource: TDataSource;
+begin
+  Result := Talonarios.dsTalonarioView;
 end;
 
 procedure TComprobanteDataModule.NuevoComprobante;
@@ -489,6 +514,16 @@ begin
   ActualizarTotales;
 end;
 
+procedure TComprobanteDataModule.PropiertiesSaveProperties(Sender: TObject);
+begin
+  Propierties.StoredValues.Items[0].Value := TalonarioID;
+end;
+
+procedure TComprobanteDataModule.PropiertiesRestoreProperties(Sender: TObject);
+begin
+  TalonarioID := Propierties.StoredValues.Items[0].Value;
+end;
+
 procedure TComprobanteDataModule.SetCabeceraGenName(AValue: string);
 begin
   if FCabeceraGenName = AValue then
@@ -515,6 +550,13 @@ begin
   if FTalonarioID = AValue then
     Exit;
   FTalonarioID := AValue;
+end;
+
+procedure TComprobanteDataModule.SetTalonarios(AValue: TTalonarioDataModule);
+begin
+  if FTalonarios = AValue then
+    Exit;
+  FTalonarios := AValue;
 end;
 
 function TComprobanteDataModule.ArePendingChanges: boolean;

@@ -107,7 +107,7 @@ begin
   SetTipoComprobante(doRecibo);
   CabeceraGenName := rsReciboGenName;
   DetalleGenName := rsReciboDetGenName;
-  TalonarioID := TALONARIO_RE;
+  //TalonarioID := TALONARIO_RE;
   CheckPrecioUnitario := True;
 end;
 

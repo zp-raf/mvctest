@@ -16,6 +16,9 @@ resourcestring
   rsNoSeEncontroDoc = 'No se encontro el documento';
   rsNoSePuedeSetFac = 'No se puede completar la accion. Se esta editando un comprobante';
   rsTalonarioNoEncontrado = 'Talonario no encontrado';
+  rsTalonarioNoSeleccionado =
+    'No hay ningun talonario guardado en la configuracion. ' +
+    'Seleccione uno en el menu Opciones';
   // Controller related
   rsExitQuestion = '¿Está seguro que desea salir?';
   rsExitText = 'Salir';
@@ -62,8 +65,8 @@ resourcestring
   rsRollbackPaymentEntryError =
     'Error al buscar asiento: el asiento no existe' + ' o existe una inconsisitencia';
   rsUnsupportedDocType = 'Tipo de documento no admitido';
-  rsCreatingDoc = 'Comprobante en proceso de creacion, no se puede registrar '
-    + 'movimiento';
+  rsCreatingDoc = 'Comprobante en proceso de creacion, no se puede registrar ' +
+    'movimiento';
 
 type
 

@@ -8,13 +8,14 @@ uses
   SysUtils, Graphics, Menus, Controls, sgcdTypes,
   StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
   frmproceso, comprobantectrl, frmcomprobantedatamodule,
-  frmbuscarpersonas, ctrl;
+  frmbuscarpersonas, ctrl, Classes;
 
 type
 
   { TProcesoComprobante }
 
   TProcesoComprobante = class(TProceso)
+    procedure MenuItemTalonarioClick(Sender: TObject);
   private
     FPopup: TPopupSeleccionPersonas;
   protected
@@ -44,7 +45,6 @@ type
     LabelTelefono: TLabel;
     LabelFecha: TLabel;
     LabelNombre: TLabel;
-    MenuItem1: TMenuItem;
     MenuItemTalonario: TMenuItem;
     MenuItemOpciones: TMenuItem;
     PairSplitterDetSubTot: TPairSplitter;
@@ -77,6 +77,11 @@ implementation
 {$R *.lfm}
 
 { TProcesoComprobante }
+
+procedure TProcesoComprobante.MenuItemTalonarioClick(Sender: TObject);
+begin
+  GetComprobanteController.SeleccionarTalonario(Self);
+end;
 
 function TProcesoComprobante.GetABMController: TABMController;
 begin

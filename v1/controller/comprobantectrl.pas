@@ -5,7 +5,8 @@ unit comprobantectrl;
 interface
 
 uses
-  mvc, ctrl, frmcomprobantedatamodule, sgcdTypes, personactrl, SysUtils;
+  mvc, ctrl, frmcomprobantedatamodule, sgcdTypes, personactrl, SysUtils,
+  frmseleccionartalonario, talonarioctrl, Controls;
 
 type
 
@@ -24,6 +25,7 @@ type
     procedure CerrarComprobante(Sender: IView); virtual; abstract;
     procedure NuevoComprobante(Sender: IView); virtual; abstract;
     procedure NuevoComprobanteDetalle(Sender: IView); virtual;
+    procedure SeleccionarTalonario(Sender: IFormView);
     function GetEstadoComprobante(Sender: IView): TEstadoComprobante;
     property BuscarPersonaController: TBuscarPersonaController
       read FBuscarPersonaController write SetBuscarPersonaController;
@@ -68,6 +70,26 @@ end;
 procedure TComprobanteController.NuevoComprobanteDetalle(Sender: IView);
 begin
   GetComprobanteModel.NewDetailRecord;
+end;
+
+procedure TComprobanteController.SeleccionarTalonario(Sender: IFormView);
+begin
+  SeleccionTalonario := TSeleccionarTalonario.Create(Sender,
+    TSeleccionTalonarios.Create(GetComprobanteModel.Talonarios));
+  try
+    case SeleccionTalonario.ShowModal of
+      mrOk:
+      begin
+        GetComprobanteModel.TalonarioID :=
+          GetComprobanteModel.Talonarios.TalonarioView.FieldByName('ID').AsString;
+      end;
+      mrCancel:
+      begin
+
+      end;
+    end;
+  finally
+  end;
 end;
 
 function TComprobanteController.GetEstadoComprobante(Sender: IView): TEstadoComprobante;

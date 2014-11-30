@@ -1,0 +1,570 @@
+inherited TalonarioDataModule: TTalonarioDataModule
+  OnCreate = DataModuleCreate
+  Height = 242
+  HorizontalOffset = 793
+  VerticalOffset = 447
+  Width = 306
+  object Talonario: TSQLQuery[0]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIPO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'RUBRO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TELEFONO'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'VALIDO_DESDE'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO_HASTA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SUCURSAL'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CAJA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO_INI'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NUMERO_FIN'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'COPIAS'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from talonario'
+    )
+    Params = <>
+    left = 93
+    top = 62
+    object TalonarioID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object TalonarioTIPO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TIPO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object TalonarioNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object TalonarioRUBRO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUBRO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object TalonarioDIRECCION: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'DIRECCION'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 512
+    end
+    object TalonarioTELEFONO: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'TELEFONO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 512
+    end
+    object TalonarioTIMBRADO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object TalonarioVALIDO_DESDE: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO_DESDE'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object TalonarioVALIDO_HASTA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO_HASTA'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object TalonarioRUC: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUC'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TalonarioSUCURSAL: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'SUCURSAL'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object TalonarioCAJA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CAJA'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object TalonarioNUMERO_INI: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO_INI'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object TalonarioNUMERO_FIN: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO_FIN'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object TalonarioCOPIAS: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'COPIAS'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object TalonarioACTIVO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVO'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object dsTalonario: TDataSource[1]
+    DataSet = Talonario
+    left = 102
+    top = 133
+  end
+  object TalonarioView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIPO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE_TIPO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'RUBRO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TELEFONO'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'VALIDO_DESDE'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO_HASTA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SUCURSAL'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CAJA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO_INI'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NUMERO_FIN'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'COPIAS'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_talonarios_activos'
+    )
+    Params = <>
+    left = 208
+    top = 40
+    object TalonarioViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TalonarioViewTIPO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TIPO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TalonarioViewNOMBRE_TIPO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_TIPO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TalonarioViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TalonarioViewRUBRO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUBRO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TalonarioViewDIRECCION: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'DIRECCION'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 512
+    end
+    object TalonarioViewTELEFONO: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'TELEFONO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 512
+    end
+    object TalonarioViewTIMBRADO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TalonarioViewVALIDO_DESDE: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO_DESDE'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TalonarioViewVALIDO_HASTA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO_HASTA'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TalonarioViewRUC: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUC'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TalonarioViewSUCURSAL: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'SUCURSAL'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TalonarioViewCAJA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CAJA'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object TalonarioViewNUMERO_INI: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO_INI'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TalonarioViewNUMERO_FIN: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO_FIN'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object TalonarioViewCOPIAS: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'COPIAS'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsTalonarioView: TDataSource[3]
+    DataSet = TalonarioView
+    left = 222
+    top = 131
+  end
+end

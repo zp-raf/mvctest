@@ -2,6 +2,7 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
   Left = 737
   Top = 188
   Caption = 'Nota de credito compra'
+  ClientHeight = 730
   inherited ButtonPanel1: TButtonPanel
     OKButton.OnClick = OKButtonClick
   end
@@ -103,7 +104,7 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
   inherited ButtonSeleccionarPers: TButton
     AnchorSideLeft.Control = ButtonSeleccionarFac
     AnchorSideTop.Control = ButtonSeleccionarFac
-    Left = 282
+    Left = 290
     OnClick = ButtonSeleccionarPersClick
     Visible = True
   end
@@ -112,5 +113,12 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = ButtonLimpiar
     Left = 158
+  end
+  inherited MainMenu: TMainMenu
+    inherited MenuItemOpciones: TMenuItem
+      inherited MenuItemTalonario: TMenuItem
+        Enabled = False
+      end
+    end
   end
 end

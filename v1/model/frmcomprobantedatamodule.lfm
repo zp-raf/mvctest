@@ -980,4 +980,16 @@ inherited ComprobanteDataModule: TComprobanteDataModule
       Required = True
     end
   end
+  object Propierties: TXMLPropStorage[16]
+    StoredValues = <    
+      item
+        Name = 'talonarioid'
+        KeyString = 'hola'
+      end>
+    FileName = 'conf.xml'
+    OnSaveProperties = PropiertiesSaveProperties
+    OnRestoreProperties = PropiertiesRestoreProperties
+    left = 380
+    top = 55
+  end
 end
