@@ -103,6 +103,7 @@ type
     procedure academiasClick(Sender: TObject);
     procedure allpersonasClick(Sender: TObject);
     function GetCustomController: TPrincipalController;
+    procedure talonariosClick(Sender: TObject);
     procedure trabajosClick(Sender: TObject);
   end;
 
@@ -267,6 +268,11 @@ end;
 function TPrincipal1.GetCustomController: TPrincipalController;
 begin
   Result := (GetController as TPrincipalController);
+end;
+
+procedure TPrincipal1.talonariosClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMTalonariosForm(Self);
 end;
 
 procedure TPrincipal1.trabajosClick(Sender: TObject);

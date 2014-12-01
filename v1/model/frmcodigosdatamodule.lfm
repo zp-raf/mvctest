@@ -1,8 +1,8 @@
 inherited CodigosDataModule: TCodigosDataModule
   OnCreate = DataModuleCreate
   Height = 199
-  HorizontalOffset = 801
-  VerticalOffset = 478
+  HorizontalOffset = 803
+  VerticalOffset = 480
   Width = 182
   object dsCodigos: TDataSource[0]
     DataSet = Codigos
@@ -10,7 +10,6 @@ inherited CodigosDataModule: TCodigosDataModule
     top = 96
   end
   object Codigos: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'VALOR'

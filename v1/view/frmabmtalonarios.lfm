@@ -1,0 +1,346 @@
+inherited AbmTalonarios: TAbmTalonarios
+  Left = 542
+  Top = 278
+  ClientHeight = 461
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = TalonarioDataModule.dsTalonario
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = TalonarioDataModule.dsTalonario
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEditNombre: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 73
+      Width = 315
+      DataField = 'NOMBRE'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object DBEditIni: TDBEdit[1]
+      Left = 216
+      Height = 23
+      Top = 264
+      Width = 80
+      DataField = 'NUMERO_INI'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object DBEditFin: TDBEdit[2]
+      Left = 320
+      Height = 23
+      Top = 264
+      Width = 80
+      DataField = 'NUMERO_FIN'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object DBEditTimbrado: TDBEdit[3]
+      Left = 251
+      Height = 23
+      Top = 217
+      Width = 205
+      DataField = 'TIMBRADO'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 3
+    end
+    object DBEditRUC: TDBEdit[4]
+      Left = 16
+      Height = 23
+      Top = 217
+      Width = 216
+      DataField = 'RUC'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 4
+    end
+    object DBEditRubro: TDBEdit[5]
+      Left = 352
+      Height = 23
+      Top = 72
+      Width = 272
+      DataField = 'RUBRO'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 5
+    end
+    object DBEditTelefono: TDBEdit[6]
+      Left = 16
+      Height = 23
+      Top = 169
+      Width = 608
+      DataField = 'TELEFONO'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 6
+    end
+    object DBEditCaja: TDBEdit[7]
+      Left = 424
+      Height = 23
+      Top = 264
+      Width = 80
+      DataField = 'CAJA'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 7
+    end
+    object DBEditSucursal: TDBEdit[8]
+      Left = 528
+      Height = 23
+      Top = 264
+      Width = 80
+      DataField = 'SUCURSAL'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 8
+    end
+    object DBEditDesde: TDBEdit[9]
+      Left = 16
+      Height = 23
+      Top = 264
+      Width = 80
+      DataField = 'VALIDO_DESDE'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 9
+    end
+    object DBEditHasta: TDBEdit[10]
+      Left = 112
+      Height = 23
+      Top = 264
+      Width = 80
+      DataField = 'VALIDO_HASTA'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 10
+    end
+    object DBEditDireccion: TDBEdit[11]
+      Left = 16
+      Height = 23
+      Top = 120
+      Width = 608
+      DataField = 'DIRECCION'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 11
+    end
+    object DBEditCopias: TDBEdit[12]
+      Left = 16
+      Height = 23
+      Top = 312
+      Width = 80
+      DataField = 'COPIAS'
+      DataSource = TalonarioDataModule.dsTalonario
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 12
+    end
+    object DBCheckBoxActivo: TDBCheckBox[13]
+      Left = 112
+      Height = 23
+      Top = 312
+      Width = 90
+      Caption = 'Activo'
+      DataField = 'ACTIVO'
+      DataSource = TalonarioDataModule.dsTalonario
+      TabOrder = 13
+      ValueChecked = '1'
+      ValueUnchecked = 'False'
+    end
+    object DBLookupComboBoxTipo: TDBLookupComboBox[14]
+      Left = 16
+      Height = 23
+      Top = 25
+      Width = 256
+      DataField = 'TIPO'
+      DataSource = TalonarioDataModule.dsTalonario
+      KeyField = 'VALOR'
+      ListField = 'SIGNIFICADO'
+      ListFieldIndex = 0
+      ListSource = CodigosDataModule.dsCodigos
+      LookupCache = False
+      OnEditingDone = DBLookupComboBoxTipoEditingDone
+      TabOrder = 14
+    end
+    object LabelNombre: TLabel[15]
+      AnchorSideLeft.Control = DBEditNombre
+      AnchorSideBottom.Control = DBEditNombre
+      Left = 16
+      Height = 15
+      Top = 58
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object LabelIni: TLabel[16]
+      AnchorSideLeft.Control = DBEditIni
+      AnchorSideBottom.Control = DBEditIni
+      Left = 216
+      Height = 15
+      Top = 249
+      Width = 78
+      Anchors = [akLeft, akBottom]
+      Caption = 'Numero inicial'
+      ParentColor = False
+    end
+    object LabelFin: TLabel[17]
+      AnchorSideLeft.Control = DBEditFin
+      AnchorSideBottom.Control = DBEditFin
+      Left = 320
+      Height = 15
+      Top = 249
+      Width = 70
+      Anchors = [akLeft, akBottom]
+      Caption = 'Numero final'
+      ParentColor = False
+    end
+    object LabelTimbrado: TLabel[18]
+      AnchorSideLeft.Control = DBEditTimbrado
+      AnchorSideBottom.Control = DBEditTimbrado
+      Left = 251
+      Height = 15
+      Top = 202
+      Width = 52
+      Anchors = [akLeft, akBottom]
+      Caption = 'Timbrado'
+      ParentColor = False
+    end
+    object LabelRUC: TLabel[19]
+      AnchorSideLeft.Control = DBEditRUC
+      AnchorSideBottom.Control = DBEditRUC
+      Left = 16
+      Height = 15
+      Top = 202
+      Width = 23
+      Anchors = [akLeft, akBottom]
+      Caption = 'RUC'
+      ParentColor = False
+    end
+    object LabelRubro: TLabel[20]
+      AnchorSideLeft.Control = DBEditRubro
+      AnchorSideBottom.Control = DBEditRubro
+      Left = 352
+      Height = 15
+      Top = 57
+      Width = 32
+      Anchors = [akLeft, akBottom]
+      Caption = 'Rubro'
+      ParentColor = False
+    end
+    object LabelTelefono: TLabel[21]
+      AnchorSideLeft.Control = DBEditTelefono
+      AnchorSideBottom.Control = DBEditTelefono
+      Left = 16
+      Height = 15
+      Top = 154
+      Width = 47
+      Anchors = [akLeft, akBottom]
+      Caption = 'Telefono'
+      ParentColor = False
+    end
+    object LabelCaja: TLabel[22]
+      AnchorSideLeft.Control = DBEditCaja
+      AnchorSideBottom.Control = DBEditCaja
+      Left = 424
+      Height = 15
+      Top = 249
+      Width = 23
+      Anchors = [akLeft, akBottom]
+      Caption = 'Caja'
+      ParentColor = False
+    end
+    object LabelSucursal: TLabel[23]
+      AnchorSideLeft.Control = DBEditSucursal
+      AnchorSideBottom.Control = DBEditSucursal
+      Left = 528
+      Height = 15
+      Top = 249
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Sucursal'
+      ParentColor = False
+    end
+    object LabelDesde: TLabel[24]
+      AnchorSideLeft.Control = DBEditDesde
+      AnchorSideBottom.Control = DBEditDesde
+      Left = 16
+      Height = 15
+      Top = 249
+      Width = 67
+      Anchors = [akLeft, akBottom]
+      Caption = 'Valido desde'
+      ParentColor = False
+    end
+    object LabelHasta: TLabel[25]
+      AnchorSideLeft.Control = DBEditHasta
+      AnchorSideBottom.Control = DBEditHasta
+      Left = 112
+      Height = 15
+      Top = 249
+      Width = 64
+      Anchors = [akLeft, akBottom]
+      Caption = 'Valido hasta'
+      ParentColor = False
+    end
+    object LabelDireccion: TLabel[26]
+      AnchorSideLeft.Control = DBEditDireccion
+      AnchorSideBottom.Control = DBEditDireccion
+      Left = 16
+      Height = 15
+      Top = 105
+      Width = 50
+      Anchors = [akLeft, akBottom]
+      Caption = 'Direccion'
+      ParentColor = False
+    end
+    object LabelCopias: TLabel[27]
+      AnchorSideLeft.Control = DBEditCopias
+      AnchorSideBottom.Control = DBEditCopias
+      Left = 16
+      Height = 15
+      Top = 297
+      Width = 36
+      Anchors = [akLeft, akBottom]
+      Caption = 'Copias'
+      ParentColor = False
+    end
+    object LabelTipoTalonario: TLabel[28]
+      AnchorSideLeft.Control = DBLookupComboBoxTipo
+      AnchorSideBottom.Control = DBLookupComboBoxTipo
+      Left = 16
+      Height = 15
+      Top = 10
+      Width = 77
+      Anchors = [akLeft, akBottom]
+      Caption = 'Tipo Talonario'
+      ParentColor = False
+    end
+  end
+end

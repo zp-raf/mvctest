@@ -97,7 +97,11 @@ uses
   frmprocesorecibocompra,
   reciboctrl,
   // nota credito compra
-  frmprocesonotacreditocompra;
+  frmprocesonotacreditocompra,
+  // ABM talonarios
+  frmtalonariodatamodule,
+  frmabmtalonarios,
+  talonarioctrl;
 
 type
 
@@ -129,6 +133,7 @@ type
     procedure OpenABMModulos(Sender: IFormView);
     procedure OpenReciboCompraForm(Sender: IFormView);
     procedure OpenNotaCreditoCompraForm(Sender: IFormView);
+    procedure OpenABMTalonariosForm(Sender: IFormView);
   end;
 
 var
@@ -329,6 +334,14 @@ begin
     TNotaCreditoDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoNotaCreditoCompra.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoNotaCreditoCompra as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMTalonariosForm(Sender: IFormView);
+begin
+  AbmTalonarios := TAbmTalonarios.Create(Sender, TTalonarioController.Create(
+    TTalonarioDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  AbmTalonarios.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmTalonarios as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

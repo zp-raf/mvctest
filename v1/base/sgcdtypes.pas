@@ -47,6 +47,10 @@ const
 
 type
 
+  // Tipos de talonarios
+  TTipoTalonario = (taFactura = FACTURA, taRecibo = RECIBO, taNotaCredito =
+    NOTA_CREDITO);
+
   // Los roles
   TRolPersona = (roCualquiera, roExterno, roVeedor, roInterventor, roEncargado,
     roProveedor, roAlumno, roEmpleado, roAdministrativo, roProfesor, roCoordinador);

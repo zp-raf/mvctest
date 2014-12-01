@@ -168,6 +168,7 @@ inherited Principal1: TPrincipal1
         end
         object talonarios: TMenuItem
           Caption = 'ABM &Talonarios'
+          OnClick = talonariosClick
         end
         object MenuItemABMCuentas: TMenuItem
           Caption = 'ABM C&uentas'

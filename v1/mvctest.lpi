@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="112">
+    <Units Count="113">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -831,6 +831,14 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmtalonariodatamodule"/>
       </Unit111>
+      <Unit112>
+        <Filename Value="view\frmabmtalonarios.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmTalonarios"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmtalonarios"/>
+      </Unit112>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -49,6 +49,7 @@ type
     procedure OpenDataSets(Sender: IView);
     procedure OK(Sender: IView); virtual;
     procedure RefreshData(Sender: IView);
+    procedure RequestUpdate(Sender: IView);
     procedure Rollback(Sender: IView);
     procedure ShowHelp(Sender: IView); virtual;
     procedure ShowHelp(Sender: IFormView); virtual;
@@ -110,6 +111,11 @@ end;
 procedure TController.RefreshData(Sender: IView);
 begin
   GetModel.RefreshDataSets;
+end;
+
+procedure TController.RequestUpdate(Sender: IView);
+begin
+  (GetModel.MasterDataModule as ISubject).Notify;
 end;
 
 procedure TController.Rollback(Sender: IView);

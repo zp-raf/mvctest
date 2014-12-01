@@ -5,7 +5,7 @@ unit talonarioctrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl, DB, frmtalonariodatamodule;
+  Classes, SysUtils, ctrl, DB, frmtalonariodatamodule, sgcdTypes;
 
 type
 
@@ -16,6 +16,7 @@ type
     function GetCustomModel: TTalonarioDataModule;
   public
     //function GetTalonarioDataSource: TDataSource;
+    function GetTipoTalonario: TTipoTalonario;
   end;
 
   { TSeleccionTalonarios }
@@ -40,6 +41,11 @@ end;
 function TTalonarioController.GetCustomModel: TTalonarioDataModule;
 begin
   Result := GetModel as TTalonarioDataModule;
+end;
+
+function TTalonarioController.GetTipoTalonario: TTipoTalonario;
+begin
+  Result := GetCustomModel.GetTipoTalonario;
 end;
 
 //function TTalonarioController.GetTalonarioDataSource: TDataSource;

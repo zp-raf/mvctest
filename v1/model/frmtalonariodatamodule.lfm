@@ -1,8 +1,9 @@
 inherited TalonarioDataModule: TTalonarioDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 242
-  HorizontalOffset = 793
-  VerticalOffset = 447
+  HorizontalOffset = 795
+  VerticalOffset = 449
   Width = 306
   object Talonario: TSQLQuery[0]
     FieldDefs = <    
@@ -285,7 +286,6 @@ inherited TalonarioDataModule: TTalonarioDataModule
     top = 133
   end
   object TalonarioView: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
