@@ -101,7 +101,11 @@ uses
   // ABM talonarios
   frmtalonariodatamodule,
   frmabmtalonarios,
-  talonarioctrl;
+  talonarioctrl,
+  // multas
+  frmmultasdatamodule,
+  frmmultas,
+  multactrl;
 
 type
 
@@ -134,6 +138,7 @@ type
     procedure OpenReciboCompraForm(Sender: IFormView);
     procedure OpenNotaCreditoCompraForm(Sender: IFormView);
     procedure OpenABMTalonariosForm(Sender: IFormView);
+    procedure OpenMultasForm(Sender: IFormView);
   end;
 
 var
@@ -342,6 +347,15 @@ begin
     TTalonarioDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
   AbmTalonarios.Show;
   (GetModel.MasterDataModule as ISubject).Attach(AbmTalonarios as IObserver);
+end;
+
+procedure TPrincipalController.OpenMultasForm(Sender: IFormView);
+begin
+  ProcesoMultas := TProcesoMultas.Create(Sender,
+    TMultaController.Create(TMultasDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoMultas.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoMultas as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

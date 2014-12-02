@@ -60,8 +60,6 @@ type
     DeudaVENCIMIENTO: TDateField;
     dsDeuda: TDatasource;
     Deuda: TSQLQuery;
-    procedure DataModuleDestroy(Sender: TObject);
-    procedure DeudaAfterPost(DataSet: TDataSet);
   private
     FArancel: TArancelesDataModule;
     FAsientos: TAsientosDataModule;
@@ -84,11 +82,13 @@ type
   published
     procedure Connect; override;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DataModuleDestroy(Sender: TObject);
+    procedure DeudaAfterPost(DataSet: TDataSet);
     procedure DeudaBeforePost(DataSet: TDataSet);
     procedure DeudaNewRecord(DataSet: TDataSet);
     procedure Disconnect; override;
     procedure EliminarDeuda(ADeudaID: string);
-    // cuotas por defecto
+    // cuotas por defecto.
     procedure GenerarCuotas; overload;
     // sin vencimiento
     procedure GenerarCuotas(ACantCuotas: integer); overload;
@@ -322,9 +322,13 @@ begin
     MESES: pUnidadVenc := ufMeses;
     ANHOS: pUnidadVenc := ufAnhos;
     else
-      raise Exception.Create('Unidad de fecha no definida');
+      if not UnidadVenc = -1 then
+        raise Exception.Create('Unidad de fecha no definida');
   end;
-  GeneradorCuotas(CantCuotas, pUnidadVenc, CantVenc);
+  // si no esta definido el vencimiento se toma como sin vencimiento y ya no se
+  // necesita mas hacer nada
+  if UnidadVenc <> -1 then
+    GeneradorCuotas(CantCuotas, pUnidadVenc, CantVenc);
 end;
 
 procedure TGeneraDeudaDataModule.GenerarCuotas(ACantCuotas: integer);

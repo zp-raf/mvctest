@@ -1,0 +1,73 @@
+inherited ProcesoMultas: TProcesoMultas
+  Left = 530
+  Height = 480
+  Top = 166
+  Width = 640
+  ClientHeight = 460
+  ClientWidth = 640
+  Constraints.MinHeight = 480
+  Constraints.MinWidth = 640
+  OnClose = FormClose
+  inherited StatusBar1: TStatusBar
+    Top = 437
+    Width = 640
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 397
+    Width = 628
+    OKButton.OnClick = OKButtonClick
+    ShowButtons = [pbOK, pbClose, pbHelp]
+  end
+  object DBGrid1: TDBGrid[2]
+    Left = 8
+    Height = 328
+    Top = 64
+    Width = 623
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'NOMBRE'
+        Width = 112
+        FieldName = 'NOMBRE'
+      end    
+      item
+        Title.Caption = 'MONTO'
+        Width = 60
+        FieldName = 'MONTO'
+      end    
+      item
+        Title.Caption = 'DESCRIPCION'
+        Width = 235
+        FieldName = 'DESCRIPCION'
+      end>
+    DataSource = MultasDataModule.ds
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+    ReadOnly = True
+    TabOrder = 1
+  end
+  object LabeledEdit1: TLabeledEdit[3]
+    AnchorSideLeft.Control = DBGrid1
+    AnchorSideBottom.Control = DBGrid1
+    Left = 8
+    Height = 23
+    Top = 33
+    Width = 336
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 8
+    EditLabel.AnchorSideLeft.Control = LabeledEdit1
+    EditLabel.AnchorSideRight.Control = LabeledEdit1
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = LabeledEdit1
+    EditLabel.Left = 8
+    EditLabel.Height = 15
+    EditLabel.Top = 15
+    EditLabel.Width = 336
+    EditLabel.Caption = 'Escriba un palabra para filtrar los resultados'
+    EditLabel.ParentColor = False
+    TabOrder = 2
+    OnChange = LabeledEdit1Change
+  end
+  inherited MainMenu: TMainMenu[4]
+  end
+end

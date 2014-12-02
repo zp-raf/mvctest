@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="113">
+    <Units Count="116">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -839,6 +839,27 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmtalonarios"/>
       </Unit112>
+      <Unit113>
+        <Filename Value="view\frmmultas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoMultas"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmmultas"/>
+      </Unit113>
+      <Unit114>
+        <Filename Value="model\frmmultasdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MultasDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmmultasdatamodule"/>
+      </Unit114>
+      <Unit115>
+        <Filename Value="controller\multactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="multactrl"/>
+      </Unit115>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

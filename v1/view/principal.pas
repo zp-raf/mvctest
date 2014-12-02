@@ -235,7 +235,7 @@ end;
 
 procedure TPrincipal1.multasClick(Sender: TObject);
 begin
-
+  GetCustomController.OpenMultasForm(Self);
 end;
 
 procedure TPrincipal1.notaCreditoClick(Sender: TObject);
