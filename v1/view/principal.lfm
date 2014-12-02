@@ -109,6 +109,7 @@ inherited Principal1: TPrincipal1
         end
         object periodos: TMenuItem
           Caption = 'ABM &Periodos Lectivos'
+          OnClick = periodosClick
         end
         object modulos: TMenuItem
           Caption = 'ABM &Módulos'
@@ -116,12 +117,15 @@ inherited Principal1: TPrincipal1
         end
         object grupos: TMenuItem
           Caption = 'ABM &Grupos'
+          OnClick = gruposClick
         end
         object secciones: TMenuItem
           Caption = 'ABM &Nombres de Secciones'
+          OnClick = seccionesClick
         end
         object materias: TMenuItem
           Caption = 'ABM Ma&terias'
+          OnClick = materiasClick
         end
         object desarrolloMaterias: TMenuItem
           Caption = 'ABM &Secciones'

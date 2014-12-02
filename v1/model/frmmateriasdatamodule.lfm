@@ -1,11 +1,11 @@
 inherited MateriasDataModule: TMateriasDataModule
   OnCreate = DataModuleCreate
-  Height = 326
+  OnDestroy = DataModuleDestroy
+  Height = 426
   HorizontalOffset = 852
   VerticalOffset = 370
-  Width = 391
+  Width = 528
   object Materia: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -91,6 +91,7 @@ inherited MateriasDataModule: TMateriasDataModule
         Precision = -1
         Size = 255
       end>
+    AfterScroll = MateriaAfterScroll
     OnNewRecord = MateriaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -98,7 +99,7 @@ inherited MateriasDataModule: TMateriasDataModule
       'select * from materia'
     )
     Params = <>
-    left = 78
+    left = 80
     top = 36
     object MateriaID: TLongintField
       DisplayWidth = 10
@@ -129,6 +130,7 @@ inherited MateriasDataModule: TMateriasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = MateriaGRUPOIDChange
     end
     object MateriaNOMBRE: TStringField
       DisplayWidth = 255
@@ -257,7 +259,6 @@ inherited MateriasDataModule: TMateriasDataModule
     top = 112
   end
   object MateriasDetView: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -362,8 +363,8 @@ inherited MateriasDataModule: TMateriasDataModule
       'select * from v_materias_det'
     )
     Params = <>
-    left = 203
-    top = 56
+    left = 224
+    top = 36
     object MateriasDetViewID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -540,7 +541,232 @@ inherited MateriasDataModule: TMateriasDataModule
   end
   object dsMateriasDetView: TDataSource[3]
     DataSet = MateriasDetView
-    left = 215
-    top = 133
+    left = 232
+    top = 112
+  end
+  object Prerrequisitos: TSQLQuery[4]
+    FieldDefs = <    
+      item
+        Name = 'MATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MATERIAID_PRE'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    AfterInsert = PrerrequisitosAfterInsert
+    AfterPost = PrerrequisitosAfterPost
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from prerrequisitos'
+      'where materiaid = :materiaid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'materiaid'
+        ParamType = ptInput
+      end>
+    left = 94
+    top = 215
+    object PrerrequisitosMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATERIAID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object PrerrequisitosMATERIAID_PRE: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MATERIAID_PRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object StringFieldMateria: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'MATERIA'
+      Index = 2
+      KeyFields = 'MATERIAID_PRE'
+      LookupCache = False
+      LookupDataSet = GetMateriasPrerreq
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_MAT'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsPrerrequisitos: TDataSource[5]
+    DataSet = Prerrequisitos
+    left = 106
+    top = 274
+  end
+  object GetMateriasPrerreq: TSQLQuery[6]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'GRUPOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE_GRUPO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_MAT'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE_MOD'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'MODULOGENERAL'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from get_materias_prerreq(:GID)'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'GID'
+        ParamType = ptInput
+      end>
+    left = 264
+    top = 224
+    object GetMateriasPrerreqID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object GetMateriasPrerreqMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object GetMateriasPrerreqGRUPOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'GRUPOID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object GetMateriasPrerreqNOMBRE_GRUPO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_GRUPO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object GetMateriasPrerreqNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object GetMateriasPrerreqNOMBRE_MAT: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MAT'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object GetMateriasPrerreqNOMBRE_MOD: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE_MOD'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object GetMateriasPrerreqMODULOGENERAL: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOGENERAL'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsGetMateriasPrerreq: TDataSource[7]
+    DataSet = GetMateriasPrerreq
+    left = 272
+    top = 296
   end
 end

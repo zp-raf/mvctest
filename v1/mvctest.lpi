@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="116">
+    <Units Count="127">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -860,6 +860,82 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="multactrl"/>
       </Unit115>
+      <Unit116>
+        <Filename Value="model\frmperiodosdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PeriodosDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmperiodosdatamodule"/>
+      </Unit116>
+      <Unit117>
+        <Filename Value="view\frmabmperiodos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmPeriodos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmperiodos"/>
+      </Unit117>
+      <Unit118>
+        <Filename Value="controller\periodoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="periodoctrl"/>
+      </Unit118>
+      <Unit119>
+        <Filename Value="model\frmgrupodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="GrupoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmgrupodatamodule"/>
+      </Unit119>
+      <Unit120>
+        <Filename Value="view\frmbabmgrupos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmGrupos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmbabmgrupos"/>
+      </Unit120>
+      <Unit121>
+        <Filename Value="controller\gruposctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="gruposctrl"/>
+      </Unit121>
+      <Unit122>
+        <Filename Value="controller\seccionctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="seccionctrl"/>
+      </Unit122>
+      <Unit123>
+        <Filename Value="view\frmabmsecciones.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmSecciones"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmsecciones"/>
+      </Unit123>
+      <Unit124>
+        <Filename Value="controller\materiactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="materiactrl"/>
+      </Unit124>
+      <Unit125>
+        <Filename Value="view\frmabmmaterias.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmMaterias"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmmaterias"/>
+      </Unit125>
+      <Unit126>
+        <Filename Value="view\frmseleccionprerreq.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="SeleccionarPrerrequisitos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmseleccionprerreq"/>
+      </Unit126>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

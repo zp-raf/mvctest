@@ -105,7 +105,23 @@ uses
   // multas
   frmmultasdatamodule,
   frmmultas,
-  multactrl;
+  multactrl,
+  // periodos lectivos
+  frmperiodosdatamodule,
+  frmabmperiodos,
+  periodoctrl,
+  // abm grupos
+  frmgrupodatamodule,
+  frmbabmgrupos,
+  gruposctrl,
+  // abm secciones
+  frmsecciondatamodule,
+  frmabmsecciones,
+  seccionctrl,
+  // abm materias
+  frmmateriasdatamodule,
+  frmabmmaterias,
+  materiactrl;
 
 type
 
@@ -139,6 +155,10 @@ type
     procedure OpenNotaCreditoCompraForm(Sender: IFormView);
     procedure OpenABMTalonariosForm(Sender: IFormView);
     procedure OpenMultasForm(Sender: IFormView);
+    procedure OpenABMPeriodos(Sender: IFormView);
+    procedure OpenABMGruposForm(Sender: IFormView);
+    procedure OpenABMSeccionesForm(Sender: IFormView);
+    procedure OpenABMMateriasForm(Sender: IFormView);
   end;
 
 var
@@ -356,6 +376,41 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoMultas.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoMultas as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMPeriodos(Sender: IFormView);
+begin
+  AbmPeriodos := TAbmPeriodos.Create(Sender,
+    TPeriodoController.Create(TPeriodosDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  AbmPeriodos.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmPeriodos as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMGruposForm(Sender: IFormView);
+begin
+  AbmGrupos := TAbmGrupos.Create(Sender, TGrupoController.Create(
+    TGrupoDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  AbmGrupos.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmGrupos as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMSeccionesForm(Sender: IFormView);
+begin
+  AbmSecciones := TAbmSecciones.Create(Sender,
+    TSeccionController.Create(TSeccionDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  AbmSecciones.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmSecciones as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMMateriasForm(Sender: IFormView);
+begin
+  AbmMaterias := TAbmMaterias.Create(Sender,
+    TMateriaController.Create(TMateriasDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  AbmMaterias.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmMaterias as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

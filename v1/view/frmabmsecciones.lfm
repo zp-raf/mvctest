@@ -1,0 +1,64 @@
+inherited AbmSecciones: TAbmSecciones
+  Caption = 'ABM Secciones'
+  ClientHeight = 461
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = SeccionDataModule.dsSeccion
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = SeccionDataModule.dsSeccion
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object LabelNombre: TLabel[0]
+      AnchorSideLeft.Control = DBEdit1
+      AnchorSideBottom.Control = DBEdit1
+      Left = 24
+      Height = 15
+      Top = 8
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object LabelDescripcion: TLabel[1]
+      AnchorSideLeft.Control = DBMemo1
+      AnchorSideBottom.Control = DBMemo1
+      Left = 24
+      Height = 15
+      Top = 57
+      Width = 62
+      Anchors = [akLeft, akBottom]
+      Caption = 'Descripcion'
+      ParentColor = False
+    end
+    object DBMemo1: TDBMemo[2]
+      Left = 24
+      Height = 90
+      Top = 72
+      Width = 297
+      DataField = 'DESCRIPCION'
+      DataSource = SeccionDataModule.dsSeccion
+      ScrollBars = ssVertical
+      TabOrder = 1
+    end
+    object DBEdit1: TDBEdit[3]
+      Left = 24
+      Height = 23
+      Top = 23
+      Width = 297
+      DataField = 'NOMBRE'
+      DataSource = SeccionDataModule.dsSeccion
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+  end
+end

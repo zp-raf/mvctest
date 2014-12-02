@@ -88,7 +88,9 @@ type
     procedure facturasClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure gruposClick(Sender: TObject);
     procedure ListaalumnosClick(Sender: TObject);
+    procedure materiasClick(Sender: TObject);
     procedure matricularClick(Sender: TObject);
     procedure MenuItemAsignacionClick(Sender: TObject);
     procedure MenuItemDocumentosClick(Sender: TObject);
@@ -98,11 +100,13 @@ type
     procedure multasClick(Sender: TObject);
     procedure notaCreditoClick(Sender: TObject);
     procedure PagosClick(Sender: TObject);
+    procedure periodosClick(Sender: TObject);
     procedure SalirClick(Sender: TObject);
     //procedure ayuda1Click(Sender: TObject);
     procedure academiasClick(Sender: TObject);
     procedure allpersonasClick(Sender: TObject);
     function GetCustomController: TPrincipalController;
+    procedure seccionesClick(Sender: TObject);
     procedure talonariosClick(Sender: TObject);
     procedure trabajosClick(Sender: TObject);
   end;
@@ -153,7 +157,7 @@ end;
 
 procedure TPrincipal1.cargarNotaCreditoClick(Sender: TObject);
 begin
-   GetCustomController.OpenNotaCreditoCompraForm(Self);
+  GetCustomController.OpenNotaCreditoCompraForm(Self);
 end;
 
 procedure TPrincipal1.cargarReciboClick(Sender: TObject);
@@ -198,9 +202,19 @@ begin
   GetController.Connect(Self);
 end;
 
+procedure TPrincipal1.gruposClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMGruposForm(Self);
+end;
+
 procedure TPrincipal1.ListaalumnosClick(Sender: TObject);
 begin
   GetCustomController.OpenListaAlumnos(Self);
+end;
+
+procedure TPrincipal1.materiasClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMMateriasForm(Self);
 end;
 
 procedure TPrincipal1.matricularClick(Sender: TObject);
@@ -230,7 +244,7 @@ end;
 
 procedure TPrincipal1.modulosClick(Sender: TObject);
 begin
-
+  GetCustomController.OpenABMModulos(Self);
 end;
 
 procedure TPrincipal1.multasClick(Sender: TObject);
@@ -246,6 +260,11 @@ end;
 procedure TPrincipal1.PagosClick(Sender: TObject);
 begin
   GetCustomController.OpenPagosForm(Self);
+end;
+
+procedure TPrincipal1.periodosClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMPeriodos(Self);
 end;
 
 //procedure TPrincipal1.ayuda1Click(Sender: TObject);
@@ -268,6 +287,11 @@ end;
 function TPrincipal1.GetCustomController: TPrincipalController;
 begin
   Result := (GetController as TPrincipalController);
+end;
+
+procedure TPrincipal1.seccionesClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMSeccionesForm(Self);
 end;
 
 procedure TPrincipal1.talonariosClick(Sender: TObject);

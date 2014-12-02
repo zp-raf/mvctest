@@ -55,6 +55,7 @@ procedure TModuloDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(Modulo));
+  AuxQryList.Add(TObject(ModulosHabilitadosView));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('DESCRIPCION');
 end;

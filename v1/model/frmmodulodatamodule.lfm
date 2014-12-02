@@ -5,7 +5,6 @@ inherited ModuloDataModule: TModuloDataModule
   VerticalOffset = 366
   Width = 315
   object Modulo: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

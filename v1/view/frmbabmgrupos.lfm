@@ -1,0 +1,101 @@
+inherited AbmGrupos: TAbmGrupos
+  Caption = 'ABM Grupos'
+  ClientHeight = 461
+  inherited PanelDetail: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEditNombre: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 23
+      Width = 344
+      DataField = 'NOMBRE'
+      DataSource = GrupoDataModule.dsGrupo
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object DBCheckBoxHabilitado: TDBCheckBox[1]
+      Left = 16
+      Height = 23
+      Top = 176
+      Width = 90
+      Caption = 'Habilitado'
+      DataField = 'HABILITADO'
+      DataSource = GrupoDataModule.dsGrupo
+      TabOrder = 2
+      ValueChecked = '1'
+      ValueUnchecked = 'False'
+    end
+    object DBMemoDesc: TDBMemo[2]
+      Left = 16
+      Height = 90
+      Top = 72
+      Width = 344
+      DataField = 'DESCRIPCION'
+      DataSource = GrupoDataModule.dsGrupo
+      ScrollBars = ssVertical
+      TabOrder = 3
+    end
+    object DBLookupComboBoxAnterior: TDBLookupComboBox[3]
+      Left = 384
+      Height = 23
+      Top = 23
+      Width = 240
+      DataField = 'ANTERIOR'
+      DataSource = GrupoDataModule.dsGrupo
+      KeyField = 'ID'
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = GrupoDataModule.dsGruposHabilitadosView
+      LookupCache = False
+      TabOrder = 1
+    end
+    object LabelNombre: TLabel[4]
+      AnchorSideLeft.Control = DBEditNombre
+      AnchorSideBottom.Control = DBEditNombre
+      Left = 16
+      Height = 15
+      Top = 8
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object LabelDescripcion: TLabel[5]
+      AnchorSideLeft.Control = DBMemoDesc
+      AnchorSideBottom.Control = DBMemoDesc
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 62
+      Anchors = [akLeft, akBottom]
+      Caption = 'Descripcion'
+      ParentColor = False
+    end
+    object LabelGrupoAnterior: TLabel[6]
+      AnchorSideLeft.Control = DBLookupComboBoxAnterior
+      AnchorSideBottom.Control = DBLookupComboBoxAnterior
+      Left = 384
+      Height = 15
+      Top = 8
+      Width = 77
+      Anchors = [akLeft, akBottom]
+      Caption = 'Grupo anterior'
+      ParentColor = False
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = GrupoDataModule.dsGrupo
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = GrupoDataModule.dsGrupo
+      Hints.Strings = (      )
+    end
+  end
+end

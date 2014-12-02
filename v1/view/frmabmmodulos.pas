@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, ButtonPanel, ExtCtrls, DBGrids, DbCtrls, StdCtrls, frmAbm;
+  Menus, ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls, frmAbm, moduloctrl;
 
 type
 
@@ -16,11 +16,19 @@ type
     DBCheckBoxActivo: TDBCheckBox;
     DBCheckBoxModuloGen: TDBCheckBox;
     DBEditNombre: TDBEdit;
+    DBMemoDesc: TDBMemo;
+    DBMemoFund: TDBMemo;
+    DBMemoObj: TDBMemo;
+    DBMemoReq: TDBMemo;
+    DBMemoPerf: TDBMemo;
+    LabelDescripcion: TLabel;
+    LabelFundamentacion: TLabel;
+    LabelObjetivos: TLabel;
+    LabelRequisitos: TLabel;
+    LabelPerfilEgresado: TLabel;
     LabelNombre: TLabel;
-  private
-    { private declarations }
-  public
-    { public declarations }
+  protected
+    function GetCustomController: TModuloController;
   end;
 
 var
@@ -29,6 +37,13 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TAbmModulos }
+
+function TAbmModulos.GetCustomController: TModuloController;
+begin
+  Result := GetABMController as TModuloController;
+end;
 
 end.
 

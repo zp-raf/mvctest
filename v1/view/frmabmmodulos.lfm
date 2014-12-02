@@ -1,4 +1,5 @@
 inherited AbmModulos: TAbmModulos
+  Caption = 'ABM Modulos'
   ClientHeight = 461
   inherited PanelList: TPanel[2]
     AnchorSideLeft.Control = Owner
@@ -39,9 +40,9 @@ inherited AbmModulos: TAbmModulos
       ParentColor = False
     end
     object DBCheckBoxActivo: TDBCheckBox[2]
-      Left = 16
+      Left = 360
       Height = 23
-      Top = 64
+      Top = 23
       Width = 90
       Caption = 'Habilitado'
       DataField = 'HABILITADO'
@@ -51,9 +52,9 @@ inherited AbmModulos: TAbmModulos
       ValueUnchecked = '0'
     end
     object DBCheckBoxModuloGen: TDBCheckBox[3]
-      Left = 16
+      Left = 456
       Height = 23
-      Top = 96
+      Top = 23
       Width = 138
       Caption = 'Modulo General'
       DataField = 'MODULOGENERAL'
@@ -62,5 +63,113 @@ inherited AbmModulos: TAbmModulos
       ValueChecked = '1'
       ValueUnchecked = '0'
     end
+    object DBMemoDesc: TDBMemo[4]
+      Left = 16
+      Height = 92
+      Top = 72
+      Width = 328
+      DataField = 'DESCRIPCION'
+      DataSource = ModuloDataModule.dsModulo
+      ScrollBars = ssVertical
+      TabOrder = 3
+    end
+    object DBMemoFund: TDBMemo[5]
+      Left = 17
+      Height = 90
+      Top = 184
+      Width = 328
+      DataField = 'FUNDAMENTACION'
+      DataSource = ModuloDataModule.dsModulo
+      ScrollBars = ssVertical
+      TabOrder = 4
+    end
+    object DBMemoObj: TDBMemo[6]
+      Left = 360
+      Height = 90
+      Top = 72
+      Width = 272
+      DataField = 'OBJETIVOS'
+      DataSource = ModuloDataModule.dsModulo
+      ScrollBars = ssVertical
+      TabOrder = 5
+    end
+    object DBMemoReq: TDBMemo[7]
+      Left = 360
+      Height = 90
+      Top = 184
+      Width = 272
+      DataField = 'REQUISITOS'
+      DataSource = ModuloDataModule.dsModulo
+      ScrollBars = ssVertical
+      TabOrder = 6
+    end
+    object DBMemoPerf: TDBMemo[8]
+      Left = 16
+      Height = 90
+      Top = 296
+      Width = 328
+      DataField = 'PERFILEGRESADO'
+      DataSource = ModuloDataModule.dsModulo
+      ScrollBars = ssVertical
+      TabOrder = 7
+    end
+    object LabelDescripcion: TLabel[9]
+      AnchorSideLeft.Control = DBMemoDesc
+      AnchorSideBottom.Control = DBMemoDesc
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 62
+      Anchors = [akLeft, akBottom]
+      Caption = 'Descripcion'
+      ParentColor = False
+    end
+    object LabelFundamentacion: TLabel[10]
+      AnchorSideLeft.Control = DBMemoFund
+      AnchorSideBottom.Control = DBMemoFund
+      Left = 17
+      Height = 15
+      Top = 169
+      Width = 90
+      Anchors = [akLeft, akBottom]
+      Caption = 'Fundamentacion'
+      ParentColor = False
+    end
+    object LabelObjetivos: TLabel[11]
+      AnchorSideLeft.Control = DBMemoObj
+      AnchorSideBottom.Control = DBMemoObj
+      Left = 360
+      Height = 15
+      Top = 57
+      Width = 50
+      Anchors = [akLeft, akBottom]
+      Caption = 'Objetivos'
+      ParentColor = False
+    end
+    object LabelRequisitos: TLabel[12]
+      AnchorSideLeft.Control = DBMemoReq
+      AnchorSideBottom.Control = DBMemoReq
+      Left = 360
+      Height = 15
+      Top = 169
+      Width = 54
+      Anchors = [akLeft, akBottom]
+      Caption = 'Requisitos'
+      ParentColor = False
+    end
+    object LabelPerfilEgresado: TLabel[13]
+      AnchorSideLeft.Control = DBMemoPerf
+      AnchorSideBottom.Control = DBMemoPerf
+      Left = 16
+      Height = 15
+      Top = 281
+      Width = 97
+      Anchors = [akLeft, akBottom]
+      Caption = 'Perfil del egresado'
+      ParentColor = False
+    end
+  end
+  inherited MainMenu: TMainMenu
+    left = 552
   end
 end

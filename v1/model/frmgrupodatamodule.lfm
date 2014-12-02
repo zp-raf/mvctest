@@ -1,0 +1,212 @@
+inherited GrupoDataModule: TGrupoDataModule
+  OnCreate = DataModuleCreate
+  Height = 345
+  HorizontalOffset = 676
+  VerticalOffset = 314
+  Width = 371
+  object Grupo: TSQLQuery[0]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'HABILITADO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'ANTERIOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    AfterScroll = GrupoAfterScroll
+    OnNewRecord = GrupoNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from grupo'
+    )
+    Params = <>
+    left = 104
+    top = 68
+    object GrupoID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object GrupoNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object GrupoHABILITADO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'HABILITADO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object GrupoDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object GrupoANTERIOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ANTERIOR'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object GruposHabilitadosView: TSQLQuery[1]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'HABILITADO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'ANTERIOR'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_grupos_habilitados'
+      'where id <> :idgrupo'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idgrupo'
+        ParamType = ptInput
+      end>
+    left = 240
+    top = 139
+    object GruposHabilitadosViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object GruposHabilitadosViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object GruposHabilitadosViewHABILITADO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'HABILITADO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object GruposHabilitadosViewDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object GruposHabilitadosViewANTERIOR: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ANTERIOR'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsGrupo: TDataSource[2]
+    DataSet = Grupo
+    left = 93
+    top = 155
+  end
+  object dsGruposHabilitadosView: TDataSource[3]
+    DataSet = GruposHabilitadosView
+    left = 240
+    top = 224
+  end
+end

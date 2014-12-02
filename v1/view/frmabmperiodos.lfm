@@ -1,0 +1,119 @@
+inherited AbmPeriodos: TAbmPeriodos
+  Caption = 'ABM Periodos lectivos'
+  ClientHeight = 461
+  inherited PanelDetail: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEditNombre: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 23
+      Width = 200
+      DataField = 'NOMBRE'
+      DataSource = PeriodosDataModule.dsPeriodo
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object DBMemoDescripcion: TDBMemo[1]
+      Left = 16
+      Height = 90
+      Top = 72
+      Width = 608
+      DataField = 'DESCRIPCION'
+      DataSource = PeriodosDataModule.dsPeriodo
+      TabOrder = 4
+    end
+    object DBEditFechaIni: TDBEdit[2]
+      Left = 232
+      Height = 23
+      Top = 23
+      Width = 80
+      DataField = 'FECHAINICIO'
+      DataSource = PeriodosDataModule.dsPeriodo
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object DBEditFechaFin: TDBEdit[3]
+      Left = 328
+      Height = 23
+      Top = 23
+      Width = 80
+      DataField = 'FECHAFIN'
+      DataSource = PeriodosDataModule.dsPeriodo
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object DBCheckBoxACtivo: TDBCheckBox[4]
+      Left = 424
+      Height = 23
+      Top = 23
+      Width = 90
+      Caption = 'Activo'
+      DataField = 'ACTIVO'
+      DataSource = PeriodosDataModule.dsPeriodo
+      TabOrder = 3
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object LabelNombre: TLabel[5]
+      AnchorSideLeft.Control = DBEditNombre
+      AnchorSideBottom.Control = DBEditNombre
+      Left = 16
+      Height = 15
+      Top = 8
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object LabelDescrpcion: TLabel[6]
+      AnchorSideLeft.Control = DBMemoDescripcion
+      AnchorSideBottom.Control = DBMemoDescripcion
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 62
+      Anchors = [akLeft, akBottom]
+      Caption = 'Descripcion'
+      ParentColor = False
+    end
+    object LabelIni: TLabel[7]
+      AnchorSideLeft.Control = DBEditFechaIni
+      AnchorSideBottom.Control = DBEditFechaIni
+      Left = 232
+      Height = 15
+      Top = 8
+      Width = 63
+      Anchors = [akLeft, akBottom]
+      Caption = 'Fecha Inicio'
+      ParentColor = False
+    end
+    object LabelFin: TLabel[8]
+      AnchorSideLeft.Control = DBEditFechaFin
+      AnchorSideBottom.Control = DBEditFechaFin
+      Left = 328
+      Height = 15
+      Top = 8
+      Width = 48
+      Anchors = [akLeft, akBottom]
+      Caption = 'Fecha fin'
+      ParentColor = False
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = PeriodosDataModule.dsPeriodo
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = PeriodosDataModule.dsPeriodo
+      Hints.Strings = (      )
+    end
+  end
+end

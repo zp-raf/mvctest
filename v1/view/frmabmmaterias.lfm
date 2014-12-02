@@ -1,0 +1,314 @@
+inherited AbmMaterias: TAbmMaterias
+  Left = 591
+  Top = 154
+  Width = 800
+  Caption = 'ABM Materias'
+  ClientHeight = 461
+  ClientWidth = 800
+  Constraints.MinWidth = 800
+  inherited StatusBar1: TStatusBar
+    Width = 800
+  end
+  inherited ButtonPanel: TButtonPanel
+    Width = 788
+  end
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Width = 800
+    ClientWidth = 800
+    inherited DBGrid1: TDBGrid
+      Width = 784
+      DataSource = MateriasDataModule.dsMateria
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = MateriasDataModule.dsMateria
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Width = 800
+    ClientWidth = 800
+    object DBEdit1: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 23
+      Width = 328
+      DataField = 'NOMBRE'
+      DataSource = MateriasDataModule.dsMateria
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object DBCheckBox1: TDBCheckBox[1]
+      Left = 360
+      Height = 23
+      Top = 58
+      Width = 90
+      Caption = 'Habilitada'
+      DataField = 'HABILITADA'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 4
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object DBMemo1: TDBMemo[2]
+      Left = 16
+      Height = 130
+      Top = 102
+      Width = 150
+      DataField = 'DESCRIPCION'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 5
+    end
+    object DBMemo2: TDBMemo[3]
+      Left = 176
+      Height = 130
+      Top = 102
+      Width = 150
+      DataField = 'DURACION'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 6
+    end
+    object DBMemo3: TDBMemo[4]
+      Left = 336
+      Height = 130
+      Top = 102
+      Width = 150
+      DataField = 'JUSTIFICACION'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 7
+    end
+    object DBMemo4: TDBMemo[5]
+      Left = 16
+      Height = 130
+      Top = 256
+      Width = 150
+      DataField = 'CONTENIDO'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 10
+    end
+    object DBMemo5: TDBMemo[6]
+      Left = 176
+      Height = 130
+      Top = 256
+      Width = 150
+      DataField = 'ESTRATEGIAS'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 11
+    end
+    object DBMemo6: TDBMemo[7]
+      Left = 336
+      Height = 130
+      Top = 256
+      Width = 150
+      DataField = 'MATERIALES'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 12
+    end
+    object DBMemo7: TDBMemo[8]
+      Left = 496
+      Height = 130
+      Top = 102
+      Width = 120
+      DataField = 'OBJETIVOS'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 8
+    end
+    object DBMemo8: TDBMemo[9]
+      Left = 495
+      Height = 130
+      Top = 256
+      Width = 120
+      DataField = 'EVALUACION'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 13
+    end
+    object DBMemo9: TDBMemo[10]
+      Left = 632
+      Height = 130
+      Top = 102
+      Width = 152
+      DataField = 'BIBLIOGRAFIA'
+      DataSource = MateriasDataModule.dsMateria
+      TabOrder = 9
+    end
+    object ButtonPrerreq: TButton[11]
+      Left = 16
+      Height = 25
+      Top = 56
+      Width = 131
+      AutoSize = True
+      Caption = 'Editar Prerrequisitos'
+      OnClick = ButtonPrerreqClick
+      TabOrder = 3
+    end
+    object Label1: TLabel[12]
+      AnchorSideLeft.Control = DBMemo1
+      AnchorSideBottom.Control = DBMemo1
+      Left = 16
+      Height = 15
+      Top = 87
+      Width = 62
+      Anchors = [akLeft, akBottom]
+      Caption = 'Descripcion'
+      ParentColor = False
+    end
+    object Label2: TLabel[13]
+      AnchorSideLeft.Control = DBMemo2
+      AnchorSideBottom.Control = DBMemo2
+      Left = 176
+      Height = 15
+      Top = 87
+      Width = 48
+      Anchors = [akLeft, akBottom]
+      Caption = 'Duracion'
+      ParentColor = False
+    end
+    object Label3: TLabel[14]
+      AnchorSideLeft.Control = DBMemo3
+      AnchorSideBottom.Control = DBMemo3
+      Left = 336
+      Height = 15
+      Top = 87
+      Width = 65
+      Anchors = [akLeft, akBottom]
+      Caption = 'Justificacion'
+      ParentColor = False
+    end
+    object Label4: TLabel[15]
+      AnchorSideLeft.Control = DBMemo4
+      AnchorSideBottom.Control = DBMemo4
+      Left = 16
+      Height = 15
+      Top = 241
+      Width = 56
+      Anchors = [akLeft, akBottom]
+      Caption = 'Contenido'
+      ParentColor = False
+    end
+    object Label5: TLabel[16]
+      AnchorSideLeft.Control = DBMemo5
+      AnchorSideBottom.Control = DBMemo5
+      Left = 176
+      Height = 15
+      Top = 241
+      Width = 56
+      Anchors = [akLeft, akBottom]
+      Caption = 'Estrategias'
+      ParentColor = False
+    end
+    object Label6: TLabel[17]
+      AnchorSideLeft.Control = DBMemo6
+      AnchorSideBottom.Control = DBMemo6
+      Left = 336
+      Height = 15
+      Top = 241
+      Width = 54
+      Anchors = [akLeft, akBottom]
+      Caption = 'Materiales'
+      ParentColor = False
+    end
+    object Label7: TLabel[18]
+      AnchorSideLeft.Control = DBMemo7
+      AnchorSideBottom.Control = DBMemo7
+      Left = 496
+      Height = 15
+      Top = 87
+      Width = 50
+      Anchors = [akLeft, akBottom]
+      Caption = 'Objetivos'
+      ParentColor = False
+    end
+    object Label8: TLabel[19]
+      AnchorSideLeft.Control = DBMemo8
+      AnchorSideBottom.Control = DBMemo8
+      Left = 495
+      Height = 15
+      Top = 241
+      Width = 57
+      Anchors = [akLeft, akBottom]
+      Caption = 'Evaluacion'
+      ParentColor = False
+    end
+    object Label9: TLabel[20]
+      AnchorSideLeft.Control = DBMemo9
+      AnchorSideBottom.Control = DBMemo9
+      Left = 632
+      Height = 15
+      Top = 87
+      Width = 60
+      Anchors = [akLeft, akBottom]
+      Caption = 'Bibliografia'
+      ParentColor = False
+    end
+    object Label10: TLabel[21]
+      AnchorSideLeft.Control = DBEdit1
+      AnchorSideBottom.Control = DBEdit1
+      Left = 16
+      Height = 15
+      Top = 8
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre'
+      ParentColor = False
+    end
+    object DBLookupComboBox1: TDBLookupComboBox[22]
+      Left = 360
+      Height = 23
+      Top = 23
+      Width = 208
+      DataField = 'MODULOID'
+      DataSource = MateriasDataModule.dsMateria
+      KeyField = 'ID'
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = ModuloDataModule.dsModulo
+      LookupCache = False
+      TabOrder = 1
+    end
+    object DBLookupComboBox2: TDBLookupComboBox[23]
+      Left = 582
+      Height = 23
+      Top = 23
+      Width = 202
+      DataField = 'GRUPOID'
+      DataSource = MateriasDataModule.dsMateria
+      KeyField = 'ID'
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = GrupoDataModule.dsGrupo
+      LookupCache = False
+      TabOrder = 2
+    end
+    object Label11: TLabel[24]
+      AnchorSideLeft.Control = DBLookupComboBox1
+      AnchorSideBottom.Control = DBLookupComboBox1
+      Left = 360
+      Height = 15
+      Top = 8
+      Width = 42
+      Anchors = [akLeft, akBottom]
+      Caption = 'Modulo'
+      ParentColor = False
+    end
+    object Label12: TLabel[25]
+      AnchorSideLeft.Control = DBLookupComboBox2
+      AnchorSideBottom.Control = DBLookupComboBox2
+      Left = 582
+      Height = 15
+      Top = 8
+      Width = 33
+      Anchors = [akLeft, akBottom]
+      Caption = 'Grupo'
+      ParentColor = False
+    end
+  end
+  inherited MainMenu: TMainMenu
+    left = 224
+  end
+end

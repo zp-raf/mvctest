@@ -1,0 +1,75 @@
+inherited SeleccionarPrerrequisitos: TSeleccionarPrerrequisitos
+  Height = 417
+  Width = 505
+  Caption = 'Seleccionar Prerrequisitos'
+  ClientHeight = 397
+  ClientWidth = 505
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  inherited StatusBar1: TStatusBar
+    Top = 374
+    Width = 505
+  end
+  object DBGridPre: TDBGrid[1]
+    Left = 8
+    Height = 299
+    Top = 8
+    Width = 487
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'MATERIA'
+        Width = 250
+        FieldName = 'MATERIA'
+      end>
+    DataSource = MateriasDataModule.dsPrerrequisitos
+    TabOrder = 1
+  end
+  object DBNavigatorPre: TDBNavigator[2]
+    AnchorSideLeft.Control = DBGridPre
+    AnchorSideTop.Control = DBGridPre
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 25
+    Top = 307
+    Width = 241
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 241
+    DataSource = MateriasDataModule.dsPrerrequisitos
+    Options = []
+    TabOrder = 2
+    VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+  end
+  object Aceptar: TButton[3]
+    Left = 340
+    Height = 25
+    Top = 339
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Aceptar'
+    ModalResult = 1
+    TabOrder = 3
+  end
+  object Cancelar: TButton[4]
+    Left = 420
+    Height = 25
+    Top = 339
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Cancelar'
+    ModalResult = 2
+    TabOrder = 4
+  end
+  inherited MainMenu: TMainMenu[5]
+    left = 376
+    top = 216
+  end
+end
