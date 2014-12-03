@@ -259,6 +259,7 @@ inherited MateriasDataModule: TMateriasDataModule
     top = 112
   end
   object MateriasDetView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

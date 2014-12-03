@@ -1,0 +1,137 @@
+inherited AbmDesarrolloMAt: TAbmDesarrolloMAt
+  Caption = 'ABM Secciones de materias'
+  ClientHeight = 461
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBLookupComboBoxSeccion: TDBLookupComboBox[0]
+      Left = 16
+      Height = 23
+      Top = 25
+      Width = 256
+      AutoComplete = True
+      DataField = 'SECCIONID'
+      DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
+      KeyField = 'ID'
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = SeccionDataModule.dsSeccion
+      LookupCache = False
+      TabOrder = 0
+    end
+    object DBLookupComboBoxMateria: TDBLookupComboBox[1]
+      Left = 16
+      Height = 23
+      Top = 72
+      Width = 256
+      AutoComplete = True
+      DataField = 'MATERIAID'
+      DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
+      KeyField = 'ID'
+      ListField = 'NOMBRE_DETALLE'
+      ListFieldIndex = 0
+      ListSource = MateriasDataModule.dsMateriasDetView
+      LookupCache = False
+      TabOrder = 1
+    end
+    object DBLookupComboBoxPeriodo: TDBLookupComboBox[2]
+      Left = 16
+      Height = 23
+      Top = 120
+      Width = 256
+      AutoComplete = True
+      DataField = 'PERIODOLECTIVOID'
+      DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
+      KeyField = 'ID'
+      ListField = 'NOMBRE'
+      ListFieldIndex = 0
+      ListSource = PeriodosDataModule.dsPeriodo
+      LookupCache = False
+      TabOrder = 2
+    end
+    object DBLookupComboBoxProfesor: TDBLookupComboBox[3]
+      Left = 16
+      Height = 23
+      Top = 168
+      Width = 256
+      AutoComplete = True
+      DataField = 'EMPLEADOPERSONAID'
+      DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
+      KeyField = 'ID'
+      ListField = 'NOMBRECOMPLETO'
+      ListFieldIndex = 0
+      ListSource = PersonasDataModule.dsPersonasRoles
+      LookupCache = False
+      TabOrder = 3
+    end
+    object DBCheckBox1: TDBCheckBox[4]
+      Left = 16
+      Height = 23
+      Top = 208
+      Width = 90
+      Caption = 'Activo'
+      DataField = 'ACTIVO'
+      DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
+      TabOrder = 4
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object LabelSeccion: TLabel[5]
+      AnchorSideLeft.Control = DBLookupComboBoxSeccion
+      AnchorSideBottom.Control = DBLookupComboBoxSeccion
+      Left = 16
+      Height = 15
+      Top = 10
+      Width = 104
+      Anchors = [akLeft, akBottom]
+      Caption = 'Nombre de Seccion'
+      ParentColor = False
+    end
+    object LabelMateria: TLabel[6]
+      AnchorSideLeft.Control = DBLookupComboBoxMateria
+      AnchorSideBottom.Control = DBLookupComboBoxMateria
+      Left = 16
+      Height = 15
+      Top = 57
+      Width = 40
+      Anchors = [akLeft, akBottom]
+      Caption = 'Materia'
+      ParentColor = False
+    end
+    object LabelPeriodo: TLabel[7]
+      AnchorSideLeft.Control = DBLookupComboBoxPeriodo
+      AnchorSideBottom.Control = DBLookupComboBoxPeriodo
+      Left = 16
+      Height = 15
+      Top = 105
+      Width = 41
+      Anchors = [akLeft, akBottom]
+      Caption = 'Periodo'
+      ParentColor = False
+    end
+    object LabelProfesor: TLabel[8]
+      AnchorSideLeft.Control = DBLookupComboBoxProfesor
+      AnchorSideBottom.Control = DBLookupComboBoxProfesor
+      Left = 16
+      Height = 15
+      Top = 153
+      Width = 44
+      Anchors = [akLeft, akBottom]
+      Caption = 'Profesor'
+      ParentColor = False
+    end
+  end
+end

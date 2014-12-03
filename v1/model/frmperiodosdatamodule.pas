@@ -26,6 +26,7 @@ type
     PeriodoLectivoNOMBRE: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure PeriodoLectivoNewRecord(DataSet: TDataSet);
+    function GetPeriodoActualID: string;
   end;
 
 var
@@ -40,6 +41,13 @@ implementation
 procedure TPeriodosDataModule.PeriodoLectivoNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenName);
+end;
+
+function TPeriodosDataModule.GetPeriodoActualID: string;
+begin
+  if PeriodoLectivo.State = dsInactive then
+    Exit;
+  Result := PeriodoLectivo.Lookup('ACTIVO', '1', 'ID');
 end;
 
 procedure TPeriodosDataModule.DataModuleCreate(Sender: TObject);

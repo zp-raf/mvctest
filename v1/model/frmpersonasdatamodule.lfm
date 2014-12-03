@@ -6,7 +6,6 @@ inherited PersonasDataModule: TPersonasDataModule
   VerticalOffset = 341
   Width = 656
   object Persona: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -171,7 +170,6 @@ inherited PersonasDataModule: TPersonasDataModule
     end
   end
   object Direccion: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -307,7 +305,6 @@ inherited PersonasDataModule: TPersonasDataModule
     end
   end
   object Telefono: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -517,7 +514,7 @@ inherited PersonasDataModule: TPersonasDataModule
       'select * from V_PERSONAS_ROLES'
     )
     Params = <>
-    left = 227
+    left = 224
     top = 272
     object PersonasRolesID: TLongintField
       DisplayWidth = 10
@@ -736,32 +733,7 @@ inherited PersonasDataModule: TPersonasDataModule
     end
   end
   object PersonaExterna: TSQLQuery[9]
-    IndexName = 'DEFAULT_ORDER'
-    FieldDefs = <    
-      item
-        Name = 'PERSONAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ESENCARGADO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ESPROVEEDOR'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end>
+    FieldDefs = <>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (

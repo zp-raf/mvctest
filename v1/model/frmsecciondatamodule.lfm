@@ -30,7 +30,6 @@ inherited SeccionDataModule: TSeccionDataModule
         Precision = -1
         Size = 255
       end>
-    Active = True
     OnNewRecord = SeccionNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

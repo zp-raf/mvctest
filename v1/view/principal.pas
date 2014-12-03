@@ -80,6 +80,7 @@ type
     procedure cargarFacturaClick(Sender: TObject);
     procedure cargarNotaCreditoClick(Sender: TObject);
     procedure cargarReciboClick(Sender: TObject);
+    procedure desarrolloMateriasClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
     procedure entregasClick(Sender: TObject);
     procedure escalaClick(Sender: TObject);
@@ -163,6 +164,11 @@ end;
 procedure TPrincipal1.cargarReciboClick(Sender: TObject);
 begin
   GetCustomController.OpenReciboCompraForm(Self);
+end;
+
+procedure TPrincipal1.desarrolloMateriasClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMDesarrolloForm(Self);
 end;
 
 procedure TPrincipal1.DocumentosClick(Sender: TObject);

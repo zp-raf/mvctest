@@ -129,6 +129,7 @@ inherited Principal1: TPrincipal1
         end
         object desarrolloMaterias: TMenuItem
           Caption = 'ABM &Secciones'
+          OnClick = desarrolloMateriasClick
         end
       end
     end

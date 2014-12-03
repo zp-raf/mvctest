@@ -23,8 +23,14 @@ type
   private
     FAcademia: TAcademiaDataModule;
     FModulo: TModuloDataModule;
+    procedure FilterAlumno;
+    procedure FilterEmpleado;
+    procedure FilterExterno;
     procedure SetAcademia(AValue: TAcademiaDataModule);
     procedure SetModulo(AValue: TModuloDataModule);
+    procedure SetAsAlumno;
+    procedure SetAsEmpleado;
+    procedure SetAsExterno;
   published
     AcademiaAlumnoACADEMIAID: TLongintField;
     AcademiaAlumnoALUMNOPERSONAID: TLongintField;
@@ -99,9 +105,6 @@ type
     procedure CursaAfterInsert(DataSet: TDataSet);
     procedure CursaMODULOIDChange(Sender: TField);
     procedure DataModuleDestroy(Sender: TObject);
-    procedure FilterAlumno;
-    procedure FilterEmpleado;
-    procedure FilterExterno;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DireccionAfterInsert(DataSet: TDataSet);
     procedure EditCurrentRecord; override;
@@ -109,9 +112,6 @@ type
     procedure PersonaAfterScroll(DataSet: TDataSet);
     procedure PersonaNewRecord(DataSet: TDataSet);
     procedure SaveChanges; override;
-    procedure SetAsAlumno;
-    procedure SetAsEmpleado;
-    procedure SetAsExterno;
     procedure SetRol(ARol: TRolPersona; Option: boolean);
     procedure TelefonoAfterInsert(DataSet: TDataSet);
     function GetRoles: TRoles;
@@ -264,6 +264,10 @@ begin
     roProveedor:
     begin
       AFilterStr := AFilterStr + '(ESPROVEEDOR = 1)';
+    end;
+    roProfesor:
+    begin
+      AFilterStr := AFilterStr + '(ESPROFESOR = 1)';
     end;
   end;
   //ShowMessage(AFilterStr);

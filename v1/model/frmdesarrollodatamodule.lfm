@@ -1,10 +1,12 @@
 inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 368
   HorizontalOffset = 837
   VerticalOffset = 404
   Width = 462
   object DesarrolloMateria: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -111,13 +113,73 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
       ReadOnly = False
       Required = True
     end
+    object StringField1: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'SECCION'
+      Index = 6
+      KeyFields = 'SECCIONID'
+      LookupCache = False
+      LookupDataSet = SeccionDataModule.Seccion
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField2: TStringField
+      DisplayWidth = 769
+      FieldKind = fkLookup
+      FieldName = 'MATERIA'
+      Index = 7
+      KeyFields = 'MATERIAID'
+      LookupCache = False
+      LookupDataSet = MateriasDataModule.MateriasDetView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_DETALLE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 769
+    end
+    object StringField3: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'PERIODO'
+      Index = 8
+      KeyFields = 'PERIODOLECTIVOID'
+      LookupCache = False
+      LookupDataSet = PeriodosDataModule.PeriodoLectivo
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField4: TStringField
+      DisplayWidth = 511
+      FieldKind = fkLookup
+      FieldName = 'PROFESOR'
+      Index = 9
+      KeyFields = 'EMPLEADOPERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRECOMPLETO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
   end
   object dsDesarrolloMateria: TDataSource[1]
+    DataSet = DesarrolloMateria
     left = 86
     top = 162
   end
   object DesarrolloView: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

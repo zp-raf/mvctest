@@ -121,7 +121,11 @@ uses
   // abm materias
   frmmateriasdatamodule,
   frmabmmaterias,
-  materiactrl;
+  materiactrl,
+  // abm desarrollo
+  frmdesarrollodatamodule,
+  frmabmdesarrollomat,
+  desarrolloctrl;
 
 type
 
@@ -159,6 +163,7 @@ type
     procedure OpenABMGruposForm(Sender: IFormView);
     procedure OpenABMSeccionesForm(Sender: IFormView);
     procedure OpenABMMateriasForm(Sender: IFormView);
+    procedure OpenABMDesarrolloForm(Sender: IFormView);
   end;
 
 var
@@ -411,6 +416,15 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   AbmMaterias.Show;
   (GetModel.MasterDataModule as ISubject).Attach(AbmMaterias as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMDesarrolloForm(Sender: IFormView);
+begin
+  AbmDesarrolloMAt := TAbmDesarrolloMAt.Create(Sender,
+    TDesarrolloController.Create(TDesarrolloMateriaDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  AbmDesarrolloMAt.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmDesarrolloMAt as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);
