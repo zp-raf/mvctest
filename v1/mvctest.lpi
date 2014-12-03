@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="132">
+    <Units Count="135">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -970,6 +970,27 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmabmclases"/>
       </Unit131>
+      <Unit132>
+        <Filename Value="model\frmregistroanecdoticodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="RegistroAnecdoticoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmregistroanecdoticodatamodule"/>
+      </Unit132>
+      <Unit133>
+        <Filename Value="controller\registroanecdoticoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="registroanecdoticoctrl"/>
+      </Unit133>
+      <Unit134>
+        <Filename Value="view\frmprocesoreganecdotico.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoRegistroAnecdotico"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoreganecdotico"/>
+      </Unit134>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

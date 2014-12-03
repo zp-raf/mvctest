@@ -71,6 +71,7 @@ inherited Principal1: TPrincipal1
       end
       object registroAnecdotico1: TMenuItem
         Caption = '&Registro Anecdótico'
+        OnClick = registroAnecdotico1Click
       end
       object examenes: TMenuItem
         Caption = '&Exámenes'

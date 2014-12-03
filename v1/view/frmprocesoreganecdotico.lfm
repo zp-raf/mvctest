@@ -1,0 +1,111 @@
+inherited ProcesoRegistroAnecdotico: TProcesoRegistroAnecdotico
+  Left = 633
+  Height = 668
+  Top = 156
+  Width = 826
+  Caption = 'Registro anecdotico'
+  ClientHeight = 648
+  ClientWidth = 826
+  inherited StatusBar1: TStatusBar
+    Top = 625
+    Width = 826
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 585
+    Width = 814
+    OKButton.Caption = '&Guardar'
+    OKButton.DefaultCaption = False
+    OKButton.OnClick = OKButtonClick
+    CancelButton.OnClick = CancelButtonClick
+  end
+  object GroupBoxAlumno: TGroupBox[2]
+    Left = 8
+    Height = 64
+    Top = 0
+    Width = 812
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Alumno'
+    ClientHeight = 46
+    ClientWidth = 808
+    TabOrder = 2
+    object DBLookupComboBox1: TDBLookupComboBox
+      Left = 8
+      Height = 23
+      Top = 8
+      Width = 336
+      KeyField = 'ID'
+      ListField = 'NOMBRECOMPLETO'
+      ListFieldIndex = 0
+      ListSource = PersonasDataModule.dsPersonasRoles
+      LookupCache = False
+      ScrollListDataset = True
+      TabOrder = 0
+    end
+  end
+  object GroupBoxRegsitro: TGroupBox[3]
+    AnchorSideTop.Control = GroupBoxAlumno
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 513
+    Top = 64
+    Width = 812
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Caption = 'Regsitro'
+    ClientHeight = 495
+    ClientWidth = 808
+    TabOrder = 3
+    object DBGrid1: TDBGrid
+      Left = 8
+      Height = 452
+      Top = 8
+      Width = 792
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'FECHA'
+          Width = 52
+          FieldName = 'FECHA'
+        end      
+        item
+          Title.Caption = 'CONTEXTO'
+          Width = 77
+          FieldName = 'CONTEXTO'
+        end      
+        item
+          Title.Caption = 'EVENTO'
+          Width = 59
+          FieldName = 'EVENTO'
+        end>
+      DataSource = RegistroAnecdoticoDataModule.dsRegistroAnecdotico
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableInsert]
+      TabOrder = 0
+    end
+    object DBNavigator1: TDBNavigator
+      AnchorSideLeft.Control = DBGrid1
+      AnchorSideTop.Control = DBGrid1
+      AnchorSideTop.Side = asrBottom
+      Left = 8
+      Height = 25
+      Top = 460
+      Width = 241
+      BevelOuter = bvNone
+      ChildSizing.EnlargeHorizontal = crsScaleChilds
+      ChildSizing.EnlargeVertical = crsScaleChilds
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 100
+      ClientHeight = 25
+      ClientWidth = 241
+      DataSource = RegistroAnecdoticoDataModule.dsRegistroAnecdotico
+      Options = []
+      TabOrder = 1
+      VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+    end
+  end
+  inherited MainMenu: TMainMenu[4]
+    left = 616
+    top = 184
+  end
+end

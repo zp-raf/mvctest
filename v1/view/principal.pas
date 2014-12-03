@@ -103,6 +103,7 @@ type
     procedure notaCreditoClick(Sender: TObject);
     procedure PagosClick(Sender: TObject);
     procedure periodosClick(Sender: TObject);
+    procedure registroAnecdotico1Click(Sender: TObject);
     procedure SalirClick(Sender: TObject);
     //procedure ayuda1Click(Sender: TObject);
     procedure academiasClick(Sender: TObject);
@@ -277,6 +278,11 @@ end;
 procedure TPrincipal1.periodosClick(Sender: TObject);
 begin
   GetCustomController.OpenABMPeriodos(Self);
+end;
+
+procedure TPrincipal1.registroAnecdotico1Click(Sender: TObject);
+begin
+  GetCustomController.OpenRegistroAnecdoticoForm(Self);
 end;
 
 //procedure TPrincipal1.ayuda1Click(Sender: TObject);

@@ -129,7 +129,11 @@ uses
   //abmclases
   frmclasesdatamodule,
   frmabmclases,
-  clasesctrl;
+  clasesctrl,
+  // registro anecdotico
+  frmregistroanecdoticodatamodule,
+  frmprocesoreganecdotico,
+  registroanecdoticoctrl;
 
 type
 
@@ -169,6 +173,7 @@ type
     procedure OpenABMMateriasForm(Sender: IFormView);
     procedure OpenABMDesarrolloForm(Sender: IFormView);
     procedure OpenABMClasesForm(Sender: IFormView);
+    procedure OpenRegistroAnecdoticoForm(Sender: IFormView);
   end;
 
 var
@@ -438,6 +443,16 @@ begin
     TClasesDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
   AbmClases.Show;
   (GetModel.MasterDataModule as ISubject).Attach(AbmClases as IObserver);
+end;
+
+procedure TPrincipalController.OpenRegistroAnecdoticoForm(Sender: IFormView);
+begin
+  ProcesoRegistroAnecdotico :=
+    TProcesoRegistroAnecdotico.Create(Sender,
+    TRegistroAnecdoticoController.Create(TRegistroAnecdoticoDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoRegistroAnecdotico.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoRegistroAnecdotico as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);
