@@ -6,7 +6,6 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
   VerticalOffset = 404
   Width = 462
   object DesarrolloMateria: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -180,6 +179,7 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
     top = 162
   end
   object DesarrolloView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -239,7 +239,7 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
         Name = 'NOMBRE_MATERIA'
         DataType = ftString
         Precision = -1
-        Size = 513
+        Size = 769
       end    
       item
         Name = 'NOMBRE_MATERIA_DET'

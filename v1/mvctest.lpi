@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="129">
+    <Units Count="132">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -949,6 +949,27 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="desarrolloctrl"/>
       </Unit128>
+      <Unit129>
+        <Filename Value="model\frmclasesdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ClasesDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmclasesdatamodule"/>
+      </Unit129>
+      <Unit130>
+        <Filename Value="controller\clasesctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="clasesctrl"/>
+      </Unit130>
+      <Unit131>
+        <Filename Value="view\frmabmclases.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmClases"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmclases"/>
+      </Unit131>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

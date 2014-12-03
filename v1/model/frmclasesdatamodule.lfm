@@ -1,0 +1,192 @@
+inherited ClasesDataModule: TClasesDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 323
+  HorizontalOffset = 851
+  VerticalOffset = 306
+  Width = 381
+  object Clase: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESARROLLOMATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TEMA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'OBJETIVOGENERAL'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'OBJETIVOSESPECIFICOS'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'ACTIVIDADES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'MATERIALES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'EVALUACION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    OnNewRecord = ClaseNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from clase'
+    )
+    Params = <>
+    left = 61
+    top = 79
+    object ClaseID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object ClaseDESARROLLOMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DESARROLLOMATERIAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ClaseFECHA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ClaseTEMA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TEMA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object ClaseOBJETIVOGENERAL: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBJETIVOGENERAL'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ClaseOBJETIVOSESPECIFICOS: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBJETIVOSESPECIFICOS'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ClaseACTIVIDADES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'ACTIVIDADES'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ClaseMATERIALES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'MATERIALES'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ClaseEVALUACION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'EVALUACION'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField1: TStringField
+      DisplayLabel = 'SECCION'
+      DisplayWidth = 1547
+      FieldKind = fkLookup
+      FieldName = 'NOMBRE_MAT_DETALLADO'
+      Index = 9
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_MAT_DETALLADO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 1547
+    end
+  end
+  object dsClase: TDataSource[1]
+    DataSet = Clase
+    left = 74
+    top = 164
+  end
+end
