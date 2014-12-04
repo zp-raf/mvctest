@@ -228,15 +228,23 @@ inherited Principal1: TPrincipal1
       end
       object equipos: TMenuItem
         Caption = 'ABM &Equipos'
+        OnClick = equiposClick
       end
       object reservaEquipo1: TMenuItem
         Caption = 'Pré&stamo de Equipos'
+        OnClick = reservaEquipo1Click
       end
       object justificativos: TMenuItem
         Caption = '&Justificativos'
+        OnClick = justificativosClick
       end
       object asistenciaProfesores: TMenuItem
         Caption = '&Registro de asistencia'
+        OnClick = asistenciaProfesoresClick
+      end
+      object MenuItemAprobarJusti: TMenuItem
+        Caption = 'Ap&robar justificativo'
+        OnClick = MenuItemAprobarJustiClick
       end
     end
     object reporte1: TMenuItem[3]

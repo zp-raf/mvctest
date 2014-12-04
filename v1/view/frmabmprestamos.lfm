@@ -1,0 +1,193 @@
+inherited AbmPrestamos: TAbmPrestamos
+  Left = 692
+  Top = 278
+  Width = 800
+  Caption = 'Prestamo de equipos'
+  ClientHeight = 461
+  ClientWidth = 800
+  Constraints.MinWidth = 800
+  inherited StatusBar1: TStatusBar
+    Width = 800
+  end
+  inherited ButtonPanel: TButtonPanel
+    Width = 788
+  end
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Width = 800
+    ClientWidth = 800
+    inherited DBGrid1: TDBGrid
+      Width = 784
+      DataSource = PrestamoDataModule.dsPrestamo
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = PrestamoDataModule.dsPrestamo
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Width = 800
+    ClientWidth = 800
+    object GroupBoxDetalles: TGroupBox[0]
+      Left = 6
+      Height = 129
+      Top = 264
+      Width = 788
+      Anchors = [akLeft, akRight, akBottom]
+      Caption = 'Detalles'
+      ClientHeight = 111
+      ClientWidth = 784
+      TabOrder = 0
+      object DBEditFechaIni: TDBEdit
+        Left = 8
+        Height = 23
+        Top = 24
+        Width = 80
+        DataField = 'FECHAINICIO'
+        DataSource = PrestamoDataModule.dsPrestamo
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object DBEditFechaFin: TDBEdit
+        Left = 8
+        Height = 23
+        Top = 72
+        Width = 80
+        DataField = 'FECHAFIN'
+        DataSource = PrestamoDataModule.dsPrestamo
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object FechaInicio: TLabel
+        AnchorSideLeft.Control = DBEditFechaIni
+        AnchorSideBottom.Control = DBEditFechaIni
+        Left = 8
+        Height = 15
+        Top = 9
+        Width = 60
+        Anchors = [akLeft, akBottom]
+        Caption = 'FechaInicio'
+        ParentColor = False
+      end
+      object FechaFin: TLabel
+        AnchorSideLeft.Control = DBEditFechaFin
+        AnchorSideBottom.Control = DBEditFechaFin
+        Left = 8
+        Height = 15
+        Top = 57
+        Width = 47
+        Anchors = [akLeft, akBottom]
+        Caption = 'FechaFin'
+        ParentColor = False
+      end
+    end
+    object DBGridEquipos: TDBGrid[1]
+      AnchorSideLeft.Control = DBGridPersonas
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Side = asrBottom
+      Left = 464
+      Height = 197
+      Top = 56
+      Width = 328
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderSpacing.Left = 8
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'NROSERIE'
+          Width = 132
+          FieldName = 'NROSERIE'
+        end      
+        item
+          Title.Caption = 'NOMBRE'
+          Width = 140
+          FieldName = 'NOMBRE'
+        end>
+      DataSource = EquiposDataModule.dsEquipo
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object DBGridPersonas: TDBGrid[2]
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Side = asrBottom
+      Left = 8
+      Height = 197
+      Top = 56
+      Width = 448
+      Anchors = [akTop, akLeft, akBottom]
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'CEDULA'
+          Width = 59
+          FieldName = 'CEDULA'
+        end      
+        item
+          Title.Caption = 'NOMBRECOMPLETO'
+          Width = 127
+          FieldName = 'NOMBRECOMPLETO'
+        end>
+      DataSource = PersonasDataModule.dsPersonasRoles
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+      ReadOnly = True
+      TabOrder = 2
+    end
+    object LabeledEditEq: TLabeledEdit[3]
+      AnchorSideLeft.Control = DBGridEquipos
+      AnchorSideRight.Control = DBGridEquipos
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = DBGridEquipos
+      Left = 464
+      Height = 23
+      Top = 25
+      Width = 328
+      Anchors = [akLeft, akRight, akBottom]
+      BorderSpacing.Bottom = 8
+      EditLabel.AnchorSideLeft.Control = LabeledEditEq
+      EditLabel.AnchorSideRight.Control = LabeledEditEq
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEditEq
+      EditLabel.Left = 464
+      EditLabel.Height = 15
+      EditLabel.Top = 7
+      EditLabel.Width = 328
+      EditLabel.Caption = 'Filrar por nombre o nro. de serie'
+      EditLabel.ParentColor = False
+      TabOrder = 3
+      OnChange = LabeledEditEqChange
+    end
+    object LabeledEditPers: TLabeledEdit[4]
+      AnchorSideLeft.Control = DBGridPersonas
+      AnchorSideRight.Control = DBGridPersonas
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = DBGridPersonas
+      Left = 8
+      Height = 23
+      Top = 25
+      Width = 448
+      Anchors = [akLeft, akRight, akBottom]
+      BorderSpacing.Bottom = 8
+      EditLabel.AnchorSideLeft.Control = LabeledEditPers
+      EditLabel.AnchorSideRight.Control = LabeledEditPers
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEditPers
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 7
+      EditLabel.Width = 448
+      EditLabel.Caption = 'Filtrar por nombre, apellida o cedula'
+      EditLabel.ParentColor = False
+      TabOrder = 4
+      OnChange = LabeledEditPersChange
+    end
+  end
+end

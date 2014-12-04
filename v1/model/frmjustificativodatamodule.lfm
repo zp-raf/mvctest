@@ -1,0 +1,170 @@
+inherited JustificativoDataModule: TJustificativoDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 323
+  HorizontalOffset = 805
+  VerticalOffset = 408
+  Width = 320
+  object JustificativoAsistencia: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHAPRESENTACION'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHAINASISTENCIA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MOTIVO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DETALLES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'APROBADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    OnNewRecord = JustificativoAsistenciaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from justificativoasistencia'
+    )
+    Params = <>
+    left = 72
+    top = 96
+    object JustificativoAsistenciaID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object JustificativoAsistenciaPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object JustificativoAsistenciaFECHAPRESENTACION: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHAPRESENTACION'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object JustificativoAsistenciaFECHAINASISTENCIA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHAINASISTENCIA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object JustificativoAsistenciaMOTIVO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'MOTIVO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object JustificativoAsistenciaDETALLES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DETALLES'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object JustificativoAsistenciaAPROBADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'APROBADO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField1: TStringField
+      DisplayWidth = 511
+      FieldKind = fkLookup
+      FieldName = 'NOMBRECOMPLETO'
+      Index = 7
+      KeyFields = 'PERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRECOMPLETO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object StringField2: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'CEDULA'
+      Index = 8
+      KeyFields = 'PERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'CEDULA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsJustificativoAsistencia: TDataSource[1]
+    DataSet = JustificativoAsistencia
+    left = 123
+    top = 164
+  end
+end

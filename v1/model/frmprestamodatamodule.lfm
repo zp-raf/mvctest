@@ -1,0 +1,151 @@
+inherited PrestamoDataModule: TPrestamoDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 390
+  HorizontalOffset = 911
+  VerticalOffset = 341
+  Width = 335
+  object Prestamo: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'EQUIPOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHAINICIO'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHAFIN'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end>
+    OnNewRecord = PrestamoNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from prestamo'
+    )
+    Params = <>
+    left = 104
+    top = 56
+    object PrestamoID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object PrestamoEQUIPOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'EQUIPOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PrestamoPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PrestamoFECHAINICIO: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHAINICIO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object PrestamoFECHAFIN: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHAFIN'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object StringField1: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'EQUIPO'
+      Index = 5
+      KeyFields = 'EQUIPOID'
+      LookupCache = False
+      LookupDataSet = EquiposDataModule.Equipo
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField2: TStringField
+      DisplayWidth = 511
+      FieldKind = fkLookup
+      FieldName = 'NOMBRECOMPLETO'
+      Index = 6
+      KeyFields = 'PERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRECOMPLETO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object StringField3: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'CEDULA'
+      Index = 7
+      KeyFields = 'PERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.PersonasRoles
+      LookupKeyFields = 'ID'
+      LookupResultField = 'CEDULA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsPrestamo: TDataSource[1]
+    DataSet = Prestamo
+    left = 117
+    top = 159
+  end
+end

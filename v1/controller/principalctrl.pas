@@ -133,7 +133,22 @@ uses
   // registro anecdotico
   frmregistroanecdoticodatamodule,
   frmprocesoreganecdotico,
-  registroanecdoticoctrl;
+  registroanecdoticoctrl,
+  // abm equipos
+  frmequiposdatamodule,
+  frmabmequipos,
+  equipoctrl,
+  // prestamo equipos
+  frmprestamodatamodule,
+  frmabmprestamos,
+  prestamoctrl,
+  // abm justificativos
+  frmjustificativodatamodule,
+  frmabmjustificativos,
+  justificativoctrl,
+  // aprobar justificativos
+  frmaprobarjustdatamodule,
+  frmprocesoaprobarjustificativo;
 
 type
 
@@ -174,6 +189,11 @@ type
     procedure OpenABMDesarrolloForm(Sender: IFormView);
     procedure OpenABMClasesForm(Sender: IFormView);
     procedure OpenRegistroAnecdoticoForm(Sender: IFormView);
+    procedure OpenABMEquiposForm(Sender: IFormView);
+    procedure OpenReservaEquiposForm(Sender: IFormView);
+    procedure OpenAsistenciaForm(Sender: IFormView);
+    procedure OpenABMJustificativosForm(Sender: IFormView);
+    procedure OpenAprobarJustForm(Sender: IFormView);
   end;
 
 var
@@ -453,6 +473,47 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoRegistroAnecdotico.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoRegistroAnecdotico as IObserver);
+end;
+
+procedure TPrincipalController.OpenABMEquiposForm(Sender: IFormView);
+begin
+  AbmEquipos := TAbmEquipos.Create(Sender, TEquiposController.Create(
+    TEquiposDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  AbmEquipos.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmEquipos as IObserver);
+end;
+
+procedure TPrincipalController.OpenReservaEquiposForm(Sender: IFormView);
+begin
+  AbmPrestamos := TAbmPrestamos.Create(Sender, TPrestamoController.Create(
+    TPrestamoDataModule.Create((Sender as TComponent), GetModel.MasterDataModule)));
+  AbmPrestamos.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmPrestamos as IObserver);
+end;
+
+procedure TPrincipalController.OpenAsistenciaForm(Sender: IFormView);
+begin
+
+end;
+
+procedure TPrincipalController.OpenABMJustificativosForm(Sender: IFormView);
+begin
+  AbmJustificativos := TAbmJustificativos.Create(Sender,
+    TJustificativoController.Create(TJustificativoDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  AbmJustificativos.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(AbmJustificativos as IObserver);
+end;
+
+procedure TPrincipalController.OpenAprobarJustForm(Sender: IFormView);
+begin
+  ProcesoAprobarJustificativo :=
+    TProcesoAprobarJustificativo.Create(Sender,
+    TAprobarJustificativoController.Create(TAprobarJustificativoDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoAprobarJustificativo.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoAprobarJustificativo as
+    IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

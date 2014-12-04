@@ -22,6 +22,7 @@ type
     ayuda1: TMenuItem;
     Listaalumnos: TButton;
     Documentos: TButton;
+    MenuItemAprobarJusti: TMenuItem;
     MenuItemDocumentos: TMenuItem;
     MenuItemAsignacion: TMenuItem;
     Pagos: TButton;
@@ -75,6 +76,7 @@ type
     trabajoPractico1: TMenuItem;
     procedure arancelesClick(Sender: TObject);
     procedure AsientosClick(Sender: TObject);
+    procedure asistenciaProfesoresClick(Sender: TObject);
     procedure calcularnotaClick(Sender: TObject);
     procedure calificarClick(Sender: TObject);
     procedure cargarFacturaClick(Sender: TObject);
@@ -84,6 +86,7 @@ type
     procedure desarrolloMateriasClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
     procedure entregasClick(Sender: TObject);
+    procedure equiposClick(Sender: TObject);
     procedure escalaClick(Sender: TObject);
     procedure examenabmClick(Sender: TObject);
     procedure extractoClick(Sender: TObject);
@@ -91,9 +94,11 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure gruposClick(Sender: TObject);
+    procedure justificativosClick(Sender: TObject);
     procedure ListaalumnosClick(Sender: TObject);
     procedure materiasClick(Sender: TObject);
     procedure matricularClick(Sender: TObject);
+    procedure MenuItemAprobarJustiClick(Sender: TObject);
     procedure MenuItemAsignacionClick(Sender: TObject);
     procedure MenuItemDocumentosClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
@@ -104,6 +109,7 @@ type
     procedure PagosClick(Sender: TObject);
     procedure periodosClick(Sender: TObject);
     procedure registroAnecdotico1Click(Sender: TObject);
+    procedure reservaEquipo1Click(Sender: TObject);
     procedure SalirClick(Sender: TObject);
     //procedure ayuda1Click(Sender: TObject);
     procedure academiasClick(Sender: TObject);
@@ -136,6 +142,11 @@ end;
 procedure TPrincipal1.AsientosClick(Sender: TObject);
 begin
   GetCustomController.OpenAsientosFrom(Self);
+end;
+
+procedure TPrincipal1.asistenciaProfesoresClick(Sender: TObject);
+begin
+  GetCustomController.OpenAsistenciaForm(Self);
 end;
 
 procedure TPrincipal1.arancelesClick(Sender: TObject);
@@ -188,6 +199,11 @@ begin
   GetCustomController.OpenEntregaForm(Self);
 end;
 
+procedure TPrincipal1.equiposClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMEquiposForm(Self);
+end;
+
 procedure TPrincipal1.escalaClick(Sender: TObject);
 begin
   GetCustomController.OpenEscalaForm(Self);
@@ -220,6 +236,11 @@ begin
   GetCustomController.OpenABMGruposForm(Self);
 end;
 
+procedure TPrincipal1.justificativosClick(Sender: TObject);
+begin
+  GetCustomController.OpenABMJustificativosForm(Self);
+end;
+
 procedure TPrincipal1.ListaalumnosClick(Sender: TObject);
 begin
   GetCustomController.OpenListaAlumnos(Self);
@@ -233,6 +254,11 @@ end;
 procedure TPrincipal1.matricularClick(Sender: TObject);
 begin
   GetCustomController.OpenMatriculacionForm(Self);
+end;
+
+procedure TPrincipal1.MenuItemAprobarJustiClick(Sender: TObject);
+begin
+  GetCustomController.OpenAprobarJustForm(Self);
 end;
 
 procedure TPrincipal1.MenuItemAsignacionClick(Sender: TObject);
@@ -283,6 +309,11 @@ end;
 procedure TPrincipal1.registroAnecdotico1Click(Sender: TObject);
 begin
   GetCustomController.OpenRegistroAnecdoticoForm(Self);
+end;
+
+procedure TPrincipal1.reservaEquipo1Click(Sender: TObject);
+begin
+  GetCustomController.OpenReservaEquiposForm(Self);
 end;
 
 //procedure TPrincipal1.ayuda1Click(Sender: TObject);

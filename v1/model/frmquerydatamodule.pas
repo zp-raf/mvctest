@@ -173,7 +173,10 @@ begin
   FSearchText := ASearchText;
   for i := 0 to Pred(FQryList.Count) do
   begin
-    (FQryList.Items[i] as TDataSet).Filtered := True;
+    if Trim(ASearchText) <> '' then
+      (FQryList.Items[i] as TDataSet).Filtered := True
+    else
+      (FQryList.Items[i] as TDataSet).Filtered := False;
   end;
   //if Trim(FSearchText) = '' then
   //  for i := 0 to (FQryList.Count - 1) do

@@ -1,0 +1,117 @@
+inherited ProcesoAprobarJustificativo: TProcesoAprobarJustificativo
+  Left = 664
+  Height = 600
+  Top = 210
+  Width = 800
+  Caption = 'Aprobar Justificativo'
+  ClientHeight = 580
+  ClientWidth = 800
+  Constraints.MinHeight = 600
+  Constraints.MinWidth = 800
+  inherited StatusBar1: TStatusBar
+    Top = 557
+    Width = 800
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 517
+    Width = 788
+    OKButton.OnClick = OKButtonClick
+    CancelButton.OnClick = CancelButtonClick
+  end
+  object DBGridPersonas: TDBGrid[2]
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Side = asrBottom
+    Left = 6
+    Height = 200
+    Top = 48
+    Width = 788
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'CEDULA'
+        Width = 59
+        FieldName = 'CEDULA'
+      end    
+      item
+        Title.Caption = 'NOMBRECOMPLETO'
+        Width = 127
+        FieldName = 'NOMBRECOMPLETO'
+      end>
+    DataSource = PersonasDataModule.dsPersonasRoles
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+    ReadOnly = True
+    TabOrder = 2
+    OnCellClick = DBGridPersonasCellClick
+  end
+  object LabeledEditPers: TLabeledEdit[3]
+    AnchorSideLeft.Control = DBGridPersonas
+    AnchorSideRight.Control = DBGridPersonas
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = DBGridPersonas
+    Left = 6
+    Height = 23
+    Top = 17
+    Width = 788
+    Anchors = [akLeft, akRight, akBottom]
+    BorderSpacing.Bottom = 8
+    EditLabel.AnchorSideLeft.Control = LabeledEditPers
+    EditLabel.AnchorSideRight.Control = LabeledEditPers
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = LabeledEditPers
+    EditLabel.Left = 6
+    EditLabel.Height = 15
+    EditLabel.Top = -1
+    EditLabel.Width = 788
+    EditLabel.Caption = 'Filtrar por nombre, apellida o cedula'
+    EditLabel.ParentColor = False
+    TabOrder = 3
+    OnChange = LabeledEditPersChange
+  end
+  object DBGrid1: TDBGrid[4]
+    Left = 6
+    Height = 256
+    Top = 256
+    Width = 788
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        ReadOnly = True
+        Title.Caption = 'FECHAPRESENTACION'
+        Width = 137
+        FieldName = 'FECHAPRESENTACION'
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'FECHAINASISTENCIA'
+        Width = 128
+        FieldName = 'FECHAINASISTENCIA'
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'MOTIVO'
+        Width = 61
+        FieldName = 'MOTIVO'
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'DETALLES'
+        Width = 68
+        FieldName = 'DETALLES'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'APROBADO'
+        Width = 78
+        FieldName = 'APROBADO'
+      end>
+    DataSource = AprobarJustificativoDataModule.dsJustificativoAsistencia
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert]
+    TabOrder = 4
+  end
+  inherited MainMenu: TMainMenu[5]
+    left = 408
+    top = 160
+  end
+end

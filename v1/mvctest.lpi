@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="135">
+    <Units Count="146">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -991,6 +991,85 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmprocesoreganecdotico"/>
       </Unit134>
+      <Unit135>
+        <Filename Value="model\frmequiposdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="EquiposDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmequiposdatamodule"/>
+      </Unit135>
+      <Unit136>
+        <Filename Value="controller\equipoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="equipoctrl"/>
+      </Unit136>
+      <Unit137>
+        <Filename Value="model\frmprestamodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PrestamoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmprestamodatamodule"/>
+      </Unit137>
+      <Unit138>
+        <Filename Value="controller\prestamoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="prestamoctrl"/>
+      </Unit138>
+      <Unit139>
+        <Filename Value="view\frmabmequipos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmEquipos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmequipos"/>
+      </Unit139>
+      <Unit140>
+        <Filename Value="view\frmabmprestamos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmPrestamos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmprestamos"/>
+      </Unit140>
+      <Unit141>
+        <Filename Value="model\frmjustificativodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="JustificativoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmjustificativodatamodule"/>
+      </Unit141>
+      <Unit142>
+        <Filename Value="controller\justificativoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="justificativoctrl"/>
+      </Unit142>
+      <Unit143>
+        <Filename Value="view\frmabmjustificativos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AbmJustificativos"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmabmjustificativos"/>
+      </Unit143>
+      <Unit144>
+        <Filename Value="view\frmprocesoaprobarjustificativo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoAprobarJustificativo"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoaprobarjustificativo"/>
+      </Unit144>
+      <Unit145>
+        <Filename Value="model\frmaprobarjustdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AprobarJustificativoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmaprobarjustdatamodule"/>
+      </Unit145>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

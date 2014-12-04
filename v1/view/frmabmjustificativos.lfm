@@ -1,0 +1,130 @@
+inherited AbmJustificativos: TAbmJustificativos
+  Caption = 'ABM Justificativos'
+  ClientHeight = 461
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      DataSource = JustificativoDataModule.dsJustificativoAsistencia
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = JustificativoDataModule.dsJustificativoAsistencia
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    object DBEdit1: TDBEdit[0]
+      Left = 16
+      Height = 23
+      Top = 73
+      Width = 80
+      DataField = 'FECHAPRESENTACION'
+      DataSource = JustificativoDataModule.dsJustificativoAsistencia
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object DBEdit2: TDBEdit[1]
+      Left = 160
+      Height = 23
+      Top = 73
+      Width = 80
+      DataField = 'FECHAINASISTENCIA'
+      DataSource = JustificativoDataModule.dsJustificativoAsistencia
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object DBMemo1: TDBMemo[2]
+      Left = 16
+      Height = 112
+      Top = 120
+      Width = 616
+      DataField = 'MOTIVO'
+      DataSource = JustificativoDataModule.dsJustificativoAsistencia
+      TabOrder = 2
+    end
+    object DBMemo2: TDBMemo[3]
+      Left = 16
+      Height = 122
+      Top = 256
+      Width = 616
+      DataField = 'DETALLES'
+      DataSource = JustificativoDataModule.dsJustificativoAsistencia
+      TabOrder = 3
+    end
+    object DBLookupComboBox1: TDBLookupComboBox[4]
+      Left = 16
+      Height = 23
+      Top = 24
+      Width = 364
+      DataField = 'PERSONAID'
+      DataSource = JustificativoDataModule.dsJustificativoAsistencia
+      KeyField = 'ID'
+      ListField = 'NOMBRECOMPLETO'
+      ListFieldIndex = 0
+      ListSource = PersonasDataModule.dsPersonasRoles
+      LookupCache = False
+      TabOrder = 4
+    end
+    object Persona: TLabel[5]
+      AnchorSideLeft.Control = DBLookupComboBox1
+      AnchorSideBottom.Control = DBLookupComboBox1
+      Left = 16
+      Height = 15
+      Top = 9
+      Width = 42
+      Anchors = [akLeft, akBottom]
+      Caption = 'Persona'
+      ParentColor = False
+    end
+    object FechaPresentacion: TLabel[6]
+      AnchorSideLeft.Control = DBEdit1
+      AnchorSideBottom.Control = DBEdit1
+      Left = 16
+      Height = 15
+      Top = 58
+      Width = 99
+      Anchors = [akLeft, akBottom]
+      Caption = 'FechaPresentacion'
+      ParentColor = False
+    end
+    object FechaInasistencia: TLabel[7]
+      AnchorSideLeft.Control = DBEdit2
+      AnchorSideBottom.Control = DBEdit2
+      Left = 160
+      Height = 15
+      Top = 58
+      Width = 92
+      Anchors = [akLeft, akBottom]
+      Caption = 'FechaInasistencia'
+      ParentColor = False
+    end
+    object Motivo: TLabel[8]
+      AnchorSideLeft.Control = DBMemo1
+      AnchorSideBottom.Control = DBMemo1
+      Left = 16
+      Height = 15
+      Top = 105
+      Width = 38
+      Anchors = [akLeft, akBottom]
+      Caption = 'Motivo'
+      ParentColor = False
+    end
+    object Detalles: TLabel[9]
+      AnchorSideLeft.Control = DBMemo2
+      AnchorSideBottom.Control = DBMemo2
+      Left = 16
+      Height = 15
+      Top = 241
+      Width = 41
+      Anchors = [akLeft, akBottom]
+      Caption = 'Detalles'
+      ParentColor = False
+    end
+  end
+end
