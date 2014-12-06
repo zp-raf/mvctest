@@ -32,6 +32,8 @@ type
     PrerrequisitosMATERIAID: TLongintField;
     PrerrequisitosMATERIAID_PRE: TLongintField;
     GetMateriasPrerreq: TSQLQuery;
+    StringField1: TStringField;
+    StringField2: TStringField;
     StringFieldMateria: TStringField;
     procedure DataModuleDestroy(Sender: TObject);
     procedure MateriaAfterScroll(DataSet: TDataSet);
@@ -106,12 +108,13 @@ end;
 
 procedure TMateriasDataModule.MateriaAfterScroll(DataSet: TDataSet);
 begin
-  //if DataSet.State in dsEditModes then
-  //  Exit;
-  GetMateriasPrerreq.Close;
-  GetMateriasPrerreq.ParamByName('GID').AsString :=
-    DataSet.FieldByName('GRUPOID').AsString;
-  GetMateriasPrerreq.Open;
+  if not (DataSet.State in [dsInsert]) then
+  begin
+    GetMateriasPrerreq.Close;
+    GetMateriasPrerreq.ParamByName('GID').AsString :=
+      DataSet.FieldByName('GRUPOID').AsString;
+    GetMateriasPrerreq.Open;
+  end;
 
   Prerrequisitos.Close;
   Prerrequisitos.ParamByName(
@@ -164,6 +167,10 @@ begin
   AuxQryList.Add(TObject(Prerrequisitos));
   SearchFieldList.Add('NOMBRE');
   Materia.OnFilterRecord := @FilterRecord;
+  FGrupos.Grupo.Filter := 'HABILITADO = 1';
+  FGrupos.Grupo.Filtered := True;
+  FModulos.Modulo.Filter := 'HABILITADO = 1';
+  FModulos.Modulo.Filtered := True;
 end;
 
 procedure TMateriasDataModule.DiscardChanges;
@@ -175,6 +182,7 @@ end;
 procedure TMateriasDataModule.MateriaNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenName);
+  DataSet.FieldByName('HABILITADA').AsInteger := 1;
 end;
 
 procedure TMateriasDataModule.SaveChanges;

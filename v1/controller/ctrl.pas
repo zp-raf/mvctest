@@ -40,6 +40,7 @@ type
     procedure CloseQuery(Sender: IView; var CanClose: boolean); virtual;
     procedure Commit(Sender: IView);
     procedure Connect(Sender: IView);
+    procedure DeletCurrentRecord(Sender: IView);
     procedure Disconnect(Sender: IView);
     procedure EditCurrentRecord(Sender: IView); virtual;
     procedure ErrorHandler(E: Exception; Sender: IView); virtual;
@@ -222,6 +223,11 @@ end;
 procedure TController.Connect(Sender: IView);
 begin
   GetModel.Connect;
+end;
+
+procedure TController.DeletCurrentRecord(Sender: IView);
+begin
+  GetModel.DeleteCurrentRecord;
 end;
 
 procedure TController.Disconnect(Sender: IView);

@@ -45,6 +45,7 @@ type
     procedure Connect; virtual;
     procedure DataModuleCreate(Sender: TObject); virtual;
     procedure DataModuleDestroy(Sender: TObject);
+    procedure DeleteCurrentRecord;
     procedure DiscardChanges; virtual;
     procedure Disconnect; virtual;
     procedure FilterData(ASearchText: string);
@@ -129,6 +130,35 @@ begin
     FreeAndNil(FSearchFieldList);
   if Assigned(FDetailList) then
     FreeAndNil(FDetailList);
+end;
+
+procedure TQueryDataModule.DeleteCurrentRecord;
+var
+  i: integer;
+begin
+  Connect;
+  for i := 0 to FQryList.Count - 1 do
+  begin
+    with TSQLQuery(FQryList.Items[i]) do
+    begin
+      try
+        //DisableControls;
+        if ReadOnly then
+          Continue;
+        if Active and not (State in [dsEdit, dsInsert]) then
+          Delete
+        else if (State in [dsEdit, dsInsert]) and (RowsAffected > 0) then
+        begin
+          Cancel;
+          Delete;
+        end
+        else if not Active then
+          Abort;
+      finally
+        //EnableControls;
+      end;
+    end;
+  end;
 end;
 
 constructor TQueryDataModule.Create(AOwner: TComponent; AMaster: IDBModel);
@@ -231,7 +261,7 @@ begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
       try
-        DisableControls;
+        //DisableControls;
         if ReadOnly then
           Continue;
         if Active and not (State in [dsInsert]) then
@@ -244,7 +274,7 @@ begin
         else if not Active then
           Abort;
       finally
-        EnableControls;
+        //EnableControls;
       end;
     end;
   end;
@@ -260,7 +290,7 @@ begin
     with TSQLQuery(FQryList.Items[i]) do
     begin
       try
-        DisableControls;
+        //DisableControls;
         if ReadOnly then
           Continue;
         if Active and not (State in [dsEdit]) then
@@ -273,7 +303,7 @@ begin
         else if not Active then
           Abort;
       finally
-        EnableControls;
+        //EnableControls;
       end;
     end;
   end;
@@ -290,7 +320,7 @@ begin
     with TSQLQuery(FDetailList.Items[i]) do
     begin
       try
-        DisableControls;
+        // DisableControls;
         if ReadOnly then
           Continue;
         if Active and not (State in [dsEdit]) then
@@ -303,7 +333,7 @@ begin
         else if not Active then
           Abort;
       finally
-        EnableControls;
+        //EnableControls;
       end;
     end;
   end;

@@ -5,7 +5,7 @@ unit frmmodulodatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, sgcdTypes,
   frmquerydatamodule, sqldb, DB;
 
 resourcestring
@@ -39,6 +39,7 @@ type
     ModulosHabilitadosViewPERFILEGRESADO: TStringField;
     ModulosHabilitadosViewREQUISITOS: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
+    function ModuloGeneralDefinido: boolean;
     procedure ModuloNewRecord(DataSet: TDataSet);
   end;
 
@@ -60,10 +61,21 @@ begin
   SearchFieldList.Add('DESCRIPCION');
 end;
 
+function TModuloDataModule.ModuloGeneralDefinido: boolean;
+begin
+  if Modulo.State = dsInactive then
+    raise Exception.Create('Datos no disponibles');
+  if Modulo.Lookup('MODULOGENERAL', DB_TRUE, 'ID') = null then
+    Result := False
+  else
+    Result := True;
+end;
+
 procedure TModuloDataModule.ModuloNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenName);
   DataSet.FieldByName('MODULOGENERAL').AsInteger := 0;
+  DataSet.FieldByName('HABILITADO').AsInteger := 0;
 end;
 
 end.

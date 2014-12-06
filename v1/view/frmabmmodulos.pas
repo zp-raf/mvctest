@@ -27,6 +27,8 @@ type
     LabelRequisitos: TLabel;
     LabelPerfilEgresado: TLabel;
     LabelNombre: TLabel;
+    procedure ABMInsert; override;
+    procedure ABMEdit; override;
   protected
     function GetCustomController: TModuloController;
   end;
@@ -39,6 +41,23 @@ implementation
 {$R *.lfm}
 
 { TAbmModulos }
+
+procedure TAbmModulos.ABMInsert;
+begin
+  ShowPanel(PanelDetail);
+  if GetCustomController.ModuloGeneralDefinido(Self) then
+  begin
+    DBCheckBoxModuloGen.Enabled := False;
+    DBCheckBoxModuloGen.Checked := False;
+  end;
+  GetController.NewRecord(Self);
+end;
+
+procedure TAbmModulos.ABMEdit;
+begin
+  inherited ABMEdit;
+  DBCheckBoxModuloGen.Enabled := True;
+end;
 
 function TAbmModulos.GetCustomController: TModuloController;
 begin

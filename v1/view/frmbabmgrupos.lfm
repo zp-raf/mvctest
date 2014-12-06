@@ -1,7 +1,44 @@
 inherited AbmGrupos: TAbmGrupos
   Caption = 'ABM Grupos'
   ClientHeight = 461
-  inherited PanelDetail: TPanel
+  inherited PanelList: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'DESCRIPCION'
+          Width = 89
+          FieldName = 'DESCRIPCION'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'HABILITADO'
+          Width = 83
+          FieldName = 'HABILITADO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'GRUPO_ANTERIOR'
+          Width = 115
+          FieldName = 'GRUPO_ANTERIOR'
+        end>
+      DataSource = GrupoDataModule.dsGrupo
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = GrupoDataModule.dsGrupo
+      Hints.Strings = (      )
+    end
+  end
+  inherited PanelDetail: TPanel[3]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
@@ -24,7 +61,7 @@ inherited AbmGrupos: TAbmGrupos
       Caption = 'Habilitado'
       DataField = 'HABILITADO'
       DataSource = GrupoDataModule.dsGrupo
-      TabOrder = 2
+      TabOrder = 3
       ValueChecked = '1'
       ValueUnchecked = 'False'
     end
@@ -36,13 +73,14 @@ inherited AbmGrupos: TAbmGrupos
       DataField = 'DESCRIPCION'
       DataSource = GrupoDataModule.dsGrupo
       ScrollBars = ssVertical
-      TabOrder = 3
+      TabOrder = 2
     end
     object DBLookupComboBoxAnterior: TDBLookupComboBox[3]
       Left = 384
       Height = 23
       Top = 23
       Width = 240
+      AutoComplete = True
       DataField = 'ANTERIOR'
       DataSource = GrupoDataModule.dsGrupo
       KeyField = 'ID'
@@ -84,18 +122,6 @@ inherited AbmGrupos: TAbmGrupos
       Anchors = [akLeft, akBottom]
       Caption = 'Grupo anterior'
       ParentColor = False
-    end
-  end
-  inherited PanelList: TPanel
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    inherited DBGrid1: TDBGrid
-      DataSource = GrupoDataModule.dsGrupo
-    end
-    inherited DBNavList: TDBNavigator
-      DataSource = GrupoDataModule.dsGrupo
-      Hints.Strings = (      )
     end
   end
 end

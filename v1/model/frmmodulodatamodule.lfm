@@ -5,6 +5,7 @@ inherited ModuloDataModule: TModuloDataModule
   VerticalOffset = 366
   Width = 315
   object Modulo: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -175,7 +176,7 @@ inherited ModuloDataModule: TModuloDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object ModuloDURACION_CANTIDAD: TLongintField
       DisplayWidth = 10
@@ -185,7 +186,7 @@ inherited ModuloDataModule: TModuloDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object ModuloMODULOGENERAL: TSmallintField
       DisplayWidth = 10

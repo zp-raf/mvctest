@@ -20,6 +20,11 @@ type
     dsGrupo: TDataSource;
     Grupo: TSQLQuery;
     GrupoANTERIOR: TLongintField;
+    GrupoAuxANTERIOR: TLongintField;
+    GrupoAuxDESCRIPCION: TStringField;
+    GrupoAuxHABILITADO: TLongintField;
+    GrupoAuxID: TLongintField;
+    GrupoAuxNOMBRE: TStringField;
     GrupoDESCRIPCION: TStringField;
     GrupoHABILITADO: TLongintField;
     GrupoID: TLongintField;
@@ -30,6 +35,8 @@ type
     GruposHabilitadosViewHABILITADO: TLongintField;
     GruposHabilitadosViewID: TLongintField;
     GruposHabilitadosViewNOMBRE: TStringField;
+    GrupoAux: TSQLQuery;
+    StringField1: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure GrupoAfterScroll(DataSet: TDataSet);
     procedure GrupoNewRecord(DataSet: TDataSet);
@@ -49,6 +56,7 @@ begin
   inherited;
   QryList.Add(TObject(Grupo));
   AuxQryList.Add(TObject(GruposHabilitadosView));
+  AuxQryList.Add(TObject(GrupoAux));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('DESCRIPCION');
 end;
@@ -64,6 +72,7 @@ end;
 procedure TGrupoDataModule.GrupoNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenName);
+  DataSet.FieldByName('HABILITADO').AsInteger := 1;
   GruposHabilitadosView.Close;
   GruposHabilitadosView.ParamByName('IDGRUPO').AsInteger :=
     DataSet.FieldByName('ID').AsInteger;

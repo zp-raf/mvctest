@@ -1,7 +1,7 @@
 inherited Abm: TAbm
-  Left = 785
+  Left = 524
   Height = 481
-  Top = 344
+  Top = 240
   Width = 640
   ClientHeight = 461
   ClientWidth = 640
@@ -157,6 +157,26 @@ inherited Abm: TAbm
       end
       inherited MenuItemSalir: TMenuItem[1]
       end
+    end
+    object MenuItemAcciones: TMenuItem[1]
+      Caption = 'A&cciones'
+      object MenuItemEditar: TMenuItem
+        Caption = '&Editar'
+        ShortCut = 16453
+        OnClick = MenuItemEditarClick
+      end
+      object MenuItemEliminar: TMenuItem
+        Caption = '&Borrar'
+        ShortCut = 16452
+        OnClick = MenuItemEliminarClick
+      end
+      object MenuItemAgregar: TMenuItem
+        Caption = '&Agegar'
+        ShortCut = 16449
+        OnClick = MenuItemAgregarClick
+      end
+    end
+    inherited MenuAyuda: TMenuItem[2]
     end
   end
 end

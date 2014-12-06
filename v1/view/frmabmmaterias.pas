@@ -5,7 +5,7 @@ unit frmabmmaterias;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls, DB,
   Menus, ButtonPanel, ExtCtrls, DBGrids, DBCtrls, StdCtrls, frmAbm, materiactrl;
 
 type
@@ -39,6 +39,8 @@ type
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
+    procedure ABMInsert; override;
+    procedure ABMEdit; override;
     procedure ButtonPrerreqClick(Sender: TObject);
   protected
     function GetCustomController: TMateriaController;
@@ -52,6 +54,38 @@ implementation
 {$R *.lfm}
 
 { TAbmMaterias }
+
+procedure TAbmMaterias.ABMInsert;
+var
+  x1, x2: TDataSource;
+begin
+  try
+    x1 := DBLookupComboBox1.DataSource;
+    x2 := DBLookupComboBox2.DataSource;
+    DBLookupComboBox1.DataSource := nil;
+    DBLookupComboBox2.DataSource := nil;
+    inherited ABMInsert;
+  finally
+    DBLookupComboBox1.DataSource := x1;
+    DBLookupComboBox2.DataSource := x2;
+  end;
+end;
+
+procedure TAbmMaterias.ABMEdit;
+var
+  x1, x2: TDataSource;
+begin
+  try
+    x1 := DBLookupComboBox1.DataSource;
+    x2 := DBLookupComboBox2.DataSource;
+    DBLookupComboBox1.DataSource := nil;
+    DBLookupComboBox2.DataSource := nil;
+    inherited ABMEdit;
+  finally
+    DBLookupComboBox1.DataSource := x1;
+    DBLookupComboBox2.DataSource := x2;
+  end;
+end;
 
 procedure TAbmMaterias.ButtonPrerreqClick(Sender: TObject);
 begin

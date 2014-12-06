@@ -6,6 +6,7 @@ inherited MateriasDataModule: TMateriasDataModule
   VerticalOffset = 370
   Width = 528
   object Materia: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -252,6 +253,36 @@ inherited MateriasDataModule: TMateriasDataModule
       Required = False
       Size = 255
     end
+    object StringField1: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'MODULO'
+      Index = 14
+      KeyFields = 'MODULOID'
+      LookupCache = False
+      LookupDataSet = ModuloDataModule.Modulo
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField2: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'GRUPO'
+      Index = 15
+      KeyFields = 'GRUPOID'
+      LookupCache = False
+      LookupDataSet = GrupoDataModule.Grupo
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   object dsMateria: TDataSource[1]
     DataSet = Materia
@@ -259,7 +290,6 @@ inherited MateriasDataModule: TMateriasDataModule
     top = 112
   end
   object MateriasDetView: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

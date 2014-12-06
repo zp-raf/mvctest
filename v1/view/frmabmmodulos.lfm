@@ -6,6 +6,32 @@ inherited AbmModulos: TAbmModulos
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          FieldName = 'NOMBRE'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'HABILITADO'
+          Width = 83
+          FieldName = 'HABILITADO'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'MODULOGENERAL'
+          Width = 116
+          FieldName = 'MODULOGENERAL'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'DESCRIPCION'
+          Width = 89
+          FieldName = 'DESCRIPCION'
+        end>
       DataSource = ModuloDataModule.dsModulo
     end
     inherited DBNavList: TDBNavigator
@@ -81,7 +107,7 @@ inherited AbmModulos: TAbmModulos
       DataField = 'FUNDAMENTACION'
       DataSource = ModuloDataModule.dsModulo
       ScrollBars = ssVertical
-      TabOrder = 4
+      TabOrder = 5
     end
     object DBMemoObj: TDBMemo[6]
       Left = 360
@@ -91,7 +117,7 @@ inherited AbmModulos: TAbmModulos
       DataField = 'OBJETIVOS'
       DataSource = ModuloDataModule.dsModulo
       ScrollBars = ssVertical
-      TabOrder = 5
+      TabOrder = 4
     end
     object DBMemoReq: TDBMemo[7]
       Left = 360

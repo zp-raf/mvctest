@@ -6,6 +6,18 @@ inherited AbmSecciones: TAbmSecciones
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'DESCRIPCION'
+          Width = 89
+          FieldName = 'DESCRIPCION'
+        end>
       DataSource = SeccionDataModule.dsSeccion
     end
     inherited DBNavList: TDBNavigator

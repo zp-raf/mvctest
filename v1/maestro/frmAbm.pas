@@ -7,16 +7,23 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, DBGrids, ButtonPanel, EditBtn, StdCtrls, DBCtrls, frmMaestro,
-  sqldb, LCLType, IBConnection, BufDataset, mvc, ctrl, mensajes;
+  sqldb, LCLType, ComCtrls, IBConnection, BufDataset, mvc, ctrl, mensajes;
 
 type
 
   { TAbm }
 
   TAbm = class(TMaestro, IABMView)
+    MenuItemEditar: TMenuItem;
+    MenuItemEliminar: TMenuItem;
+    MenuItemAgregar: TMenuItem;
+    MenuItemAcciones: TMenuItem;
     procedure ButtonPanelKeyDown(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure EditFilterKeyUp(Sender: TObject; var Key: word; {%H-}Shift: TShiftState);
+    procedure MenuItemAgregarClick(Sender: TObject);
+    procedure MenuItemEditarClick(Sender: TObject);
+    procedure MenuItemEliminarClick(Sender: TObject);
   protected
     function GetABMController: TABMController;
   public
@@ -112,6 +119,7 @@ begin
     nbDelete:
     begin
       ABMDelete;
+      Abort;
     end;
   end;
 end;
@@ -128,6 +136,21 @@ begin
     Exit;
   if Key = VK_RETURN then
     GetABMController.FilterData(Trim(EditFilter.Text), Self);
+end;
+
+procedure TAbm.MenuItemAgregarClick(Sender: TObject);
+begin
+  ABMInsert;
+end;
+
+procedure TAbm.MenuItemEditarClick(Sender: TObject);
+begin
+  ABMEdit;
+end;
+
+procedure TAbm.MenuItemEliminarClick(Sender: TObject);
+begin
+  ABMDelete;
 end;
 
 function TAbm.GetABMController: TABMController;
@@ -159,7 +182,7 @@ end;
 
 procedure TAbm.ABMDelete;
 begin
-
+  GetController.DeletCurrentRecord(Self);
 end;
 
 procedure TAbm.ABMRefresh;

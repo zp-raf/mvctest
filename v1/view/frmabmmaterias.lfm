@@ -20,6 +20,37 @@ inherited AbmMaterias: TAbmMaterias
     ClientWidth = 800
     inherited DBGrid1: TDBGrid
       Width = 784
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          Width = 119
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'DESCRIPCION'
+          Width = 178
+          FieldName = 'DESCRIPCION'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'HABILITADA'
+          Width = 82
+          FieldName = 'HABILITADA'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'MODULO'
+          Width = 38
+          FieldName = 'MODULO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'GRUPO'
+          FieldName = 'GRUPO'
+        end>
       DataSource = MateriasDataModule.dsMateria
     end
     inherited DBNavList: TDBNavigator
@@ -262,6 +293,7 @@ inherited AbmMaterias: TAbmMaterias
       Height = 23
       Top = 23
       Width = 208
+      AutoComplete = True
       DataField = 'MODULOID'
       DataSource = MateriasDataModule.dsMateria
       KeyField = 'ID'
@@ -276,6 +308,7 @@ inherited AbmMaterias: TAbmMaterias
       Height = 23
       Top = 23
       Width = 202
+      AutoComplete = True
       DataField = 'GRUPOID'
       DataSource = MateriasDataModule.dsMateria
       KeyField = 'ID'
