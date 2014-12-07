@@ -5,7 +5,6 @@ inherited PeriodosDataModule: TPeriodosDataModule
   VerticalOffset = 223
   Width = 550
   object PeriodoLectivo: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

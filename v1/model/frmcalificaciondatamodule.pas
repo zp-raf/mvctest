@@ -79,42 +79,44 @@ end;
 
 procedure TCalificacionDataModule.PrepararPlanillaCalificaciones(AExamenID: string);
 begin
-  if not Examenes.Examen.Locate('ID', AExamenID, []) then
-  begin
-    raise Exception.Create('No se encuentra el examen');
-    Exit;
-  end;
-  // vemos si ya hay calificaciones cargadas y si no, preparamos el dataset
-  // para meter datos
-  Calificacion.Close;
-  Calificacion.ParamByName('EXAMENID').AsString :=
-    Examenes.Examen.FieldByName('ID').AsString;
-  Calificacion.Open;
-  if Calificacion.IsEmpty then
-  begin
-    // traemos a todos los alumnos que estan matriculados en la materia
-    Matricula.AlumnosMatriculasView.Close;
-    Matricula.AlumnosMatriculasView.ServerFilter :=
-      '(DESARROLLOMATERIAID = ' + Examenes.Examen.FieldByName(
-      'DESARROLLOMATERIAID').AsString + ')';
-    Matricula.AlumnosMatriculasView.ServerFiltered := True;
-    Matricula.AlumnosMatriculasView.Open;
-    if Matricula.AlumnosMatriculasView.IsEmpty then
+  try
+    if not Examenes.Examen.Locate('ID', AExamenID, []) then
+      raise Exception.Create('No se encuentra el examen');
+    // vemos si ya hay calificaciones cargadas y si no, preparamos el dataset
+    // para meter datos
+    Calificacion.Close;
+    Calificacion.ParamByName('EXAMENID').AsString :=
+      Examenes.Examen.FieldByName('ID').AsString;
+    Calificacion.Open;
+    if Calificacion.IsEmpty then
     begin
-      raise Exception.Create('No hay alumnos inscriptos a la seccion');
+      // traemos a todos los alumnos que estan matriculados en la materia
+      Matricula.AlumnosMatriculasView.Close;
+      Matricula.AlumnosMatriculasView.ServerFilter :=
+        '(DESARROLLOMATERIAID = ' + Examenes.Examen.FieldByName(
+        'DESARROLLOMATERIAID').AsString + ')';
+      Matricula.AlumnosMatriculasView.ServerFiltered := True;
+      Matricula.AlumnosMatriculasView.Open;
+      if Matricula.AlumnosMatriculasView.IsEmpty then
+      begin
+        raise Exception.Create('No hay alumnos inscriptos a la seccion');
+      end;
+      Matricula.AlumnosMatriculasView.First;
+      while not Matricula.AlumnosMatriculasView.EOF do
+      begin
+        Calificacion.Insert;
+        CalificacionEXAMENID.AsString := AExamenID;
+        CalificacionMATRICULAID.AsInteger :=
+          Matricula.AlumnosMatriculasView.FieldByName('ID').AsInteger;
+        CalificacionPUNTAJEOBTENIDO.AsFloat := 0.0;
+        Matricula.AlumnosMatriculasView.Next;
+      end;
     end;
-    Matricula.AlumnosMatriculasView.First;
-    while not Matricula.AlumnosMatriculasView.EOF do
-    begin
-      Calificacion.Insert;
-      CalificacionEXAMENID.AsString := AExamenID;
-      CalificacionMATRICULAID.AsInteger :=
-        Matricula.AlumnosMatriculasView.FieldByName('ID_MATRICULA').AsInteger;
-      CalificacionPUNTAJEOBTENIDO.AsFloat := 0.0;
-      Matricula.AlumnosMatriculasView.Next;
-    end;
+    Estado := edEditando;
+  except
+    on e: Exception do
+      raise;
   end;
-  Estado := edEditando;
 end;
 
 procedure TCalificacionDataModule.SaveChanges;

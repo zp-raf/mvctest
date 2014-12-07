@@ -18,6 +18,7 @@ type
   TEscalaDataModule = class(TQueryDataModule)
     dsEscala: TDataSource;
     Escala: TSQLQuery;
+    EscalaAPRUEBA: TSmallintField;
     EscalaID: TLongintField;
     EscalaLIMITEINF: TFloatField;
     EscalaLIMITESUP: TFloatField;

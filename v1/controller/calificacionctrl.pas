@@ -51,6 +51,7 @@ begin
           begin
             GetCustomModel.Estado := edInicial;
             GetCustomModel.CloseDataSets;
+            raise;
           end;
         end;
       end;

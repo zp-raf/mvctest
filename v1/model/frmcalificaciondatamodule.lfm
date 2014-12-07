@@ -113,7 +113,7 @@ inherited CalificacionDataModule: TCalificacionDataModule
       KeyFields = 'MATRICULAID'
       LookupCache = False
       LookupDataSet = MatriculaDataModule.AlumnosMatriculasView
-      LookupKeyFields = 'ID_MATRICULA'
+      LookupKeyFields = 'ID'
       LookupResultField = 'CEDULA'
       ProviderFlags = []
       ReadOnly = False
@@ -128,7 +128,7 @@ inherited CalificacionDataModule: TCalificacionDataModule
       KeyFields = 'MATRICULAID'
       LookupCache = False
       LookupDataSet = MatriculaDataModule.AlumnosMatriculasView
-      LookupKeyFields = 'ID_MATRICULA'
+      LookupKeyFields = 'ID'
       LookupResultField = 'NOMBRE'
       ProviderFlags = []
       ReadOnly = False
@@ -143,7 +143,7 @@ inherited CalificacionDataModule: TCalificacionDataModule
       KeyFields = 'MATRICULAID'
       LookupCache = False
       LookupDataSet = MatriculaDataModule.AlumnosMatriculasView
-      LookupKeyFields = 'ID_MATRICULA'
+      LookupKeyFields = 'ID'
       LookupResultField = 'APELLIDO'
       ProviderFlags = []
       ReadOnly = False

@@ -40,6 +40,7 @@ type
     procedure MateriaGRUPOIDChange(Sender: TField);
     procedure PrerrequisitosAfterInsert(DataSet: TDataSet);
     procedure PrerrequisitosAfterPost(DataSet: TDataSet);
+    procedure PrerrequisitosBeforePost(DataSet: TDataSet);
   private
     FGrupos: TGrupoDataModule;
     FModulos: TModuloDataModule;
@@ -139,6 +140,13 @@ end;
 procedure TMateriasDataModule.PrerrequisitosAfterPost(DataSet: TDataSet);
 begin
 
+end;
+
+procedure TMateriasDataModule.PrerrequisitosBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('MATERIAID').IsNull or
+    DataSet.FieldByName('MATERIAID_PRE').IsNull then
+    Abort;
 end;
 
 procedure TMateriasDataModule.SetGrupos(AValue: TGrupoDataModule);

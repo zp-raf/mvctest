@@ -104,7 +104,10 @@ begin
     CalcularNotasProc.ParamByName('MATRICULAID').AsString := AMatriculaID;
     CalcularNotasProc.ParamByName('ALUMNOID').AsString := AAlumnoID;
     CalcularNotasProc.Open;
-    Nota.Insert;
+    if not Nota.Locate('MATRICULAID', AMatriculaID, []) then
+      Nota.Insert
+    else
+      Nota.Edit;
     NotaMATRICULAID.AsString := AMatriculaID;
     NotaNOTA.AsInteger := CalcularNotasProcNOTA.AsInteger;
     NotaPUNTAJE.AsFloat := CalcularNotasProcPUNTAJE_FINAL.AsFloat;

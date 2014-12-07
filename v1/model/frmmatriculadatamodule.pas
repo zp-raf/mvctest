@@ -23,6 +23,8 @@ type
 
   TMatriculaDataModule = class(TQueryDataModule)
     AlumnosMatriculasView: TSQLQuery;
+    AlumnosMatriculasViewACTIVA: TSmallintField;
+    AlumnosMatriculasViewALUMNOPERSONAID: TLongintField;
     AlumnosMatriculasViewAPELLIDO: TStringField;
     AlumnosMatriculasViewCEDULA: TStringField;
     AlumnosMatriculasViewCONFIRMADA: TSmallintField;
@@ -30,14 +32,10 @@ type
     AlumnosMatriculasViewDERECHOEXAMEN: TSmallintField;
     AlumnosMatriculasViewDESARROLLOMATERIAID: TLongintField;
     AlumnosMatriculasViewFECHA: TDateField;
-    AlumnosMatriculasViewFECHANAC: TDateField;
     AlumnosMatriculasViewID: TLongintField;
-    AlumnosMatriculasViewID_MATRICULA: TLongintField;
-    AlumnosMatriculasViewMATERIAID: TLongintField;
     AlumnosMatriculasViewNOMBRE: TStringField;
     AlumnosMatriculasViewOBSERVACIONES: TStringField;
-    AlumnosMatriculasViewSECCIONID: TLongintField;
-    AlumnosMatriculasViewSEXO: TStringField;
+    AlumnosMatriculasViewSECCION: TStringField;
     LongintField1: TLongintField;
     SQLQueryMatHabID: TLongintField;
     SQLQueryMatHabPERSONAID: TLongintField;

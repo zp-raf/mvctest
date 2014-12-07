@@ -1,12 +1,13 @@
 inherited ProcesoEscala: TProcesoEscala
+  Width = 518
   Caption = 'Escala'
   ClientHeight = 328
+  ClientWidth = 518
   inherited StatusBar1: TStatusBar
-    Top = 305
-    Width = 453
+    Width = 518
   end
   inherited ButtonPanel1: TButtonPanel
-    Top = 265
+    Width = 506
     OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
@@ -14,7 +15,7 @@ inherited ProcesoEscala: TProcesoEscala
     Left = 6
     Height = 212
     Top = 24
-    Width = 441
+    Width = 506
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWindow
     Columns = <    
@@ -34,6 +35,11 @@ inherited ProcesoEscala: TProcesoEscala
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'VALIDO'
         FieldName = 'VALIDO'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'APRUEBA'
+        FieldName = 'APRUEBA'
       end>
     DataSource = EscalaDataModule.dsEscala
     TabOrder = 2

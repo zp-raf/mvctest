@@ -6,7 +6,6 @@ inherited MateriasDataModule: TMateriasDataModule
   VerticalOffset = 370
   Width = 528
   object Materia: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -591,6 +590,7 @@ inherited MateriasDataModule: TMateriasDataModule
       end>
     AfterInsert = PrerrequisitosAfterInsert
     AfterPost = PrerrequisitosAfterPost
+    BeforePost = PrerrequisitosBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
