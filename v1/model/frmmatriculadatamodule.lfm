@@ -2,8 +2,8 @@ inherited MatriculaDataModule: TMatriculaDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 329
-  HorizontalOffset = 1098
-  VerticalOffset = 585
+  HorizontalOffset = 711
+  VerticalOffset = 421
   Width = 519
   object dsMatricula: TDataSource[0]
     DataSet = Matricula

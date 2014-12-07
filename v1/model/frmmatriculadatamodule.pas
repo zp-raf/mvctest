@@ -198,6 +198,10 @@ begin
     end;
   finally
     x.Free;
+    Deudas.Deuda.Close;
+    Deudas.Deuda.ServerFilter := '';
+    Deudas.Deuda.ServerFiltered := False;
+    Deudas.Deuda.Open;
   end;
 end;
 
