@@ -101,18 +101,21 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
             end          
             item
               PickList.Strings = (              )
+              ReadOnly = True
               Title.Caption = 'EXENTA'
               Width = 58
               FieldName = 'EXENTA'
             end          
             item
               PickList.Strings = (              )
+              ReadOnly = True
               Title.Caption = 'IVA5'
               Width = 39
               FieldName = 'IVA5'
             end          
             item
               PickList.Strings = (              )
+              ReadOnly = True
               Title.Caption = 'IVA10'
               Width = 45
               FieldName = 'IVA10'
@@ -135,24 +138,30 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
         ClientHeight = 150
         inherited DBEditGranTotal: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditSubTotal: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditSubTotal5: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditSubTotal10: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditIVA5: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
         end
         inherited DBEditIVA10: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
+          ReadOnly = True
         end
         inherited DBEditIVATotal: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
+          ReadOnly = True
         end
       end
     end
