@@ -412,7 +412,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupDataSet = tal
       LookupKeyFields = 'ID'
       LookupResultField = 'VALIDO_HASTA'
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
     end
@@ -426,7 +426,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupDataSet = tal
       LookupKeyFields = 'ID'
       LookupResultField = 'SUCURSAL'
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
       Size = 255
@@ -441,7 +441,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupDataSet = tal
       LookupKeyFields = 'ID'
       LookupResultField = 'CAJA'
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
       Size = 255

@@ -447,7 +447,7 @@ begin
       Facturas.qryDetalle.Next;
     end;
   finally
-    qryDetalle.AfterPost := @qryDetalleAfterPost;
+    //qryDetalle.AfterPost := @qryDetalleAfterPost;
   end;
   ActualizarTotales;
 end;
