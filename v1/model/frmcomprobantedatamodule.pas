@@ -113,6 +113,7 @@ type
       comprobante debe implementar este procedimiento. }
     procedure ActualizarTotales; virtual; abstract;
     function ArePendingChanges: boolean; override;
+    procedure CheckTalonario;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
     { Procedimiento para calcular y cargar el monto en el comprobante de acuerdo
@@ -423,6 +424,7 @@ begin
   try
     if (Estado in [asEditando]) then
       raise EDatabaseError.Create(rsYaSeEstaCreando);
+    CheckTalonario;
     // antes que nada traemos los factores para iva10 e iva5
     GetImpuestos;
     NewRecord;
@@ -571,6 +573,12 @@ begin
     Result := False
   else
     Result := True;
+end;
+
+procedure TComprobanteDataModule.CheckTalonario;
+begin
+  if FTalonarioID = '' then
+    raise Exception.Create('Talonario no seleccionado. Por favor seleccione uno');
 end;
 
 end.

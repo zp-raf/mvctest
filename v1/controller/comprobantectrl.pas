@@ -75,7 +75,7 @@ end;
 procedure TComprobanteController.SeleccionarTalonario(Sender: IFormView);
 begin
   SeleccionTalonario := TSeleccionarTalonario.Create(Sender,
-    TSeleccionTalonarios.Create(GetComprobanteModel.Talonarios));
+    TSeleccionTalonariosController.Create(GetComprobanteModel.Talonarios));
   try
     GetComprobanteModel.LocateTalonario;
     case SeleccionTalonario.ShowModal of
@@ -95,6 +95,7 @@ begin
       end;
     end;
   finally
+     SeleccionTalonario.Free;
   end;
 end;
 

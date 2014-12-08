@@ -15,7 +15,7 @@ type
   TSeleccionarTalonario = class(TMaestro)
     procedure FormCreate(Sender: TObject);
   protected
-    function GetCustomController: TSeleccionTalonarios;
+    function GetCustomController: TSeleccionTalonariosController;
   public
     //constructor Create(AOwner: IFormView; AController: Pointer;
     //  ADataSource: TDataSource); overload;
@@ -39,9 +39,9 @@ begin
   OpenOnShow := False;
 end;
 
-function TSeleccionarTalonario.GetCustomController: TSeleccionTalonarios;
+function TSeleccionarTalonario.GetCustomController: TSeleccionTalonariosController;
 begin
-  Result := GetController as TSeleccionTalonarios;
+  Result := GetController as TSeleccionTalonariosController;
 end;
 
 //constructor TSeleccionarTalonario.Create(AOwner: IFormView;

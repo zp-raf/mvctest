@@ -5,7 +5,7 @@ unit principalctrl;
 interface
 
 uses
-  ctrl, mvc, observerSubject, Classes,
+  ctrl, mvc, observerSubject, Classes, Controls,
   {%H-}frmsgcddatamodule, // The datamodule which holds the database connection
   {%H-}frmquerydatamodule, // The base class for all models
   // ABM Academias
@@ -148,7 +148,9 @@ uses
   justificativoctrl,
   // aprobar justificativos
   frmaprobarjustdatamodule,
-  frmprocesoaprobarjustificativo;
+  frmprocesoaprobarjustificativo,
+  // seleccionar talonario recibo
+  frmseleccionartalonario;
 
 type
 
@@ -194,6 +196,7 @@ type
     procedure OpenAsistenciaForm(Sender: IFormView);
     procedure OpenABMJustificativosForm(Sender: IFormView);
     procedure OpenAprobarJustForm(Sender: IFormView);
+    procedure OpenSeleccionTalonarioRecForm(Sender: IFormView);
   end;
 
 var
@@ -514,6 +517,38 @@ begin
   ProcesoAprobarJustificativo.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoAprobarJustificativo as
     IObserver);
+end;
+
+procedure TPrincipalController.OpenSeleccionTalonarioRecForm(Sender: IFormView);
+var
+  Contr: TSeleccionTalonariosController;
+begin
+  ReciboDataModule := TReciboDataModule.Create((Sender as TComponent),
+    GetModel.MasterDataModule);
+  Contr := TSeleccionTalonariosController.Create(ReciboDataModule.Talonarios);
+  SeleccionTalonario := TSeleccionarTalonario.Create(Sender, Contr);
+  try
+    ReciboDataModule.LocateTalonario;
+    case SeleccionTalonario.ShowModal of
+      mrOk:
+      begin
+        ReciboDataModule.TalonarioID :=
+          ReciboDataModule.Talonarios.TalonarioView.FieldByName('ID').AsString;
+        with ReciboDataModule do
+        begin
+          Propierties.Save;
+          Propierties.Save;
+        end;
+      end;
+      mrCancel:
+      begin
+
+      end;
+    end;
+  finally
+    SeleccionTalonario.Free;
+    ReciboDataModule.Free;
+  end;
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

@@ -193,6 +193,10 @@ inherited Principal1: TPrincipal1
           Caption = 'Nota de &crédito'
           OnClick = notaCreditoClick
         end
+        object MenuItemTalonarioRec: TMenuItem
+          Caption = 'Se&leccionar talonario de recibo'
+          OnClick = MenuItemTalonarioRecClick
+        end
         object recibo: TMenuItem
           Caption = 'Emisión de &recibos'
           Visible = False

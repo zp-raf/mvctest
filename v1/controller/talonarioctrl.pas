@@ -19,18 +19,18 @@ type
     //function GetTalonarioDataSource: TDataSource;
   end;
 
-  { TSeleccionTalonarios }
+  { TSeleccionTalonariosController }
 
-  TSeleccionTalonarios = class(TTalonarioController)
+  TSeleccionTalonariosController = class(TTalonarioController)
   public
     destructor Destroy; override;
   end;
 
 implementation
 
-{ TSeleccionTalonarios }
+{ TSeleccionTalonariosController }
 
-destructor TSeleccionTalonarios.Destroy;
+destructor TSeleccionTalonariosController.Destroy;
 begin
   ClearModelPtr;
   inherited Destroy;

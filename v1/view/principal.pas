@@ -22,6 +22,7 @@ type
     ayuda1: TMenuItem;
     Listaalumnos: TButton;
     Documentos: TButton;
+    MenuItemTalonarioRec: TMenuItem;
     MenuItemAprobarJusti: TMenuItem;
     MenuItemDocumentos: TMenuItem;
     MenuItemAsignacion: TMenuItem;
@@ -103,6 +104,7 @@ type
     procedure MenuItemDocumentosClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
+    procedure MenuItemTalonarioRecClick(Sender: TObject);
     procedure modulosClick(Sender: TObject);
     procedure multasClick(Sender: TObject);
     procedure notaCreditoClick(Sender: TObject);
@@ -279,6 +281,11 @@ end;
 procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);
 begin
   GetCustomController.OpenABMCuentasForm(Self);
+end;
+
+procedure TPrincipal1.MenuItemTalonarioRecClick(Sender: TObject);
+begin
+  GetCustomController.OpenSeleccionTalonarioRecForm(Self);
 end;
 
 procedure TPrincipal1.modulosClick(Sender: TObject);
