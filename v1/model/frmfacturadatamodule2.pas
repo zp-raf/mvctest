@@ -275,6 +275,7 @@ var
   montoMaximo: double;
 begin
   if CheckPrecioUnitario then
+  begin
     try
       montoMaximo := DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_DEUDA') -
         DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_FACTURADO');
@@ -286,6 +287,7 @@ begin
         Abort;
       end;
     end;
+  end;
 
   try
     // iva 10
@@ -307,7 +309,8 @@ begin
       qryDetalleEXENTA.AsFloat :=
         qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
   finally
-    qryDetalle.Post;
+    //qryDetalle.Post;
+    //ActualizarTotales;
   end;
 end;
 
