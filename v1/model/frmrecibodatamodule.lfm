@@ -488,7 +488,7 @@ inherited ReciboDataModule: TReciboDataModule
   inherited frReport1: TfrReport
     Dataset = frDBReporteCab
   end
-  object dsFacturas: TDataSource[16]
+  object dsFacturas: TDataSource[17]
     left = 376
     top = 256
   end

@@ -146,6 +146,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
         inherited DBNavigatorDet: TDBNavigator
           DataSource = FacturasDataModule.dsDetalle
           Hints.Strings = (          )
+          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbDelete, nbEdit, nbPost, nbCancel]
         end
       end
     end

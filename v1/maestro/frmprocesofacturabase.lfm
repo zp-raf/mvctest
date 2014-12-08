@@ -105,6 +105,7 @@ inherited ProcesoFacturaBase: TProcesoFacturaBase
               Title.Caption = 'IVA10'
               FieldName = 'IVA10'
             end>
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns, dgDisableInsert]
         end
         inherited DBNavigatorDet: TDBNavigator
           Top = 261
