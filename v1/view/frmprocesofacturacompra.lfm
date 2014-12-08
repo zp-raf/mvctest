@@ -1,6 +1,8 @@
 inherited ProcesoFacturaCompra: TProcesoFacturaCompra
+  Left = 352
+  Top = 16
   Caption = 'Factura Compra'
-  ClientHeight = 730
+  ClientHeight = 620
   OnShow = FormShow
   inherited ButtonPanel1: TButtonPanel
     CancelButton.OnClick = CancelButtonClick

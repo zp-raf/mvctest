@@ -1,8 +1,8 @@
 inherited ProcesoNotaCredito: TProcesoNotaCredito
-  Left = 544
-  Top = 154
+  Left = 201
+  Top = 23
   Caption = 'Nota de credito'
-  ClientHeight = 730
+  ClientHeight = 620
   inherited Cabecera: TGroupBox
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
@@ -64,17 +64,17 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
   inherited PairSplitterDetSubTot: TPairSplitter
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
-    Height = 437
+    Height = 327
     Top = 224
-    Position = 264
+    Position = 160
     inherited PairSplitterSide1: TPairSplitterSide
-      Height = 264
-      ClientHeight = 264
+      Height = 160
+      ClientHeight = 160
       inherited Detalles: TGroupBox
-        Height = 264
-        ClientHeight = 246
+        Height = 160
+        ClientHeight = 142
         inherited DBGridDet: TDBGrid
-          Height = 197
+          Height = 93
           Columns = <          
             item
               PickList.Strings = (              )
@@ -123,19 +123,15 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
           DataSource = NotaCreditoDataModule.dsDetalle
         end
         inherited DBNavigatorDet: TDBNavigator
-          Top = 213
+          Top = 109
           DataSource = NotaCreditoDataModule.dsDetalle
           Hints.Strings = (          )
         end
       end
     end
     inherited PairSplitterSide2: TPairSplitterSide
-      Height = 168
-      Top = 269
-      ClientHeight = 168
+      Top = 165
       inherited Totales: TGroupBox
-        Height = 168
-        ClientHeight = 150
         inherited DBEditGranTotal: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
           ReadOnly = True

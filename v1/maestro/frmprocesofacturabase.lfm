@@ -1,19 +1,19 @@
 inherited ProcesoFacturaBase: TProcesoFacturaBase
-  Left = 591
-  Height = 750
-  Top = 177
+  Left = 262
+  Height = 640
+  Top = 10
   Width = 900
-  ClientHeight = 730
+  ClientHeight = 620
   ClientWidth = 900
-  Constraints.MinHeight = 750
+  Constraints.MinHeight = 640
   Constraints.MinWidth = 900
   OnShow = FormShow
   inherited StatusBar1: TStatusBar
-    Top = 707
+    Top = 597
     Width = 900
   end
   inherited ButtonPanel1: TButtonPanel
-    Top = 667
+    Top = 557
     Width = 888
   end
   inherited Cabecera: TGroupBox
@@ -48,23 +48,22 @@ inherited ProcesoFacturaBase: TProcesoFacturaBase
   inherited PairSplitterDetSubTot: TPairSplitter
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
-    Cursor = crDefault
-    Height = 477
+    Height = 367
     Top = 184
     Width = 884
-    Position = 312
+    Position = 200
     inherited PairSplitterSide1: TPairSplitterSide
-      Height = 312
+      Height = 200
       Width = 884
       ClientWidth = 884
-      ClientHeight = 312
+      ClientHeight = 200
       inherited Detalles: TGroupBox
-        Height = 312
+        Height = 200
         Width = 884
-        ClientHeight = 294
+        ClientHeight = 182
         ClientWidth = 880
         inherited DBGridDet: TDBGrid
-          Height = 245
+          Height = 133
           Width = 864
           Columns = <          
             item
@@ -108,17 +107,17 @@ inherited ProcesoFacturaBase: TProcesoFacturaBase
           Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns, dgDisableInsert]
         end
         inherited DBNavigatorDet: TDBNavigator
-          Top = 261
+          Top = 149
           Hints.Strings = (          )
         end
       end
     end
     inherited PairSplitterSide2: TPairSplitterSide
-      Height = 160
-      Top = 317
+      Height = 162
+      Top = 205
       Width = 884
       ClientWidth = 884
-      ClientHeight = 160
+      ClientHeight = 162
       inherited Totales: TGroupBox
         Width = 884
         ClientWidth = 880
