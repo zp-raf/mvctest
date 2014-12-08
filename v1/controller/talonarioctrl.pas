@@ -15,8 +15,8 @@ type
   protected
     function GetCustomModel: TTalonarioDataModule;
   public
-    //function GetTalonarioDataSource: TDataSource;
     function GetTipoTalonario: TTipoTalonario;
+    //function GetTalonarioDataSource: TDataSource;
   end;
 
   { TSeleccionTalonarios }

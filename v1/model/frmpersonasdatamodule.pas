@@ -107,6 +107,7 @@ type
     procedure DataModuleDestroy(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DireccionAfterInsert(DataSet: TDataSet);
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
     procedure EditCurrentRecord; override;
     procedure FilterData(ASearchText: string; ARol: TRolPersona); overload;
     procedure PersonaAfterScroll(DataSet: TDataSet);
@@ -221,6 +222,13 @@ procedure TPersonasDataModule.DireccionAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('IDPERSONA').Value := Persona.FieldByName('ID').Value;
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(rsGenNameDir);
+end;
+
+procedure TPersonasDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+  if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('ACTIVO').AsString := DB_FALSE;
 end;
 
 procedure TPersonasDataModule.EditCurrentRecord;

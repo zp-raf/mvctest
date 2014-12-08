@@ -50,6 +50,7 @@ type
     StringField2: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
     procedure ExamenNewRecord(DataSet: TDataSet);
     property Codigos: TCodigosDataModule read FCodigos write SetCodigos;
     property Desarrollo: TDesarrolloMateriaDataModule
@@ -75,6 +76,13 @@ begin
     FreeAndNil(FCodigos);
   if Assigned(FPersonas) then
     FreeAndNil(FPersonas);
+end;
+
+procedure TExamenesDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+  if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('ACTIVO').AsString := DB_FALSE;
 end;
 
 procedure TExamenesDataModule.SetDesarrollo(AValue: TDesarrolloMateriaDataModule);

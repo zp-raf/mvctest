@@ -5,7 +5,7 @@ unit frmmateriasdatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, sgcdTypes,
   frmquerydatamodule, sqldb, DB, frmgrupodatamodule, frmmodulodatamodule;
 
 resourcestring
@@ -83,6 +83,7 @@ type
     MateriasDetViewOBJETIVOS: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DiscardChanges; override;
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
     procedure MateriaNewRecord(DataSet: TDataSet);
     procedure SaveChanges; override;
     property Modulos: TModuloDataModule read FModulos write SetModulos;
@@ -185,6 +186,13 @@ procedure TMateriasDataModule.DiscardChanges;
 begin
   Prerrequisitos.Cancel;
   inherited DiscardChanges;
+end;
+
+procedure TMateriasDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+    if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('HABILITADA').AsString := DB_FALSE;
 end;
 
 procedure TMateriasDataModule.MateriaNewRecord(DataSet: TDataSet);

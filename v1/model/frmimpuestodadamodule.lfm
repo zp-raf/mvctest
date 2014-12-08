@@ -5,7 +5,6 @@ inherited ImpuestoDataModule: TImpuestoDataModule
   VerticalOffset = 349
   Width = 251
   object Impuesto: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

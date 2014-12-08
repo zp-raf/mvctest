@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, frmsgcddatamodule, frmquerydatamodule,
-  frmcuotaxarancel, frmimpuestodadamodule;
+  frmcuotaxarancel, frmimpuestodadamodule, sgcdTypes;
 
 resourcestring
   rsGenName = 'SEQ_ARANCEL';
@@ -47,6 +47,7 @@ type
     dsAranceles: TDataSource;
     ArancelesDetView: TSQLQuery;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
     procedure SaveChanges; override;
     procedure NewRecord; override;
     property CuotasXArancel: TCuotaArancelDataModule
@@ -74,6 +75,13 @@ begin
   AuxQryList.Add(TObject(FImpuesto.Impuesto));
   AuxQryList.Add(TObject(FCuotasXArancel.Codigos.Codigos));
   SearchFieldList.Add('NOMBRE');
+end;
+
+procedure TArancelesDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+  if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('ACTIVO').AsString := DB_FALSE;
 end;
 
 procedure TArancelesDataModule.SaveChanges;

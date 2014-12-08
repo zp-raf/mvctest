@@ -48,6 +48,7 @@ type
     procedure DeleteCurrentRecord;
     procedure DiscardChanges; virtual;
     procedure Disconnect; virtual;
+    procedure DoDeleteAction(ADataSet: TDataSet); virtual;
     procedure FilterData(ASearchText: string);
     procedure FilterRecord(DataSet: TDataSet; var Accept: boolean); virtual;
     procedure EditCurrentRecord; virtual;
@@ -139,24 +140,23 @@ begin
   Connect;
   for i := 0 to FQryList.Count - 1 do
   begin
-    with TSQLQuery(FQryList.Items[i]) do
-    begin
-      try
-        //DisableControls;
-        if ReadOnly then
-          Continue;
-        if Active and not (State in [dsEdit, dsInsert]) then
-          Delete
-        else if (State in [dsEdit, dsInsert]) and (RowsAffected > 0) then
-        begin
-          Cancel;
-          Delete;
-        end
-        else if not Active then
-          Abort;
-      finally
-        //EnableControls;
-      end;
+    try
+      //DisableControls;
+      if TSQLQuery(FQryList.Items[i]).ReadOnly then
+        Continue;
+      if TSQLQuery(FQryList.Items[i]).Active and not
+        (TSQLQuery(FQryList.Items[i]).State in [dsEdit, dsInsert]) then
+        DoDeleteAction(TSQLQuery(FQryList.Items[i]))
+      else if (TSQLQuery(FQryList.Items[i]).State in [dsEdit, dsInsert]) and
+        (TSQLQuery(FQryList.Items[i]).RowsAffected > 0) then
+      begin
+        TSQLQuery(FQryList.Items[i]).Cancel;
+        DoDeleteAction(TSQLQuery(FQryList.Items[i]));
+      end
+      else if not TSQLQuery(FQryList.Items[i]).Active then
+        Abort;
+    finally
+      //EnableControls;
     end;
   end;
 end;
@@ -194,6 +194,11 @@ begin
   CloseDataSets;
   //despues la conexion a base de datos
   FMasterDataModule.Disconnect;
+end;
+
+procedure TQueryDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+  ADataSet.Delete;
 end;
 
 procedure TQueryDataModule.FilterData(ASearchText: string);

@@ -77,11 +77,17 @@ begin
   SeleccionTalonario := TSeleccionarTalonario.Create(Sender,
     TSeleccionTalonarios.Create(GetComprobanteModel.Talonarios));
   try
+    GetComprobanteModel.LocateTalonario;
     case SeleccionTalonario.ShowModal of
       mrOk:
       begin
         GetComprobanteModel.TalonarioID :=
           GetComprobanteModel.Talonarios.TalonarioView.FieldByName('ID').AsString;
+        with GetComprobanteModel do
+        begin
+          Propierties.Save;
+          Propierties.Save;
+        end;
       end;
       mrCancel:
       begin

@@ -5,7 +5,7 @@ unit frmequiposdatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, sgcdTypes,
   frmquerydatamodule, sqldb, DB;
 
 resourcestring
@@ -31,6 +31,7 @@ type
     PrestamoPERSONAID: TLongintField;
     StringField1: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
     procedure EquipoNewRecord(DataSet: TDataSet);
   end;
 
@@ -50,6 +51,13 @@ begin
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('NROSERIE');
   Equipo.OnFilterRecord := @FilterRecord;
+end;
+
+procedure TEquiposDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+  if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('ACTIVO').AsString := DB_FALSE;
 end;
 
 procedure TEquiposDataModule.EquipoNewRecord(DataSet: TDataSet);

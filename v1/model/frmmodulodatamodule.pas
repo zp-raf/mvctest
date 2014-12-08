@@ -39,6 +39,7 @@ type
     ModulosHabilitadosViewPERFILEGRESADO: TStringField;
     ModulosHabilitadosViewREQUISITOS: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
     function ModuloGeneralDefinido: boolean;
     procedure ModuloNewRecord(DataSet: TDataSet);
   end;
@@ -59,6 +60,13 @@ begin
   AuxQryList.Add(TObject(ModulosHabilitadosView));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('DESCRIPCION');
+end;
+
+procedure TModuloDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+    if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('HABILITADO').AsString := DB_FALSE;
 end;
 
 function TModuloDataModule.ModuloGeneralDefinido: boolean;

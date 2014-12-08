@@ -190,7 +190,6 @@ inherited TrabajosDataModule: TTrabajosDataModule
     top = 120
   end
   object TrabajosDetView: TSQLQuery[2]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

@@ -5,7 +5,6 @@ inherited EquiposDataModule: TEquiposDataModule
   VerticalOffset = 434
   Width = 402
   object Equipo: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

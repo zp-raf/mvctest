@@ -984,7 +984,6 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     StoredValues = <    
       item
         Name = 'talonarioid'
-        KeyString = 'hola'
       end>
     FileName = 'conf.xml'
     OnSaveProperties = PropiertiesSaveProperties

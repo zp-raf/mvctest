@@ -147,6 +147,7 @@ type
       especificado.
       Si no se encuentra el comprobante levanta una excepcion EDatabaseError. }
     procedure LocateComprobante(AID: string);
+    procedure LocateTalonario;
     procedure NuevoComprobante;
     procedure NuevoComprobanteCompra;
     procedure NuevoComprobanteDetalle;
@@ -201,13 +202,10 @@ begin
   AuxQryList.Add(TObject(FPersonas.Direccion));
   AuxQryList.Add(TObject(FPersonas.Telefono));
   AuxQryList.Add(TObject(FTalonarios.TalonarioView));
-  // ponemos en el menu de talonarios los talonarios
-  Propierties.Restore;
 end;
 
 procedure TComprobanteDataModule.DataModuleDestroy(Sender: TObject);
 begin
-  Propierties.Save;
   inherited;
   if Assigned(FPersonas) then
     FreeAndNil(FPersonas);
@@ -258,6 +256,13 @@ begin
       raise;
     end;
   end;
+end;
+
+procedure TComprobanteDataModule.LocateTalonario;
+begin
+  FTalonarios.OpenDataSets;
+  if (FTalonarioID = '') or FTalonarios.TalonarioView.Locate('ID', FTalonarioID, []) then
+    FTalonarios.TalonarioView.First;
 end;
 
 procedure TComprobanteDataModule.DiscardChanges;
@@ -507,6 +512,7 @@ begin
     raise Exception.Create(rsDocTypeNotSelected);
   if (Trim(CabeceraGenName) = '') or (Trim(DetalleGenName) = '') then
     raise Exception.Create(rsGenNotDefined);
+  Propierties.Restore;
 end;
 
 procedure TComprobanteDataModule.qryDetalleAfterPost(DataSet: TDataSet);
@@ -516,12 +522,12 @@ end;
 
 procedure TComprobanteDataModule.PropiertiesSaveProperties(Sender: TObject);
 begin
-  Propierties.StoredValues.Items[0].Value := TalonarioID;
+  Propierties.StoredValues.Items[0].Value := FTalonarioID;
 end;
 
 procedure TComprobanteDataModule.PropiertiesRestoreProperties(Sender: TObject);
 begin
-  TalonarioID := Propierties.StoredValues.Items[0].Value;
+  FTalonarioID := Propierties.StoredValues.Items[0].Value;
 end;
 
 procedure TComprobanteDataModule.SetCabeceraGenName(AValue: string);

@@ -8,6 +8,8 @@ inherited SeleccionarTalonario: TSeleccionarTalonario
   ClientWidth = 800
   Constraints.MinHeight = 480
   Constraints.MinWidth = 800
+  OnCreate = FormCreate
+  OnShow = FormShow
   inherited StatusBar1: TStatusBar
     Top = 437
     Width = 800
@@ -22,12 +24,11 @@ inherited SeleccionarTalonario: TSeleccionarTalonario
     Columns = <    
       item
         Title.Caption = 'NOMBRE'
-        Width = 224
         FieldName = 'NOMBRE'
       end    
       item
         Title.Caption = 'RUC'
-        Width = 74
+        Width = 38
         FieldName = 'RUC'
       end    
       item

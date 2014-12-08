@@ -5,7 +5,7 @@ unit frmtrabajosdatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, sgcdTypes,
   frmquerydatamodule, sqldb, DB, frmdesarrollodatamodule;
 
 resourcestring
@@ -16,6 +16,10 @@ type
   { TTrabajosDataModule }
 
   TTrabajosDataModule = class(TQueryDataModule)
+  private
+    FDesarrollo: TDesarrolloMateriaDataModule;
+    procedure SetDesarrollo(AValue: TDesarrolloMateriaDataModule);
+  published
     dsTrabajosDetView: TDataSource;
     TrabajosDetView: TSQLQuery;
     StringField1: TStringField;
@@ -31,11 +35,6 @@ type
     TrabajosDetViewPROFESOR: TStringField;
     TrabajosDetViewPUNTAJEMAX: TFloatField;
     TrabajosDetViewSECCION: TStringField;
-    procedure DataModuleDestroy(Sender: TObject);
-  private
-    FDesarrollo: TDesarrolloMateriaDataModule;
-    procedure SetDesarrollo(AValue: TDesarrolloMateriaDataModule);
-  published
     dsTrabajo: TDataSource;
     Trabajo: TSQLQuery;
     TrabajoACTIVO: TSmallintField;
@@ -48,6 +47,8 @@ type
     TrabajoPESO: TFloatField;
     TrabajoPUNTAJEMAX: TFloatField;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DataModuleDestroy(Sender: TObject);
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
     procedure TrabajoNewRecord(DataSet: TDataSet);
     property Desarrollo: TDesarrolloMateriaDataModule
       read FDesarrollo write SetDesarrollo;
@@ -67,6 +68,13 @@ begin
   inherited;
   if Assigned(FDesarrollo) then
     FreeAndNil(FDesarrollo);
+end;
+
+procedure TTrabajosDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+  if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('ACTIVO').AsString := DB_FALSE;
 end;
 
 procedure TTrabajosDataModule.SetDesarrollo(AValue: TDesarrolloMateriaDataModule);

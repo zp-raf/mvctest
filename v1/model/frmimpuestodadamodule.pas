@@ -5,8 +5,9 @@ unit frmimpuestodadamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, 
-    frmquerydatamodule, sqldb, db;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, sgcdTypes,
+  frmquerydatamodule, sqldb, DB;
+
 resourcestring
   rsGenName = 'GEN_IMPUESTO';
 
@@ -22,6 +23,7 @@ type
     ImpuestoID: TLongintField;
     ImpuestoNOMBRE: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
   private
     { private declarations }
   public
@@ -44,6 +46,10 @@ begin
   SearchFieldList.Add('NOMBRE');
 end;
 
-
+procedure TImpuestoDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+  if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('ACTIVO').AsString := DB_FALSE;
+end;
 end.
-

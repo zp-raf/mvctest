@@ -17,11 +17,6 @@ type
   { TDesarrolloMateriaDataModule }
 
   TDesarrolloMateriaDataModule = class(TQueryDataModule)
-    StringField1: TStringField;
-    StringField2: TStringField;
-    StringField3: TStringField;
-    StringField4: TStringField;
-    procedure DataModuleDestroy(Sender: TObject);
   private
     FMaterias: TMateriasDataModule;
     FPeriodos: TPeriodosDataModule;
@@ -58,9 +53,15 @@ type
     dsDesarrolloMateria: TDataSource;
     DesarrolloMateria: TSQLQuery;
     dsDesarrolloView: TDataSource;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    StringField4: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DataModuleDestroy(Sender: TObject);
     procedure DesarrolloMateriaNewRecord(DataSet: TDataSet);
     procedure DiscardChanges; override;
+    procedure DoDeleteAction(ADataSet: TDataSet); override;
     procedure EditCurrentRecord; override;
     procedure NewRecord; override;
     procedure SaveChanges; override;
@@ -161,6 +162,13 @@ begin
     //FPeriodos.PeriodoLectivo.EnableControls;
     FPersonas.PersonasRoles.EnableControls;
   end;
+end;
+
+procedure TDesarrolloMateriaDataModule.DoDeleteAction(ADataSet: TDataSet);
+begin
+  if not (ADataSet.State in [dsEdit]) then
+    ADataSet.Edit;
+  ADataSet.FieldByName('ACTIVO').AsString := DB_FALSE;
 end;
 
 procedure TDesarrolloMateriaDataModule.EditCurrentRecord;

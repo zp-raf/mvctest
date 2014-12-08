@@ -6,7 +6,6 @@ inherited ExamenesDataModule: TExamenesDataModule
   VerticalOffset = 294
   Width = 325
   object Examen: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
