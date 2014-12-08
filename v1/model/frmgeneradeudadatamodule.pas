@@ -147,8 +147,8 @@ begin
     DescOriginal := DataSet.FieldByName('DESCRIPCION').AsString;
   // aca ponemos la descripcion de la deuda
   DataSet.FieldByName('DESCRIPCION').AsString :=
-   // Personas.Persona.FieldByName('NOMBRECOMPLETO').AsString + ' - ' +
-    DescOriginal + //SEPARADOR +
+    // Personas.Persona.FieldByName('NOMBRECOMPLETO').AsString + ' - ' +
+    DescOriginal + ' ' +//SEPARADOR +
     Arancel.ArancelNOMBRE.AsString + ESPACIO +
     DataSet.FieldByName('CUOTA_NRO').AsString + SEPARADOR_CUOTA +
     DataSet.FieldByName('CANTIDAD_CUOTAS').AsString + SEPARADOR;

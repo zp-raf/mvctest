@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="1899-12-30 00:00:00"/>
-    <ReportLastChange Value="2014-11-01 21:47:14"/>
+    <ReportLastChange Value="2014-12-08 19:50:01"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -455,7 +455,7 @@
           <Size>
             <Left Value="12"/>
             <Top Value="372"/>
-            <Width Value="76"/>
+            <Width Value="64"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -476,7 +476,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -499,9 +499,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="648"/>
+            <Left Value="676"/>
             <Top Value="372"/>
-            <Width Value="96"/>
+            <Width Value="68"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -522,7 +522,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -545,9 +545,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="548"/>
+            <Left Value="604"/>
             <Top Value="372"/>
-            <Width Value="96"/>
+            <Width Value="68"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -568,7 +568,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -591,9 +591,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="448"/>
+            <Left Value="536"/>
             <Top Value="372"/>
-            <Width Value="96"/>
+            <Width Value="64"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -614,7 +614,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -683,9 +683,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="92"/>
+            <Left Value="80"/>
             <Top Value="372"/>
-            <Width Value="352"/>
+            <Width Value="452"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -706,7 +706,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -731,7 +731,7 @@
           <Size>
             <Left Value="12"/>
             <Top Value="316"/>
-            <Width Value="76"/>
+            <Width Value="64"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -775,9 +775,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="92"/>
+            <Left Value="80"/>
             <Top Value="316"/>
-            <Width Value="352"/>
+            <Width Value="452"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -821,9 +821,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="448"/>
+            <Left Value="536"/>
             <Top Value="316"/>
-            <Width Value="96"/>
+            <Width Value="64"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -867,9 +867,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="548"/>
+            <Left Value="604"/>
             <Top Value="316"/>
-            <Width Value="96"/>
+            <Width Value="68"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -913,9 +913,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="648"/>
+            <Left Value="676"/>
             <Top Value="316"/>
-            <Width Value="96"/>
+            <Width Value="68"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -1051,9 +1051,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="448"/>
+            <Left Value="536"/>
             <Top Value="428"/>
-            <Width Value="96"/>
+            <Width Value="68"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -1074,7 +1074,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1097,9 +1097,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="548"/>
+            <Left Value="608"/>
             <Top Value="428"/>
-            <Width Value="96"/>
+            <Width Value="68"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -1120,7 +1120,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1143,9 +1143,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="648"/>
+            <Left Value="680"/>
             <Top Value="428"/>
-            <Width Value="96"/>
+            <Width Value="64"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -1166,7 +1166,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1189,7 +1189,7 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="348"/>
+            <Left Value="436"/>
             <Top Value="428"/>
             <Width Value="96"/>
             <Height Value="18"/>

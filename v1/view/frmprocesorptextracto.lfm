@@ -12,6 +12,7 @@ inherited ProcesoReporteExtracto: TProcesoReporteExtracto
     Height = 23
     Top = 24
     Width = 416
+    AutoComplete = True
     KeyField = 'ID'
     ListField = 'NOMBRE'
     ListFieldIndex = 0

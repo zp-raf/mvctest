@@ -1,10 +1,8 @@
 inherited ProcesoReporte: TProcesoReporte
   ClientHeight = 328
-  inherited StatusBar1: TStatusBar
-    Top = 305
-    Width = 453
-  end
   inherited ButtonPanel1: TButtonPanel
-    Top = 265
+    OKButton.Caption = '&Generar'
+    OKButton.DefaultCaption = False
+    ShowButtons = [pbOK, pbClose, pbHelp]
   end
 end

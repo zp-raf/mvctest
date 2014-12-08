@@ -126,6 +126,7 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
           Top = 109
           DataSource = NotaCreditoDataModule.dsDetalle
           Hints.Strings = (          )
+          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbDelete, nbEdit, nbPost, nbCancel]
         end
       end
     end
