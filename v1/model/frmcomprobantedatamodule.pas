@@ -23,7 +23,6 @@ type
     FDetalleGenName: string;
     FEstado: TEstadoComprobante;
     FPersonas: TPersonasDataModule;
-    FTalonarioID: string;
     FTalonarios: TTalonarioDataModule;
     procedure SetCabeceraGenName(AValue: string);
     procedure SetDetalleGenName(AValue: string);
@@ -31,6 +30,8 @@ type
     procedure SetPersonas(AValue: TPersonasDataModule);
     procedure SetTalonarioID(AValue: string);
     procedure SetTalonarios(AValue: TTalonarioDataModule);
+  protected
+    FTalonarioID: string;
   public
     procedure AfterConstruction; override;
   published

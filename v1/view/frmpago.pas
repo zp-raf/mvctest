@@ -15,6 +15,8 @@ type
   TProcesoPago = class(TProceso)
   protected
     function GetCustomController: TPagoController;
+    public
+      destructor Destroy; override;
   published
     DBEditEfectivo: TDBEdit;
     DBEditCheques: TDBEdit;
@@ -77,6 +79,12 @@ end;
 function TProcesoPago.GetCustomController: TPagoController;
 begin
   Result := GetController as TPagoController;
+end;
+
+destructor TProcesoPago.Destroy;
+begin
+  ClearControllerPtr;
+  inherited Destroy;
 end;
 
 procedure TProcesoPago.CancelButtonClick(Sender: TObject);

@@ -536,8 +536,8 @@ begin
           ReciboDataModule.Talonarios.TalonarioView.FieldByName('ID').AsString;
         with ReciboDataModule do
         begin
-          Propierties.Save;
-          Propierties.Save;
+          IniPropStorage1.Save;
+          IniPropStorage1.Save;
         end;
       end;
       mrCancel:

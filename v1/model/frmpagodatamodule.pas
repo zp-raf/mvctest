@@ -334,13 +334,22 @@ end;
 
 procedure TPagoDataModule.ImprimirRecibo;
 begin
-  if Listo then
-  begin
-    Recibos.NuevoComprobante(PagoID.AsString);
-    Recibos.FetchCabeceraFactura(PagoCOMPROBANTEID.AsString);
-    Recibos.FetchDetalleFactura(PagoCOMPROBANTEID.AsString);
-    Recibos.SaveChanges;
-    // falta que se imprima el reporte con el recibo
+  try
+    if Listo then
+    begin
+      Recibos.NuevoComprobante(PagoID.AsString);
+      Recibos.FetchCabeceraFactura(PagoCOMPROBANTEID.AsString);
+      Recibos.FetchDetalleFactura(PagoCOMPROBANTEID.AsString);
+      Recibos.SaveChanges;
+      // falta que se imprima el reporte con el recibo
+    end;
+  except
+    on E: Exception do
+    begin
+      Recibos.DiscardChanges;
+      e.Message := 'No se pudo imprimir el recibo. ' + e.Message;
+      raise;
+    end;
   end;
 end;
 
@@ -455,16 +464,16 @@ begin
     co := False;
   pa := PagoID.AsString;
   Pago.ApplyUpdates;
-  // si se esta editando el pago no hace falta registrar el movimiento y los detalles
-  if (Pago.UpdateStatus in [usInserted]) then
-  begin
-    PagoDetCheques.ApplyUpdates;
-    PagoDetTarjetas.ApplyUpdates;
-    // y reigstramos el movimiento
-    RegistrarMovimiento(co, pa);
-    if PuedeImprimirRecibo then
-      ImprimirRecibo;
-  end;
+  PagoDetCheques.ApplyUpdates;
+  PagoDetTarjetas.ApplyUpdates;
+  //// si se esta editando el pago no hace falta registrar el movimiento y los detalles
+  //if (Pago.UpdateStatus in [usInserted]) then
+  //begin
+  // y reigstramos el movimiento
+  RegistrarMovimiento(co, pa);
+  if PuedeImprimirRecibo then
+    ImprimirRecibo;
+  //end;
   MasterDataModule.Commit;
   Listo := False;
 end;

@@ -671,7 +671,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   inherited AuxTalonario: TSQLQuery
     left = 280
   end
-  object dsFacturas: TDataSource[16]
+  object dsFacturas: TDataSource[17]
     left = 368
     top = 260
   end

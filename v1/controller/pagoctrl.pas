@@ -37,7 +37,8 @@ end;
 
 destructor TPagoController.Destroy;
 begin
-  // nada si no se destruye el modelo
+  ClearModelPtr;
+  inherited;
 end;
 
 procedure TPagoController.NuevoPago(EsCobro: boolean; ADocumentoID: string;
@@ -63,7 +64,7 @@ end;
 
 procedure TPagoController.CerrarPago(Sender: IView);
 begin
-  GetModel.SaveChanges;
+  GetCustomModel.SaveChanges;
   Sender.ShowInfoMessage(rsPaymentRegistered);
 end;
 

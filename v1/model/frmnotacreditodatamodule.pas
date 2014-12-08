@@ -188,7 +188,7 @@ begin
       qryDetalleEXENTA.AsFloat :=
         qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
   finally
-    qryDetalle.Post;
+    //qryDetalle.Post;
   end;
 end;
 

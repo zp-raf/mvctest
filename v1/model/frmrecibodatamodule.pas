@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_DBSet, LR_Class, Forms, Controls,
-  Graphics, Dialogs, XMLPropStorage, frmcomprobantedatamodule, sgcdTypes,
-  frmfacturadatamodule2;
+  Graphics, Dialogs, XMLPropStorage, IniPropStorage, frmcomprobantedatamodule,
+  sgcdTypes, frmfacturadatamodule2;
 
 resourcestring
   rsReciboGenName = 'SEQ_RECIBO';
@@ -23,10 +23,13 @@ type
   TReciboDataModule = class(TComprobanteDataModule)
     DateField1: TDateField;
     DateField2: TDateField;
+    IniPropStorage1: TIniPropStorage;
     qryCabeceraNUMERO_REC_COMPRA: TStringField;
     qryCabeceraVALIDO: TSmallintField;
     StringField2: TStringField;
     StringField3: TStringField;
+    procedure IniPropStorage1RestoreProperties(Sender: TObject);
+    procedure IniPropStorage1SaveProperties(Sender: TObject);
     procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
   private
     FCheckPrecioUnitario: boolean;
@@ -56,6 +59,7 @@ type
     qryDetalleRECIBOID: TLongintField;
     qryDetalleTOTAL: TFloatField;
     StringField1: TStringField;
+    procedure AfterConstruction; override;
     procedure ActualizarTotales;
       override;
     procedure DataModuleCreate(Sender: TObject); override;
@@ -125,6 +129,12 @@ begin
   FFacturas := AValue;
 end;
 
+procedure TReciboDataModule.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  IniPropStorage1.Restore;
+end;
+
 procedure TReciboDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField);
 begin
   //if CheckPrecioUnitario then
@@ -144,8 +154,18 @@ begin
     qryDetalleTOTAL.AsFloat :=
       qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
   finally
-    qryDetalle.Post;
+    //qryDetalle.Post;
   end;
+end;
+
+procedure TReciboDataModule.IniPropStorage1RestoreProperties(Sender: TObject);
+begin
+  FTalonarioID := IniPropStorage1.StoredValues.Items[0].Value;
+end;
+
+procedure TReciboDataModule.IniPropStorage1SaveProperties(Sender: TObject);
+begin
+  IniPropStorage1.StoredValues.Items[0].Value := FTalonarioID;
 end;
 
 procedure TReciboDataModule.SetCheckPrecioUnitario(AValue: boolean);
@@ -221,8 +241,9 @@ begin
       qryDetalleDETALLE.Value := Facturas.qryDetalle.FieldByName('DETALLE').Value;
       qryDetallePRECIO_UNITARIO.AsFloat :=
         Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
-      qryDetalleTOTAL.AsFloat :=
-        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      qryDetalleTOTAL.Value :=
+        Facturas.qryDetalle.FieldByName('CANTIDAD').Value *
+        Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
       Facturas.qryDetalle.Next;
     end;
   finally

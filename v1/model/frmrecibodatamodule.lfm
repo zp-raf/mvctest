@@ -492,4 +492,16 @@ inherited ReciboDataModule: TReciboDataModule
     left = 376
     top = 256
   end
+  object IniPropStorage1: TIniPropStorage[18]
+    StoredValues = <    
+      item
+        Name = 'talonarioid'
+      end>
+    IniFileName = 'recibo.ini'
+    IniSection = 'recibo'
+    OnSaveProperties = IniPropStorage1SaveProperties
+    OnRestoreProperties = IniPropStorage1RestoreProperties
+    left = 448
+    top = 98
+  end
 end
