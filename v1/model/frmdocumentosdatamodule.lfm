@@ -95,9 +95,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
     Transaction = sgcdDataModule.tran
     ReadOnly = True
     SQL.Strings = (
-      'select * from v_facturas'
-      'where pagoid is null'
-      'or pago_valido = 0'
+      'select * from facturas_no_cobradas'
     )
     Params = <>
     left = 40
@@ -208,31 +206,11 @@ inherited DocumentosDataModule: TDocumentosDataModule
       ReadOnly = False
       Required = False
     end
-    object FacturasViewPAGOID: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'PAGOID'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object FacturasViewPAGO_VALIDO: TSmallintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'PAGO_VALIDO'
-      Index = 11
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
     object FacturasViewVENCIMIENTO: TDateField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'VENCIMIENTO'
-      Index = 12
+      Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -242,7 +220,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'COMPRA'
-      Index = 13
+      Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -509,9 +487,7 @@ inherited DocumentosDataModule: TDocumentosDataModule
     Transaction = sgcdDataModule.tran
     ReadOnly = True
     SQL.Strings = (
-      'select * from v_facturas'
-      'where pagoid is not null'
-      'and pago_valido = 1'
+      'select * from facturas_cobradas'
     )
     Params = <>
     left = 240

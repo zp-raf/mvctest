@@ -20,8 +20,6 @@ type
     FacturasCobradasViewPAGO_VALIDO: TSmallintField;
     FacturasCobradasViewVENCIMIENTO: TDateField;
     FacturasViewCOMPRA: TLongintField;
-    FacturasViewPAGOID: TLongintField;
-    FacturasViewPAGO_VALIDO: TSmallintField;
     FacturasViewVENCIMIENTO: TDateField;
     NotaCreditoView: TSQLQuery;
     NotaCreditoViewCOMPRA: TLongintField;
@@ -128,7 +126,7 @@ begin
     end;
     Pagos.Pago.Close;
     Pagos.Pago.ServerFilter :=
-      'TIPO_COMPROBANTE = ' + PTipoComp + ' AND COMPROBANTEID = ' + ADoc;
+      'TIPO_COMPROBANTE = ' + PTipoComp + ' AND COMPROBANTEID = ' + ADoc + ' AND VALIDO = 1';
     Pagos.Pago.ServerFiltered := True;
     Pagos.Pago.Open;
     if Pagos.Pago.RecordCount <> 1 then

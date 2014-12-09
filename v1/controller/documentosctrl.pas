@@ -98,8 +98,12 @@ procedure TDocumentosController.AnularPago(ATipoDoc: TDocViewerDocType;
 begin
   try
     case ATipoDoc of
-      dtFacturaCobrada: AnularPago(ATipoDoc,
+      dtFacturaCobrada:
+      begin
+        AnularPago(ATipoDoc,
           GetCustomModel.FacturasCobradasView.FieldByName('ID').AsString, Sender);
+        RefreshData(Sender);
+      end;
     end;
   except
     on E: Exception do
@@ -113,10 +117,13 @@ begin
   case ATipoDoc of
     dtFacturaCobrada:
     begin
+
       PagoController.AnularPago(GetCustomModel.GetPagoDoc(ADoc, doFactura));
+      RefreshData(Sender);
     end;
   end;
 end;
+
 
 
 procedure TDocumentosController.CobrarDoc(ATipoDoc: TDocViewerDocType;

@@ -256,6 +256,8 @@ begin
 end;
 
 procedure TPagoDataModule.AnularPago(APagoID: string);
+var
+  x: string;
 begin
   try
     if not Pago.Locate('ID', APagoID, [loCaseInsensitive]) then
@@ -263,26 +265,27 @@ begin
       raise Exception.Create('No se encontro el pago');
       Exit;
     end;
+    Pago.Edit;
+    Pago.FieldByName('VALIDO').AsString := DB_FALSE;
+    Pago.Post;
+    Asientos.Movimiento.Open;
+    Asientos.MovimientoDet.Open;
     try
-      Pago.Edit;
-      Pago.FieldByName('VALIDO').AsString := DB_FALSE;
-      Pago.Post;
+      Asientos.Movimiento.Close;
+      Asientos.Movimiento.ServerFilter := 'PAGOID = ' + APagoID;
+      Asientos.Movimiento.ServerFiltered := True;
       Asientos.Movimiento.Open;
-      Asientos.MovimientoDet.Open;
-      Asientos.MovimientoDetView.Close;
-      Asientos.MovimientoDetView.ServerFilter := 'PAGOID = ' + APagoID;
-      Asientos.MovimientoDetView.ServerFiltered := True;
-      Asientos.MovimientoDetView.Open;
-      if (Asientos.MovimientoDetView.RecordCount <> 1) then
+      if (Asientos.Movimiento.RecordCount > 1) then
         raise EDatabaseError.Create(rsRollbackPaymentEntryError);
-      Asientos.ReversarAsiento(Asientos.MovimientoDetView.FieldByName('ID').AsString,
-        DESCRIPCION_REVERSION + ' ' + APagoID);
-      Asientos.PostAsiento;
+      x := Asientos.Movimiento.FieldByName('ID').AsString;
     finally
-      Asientos.MovimientoDetView.Close;
-      Asientos.MovimientoDetView.ServerFilter := '';
-      Asientos.MovimientoDetView.ServerFiltered := False;
+      Asientos.Movimiento.Close;
+      Asientos.Movimiento.ServerFilter := '';
+      Asientos.Movimiento.ServerFiltered := False;
+      Asientos.Movimiento.Open;
     end;
+    Asientos.ReversarAsiento(x, DESCRIPCION_REVERSION + ' ' + APagoID);
+    Asientos.PostAsiento;
   except
     on E: EDatabaseError do
     begin

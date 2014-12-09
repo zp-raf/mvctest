@@ -26,9 +26,9 @@ inherited ProcesoDocumentos: TProcesoDocumentos
     Height = 448
     Top = 8
     Width = 876
-    ActivePage = TabSheetNotaCredito
+    ActivePage = TabSheetFactura
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 2
     object TabSheetFactura: TTabSheet
       Caption = 'Facturas sin cobrar'
@@ -267,12 +267,11 @@ inherited ProcesoDocumentos: TProcesoDocumentos
           end        
           item
             Title.Caption = 'RUC'
-            Width = 55
+            Width = 38
             FieldName = 'RUC'
           end        
           item
             Title.Caption = 'NOMBRE'
-            Width = 160
             FieldName = 'NOMBRE'
           end        
           item
