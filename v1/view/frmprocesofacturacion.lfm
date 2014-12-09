@@ -34,10 +34,16 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     inherited DBTextTimbrado: TDBText
       DataSource = NotaCreditoDataModule.dstal
     end
+    inherited DBTextCaja: TDBText
+      DataSource = FacturasDataModule.dstal
+    end
+    inherited DBTextSucursal: TDBText
+      DataSource = FacturasDataModule.dstal
+    end
     inherited DBEditNotaRem: TDBEdit
       DataSource = FacturasDataModule.dsCabecera
     end
-    object DateEditVen: TDateEdit[16]
+    object DateEditVen: TDateEdit[20]
       Left = 736
       Height = 23
       Top = 8
@@ -53,7 +59,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       OnEditingDone = DateEditVenEditingDone
       TabOrder = 6
     end
-    object LabelVen: TLabel[17]
+    object LabelVen: TLabel[21]
       AnchorSideLeft.Control = DateEditVen
       AnchorSideBottom.Control = DateEditVen
       Left = 736
@@ -64,7 +70,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       Caption = 'Vencimiento'
       ParentColor = False
     end
-    object RadioCondicion: TDBRadioGroup[18]
+    object RadioCondicion: TDBRadioGroup[22]
       Left = 624
       Height = 64
       Top = 16

@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, Graphics, Menus, Controls, sgcdTypes,
-  StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
+  StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, ComCtrls, ButtonPanel,
   frmproceso, comprobantectrl, frmcomprobantedatamodule,
   frmbuscarpersonas, ctrl, Classes;
 
@@ -15,6 +15,10 @@ type
   { TProcesoComprobante }
 
   TProcesoComprobante = class(TProceso)
+    DBTextSucursal: TDBText;
+    DBTextCaja: TDBText;
+    LabelSeparator1: TLabel;
+    LabelSeparator2: TLabel;
     procedure MenuItemTalonarioClick(Sender: TObject);
   private
     FPopup: TPopupSeleccionPersonas;

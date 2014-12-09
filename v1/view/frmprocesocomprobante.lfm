@@ -183,6 +183,54 @@ inherited ProcesoComprobante: TProcesoComprobante
       Caption = 'Timbrado:'
       ParentColor = False
     end
+    object LabelSeparator1: TLabel
+      AnchorSideLeft.Control = DBTextNro
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = DBTextNro
+      AnchorSideTop.Side = asrCenter
+      Left = 238
+      Height = 15
+      Top = 16
+      Width = 5
+      Caption = '-'
+      ParentColor = False
+    end
+    object DBTextCaja: TDBText
+      AnchorSideLeft.Control = LabelSeparator1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelSeparator1
+      AnchorSideTop.Side = asrCenter
+      Left = 243
+      Height = 15
+      Top = 16
+      Width = 60
+      DataField = 'CAJA'
+      ParentColor = False
+    end
+    object LabelSeparator2: TLabel
+      AnchorSideLeft.Control = DBTextCaja
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = DBTextCaja
+      AnchorSideTop.Side = asrCenter
+      Left = 303
+      Height = 15
+      Top = 16
+      Width = 5
+      Caption = '-'
+      ParentColor = False
+    end
+    object DBTextSucursal: TDBText
+      AnchorSideLeft.Control = LabelSeparator2
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = LabelSeparator2
+      AnchorSideTop.Side = asrCenter
+      Left = 308
+      Height = 15
+      Top = 16
+      Width = 81
+      DataField = 'SUCURSAL'
+      ParentColor = False
+    end
   end
   object PairSplitterDetSubTot: TPairSplitter[3]
     AnchorSideLeft.Control = Owner

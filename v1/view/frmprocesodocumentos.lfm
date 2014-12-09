@@ -280,11 +280,13 @@ inherited ProcesoDocumentos: TProcesoDocumentos
             FieldName = 'TOTAL'
           end        
           item
+            ButtonStyle = cbsCheckboxColumn
             Title.Caption = 'VALIDO'
             Width = 56
             FieldName = 'VALIDO'
           end        
           item
+            ButtonStyle = cbsCheckboxColumn
             Title.Caption = 'COMPRA'
             Width = 65
             FieldName = 'COMPRA'

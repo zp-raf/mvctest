@@ -1,14 +1,14 @@
 object PopupSeleccionarFactura: TPopupSeleccionarFactura
-  Left = 393
+  Left = 505
   Height = 501
-  Top = 322
+  Top = 290
   Width = 804
   Caption = 'Seleccionar Factura'
   ClientHeight = 501
   ClientWidth = 804
   Constraints.MinHeight = 501
   Constraints.MinWidth = 804
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.2.6.0'
   object DBGrid1: TDBGrid
     Left = 8
     Height = 400
@@ -18,36 +18,19 @@ object PopupSeleccionarFactura: TPopupSeleccionarFactura
     Color = clWindow
     Columns = <    
       item
+        Title.Caption = 'TIMBRADO'
+        Width = 75
+        FieldName = 'TIMBRADO'
+      end    
+      item
+        Title.Caption = 'NUMERO_FACTURA'
+        Width = 122
+        FieldName = 'NUMERO_FACTURA'
+      end    
+      item
         Title.Caption = 'FECHA_EMISION'
         Width = 104
         FieldName = 'FECHA_EMISION'
-      end    
-      item
-        Title.Caption = 'NUMERO'
-        Width = 65
-        FieldName = 'NUMERO'
-      end    
-      item
-        PickList.Strings = (
-          '10453073'
-          '10369812'
-          '10439758'
-          '10453074'
-          '10453075'
-          '001'
-        )
-        Title.Caption = 'TIMBRADO'
-        Width = 75
-        FieldName = 'TIMBRADO_VENTA'
-      end    
-      item
-        Title.Caption = 'RUC'
-        Width = 38
-        FieldName = 'RUC'
-      end    
-      item
-        Title.Caption = 'NOMBRE'
-        FieldName = 'NOMBRE'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
@@ -56,29 +39,36 @@ object PopupSeleccionarFactura: TPopupSeleccionarFactura
         FieldName = 'VALIDO'
       end    
       item
-        Title.Caption = 'TOTAL'
-        Width = 52
-        FieldName = 'TOTAL'
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'ESCOMPRA'
+        Width = 77
+        FieldName = 'ESCOMPRA'
       end    
       item
-        Title.Caption = 'SUBTOTAL_EXENTAS'
-        Width = 127
-        FieldName = 'SUBTOTAL_EXENTAS'
-      end    
-      item
-        Title.Caption = 'SUBTOTAL_IVA5'
-        Width = 102
-        FieldName = 'SUBTOTAL_IVA5'
-      end    
-      item
-        Title.Caption = 'SUBTOTAL_IVA10'
-        Width = 108
-        FieldName = 'SUBTOTAL_IVA10'
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'CONTADO'
+        Width = 73
+        FieldName = 'CONTADO'
       end    
       item
         Title.Caption = 'VENCIMIENTO'
         Width = 93
         FieldName = 'VENCIMIENTO'
+      end    
+      item
+        Title.Caption = 'RUC'
+        Width = 55
+        FieldName = 'RUC'
+      end    
+      item
+        Title.Caption = 'NUMERO'
+        Width = 65
+        FieldName = 'NUMERO'
+      end    
+      item
+        Title.Caption = 'TOTAL'
+        Width = 52
+        FieldName = 'TOTAL'
       end>
     DataSource = NotaCreditoDataModule.dsFacturas
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]

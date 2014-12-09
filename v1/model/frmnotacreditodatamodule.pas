@@ -5,8 +5,9 @@ unit frmNotaCreditoDataModule;
 interface
 
 uses
-  frmcomprobantedatamodule, LR_DBSet, LR_Class, DB, sqldb, mensajes, variants,
-  frmfacturadatamodule2, Classes, sgcdTypes, SysUtils, frmasientosdatamodule;
+  frmcomprobantedatamodule, LR_DBSet, LR_Class, XMLPropStorage, DB, sqldb,
+  mensajes, variants, frmfacturadatamodule2, Classes, sgcdTypes, SysUtils,
+  frmasientosdatamodule;
 
 resourcestring
   rsGenNotaCredito = 'SEQ_NOTA_CREDITO';
@@ -36,6 +37,7 @@ type
     qryDetallePRECIO_UNITARIO: TFloatField;
     StringField2: TStringField;
     StringField3: TStringField;
+    StringField4: TStringField;
     procedure qryDetalleEXENTAChange(Sender: TField);
     procedure qryDetalleIVA10Change(Sender: TField);
     procedure qryDetalleIVA5Change(Sender: TField);
@@ -53,7 +55,6 @@ type
   published
     dsFacturas: TDataSource;
     qryCabeceraTIMBRADO: TLongintField;
-    lookUpNUMERO_FACTURA: TLongintField;
     StringField1: TStringField;
     qryCabeceraDIRECCION: TStringField;
     qryCabeceraFACTURAID: TLongintField;
@@ -123,10 +124,11 @@ begin
   FAsientos := TAsientosDataModule.Create(Self, MasterDataModule);
   FAsientos.ComprobarAsiento := False;
   FFacturas := TFacturasDataModule.Create(Self, MasterDataModule);
-  dsFacturas.DataSet := FFacturas.qryCabecera;
+  dsFacturas.DataSet := FFacturas.FacturasView;
   SetTipoComprobante(doNotaCredito);
   CabeceraGenName := rsGenNotaCredito;
   DetalleGenName := rsGenNotaCreditoDetalle;
+  AuxQryList.Add(TObject(FFacturas.FacturasView));
   //TalonarioID := TALONARIO_NC;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
@@ -432,7 +434,7 @@ end;
 
 procedure TNotaCreditoDataModule.FetchCabeceraFactura;
 begin
-  FetchCabeceraFactura(FFacturas.qryCabeceraID.AsString);
+  FetchCabeceraFactura(FFacturas.FacturasViewID.AsString);
 end;
 
 procedure TNotaCreditoDataModule.FetchCabeceraFactura(AFacturaID: string);

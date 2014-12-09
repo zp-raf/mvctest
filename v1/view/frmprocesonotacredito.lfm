@@ -34,11 +34,17 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
     inherited LabelTimbrado: TLabel
       Top = 0
     end
+    inherited DBTextCaja: TDBText
+      DataSource = NotaCreditoDataModule.dstal
+    end
+    inherited DBTextSucursal: TDBText
+      DataSource = NotaCreditoDataModule.dstal
+    end
     inherited DBEditNotaRem: TDBEdit
       DataSource = NotaCreditoDataModule.dsCabecera
       MaxLength = 0
     end
-    object DBEditFactura: TDBEdit[16]
+    object DBEditFactura: TDBEdit[20]
       Left = 8
       Height = 23
       Top = 136
@@ -49,7 +55,7 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
       MaxLength = 0
       TabOrder = 6
     end
-    object LabelFactNro: TLabel[17]
+    object LabelFactNro: TLabel[21]
       AnchorSideLeft.Control = DBEditFactura
       AnchorSideBottom.Control = DBEditFactura
       Left = 8

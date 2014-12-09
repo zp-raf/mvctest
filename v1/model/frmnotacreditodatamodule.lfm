@@ -6,6 +6,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   VerticalOffset = 265
   Width = 562
   inherited qryCabecera: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -363,25 +364,11 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       Required = False
       OnChange = CheckNoNegativo
     end
-    object lookUpNUMERO_FACTURA: TLongintField[19]
-      DisplayWidth = 10
-      FieldKind = fkLookup
-      FieldName = 'NUMERO_FACTURA'
-      Index = 19
-      KeyFields = 'FACTURAID'
-      LookupCache = False
-      LookupDataSet = FacturasDataModule.qryCabecera
-      LookupKeyFields = 'ID'
-      LookupResultField = 'NUMERO'
-      ProviderFlags = []
-      ReadOnly = False
-      Required = False
-    end
-    object StringField1: TStringField[20]
+    object StringField1: TStringField[19]
       DisplayWidth = 255
       FieldKind = fkLookup
       FieldName = 'TIMBRADO_VENTA'
-      Index = 20
+      Index = 19
       KeyFields = 'TALONARIOID'
       LookupCache = False
       LookupDataSet = AuxTalonario
@@ -392,21 +379,21 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       Required = False
       Size = 255
     end
-    object qryCabeceraTIMBRADO: TLongintField[21]
+    object qryCabeceraTIMBRADO: TLongintField[20]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'TIMBRADO'
-      Index = 21
+      Index = 20
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object DateField1: TDateField[22]
+    object DateField1: TDateField[21]
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'VALIDO_HASTA'
-      Index = 22
+      Index = 21
       KeyFields = 'TALONARIOID'
       LookupCache = False
       LookupDataSet = tal
@@ -416,11 +403,11 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ReadOnly = False
       Required = False
     end
-    object StringField2: TStringField[23]
+    object StringField2: TStringField[22]
       DisplayWidth = 255
       FieldKind = fkLookup
       FieldName = 'SUCURSAL'
-      Index = 23
+      Index = 22
       KeyFields = 'TALONARIOID'
       LookupCache = False
       LookupDataSet = tal
@@ -431,11 +418,11 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       Required = False
       Size = 255
     end
-    object StringField3: TStringField[24]
+    object StringField3: TStringField[23]
       DisplayWidth = 255
       FieldKind = fkLookup
       FieldName = 'CAJA'
-      Index = 24
+      Index = 23
       KeyFields = 'TALONARIOID'
       LookupCache = False
       LookupDataSet = tal
@@ -446,16 +433,31 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       Required = False
       Size = 255
     end
-    object qryCabeceraNUMERO_NOTA_COMPRA: TStringField[25]
+    object qryCabeceraNUMERO_NOTA_COMPRA: TStringField[24]
       DisplayWidth = 255
       FieldKind = fkData
       FieldName = 'NUMERO_NOTA_COMPRA'
-      Index = 25
+      Index = 24
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       Size = 255
+    end
+    object StringField4: TStringField[25]
+      DisplayWidth = 523
+      FieldKind = fkLookup
+      FieldName = 'NUMERO_FACTURA'
+      Index = 25
+      KeyFields = 'FACTURAID'
+      LookupCache = False
+      LookupDataSet = FacturasDataModule.FacturasView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NUMERO_FACTURA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 523
     end
   end
   inherited qryDetalle: TSQLQuery
@@ -662,6 +664,10 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
         ParamType = ptInput
       end>
   end
+  inherited tal: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    Active = True
+  end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalle
   end
@@ -669,9 +675,12 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
     DataSet = qryCabecera
   end
   inherited AuxTalonario: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    Active = True
     left = 280
   end
   object dsFacturas: TDataSource[17]
+    DataSet = FacturasDataModule.FacturasView
     left = 368
     top = 260
   end

@@ -412,6 +412,36 @@ inherited FacturasDataModule: TFacturasDataModule
       Required = False
       Size = 255
     end
+    object StringField2: TStringField[23]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'CAJA'
+      Index = 23
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'CAJA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField3: TStringField[24]
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'SUCURSAL'
+      Index = 24
+      KeyFields = 'TALONARIOID'
+      LookupCache = False
+      LookupDataSet = tal
+      LookupKeyFields = 'ID'
+      LookupResultField = 'SUCURSAL'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   inherited qryDetalle: TSQLQuery
     FieldDefs = <    
@@ -600,10 +630,280 @@ inherited FacturasDataModule: TFacturasDataModule
         ParamType = ptInput
       end>
   end
+  inherited tal: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    Active = True
+  end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalle
   end
   inherited frDBReporteCab: TfrDBDataSet
     DataSet = qryCabecera
+  end
+  inherited AuxTalonario: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    Active = True
+  end
+  object FacturasView: TSQLQuery[17]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESCOMPRA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CAJA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'SUCURSAL'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO_FACTURA'
+        DataType = ftString
+        Precision = -1
+        Size = 523
+      end    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA_EMISION'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CONTADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VENCIMIENTO'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TOTAL'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_facturas'
+    )
+    Params = <>
+    left = 372
+    top = 257
+    object FacturasViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object FacturasViewESCOMPRA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESCOMPRA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object FacturasViewTIMBRADO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object FacturasViewNUMERO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'NUMERO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object FacturasViewCAJA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CAJA'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object FacturasViewSUCURSAL: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'SUCURSAL'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object FacturasViewNUMERO_FACTURA: TStringField
+      DisplayWidth = 523
+      FieldKind = fkData
+      FieldName = 'NUMERO_FACTURA'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 523
+    end
+    object FacturasViewPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object FacturasViewFECHA_EMISION: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA_EMISION'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object FacturasViewCONTADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CONTADO'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object FacturasViewVENCIMIENTO: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VENCIMIENTO'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object FacturasViewRUC: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'RUC'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object FacturasViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object FacturasViewTOTAL: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TOTAL'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object FacturasViewVALIDO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
 end

@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_Class, LR_DBSet, Forms, Controls,
-  Graphics, Dialogs, frmsgcddatamodule, frmcomprobantedatamodule, sgcdTypes;
+  Graphics, Dialogs, XMLPropStorage, frmsgcddatamodule,
+  frmcomprobantedatamodule, sgcdTypes;
 
 resourcestring
   rsGenFacturaID = 'SEQ_FACTURA';
@@ -23,7 +24,25 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TComprobanteDataModule)
+    FacturasViewCAJA: TStringField;
+    FacturasViewCONTADO: TSmallintField;
+    FacturasViewESCOMPRA: TLongintField;
+    FacturasViewFECHA_EMISION: TDateField;
+    FacturasViewID: TLongintField;
+    FacturasViewNOMBRE: TStringField;
+    FacturasViewNUMERO: TLongintField;
+    FacturasViewNUMERO_FACTURA: TStringField;
+    FacturasViewPERSONAID: TLongintField;
+    FacturasViewRUC: TStringField;
+    FacturasViewSUCURSAL: TStringField;
+    FacturasViewTIMBRADO: TStringField;
+    FacturasViewTOTAL: TFloatField;
+    FacturasViewVALIDO: TSmallintField;
+    FacturasViewVENCIMIENTO: TDateField;
     qryCabeceraNUMERO_FACT_COMPRA: TStringField;
+    FacturasView: TSQLQuery;
+    StringField2: TStringField;
+    StringField3: TStringField;
     procedure qryDetalleEXENTAChange(Sender: TField);
     procedure qryDetalleIVA10Change(Sender: TField);
     procedure qryDetalleIVA5Change(Sender: TField);
@@ -107,22 +126,22 @@ begin
   CheckNoNegativo(Sender);
   if (qryDetalleEXENTA.AsFloat > 0) then
   begin
-  if (qryDetalleIVA5.AsFloat > 0) then
-      qryDetalleIVA5.AsFloat:= 0
-  else if (qryDetalleIVA10.AsFloat > 0) then
-    qryDetalleIVA10.AsFloat:= 0;
+    if (qryDetalleIVA5.AsFloat > 0) then
+      qryDetalleIVA5.AsFloat := 0
+    else if (qryDetalleIVA10.AsFloat > 0) then
+      qryDetalleIVA10.AsFloat := 0;
   end;
 end;
 
 procedure TFacturasDataModule.qryDetalleIVA10Change(Sender: TField);
 begin
   CheckNoNegativo(Sender);
-   if (qryDetalleIVA10.AsFloat > 0) then
+  if (qryDetalleIVA10.AsFloat > 0) then
   begin
-  if (qryDetalleIVA5.AsFloat > 0) then
-      qryDetalleIVA5.AsFloat:= 0
-  else if (qryDetalleEXENTA.AsFloat > 0) then
-    qryDetalleEXENTA.AsFloat:= 0;
+    if (qryDetalleIVA5.AsFloat > 0) then
+      qryDetalleIVA5.AsFloat := 0
+    else if (qryDetalleEXENTA.AsFloat > 0) then
+      qryDetalleEXENTA.AsFloat := 0;
   end;
 
 end;
@@ -132,10 +151,10 @@ begin
   CheckNoNegativo(Sender);
   if (qryDetalleIVA5.AsFloat > 0) then
   begin
-  if (qryDetalleIVA10.AsFloat > 0) then
-      qryDetalleIVA10.AsFloat:= 0
-  else if (qryDetalleEXENTA.AsFloat > 0) then
-    qryDetalleEXENTA.AsFloat:= 0;
+    if (qryDetalleIVA10.AsFloat > 0) then
+      qryDetalleIVA10.AsFloat := 0
+    else if (qryDetalleEXENTA.AsFloat > 0) then
+      qryDetalleEXENTA.AsFloat := 0;
   end;
 end;
 
@@ -225,6 +244,7 @@ begin
   SetTipoComprobante(doFactura);
   CabeceraGenName := rsGenFacturaID;
   DetalleGenName := rsGenFacturaDetalleID;
+  AuxQryList.Add(TObject(FacturasView));
   //TalonarioID := TALONARIO;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
