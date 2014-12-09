@@ -617,7 +617,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnChange = CheckNoNegativo
+      OnChange = qryDetalleEXENTAChange
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -631,7 +631,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnChange = CheckNoNegativo
+      OnChange = qryDetalleIVA5Change
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -645,7 +645,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnChange = CheckNoNegativo
+      OnChange = qryDetalleIVA10Change
       MaxValue = 0
       MinValue = 0
       Precision = -1

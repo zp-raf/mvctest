@@ -36,6 +36,9 @@ type
     qryDetallePRECIO_UNITARIO: TFloatField;
     StringField2: TStringField;
     StringField3: TStringField;
+    procedure qryDetalleEXENTAChange(Sender: TField);
+    procedure qryDetalleIVA10Change(Sender: TField);
+    procedure qryDetalleIVA5Change(Sender: TField);
   private
     FAsientos: TAsientosDataModule;
     FCheckPrecioUnitario: boolean;
@@ -283,6 +286,42 @@ begin
   if FFacturas = AValue then
     Exit;
   FFacturas := AValue;
+end;
+
+procedure TNotaCreditoDataModule.qryDetalleEXENTAChange(Sender: TField);
+begin
+   CheckNoNegativo(Sender);
+  if (qryDetalleEXENTA.AsFloat > 0) then
+  begin
+  if (qryDetalleIVA5.AsFloat > 0) then
+      qryDetalleIVA5.AsFloat:= 0
+  else if (qryDetalleIVA10.AsFloat > 0) then
+    qryDetalleIVA10.AsFloat:= 0;
+  end;
+end;
+
+procedure TNotaCreditoDataModule.qryDetalleIVA10Change(Sender: TField);
+begin
+    CheckNoNegativo(Sender);
+   if (qryDetalleIVA10.AsFloat > 0) then
+  begin
+  if (qryDetalleIVA5.AsFloat > 0) then
+      qryDetalleIVA5.AsFloat:= 0
+  else if (qryDetalleEXENTA.AsFloat > 0) then
+    qryDetalleEXENTA.AsFloat:= 0;
+  end;
+end;
+
+procedure TNotaCreditoDataModule.qryDetalleIVA5Change(Sender: TField);
+begin
+  CheckNoNegativo(Sender);
+  if (qryDetalleIVA5.AsFloat > 0) then
+  begin
+  if (qryDetalleIVA10.AsFloat > 0) then
+      qryDetalleIVA10.AsFloat:= 0
+  else if (qryDetalleEXENTA.AsFloat > 0) then
+    qryDetalleEXENTA.AsFloat:= 0;
+  end;
 end;
 
 procedure TNotaCreditoDataModule.SetAsientos(AValue: TAsientosDataModule);

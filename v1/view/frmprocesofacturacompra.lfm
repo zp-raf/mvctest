@@ -11,7 +11,9 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
     inherited DateEditFecha: TDateEdit
+      DateOrder = doDMY
       Enabled = True
+      MaxLength = 10
     end
     inherited DBTextNro: TDBText
       Left = 464
@@ -127,6 +129,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
         end
         inherited DBNavigatorDet: TDBNavigator
           Hints.Strings = (          )
+          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
         end
       end
     end
@@ -134,7 +137,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   inherited ButtonLimpiar: TButton
     Width = 155
     AutoSize = True
-    Caption = 'Nueva factura en blacno'
+    Caption = 'Nueva factura en blanco'
     OnClick = ButtonLimpiarClick
   end
   inherited ButtonSeleccionarPers: TButton

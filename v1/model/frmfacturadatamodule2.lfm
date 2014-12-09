@@ -1,8 +1,8 @@
 inherited FacturasDataModule: TFacturasDataModule
   OnCreate = DataModuleCreate
   Height = 399
-  HorizontalOffset = 1029
-  VerticalOffset = 329
+  HorizontalOffset = 676
+  VerticalOffset = 251
   Width = 562
   inherited qryCabecera: TSQLQuery
     FieldDefs = <    
@@ -555,7 +555,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnChange = CheckNoNegativo
+      OnChange = qryDetalleEXENTAChange
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -569,7 +569,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnChange = CheckNoNegativo
+      OnChange = qryDetalleIVA5Change
       MaxValue = 0
       MinValue = 0
       Precision = -1
@@ -583,7 +583,7 @@ inherited FacturasDataModule: TFacturasDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnChange = CheckNoNegativo
+      OnChange = qryDetalleIVA10Change
       MaxValue = 0
       MinValue = 0
       Precision = -1

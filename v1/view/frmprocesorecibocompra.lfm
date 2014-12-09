@@ -1,7 +1,7 @@
 inherited ProcesoReciboCompra: TProcesoReciboCompra
-  Left = 694
+  Left = 346
   Height = 600
-  Top = 184
+  Top = 87
   Width = 800
   Caption = 'Cargar Recibo'
   ClientHeight = 580
@@ -175,9 +175,6 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
   inherited ButtonSeleccionarPers: TButton
     OnClick = ButtonSeleccionarPersClick
     Visible = True
-  end
-  inherited ButtonSeleccionarFac: TButton
-    Visible = False
   end
   inherited MainMenu: TMainMenu
     inherited MenuItemOpciones: TMenuItem

@@ -24,6 +24,9 @@ type
 
   TFacturasDataModule = class(TComprobanteDataModule)
     qryCabeceraNUMERO_FACT_COMPRA: TStringField;
+    procedure qryDetalleEXENTAChange(Sender: TField);
+    procedure qryDetalleIVA10Change(Sender: TField);
+    procedure qryDetalleIVA5Change(Sender: TField);
   private
     FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;
@@ -97,6 +100,43 @@ begin
   if FIVA10Codigo = AValue then
     Exit;
   FIVA10Codigo := AValue;
+end;
+
+procedure TFacturasDataModule.qryDetalleEXENTAChange(Sender: TField);
+begin
+  CheckNoNegativo(Sender);
+  if (qryDetalleEXENTA.AsFloat > 0) then
+  begin
+  if (qryDetalleIVA5.AsFloat > 0) then
+      qryDetalleIVA5.AsFloat:= 0
+  else if (qryDetalleIVA10.AsFloat > 0) then
+    qryDetalleIVA10.AsFloat:= 0;
+  end;
+end;
+
+procedure TFacturasDataModule.qryDetalleIVA10Change(Sender: TField);
+begin
+  CheckNoNegativo(Sender);
+   if (qryDetalleIVA10.AsFloat > 0) then
+  begin
+  if (qryDetalleIVA5.AsFloat > 0) then
+      qryDetalleIVA5.AsFloat:= 0
+  else if (qryDetalleEXENTA.AsFloat > 0) then
+    qryDetalleEXENTA.AsFloat:= 0;
+  end;
+
+end;
+
+procedure TFacturasDataModule.qryDetalleIVA5Change(Sender: TField);
+begin
+  CheckNoNegativo(Sender);
+  if (qryDetalleIVA5.AsFloat > 0) then
+  begin
+  if (qryDetalleIVA10.AsFloat > 0) then
+      qryDetalleIVA10.AsFloat:= 0
+  else if (qryDetalleEXENTA.AsFloat > 0) then
+    qryDetalleEXENTA.AsFloat:= 0;
+  end;
 end;
 
 procedure TFacturasDataModule.SetCheckPrecioUnitario(AValue: boolean);
