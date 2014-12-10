@@ -22,6 +22,7 @@ type
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override; overload;
     procedure OnPopupOk; override;
   private
@@ -65,6 +66,11 @@ end;
 procedure TProcesoReciboCompra.CancelButtonClick(Sender: TObject);
 begin
   inherited;
+end;
+
+procedure TProcesoReciboCompra.FormCreate(Sender: TObject);
+begin
+   GetCustomController.SetCompra(True);
 end;
 
 procedure TProcesoReciboCompra.ObserverUpdate(const Subject: IInterface);

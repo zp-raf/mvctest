@@ -90,7 +90,8 @@ type
     procedure qryDetalleEXENTAChange(Sender: TField);
     procedure qryDetalleIVA10Change(Sender: TField);
     procedure qryDetalleIVA5Change(Sender: TField);
-    procedure RegistrarMovimiento(EsVenta: boolean; ANotaID: string);
+    procedure RegistrarMovimiento(EsVenta: boolean; ANotaID: string;
+      ACuentaID: string = '');
     procedure SaveChanges; override;
     procedure SetNumero; override;
     property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
@@ -192,7 +193,8 @@ begin
   end;
 end;
 
-procedure TNotaCreditoDataModule.RegistrarMovimiento(EsVenta: boolean; ANotaID: string);
+procedure TNotaCreditoDataModule.RegistrarMovimiento(EsVenta: boolean;
+  ANotaID: string; ACuentaID: string);
 var
   CuentaID: string;
 begin
@@ -204,8 +206,20 @@ begin
     qryDetalle.First;
     // hay que buscar la cuenta que le correponde a la persona
     Asientos.Cuenta.Cuenta.Open;
-    CuentaID := Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
-      qryCabecera.FieldByName('PERSONAID').AsString, 'ID');
+    if Trim(ACuentaID) <> '' then
+    begin
+      if not Asientos.Cuenta.Cuenta.Locate('ID', ACuentaID, []) then
+        raise Exception.Create('Cuenta no encontrada');
+      CuentaID := ACuentaID;
+    end
+    else
+    begin
+      if Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
+        qryCabecera.FieldByName('PERSONAID').AsString, 'ID') = null then
+        raise Exception.Create('Cuenta no encontrada');
+      CuentaID := Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
+        qryCabecera.FieldByName('PERSONAID').AsString, 'ID');
+    end;
     Asientos.NuevoAsiento(rsDescripcionPorDefecto +
       qryCabecera.FieldByName('NUMERO').AsString, doNotaCredito,
       qryCabecera.FieldByName('ID').AsString);
@@ -213,7 +227,7 @@ begin
     begin
       if EsVenta then
         Asientos.NuevoAsientoDetalle(CuentaID, mvCredito,
-          qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
+          qryDetalle.FieldByName('CANTIDAD').AsFloat.A * qryDetalle.FieldByName(
           'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '')
       else
         Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,

@@ -17,6 +17,7 @@ type
   public
     procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
+    procedure CerrarComprobanteCompra(Sender: IView);
     procedure FetchCabeceraPersona(Sender: IView);
     function GetPersonasDataSource: TDataSource;
     procedure NuevoComprobante(Sender: IView); override;
@@ -46,6 +47,29 @@ begin
     GetModel.Commit;
   except
     on E: EDatabaseError do
+    begin
+      Rollback(Sender);
+      raise;
+    end;
+  end;
+end;
+
+procedure TReciboController.CerrarComprobanteCompra(Sender: IView);
+var
+  CompID, desc: string;
+begin
+  try
+    desc := 'Compra segun recibo nro ' + GetCustomModel.qryCabecera.FieldByName(
+      'NUMERO_REC_COMPRA').AsString + ' con timbrado ' +
+      GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
+    CompID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
+    GetCustomModel.qryCabecera.ApplyUpdates;
+    GetCustomModel.qryDetalle.ApplyUpdates;
+    GetCustomModel.RegistrarMovimientoCompra(CompID, doRecibo, desc);
+    GetCustomModel.Asientos.SaveChanges;
+    GetModel.Commit;
+  except
+    on E: Exception do
     begin
       Rollback(Sender);
       raise;
