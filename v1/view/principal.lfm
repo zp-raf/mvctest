@@ -263,6 +263,10 @@ inherited Principal1: TPrincipal1
         Caption = '&Extracto de cuenta'
         OnClick = extractoClick
       end
+      object ingresoegreso: TMenuItem
+        Caption = 'Ingresos y Egresos'
+        OnClick = ingresoegresoClick
+      end
     end
     inherited MenuAyuda: TMenuItem[4]
     end

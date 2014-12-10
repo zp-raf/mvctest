@@ -1,0 +1,18 @@
+inherited ReporteIngEgrDataModule: TReporteIngEgrDataModule
+  inherited Cabecera: TSQLQuery
+    SQL.Strings = (
+      'select * from rpt_ingreso_egreso (:fecha_ini,:fecha_fin);'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_ini'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_fin'
+        ParamType = ptInput
+      end>
+  end
+end

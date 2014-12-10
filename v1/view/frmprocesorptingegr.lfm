@@ -1,0 +1,60 @@
+inherited ProcesoReportIngEgr: TProcesoReportIngEgr
+  Left = 458
+  Top = 189
+  ClientHeight = 328
+  object DateEditFin: TDateEdit[2]
+    Left = 184
+    Height = 23
+    Top = 72
+    Width = 80
+    CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+    OKCaption = 'OK'
+    CancelCaption = 'Cancel'
+    DefaultToday = True
+    DateOrder = doDMY
+    ButtonWidth = 23
+    CharCase = ecNormal
+    NumGlyphs = 1
+    MaxLength = 10
+    TabOrder = 2
+  end
+  object DateEditInicio: TDateEdit[3]
+    Left = 48
+    Height = 23
+    Top = 71
+    Width = 80
+    CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+    OKCaption = 'OK'
+    CancelCaption = 'Cancel'
+    DateOrder = doDMY
+    ButtonWidth = 23
+    CharCase = ecNormal
+    NumGlyphs = 1
+    MaxLength = 10
+    TabOrder = 3
+  end
+  object LabelInicio: TLabel[4]
+    AnchorSideLeft.Control = DateEditInicio
+    AnchorSideBottom.Control = DateEditInicio
+    Left = 48
+    Height = 15
+    Top = 56
+    Width = 29
+    Anchors = [akLeft, akBottom]
+    Caption = 'Inicio'
+    ParentColor = False
+  end
+  object LabelFin: TLabel[5]
+    AnchorSideLeft.Control = DateEditFin
+    AnchorSideBottom.Control = DateEditFin
+    Left = 184
+    Height = 15
+    Top = 57
+    Width = 16
+    Anchors = [akLeft, akBottom]
+    Caption = 'Fin'
+    ParentColor = False
+  end
+  inherited MainMenu: TMainMenu[6]
+  end
+end

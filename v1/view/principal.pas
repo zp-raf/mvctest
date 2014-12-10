@@ -22,6 +22,7 @@ type
     ayuda1: TMenuItem;
     Listaalumnos: TButton;
     Documentos: TButton;
+    ingresoegreso: TMenuItem;
     MenuItemTalonarioRec: TMenuItem;
     MenuItemAprobarJusti: TMenuItem;
     MenuItemDocumentos: TMenuItem;
@@ -95,6 +96,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure gruposClick(Sender: TObject);
+    procedure ingresoegresoClick(Sender: TObject);
     procedure justificativosClick(Sender: TObject);
     procedure ListaalumnosClick(Sender: TObject);
     procedure materiasClick(Sender: TObject);
@@ -236,6 +238,11 @@ end;
 procedure TPrincipal1.gruposClick(Sender: TObject);
 begin
   GetCustomController.OpenABMGruposForm(Self);
+end;
+
+procedure TPrincipal1.ingresoegresoClick(Sender: TObject);
+begin
+  GetCustomController.OpenIngEgresoReporteForm(Self);
 end;
 
 procedure TPrincipal1.justificativosClick(Sender: TObject);

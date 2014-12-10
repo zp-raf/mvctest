@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="146">
+    <Units Count="149">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1070,6 +1070,27 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmaprobarjustdatamodule"/>
       </Unit145>
+      <Unit146>
+        <Filename Value="view\frmprocesorptingegr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoReportIngEgr"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesorptingegr"/>
+      </Unit146>
+      <Unit147>
+        <Filename Value="model\frmrptingegrdatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ReporteIngEgrDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmrptingegrdatamodule"/>
+      </Unit147>
+      <Unit148>
+        <Filename Value="controller\reporteingegrctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="reporteingegrctrl"/>
+      </Unit148>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

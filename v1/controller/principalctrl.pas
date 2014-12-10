@@ -150,7 +150,10 @@ uses
   frmaprobarjustdatamodule,
   frmprocesoaprobarjustificativo,
   // seleccionar talonario recibo
-  frmseleccionartalonario;
+  frmseleccionartalonario,
+  frmrptingegrdatamodule,
+  frmprocesorptingegr,
+  reporteingegrctrl;
 
 type
 
@@ -197,6 +200,7 @@ type
     procedure OpenABMJustificativosForm(Sender: IFormView);
     procedure OpenAprobarJustForm(Sender: IFormView);
     procedure OpenSeleccionTalonarioRecForm(Sender: IFormView);
+    procedure OpenIngEgresoReporteForm (Sender: IFormView);
   end;
 
 var
@@ -549,6 +553,15 @@ begin
     SeleccionTalonario.Free;
     ReciboDataModule.Free;
   end;
+end;
+
+procedure TPrincipalController.OpenIngEgresoReporteForm(Sender: IFormView);
+begin
+  ProcesoReportIngEgr := TProcesoReportIngEgr.Create(Sender,
+  TRepIngEgrController.Create(TReporteIngEgrDataModule.Create(
+  (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoReportIngEgr.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoReportIngEgr as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);
