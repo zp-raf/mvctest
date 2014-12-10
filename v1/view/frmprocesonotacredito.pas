@@ -77,15 +77,15 @@ procedure TProcesoNotaCredito.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
   case GetComprobanteController.GetEstadoComprobante(Self) of
-    asInicial:
+    csInicial:
     begin
       DBEditFactura.Enabled := False;
     end;
-    asGuardado:
+    csGuardado:
     begin
       DBEditFactura.Enabled := False;
     end;
-    asEditando:
+    csEditando:
     begin
       DBEditFactura.Enabled := False;
     end;

@@ -645,7 +645,6 @@ inherited FacturasDataModule: TFacturasDataModule
     Active = True
   end
   object FacturasView: TSQLQuery[17]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

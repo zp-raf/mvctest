@@ -6,7 +6,7 @@ interface
 
 uses
   ctrl, frmfacturadatamodule2, mvc, Controls, sgcdTypes, comprobantectrl,
-  frmcomprobantedatamodule, personactrl, DB;
+  frmcomprobantedatamodule, personactrl, DB, SysUtils;
 
 type
 
@@ -18,6 +18,7 @@ type
   public
     procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
+    procedure CerrarComprobanteCompra(Sender: IView);
     procedure FetchCabeceraPersona(Sender: IView);
     procedure NuevoComprobante(Sender: IView); override;
     procedure NuevoComprobanteCompra(Sender: IView);
@@ -60,9 +61,37 @@ end;
 
 procedure TFacturaController.CerrarComprobante(Sender: IView);
 begin
-  GetModel.SaveChanges;
-  GetModel.Commit;
-  //GetModel.RefreshDataSets;
+  if EsCompra then
+    CerrarComprobanteCompra(Sender)
+  else
+  begin
+    GetModel.SaveChanges;
+    GetModel.Commit;
+    //GetModel.RefreshDataSets;
+  end;
+end;
+
+procedure TFacturaController.CerrarComprobanteCompra(Sender: IView);
+var
+  CompID, desc: string;
+begin
+  try
+    desc := 'Compra segun factura nro ' + GetCustomModel.qryCabecera.FieldByName(
+      'NUMERO_FACT_COMPRA').AsString + ' con timbrado ' +
+      GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
+    CompID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
+    GetCustomModel.qryCabecera.ApplyUpdates;
+    GetCustomModel.qryDetalle.ApplyUpdates;
+    GetCustomModel.RegistrarMovimientoCompra(CompID, doFactura, desc);
+    GetCustomModel.Asientos.SaveChanges;
+    GetModel.Commit;
+  except
+    on E: Exception do
+    begin
+      Rollback(Sender);
+      raise;
+    end;
+  end;
 end;
 
 procedure TFacturaController.FetchCabeceraPersona(Sender: IView);
@@ -82,7 +111,7 @@ end;
 
 procedure TFacturaController.SetPrecioTotal(AField: string; Sender: IFormView);
 begin
-  if GetEstadoComprobante(Sender) = asEditando then
+  if GetEstadoComprobante(Sender) = csEditando then
   begin
     if not (GetCustomModel.qryDetalle.State in dsEditModes) then
       GetCustomModel.qryDetalle.Edit;

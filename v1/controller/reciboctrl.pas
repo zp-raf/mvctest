@@ -88,7 +88,7 @@ end;
 
 procedure TReciboController.SetPrecioTotal(Sender: IFormView);
 begin
-  if GetEstadoComprobante(Sender) = asEditando then
+  if GetEstadoComprobante(Sender) = csEditando then
   begin
     if not (GetCustomModel.qryDetalle.State in dsEditModes) then
       GetCustomModel.qryDetalle.Edit;

@@ -85,7 +85,7 @@ procedure TProcesoFacturacion.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
   case GetCustomController.GetEstadoComprobante(Self) of
-    asEditando:
+    csEditando:
     begin
       DateEditVen.Date := now; // no me gusta esto pero bue...
     end;

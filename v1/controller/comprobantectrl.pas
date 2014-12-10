@@ -26,6 +26,8 @@ type
     procedure NuevoComprobante(Sender: IView); virtual; abstract;
     procedure NuevoComprobanteDetalle(Sender: IView); virtual;
     procedure SeleccionarTalonario(Sender: IFormView);
+    procedure SetCompra(Option: boolean);
+    function EsCompra: boolean;
     function GetEstadoComprobante(Sender: IView): TEstadoComprobante;
     property BuscarPersonaController: TBuscarPersonaController
       read FBuscarPersonaController write SetBuscarPersonaController;
@@ -95,8 +97,18 @@ begin
       end;
     end;
   finally
-     SeleccionTalonario.Free;
+    SeleccionTalonario.Free;
   end;
+end;
+
+procedure TComprobanteController.SetCompra(Option: boolean);
+begin
+  GetComprobanteModel.Compra := Option;
+end;
+
+function TComprobanteController.EsCompra: boolean;
+begin
+  Result := GetComprobanteModel.Compra;
 end;
 
 function TComprobanteController.GetEstadoComprobante(Sender: IView): TEstadoComprobante;

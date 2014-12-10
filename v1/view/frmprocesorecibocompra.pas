@@ -71,9 +71,9 @@ procedure TProcesoReciboCompra.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
   case GetCustomController.GetEstadoComprobante(Self) of
-    asInicial: DateEditFecha.Enabled := False;
-    asEditando: DateEditFecha.Enabled := True;
-    asGuardado: DateEditFecha.Enabled := False;
+    csInicial: DateEditFecha.Enabled := False;
+    csEditando: DateEditFecha.Enabled := True;
+    csGuardado: DateEditFecha.Enabled := False;
   end;
   ButtonLimpiar.Enabled := True;
   ButtonSeleccionarPers.Enabled := True;
@@ -81,7 +81,7 @@ end;
 
 procedure TProcesoReciboCompra.OnPopupOk;
 begin
-  if GetCustomController.GetEstadoComprobante(Self) = asEditando then
+  if GetCustomController.GetEstadoComprobante(Self) = csEditando then
   begin
     GetCustomController.FetchCabeceraPersona(Self);
   end

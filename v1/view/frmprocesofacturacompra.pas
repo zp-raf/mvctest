@@ -21,7 +21,9 @@ type
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
+    procedure OKButtonClick(Sender: TObject);
     procedure OnPopupOk; override;
   private
     { private declarations }
@@ -42,18 +44,26 @@ procedure TProcesoFacturaCompra.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
   case GetCustomController.GetEstadoComprobante(Self) of
-    asInicial:
+    csInicial:
       DateEditFecha.Enabled := False;
-    asEditando: DateEditFecha.Enabled := True;
-    asGuardado: DateEditFecha.Enabled := False;
+    csEditando: DateEditFecha.Enabled := True;
+    csGuardado: DateEditFecha.Enabled := False;
   end;
   ButtonLimpiar.Enabled := True;
   ButtonSeleccionarPers.Enabled := True;
 end;
 
+procedure TProcesoFacturaCompra.OKButtonClick(Sender: TObject);
+begin
+  if GetController.IsValidDate(DateEditFecha.Date) or (DateEditFecha.Date <= Now) then
+    inherited
+  else
+    ShowErrorMessage('Fecha de emision invalida');
+end;
+
 procedure TProcesoFacturaCompra.OnPopupOk;
 begin
-  if GetCustomController.GetEstadoComprobante(Self) = asEditando then
+  if GetCustomController.GetEstadoComprobante(Self) = csEditando then
   begin
     GetCustomController.FetchCabeceraPersona(Self);
   end
@@ -85,6 +95,11 @@ begin
     (DBGridDet.SelectedField.FieldName = 'IVA10')) then
     GetCustomController.SetPrecioTotal(DBGridDet.SelectedField.FieldName, Self);
   DBGridDet.AutoSizeColumns;
+end;
+
+procedure TProcesoFacturaCompra.FormCreate(Sender: TObject);
+begin
+  GetCustomController.SetCompra(True);
 end;
 
 end.

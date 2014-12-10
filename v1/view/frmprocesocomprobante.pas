@@ -195,7 +195,7 @@ procedure TProcesoComprobante.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
   case GetComprobanteController.GetEstadoComprobante(Self) of
-    asInicial:
+    csInicial:
     begin
       Cabecera.Enabled := False;
       Detalles.Enabled := False;
@@ -207,7 +207,7 @@ begin
       ButtonPanel1.CancelButton.Enabled := False;
       ButtonPanel1.OKButton.Enabled := False;
     end;
-    asGuardado:
+    csGuardado:
     begin
       Cabecera.Enabled := False;
       Detalles.Enabled := False;
@@ -219,7 +219,7 @@ begin
       ButtonPanel1.CancelButton.Enabled := False;
       ButtonPanel1.OKButton.Enabled := False;
     end;
-    asEditando:
+    csEditando:
     begin
       Cabecera.Enabled := True;
       Detalles.Enabled := True;
@@ -231,7 +231,7 @@ begin
       ButtonPanel1.CancelButton.Enabled := True;
       ButtonPanel1.OKButton.Enabled := True;
     end;
-    asLeyendo:
+    csLeyendo:
     begin
       GetController.OpenDataSets(Self);
     end;
@@ -250,7 +250,7 @@ end;
 
 procedure TProcesoComprobante.OKButtonClick(Sender: TObject);
 begin
-  if not (GetComprobanteController.GetEstadoComprobante(Self) in [asEditando]) then
+  if not (GetComprobanteController.GetEstadoComprobante(Self) in [csEditando]) then
   begin
     ShowInfoMessage('No se esta procesando ningun comprobante');
     Exit;

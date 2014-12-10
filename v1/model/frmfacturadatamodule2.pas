@@ -6,15 +6,15 @@ interface
 
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_Class, LR_DBSet, Forms, Controls,
-  Graphics, Dialogs, XMLPropStorage, frmsgcddatamodule,
-  frmcomprobantedatamodule, sgcdTypes;
+  Graphics, Dialogs, XMLPropStorage, frmsgcddatamodule, frmcomprobantedatamodule,
+  sgcdTypes, mensajes;
 
 resourcestring
   rsGenFacturaID = 'SEQ_FACTURA';
   rsGenFacturaDetalleID = 'SEQ_FACTURA_DETALLE';
 
 const
-  //mientras tanto pongo aca el id del talonario
+  // mientras tanto pongo aca el id del talonario
   TALONARIO = '1';
 
 type
@@ -228,7 +228,7 @@ begin
     qryCabecera.Edit;
     qryCabeceraVALIDO.AsString := DB_FALSE;
     SaveChanges;
-    Estado := asGuardado;
+    Estado := csGuardado;
   except
     on E: EDatabaseError do
     begin

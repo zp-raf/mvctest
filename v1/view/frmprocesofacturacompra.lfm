@@ -3,8 +3,10 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   Top = 16
   Caption = 'Factura Compra'
   ClientHeight = 620
+  OnCreate = FormCreate
   OnShow = FormShow
   inherited ButtonPanel1: TButtonPanel
+    OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
   inherited Cabecera: TGroupBox
@@ -21,6 +23,8 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
     end
     inherited DBTextTimbrado: TDBText
       Left = 464
+      Height = 1
+      Width = 1
       Visible = False
     end
     inherited LabelNro: TLabel
@@ -31,7 +35,25 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       Left = 405
       Visible = False
     end
-    object DBEditNro: TDBEdit[19]
+    inherited LabelSeparator1: TLabel
+      Left = 521
+    end
+    inherited DBTextCaja: TDBText
+      Left = 526
+      Height = 1
+      Top = 23
+      Width = 1
+    end
+    inherited LabelSeparator2: TLabel
+      Left = 527
+    end
+    inherited DBTextSucursal: TDBText
+      Left = 532
+      Height = 1
+      Top = 23
+      Width = 1
+    end
+    object DBEditNro: TDBEdit[23]
       Left = 135
       Height = 23
       Top = 16
@@ -42,7 +64,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       MaxLength = 0
       TabOrder = 8
     end
-    object DBEditTimbrado: TDBEdit[20]
+    object DBEditTimbrado: TDBEdit[24]
       Left = 240
       Height = 23
       Top = 16
@@ -53,7 +75,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       MaxLength = 0
       TabOrder = 9
     end
-    object LabelNumeroComp: TLabel[21]
+    object LabelNumeroComp: TLabel[25]
       AnchorSideLeft.Control = DBEditNro
       AnchorSideBottom.Control = DBEditNro
       Left = 135
@@ -64,7 +86,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       Caption = 'Nro'
       ParentColor = False
     end
-    object LabelTimbradoCompra: TLabel[22]
+    object LabelTimbradoCompra: TLabel[26]
       AnchorSideLeft.Control = DBEditTimbrado
       AnchorSideBottom.Control = DBEditTimbrado
       Left = 240

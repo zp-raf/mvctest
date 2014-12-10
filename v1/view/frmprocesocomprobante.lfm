@@ -3,7 +3,7 @@ inherited ProcesoComprobante: TProcesoComprobante
   Height = 681
   Top = 218
   Width = 901
-  ClientHeight = 661
+  ClientHeight = 681
   ClientWidth = 901
   OnShow = FormShow
   inherited StatusBar1: TStatusBar

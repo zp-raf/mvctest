@@ -40,6 +40,14 @@ type
   { TAsientosDataModule }
 
   TAsientosDataModule = class(TQueryDataModule)
+
+  private
+    FComprobarAsiento: boolean;
+    FCuenta: TCuentaDataModule;
+    FEstado: TEstadoAsiento;
+    procedure ResetearEstado;
+    procedure SetComprobarAsiento(AValue: boolean);
+  published
     dsMovimientoDetView: TDataSource;
     MovimientoDetViewCUENTAID: TLongintField;
     MovimientoDetViewDESCRIPCION: TStringField;
@@ -57,13 +65,6 @@ type
     MovimientoDetViewTIPO_MOVIMIENTO: TStringField;
     MovimientoDOCUMENTOID: TLongintField;
     MovimientoTIPO_DOCUMENTO: TLongintField;
-  private
-    FComprobarAsiento: boolean;
-    FCuenta: TCuentaDataModule;
-    FEstado: TEstadoAsiento;
-    procedure ResetearEstado;
-    procedure SetComprobarAsiento(AValue: boolean);
-  published
     dsMovimiento: TDataSource;
     dsMovimientoDet: TDataSource;
     Movimiento: TSQLQuery;

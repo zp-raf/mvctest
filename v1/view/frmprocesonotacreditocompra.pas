@@ -41,7 +41,7 @@ implementation
 
 procedure TProcesoNotaCreditoCompra.OKButtonClick(Sender: TObject);
 begin
-  if not (GetComprobanteController.GetEstadoComprobante(Self) in [asEditando]) then
+  if not (GetComprobanteController.GetEstadoComprobante(Self) in [csEditando]) then
   begin
     ShowInfoMessage('No se esta procesando ningun comprobante');
     Exit;
@@ -86,10 +86,10 @@ procedure TProcesoNotaCreditoCompra.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
   case GetCustomController.GetEstadoComprobante(Self) of
-    asInicial:
+    csInicial:
       DateEditFecha.Enabled := False;
-    asEditando: DateEditFecha.Enabled := True;
-    asGuardado: DateEditFecha.Enabled := False;
+    csEditando: DateEditFecha.Enabled := True;
+    csGuardado: DateEditFecha.Enabled := False;
   end;
   ButtonLimpiar.Enabled := True;
   ButtonSeleccionarPers.Enabled := True;
@@ -97,7 +97,7 @@ end;
 
 procedure TProcesoNotaCreditoCompra.OnPopupOk;
 begin
-  if GetCustomController.GetEstadoComprobante(Self) = asEditando then
+  if GetCustomController.GetEstadoComprobante(Self) = csEditando then
   begin
     GetCustomController.FetchCabeceraPersona(Self);
   end

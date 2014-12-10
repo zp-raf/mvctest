@@ -8,22 +8,25 @@ uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_DBSet, LR_Class, Forms, Controls,
   Graphics, Dialogs, XMLPropStorage, IniPropStorage, frmquerydatamodule,
   mensajes, frmpersonasdatamodule, sgcdTypes, observerSubject,
-  frmtalonariodatamodule;
+  frmtalonariodatamodule, frmasientosdatamodule;
+
+const
+  CUENTA_COMPRAS = '40'; // corresponde a caja
 
 type
 
   { TComprobanteDataModule }
 
   TComprobanteDataModule = class(TQueryDataModule)
-    Propierties: TXMLPropStorage;
-    procedure PropiertiesRestoreProperties(Sender: TObject);
-    procedure PropiertiesSaveProperties(Sender: TObject);
   private
+    FAsientos: TAsientosDataModule;
     FCabeceraGenName: string;
+    FCompra: boolean;
     FDetalleGenName: string;
     FEstado: TEstadoComprobante;
     FPersonas: TPersonasDataModule;
     FTalonarios: TTalonarioDataModule;
+    procedure SetAsientos(AValue: TAsientosDataModule);
     procedure SetCabeceraGenName(AValue: string);
     procedure SetDetalleGenName(AValue: string);
     procedure SetEstado(AValue: TEstadoComprobante);
@@ -110,6 +113,7 @@ type
     ImpuestoID: TLongintField;
     ImpuestoNOMBRE: TStringField;
     ImpuestoView: TSQLQuery;
+    Propierties: TXMLPropStorage;
     { Procedimiento para calcular los totales de cada comprobante. Cada
       comprobante debe implementar este procedimiento. }
     procedure ActualizarTotales; virtual; abstract;
@@ -161,18 +165,24 @@ type
       cabecera. }
     procedure qryCabeceraAfterScroll(DataSet: TDataSet); virtual; abstract;
     procedure qryCabeceraNewRecord(DataSet: TDataSet); virtual;
+    procedure PropiertiesRestoreProperties(Sender: TObject);
+    procedure PropiertiesSaveProperties(Sender: TObject);
+    procedure RegistrarMovimientoCompra(ADocID: string;
+      ATipoDocumento: TTipoDocumento; ADescripcion: string);
     procedure Rollback; override;
     procedure SaveChanges; override;
     procedure SetNumero; virtual; abstract;
     procedure SetTipoComprobante(ATipoComprobante: TTipoDocumento);
     function GetMontoComprobante: double;
     function GetTalonarioDataSource: TDataSource;
+    property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
     property Estado: TEstadoComprobante read FEstado write SetEstado;
     property Personas: TPersonasDataModule read FPersonas write SetPersonas;
     property CabeceraGenName: string read FCabeceraGenName write SetCabeceraGenName;
     property DetalleGenName: string read FDetalleGenName write SetDetalleGenName;
     property Talonarios: TTalonarioDataModule read FTalonarios write SetTalonarios;
     property TalonarioID: string read FTalonarioID write SetTalonarioID;
+    property Compra: boolean read FCompra write FCompra;
   end;
 
 var
@@ -190,6 +200,8 @@ begin
   FPersonas := TPersonasDataModule.Create(Self, MasterDataModule);
   //FPersonas.SetReadOnly(True);
   FTalonarios := TTalonarioDataModule.Create(Self, MasterDataModule);
+  FAsientos := TAsientosDataModule.Create(Self, MasterDataModule);
+  FAsientos.ComprobarAsiento := False;
   dsPersonasRoles.DataSet := FPersonas.PersonasRoles;
   OnError := @OnComprobanteError;
   QryList.Add(TObject(qryCabecera));
@@ -204,6 +216,7 @@ begin
   AuxQryList.Add(TObject(FPersonas.Direccion));
   AuxQryList.Add(TObject(FPersonas.Telefono));
   AuxQryList.Add(TObject(FTalonarios.TalonarioView));
+  Compra := False;
 end;
 
 procedure TComprobanteDataModule.DataModuleDestroy(Sender: TObject);
@@ -213,6 +226,8 @@ begin
     FreeAndNil(FPersonas);
   if Assigned(FTalonarios) then
     FreeAndNil(FTalonarios);
+  if Assigned(FAsientos) then
+    FreeAndNil(FAsientos);
 end;
 
 procedure TComprobanteDataModule.qryDetalleAfterInsert(DataSet: TDataSet);
@@ -229,16 +244,53 @@ begin
   DataSet.FieldByName('TOTAL').AsFloat := 0;
 end;
 
+procedure TComprobanteDataModule.RegistrarMovimientoCompra(ADocID: string;
+  ATipoDocumento: TTipoDocumento; ADescripcion: string);
+begin
+  try
+    if (qryCabecera.State in [dsEdit, dsInsert]) then
+      raise Exception.Create(rsCreatingDoc);
+    if not qryCabecera.Locate('ID', ADocID, []) then
+      raise EDatabaseError.Create(rsNoSeEncontroDoc);
+    qryDetalle.First;
+    // hay que buscar la cuenta que le correponde a la persona
+    Asientos.Cuenta.Cuenta.Open;
+    if not Asientos.Cuenta.Cuenta.Locate('ID', CUENTA_COMPRAS, []) then
+      raise Exception.Create('Cuenta invalida');
+    Asientos.NuevoAsiento(ADescripcion, ATipoDocumento,
+      qryCabecera.FieldByName('ID').AsString);
+    while not qryDetalle.EOF do
+    begin
+      Asientos.NuevoAsientoDetalle(CUENTA_COMPRAS, mvDebito,
+        qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
+        'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
+      qryDetalle.Next;
+    end;
+    Asientos.PostAsiento;
+  except
+    on E: Exception do
+    begin
+      raise;
+      Rollback;
+    end;
+    on E: EDatabaseError do
+    begin
+      raise;
+      Rollback;
+    end;
+  end;
+end;
+
 procedure TComprobanteDataModule.Rollback;
 begin
-  Estado := asInicial;
+  Estado := csInicial;
   inherited Rollback;
 end;
 
 procedure TComprobanteDataModule.SaveChanges;
 begin
   inherited SaveChanges;
-  Estado := asGuardado;
+  Estado := csGuardado;
   (MasterDataModule as ISubject).Notify;
 end;
 
@@ -246,11 +298,11 @@ procedure TComprobanteDataModule.LocateComprobante(AID: string);
 begin
   OpenDataSets;
   try
-    if (Estado in [asEditando]) then
+    if (Estado in [csEditando]) then
       raise Exception.Create(rsNoSePuedeSetFac)
     else if not qryCabecera.Locate('ID', AID, [loCaseInsensitive]) then
       raise Exception.Create(rsNoSeEncontroDoc);
-    Estado := asLeyendo;
+    Estado := csLeyendo;
   except
     on E: EDatabaseError do
     begin
@@ -270,7 +322,7 @@ end;
 procedure TComprobanteDataModule.DiscardChanges;
 begin
   inherited DiscardChanges;
-  Estado := asInicial;
+  Estado := csInicial;
   (MasterDataModule as ISubject).Notify;
 end;
 
@@ -289,7 +341,7 @@ procedure TComprobanteDataModule.FetchCabeceraPersona(APersonaID: string);
 begin
   try
     // si no se esta haciendo una factura
-    if not (Estado in [asEditando]) then
+    if not (Estado in [csEditando]) then
       raise EDatabaseError.Create(rsNoSeEstaCreando);
     // traer nombre, ruc
     if not FPersonas.Persona.Locate('ID', APersonaID, [loCaseInsensitive]) then
@@ -322,7 +374,7 @@ procedure TComprobanteDataModule.FetchDetallePersona(APersonaID: string);
 begin
   // si no se esta haciendo una factura
   try
-    if not (Estado in [asEditando]) then
+    if not (Estado in [csEditando]) then
       raise EDatabaseError.Create(rsNoSeEstaCreando);
 
     DeudaView.Close;
@@ -403,7 +455,7 @@ end;
 function TComprobanteDataModule.GetMontoComprobante: double;
 begin
   try
-    if not (Estado in [asLeyendo]) then
+    if not (Estado in [csLeyendo]) then
       raise  Exception.Create(rsNoSePuedeSetFac);
     Result := qryCabecera.FieldByName('TOTAL').AsFloat;
   except
@@ -423,7 +475,7 @@ end;
 procedure TComprobanteDataModule.NuevoComprobante;
 begin
   try
-    if (Estado in [asEditando]) then
+    if (Estado in [csEditando]) then
       raise EDatabaseError.Create(rsYaSeEstaCreando);
     CheckTalonario;
     // antes que nada traemos los factores para iva10 e iva5
@@ -437,7 +489,7 @@ begin
       raise EDatabaseError.Create(rsTalonarioNoEncontrado);
     qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID;
     SetNumero;
-    Estado := asEditando;
+    Estado := csEditando;
     (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
@@ -451,7 +503,7 @@ end;
 procedure TComprobanteDataModule.NuevoComprobanteCompra;
 begin
   try
-    if (Estado in [asEditando]) then
+    if (Estado in [csEditando]) then
       raise EDatabaseError.Create(rsYaSeEstaCreando);
     // antes que nada traemos los factores para iva10 e iva5
     GetImpuestos;
@@ -464,7 +516,7 @@ begin
     //  raise EDatabaseError.Create(rsTalonarioNoEncontrado);
     //qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID;
     //SetNumero;
-    Estado := asEditando;
+    Estado := csEditando;
     (MasterDataModule as ISubject).Notify;
   except
     on E: EDatabaseError do
@@ -478,7 +530,7 @@ end;
 procedure TComprobanteDataModule.NuevoComprobanteDetalle;
 begin
   try
-    if (Estado in [asInicial, asGuardado]) then
+    if (Estado in [csInicial, csGuardado]) then
       raise EDatabaseError.Create(rsNoSeEstaCreando);
 
     qryDetalle.Insert;
@@ -496,7 +548,7 @@ procedure TComprobanteDataModule.OnComprobanteError(Sender: TObject; E: EDatabas
 begin
   DiscardChanges;
   Rollback;
-  Estado := asInicial;
+  Estado := csInicial;
   (MasterDataModule as ISubject).Notify;
 end;
 
@@ -540,6 +592,13 @@ begin
   FCabeceraGenName := AValue;
 end;
 
+procedure TComprobanteDataModule.SetAsientos(AValue: TAsientosDataModule);
+begin
+  if FAsientos = AValue then
+    Exit;
+  FAsientos := AValue;
+end;
+
 procedure TComprobanteDataModule.SetDetalleGenName(AValue: string);
 begin
   if FDetalleGenName = AValue then
@@ -570,7 +629,7 @@ end;
 
 function TComprobanteDataModule.ArePendingChanges: boolean;
 begin
-  if (Estado in [asInicial, asGuardado]) then
+  if (Estado in [csInicial, csGuardado]) then
     Result := False
   else
     Result := True;

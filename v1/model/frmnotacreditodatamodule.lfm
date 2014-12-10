@@ -6,7 +6,6 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   VerticalOffset = 265
   Width = 562
   inherited qryCabecera: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
