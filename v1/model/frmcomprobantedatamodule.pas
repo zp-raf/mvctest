@@ -28,6 +28,7 @@ type
     FTalonarios: TTalonarioDataModule;
     procedure SetAsientos(AValue: TAsientosDataModule);
     procedure SetCabeceraGenName(AValue: string);
+    procedure SetCompra(AValue: boolean);
     procedure SetDetalleGenName(AValue: string);
     procedure SetEstado(AValue: TEstadoComprobante);
     procedure SetPersonas(AValue: TPersonasDataModule);
@@ -35,6 +36,7 @@ type
     procedure SetTalonarios(AValue: TTalonarioDataModule);
   protected
     FTalonarioID: string;
+    FDatosCurso: TDatosCurso;
   public
     procedure AfterConstruction; override;
   published
@@ -114,6 +116,7 @@ type
     ImpuestoNOMBRE: TStringField;
     ImpuestoView: TSQLQuery;
     Propierties: TXMLPropStorage;
+    IniDatosCurso: TIniPropStorage;
     { Procedimiento para calcular los totales de cada comprobante. Cada
       comprobante debe implementar este procedimiento. }
     procedure ActualizarTotales; virtual; abstract;
@@ -126,6 +129,7 @@ type
       comprobante ya que cada uno tiene una forma diferente de calculo}
     procedure DeterminarImpuesto; virtual; abstract;
     procedure DiscardChanges; override;
+    procedure FetchCabeceraCompra; virtual;
     { Procedimiento para traer informacion para la cabecera del comrpobante,
       en el caso de rellenar la informacion a partir de los datos de una persona.
       Este procedimiento no recibe parametros; actua como intermediario de
@@ -152,6 +156,8 @@ type
     { Busca y pone el cursor en el registro de la cabecera del comprobante
       especificado.
       Si no se encuentra el comprobante levanta una excepcion EDatabaseError. }
+    procedure IniDatosCursoRestoreProperties(Sender: TObject);
+    procedure IniDatosCursoSaveProperties(Sender: TObject);
     procedure LocateComprobante(AID: string);
     procedure LocateTalonario;
     procedure NuevoComprobante;
@@ -168,7 +174,8 @@ type
     procedure PropiertiesRestoreProperties(Sender: TObject);
     procedure PropiertiesSaveProperties(Sender: TObject);
     procedure RegistrarMovimientoCompra(ADocID: string;
-      ATipoDocumento: TTipoDocumento; ADescripcion: string);
+      ATipoDocumento: TTipoDocumento; ADescripcion: string;
+      ADescripcionCtaPersonal: string);
     procedure Rollback; override;
     procedure SaveChanges; override;
     procedure SetNumero; virtual; abstract;
@@ -182,7 +189,7 @@ type
     property DetalleGenName: string read FDetalleGenName write SetDetalleGenName;
     property Talonarios: TTalonarioDataModule read FTalonarios write SetTalonarios;
     property TalonarioID: string read FTalonarioID write SetTalonarioID;
-    property Compra: boolean read FCompra write FCompra;
+    property Compra: boolean read FCompra write SetCompra;
   end;
 
 var
@@ -217,10 +224,12 @@ begin
   AuxQryList.Add(TObject(FPersonas.Telefono));
   AuxQryList.Add(TObject(FTalonarios.TalonarioView));
   Compra := False;
+  IniDatosCurso.Restore;
 end;
 
 procedure TComprobanteDataModule.DataModuleDestroy(Sender: TObject);
 begin
+  IniDatosCurso.Save;
   inherited;
   if Assigned(FPersonas) then
     FreeAndNil(FPersonas);
@@ -245,15 +254,44 @@ begin
 end;
 
 procedure TComprobanteDataModule.RegistrarMovimientoCompra(ADocID: string;
-  ATipoDocumento: TTipoDocumento; ADescripcion: string);
+  ATipoDocumento: TTipoDocumento; ADescripcion: string; ADescripcionCtaPersonal: string);
+var
+  CuentaID: string;
+  mov: TTipoMovimiento;
 begin
   try
     if (qryCabecera.State in [dsEdit, dsInsert]) then
       raise Exception.Create(rsCreatingDoc);
     if not qryCabecera.Locate('ID', ADocID, []) then
       raise EDatabaseError.Create(rsNoSeEncontroDoc);
+
+    // REGISTRAR EN CUENTA PERSONAL
     qryDetalle.First;
     // hay que buscar la cuenta que le correponde a la persona
+    Asientos.Cuenta.Cuenta.Open;
+    if Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
+      qryCabecera.FieldByName('PERSONAID').AsString, 'ID') = null then
+      raise Exception.Create('Cuenta no encontrada');
+    CuentaID := Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
+      qryCabecera.FieldByName('PERSONAID').AsString, 'ID');
+    Asientos.NuevoAsiento(ADescripcionCtaPersonal +
+      qryCabecera.FieldByName('NUMERO').AsString, ATipoDocumento,
+      qryCabecera.FieldByName('ID').AsString);
+    while not qryDetalle.EOF do
+    begin
+      case ATipoDocumento of
+        doFactura: mov := mvCredito;
+        doNotaCredito: mov := mvDebito;
+        doRecibo: mov := mvCredito;
+      end;
+      Asientos.NuevoAsientoDetalle(CuentaID, mov,
+        qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
+        'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
+      qryDetalle.Next;
+    end;
+    Asientos.PostAsiento;
+    // REGISTRAR EN CUENTA DE COMPRAS
+    qryDetalle.First;
     Asientos.Cuenta.Cuenta.Open;
     if not Asientos.Cuenta.Cuenta.Locate('ID', CUENTA_COMPRAS, []) then
       raise Exception.Create('Cuenta invalida');
@@ -261,7 +299,12 @@ begin
       qryCabecera.FieldByName('ID').AsString);
     while not qryDetalle.EOF do
     begin
-      Asientos.NuevoAsientoDetalle(CUENTA_COMPRAS, mvDebito,
+      case ATipoDocumento of
+        doFactura: mov := mvDebito;
+        doNotaCredito: mov := mvCredito;
+        doRecibo: mov := mvDebito;
+      end;
+      Asientos.NuevoAsientoDetalle(CUENTA_COMPRAS, mov,
         qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
         'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
       qryDetalle.Next;
@@ -324,6 +367,16 @@ begin
   inherited DiscardChanges;
   Estado := csInicial;
   (MasterDataModule as ISubject).Notify;
+end;
+
+procedure TComprobanteDataModule.FetchCabeceraCompra;
+begin
+  if not (Estado in [csEditando]) then
+    raise EDatabaseError.Create(rsNoSeEstaCreando);
+  qryCabecera.FieldByName('RUC').AsString := FDatosCurso.ruc;
+  qryCabecera.FieldByName('NOMBRE').AsString := FDatosCurso.nombre;
+  qryCabecera.FieldByName('DIRECCION').AsString := FDatosCurso.direccion;
+  qryCabecera.FieldByName('TELEFONO').AsString := FDatosCurso.telefono;
 end;
 
 procedure TComprobanteDataModule.qryDetalleBeforePost(DataSet: TDataSet);
@@ -590,6 +643,35 @@ begin
   if FCabeceraGenName = AValue then
     Exit;
   FCabeceraGenName := AValue;
+end;
+
+procedure TComprobanteDataModule.SetCompra(AValue: boolean);
+begin
+  if FCompra = AValue then
+    Exit;
+  FCompra := AValue;
+end;
+
+procedure TComprobanteDataModule.IniDatosCursoRestoreProperties(Sender: TObject);
+begin
+  with FDatosCurso do
+  begin
+    ruc := IniDatosCurso.StoredValue['ruc'];
+    nombre := IniDatosCurso.StoredValue['nombre'];
+    direccion := IniDatosCurso.StoredValue['direccion'];
+    telefono := IniDatosCurso.StoredValue['telefono'];
+  end;
+end;
+
+procedure TComprobanteDataModule.IniDatosCursoSaveProperties(Sender: TObject);
+begin
+  with FDatosCurso do
+  begin
+    IniDatosCurso.StoredValue['ruc'] := ruc;
+    IniDatosCurso.StoredValue['nombre'] := nombre;
+    IniDatosCurso.StoredValue['direccion'] := direccion;
+    IniDatosCurso.StoredValue['telefono'] := telefono;
+  end;
 end;
 
 procedure TComprobanteDataModule.SetAsientos(AValue: TAsientosDataModule);

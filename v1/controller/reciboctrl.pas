@@ -42,30 +42,36 @@ end;
 
 procedure TReciboController.CerrarComprobante(Sender: IView);
 begin
-  try
-    GetModel.SaveChanges;
-    GetModel.Commit;
-  except
-    on E: EDatabaseError do
-    begin
-      Rollback(Sender);
-      raise;
+  if EsCompra then
+    CerrarComprobanteCompra(Sender)
+  else
+    try
+      GetModel.SaveChanges;
+      GetModel.Commit;
+    except
+      on E: EDatabaseError do
+      begin
+        Rollback(Sender);
+        raise;
+      end;
     end;
-  end;
 end;
 
 procedure TReciboController.CerrarComprobanteCompra(Sender: IView);
 var
-  CompID, desc: string;
+  CompID, desc, descCtaPers: string;
 begin
   try
     desc := 'Compra segun recibo nro ' + GetCustomModel.qryCabecera.FieldByName(
       'NUMERO_REC_COMPRA').AsString + ' con timbrado ' +
       GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
+    descCtaPers := 'Venta segun recibo nro ' +
+      GetCustomModel.qryCabecera.FieldByName('NUMERO_REC_COMPRA').AsString +
+      ' con timbrado ' + GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
     CompID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
     GetCustomModel.qryCabecera.ApplyUpdates;
     GetCustomModel.qryDetalle.ApplyUpdates;
-    GetCustomModel.RegistrarMovimientoCompra(CompID, doRecibo, desc);
+    GetCustomModel.RegistrarMovimientoCompra(CompID, doRecibo, desc, descCtaPers);
     GetCustomModel.Asientos.SaveChanges;
     GetModel.Commit;
   except

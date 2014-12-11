@@ -5,7 +5,7 @@ unit notacreditoctrl;
 interface
 
 uses
-  comprobantectrl, frmNotaCreditoDataModule, mvc, DB, sgcdTypes;
+  SysUtils, comprobantectrl, frmNotaCreditoDataModule, mvc, DB, sgcdTypes;
 
 type
 
@@ -17,8 +17,9 @@ type
   public
     procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
-    procedure CerrarComprobante(EsVenta: boolean; Sender: IView); overload;
+    procedure CerrarComprobanteCompra(Sender: IView);
     procedure FetchCabeceraPersona(Sender: IView);
+    procedure FiltrarFacturas(ACompraVenta: TCompraVenta; Sender: IView);
     function GetPersonasDataSource: TDataSource;
     procedure NuevoComprobanteCompra(Sender: IView);
     procedure SetPrecioTotal(AField: string; Sender: IFormView);
@@ -43,26 +44,51 @@ begin
 end;
 
 procedure TNotaCreditoController.CerrarComprobante(Sender: IView);
-begin
-  CerrarComprobante(True, Sender);
-end;
-
-procedure TNotaCreditoController.CerrarComprobante(EsVenta: boolean; Sender: IView);
 var
   NotaID: string;
 begin
+  if EsCompra then
+    CerrarComprobanteCompra(Sender)
+  else
+    try
+      NotaID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
+      GetCustomModel.qryCabecera.ApplyUpdates;
+      GetCustomModel.qryDetalle.ApplyUpdates;
+      GetCustomModel.RegistrarMovimiento(NotaID);
+      GetModel.SaveChanges;
+      GetModel.Commit;
+      //GetModel.RefreshDataSets;
+    except
+      on E: EDatabaseError do
+      begin
+        Rollback(Sender);
+        raise;
+      end;
+    end;
+end;
+
+procedure TNotaCreditoController.CerrarComprobanteCompra(Sender: IView);
+var
+  CompID, desc, descCtaPers: string;
+begin
   try
-    NotaID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
+    desc := 'Nota de credito ' + GetCustomModel.qryCabecera.FieldByName(
+      'NUMERO_NOTA_COMPRA').AsString + ' con timbrado ' +
+      GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
+    descCtaPers := 'Emision de nota de credito nro ' +
+      GetCustomModel.qryCabecera.FieldByName('NUMERO_NOTA_COMPRA').AsString +
+      ' con timbrado ' + GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
+    CompID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
     GetCustomModel.qryCabecera.ApplyUpdates;
     GetCustomModel.qryDetalle.ApplyUpdates;
-    GetCustomModel.RegistrarMovimiento(EsVenta, NotaID);
-    GetModel.SaveChanges;
+    GetCustomModel.RegistrarMovimientoCompra(CompID, doNotaCredito, desc, descCtaPers);
+    GetCustomModel.Asientos.SaveChanges;
     GetModel.Commit;
   except
-    on E: EDatabaseError do
+    on E: Exception do
     begin
       Rollback(Sender);
-      raise;
+      Sender.ShowErrorMessage('Error al cargar comprobante. Error: ' + e.Message);
     end;
   end;
 end;
@@ -70,6 +96,12 @@ end;
 procedure TNotaCreditoController.FetchCabeceraPersona(Sender: IView);
 begin
   GetCustomModel.FetchCabeceraPersona;
+end;
+
+procedure TNotaCreditoController.FiltrarFacturas(ACompraVenta: TCompraVenta;
+  Sender: IView);
+begin
+  GetCustomModel.FiltrarFacturas(ACompraVenta);
 end;
 
 function TNotaCreditoController.GetPersonasDataSource: TDataSource;
@@ -81,7 +113,9 @@ procedure TNotaCreditoController.NuevoComprobanteCompra(Sender: IView);
 begin
   GetCustomModel.CheckPrecioUnitario := True;
   GetCustomModel.NuevoComprobanteCompra;
-  GetCustomModel.NuevoComprobanteDetalle;
+  GetCustomModel.FetchCabeceraFactura;
+  GetCustomModel.FetchCabeceraCompra;
+  GetCustomModel.FetchDetalleFactura;
 end;
 
 procedure TNotaCreditoController.SetPrecioTotal(AField: string; Sender: IFormView);

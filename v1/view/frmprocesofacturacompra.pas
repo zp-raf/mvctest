@@ -23,7 +23,7 @@ type
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
-    procedure OKButtonClick(Sender: TObject);
+    procedure OKButtonClick(Sender: TObject); override;
     procedure OnPopupOk; override;
   private
     { private declarations }
@@ -55,24 +55,32 @@ end;
 
 procedure TProcesoFacturaCompra.OKButtonClick(Sender: TObject);
 begin
-  if GetController.IsValidDate(DateEditFecha.Date) or (DateEditFecha.Date <= Now) then
-    inherited
-  else
+  if (Trim(DBEditNro.Text) = '') or (Trim(DBEditTimbrado.Text) = '') then
+  begin
+    ShowErrorMessage('Complete los campos de numero y timbrado');
+    Exit;
+  end;
+  if not GetController.IsValidDate(DateEditFecha.Text) or
+    (DateEditFecha.Date > Now) then
+  begin
     ShowErrorMessage('Fecha de emision invalida');
+    Exit;
+  end;
+  inherited;
 end;
 
 procedure TProcesoFacturaCompra.OnPopupOk;
 begin
-  if GetCustomController.GetEstadoComprobante(Self) = csEditando then
-  begin
-    GetCustomController.FetchCabeceraPersona(Self);
-  end
-  else
-  begin
-    GetController.Connect(Self);
-    GetCustomController.NuevoComprobanteCompra(Self);
-    GetCustomController.FetchCabeceraPersona(Self);
-  end;
+  //if GetCustomController.GetEstadoComprobante(Self) = csEditando then
+  //begin
+  //  GetCustomController.FetchCabeceraPersona(Self);
+  //end
+  //else
+  //begin
+  GetController.Connect(Self);
+  GetCustomController.NuevoComprobanteCompra(Self);
+  //GetCustomController.FetchCabeceraPersona(Self);
+  //end;
 end;
 
 procedure TProcesoFacturaCompra.ButtonLimpiarClick(Sender: TObject);

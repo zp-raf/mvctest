@@ -77,10 +77,12 @@ type
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
     procedure DeterminarImpuesto; override;
+    procedure FetchCabeceraCompra; override;
     procedure FetchCabeceraFactura(AFacturaID: string);
     procedure FetchCabeceraFactura;
     procedure FetchDetalleFactura;
     procedure FetchDetalleFactura(AFacturaID: string);
+    procedure FiltrarFacturas(ACompraVenta: TCompraVenta);
     procedure GetImpuestos; override;
     procedure OpenDataSets; override;
     procedure qryCabeceraAfterScroll(DataSet: TDataSet); override;
@@ -90,8 +92,7 @@ type
     procedure qryDetalleEXENTAChange(Sender: TField);
     procedure qryDetalleIVA10Change(Sender: TField);
     procedure qryDetalleIVA5Change(Sender: TField);
-    procedure RegistrarMovimiento(EsVenta: boolean; ANotaID: string;
-      ACuentaID: string = '');
+    procedure RegistrarMovimiento(ANotaID: string);
     procedure SaveChanges; override;
     procedure SetNumero; override;
     property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
@@ -155,46 +156,58 @@ procedure TNotaCreditoDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField)
 var
   montoMaximo: double;
 begin
-  if CheckPrecioUnitario then
-    try
+  try
+    CheckNoNegativo(Sender);
+    if CheckPrecioUnitario then
+    begin
       montoMaximo := Facturas.qryDetalle.Lookup('ID', qryDetalleFACTURADETALLEID.Value,
         'PRECIO_UNITARIO') * Facturas.qryDetalle.Lookup('ID',
         qryDetalleFACTURADETALLEID.Value, 'CANTIDAD');
       if Sender.AsFloat > montoMaximo then
-        Sender.AsFloat := montoMaximo;
-    except
-      on E: EDatabaseError do
-      begin
-        Abort;
-      end;
+        try
+          Sender.OnChange := nil;
+          Sender.AsFloat := montoMaximo;
+        finally
+          Sender.OnChange := @qryDetallePRECIO_UNITARIOChange;
+        end;
     end;
-
-  try
-    // iva 10
-    if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
-      Exit
-    else
-      qryDetalleIVA10.AsFloat :=
-        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-    // iva 5
-    if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
-      Exit
-    else
-      qryDetalleIVA5.AsFloat :=
-        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-    // exenta
-    if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
-      Exit
-    else
-      qryDetalleEXENTA.AsFloat :=
-        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-  finally
-    //qryDetalle.Post;
+    try
+      qryDetalleIVA10.OnChange := nil;
+      qryDetalleIVA5.OnChange := nil;
+      qryDetalleEXENTA.OnChange := nil;
+      // iva 10
+      if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
+        Exit
+      else
+        qryDetalleIVA10.AsFloat :=
+          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      // iva 5
+      if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
+        Exit
+      else
+        qryDetalleIVA5.AsFloat :=
+          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      // exenta
+      if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
+        Exit
+      else
+        qryDetalleEXENTA.AsFloat :=
+          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+    finally
+      qryDetalleIVA10.OnChange := @qryDetalleIVA10Change;
+      qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+      qryDetalleEXENTA.OnChange := @qryDetalleEXENTAChange;
+    end;
+  except
+    on E: Exception do
+    begin
+      Abort;
+      raise;
+    end;
   end;
 end;
 
-procedure TNotaCreditoDataModule.RegistrarMovimiento(EsVenta: boolean;
-  ANotaID: string; ACuentaID: string);
+procedure TNotaCreditoDataModule.RegistrarMovimiento(ANotaID: string);
 var
   CuentaID: string;
 begin
@@ -206,33 +219,37 @@ begin
     qryDetalle.First;
     // hay que buscar la cuenta que le correponde a la persona
     Asientos.Cuenta.Cuenta.Open;
-    if Trim(ACuentaID) <> '' then
-    begin
-      if not Asientos.Cuenta.Cuenta.Locate('ID', ACuentaID, []) then
-        raise Exception.Create('Cuenta no encontrada');
-      CuentaID := ACuentaID;
-    end
-    else
-    begin
-      if Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
-        qryCabecera.FieldByName('PERSONAID').AsString, 'ID') = null then
-        raise Exception.Create('Cuenta no encontrada');
-      CuentaID := Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
-        qryCabecera.FieldByName('PERSONAID').AsString, 'ID');
-    end;
+    if Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
+      qryCabecera.FieldByName('PERSONAID').AsString, 'ID') = null then
+      raise Exception.Create('Cuenta no encontrada');
+    CuentaID := Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
+      qryCabecera.FieldByName('PERSONAID').AsString, 'ID');
     Asientos.NuevoAsiento(rsDescripcionPorDefecto +
       qryCabecera.FieldByName('NUMERO').AsString, doNotaCredito,
       qryCabecera.FieldByName('ID').AsString);
     while not qryDetalle.EOF do
     begin
-      if EsVenta then
-        Asientos.NuevoAsientoDetalle(CuentaID, mvCredito,
-          qryDetalle.FieldByName('CANTIDAD').AsFloat.A * qryDetalle.FieldByName(
-          'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '')
-      else
-        Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,
-          qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
-          'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
+      Asientos.NuevoAsientoDetalle(CuentaID, mvCredito,
+        qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
+        'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
+      qryDetalle.Next;
+    end;
+    Asientos.PostAsiento;
+
+    // REGISTRAR EN CUENTA DE COMPRAS
+    qryDetalle.First;
+    Asientos.Cuenta.Cuenta.Open;
+    if not Asientos.Cuenta.Cuenta.Locate('ID', CUENTA_COMPRAS, []) then
+      raise Exception.Create('Cuenta invalida');
+    Asientos.NuevoAsiento('Venta segun factura nro ' + talSUCURSAL.AsString +
+      '-' + talCAJA.AsString + '-' + qryCabeceraNUMERO.AsString +
+      ' con timbrado ' + qryCabeceraTIMBRADO.AsString, doNotaCredito,
+      qryCabeceraID.AsString);
+    while not qryDetalle.EOF do
+    begin
+      Asientos.NuevoAsientoDetalle(CUENTA_COMPRAS, mvDebito,
+        qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
+        'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
       qryDetalle.Next;
     end;
     Asientos.PostAsiento;
@@ -299,37 +316,82 @@ end;
 
 procedure TNotaCreditoDataModule.qryDetalleEXENTAChange(Sender: TField);
 begin
-  CheckNoNegativo(Sender);
-  if (qryDetalleEXENTA.AsFloat > 0) then
-  begin
-    if (qryDetalleIVA5.AsFloat > 0) then
-      qryDetalleIVA5.AsFloat := 0
-    else if (qryDetalleIVA10.AsFloat > 0) then
-      qryDetalleIVA10.AsFloat := 0;
+  try
+    CheckNoNegativo(Sender);
+    if (qryDetalleEXENTA.AsFloat > 0) then
+    begin
+      if (qryDetalleIVA5.AsFloat > 0) then
+        try
+          qryDetalleIVA5.OnChange := nil;
+          qryDetalleIVA5.AsFloat := 0
+        finally
+          qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+        end
+      else if (qryDetalleIVA10.AsFloat > 0) then
+        try
+          qryDetalleIVA10.OnChange := nil;
+          qryDetalleIVA10.AsFloat := 0
+        finally
+          qryDetalleIVA10.OnChange := @qryDetalleIVA10Change;
+        end;
+    end;
+  except
+    on E: Exception do
+      raise;
   end;
 end;
 
 procedure TNotaCreditoDataModule.qryDetalleIVA10Change(Sender: TField);
 begin
-  CheckNoNegativo(Sender);
-  if (qryDetalleIVA10.AsFloat > 0) then
-  begin
-    if (qryDetalleIVA5.AsFloat > 0) then
-      qryDetalleIVA5.AsFloat := 0
-    else if (qryDetalleEXENTA.AsFloat > 0) then
-      qryDetalleEXENTA.AsFloat := 0;
+  try
+    CheckNoNegativo(Sender);
+    if (qryDetalleIVA10.AsFloat > 0) then
+    begin
+      if (qryDetalleIVA5.AsFloat > 0) then
+        try
+          qryDetalleIVA5.OnChange := nil;
+          qryDetalleIVA5.AsFloat := 0
+        finally
+          qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+        end
+      else if (qryDetalleEXENTA.AsFloat > 0) then
+        try
+          qryDetalleEXENTA.OnChange := nil;
+          qryDetalleEXENTA.AsFloat := 0
+        finally
+          qryDetalleEXENTA.OnChange := @qryDetalleEXENTAChange;
+        end;
+    end;
+  except
+    on E: Exception do
+      raise;
   end;
 end;
 
 procedure TNotaCreditoDataModule.qryDetalleIVA5Change(Sender: TField);
 begin
-  CheckNoNegativo(Sender);
-  if (qryDetalleIVA5.AsFloat > 0) then
-  begin
-    if (qryDetalleIVA10.AsFloat > 0) then
-      qryDetalleIVA10.AsFloat := 0
-    else if (qryDetalleEXENTA.AsFloat > 0) then
-      qryDetalleEXENTA.AsFloat := 0;
+  try
+    CheckNoNegativo(Sender);
+    if (qryDetalleIVA5.AsFloat > 0) then
+    begin
+      if (qryDetalleIVA10.AsFloat > 0) then
+        try
+          qryDetalleIVA5.OnChange := nil;
+          qryDetalleIVA5.AsFloat := 0
+        finally
+          qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+        end
+      else if (qryDetalleEXENTA.AsFloat > 0) then
+        try
+          qryDetalleEXENTA.OnChange := nil;
+          qryDetalleEXENTA.AsFloat := 0
+        finally
+          qryDetalleEXENTA.OnChange := @qryDetalleEXENTAChange;
+        end;
+    end;
+  except
+    on E: Exception do
+      raise;
   end;
 end;
 
@@ -415,7 +477,7 @@ procedure TNotaCreditoDataModule.CheckNoNegativo(Sender: TField);
 begin
   if Sender.AsFloat < 0 then
   begin
-    Sender.Clear;
+    //Sender.Clear;
     raise Exception.Create('El campo ' + Sender.FieldName +
       ' no permite valores negativos');
   end;
@@ -430,6 +492,11 @@ end;
 procedure TNotaCreditoDataModule.DeterminarImpuesto;
 begin
   // no hace falta
+end;
+
+procedure TNotaCreditoDataModule.FetchCabeceraCompra;
+begin
+  inherited FetchCabeceraCompra;
 end;
 
 procedure TNotaCreditoDataModule.FetchCabeceraFactura;
@@ -491,6 +558,18 @@ begin
     //qryDetalle.AfterPost := @qryDetalleAfterPost;
   end;
   ActualizarTotales;
+end;
+
+procedure TNotaCreditoDataModule.FiltrarFacturas(ACompraVenta: TCompraVenta);
+begin
+  Facturas.FacturasView.Close;
+  case ACompraVenta of
+    cvCompra: Facturas.FacturasView.ServerFilter := 'ESCOMPRA = 1';
+    cvVenta: Facturas.FacturasView.ServerFilter := 'ESCOMPRA = 0';
+    cvCualquiera: Facturas.FacturasView.ServerFilter := 'ESCOMPRA IN (1,0)';
+  end;
+  Facturas.FacturasView.ServerFiltered := True;
+  Facturas.FacturasView.Open;
 end;
 
 procedure TNotaCreditoDataModule.GetImpuestos;

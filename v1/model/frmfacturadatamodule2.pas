@@ -24,28 +24,6 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TComprobanteDataModule)
-    FacturasViewCAJA: TStringField;
-    FacturasViewCONTADO: TSmallintField;
-    FacturasViewESCOMPRA: TLongintField;
-    FacturasViewFECHA_EMISION: TDateField;
-    FacturasViewID: TLongintField;
-    FacturasViewNOMBRE: TStringField;
-    FacturasViewNUMERO: TLongintField;
-    FacturasViewNUMERO_FACTURA: TStringField;
-    FacturasViewPERSONAID: TLongintField;
-    FacturasViewRUC: TStringField;
-    FacturasViewSUCURSAL: TStringField;
-    FacturasViewTIMBRADO: TStringField;
-    FacturasViewTOTAL: TFloatField;
-    FacturasViewVALIDO: TSmallintField;
-    FacturasViewVENCIMIENTO: TDateField;
-    qryCabeceraNUMERO_FACT_COMPRA: TStringField;
-    FacturasView: TSQLQuery;
-    StringField2: TStringField;
-    StringField3: TStringField;
-    procedure qryDetalleEXENTAChange(Sender: TField);
-    procedure qryDetalleIVA10Change(Sender: TField);
-    procedure qryDetalleIVA5Change(Sender: TField);
   private
     FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;
@@ -54,6 +32,22 @@ type
     procedure SetIVA10Codigo(AValue: string);
     procedure SetIVA5Codigo(AValue: string);
   published
+    FacturasViewCONTADO: TSmallintField;
+    FacturasViewESCOMPRA: TLongintField;
+    FacturasViewFECHA_EMISION: TDateField;
+    FacturasViewID: TLongintField;
+    FacturasViewNOMBRE: TStringField;
+    FacturasViewNUMERO_FACTURA: TStringField;
+    FacturasViewPERSONAID: TLongintField;
+    FacturasViewRUC: TStringField;
+    FacturasViewTIMBRADO: TStringField;
+    FacturasViewTOTAL: TFloatField;
+    FacturasViewVALIDO: TSmallintField;
+    FacturasViewVENCIMIENTO: TDateField;
+    qryCabeceraNUMERO_FACT_COMPRA: TStringField;
+    FacturasView: TSQLQuery;
+    StringField2: TStringField;
+    StringField3: TStringField;
     qryCabeceraTALONARIOID: TLongintField;
     qryCabeceraTIMBRADO: TStringField;
     StringField1: TStringField;
@@ -90,12 +84,16 @@ type
     procedure CheckNoNegativo(Sender: TField);
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DeterminarImpuesto; override;
+    procedure FetchCabeceraCompra; override;
     procedure FetchCabeceraPersona(APersonaID: string); override; overload;
     procedure FetchDetallePersona(APersonaID: string); override; overload;
     procedure GetImpuestos; override;
     procedure qryCabeceraAfterScroll(DataSet: TDataSet); override;
     procedure qryCabeceraNewRecord(DataSet: TDataSet); override;
     procedure qryDetalleAfterInsert(DataSet: TDataSet); override;
+    procedure qryDetalleEXENTAChange(Sender: TField);
+    procedure qryDetalleIVA10Change(Sender: TField);
+    procedure qryDetalleIVA5Change(Sender: TField);
     procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
     procedure SetNumero; override;
     property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
@@ -123,38 +121,82 @@ end;
 
 procedure TFacturasDataModule.qryDetalleEXENTAChange(Sender: TField);
 begin
-  CheckNoNegativo(Sender);
-  if (qryDetalleEXENTA.AsFloat > 0) then
-  begin
-    if (qryDetalleIVA5.AsFloat > 0) then
-      qryDetalleIVA5.AsFloat := 0
-    else if (qryDetalleIVA10.AsFloat > 0) then
-      qryDetalleIVA10.AsFloat := 0;
+  try
+    CheckNoNegativo(Sender);
+    if (qryDetalleEXENTA.AsFloat > 0) then
+    begin
+      if (qryDetalleIVA5.AsFloat > 0) then
+        try
+          qryDetalleIVA5.OnChange := nil;
+          qryDetalleIVA5.AsFloat := 0
+        finally
+          qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+        end
+      else if (qryDetalleIVA10.AsFloat > 0) then
+        try
+          qryDetalleIVA10.OnChange := nil;
+          qryDetalleIVA10.AsFloat := 0
+        finally
+          qryDetalleIVA10.OnChange := @qryDetalleIVA10Change;
+        end;
+    end;
+  except
+    on E: Exception do
+      raise;
   end;
 end;
 
 procedure TFacturasDataModule.qryDetalleIVA10Change(Sender: TField);
 begin
-  CheckNoNegativo(Sender);
-  if (qryDetalleIVA10.AsFloat > 0) then
-  begin
-    if (qryDetalleIVA5.AsFloat > 0) then
-      qryDetalleIVA5.AsFloat := 0
-    else if (qryDetalleEXENTA.AsFloat > 0) then
-      qryDetalleEXENTA.AsFloat := 0;
+  try
+    CheckNoNegativo(Sender);
+    if (qryDetalleIVA10.AsFloat > 0) then
+    begin
+      if (qryDetalleIVA5.AsFloat > 0) then
+        try
+          qryDetalleIVA5.OnChange := nil;
+          qryDetalleIVA5.AsFloat := 0
+        finally
+          qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+        end
+      else if (qryDetalleEXENTA.AsFloat > 0) then
+        try
+          qryDetalleEXENTA.OnChange := nil;
+          qryDetalleEXENTA.AsFloat := 0
+        finally
+          qryDetalleEXENTA.OnChange := @qryDetalleEXENTAChange;
+        end;
+    end;
+  except
+    on E: Exception do
+      raise;
   end;
-
 end;
 
 procedure TFacturasDataModule.qryDetalleIVA5Change(Sender: TField);
 begin
-  CheckNoNegativo(Sender);
-  if (qryDetalleIVA5.AsFloat > 0) then
-  begin
-    if (qryDetalleIVA10.AsFloat > 0) then
-      qryDetalleIVA10.AsFloat := 0
-    else if (qryDetalleEXENTA.AsFloat > 0) then
-      qryDetalleEXENTA.AsFloat := 0;
+  try
+    CheckNoNegativo(Sender);
+    if (qryDetalleIVA5.AsFloat > 0) then
+    begin
+      if (qryDetalleIVA10.AsFloat > 0) then
+        try
+          qryDetalleIVA5.OnChange := nil;
+          qryDetalleIVA5.AsFloat := 0
+        finally
+          qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+        end
+      else if (qryDetalleEXENTA.AsFloat > 0) then
+        try
+          qryDetalleEXENTA.OnChange := nil;
+          qryDetalleEXENTA.AsFloat := 0
+        finally
+          qryDetalleEXENTA.OnChange := @qryDetalleEXENTAChange;
+        end;
+    end;
+  except
+    on E: Exception do
+      raise;
   end;
 end;
 
@@ -176,7 +218,7 @@ procedure TFacturasDataModule.CheckNoNegativo(Sender: TField);
 begin
   if Sender.AsFloat < 0 then
   begin
-    Sender.Clear;
+    //Sender.Clear;
     raise Exception.Create('El campo ' + Sender.FieldName +
       ' no permite valores negativos');
   end;
@@ -272,6 +314,13 @@ begin
   end;
 end;
 
+procedure TFacturasDataModule.FetchCabeceraCompra;
+begin
+  inherited FetchCabeceraCompra;
+  qryCabecera.FieldByName('PERSONAID').AsString :=
+    Personas.PersonasRoles.FieldByName('ID').AsString;
+end;
+
 procedure TFacturasDataModule.FetchCabeceraPersona(APersonaID: string);
 begin
   inherited FetchCabeceraPersona(APersonaID);
@@ -334,43 +383,53 @@ procedure TFacturasDataModule.qryDetallePRECIO_UNITARIOChange(Sender: TField);
 var
   montoMaximo: double;
 begin
-  if CheckPrecioUnitario then
-  begin
-    try
+  try
+    CheckNoNegativo(Sender);
+    if CheckPrecioUnitario then
+    begin
       montoMaximo := DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_DEUDA') -
         DeudaView.Lookup('ID', qryDetalleDEUDAID.Value, 'MONTO_FACTURADO');
       if Sender.AsFloat > montoMaximo then
-        Sender.AsFloat := montoMaximo;
-    except
-      on E: EDatabaseError do
-      begin
-        Abort;
-      end;
+        try
+          Sender.OnChange := nil;
+          Sender.AsFloat := montoMaximo;
+        finally
+          Sender.OnChange := @qryDetallePRECIO_UNITARIOChange;
+        end;
     end;
-  end;
-
-  try
-    // iva 10
-    if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
-      Exit
-    else
-      qryDetalleIVA10.AsFloat :=
-        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-    // iva 5
-    if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
-      Exit
-    else
-      qryDetalleIVA5.AsFloat :=
-        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-    // exenta
-    if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
-      Exit
-    else
-      qryDetalleEXENTA.AsFloat :=
-        qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
-  finally
-    //qryDetalle.Post;
-    //ActualizarTotales;
+    try
+      qryDetalleIVA10.OnChange := nil;
+      qryDetalleIVA5.OnChange := nil;
+      qryDetalleEXENTA.OnChange := nil;
+      // iva 10
+      if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
+        Exit
+      else
+        qryDetalleIVA10.AsFloat :=
+          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      // iva 5
+      if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
+        Exit
+      else
+        qryDetalleIVA5.AsFloat :=
+          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      // exenta
+      if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
+        Exit
+      else
+        qryDetalleEXENTA.AsFloat :=
+          qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+    finally
+      qryDetalleIVA10.OnChange := @qryDetalleIVA10Change;
+      qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+      qryDetalleEXENTA.OnChange := @qryDetalleEXENTAChange;
+    end;
+  except
+    on E: Exception do
+    begin
+      Abort;
+      raise;
+    end;
   end;
 end;
 

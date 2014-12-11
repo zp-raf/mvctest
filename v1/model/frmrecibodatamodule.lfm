@@ -2,8 +2,8 @@ inherited ReciboDataModule: TReciboDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 333
-  HorizontalOffset = 208
-  VerticalOffset = 291
+  HorizontalOffset = 400
+  VerticalOffset = 177
   Width = 542
   inherited qryCabecera: TSQLQuery
     FieldDefs = <    

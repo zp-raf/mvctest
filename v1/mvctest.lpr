@@ -25,7 +25,7 @@ begin
   Principal1 := TPrincipal1.Create(nil, TPrincipalController.Create(
     TPrincipalDataModule.Create(nil, SgcdDataModule)));
 
-  Application.OnException:=@(Principal1.AppPropsException);
+  //Application.OnException:=@(Principal1.AppPropsException);
 
   // Hay que castear el objeto para poder añadirle los observadores
   Principal1.Show;

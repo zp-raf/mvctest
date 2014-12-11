@@ -47,6 +47,17 @@ const
 
 type
 
+  { TDatosCurso }
+
+  TDatosCurso = record
+    ruc: string;
+    nombre: string;
+    direccion: string;
+    telefono: string;
+  end;
+
+  TCompraVenta = (cvCompra, cvVenta, cvCualquiera);
+
   // Tipos de talonarios
   TTipoTalonario = (taFactura = FACTURA, taRecibo = RECIBO, taNotaCredito =
     NOTA_CREDITO);
@@ -71,8 +82,12 @@ type
 
   TFormaPago = (paCheque, paEfectivo, paTarjetaDebito, paTarjetaCredito);
 
+  { TQryList }
+
   TQryList = class(TFPObjectList)
   end;
+
+  { TSearchFieldList }
 
   TSearchFieldList = class(TStringList)
   end;

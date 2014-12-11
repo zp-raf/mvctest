@@ -56,6 +56,7 @@ procedure TFacturaController.NuevoComprobanteCompra(Sender: IView);
 begin
   GetCustomModel.CheckPrecioUnitario := False;
   GetCustomModel.NuevoComprobanteCompra;
+  GetCustomModel.FetchCabeceraCompra;
   GetCustomModel.NuevoComprobanteDetalle;
 end;
 
@@ -73,16 +74,19 @@ end;
 
 procedure TFacturaController.CerrarComprobanteCompra(Sender: IView);
 var
-  CompID, desc: string;
+  CompID, desc, descCtaPers: string;
 begin
   try
     desc := 'Compra segun factura nro ' + GetCustomModel.qryCabecera.FieldByName(
       'NUMERO_FACT_COMPRA').AsString + ' con timbrado ' +
       GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
+    descCtaPers := 'Venta segun factura nro ' + GetCustomModel.qryCabecera.FieldByName(
+      'NUMERO_FACT_COMPRA').AsString + ' con timbrado ' +
+      GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
     CompID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
     GetCustomModel.qryCabecera.ApplyUpdates;
     GetCustomModel.qryDetalle.ApplyUpdates;
-    GetCustomModel.RegistrarMovimientoCompra(CompID, doFactura, desc);
+    GetCustomModel.RegistrarMovimientoCompra(CompID, doFactura, desc, descCtaPers);
     GetCustomModel.Asientos.SaveChanges;
     GetModel.Commit;
   except

@@ -2,7 +2,14 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
   Left = 201
   Top = 23
   Caption = 'Nota de credito'
-  ClientHeight = 620
+  ClientHeight = 621
+  OnCreate = FormCreate
+  inherited StatusBar1: TStatusBar
+    Top = 601
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 561
+  end
   inherited Cabecera: TGroupBox
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
@@ -25,28 +32,52 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
       MaxLength = 0
     end
     inherited DBTextNro: TDBText
+      Left = 160
+      Top = 24
       DataSource = NotaCreditoDataModule.dsNum
     end
     inherited DBTextTimbrado: TDBText
-      Top = 0
+      Top = 8
       DataSource = NotaCreditoDataModule.dstal
+    end
+    inherited LabelNro: TLabel
+      Left = 131
+      Top = 24
     end
     inherited LabelTimbrado: TLabel
-      Top = 0
+      Top = 8
+    end
+    inherited LabelSeparator1: TLabel
+      Left = 212
+      Top = 24
     end
     inherited DBTextCaja: TDBText
+      Left = 216
+      Top = 24
       DataSource = NotaCreditoDataModule.dstal
     end
+    inherited LabelSeparator2: TLabel
+      Left = 273
+      Top = 24
+    end
     inherited DBTextSucursal: TDBText
+      Left = 277
+      Top = 24
       DataSource = NotaCreditoDataModule.dstal
     end
     inherited DBEditNotaRem: TDBEdit
+      Height = 21
       DataSource = NotaCreditoDataModule.dsCabecera
       MaxLength = 0
     end
+    inherited LabelNotaRem: TLabel
+      Height = 13
+      Top = 43
+      Width = 80
+    end
     object DBEditFactura: TDBEdit[20]
       Left = 8
-      Height = 23
+      Height = 21
       Top = 136
       Width = 336
       DataField = 'NUMERO_FACTURA'
@@ -59,9 +90,9 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
       AnchorSideLeft.Control = DBEditFactura
       AnchorSideBottom.Control = DBEditFactura
       Left = 8
-      Height = 15
-      Top = 121
-      Width = 65
+      Height = 13
+      Top = 123
+      Width = 61
       Anchors = [akLeft, akBottom]
       Caption = 'Factura Nro.'
       ParentColor = False
@@ -70,7 +101,7 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
   inherited PairSplitterDetSubTot: TPairSplitter
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
-    Height = 327
+    Height = 331
     Top = 224
     Position = 160
     inherited PairSplitterSide1: TPairSplitterSide
@@ -87,7 +118,7 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
               ReadOnly = True
               SizePriority = 0
               Title.Caption = 'CANTIDAD'
-              Width = 74
+              Width = 67
               FieldName = 'CANTIDAD'
             end          
             item
@@ -95,35 +126,35 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
               PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'DETALLE'
-              Width = 62
+              Width = 57
               FieldName = 'DETALLE'
             end          
             item
               PickList.Strings = (              )
               SizePriority = 0
               Title.Caption = 'PRECIO UNITARIO'
-              Width = 112
+              Width = 106
               FieldName = 'PRECIO_UNITARIO'
             end          
             item
               PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'EXENTA'
-              Width = 58
+              Width = 53
               FieldName = 'EXENTA'
             end          
             item
               PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'IVA5'
-              Width = 39
+              Width = 38
               FieldName = 'IVA5'
             end          
             item
               PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'IVA10'
-              Width = 45
+              Width = 44
               FieldName = 'IVA10'
             end>
           DataSource = NotaCreditoDataModule.dsDetalle
@@ -137,43 +168,91 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
       end
     end
     inherited PairSplitterSide2: TPairSplitterSide
+      Height = 166
       Top = 165
+      ClientHeight = 166
       inherited Totales: TGroupBox
+        Height = 166
+        ClientHeight = 148
         inherited DBEditGranTotal: TDBEdit
           DataSource = NotaCreditoDataModule.dsCabecera
           ReadOnly = True
         end
+        inherited LabelGranTotal: TLabel
+          Top = 51
+        end
         inherited DBEditSubTotal: TDBEdit
+          Height = 21
           DataSource = NotaCreditoDataModule.dsCabecera
           ReadOnly = True
         end
+        inherited LabelSubtotal: TLabel
+          Height = 13
+          Top = 6
+          Width = 82
+        end
+        inherited LabelSubtotal5: TLabel
+          Height = 13
+          Top = 6
+          Width = 109
+        end
         inherited DBEditSubTotal5: TDBEdit
+          Height = 21
           DataSource = NotaCreditoDataModule.dsCabecera
           ReadOnly = True
         end
         inherited DBEditSubTotal10: TDBEdit
+          Height = 21
           DataSource = NotaCreditoDataModule.dsCabecera
           ReadOnly = True
         end
+        inherited LabelSubtotal10: TLabel
+          Height = 13
+          Top = 6
+          Width = 115
+        end
         inherited DBEditIVA5: TDBEdit
+          Height = 21
           DataSource = NotaCreditoDataModule.dsCabecera
         end
+        inherited LabelIVA5: TLabel
+          Height = 13
+          Top = 98
+        end
+        inherited LabelIVA10: TLabel
+          Height = 13
+          Top = 98
+        end
         inherited DBEditIVA10: TDBEdit
+          Height = 21
           DataSource = NotaCreditoDataModule.dsCabecera
           ReadOnly = True
         end
         inherited DBEditIVATotal: TDBEdit
+          Height = 21
           DataSource = NotaCreditoDataModule.dsCabecera
           ReadOnly = True
+        end
+        inherited LabelIVATotal: TLabel
+          Height = 13
+          Top = 98
+          Width = 44
         end
       end
     end
   end
+  inherited ButtonLimpiar: TButton
+    Height = 23
+    Width = 59
+    AutoSize = True
+  end
   inherited ButtonSeleccionarPers: TButton
+    Left = 200
     OnClick = ButtonSeleccionarPersClick
     Visible = False
   end
   inherited ButtonSeleccionarFac: TButton
+    Left = 80
     OnClick = ButtonSeleccionarFacClick
   end
 end

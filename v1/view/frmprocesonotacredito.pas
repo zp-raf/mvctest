@@ -7,13 +7,15 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
-  frmprocesofacturabase, notacreditoctrl, frmbuscarfacturas, sgcdTypes;
+  frmprocesofacturabase, notacreditoctrl, frmbuscarfacturas, sgcdTypes,
+  frmbuscarpersonas;
 
 type
 
   { TProcesoNotaCredito }
 
   TProcesoNotaCredito = class(TProcesoFacturaBase)
+    procedure FormCreate(Sender: TObject);
   protected
     function GetCustomController: TNotaCreditoController;
   published
@@ -44,6 +46,12 @@ begin
   GetController.Connect(Self);
   // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
   GetCustomController.NuevoComprobante(Self);
+end;
+
+procedure TProcesoNotaCredito.FormCreate(Sender: TObject);
+begin
+  GetCustomController.SetCompra(False);
+  GetCustomController.FiltrarFacturas(cvVenta, Self);
 end;
 
 function TProcesoNotaCredito.GetCustomController: TNotaCreditoController;

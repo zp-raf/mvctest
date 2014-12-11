@@ -5,7 +5,7 @@ inherited Principal1: TPrincipal1
   Width = 455
   Anchors = []
   Caption = 'SGCD'
-  ClientHeight = 80
+  ClientHeight = 81
   ClientWidth = 455
   Constraints.MaxHeight = 100
   Constraints.MinHeight = 100
@@ -14,7 +14,7 @@ inherited Principal1: TPrincipal1
   OnShow = FormShow
   ShowInTaskBar = stAlways
   inherited StatusBar1: TStatusBar
-    Top = 57
+    Top = 61
     Width = 455
   end
   object Asientos: TButton[1]
@@ -274,5 +274,10 @@ inherited Principal1: TPrincipal1
       Caption = '&Salir'
       OnClick = SalirClick
     end
+  end
+  object ApplicationProperties1: TApplicationProperties[6]
+    OnException = ApplicationProperties1Exception
+    left = 112
+    top = 8
   end
 end

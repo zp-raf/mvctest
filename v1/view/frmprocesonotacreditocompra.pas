@@ -21,6 +21,7 @@ type
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure ButtonSeleccionarPersClick(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
     procedure OKButtonClick(Sender: TObject); override;
     procedure ObserverUpdate(const Subject: IInterface); override;
     procedure OnPopupOk; override;
@@ -41,20 +42,18 @@ implementation
 
 procedure TProcesoNotaCreditoCompra.OKButtonClick(Sender: TObject);
 begin
-  if not (GetComprobanteController.GetEstadoComprobante(Self) in [csEditando]) then
+  if (Trim(DBEditNro.Text) = '') or (Trim(DBEditTimbrado.Text) = '') then
   begin
-    ShowInfoMessage('No se esta procesando ningun comprobante');
+    ShowErrorMessage('Complete los campos de numero y timbrado');
     Exit;
   end;
-  try
-    GetCustomController.CerrarComprobante(False, Self);
-    ShowInfoMessage('Comprobante ingresado correctamente');
-    Limpiar;
-  except
-    on e: Exception do
-      ShowErrorMessage('Comprobante descartado. Error: ' + e.Message);
+  if not GetController.IsValidDate(DateEditFecha.Text) or
+    (DateEditFecha.Date > Now) then
+  begin
+    ShowErrorMessage('Fecha de emision invalida');
+    Exit;
   end;
-  GetController.CloseDataSets(Self);
+  inherited;
 end;
 
 procedure TProcesoNotaCreditoCompra.ButtonLimpiarClick(Sender: TObject);
@@ -82,14 +81,31 @@ begin
   DBGridDet.AutoSizeColumns;
 end;
 
+procedure TProcesoNotaCreditoCompra.FormCreate(Sender: TObject);
+begin
+  GetCustomController.SetCompra(True);
+  GetCustomController.FiltrarFacturas(cvCompra, Self);
+end;
+
 procedure TProcesoNotaCreditoCompra.ObserverUpdate(const Subject: IInterface);
 begin
   inherited ObserverUpdate(Subject);
   case GetCustomController.GetEstadoComprobante(Self) of
     csInicial:
+    begin
       DateEditFecha.Enabled := False;
-    csEditando: DateEditFecha.Enabled := True;
-    csGuardado: DateEditFecha.Enabled := False;
+      ButtonSeleccionarPers.Enabled := False;
+    end;
+    csEditando:
+    begin
+      DateEditFecha.Enabled := True;
+      ButtonSeleccionarPers.Enabled := True;
+    end;
+    csGuardado:
+    begin
+      DateEditFecha.Enabled := False;
+      ButtonSeleccionarPers.Enabled := False;
+    end;
   end;
   ButtonLimpiar.Enabled := True;
   ButtonSeleccionarPers.Enabled := True;
@@ -97,18 +113,17 @@ end;
 
 procedure TProcesoNotaCreditoCompra.OnPopupOk;
 begin
-  if GetCustomController.GetEstadoComprobante(Self) = csEditando then
-  begin
-    GetCustomController.FetchCabeceraPersona(Self);
-  end
-  else
-  begin
-    GetController.Connect(Self);
-    GetCustomController.NuevoComprobanteCompra(Self);
-    GetCustomController.FetchCabeceraPersona(Self);
-  end;
+  //if GetCustomController.GetEstadoComprobante(Self) = csEditando then
+  //begin
+  //  GetCustomController.FetchCabeceraPersona(Self);
+  //end
+  //else
+  //begin
+  GetController.Connect(Self);
+  GetCustomController.NuevoComprobanteCompra(Self);
+  //GetCustomController.FetchCabeceraPersona(Self);
+  //end;
 end;
 
 end.
-
 

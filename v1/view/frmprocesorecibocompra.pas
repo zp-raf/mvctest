@@ -24,6 +24,7 @@ type
     procedure CancelButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override; overload;
+    procedure OKButtonClick(Sender: TObject); override;
     procedure OnPopupOk; override;
   private
     { private declarations }
@@ -70,7 +71,7 @@ end;
 
 procedure TProcesoReciboCompra.FormCreate(Sender: TObject);
 begin
-   GetCustomController.SetCompra(True);
+  GetCustomController.SetCompra(True);
 end;
 
 procedure TProcesoReciboCompra.ObserverUpdate(const Subject: IInterface);
@@ -83,6 +84,17 @@ begin
   end;
   ButtonLimpiar.Enabled := True;
   ButtonSeleccionarPers.Enabled := True;
+end;
+
+procedure TProcesoReciboCompra.OKButtonClick(Sender: TObject);
+begin
+  if not GetController.IsValidDate(DateEditFecha.Date) and
+    (DateEditFecha.Date > Now) then
+  begin
+    ShowErrorMessage('Fecha de emision invalida');
+    Exit;
+  end;
+  inherited;
 end;
 
 procedure TProcesoReciboCompra.OnPopupOk;

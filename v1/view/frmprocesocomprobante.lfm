@@ -1,18 +1,19 @@
 inherited ProcesoComprobante: TProcesoComprobante
-  Left = 567
-  Height = 681
-  Top = 218
-  Width = 901
-  ClientHeight = 681
-  ClientWidth = 901
+  Left = 2
+  Height = 527
+  Top = 1
+  Width = 790
+  ClientHeight = 508
+  ClientWidth = 790
   OnShow = FormShow
   inherited StatusBar1: TStatusBar
-    Top = 638
-    Width = 901
+    Height = 20
+    Top = 488
+    Width = 790
   end
   inherited ButtonPanel1: TButtonPanel
-    Top = 598
-    Width = 889
+    Top = 448
+    Width = 778
     OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
@@ -23,17 +24,17 @@ inherited ProcesoComprobante: TProcesoComprobante
     Left = 8
     Height = 152
     Top = 40
-    Width = 885
+    Width = 774
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 8
     BorderSpacing.Right = 8
     Caption = 'Cabecera'
     ClientHeight = 134
-    ClientWidth = 881
+    ClientWidth = 770
     TabOrder = 1
     object DBEditDireccion: TDBEdit
       Left = 8
-      Height = 23
+      Height = 21
       Top = 96
       Width = 504
       DataField = 'DIRECCION'
@@ -43,7 +44,7 @@ inherited ProcesoComprobante: TProcesoComprobante
     end
     object DBEditRuc: TDBEdit
       Left = 8
-      Height = 23
+      Height = 21
       Top = 56
       Width = 216
       DataField = 'RUC'
@@ -55,9 +56,9 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Control = DBEditDireccion
       AnchorSideBottom.Control = DBEditDireccion
       Left = 8
-      Height = 15
-      Top = 81
-      Width = 50
+      Height = 13
+      Top = 83
+      Width = 43
       Anchors = [akLeft, akBottom]
       Caption = 'Direccion'
       ParentColor = False
@@ -66,16 +67,16 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Control = DBEditRuc
       AnchorSideBottom.Control = DBEditRuc
       Left = 8
-      Height = 15
-      Top = 41
-      Width = 71
+      Height = 13
+      Top = 43
+      Width = 64
       Anchors = [akLeft, akBottom]
       Caption = 'RUC - Cedula'
       ParentColor = False
     end
     object DBEditTelefono: TDBEdit
       Left = 528
-      Height = 23
+      Height = 21
       Top = 96
       Width = 240
       DataField = 'TELEFONO'
@@ -87,16 +88,16 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Control = DBEditTelefono
       AnchorSideBottom.Control = DBEditTelefono
       Left = 528
-      Height = 15
-      Top = 81
-      Width = 47
+      Height = 13
+      Top = 83
+      Width = 42
       Anchors = [akLeft, akBottom]
       Caption = 'Telefono'
       ParentColor = False
     end
     object DateEditFecha: TDateEdit
-      Left = 8
-      Height = 23
+      Left = 10
+      Height = 21
       Top = 16
       Width = 80
       CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
@@ -113,17 +114,17 @@ inherited ProcesoComprobante: TProcesoComprobante
     object LabelFecha: TLabel
       AnchorSideLeft.Control = DateEditFecha
       AnchorSideBottom.Control = DateEditFecha
-      Left = 8
-      Height = 15
-      Top = 1
-      Width = 92
+      Left = 10
+      Height = 13
+      Top = 3
+      Width = 82
       Anchors = [akLeft, akBottom]
       Caption = 'Fecha de emision'
       ParentColor = False
     end
     object DBEditNombre: TDBEdit
       Left = 240
-      Height = 23
+      Height = 21
       Top = 56
       Width = 376
       DataField = 'NOMBRE'
@@ -135,26 +136,26 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Control = DBEditNombre
       AnchorSideBottom.Control = DBEditNombre
       Left = 240
-      Height = 15
-      Top = 41
-      Width = 44
+      Height = 13
+      Top = 43
+      Width = 37
       Anchors = [akLeft, akBottom]
       Caption = 'Nombre'
       ParentColor = False
     end
     object DBTextNro: TDBText
       Left = 181
-      Height = 15
+      Height = 13
       Top = 16
-      Width = 57
+      Width = 52
       DataField = 'NUM'
       ParentColor = False
     end
     object DBTextTimbrado: TDBText
       Left = 181
-      Height = 15
+      Height = 13
       Top = 1
-      Width = 89
+      Width = 79
       DataField = 'TIMBRADO'
       ParentColor = False
     end
@@ -162,10 +163,10 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideTop.Control = DBTextNro
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = DBTextNro
-      Left = 151
-      Height = 15
+      Left = 152
+      Height = 13
       Top = 16
-      Width = 26
+      Width = 25
       Anchors = [akTop, akRight]
       BorderSpacing.Right = 4
       Caption = 'Nro.:'
@@ -174,10 +175,10 @@ inherited ProcesoComprobante: TProcesoComprobante
     object LabelTimbrado: TLabel
       AnchorSideTop.Control = DBTextTimbrado
       AnchorSideRight.Control = DBTextTimbrado
-      Left = 122
-      Height = 15
+      Left = 129
+      Height = 13
       Top = 1
-      Width = 55
+      Width = 48
       Anchors = [akTop, akRight]
       BorderSpacing.Right = 4
       Caption = 'Timbrado:'
@@ -188,10 +189,10 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = DBTextNro
       AnchorSideTop.Side = asrCenter
-      Left = 238
-      Height = 15
+      Left = 233
+      Height = 13
       Top = 16
-      Width = 5
+      Width = 4
       Caption = '-'
       ParentColor = False
     end
@@ -200,10 +201,10 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = LabelSeparator1
       AnchorSideTop.Side = asrCenter
-      Left = 243
-      Height = 15
+      Left = 237
+      Height = 13
       Top = 16
-      Width = 60
+      Width = 57
       DataField = 'CAJA'
       ParentColor = False
     end
@@ -212,10 +213,10 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = DBTextCaja
       AnchorSideTop.Side = asrCenter
-      Left = 303
-      Height = 15
+      Left = 294
+      Height = 13
       Top = 16
-      Width = 5
+      Width = 4
       Caption = '-'
       ParentColor = False
     end
@@ -224,10 +225,10 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = LabelSeparator2
       AnchorSideTop.Side = asrCenter
-      Left = 308
-      Height = 15
+      Left = 298
+      Height = 13
       Top = 16
-      Width = 81
+      Width = 75
       DataField = 'SUCURSAL'
       ParentColor = False
     end
@@ -241,9 +242,9 @@ inherited ProcesoComprobante: TProcesoComprobante
     AnchorSideBottom.Control = ButtonPanel1
     Cursor = crDefault
     Left = 8
-    Height = 400
+    Height = 250
     Top = 192
-    Width = 885
+    Width = 774
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Left = 8
     BorderSpacing.Right = 8
@@ -254,8 +255,8 @@ inherited ProcesoComprobante: TProcesoComprobante
       Left = 0
       Height = 328
       Top = 0
-      Width = 885
-      ClientWidth = 885
+      Width = 774
+      ClientWidth = 774
       ClientHeight = 328
       object Detalles: TGroupBox
         AnchorSideLeft.Control = PairSplitterSide1
@@ -267,11 +268,11 @@ inherited ProcesoComprobante: TProcesoComprobante
         Left = 0
         Height = 328
         Top = 0
-        Width = 885
+        Width = 774
         Anchors = [akTop, akLeft, akRight, akBottom]
         Caption = 'Detalles'
         ClientHeight = 310
-        ClientWidth = 881
+        ClientWidth = 770
         TabOrder = 0
         object DBGridDet: TDBGrid
           AnchorSideLeft.Control = Detalles
@@ -282,7 +283,7 @@ inherited ProcesoComprobante: TProcesoComprobante
           Left = 8
           Height = 261
           Top = 8
-          Width = 865
+          Width = 754
           Anchors = [akTop, akLeft, akRight, akBottom]
           BorderSpacing.Around = 8
           Color = clWindow
@@ -291,20 +292,20 @@ inherited ProcesoComprobante: TProcesoComprobante
               ReadOnly = True
               SizePriority = 0
               Title.Caption = 'CANTIDAD'
-              Width = 74
+              Width = 67
               FieldName = 'CANTIDAD'
             end          
             item
               MinSize = 30
               ReadOnly = True
               Title.Caption = 'DETALLE'
-              Width = 62
+              Width = 57
               FieldName = 'DETALLE'
             end          
             item
               SizePriority = 0
               Title.Caption = 'PRECIO UNITARIO'
-              Width = 112
+              Width = 106
               FieldName = 'PRECIO_UNITARIO'
             end>
           Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgAutoSizeColumns]
@@ -342,11 +343,11 @@ inherited ProcesoComprobante: TProcesoComprobante
     object PairSplitterSide2: TPairSplitterSide
       Cursor = crArrow
       Left = 0
-      Height = 67
-      Top = 333
-      Width = 885
-      ClientWidth = 885
-      ClientHeight = 67
+      Height = 0
+      Top = 250
+      Width = 774
+      ClientWidth = 774
+      ClientHeight = 0
       object Totales: TGroupBox
         AnchorSideLeft.Control = PairSplitterSide2
         AnchorSideTop.Control = PairSplitterSide2
@@ -357,18 +358,18 @@ inherited ProcesoComprobante: TProcesoComprobante
         Left = 0
         Height = 165
         Top = 0
-        Width = 885
+        Width = 788
         Anchors = [akTop, akLeft, akRight, akBottom]
         Caption = 'Totales'
         ChildSizing.ControlsPerLine = 3
         ClientHeight = 147
-        ClientWidth = 881
+        ClientWidth = 784
         Constraints.MinHeight = 165
         Constraints.MinWidth = 788
         TabOrder = 0
         object DBEditGranTotal: TDBEdit
           Left = 8
-          Height = 23
+          Height = 21
           Top = 16
           Width = 136
           DataField = 'TOTAL'
@@ -380,9 +381,9 @@ inherited ProcesoComprobante: TProcesoComprobante
           AnchorSideLeft.Control = DBEditGranTotal
           AnchorSideBottom.Control = DBEditGranTotal
           Left = 8
-          Height = 15
-          Top = 1
-          Width = 69
+          Height = 13
+          Top = 3
+          Width = 64
           Anchors = [akLeft, akBottom]
           Caption = 'Total a pagar'
           ParentColor = False
@@ -403,9 +404,9 @@ inherited ProcesoComprobante: TProcesoComprobante
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Side = asrCenter
     Left = 224
-    Height = 25
+    Height = 23
     Top = 8
-    Width = 131
+    Width = 122
     AutoSize = True
     BorderSpacing.Left = 8
     Caption = 'Seleccionar Persona'
@@ -414,9 +415,9 @@ inherited ProcesoComprobante: TProcesoComprobante
   end
   object ButtonSeleccionarFac: TButton[6]
     Left = 96
-    Height = 25
+    Height = 23
     Top = 8
-    Width = 124
+    Width = 116
     AutoSize = True
     Caption = 'Selecciona Factura'
     TabOrder = 6

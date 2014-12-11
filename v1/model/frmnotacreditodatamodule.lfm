@@ -156,7 +156,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object qryCabeceraPERSONAID: TLongintField[2]
       DisplayWidth = 10
@@ -663,10 +663,6 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
         ParamType = ptInput
       end>
   end
-  inherited tal: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
-    Active = True
-  end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalle
   end
@@ -674,11 +670,9 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
     DataSet = qryCabecera
   end
   inherited AuxTalonario: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
-    Active = True
     left = 280
   end
-  object dsFacturas: TDataSource[17]
+  object dsFacturas: TDataSource[18]
     DataSet = FacturasDataModule.FacturasView
     left = 368
     top = 260

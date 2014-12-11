@@ -13,6 +13,7 @@ type
   { TPrincipal1 }
 
   TPrincipal1 = class(TMaestro)
+    ApplicationProperties1: TApplicationProperties;
     Asientos: TButton;
     Academico: TMenuItem;
     Administrativo: TMenuItem;
@@ -76,6 +77,7 @@ type
     reservaEquipo1: TMenuItem;
     registroAnecdotico1: TMenuItem;
     trabajoPractico1: TMenuItem;
+    procedure ApplicationProperties1Exception(Sender: TObject; E: Exception);
     procedure arancelesClick(Sender: TObject);
     procedure AsientosClick(Sender: TObject);
     procedure asistenciaProfesoresClick(Sender: TObject);
@@ -156,6 +158,11 @@ end;
 procedure TPrincipal1.arancelesClick(Sender: TObject);
 begin
   GetCustomController.OpenABMAranceles(Self);
+end;
+
+procedure TPrincipal1.ApplicationProperties1Exception(Sender: TObject; E: Exception);
+begin
+  GetController.ErrorHandler(E, Self);
 end;
 
 procedure TPrincipal1.calcularnotaClick(Sender: TObject);

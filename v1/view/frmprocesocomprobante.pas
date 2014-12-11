@@ -15,17 +15,18 @@ type
   { TProcesoComprobante }
 
   TProcesoComprobante = class(TProceso)
-    DBTextSucursal: TDBText;
-    DBTextCaja: TDBText;
-    LabelSeparator1: TLabel;
-    LabelSeparator2: TLabel;
-    procedure MenuItemTalonarioClick(Sender: TObject);
+
   private
     FPopup: TPopupSeleccionPersonas;
   protected
     function GetABMController: TABMController;
     function GetComprobanteController: TComprobanteController;
   published
+    DBTextSucursal: TDBText;
+    DBTextCaja: TDBText;
+    LabelSeparator1: TLabel;
+    LabelSeparator2: TLabel;
+
     ButtonSeleccionarFac: TButton;
     ButtonSeleccionarPers: TButton;
     ButtonLimpiar: TButton;
@@ -64,6 +65,7 @@ type
     procedure Insert;
     procedure Delete;
     procedure Refresh;
+    procedure MenuItemTalonarioClick(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
     procedure OnPopupCancel; virtual; abstract;
     procedure OnPopupOk; virtual; abstract;
@@ -253,6 +255,11 @@ begin
   if not (GetComprobanteController.GetEstadoComprobante(Self) in [csEditando]) then
   begin
     ShowInfoMessage('No se esta procesando ningun comprobante');
+    Exit;
+  end;
+  if (DBGridDet.DataSource.DataSet.IsEmpty) then
+  begin
+    ShowErrorMessage('Debe llenar los detalles del comprobante');
     Exit;
   end;
   try
