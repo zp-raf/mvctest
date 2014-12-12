@@ -5,7 +5,8 @@ unit reciboctrl;
 interface
 
 uses
-  Classes, SysUtils, comprobantectrl, frmrecibodatamodule, mvc, DB, sgcdTypes;
+  Classes, SysUtils, comprobantectrl, frmrecibodatamodule, mvc, DB, sgcdTypes,
+  observerSubject;
 
 type
 
@@ -19,10 +20,12 @@ type
     procedure CerrarComprobante(Sender: IView); override;
     procedure CerrarComprobanteCompra(Sender: IView);
     procedure FetchCabeceraPersona(Sender: IView);
+    function GetFacturaDataSource: TDataSource;
     function GetPersonasDataSource: TDataSource;
     procedure NuevoComprobante(Sender: IView); override;
     procedure NuevoComprobante(Sender: IView; APagoID: string); overload;
     procedure NuevoComprobanteCompra(Sender: IView);
+    procedure NuevoComprobanteCompraFac(Sender: IView);
     procedure SetPrecioTotal(Sender: IFormView);
   end;
 
@@ -62,6 +65,12 @@ var
   CompID, desc, descCtaPers: string;
 begin
   try
+    if GetCustomModel.qryCabeceraNUMERO_REC_COMPRA.IsNull or
+      GetCustomModel.qryCabeceraTIMBRADO.IsNull then
+    begin
+      Sender.ShowErrorMessage('Complete los campos de numero y timbrado');
+      Exit;
+    end;
     desc := 'Compra segun recibo nro ' + GetCustomModel.qryCabecera.FieldByName(
       'NUMERO_REC_COMPRA').AsString + ' con timbrado ' +
       GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
@@ -74,6 +83,11 @@ begin
     GetCustomModel.RegistrarMovimientoCompra(CompID, doRecibo, desc, descCtaPers);
     GetCustomModel.Asientos.SaveChanges;
     GetModel.Commit;
+    with GetCustomModel do
+    begin
+      Estado := csGuardado;
+      (MasterDataModule as ISubject).Notify;
+    end;
   except
     on E: Exception do
     begin
@@ -86,6 +100,11 @@ end;
 procedure TReciboController.FetchCabeceraPersona(Sender: IView);
 begin
   GetCustomModel.FetchCabeceraPersona;
+end;
+
+function TReciboController.GetFacturaDataSource: TDataSource;
+begin
+  Result := GetCustomModel.dsFacturas;
 end;
 
 function TReciboController.GetPersonasDataSource: TDataSource;
@@ -113,7 +132,17 @@ procedure TReciboController.NuevoComprobanteCompra(Sender: IView);
 begin
   GetCustomModel.CheckPrecioUnitario := False;
   GetCustomModel.NuevoComprobanteCompra;
+  GetCustomModel.FetchCabeceraCompra;
   GetCustomModel.NuevoComprobanteDetalle;
+end;
+
+procedure TReciboController.NuevoComprobanteCompraFac(Sender: IView);
+begin
+  GetCustomModel.CheckPrecioUnitario := False;
+  GetCustomModel.NuevoComprobanteCompra;
+  GetCustomModel.FetchCabeceraFactura;
+  GetCustomModel.FetchCabeceraCompra;
+  GetCustomModel.FetchDetalleFactura;
 end;
 
 procedure TReciboController.SetPrecioTotal(Sender: IFormView);

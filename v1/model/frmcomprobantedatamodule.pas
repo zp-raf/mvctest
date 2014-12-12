@@ -264,15 +264,14 @@ begin
 
     // REGISTRAR EN CUENTA PERSONAL
     qryDetalle.First;
-    // hay que buscar la cuenta que le correponde a la persona
+     // hay que buscar la cuenta que le correponde a la persona
     Asientos.Cuenta.Cuenta.Open;
     if Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
       qryCabecera.FieldByName('PERSONAID').AsString, 'ID') = null then
       raise Exception.Create('Cuenta no encontrada');
     CuentaID := Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
       qryCabecera.FieldByName('PERSONAID').AsString, 'ID');
-    Asientos.NuevoAsiento(ADescripcionCtaPersonal +
-      qryCabecera.FieldByName('NUMERO').AsString, ATipoDocumento,
+    Asientos.NuevoAsiento(ADescripcionCtaPersonal, ATipoDocumento,
       qryCabecera.FieldByName('ID').AsString);
     while not qryDetalle.EOF do
     begin
@@ -340,6 +339,8 @@ begin
   try
     if (Estado in [csEditando]) then
       raise Exception.Create(rsNoSePuedeSetFac)
+    else if AID = '' then
+      raise Exception.Create(rsNoSeEncontroDoc)
     else if not qryCabecera.Locate('ID', AID, [loCaseInsensitive]) then
       raise Exception.Create(rsNoSeEncontroDoc);
     Estado := csLeyendo;
@@ -370,7 +371,10 @@ procedure TComprobanteDataModule.FetchCabeceraCompra;
 begin
   if not (Estado in [csEditando]) then
     raise EDatabaseError.Create(rsNoSeEstaCreando);
-  qryCabecera.FieldByName('RUC').AsString := FDatosCurso.ruc;
+  if qryCabecera.FindField('RUC') = nil then
+    qryCabecera.FieldByName('CEDULA').AsString := FDatosCurso.ruc
+  else
+    qryCabecera.FieldByName('RUC').AsString := FDatosCurso.ruc;
   qryCabecera.FieldByName('NOMBRE').AsString := FDatosCurso.nombre;
   qryCabecera.FieldByName('DIRECCION').AsString := FDatosCurso.direccion;
   qryCabecera.FieldByName('TELEFONO').AsString := FDatosCurso.telefono;
@@ -396,7 +400,8 @@ begin
     // traer nombre, ruc
     if not FPersonas.Persona.Locate('ID', APersonaID, [loCaseInsensitive]) then
       raise Exception.Create(rsPersonaNoEncontrada);
-
+    if not (qryCabecera.State in dsEditModes) then
+      qryCabecera.Edit;
     qryCabecera.FieldByName('PERSONAID').AsString :=
       FPersonas.PersonasRoles.FieldByName('ID').AsString;
     qryCabecera.FieldByName('NOMBRE').AsString :=

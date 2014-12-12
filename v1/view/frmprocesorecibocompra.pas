@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
-  frmprocesorecibo, LCLType, sgcdTypes, frmbuscarpersonas;
+  frmprocesorecibo, LCLType, sgcdTypes, frmbuscarpersonas, frmbuscarfacturas;
 
 type
 
@@ -18,6 +18,7 @@ type
     DBEditTimbrado: TDBEdit;
     LabelNumero: TLabel;
     LabelTimbradoCompra: TLabel;
+    procedure ButtonSeleccionarFacClick(Sender: TObject);
     procedure ButtonSeleccionarPersClick(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure ButtonLimpiarClick(Sender: TObject);
@@ -55,6 +56,29 @@ begin
     GetComprobanteController.BuscarPersonaController);
   Popup.SetDataSource(GetCustomController.GetPersonasDataSource);
   inherited;
+end;
+
+procedure TProcesoReciboCompra.ButtonSeleccionarFacClick(Sender: TObject);
+var
+  PopupFac: TPopupSeleccionarFactura;
+begin
+  PopupFac := TPopupSeleccionarFactura.Create(Self);
+  PopupFac.SetFacturaDataSource(GetCustomController.GetFacturaDataSource);
+  GetController.OpenDataSets(Self);
+  try
+    case PopupFac.ShowModal of
+      mrOk:
+      begin
+        GetCustomController.NuevoComprobanteCompraFac(Self);
+      end
+      else
+      begin
+        OnPopupCancel;
+      end;
+    end;
+  finally
+    PopupFac.Free;
+  end;
 end;
 
 procedure TProcesoReciboCompra.ButtonLimpiarClick(Sender: TObject);
@@ -99,16 +123,8 @@ end;
 
 procedure TProcesoReciboCompra.OnPopupOk;
 begin
-  if GetCustomController.GetEstadoComprobante(Self) = csEditando then
-  begin
-    GetCustomController.FetchCabeceraPersona(Self);
-  end
-  else
-  begin
-    GetController.Connect(Self);
-    GetCustomController.NuevoComprobanteCompra(Self);
-    GetCustomController.FetchCabeceraPersona(Self);
-  end;
+  GetController.Connect(Self);
+  GetCustomController.NuevoComprobanteCompra(Self);
 end;
 
 end.

@@ -335,6 +335,7 @@ inherited ReciboDataModule: TReciboDataModule
     end
   end
   inherited qryDetalle: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -380,7 +381,7 @@ inherited ReciboDataModule: TReciboDataModule
       end>
     SQL.Strings = (
       'select * from recibo_detalle'
-      'where recibo_detalle.reciboid = :reciboid'
+      'where reciboid = :reciboid'
     )
     Params = <    
       item

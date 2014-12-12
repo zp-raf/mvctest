@@ -5,7 +5,8 @@ unit notacreditoctrl;
 interface
 
 uses
-  SysUtils, comprobantectrl, frmNotaCreditoDataModule, mvc, DB, sgcdTypes;
+  SysUtils, comprobantectrl, frmNotaCreditoDataModule, mvc, DB,
+  sgcdTypes, observerSubject;
 
 type
 
@@ -54,6 +55,11 @@ begin
       NotaID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
       GetCustomModel.qryCabecera.ApplyUpdates;
       GetCustomModel.qryDetalle.ApplyUpdates;
+      with GetCustomModel do
+      begin
+        Estado := csGuardado;
+        (MasterDataModule as ISubject).Notify;
+      end;
       GetCustomModel.RegistrarMovimiento(NotaID);
       GetModel.SaveChanges;
       GetModel.Commit;
@@ -72,6 +78,12 @@ var
   CompID, desc, descCtaPers: string;
 begin
   try
+    if GetCustomModel.qryCabeceraNUMERO_NOTA_COMPRA.IsNull or
+      GetCustomModel.qryCabeceraTIMBRADO.IsNull then
+    begin
+      Sender.ShowErrorMessage('Complete los campos de numero y timbrado');
+      Exit;
+    end;
     desc := 'Nota de credito ' + GetCustomModel.qryCabecera.FieldByName(
       'NUMERO_NOTA_COMPRA').AsString + ' con timbrado ' +
       GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
@@ -79,17 +91,16 @@ begin
       GetCustomModel.qryCabecera.FieldByName('NUMERO_NOTA_COMPRA').AsString +
       ' con timbrado ' + GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
     CompID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
-    if GetCustomModel.qryCabeceraNUMERO_NOTA_COMPRA.IsNull or
-      GetCustomModel.qryCabeceraTIMBRADO.IsNull then
-    begin
-      Sender.ShowErrorMessage('Complete los campos de numero y timbrado');
-      Exit;
-    end;
     GetCustomModel.qryCabecera.ApplyUpdates;
     GetCustomModel.qryDetalle.ApplyUpdates;
     GetCustomModel.RegistrarMovimientoCompra(CompID, doNotaCredito, desc, descCtaPers);
     GetCustomModel.Asientos.SaveChanges;
     GetModel.Commit;
+    with GetCustomModel do
+    begin
+      Estado := csGuardado;
+      (MasterDataModule as ISubject).Notify;
+    end;
   except
     on E: Exception do
     begin

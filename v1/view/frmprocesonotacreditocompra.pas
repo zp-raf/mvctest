@@ -42,7 +42,7 @@ implementation
 
 procedure TProcesoNotaCreditoCompra.OKButtonClick(Sender: TObject);
 begin
-    if not GetController.IsValidDate(DateEditFecha.Date) or
+  if not GetController.IsValidDate(DateEditFecha.Date) or
     (DateEditFecha.Date > Now) then
   begin
     ShowErrorMessage('Fecha de emision invalida');

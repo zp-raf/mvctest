@@ -22,7 +22,6 @@ inherited ComprobanteDataModule: TComprobanteDataModule
   end
   object qryDetalle: TSQLQuery[2]
     FieldDefs = <>
-    Filtered = True
     AfterInsert = qryDetalleAfterInsert
     AfterPost = qryDetalleAfterPost
     BeforePost = qryDetalleBeforePost

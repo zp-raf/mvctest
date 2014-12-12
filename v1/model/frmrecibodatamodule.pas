@@ -21,6 +21,12 @@ type
   { TReciboDataModule }
 
   TReciboDataModule = class(TComprobanteDataModule)
+  private
+    FCheckPrecioUnitario: boolean;
+    FFacturas: TFacturasDataModule;
+    procedure SetCheckPrecioUnitario(AValue: boolean);
+    procedure SetFacturas(AValue: TFacturasDataModule);
+  published
     DateField1: TDateField;
     DateField2: TDateField;
     IniPropStorage1: TIniPropStorage;
@@ -28,15 +34,6 @@ type
     qryCabeceraVALIDO: TSmallintField;
     StringField2: TStringField;
     StringField3: TStringField;
-    procedure IniPropStorage1RestoreProperties(Sender: TObject);
-    procedure IniPropStorage1SaveProperties(Sender: TObject);
-    procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
-  private
-    FCheckPrecioUnitario: boolean;
-    FFacturas: TFacturasDataModule;
-    procedure SetCheckPrecioUnitario(AValue: boolean);
-    procedure SetFacturas(AValue: TFacturasDataModule);
-  published
     dsFacturas: TDataSource;
     qryCabeceraPAGOID: TLongintField;
     qryCabeceraCEDULA: TStringField;
@@ -71,9 +68,12 @@ type
     procedure FetchDetalleFactura;
     procedure FetchDetalleFactura(AFacturaID: string);
     procedure GetImpuestos; override;
+    procedure IniPropStorage1RestoreProperties(Sender: TObject);
+    procedure IniPropStorage1SaveProperties(Sender: TObject);
     procedure NuevoComprobante(APagoID: string); overload;
     procedure qryCabeceraAfterScroll(DataSet: TDataSet); override;
     procedure qryDetalleAfterInsert(DataSet: TDataSet); override;
+    procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
     procedure SetNumero; override;
     property Facturas: TFacturasDataModule read FFacturas write SetFacturas;
     property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
@@ -107,10 +107,14 @@ procedure TReciboDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   FFacturas := TFacturasDataModule.Create(Self, MasterDataModule);
-  dsFacturas.DataSet := FFacturas.qryCabecera;
+  dsFacturas.DataSet := FFacturas.FacturasView;
   SetTipoComprobante(doRecibo);
   CabeceraGenName := rsReciboGenName;
   DetalleGenName := rsReciboDetGenName;
+  FFacturas.FacturasView.Close;
+  FFacturas.FacturasView.ServerFilter := 'CONTADO = 0';
+  FFacturas.FacturasView.ServerFiltered := True;
+  AuxQryList.Add(TObject(FFacturas.FacturasView));
   //TalonarioID := TALONARIO_RE;
   CheckPrecioUnitario := True;
 end;
@@ -199,6 +203,8 @@ end;
 procedure TReciboDataModule.FetchCabeceraFactura(AFacturaID: string);
 begin
   Facturas.LocateComprobante(AFacturaID);
+  if not (qryCabecera.State in dsEditModes) then
+    qryCabecera.Edit;
   qryCabeceraFACTURAID.Value := Facturas.qryCabecera.FieldByName('ID').Value;
   qryCabeceraPERSONAID.Value := Facturas.qryCabecera.FieldByName('PERSONAID').Value;
   qryCabeceraNOMBRE.AsString := Facturas.qryCabecera.FieldByName('NOMBRE').AsString;
@@ -211,7 +217,7 @@ end;
 
 procedure TReciboDataModule.FetchCabeceraFactura;
 begin
-  FetchCabeceraFactura(FFacturas.qryCabeceraID.AsString);
+  FetchCabeceraFactura(FFacturas.FacturasViewID.AsString);
 end;
 
 procedure TReciboDataModule.FetchCabeceraPersona(APersonaID: string);
@@ -225,7 +231,7 @@ end;
 
 procedure TReciboDataModule.FetchDetalleFactura;
 begin
-  FetchDetalleFactura(FFacturas.qryCabeceraID.AsString);
+  FetchDetalleFactura(FFacturas.FacturasViewID.AsString);
 end;
 
 procedure TReciboDataModule.FetchDetalleFactura(AFacturaID: string);
@@ -236,9 +242,9 @@ begin
     while not Facturas.qryDetalle.EOF do
     begin
       NuevoComprobanteDetalle;
-      qryDetalleDEUDAID.Value := Facturas.qryDetalle.FieldByName('DEUDAID').Value;
+      qryDetalleDEUDAID.AsString := Facturas.qryDetalle.FieldByName('DEUDAID').AsString;
       qryDetalleCANTIDAD.Value := Facturas.qryDetalle.FieldByName('CANTIDAD').Value;
-      qryDetalleDETALLE.Value := Facturas.qryDetalle.FieldByName('DETALLE').Value;
+      qryDetalleDETALLE.AsString := Facturas.qryDetalle.FieldByName('DETALLE').AsString;
       qryDetallePRECIO_UNITARIO.AsFloat :=
         Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
       qryDetalleTOTAL.Value :=

@@ -6,7 +6,7 @@ interface
 
 uses
   ctrl, frmfacturadatamodule2, mvc, Controls, sgcdTypes, comprobantectrl,
-  frmcomprobantedatamodule, personactrl, DB, SysUtils;
+  frmcomprobantedatamodule, personactrl, DB, SysUtils, observerSubject;
 
 type
 
@@ -77,6 +77,12 @@ var
   CompID, desc, descCtaPers: string;
 begin
   try
+    if GetCustomModel.qryCabeceraNUMERO_FACT_COMPRA.IsNull or
+      GetCustomModel.qryCabeceraTIMBRADO.IsNull then
+    begin
+      Sender.ShowErrorMessage('Complete los campos de numero y timbrado');
+      Exit;
+    end;
     desc := 'Compra segun factura nro ' + GetCustomModel.qryCabecera.FieldByName(
       'NUMERO_FACT_COMPRA').AsString + ' con timbrado ' +
       GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
@@ -86,9 +92,17 @@ begin
     CompID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
     GetCustomModel.qryCabecera.ApplyUpdates;
     GetCustomModel.qryDetalle.ApplyUpdates;
-    GetCustomModel.RegistrarMovimientoCompra(CompID, doFactura, desc, descCtaPers);
-    GetCustomModel.Asientos.SaveChanges;
+    if GetCustomModel.qryCabeceraCONTADO.AsString = DB_TRUE then
+    begin
+      GetCustomModel.RegistrarMovimientoCompra(CompID, doFactura, desc, descCtaPers);
+      GetCustomModel.Asientos.SaveChanges;
+    end;
     GetModel.Commit;
+    with GetCustomModel do
+    begin
+      Estado := csGuardado;
+      (MasterDataModule as ISubject).Notify;
+    end;
   except
     on E: Exception do
     begin

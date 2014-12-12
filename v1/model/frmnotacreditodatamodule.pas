@@ -507,8 +507,11 @@ end;
 procedure TNotaCreditoDataModule.FetchCabeceraFactura(AFacturaID: string);
 begin
   Facturas.LocateComprobante(AFacturaID);
+  if not (qryCabecera.State in dsEditModes) then
+    qryCabecera.Edit;
   qryCabeceraFACTURAID.Value := Facturas.qryCabecera.FieldByName('ID').Value;
-  qryCabeceraPERSONAID.AsString := Facturas.qryCabecera.FieldByName('PERSONAID').AsString;
+  qryCabeceraPERSONAID.AsString :=
+    Facturas.qryCabecera.FieldByName('PERSONAID').AsString;
   qryCabeceraNOMBRE.AsString := Facturas.qryCabecera.FieldByName('NOMBRE').AsString;
   qryCabeceraNOTA_REMISION.AsString :=
     Facturas.qryCabecera.FieldByName('NOTA_REMISION').AsString;

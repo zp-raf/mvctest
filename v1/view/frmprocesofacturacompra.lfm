@@ -2,10 +2,14 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   Left = 352
   Top = 16
   Caption = 'Factura Compra'
-  ClientHeight = 621
+  ClientHeight = 620
   OnCreate = FormCreate
   OnShow = FormShow
+  inherited StatusBar1: TStatusBar
+    Top = 597
+  end
   inherited ButtonPanel1: TButtonPanel
+    Top = 557
     OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
@@ -23,7 +27,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       Left = 8
     end
     inherited DBTextNro: TDBText
-      Left = 564
+      Left = 575
       Visible = False
     end
     inherited DBTextTimbrado: TDBText
@@ -31,32 +35,48 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       Visible = False
     end
     inherited LabelNro: TLabel
-      Left = 395
+      Left = 394
       Visible = False
     end
     inherited LabelTimbrado: TLabel
-      Left = 396
+      Left = 389
       Visible = False
     end
     inherited LabelSeparator1: TLabel
-      Left = 499
+      Left = 505
       Visible = False
     end
     inherited DBTextCaja: TDBText
-      Left = 503
+      Left = 510
       Visible = False
     end
     inherited LabelSeparator2: TLabel
-      Left = 560
+      Left = 570
       Visible = False
     end
     inherited DBTextSucursal: TDBText
       Left = 424
       Visible = False
     end
+    inherited DBEditNotaRem: TDBEdit
+      Height = 23
+    end
+    inherited LabelNotaRem: TLabel
+      Height = 15
+      Top = 41
+      Width = 91
+    end
+    inherited DateEditVen: TDateEdit
+      Height = 23
+    end
+    inherited LabelVen: TLabel
+      Height = 15
+      Top = -7
+      Width = 67
+    end
     object DBEditNro: TDBEdit[23]
       Left = 135
-      Height = 21
+      Height = 23
       Top = 16
       Width = 80
       DataField = 'NUMERO_FACT_COMPRA'
@@ -67,7 +87,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
     end
     object DBEditTimbrado: TDBEdit[24]
       Left = 240
-      Height = 21
+      Height = 23
       Top = 16
       Width = 144
       DataField = 'TIMBRADO'
@@ -80,9 +100,9 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       AnchorSideLeft.Control = DBEditNro
       AnchorSideBottom.Control = DBEditNro
       Left = 135
-      Height = 13
-      Top = 3
-      Width = 17
+      Height = 15
+      Top = 1
+      Width = 20
       Anchors = [akLeft, akBottom]
       Caption = 'Nro'
       ParentColor = False
@@ -91,9 +111,9 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       AnchorSideLeft.Control = DBEditTimbrado
       AnchorSideBottom.Control = DBEditTimbrado
       Left = 240
-      Height = 13
-      Top = 3
-      Width = 44
+      Height = 15
+      Top = 1
+      Width = 52
       Anchors = [akLeft, akBottom]
       Caption = 'Timbrado'
       ParentColor = False
@@ -102,7 +122,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   inherited PairSplitterDetSubTot: TPairSplitter
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
-    Height = 379
+    Height = 375
     Top = 176
     inherited PairSplitterSide1: TPairSplitterSide
       inherited Detalles: TGroupBox
@@ -112,42 +132,42 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
               PickList.Strings = (              )
               SizePriority = 0
               Title.Caption = 'CANTIDAD'
-              Width = 67
+              Width = 74
               FieldName = 'CANTIDAD'
             end          
             item
               MinSize = 30
               PickList.Strings = (              )
               Title.Caption = 'DETALLE'
-              Width = 57
+              Width = 62
               FieldName = 'DETALLE'
             end          
             item
               PickList.Strings = (              )
               SizePriority = 0
               Title.Caption = 'PRECIO UNITARIO'
-              Width = 106
+              Width = 112
               FieldName = 'PRECIO_UNITARIO'
             end          
             item
               PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'EXENTA'
-              Width = 53
+              Width = 58
               FieldName = 'EXENTA'
             end          
             item
               PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'IVA5'
-              Width = 38
+              Width = 39
               FieldName = 'IVA5'
             end          
             item
               PickList.Strings = (              )
               ReadOnly = True
               Title.Caption = 'IVA10'
-              Width = 44
+              Width = 45
               FieldName = 'IVA10'
             end>
           OnKeyDown = DBGridDetKeyDown
@@ -159,33 +179,76 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       end
     end
     inherited PairSplitterSide2: TPairSplitterSide
-      Height = 174
-      ClientHeight = 174
+      Height = 170
+      ClientHeight = 170
       inherited Totales: TGroupBox
-        Height = 174
-        ClientHeight = 156
+        Height = 170
+        ClientHeight = 152
+        inherited LabelGranTotal: TLabel
+          Top = 49
+        end
+        inherited DBEditSubTotal: TDBEdit
+          Height = 23
+        end
+        inherited LabelSubtotal: TLabel
+          Height = 15
+          Top = 4
+          Width = 86
+        end
+        inherited LabelSubtotal5: TLabel
+          Height = 15
+          Top = 4
+          Width = 114
+        end
+        inherited DBEditSubTotal5: TDBEdit
+          Height = 23
+        end
+        inherited DBEditSubTotal10: TDBEdit
+          Height = 23
+        end
+        inherited LabelSubtotal10: TLabel
+          Height = 15
+          Top = 4
+          Width = 120
+        end
+        inherited DBEditIVA5: TDBEdit
+          Height = 23
+        end
+        inherited LabelIVA5: TLabel
+          Height = 15
+          Top = 96
+        end
+        inherited LabelIVA10: TLabel
+          Height = 15
+          Top = 97
+        end
+        inherited DBEditIVA10: TDBEdit
+          Height = 23
+        end
+        inherited DBEditIVATotal: TDBEdit
+          Height = 23
+        end
+        inherited LabelIVATotal: TLabel
+          Height = 15
+          Top = 96
+          Width = 48
+        end
       end
     end
   end
   inherited ButtonLimpiar: TButton
-    Height = 23
-    Width = 144
+    Width = 155
     AutoSize = True
     Caption = 'Nueva factura en blanco'
     OnClick = ButtonLimpiarClick
+    Visible = False
   end
   inherited ButtonSeleccionarPers: TButton
-    AnchorSideLeft.Control = ButtonSeleccionarFac
-    AnchorSideTop.Control = ButtonSeleccionarFac
-    Left = 292
+    Left = 303
     OnClick = ButtonSeleccionarPersClick
   end
   inherited ButtonSeleccionarFac: TButton
-    AnchorSideLeft.Control = ButtonLimpiar
-    AnchorSideLeft.Side = asrBottom
-    AnchorSideTop.Control = ButtonLimpiar
-    AnchorSideTop.Side = asrCenter
-    Left = 168
+    Left = 179
     BorderSpacing.Left = 8
   end
   inherited MainMenu: TMainMenu
