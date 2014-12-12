@@ -1,7 +1,7 @@
 inherited ProcesoDocumentos: TProcesoDocumentos
-  Left = 561
+  Left = 310
   Height = 600
-  Top = 287
+  Top = 50
   Width = 890
   Caption = 'Documentos'
   ClientHeight = 580

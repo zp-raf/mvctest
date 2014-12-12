@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, manejoerrores, mvc, IBConnection, DB, Controls, Forms,
-  observerSubject, dateutils, frmquerydatamodule, mensajes, DBGrids;
+  observerSubject, dateutils, frmquerydatamodule, mensajes, DBGrids, ShellApi;
 
 type
 
@@ -60,6 +60,7 @@ type
     function IsDBGridEmpty(Grid: TDBGrid; Sender: IFormView): boolean;
     function IsValidDate(ADateStr: string): boolean; virtual;
     function IsValidDate(ADate: TDateTime): boolean; virtual;
+    procedure ShowHelp(Sender: IFormView; namehelpfile : string); virtual;
   end;
 
   { TABMController }
@@ -261,6 +262,15 @@ begin
     Result := False
   else
     Result := True;
+end;
+
+procedure TController.ShowHelp(Sender: IFormView; namehelpfile: string);
+var
+  wideChars   : array[0..200] of WideChar;
+  lengthnamehelpfile : Integer;
+begin
+  lengthnamehelpfile:= Length(namehelpfile);
+ // ShellExecute((Sender as IFormView), 'open', PWideChar(namehelpfile), nil, nil, 1);
 end;
 
 procedure TController.SetModel(AValue: TQueryDataModule);

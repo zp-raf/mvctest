@@ -56,6 +56,7 @@ type
     function ShowConfirmationMessage(AMsg: string): TModalResult;
     function ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
     property OpenOnShow: boolean read FOpenOnShow write SetOpenOnShow;
+    procedure MostrarAyudaForm (Sender: TObject); virtual;
   end;
 
 var
@@ -74,8 +75,12 @@ begin
 end;
 
 procedure TMaestro.MenuItemAyudaClick(Sender: TObject);
+var
+   nombreform : String;
 begin
-  GetController.ShowHelp(Self as IFormView);
+//  nombreform:= LowerCase('frm'+ Name) ;
+//  GetController.ShowHelp(Self as IFormView);
+  MostrarAyudaForm(Sender);
 end;
 
 function TMaestro.GetController: TController;
@@ -208,6 +213,14 @@ end;
 function TMaestro.ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
 begin
   Result := MessageDlg(ATitle, AMsg, mtConfirmation, mbYesNo, 0);
+end;
+
+procedure TMaestro.MostrarAyudaForm(Sender: TObject);
+var
+   namehelpfile: string;
+begin
+    namehelpfile:= LowerCase('html\frm'+ Name+'.html') ;
+    GetController.ShowHelp(Self as IFormView, namehelpfile);
 end;
 
 constructor TMaestro.Create(AOwner: IFormView; AController: Pointer);

@@ -1,7 +1,7 @@
 inherited ProcesoPago: TProcesoPago
-  Left = 568
+  Left = 254
   Height = 680
-  Top = 147
+  Top = 20
   Width = 1080
   Caption = 'Cobro'
   ClientHeight = 660
