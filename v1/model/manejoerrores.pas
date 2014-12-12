@@ -9,6 +9,8 @@ uses
   Classes, SysUtils, DB, IBConnection, Dialogs, strutils;
 
 resourcestring
+  rsPrimaryKeyError = 'Un campo no admite valores duplicados. Revise los datos.';
+  rsForeignKeyError = 'El registro no puede eliminarse debido a que otros datos dependen de el.';
   rsAppError = 'Error de aplicacion. Mensaje tecnico del error: ';
   rsErrorTitle = 'Error';
   rsGeneralDBError = 'Error de base de datos. Mensaje tecnico del error: ';
@@ -78,9 +80,9 @@ begin
     if AnsiContainsText(tmp, 'cannot delete primary key') then
       m := rsGeneralDBError + tmp
     else if AnsiContainsText(tmp, 'violation of primary') then
-      m := rsGeneralDBError + tmp
+      m := rsPrimaryKeyError
     else if AnsiContainsText(tmp, 'violation of foreign') then
-      m := rsGeneralDBError + tmp
+      m := rsForeignKeyError
     else if AnsiContainsText(tmp, 'but not supplied') then
       m := rsReqFields
     else if AnsiContainsStr(E.Message, '65432') then //frmfacturacion

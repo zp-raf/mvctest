@@ -79,6 +79,8 @@ end;
 
 procedure TArancelesDataModule.DoDeleteAction(ADataSet: TDataSet);
 begin
+  if ADataSet = CuotasXArancel.CuotaXArancel then
+    Exit;
   if not (ADataSet.State in [dsEdit]) then
     ADataSet.Edit;
   ADataSet.FieldByName('ACTIVO').AsString := DB_FALSE;
