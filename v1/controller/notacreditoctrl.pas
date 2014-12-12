@@ -79,6 +79,12 @@ begin
       GetCustomModel.qryCabecera.FieldByName('NUMERO_NOTA_COMPRA').AsString +
       ' con timbrado ' + GetCustomModel.qryCabecera.FieldByName('TIMBRADO').AsString;
     CompID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
+    if GetCustomModel.qryCabeceraNUMERO_NOTA_COMPRA.IsNull or
+      GetCustomModel.qryCabeceraTIMBRADO.IsNull then
+    begin
+      Sender.ShowErrorMessage('Complete los campos de numero y timbrado');
+      Exit;
+    end;
     GetCustomModel.qryCabecera.ApplyUpdates;
     GetCustomModel.qryDetalle.ApplyUpdates;
     GetCustomModel.RegistrarMovimientoCompra(CompID, doNotaCredito, desc, descCtaPers);
@@ -88,7 +94,7 @@ begin
     on E: Exception do
     begin
       Rollback(Sender);
-      Sender.ShowErrorMessage('Error al cargar comprobante. Error: ' + e.Message);
+      raise;
     end;
   end;
 end;

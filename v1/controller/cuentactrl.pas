@@ -15,7 +15,7 @@ type
   protected
     function GetCustomModel: TCuentaDataModule;
   public
-    procedure ActualizarDetallesCuenta(Sender: IFormView; var EsCuentaHija: boolean);
+    function EsCuentaHija: boolean;
   end;
 
 implementation
@@ -27,10 +27,12 @@ begin
   Result := GetModel as TCuentaDataModule;
 end;
 
-procedure TCuentaController.ActualizarDetallesCuenta(Sender: IFormView;
-  var EsCuentaHija: boolean);
+function TCuentaController.EsCuentaHija: boolean;
 begin
-  GetCustomModel.ActualizarDetallesCuenta(Self, EsCuentaHija);
+  if GetCustomModel.CuentaCUENTA_PADRE.IsNull then
+    Result := False
+  else
+    Result := True;
 end;
 
 end.

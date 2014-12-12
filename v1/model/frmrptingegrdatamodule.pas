@@ -5,24 +5,22 @@ unit frmrptingegrdatamodule;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, 
-    frmreportedatamodule;
+  Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, Graphics,
+  Dialogs, IniPropStorage, frmreportedatamodule, DB, sqldb, IniFiles;
 
 type
 
   { TReporteIngEgrDataModule }
 
   TReporteIngEgrDataModule = class(TReporteDataModule)
-  private
-    { private declarations }
+  protected
+    FINIFile: TIniFile;
+    FCuentaID: string;
   published
-//     procedure CabeceraAfterOpen(DataSet: TDataSet);
+    procedure CabeceraAfterOpen(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject); override;
-    procedure DataModuleDestroy(Sender: TObject);
+    procedure RestoreProperties;
     procedure ShowReport(AFechaIni: TDateTime; AFechaFin: TDateTime);
-
-  public
-    { public declarations }
   end;
 
 var
@@ -32,45 +30,40 @@ implementation
 
 {$R *.lfm}
 
-{ TReporteIngEgrDataModule }
+procedure TReporteIngEgrDataModule.RestoreProperties;
+begin
+  FCuentaID := FINIFile.ReadString('datos', 'cuentaCompras', '');
+end;
 
-{
-
- procedure TReporteIngEgrDataModule.CabeceraAfterOpen(DataSet: TDataSet);
- begin
-     inherited;
- end;
-}
+procedure TReporteIngEgrDataModule.CabeceraAfterOpen(DataSet: TDataSet);
+begin
+  Detalle.ParamByName('SALDO_ANTERIOR').AsFloat :=
+    DataSet.FieldByName('CAB_SALDO_ANTERIOR').AsFloat;
+end;
 
 procedure TReporteIngEgrDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited DataModuleCreate(Sender);
-  ReportFile := '';
+  ReportFile := 'reportes\ingresos-egresos.lrf';
+  FINIFile := TIniFile.Create('curso.ini');
+  RestoreProperties;
 end;
 
-procedure TReporteIngEgrDataModule.DataModuleDestroy(Sender: TObject);
+procedure TReporteIngEgrDataModule.ShowReport(AFechaIni: TDateTime;
+  AFechaFin: TDateTime);
 begin
-   Inherited;
-end;
-
-procedure TReporteIngEgrDataModule.ShowReport(AFechaIni: TDateTime; AFechaFin: TDateTime);
-begin
-   Cabecera.Close;
-  //Detalle.Close;
-  //Cabecera.ParamByName('cuentaid').AsString := ACuentaID;
+  Cabecera.Close;
+  Detalle.Close;
+  Cabecera.ParamByName('cuentaid').AsString := FCuentaID;
   Cabecera.ParamByName('fechaini').AsDateTime := AFechaIni;
   Cabecera.ParamByName('fechafin').AsDateTime := AFechaFin;
-  {
-  Detalle.ParamByName('cuentaid').AsString := ACuentaID;
+  Detalle.ParamByName('cuentaid').AsString := FCuentaID;
   Detalle.ParamByName('fechaini').AsDateTime := AFechaIni;
   Detalle.ParamByName('fechafin').AsDateTime := AFechaFin;
-
-  }
   Cabecera.Open;
-  //Detalle.Open;
+  Detalle.Open;
   frReport1.LoadFromFile(ReportFile);
   frReport1.ShowReport;
 end;
 
 end.
-

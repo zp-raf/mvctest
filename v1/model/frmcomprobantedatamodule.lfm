@@ -991,25 +991,4 @@ inherited ComprobanteDataModule: TComprobanteDataModule
     left = 380
     top = 55
   end
-  object IniDatosCurso: TIniPropStorage[17]
-    StoredValues = <    
-      item
-        Name = 'ruc'
-      end    
-      item
-        Name = 'nombre'
-      end    
-      item
-        Name = 'direccion'
-      end    
-      item
-        Name = 'telefono'
-      end>
-    IniFileName = 'curso.ini'
-    IniSection = 'datos'
-    OnSaveProperties = IniDatosCursoSaveProperties
-    OnRestoreProperties = IniDatosCursoRestoreProperties
-    left = 469
-    top = 71
-  end
 end

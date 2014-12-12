@@ -1,17 +1,53 @@
 inherited ReporteIngEgrDataModule: TReporteIngEgrDataModule
+  Height = 247
+  HorizontalOffset = 571
+  VerticalOffset = 326
+  Width = 349
   inherited Cabecera: TSQLQuery
+    AfterOpen = CabeceraAfterOpen
     SQL.Strings = (
-      'select * from rpt_ingreso_egreso (:fecha_ini,:fecha_fin);'
+      'select * from RPT_EXTRACTO_CUENTA(:cuentaid, :fechaini, :fechafin)'
     )
     Params = <    
       item
         DataType = ftUnknown
-        Name = 'fecha_ini'
+        Name = 'cuentaid'
         ParamType = ptInput
       end    
       item
         DataType = ftUnknown
-        Name = 'fecha_fin'
+        Name = 'fechaini'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fechafin'
+        ParamType = ptInput
+      end>
+  end
+  inherited Detalle: TSQLQuery
+    SQL.Strings = (
+      'select * from RPT_EXTRACTO_CUENTA_DETALLE(:saldo_anterior, :cuentaid, :fechaini, :fechafin)'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'saldo_anterior'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'cuentaid'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fechaini'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fechafin'
         ParamType = ptInput
       end>
   end

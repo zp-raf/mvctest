@@ -5,9 +5,9 @@ unit frmNotaCreditoDataModule;
 interface
 
 uses
-  frmcomprobantedatamodule, LR_DBSet, LR_Class, XMLPropStorage, DB, sqldb,
-  mensajes, variants, frmfacturadatamodule2, Classes, sgcdTypes, SysUtils,
-  frmasientosdatamodule;
+  frmcomprobantedatamodule, LR_DBSet, LR_Class, XMLPropStorage, IniPropStorage,
+  DB, sqldb, mensajes, variants, frmfacturadatamodule2, Classes, sgcdTypes,
+  SysUtils, frmasientosdatamodule;
 
 resourcestring
   rsGenNotaCredito = 'SEQ_NOTA_CREDITO';
@@ -23,34 +23,8 @@ type
   { TNotaCreditoDataModule }
 
   TNotaCreditoDataModule = class(TComprobanteDataModule)
-  private
-    FCheckPrecioUnitario: boolean;
-    FFacturas: TFacturasDataModule;
-    FIVA10Codigo: string;
-    FIVA5Codigo: string;
-    procedure SetCheckPrecioUnitario(AValue: boolean);
-    procedure SetFacturas(AValue: TFacturasDataModule);
-    procedure SetIVA10Codigo(AValue: string);
-    procedure SetIVA5Codigo(AValue: string);
-  published
     DateField1: TDateField;
-    qryCabeceraNUMERO_NOTA_COMPRA: TStringField;
-    qryDetalleCANTIDAD: TLongintField;
-    qryDetalleDETALLE: TStringField;
-    qryDetalleDEUDAID: TLongintField;
-    qryDetalleEXENTA: TFloatField;
-    qryDetalleFACTURADETALLEID: TLongintField;
-    qryDetalleID: TLongintField;
-    qryDetalleIVA10: TFloatField;
-    qryDetalleIVA5: TFloatField;
-    qryDetalleNOTACREDITOID: TLongintField;
-    qryDetallePRECIO_UNITARIO: TFloatField;
-    StringField2: TStringField;
-    StringField3: TStringField;
-    StringField4: TStringField;
-    dsFacturas: TDataSource;
-    qryCabeceraTIMBRADO: TLongintField;
-    StringField1: TStringField;
+    LongintField1: TLongintField;
     qryCabeceraDIRECCION: TStringField;
     qryCabeceraFACTURAID: TLongintField;
     qryCabeceraFECHA_EMISION: TDateField;
@@ -61,6 +35,7 @@ type
     qryCabeceraNOMBRE: TStringField;
     qryCabeceraNOTA_REMISION: TStringField;
     qryCabeceraNUMERO: TLongintField;
+    qryCabeceraNUMERO_NOTA_COMPRA: TStringField;
     qryCabeceraPERSONAID: TLongintField;
     qryCabeceraRUC: TStringField;
     qryCabeceraSUBTOTAL_EXENTAS: TFloatField;
@@ -68,8 +43,33 @@ type
     qryCabeceraSUBTOTAL_IVA5: TFloatField;
     qryCabeceraTALONARIOID: TLongintField;
     qryCabeceraTELEFONO: TStringField;
+    qryCabeceraTIMBRADO: TStringField;
     qryCabeceraTOTAL: TFloatField;
     qryCabeceraVALIDO: TSmallintField;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+  private
+    FCheckPrecioUnitario: boolean;
+    FFacturas: TFacturasDataModule;
+    FIVA10Codigo: string;
+    FIVA5Codigo: string;
+    procedure SetCheckPrecioUnitario(AValue: boolean);
+    procedure SetFacturas(AValue: TFacturasDataModule);
+    procedure SetIVA10Codigo(AValue: string);
+    procedure SetIVA5Codigo(AValue: string);
+  published
+    qryDetalleCANTIDAD: TLongintField;
+    qryDetalleDETALLE: TStringField;
+    qryDetalleDEUDAID: TLongintField;
+    qryDetalleEXENTA: TFloatField;
+    qryDetalleFACTURADETALLEID: TLongintField;
+    qryDetalleID: TLongintField;
+    qryDetalleIVA10: TFloatField;
+    qryDetalleIVA5: TFloatField;
+    qryDetalleNOTACREDITOID: TLongintField;
+    qryDetallePRECIO_UNITARIO: TFloatField;
+    dsFacturas: TDataSource;
     procedure ActualizarTotales; override;
     procedure AnularNotaCredito(ANotaID: string);
     procedure CheckNoNegativo(Sender: TField);
@@ -239,7 +239,7 @@ begin
     // REGISTRAR EN CUENTA DE COMPRAS
     qryDetalle.First;
     Asientos.Cuenta.Cuenta.Open;
-    if not Asientos.Cuenta.Cuenta.Locate('ID', CUENTA_COMPRAS, []) then
+    if not Asientos.Cuenta.Cuenta.Locate('ID', FCuentaCompras, []) then
       raise Exception.Create('Cuenta invalida');
     Asientos.NuevoAsiento('Venta segun factura nro ' + talSUCURSAL.AsString +
       '-' + talCAJA.AsString + '-' + qryCabeceraNUMERO.AsString +
@@ -247,7 +247,7 @@ begin
       qryCabeceraID.AsString);
     while not qryDetalle.EOF do
     begin
-      Asientos.NuevoAsientoDetalle(CUENTA_COMPRAS, mvDebito,
+      Asientos.NuevoAsientoDetalle(FCuentaCompras, mvDebito,
         qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
         'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
       qryDetalle.Next;
@@ -508,7 +508,7 @@ procedure TNotaCreditoDataModule.FetchCabeceraFactura(AFacturaID: string);
 begin
   Facturas.LocateComprobante(AFacturaID);
   qryCabeceraFACTURAID.Value := Facturas.qryCabecera.FieldByName('ID').Value;
-  qryCabeceraPERSONAID.Value := Facturas.qryCabecera.FieldByName('PERSONAID').Value;
+  qryCabeceraPERSONAID.AsString := Facturas.qryCabecera.FieldByName('PERSONAID').AsString;
   qryCabeceraNOMBRE.AsString := Facturas.qryCabecera.FieldByName('NOMBRE').AsString;
   qryCabeceraNOTA_REMISION.AsString :=
     Facturas.qryCabecera.FieldByName('NOTA_REMISION').AsString;

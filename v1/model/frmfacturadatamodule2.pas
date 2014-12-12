@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_Class, LR_DBSet, Forms, Controls,
-  Graphics, Dialogs, XMLPropStorage, frmsgcddatamodule, frmcomprobantedatamodule,
-  sgcdTypes, mensajes;
+  Graphics, Dialogs, XMLPropStorage, IniPropStorage, frmsgcddatamodule,
+  frmcomprobantedatamodule, sgcdTypes, mensajes;
 
 resourcestring
   rsGenFacturaID = 'SEQ_FACTURA';

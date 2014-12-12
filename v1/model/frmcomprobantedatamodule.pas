@@ -7,11 +7,8 @@ interface
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_DBSet, LR_Class, Forms, Controls,
   Graphics, Dialogs, XMLPropStorage, IniPropStorage, frmquerydatamodule,
-  mensajes, frmpersonasdatamodule, sgcdTypes, observerSubject,
+  mensajes, frmpersonasdatamodule, sgcdTypes, observerSubject, IniFiles,
   frmtalonariodatamodule, frmasientosdatamodule;
-
-const
-  CUENTA_COMPRAS = '40'; // corresponde a caja
 
 type
 
@@ -26,6 +23,7 @@ type
     FEstado: TEstadoComprobante;
     FPersonas: TPersonasDataModule;
     FTalonarios: TTalonarioDataModule;
+    procedure RestoreProperties;
     procedure SetAsientos(AValue: TAsientosDataModule);
     procedure SetCabeceraGenName(AValue: string);
     procedure SetCompra(AValue: boolean);
@@ -37,6 +35,8 @@ type
   protected
     FTalonarioID: string;
     FDatosCurso: TDatosCurso;
+    FCuentaCompras: string;
+    FINIFile: TIniFile;
   public
     procedure AfterConstruction; override;
   published
@@ -116,7 +116,6 @@ type
     ImpuestoNOMBRE: TStringField;
     ImpuestoView: TSQLQuery;
     Propierties: TXMLPropStorage;
-    IniDatosCurso: TIniPropStorage;
     { Procedimiento para calcular los totales de cada comprobante. Cada
       comprobante debe implementar este procedimiento. }
     procedure ActualizarTotales; virtual; abstract;
@@ -156,8 +155,6 @@ type
     { Busca y pone el cursor en el registro de la cabecera del comprobante
       especificado.
       Si no se encuentra el comprobante levanta una excepcion EDatabaseError. }
-    procedure IniDatosCursoRestoreProperties(Sender: TObject);
-    procedure IniDatosCursoSaveProperties(Sender: TObject);
     procedure LocateComprobante(AID: string);
     procedure LocateTalonario;
     procedure NuevoComprobante;
@@ -224,12 +221,12 @@ begin
   AuxQryList.Add(TObject(FPersonas.Telefono));
   AuxQryList.Add(TObject(FTalonarios.TalonarioView));
   Compra := False;
-  IniDatosCurso.Restore;
+  FINIFile := TIniFile.Create('curso.ini');
+  RestoreProperties;
 end;
 
 procedure TComprobanteDataModule.DataModuleDestroy(Sender: TObject);
 begin
-  IniDatosCurso.Save;
   inherited;
   if Assigned(FPersonas) then
     FreeAndNil(FPersonas);
@@ -293,7 +290,7 @@ begin
     // REGISTRAR EN CUENTA DE COMPRAS
     qryDetalle.First;
     Asientos.Cuenta.Cuenta.Open;
-    if not Asientos.Cuenta.Cuenta.Locate('ID', CUENTA_COMPRAS, []) then
+    if not Asientos.Cuenta.Cuenta.Locate('ID', FCuentaCompras, []) then
       raise Exception.Create('Cuenta invalida');
     Asientos.NuevoAsiento(ADescripcion, ATipoDocumento,
       qryCabecera.FieldByName('ID').AsString);
@@ -304,7 +301,7 @@ begin
         doNotaCredito: mov := mvCredito;
         doRecibo: mov := mvDebito;
       end;
-      Asientos.NuevoAsientoDetalle(CUENTA_COMPRAS, mov,
+      Asientos.NuevoAsientoDetalle(FCuentaCompras, mov,
         qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
         'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
       qryDetalle.Next;
@@ -652,26 +649,16 @@ begin
   FCompra := AValue;
 end;
 
-procedure TComprobanteDataModule.IniDatosCursoRestoreProperties(Sender: TObject);
+procedure TComprobanteDataModule.RestoreProperties;
 begin
   with FDatosCurso do
   begin
-    ruc := IniDatosCurso.StoredValue['ruc'];
-    nombre := IniDatosCurso.StoredValue['nombre'];
-    direccion := IniDatosCurso.StoredValue['direccion'];
-    telefono := IniDatosCurso.StoredValue['telefono'];
+    ruc := FINIFile.ReadString('datos', 'ruc', '');
+    nombre := FINIFile.ReadString('datos', 'nombre', '');
+    direccion := FINIFile.ReadString('datos', 'direccion', '');
+    telefono := FINIFile.ReadString('datos', 'telefono', '');
   end;
-end;
-
-procedure TComprobanteDataModule.IniDatosCursoSaveProperties(Sender: TObject);
-begin
-  with FDatosCurso do
-  begin
-    IniDatosCurso.StoredValue['ruc'] := ruc;
-    IniDatosCurso.StoredValue['nombre'] := nombre;
-    IniDatosCurso.StoredValue['direccion'] := direccion;
-    IniDatosCurso.StoredValue['telefono'] := telefono;
-  end;
+  FCuentaCompras := FINIFile.ReadString('datos', 'cuentaCompras', '');
 end;
 
 procedure TComprobanteDataModule.SetAsientos(AValue: TAsientosDataModule);

@@ -501,7 +501,7 @@ inherited ReciboDataModule: TReciboDataModule
     IniSection = 'recibo'
     OnSaveProperties = IniPropStorage1SaveProperties
     OnRestoreProperties = IniPropStorage1RestoreProperties
-    left = 448
-    top = 98
+    left = 413
+    top = 116
   end
 end

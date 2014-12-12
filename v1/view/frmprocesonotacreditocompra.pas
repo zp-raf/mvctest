@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
-  frmprocesonotacredito, sgcdTypes, LCLType, frmbuscarpersonas;
+  frmprocesonotacredito, sgcdTypes, LCLType, frmbuscarpersonas, frmprocesocomprobante;
 
 type
 
@@ -42,12 +42,7 @@ implementation
 
 procedure TProcesoNotaCreditoCompra.OKButtonClick(Sender: TObject);
 begin
-  if (Trim(DBEditNro.Text) = '') or (Trim(DBEditTimbrado.Text) = '') then
-  begin
-    ShowErrorMessage('Complete los campos de numero y timbrado');
-    Exit;
-  end;
-  if not GetController.IsValidDate(DateEditFecha.Text) or
+    if not GetController.IsValidDate(DateEditFecha.Date) or
     (DateEditFecha.Date > Now) then
   begin
     ShowErrorMessage('Fecha de emision invalida');

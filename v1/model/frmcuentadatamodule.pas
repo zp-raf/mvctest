@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, mvc;
+  frmquerydatamodule, mvc, observerSubject;
 
 resourcestring
   rsGenName = 'GEN_CUENTA';
@@ -39,8 +39,8 @@ type
     dsCuenta: TDataSource;
     Cuenta: TSQLQuery;
     CuentasContables: TSQLQuery;
-    procedure ActualizarDetallesCuenta(Sender: IController; var EsCuentaHija: boolean);
     procedure CuentaCalcFields(DataSet: TDataSet);
+    procedure CuentaCUENTA_PADREChange(Sender: TField);
     procedure CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure CuentaNewRecord(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject); override;
@@ -69,29 +69,25 @@ begin
   SearchFieldList.Add('CODIGO');
 end;
 
-procedure TCuentaDataModule.ActualizarDetallesCuenta(Sender: IController;
-  var EsCuentaHija: boolean);
-begin
-  // si se selecciona una cuenta padre se tiene que cambiar el codigo de la
-  // cuenta y su naturaleza
-  if CuentaCUENTA_PADRE.IsNull or (Trim(CuentaCUENTA_PADRE.AsString) = '') then
-  begin
-    CuentaCODIGO.Clear;
-    EsCuentaHija := False;
-  end
-  else
-  begin
-    CuentaCODIGO.Value := CuentaAuxCODIGO.Value;
-    CuentaNATURALEZA.Value := CuentaAuxNATURALEZA.Value;
-    EsCuentaHija := True;
-  end;
-end;
-
 procedure TCuentaDataModule.CuentaCalcFields(DataSet: TDataSet);
 begin
   DataSet.FieldByName('NOMBRE_CODIGO').AsString :=
     DataSet.FieldByName('CODIGO').AsString + '. ' +
     DataSet.FieldByName('NOMBRE').AsString;
+end;
+
+procedure TCuentaDataModule.CuentaCUENTA_PADREChange(Sender: TField);
+begin
+  // si se selecciona una cuenta padre se tiene que cambiar el codigo de la
+  // cuenta y su naturaleza
+  if Sender.IsNull or (Trim(Sender.AsString) = '') then
+    CuentaCODIGO.Clear
+  else
+  begin
+    CuentaCODIGO.Value := CuentaAuxCODIGO.Value;
+    CuentaNATURALEZA.Value := CuentaAuxNATURALEZA.Value;
+  end;
+  (MasterDataModule as ISubject).Notify;
 end;
 
 procedure TCuentaDataModule.CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);

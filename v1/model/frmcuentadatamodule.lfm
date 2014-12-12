@@ -109,6 +109,7 @@ inherited CuentaDataModule: TCuentaDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      OnChange = CuentaCUENTA_PADREChange
     end
     object CuentaNOMBRE_CODIGO: TStringField
       DisplayWidth = 200

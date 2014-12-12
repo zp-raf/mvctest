@@ -20,7 +20,6 @@ type
   protected
     function GetCustomController: TRepIngEgrController;
   published
-    procedure AfterConstruction; override;
     procedure OKButtonClick(Sender: TObject);
   private
     { private declarations }
@@ -42,20 +41,8 @@ begin
    Result := GetController as TRepIngEgrController;
 end;
 
-procedure TProcesoReportIngEgr.AfterConstruction;
-begin
-  inherited AfterConstruction;
-end;
-
 procedure TProcesoReportIngEgr.OKButtonClick(Sender: TObject);
 begin
-    {
-    if DBLookupComboBoxPersona.Text = '' then
-  begin
-    ShowErrorMessage(rsPleaseSelectAccount);
-    Exit;
-  end;
-    }
   GetCustomController.ShowReport(DateEditInicio.Date, DateEditFin.Date, Self);
 end;
 

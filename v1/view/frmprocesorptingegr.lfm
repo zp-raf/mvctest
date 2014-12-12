@@ -1,11 +1,25 @@
 inherited ProcesoReportIngEgr: TProcesoReportIngEgr
   Left = 458
+  Height = 161
   Top = 189
-  ClientHeight = 328
-  object DateEditFin: TDateEdit[2]
-    Left = 184
+  Width = 381
+  Caption = 'Reporte de ingresos y egresos'
+  ClientHeight = 141
+  ClientWidth = 381
+  inherited StatusBar1: TStatusBar
     Height = 23
-    Top = 72
+    Top = 118
+    Width = 381
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 78
+    Width = 369
+    OKButton.OnClick = OKButtonClick
+  end
+  object DateEditFin: TDateEdit[2]
+    Left = 144
+    Height = 23
+    Top = 25
     Width = 80
     CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
     OKCaption = 'OK'
@@ -19,9 +33,9 @@ inherited ProcesoReportIngEgr: TProcesoReportIngEgr
     TabOrder = 2
   end
   object DateEditInicio: TDateEdit[3]
-    Left = 48
+    Left = 16
     Height = 23
-    Top = 71
+    Top = 25
     Width = 80
     CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
     OKCaption = 'OK'
@@ -36,9 +50,9 @@ inherited ProcesoReportIngEgr: TProcesoReportIngEgr
   object LabelInicio: TLabel[4]
     AnchorSideLeft.Control = DateEditInicio
     AnchorSideBottom.Control = DateEditInicio
-    Left = 48
+    Left = 16
     Height = 15
-    Top = 56
+    Top = 10
     Width = 29
     Anchors = [akLeft, akBottom]
     Caption = 'Inicio'
@@ -47,9 +61,9 @@ inherited ProcesoReportIngEgr: TProcesoReportIngEgr
   object LabelFin: TLabel[5]
     AnchorSideLeft.Control = DateEditFin
     AnchorSideBottom.Control = DateEditFin
-    Left = 184
+    Left = 144
     Height = 15
-    Top = 57
+    Top = 10
     Width = 16
     Anchors = [akLeft, akBottom]
     Caption = 'Fin'

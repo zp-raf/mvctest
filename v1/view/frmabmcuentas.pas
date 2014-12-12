@@ -27,7 +27,7 @@ type
     Codigo: TLabel;
     Nombre: TLabel;
     procedure ABMInsert; override;
-    procedure DBLookupComboBox1EditingDone(Sender: TObject);
+    procedure ObserverUpdate(const Subject: IInterface); override;
   end;
 
 var
@@ -39,12 +39,10 @@ implementation
 
 { TAbmCuentas }
 
-procedure TAbmCuentas.DBLookupComboBox1EditingDone(Sender: TObject);
-var
-  EsCuentaHija: boolean;
+procedure TAbmCuentas.ObserverUpdate(const Subject: IInterface);
 begin
-  GetCustomController.ActualizarDetallesCuenta(Self, EsCuentaHija{%H-});
-  if EsCuentaHija then
+  inherited ObserverUpdate(Subject);
+  if GetCustomController.EsCuentaHija then
     DBRadioGroupTipo.Enabled := False
   else
     DBRadioGroupTipo.Enabled := True;
