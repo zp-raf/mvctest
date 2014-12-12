@@ -276,9 +276,9 @@ begin
     while not qryDetalle.EOF do
     begin
       case ATipoDocumento of
-        doFactura: mov := mvCredito;
-        doNotaCredito: mov := mvDebito;
-        doRecibo: mov := mvCredito;
+        doFactura: mov := mvDebito;
+        doNotaCredito: mov := mvCredito;
+        doRecibo: mov := mvDebito;
       end;
       Asientos.NuevoAsientoDetalle(CuentaID, mov,
         qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
@@ -296,9 +296,9 @@ begin
     while not qryDetalle.EOF do
     begin
       case ATipoDocumento of
-        doFactura: mov := mvDebito;
-        doNotaCredito: mov := mvCredito;
-        doRecibo: mov := mvDebito;
+        doFactura: mov := mvCredito;
+        doNotaCredito: mov := mvDebito;
+        doRecibo: mov := mvCredito;
       end;
       Asientos.NuevoAsientoDetalle(FCuentaCompras, mov,
         qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(

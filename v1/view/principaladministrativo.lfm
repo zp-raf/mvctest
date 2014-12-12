@@ -1,0 +1,56 @@
+inherited PrincipalAdministrativo: TPrincipalAdministrativo
+  ClientHeight = 80
+  inherited MainMenu: TMainMenu
+    inherited Academico: TMenuItem
+      inherited examenes: TMenuItem
+        inherited examenabm: TMenuItem
+          Visible = False
+        end
+        inherited escala: TMenuItem
+          Visible = False
+        end
+      end
+      inherited trabajoPractico1: TMenuItem
+        inherited trabajos: TMenuItem
+          Visible = False
+        end
+      end
+      inherited gestionCurso: TMenuItem
+        inherited academias: TMenuItem
+          Visible = False
+        end
+        inherited periodos: TMenuItem
+          Visible = False
+        end
+        inherited modulos: TMenuItem
+          Visible = False
+        end
+        inherited grupos: TMenuItem
+          Visible = False
+        end
+        inherited secciones: TMenuItem
+          Visible = False
+        end
+        inherited materias: TMenuItem
+          Visible = False
+        end
+        inherited desarrolloMaterias: TMenuItem
+          Visible = False
+        end
+      end
+    end
+    inherited Administrativo: TMenuItem
+      inherited financiero: TMenuItem
+        inherited MenuItemGenerarDeuda: TMenuItem
+          Visible = False
+        end
+      end
+      inherited MenuItemAsignacion: TMenuItem
+        Visible = False
+      end
+      inherited MenuItemAprobarJusti: TMenuItem
+        Visible = False
+      end
+    end
+  end
+end

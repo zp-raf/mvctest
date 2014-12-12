@@ -143,6 +143,8 @@ begin
       begin
         AnularPago(ATipoDoc,
           GetCustomModel.FacturasCobradasView.FieldByName('ID').AsString, Sender);
+        Commit(Sender);
+        Sender.ShowInfoMessage('Operacion exitosa');
         RefreshData(Sender);
       end;
     end;

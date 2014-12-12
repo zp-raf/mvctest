@@ -222,12 +222,17 @@ end;
 procedure TNotaCreditoDataModule.RegistrarMovimiento(ANotaID: string);
 var
   CuentaID: string;
+  desc: string;
 begin
   try
     if (qryCabecera.State in [dsEdit, dsInsert]) then
       raise Exception.Create(rsCreatingDoc);
     if not qryCabecera.Locate('ID', ANotaID, []) then
       raise EDatabaseError.Create(rsNoSeEncontroDoc);
+    desc := 'nota de credito nro ' + tal.FieldByName('SUCURSAL').AsString +
+      '-' + tal.FieldByName('CAJA').AsString + '-' +
+      qryCabecera.FieldByName('NUMERO').AsString + ' con timbrado ' +
+      tal.FieldByName('TIMBRADO').AsString;
     qryDetalle.First;
     // hay que buscar la cuenta que le correponde a la persona
     Asientos.Cuenta.Cuenta.Open;
@@ -236,8 +241,7 @@ begin
       raise Exception.Create('Cuenta no encontrada');
     CuentaID := Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
       qryCabecera.FieldByName('PERSONAID').AsString, 'ID');
-    Asientos.NuevoAsiento(rsDescripcionPorDefecto +
-      qryCabecera.FieldByName('NUMERO').AsString, doNotaCredito,
+    Asientos.NuevoAsiento('Emision de ' + desc, doNotaCredito,
       qryCabecera.FieldByName('ID').AsString);
     while not qryDetalle.EOF do
     begin
@@ -253,13 +257,11 @@ begin
     Asientos.Cuenta.Cuenta.Open;
     if not Asientos.Cuenta.Cuenta.Locate('ID', FCuentaCompras, []) then
       raise Exception.Create('Cuenta invalida');
-    Asientos.NuevoAsiento('Venta segun factura nro ' + talSUCURSAL.AsString +
-      '-' + talCAJA.AsString + '-' + qryCabeceraNUMERO.AsString +
-      ' con timbrado ' + qryCabeceraTIMBRADO.AsString, doNotaCredito,
+    Asientos.NuevoAsiento('Emision de ' + desc, doNotaCredito,
       qryCabeceraID.AsString);
     while not qryDetalle.EOF do
     begin
-      Asientos.NuevoAsientoDetalle(FCuentaCompras, mvDebito,
+      Asientos.NuevoAsientoDetalle(FCuentaCompras, mvCredito,
         qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
         'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
       qryDetalle.Next;
@@ -468,15 +470,13 @@ begin
       raise Exception.Create('La nota ya esta anulada');
     qryCabecera.Edit;
     qryCabecera.FieldByName('VALIDO').AsString := DB_FALSE;
-    qryCabecera.Post;
+    qryCabecera.ApplyUpdates;
     if not NotasCreditoNuevoView.Locate('ID', ANotaID, []) then
       raise Exception.Create('No se pudo obtener numero y timbrado');
     Asientos.ReversarAsientoComprobante(doNotaCredito, ANotaID,
       'Anulacion de nota de credito nro ' +
       NotasCreditoNuevoViewNUMERO_NOTA_CREDITO.AsString + ' con timbrado ' +
       NotasCreditoNuevoViewTIMBRADO.AsString);
-    Asientos.PostAsiento;
-    SaveChanges;
   except
     on E: Exception do
     begin
@@ -581,8 +581,12 @@ begin
   Facturas.FacturasView.Close;
   case ACompraVenta of
     cvCompra: Facturas.FacturasView.ServerFilter := 'ESCOMPRA = 1';
-    cvVenta: Facturas.FacturasView.ServerFilter := 'ESCOMPRA = 0';
-    cvCualquiera: Facturas.FacturasView.ServerFilter := 'ESCOMPRA IN (1,0)';
+    cvVenta: Facturas.FacturasView.ServerFilter :=
+        'ESCOMPRA = 0 AND EXISTS (SELECT 1 FROM PAGO P WHERE P.COMPROBANTEID = V_FACTURAS.ID AND P.TIPO_COMPROBANTE = '
+        + FACTURA + ')';
+    cvCualquiera: Facturas.FacturasView.ServerFilter :=
+        'ESCOMPRA IN (1,0) AND EXISTS (SELECT 1 FROM PAGO P WHERE P.COMPROBANTEID = V_FACTURAS.ID AND P.TIPO_COMPROBANTE = '
+        + FACTURA + ')';
   end;
   Facturas.FacturasView.ServerFiltered := True;
   Facturas.FacturasView.Open;

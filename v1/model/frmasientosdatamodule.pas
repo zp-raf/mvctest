@@ -441,6 +441,7 @@ begin
     for i := 0 to Pred(mov.Count) do
     begin
       ReversarAsiento(mov[i], ADesc);
+      CerrarAsiento;
     end;
   finally
     Movimiento.Close;

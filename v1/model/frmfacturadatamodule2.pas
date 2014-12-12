@@ -269,6 +269,7 @@ begin
       raise Exception.Create('La factura ya esta anulada');
     qryCabecera.Edit;
     qryCabeceraVALIDO.AsString := DB_FALSE;
+    qryCabecera.ApplyUpdates;
     if qryCabeceraTALONARIOID.IsNull then
     begin
       if not FacturasView.Locate('ID', qryCabeceraID.AsString, []) then
@@ -276,9 +277,6 @@ begin
       Asientos.ReversarAsientoComprobante(doFactura, AID,
         'Anulacion de factura de compra nro ' + FacturasViewNUMERO_FACTURA.AsString +
         ' con timbrado ' + FacturasViewTIMBRADO.AsString);
-      Asientos.PostAsiento;
-      qryCabecera.ApplyUpdates;
-      Asientos.SaveChanges;
     end
     else
       qryCabecera.ApplyUpdates;

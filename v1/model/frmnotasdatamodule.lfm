@@ -115,6 +115,8 @@ inherited NotasDataModule: TNotasDataModule
       'select * from v_matriculas_notas'
     )
     Params = <>
+    ServerFilter = 'DERECHOEXAMEN = 1'
+    ServerFiltered = True
     left = 56
     top = 192
     object NotasViewID: TLongintField

@@ -57,7 +57,7 @@ object PopupSeleccionarFactura: TPopupSeleccionarFactura
       end    
       item
         Title.Caption = 'RUC'
-        Width = 55
+        Width = 38
         FieldName = 'RUC'
       end    
       item
@@ -115,5 +115,6 @@ object PopupSeleccionarFactura: TPopupSeleccionarFactura
     EditLabel.Caption = 'Escriba para filtrar los resultados'
     EditLabel.ParentColor = False
     TabOrder = 3
+    Visible = False
   end
 end

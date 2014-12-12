@@ -30,6 +30,9 @@ type
     StringField5: TStringField;
     StringField6: TStringField;
     procedure DataModuleDestroy(Sender: TObject);
+    procedure DesarrolloArancelesBeforePost(DataSet: TDataSet);
+    procedure MateriaArancelesBeforePost(DataSet: TDataSet);
+    procedure ModuloArancelesBeforePost(DataSet: TDataSet);
   private
     FAranceles: TArancelesDataModule;
     FDesarrollos: TDesarrolloMateriaDataModule;
@@ -83,6 +86,28 @@ begin
     FreeAndNil(FMaterias);
   if Assigned(FDesarrollos) then
     FreeAndNil(FDesarrollos);
+end;
+
+procedure TAsignacionArancelesDataModule.DesarrolloArancelesBeforePost(
+  DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('ARANCELID').IsNull or DataSet.FieldByName('ACTIVO').IsNull or
+    DataSet.FieldByName('DESARROLLOMATERIAID').IsNull then
+    Abort;
+end;
+
+procedure TAsignacionArancelesDataModule.MateriaArancelesBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('ARANCELID').IsNull or DataSet.FieldByName('ACTIVO').IsNull or
+    DataSet.FieldByName('MATERIAID').IsNull then
+    Abort;
+end;
+
+procedure TAsignacionArancelesDataModule.ModuloArancelesBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('ARANCELID').IsNull or DataSet.FieldByName('ACTIVO').IsNull or
+    DataSet.FieldByName('MODULOID').IsNull then
+    Abort;
 end;
 
 procedure TAsignacionArancelesDataModule.SetAranceles(AValue: TArancelesDataModule);

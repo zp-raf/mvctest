@@ -43,6 +43,9 @@ type
     StringField2: TStringField;
     StringField3: TStringField;
     StringField4: TStringField;
+    procedure DesarrolloMatActivoDetViewFilterRecord(DataSet: TDataSet;
+      var Accept: boolean);
+    procedure MatriculaAfterOpen(DataSet: TDataSet);
   private
     FAsignacion: TAsignacionArancelesDataModule;
     FAutoGenerarDeudas: boolean;
@@ -342,6 +345,25 @@ begin
     Exit;
   FAutoGenerarDeudas := AValue;
   (MasterDataModule as ISubject).Notify;
+end;
+
+procedure TMatriculaDataModule.DesarrolloMatActivoDetViewFilterRecord(
+  DataSet: TDataSet;
+  var Accept: boolean);
+begin
+//  if MatriculasAux.State in [dsInactive, dsInsert, dsEdit] then
+//    Accept := True
+//  else if not MatriculasAux.Locate('MATERIAID',
+//    DataSet.FieldByName('MATERIAID').AsString, []) then
+//    Accept := True
+//  else
+//    Accept := False;
+end;
+
+procedure TMatriculaDataModule.MatriculaAfterOpen(DataSet: TDataSet);
+begin
+  DesarrolloMatActivoDetView.Close;
+  DesarrolloMatActivoDetView.Open;
 end;
 
 procedure TMatriculaDataModule.SetAsignacion(AValue: TAsignacionArancelesDataModule);

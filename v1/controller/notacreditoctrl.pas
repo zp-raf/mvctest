@@ -55,15 +55,15 @@ begin
       NotaID := GetCustomModel.qryCabecera.FieldByName('ID').AsString;
       GetCustomModel.qryCabecera.ApplyUpdates;
       GetCustomModel.qryDetalle.ApplyUpdates;
+      GetCustomModel.RegistrarMovimiento(NotaID);
+      GetModel.SaveChanges;
+      GetModel.Commit;
+      //GetModel.RefreshDataSets;
       with GetCustomModel do
       begin
         Estado := csGuardado;
         (MasterDataModule as ISubject).Notify;
       end;
-      GetCustomModel.RegistrarMovimiento(NotaID);
-      GetModel.SaveChanges;
-      GetModel.Commit;
-      //GetModel.RefreshDataSets;
     except
       on E: EDatabaseError do
       begin

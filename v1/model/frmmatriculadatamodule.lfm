@@ -67,6 +67,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
         Size = 12
       end>
     Filtered = True
+    AfterOpen = MatriculaAfterOpen
     OnNewRecord = MatriculaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -415,6 +416,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
   end
   object DesarrolloMatActivoDetView: TSQLQuery[5]
     FieldDefs = <>
+    OnFilterRecord = DesarrolloMatActivoDetViewFilterRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True
@@ -596,7 +598,6 @@ inherited MatriculaDataModule: TMatriculaDataModule
     top = 200
   end
   object AlumnosMatriculasView: TSQLQuery[7]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

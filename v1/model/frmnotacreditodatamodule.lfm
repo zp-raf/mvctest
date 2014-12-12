@@ -386,7 +386,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupDataSet = tal
       LookupKeyFields = 'ID'
       LookupResultField = 'TIMBRADO'
-      ProviderFlags = [pfInUpdate]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
       Size = 255
@@ -401,7 +401,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupDataSet = tal
       LookupKeyFields = 'ID'
       LookupResultField = 'VALIDO_HASTA'
-      ProviderFlags = [pfInUpdate]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
     end
@@ -415,7 +415,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupDataSet = tal
       LookupKeyFields = 'ID'
       LookupResultField = 'SUCURSAL'
-      ProviderFlags = [pfInUpdate]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
       Size = 255
@@ -430,7 +430,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupDataSet = tal
       LookupKeyFields = 'ID'
       LookupResultField = 'CAJA'
-      ProviderFlags = [pfInUpdate]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
       Size = 255
@@ -445,7 +445,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
       LookupDataSet = FacturasDataModule.qryCabecera
       LookupKeyFields = 'ID'
       LookupResultField = 'NUMERO'
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
     end
@@ -666,7 +666,6 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
     top = 260
   end
   object NotasCreditoNuevoView: TSQLQuery[18]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

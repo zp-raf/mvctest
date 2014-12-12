@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CONFIG>
+  <Principal1>
+    <MultasDataModule arancelid=""/>
+    <FacturasDataModule talonarioid="1"/>
+    <NotaCreditoDataModule talonarioid="18"/>
+  </Principal1>
+</CONFIG>

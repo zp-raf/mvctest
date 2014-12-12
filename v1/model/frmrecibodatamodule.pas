@@ -215,6 +215,7 @@ begin
       raise Exception.Create('El recibo ya esta anulado');
     qryCabecera.Edit;
     qryCabeceraVALIDO.AsString := DB_FALSE;
+    qryCabecera.ApplyUpdates;
     if qryCabeceraTALONARIOID.IsNull then
     begin
       if not RecibosView.Locate('ID', AReciboID, []) then
@@ -222,8 +223,6 @@ begin
       Asientos.ReversarAsientoComprobante(doRecibo, AReciboID,
         'Anulacion de recibo de compra nro ' + RecibosViewNUMERO_RECIBO.AsString +
         ' con timbrado ' + RecibosViewTIMBRADO.AsString);
-      qryCabecera.ApplyUpdates;
-      Asientos.SaveChanges;
     end
     else
       qryCabecera.ApplyUpdates;

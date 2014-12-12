@@ -9,6 +9,7 @@ inherited ProcesoMatriculacion: TProcesoMatriculacion
   Constraints.MinHeight = 640
   Constraints.MinWidth = 800
   inherited StatusBar1: TStatusBar
+    Height = 23
     Top = 597
     Width = 800
   end
@@ -417,12 +418,13 @@ inherited ProcesoMatriculacion: TProcesoMatriculacion
               ButtonStyle = cbsCheckboxColumn
               ReadOnly = True
               Title.Caption = 'CONFIRMADA'
-              Width = 92
+              Width = 0
+              Visible = False
               FieldName = 'CONFIRMADA'
             end          
             item
               ButtonStyle = cbsCheckboxColumn
-              ReadOnly = True
+              ReadOnly = False
               Title.Caption = 'DERECHOEXAMEN'
               Width = 115
               FieldName = 'DERECHOEXAMEN'

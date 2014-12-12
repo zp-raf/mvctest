@@ -25,7 +25,7 @@ inherited AsignacionArancelesDataModule: TAsignacionArancelesDataModule
         Precision = -1
         Size = 0
       end>
-    Filtered = True
+    BeforePost = ModuloArancelesBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -115,6 +115,7 @@ inherited AsignacionArancelesDataModule: TAsignacionArancelesDataModule
         Precision = -1
         Size = 0
       end>
+    BeforePost = MateriaArancelesBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -204,6 +205,7 @@ inherited AsignacionArancelesDataModule: TAsignacionArancelesDataModule
         Precision = -1
         Size = 0
       end>
+    BeforePost = DesarrolloArancelesBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (

@@ -50,7 +50,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="150">
+    <Units Count="151">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1102,6 +1102,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uHelp"/>
       </Unit149>
+      <Unit150>
+        <Filename Value="view\principaladministrativo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PrincipalAdministrativo"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="principalAdministrativo"/>
+      </Unit150>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

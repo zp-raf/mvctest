@@ -6,12 +6,14 @@ interface
 
 uses
   SysUtils, sqldb, DB, frmquerydatamodule, frmfacturadatamodule2, mensajes, Classes,
-  observerSubject, frmasientosdatamodule, sgcdTypes, frmrecibodatamodule, Dialogs;
+  observerSubject, frmasientosdatamodule, sgcdTypes, frmrecibodatamodule, Dialogs,
+  IniFiles;
 
 const
   ITEM_SEPARATOR = ', ';
   DESCRIPCION_DEFAULT = 'PAGO DE FACTURA NRO ';
   DESCRIPCION_REVERSION = 'ANULACION DE PAGO NRO ';
+  CUENTA_COMPRAS_BKP = '109';
 
 resourcestring
   rsGenPago = 'GENERATOR_PAGO';
@@ -139,6 +141,7 @@ type
 
 var
   PagoDataModule: TPagoDataModule;
+  PagoINIFile: TIniFile;
 
 implementation
 
@@ -207,6 +210,8 @@ begin
     FreeAndNil(FAsientos);
   if Assigned(FRecibos) then
     FreeAndNil(FRecibos);
+  if Assigned(PagoINIFile) then
+    FreeAndNil(PagoINIFile);
 end;
 
 function TPagoDataModule.GetEstado: boolean;
@@ -257,8 +262,8 @@ end;
 
 procedure TPagoDataModule.AnularPago(APagoID: string);
 var
-  p: string;
-  x: TStringList;
+  p, x: TStringList;
+  i: integer;
 begin
   try
     if not Pago.Locate('ID', APagoID, [loCaseInsensitive]) then
@@ -270,28 +275,37 @@ begin
       raise Exception.Create('El pago ya esta anulado');
     Pago.Edit;
     Pago.FieldByName('VALIDO').AsString := DB_FALSE;
-    Pago.Post;
+    Pago.ApplyUpdates;
     Asientos.Movimiento.Open;
     Asientos.MovimientoDet.Open;
     try
       x := TStringList.Create;
+      p := TStringList.Create;
       Asientos.Movimiento.Close;
       Asientos.Movimiento.ServerFilter := 'PAGOID = ' + APagoID;
       Asientos.Movimiento.ServerFiltered := True;
       Asientos.Movimiento.Open;
       //if (Asientos.Movimiento.RecordCount > 1) then
       //  raise EDatabaseError.Create('No se pudo reversar el asiento');
-      x := Asientos.Movimiento.FieldByName('ID').AsString;
-      p := Asientos.Movimiento.FieldByName('DESCRIPCION').AsString;
+      while not Asientos.Movimiento.EOF do
+      begin
+        x.Add(Asientos.Movimiento.FieldByName('ID').AsString);
+        p.Add(Asientos.Movimiento.FieldByName('DESCRIPCION').AsString);
+        Asientos.Movimiento.Next;
+      end;
+      for i := 0 to Pred(x.Count) do
+      begin
+        Asientos.ReversarAsiento(x[i], 'Reversion de ' + p[i]);
+        Asientos.CerrarAsiento;
+      end;
     finally
       Asientos.Movimiento.Close;
       Asientos.Movimiento.ServerFilter := '';
       Asientos.Movimiento.ServerFiltered := False;
       Asientos.Movimiento.Open;
       x.Free;
+      p.Free;
     end;
-    Asientos.ReversarAsiento(x, 'Reversion de ' + p);
-    Asientos.PostAsiento;
   except
     on E: EDatabaseError do
     begin
@@ -332,6 +346,7 @@ begin
   // obviamente no esta listo el pago jeje
   Listo := False;
   Recibos := TReciboDataModule.Create(Self, MasterDataModule);
+  PagoINIFile := TIniFile.Create('curso.ini');
 end;
 
 procedure TPagoDataModule.Disconnect;
@@ -437,15 +452,21 @@ begin
 end;
 
 procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
+var
+  desc: string;
 begin
   if not Facturas.FacturasView.Locate('ID', Facturas.qryCabeceraID.AsString, []) then
-    Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryCabeceraNUMERO.AsString,
-      '', APagoID)
-  else
-    Asientos.NuevoAsiento(DESCRIPCION_DEFAULT +
-      Facturas.FacturasViewNUMERO_FACTURA.AsString + ' con timbrado ' +
-      Facturas.FacturasViewTIMBRADO.AsString,
+  begin
+    desc := DESCRIPCION_DEFAULT;
+    Asientos.NuevoAsiento(desc + Facturas.qryCabeceraNUMERO.AsString,
       '', APagoID);
+  end
+  else
+  begin
+    desc := DESCRIPCION_DEFAULT + Facturas.FacturasViewNUMERO_FACTURA.AsString +
+      ' con timbrado ' + Facturas.FacturasViewTIMBRADO.AsString;
+    Asientos.NuevoAsiento(desc, '', APagoID);
+  end;
   // recorrer la factura y poner los detales de los asientos
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do
@@ -463,6 +484,29 @@ begin
         Facturas.qryDetalleDEUDAID.AsString, '');
     Facturas.qryDetalle.Next;
   end;
+  // registrar en cuenta de ingresos y egresos
+  Asientos.CerrarAsiento;
+  Asientos.NuevoAsiento(desc, '', APagoID);
+  Facturas.qryDetalle.First;
+  while not facturas.qryDetalle.EOF do
+  begin
+    DeudaView.Close;
+    DeudaView.ParamByName('DEUDAID').AsString := Facturas.qryDetalleDEUDAID.AsString;
+    DeudaView.Open;
+    if EsCobro then
+      Asientos.NuevoAsientoDetalle(PagoINIFile.ReadString('datos',
+        'cuentaCompras', CUENTA_COMPRAS_BKP),
+        mvDebito,
+        Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
+        Facturas.qryDetalleDEUDAID.AsString, '')
+    else
+      Asientos.NuevoAsientoDetalle(PagoINIFile.ReadString('datos',
+        'cuentaCompras', CUENTA_COMPRAS_BKP),
+        mvCredito,
+        Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
+        Facturas.qryDetalleDEUDAID.AsString, '');
+    Facturas.qryDetalle.Next;
+  end;
   Asientos.CerrarAsiento;
 end;
 
@@ -471,25 +515,33 @@ var
   co: boolean;
   pa: string;
 begin
-  // para pasarle los parametros a registrarmovimiento
-  if PagoESCOBRO.AsInteger = 1 then
-    co := True
-  else if PagoESCOBRO.AsInteger = 0 then
-    co := False;
-  pa := PagoID.AsString;
-  Pago.ApplyUpdates;
-  PagoDetCheques.ApplyUpdates;
-  PagoDetTarjetas.ApplyUpdates;
-  //// si se esta editando el pago no hace falta registrar el movimiento y los detalles
-  //if (Pago.UpdateStatus in [usInserted]) then
-  //begin
-  // y reigstramos el movimiento
-  RegistrarMovimiento(co, pa);
-  if PuedeImprimirRecibo then
-    ImprimirRecibo;
-  //end;
-  MasterDataModule.Commit;
-  Listo := False;
+  try
+    // para pasarle los parametros a registrarmovimiento
+    if PagoESCOBRO.AsInteger = 1 then
+      co := True
+    else if PagoESCOBRO.AsInteger = 0 then
+      co := False;
+    pa := PagoID.AsString;
+    Pago.ApplyUpdates;
+    PagoDetCheques.ApplyUpdates;
+    PagoDetTarjetas.ApplyUpdates;
+    //// si se esta editando el pago no hace falta registrar el movimiento y los detalles
+    //if (Pago.UpdateStatus in [usInserted]) then
+    //begin
+    // y reigstramos el movimiento
+    RegistrarMovimiento(co, pa);
+    if PuedeImprimirRecibo then
+      ImprimirRecibo;
+    //end;
+    MasterDataModule.Commit;
+    Listo := False;
+  except
+    on e: Exception do
+    begin
+      Rollback;
+      raise;
+    end;
+  end;
 end;
 
 procedure TPagoDataModule.OnPagoError(Sender: TObject; E: EDatabaseError);

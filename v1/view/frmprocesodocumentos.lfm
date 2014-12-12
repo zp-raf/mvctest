@@ -27,9 +27,9 @@ inherited ProcesoDocumentos: TProcesoDocumentos
     Height = 448
     Top = 8
     Width = 876
-    ActivePage = TabSheetReciboCompra
+    ActivePage = TabSheetFactura
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 6
+    TabIndex = 0
     TabOrder = 2
     object TabSheetFactura: TTabSheet
       Caption = 'Facturas sin cobrar'
@@ -395,24 +395,29 @@ inherited ProcesoDocumentos: TProcesoDocumentos
         Columns = <        
           item
             Title.Caption = 'NUMERO_NOTA_CREDITO'
+            Width = 156
             FieldName = 'NUMERO_NOTA_CREDITO'
           end        
           item
             Title.Caption = 'TIMBRADO'
+            Width = 75
             FieldName = 'TIMBRADO'
           end        
           item
             Title.Caption = 'FECHA_EMISION'
+            Width = 104
             FieldName = 'FECHA_EMISION'
           end        
           item
             ButtonStyle = cbsCheckboxColumn
             Title.Caption = 'ESCOMPRA'
+            Width = 77
             FieldName = 'ESCOMPRA'
           end        
           item
             ButtonStyle = cbsCheckboxColumn
             Title.Caption = 'VALIDO'
+            Width = 56
             FieldName = 'VALIDO'
           end        
           item
@@ -421,10 +426,12 @@ inherited ProcesoDocumentos: TProcesoDocumentos
           end        
           item
             Title.Caption = 'RUC'
+            Width = 38
             FieldName = 'RUC'
           end        
           item
             Title.Caption = 'TOTAL'
+            Width = 52
             FieldName = 'TOTAL'
           end>
         DataSource = DocumentosDataModule.dsNCCompra
@@ -454,23 +461,28 @@ inherited ProcesoDocumentos: TProcesoDocumentos
         Columns = <        
           item
             Title.Caption = 'NUMERO_RECIBO'
+            Width = 110
             FieldName = 'NUMERO_RECIBO'
           end        
           item
             Title.Caption = 'TIMBRADO'
+            Width = 75
             FieldName = 'TIMBRADO'
           end        
           item
             Title.Caption = 'FECHA_EMISION'
+            Width = 104
             FieldName = 'FECHA_EMISION'
           end        
           item
             ButtonStyle = cbsCheckboxColumn
             Title.Caption = 'ESCOMPRA'
+            Width = 77
             FieldName = 'ESCOMPRA'
           end        
           item
             Title.Caption = 'VALIDO'
+            Width = 56
             FieldName = 'VALIDO'
           end        
           item
@@ -479,10 +491,12 @@ inherited ProcesoDocumentos: TProcesoDocumentos
           end        
           item
             Title.Caption = 'CEDULA'
+            Width = 59
             FieldName = 'CEDULA'
           end        
           item
             Title.Caption = 'TOTAL'
+            Width = 52
             FieldName = 'TOTAL'
           end>
         DataSource = DocumentosDataModule.dsRecibosCompra
