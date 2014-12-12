@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_Class, LR_DBSet, Forms, Controls,
   Graphics, Dialogs, XMLPropStorage, IniPropStorage, frmsgcddatamodule,
-  frmcomprobantedatamodule, sgcdTypes, mensajes;
+  frmcomprobantedatamodule, sgcdTypes, mensajes, variants;
 
 resourcestring
   rsGenFacturaID = 'SEQ_FACTURA';
@@ -269,7 +269,19 @@ begin
       raise Exception.Create('La factura ya esta anulada');
     qryCabecera.Edit;
     qryCabeceraVALIDO.AsString := DB_FALSE;
-    SaveChanges;
+    if qryCabeceraTALONARIOID.IsNull then
+    begin
+      if not FacturasView.Locate('ID', qryCabeceraID.AsString, []) then
+        raise Exception.Create('No se pudo obtener el numero y timbrado');
+      Asientos.ReversarAsientoComprobante(doFactura, AID,
+        'Anulacion de factura de compra nro ' + FacturasViewNUMERO_FACTURA.AsString +
+        ' con timbrado ' + FacturasViewTIMBRADO.AsString);
+      Asientos.PostAsiento;
+      qryCabecera.ApplyUpdates;
+      Asientos.SaveChanges;
+    end
+    else
+      qryCabecera.ApplyUpdates;
     Estado := csGuardado;
   except
     on E: EDatabaseError do

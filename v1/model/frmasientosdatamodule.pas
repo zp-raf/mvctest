@@ -119,6 +119,8 @@ type
     procedure RefreshDataSets; override;
     procedure ReversarAsiento(ADescripcion: string);
     procedure ReversarAsiento(AAsientoID: string; ADescripcion: string);
+    procedure ReversarAsientoComprobante(ATipoComprobante: TTipoDocumento;
+      AComprobanteID: string; ADesc: string);
     procedure SaveChanges; override;
 
     { esta clase esta compuesta por tres subobjetos mas; dos para las cuentas
@@ -406,6 +408,45 @@ begin
     //CerrarAsiento;
   finally
     (MasterDataModule as ISubject).Notify;
+  end;
+end;
+
+procedure TAsientosDataModule.ReversarAsientoComprobante(
+  ATipoComprobante: TTipoDocumento; AComprobanteID: string; ADesc: string);
+var
+  i: integer;
+  mov: TStringList;
+begin
+  try
+    mov := TStringList.Create;
+    Movimiento.Close;
+    case ATipoComprobante of
+      doFactura: Movimiento.ServerFilter :=
+          'DOCUMENTOID = ' + AComprobanteID + ' AND TIPO_DOCUMENTO = ' + FACTURA;
+      doRecibo: Movimiento.ServerFilter :=
+          'DOCUMENTOID = ' + AComprobanteID + ' AND TIPO_DOCUMENTO = ' + RECIBO;
+      doNotaCredito: Movimiento.ServerFilter :=
+          'DOCUMENTOID = ' + AComprobanteID + ' AND TIPO_DOCUMENTO = ' + NOTA_CREDITO;
+    end;
+    Movimiento.ServerFiltered := True;
+    Movimiento.Open;
+    if Movimiento.RecordCount = 0 then
+      raise EDatabaseError.Create(
+        'No se puede revertir el movimiento. Movimiento no encontrado');
+    while not Movimiento.EOF do
+    begin
+      mov.Add(MovimientoID.AsString);
+      Movimiento.Next;
+    end;
+    for i := 0 to Pred(mov.Count) do
+    begin
+      ReversarAsiento(mov[i], ADesc);
+    end;
+  finally
+    Movimiento.Close;
+    Movimiento.ServerFilter := '';
+    Movimiento.ServerFiltered := False;
+    mov.Free;
   end;
 end;
 

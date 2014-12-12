@@ -7,42 +7,13 @@ interface
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   frmquerydatamodule, frmfacturadatamodule2, frmpagodatamodule, sgcdTypes,
-  mensajes, frmNotaCreditoDataModule;
+  mensajes, frmNotaCreditoDataModule, frmrecibodatamodule;
 
 type
 
   { TDocumentosDataModule }
 
   TDocumentosDataModule = class(TQueryDataModule)
-    dsNotaCredito: TDataSource;
-    FacturasCobradasViewCOMPRA: TLongintField;
-    FacturasCobradasViewPAGOID: TLongintField;
-    FacturasCobradasViewPAGO_VALIDO: TSmallintField;
-    FacturasCobradasViewVENCIMIENTO: TDateField;
-    FacturasViewCOMPRA: TLongintField;
-    FacturasViewVENCIMIENTO: TDateField;
-    NotaCreditoView: TSQLQuery;
-    NotaCreditoViewCOMPRA: TLongintField;
-    NotaCreditoViewFACTURAID: TLongintField;
-    NotaCreditoViewFECHA_EMISION: TDateField;
-    NotaCreditoViewID: TLongintField;
-    NotaCreditoViewNOMBRE: TStringField;
-    NotaCreditoViewNUMERO: TLongintField;
-    NotaCreditoViewPERSONAID: TLongintField;
-    NotaCreditoViewRUC: TStringField;
-    NotaCreditoViewTIMBRADO: TStringField;
-    NotaCreditoViewTOTAL: TFloatField;
-    NotaCreditoViewVALIDO: TSmallintField;
-  private
-    FFacturas: TFacturasDataModule;
-    FNotaCredito: TNotaCreditoDataModule;
-    FPagos: TPagoDataModule;
-    procedure SetFacturas(AValue: TFacturasDataModule);
-    procedure SetNotaCredito(AValue: TNotaCreditoDataModule);
-    procedure SetPagos(AValue: TPagoDataModule);
-    //FCodigos: TCodigosDataModule;
-    //procedure SetCodigos(AValue: TCodigosDataModule);
-  published
     CobrosViewTIPO_COMP: TStringField;
     dsFacturasCobradas: TDataSource;
     FacturasCobradasViewCONTADO: TSmallintField;
@@ -78,9 +49,79 @@ type
     FacturasViewTIMBRADO: TStringField;
     FacturasViewTOTAL: TFloatField;
     FacturasViewVALIDO: TSmallintField;
+    dsRecibosCompra: TDataSource;
+    dsFacturasCompra: TDataSource;
+    dsNCCompra: TDataSource;
+    dsNotaCredito: TDataSource;
+    FacturasCobradasViewCOMPRA: TLongintField;
+    FacturasCobradasViewPAGOID: TLongintField;
+    FacturasCobradasViewPAGO_VALIDO: TSmallintField;
+    FacturasCobradasViewVENCIMIENTO: TDateField;
+    FacturasCompraViewCONTADO: TSmallintField;
+    FacturasCompraViewESCOMPRA: TLongintField;
+    FacturasCompraViewFECHA_EMISION: TDateField;
+    FacturasCompraViewID: TLongintField;
+    FacturasCompraViewNOMBRE: TStringField;
+    FacturasCompraViewNUMERO_FACTURA: TStringField;
+    FacturasCompraViewPERSONAID: TLongintField;
+    FacturasCompraViewRUC: TStringField;
+    FacturasCompraViewTIMBRADO: TStringField;
+    FacturasCompraViewTOTAL: TFloatField;
+    FacturasCompraViewVALIDO: TSmallintField;
+    FacturasCompraViewVENCIMIENTO: TDateField;
+    FacturasViewCOMPRA: TLongintField;
+    FacturasViewVENCIMIENTO: TDateField;
+    NCCompraViewESCOMPRA: TLongintField;
+    NCCompraViewFECHA_EMISION: TDateField;
+    NCCompraViewID: TLongintField;
+    NCCompraViewNOMBRE: TStringField;
+    NCCompraViewNUMERO_NOTA_CREDITO: TStringField;
+    NCCompraViewPERSONAID: TLongintField;
+    NCCompraViewRUC: TStringField;
+    NCCompraViewTIMBRADO: TStringField;
+    NCCompraViewTOTAL: TFloatField;
+    NCCompraViewVALIDO: TSmallintField;
+    NotaCreditoView: TSQLQuery;
+    NotaCreditoViewCOMPRA: TLongintField;
+    NotaCreditoViewFACTURAID: TLongintField;
+    NotaCreditoViewFECHA_EMISION: TDateField;
+    NotaCreditoViewID: TLongintField;
+    NotaCreditoViewNOMBRE: TStringField;
+    NotaCreditoViewNUMERO: TLongintField;
+    NotaCreditoViewPERSONAID: TLongintField;
+    NotaCreditoViewRUC: TStringField;
+    NotaCreditoViewTIMBRADO: TStringField;
+    NotaCreditoViewTOTAL: TFloatField;
+    NotaCreditoViewVALIDO: TSmallintField;
+    RecibosView: TSQLQuery;
+    RecibosViewCEDULA: TStringField;
+    RecibosViewESCOMPRA: TLongintField;
+    RecibosViewFECHA_EMISION: TDateField;
+    RecibosViewID: TLongintField;
+    RecibosViewNOMBRE: TStringField;
+    RecibosViewNUMERO_RECIBO: TStringField;
+    RecibosViewPERSONAID: TLongintField;
+    RecibosViewTIMBRADO: TStringField;
+    RecibosViewTOTAL: TFloatField;
+    RecibosViewVALIDO: TSmallintField;
+    FacturasCompraView: TSQLQuery;
+    NCCompraView: TSQLQuery;
+  private
+    FFacturas: TFacturasDataModule;
+    FNotaCredito: TNotaCreditoDataModule;
+    FPagos: TPagoDataModule;
+    FRecibos: TReciboDataModule;
+    procedure SetFacturas(AValue: TFacturasDataModule);
+    procedure SetNotaCredito(AValue: TNotaCreditoDataModule);
+    procedure SetPagos(AValue: TPagoDataModule);
+    procedure SetRecibos(AValue: TReciboDataModule);
+    //FCodigos: TCodigosDataModule;
+    //procedure SetCodigos(AValue: TCodigosDataModule);
+  published
     procedure AnularFactura(AFacturaID: string);
     procedure AnularNotaCredito(ANotaID: string);
     procedure AnularPago(APagoID: string);
+    procedure AnularRecibo(AReciboID: string);
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
     function GetPagoDoc(ADoc: string; ATipoDoc: TTipoDocumento): string;
@@ -88,6 +129,7 @@ type
     property Facturas: TFacturasDataModule read FFacturas write SetFacturas;
     property NotaCredito: TNotaCreditoDataModule read FNotaCredito write SetNotaCredito;
     property Pagos: TPagoDataModule read FPagos write SetPagos;
+    property Recibos: TReciboDataModule read FRecibos write SetRecibos;
   end;
 
 
@@ -109,6 +151,8 @@ begin
     FreeAndNil(FPagos);
   if Assigned(FNotaCredito) then
     FreeAndNil(FNotaCredito);
+  if Assigned(FRecibos) then
+    FreeAndNil(FRecibos);
 end;
 
 function TDocumentosDataModule.GetPagoDoc(ADoc: string;
@@ -126,7 +170,8 @@ begin
     end;
     Pagos.Pago.Close;
     Pagos.Pago.ServerFilter :=
-      'TIPO_COMPROBANTE = ' + PTipoComp + ' AND COMPROBANTEID = ' + ADoc + ' AND VALIDO = 1';
+      'TIPO_COMPROBANTE = ' + PTipoComp + ' AND COMPROBANTEID = ' +
+      ADoc + ' AND VALIDO = 1';
     Pagos.Pago.ServerFiltered := True;
     Pagos.Pago.Open;
     if Pagos.Pago.RecordCount <> 1 then
@@ -157,6 +202,13 @@ begin
   if FPagos = AValue then
     Exit;
   FPagos := AValue;
+end;
+
+procedure TDocumentosDataModule.SetRecibos(AValue: TReciboDataModule);
+begin
+  if FRecibos = AValue then
+    Exit;
+  FRecibos := AValue;
 end;
 
 procedure TDocumentosDataModule.AnularFactura(AFacturaID: string);
@@ -201,19 +253,37 @@ begin
   end;
 end;
 
+procedure TDocumentosDataModule.AnularRecibo(AReciboID: string);
+begin
+  try
+    Recibos.Connect;
+    Recibos.AnularRecibo(AReciboID);
+  except
+    on E: EDatabaseError do
+    begin
+      Rollback;
+      Connect;
+    end;
+  end;
+end;
+
 procedure TDocumentosDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   //FCodigos := TCodigosDataModule.Create(Self, MasterDataModule);
   //FCodigos.SetObject('TIPO_COMPROBANTE');
   //AuxQryList.Add(TObject(FCodigos.Codigos));
-  Facturas := TFacturasDataModule.Create(Self, MasterDataModule);
-  NotaCredito := TNotaCreditoDataModule.Create(Self, MasterDataModule);
-  Pagos := TPagoDataModule.Create(Self, MasterDataModule);
+  FFacturas := TFacturasDataModule.Create(Self, MasterDataModule);
+  FNotaCredito := TNotaCreditoDataModule.Create(Self, MasterDataModule);
+  FPagos := TPagoDataModule.Create(Self, MasterDataModule);
+  FRecibos := TReciboDataModule.Create(Self, MasterDataModule);
   AuxQryList.Add(TObject(FacturasView));
   AuxQryList.Add(TObject(CobrosView));
   AuxQryList.Add(TObject(FacturasCobradasView));
   AuxQryList.Add(TObject(NotaCreditoView));
+  AuxQryList.Add(TObject(RecibosView));
+  AuxQryList.Add(TObject(NCCompraView));
+  AuxQryList.Add(TObject(FacturasCompraView));
 end;
 
 //procedure TDocumentosDataModule.SetCodigos(AValue: TCodigosDataModule);

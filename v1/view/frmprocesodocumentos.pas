@@ -15,11 +15,20 @@ type
   { TProcesoDocumentos }
 
   TProcesoDocumentos = class(TProceso)
+    DBGridReciboCompra: TDBGrid;
+    DBGridNCCompra: TDBGrid;
+    DBGridFactComp: TDBGrid;
     DBGridNotaCredito: TDBGrid;
+    TabSheetFacturaCompra: TTabSheet;
+    TabSheetNCCompra: TTabSheet;
+    TabSheetReciboCompra: TTabSheet;
     TabSheetNotaCredito: TTabSheet;
     procedure CancelButtonClick(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
+    procedure TabSheetFacturaCompraShow(Sender: TObject);
+    procedure TabSheetNCCompraShow(Sender: TObject);
     procedure TabSheetNotaCreditoShow(Sender: TObject);
+    procedure TabSheetReciboCompraShow(Sender: TObject);
   protected
     function GetCustomController: TDocumentosController;
   published
@@ -106,7 +115,13 @@ begin
   else if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
     GetCustomController.AnularDoc(dtFacturaNocobrada, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetNotaCredito.PageIndex then
-    GetCustomController.AnularDoc(dtNotaCredito, Self);
+    GetCustomController.AnularDoc(dtNotaCredito, Self)
+  else if PageControlDocs.ActivePageIndex = TabSheetFacturaCompra.PageIndex then
+    GetCustomController.AnularDoc(dtFacturaCompra, Self)
+  else if PageControlDocs.ActivePageIndex = TabSheetReciboCompra.PageIndex then
+    GetCustomController.AnularDoc(dtReciboCompra, Self)
+  else if PageControlDocs.ActivePageIndex = TabSheetNCCompra.PageIndex then
+    GetCustomController.AnularDoc(dtNotaCredCompra, Self);
 end;
 
 procedure TProcesoDocumentos.ButtonAnularPagoClick(Sender: TObject);
@@ -135,9 +150,48 @@ begin
   GetController.Commit(Self);
 end;
 
+procedure TProcesoDocumentos.TabSheetFacturaCompraShow(Sender: TObject);
+begin
+  if GetController.IsDBGridEmpty(DBGridFactComp, Self) then
+    PanelAcciones.Enabled := False
+  else
+    PanelAcciones.Enabled := True;
+  ButtonCobrar.Enabled := False;
+  ButtonVer.Enabled := True;
+  ButtonImprimir.Enabled := True;
+  ButtonAnular.Enabled := True;
+  ButtonAnularPago.Enabled := False;
+end;
+
+procedure TProcesoDocumentos.TabSheetNCCompraShow(Sender: TObject);
+begin
+  if GetController.IsDBGridEmpty(DBGridNCCompra, Self) then
+    PanelAcciones.Enabled := False
+  else
+    PanelAcciones.Enabled := True;
+  ButtonCobrar.Enabled := False;
+  ButtonVer.Enabled := True;
+  ButtonImprimir.Enabled := True;
+  ButtonAnular.Enabled := True;
+  ButtonAnularPago.Enabled := False;
+end;
+
 procedure TProcesoDocumentos.TabSheetNotaCreditoShow(Sender: TObject);
 begin
   if GetController.IsDBGridEmpty(DBGridNotaCredito, Self) then
+    PanelAcciones.Enabled := False
+  else
+    PanelAcciones.Enabled := True;
+  ButtonCobrar.Enabled := False;
+  ButtonVer.Enabled := True;
+  ButtonImprimir.Enabled := True;
+  ButtonAnular.Enabled := True;
+  ButtonAnularPago.Enabled := False;
+end;
+
+procedure TProcesoDocumentos.TabSheetReciboCompraShow(Sender: TObject);
+begin
+  if GetController.IsDBGridEmpty(DBGridReciboCompra, Self) then
     PanelAcciones.Enabled := False
   else
     PanelAcciones.Enabled := True;

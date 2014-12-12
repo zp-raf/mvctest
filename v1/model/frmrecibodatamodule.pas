@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, DB, sqldb, FileUtil, LR_DBSet, LR_Class, Forms, Controls,
   Graphics, Dialogs, XMLPropStorage, IniPropStorage, frmcomprobantedatamodule,
-  sgcdTypes, frmfacturadatamodule2;
+  sgcdTypes, frmfacturadatamodule2, variants;
 
 resourcestring
   rsReciboGenName = 'SEQ_RECIBO';
@@ -21,6 +21,17 @@ type
   { TReciboDataModule }
 
   TReciboDataModule = class(TComprobanteDataModule)
+    RecibosView: TSQLQuery;
+    RecibosViewCEDULA: TStringField;
+    RecibosViewESCOMPRA: TLongintField;
+    RecibosViewFECHA_EMISION: TDateField;
+    RecibosViewID: TLongintField;
+    RecibosViewNOMBRE: TStringField;
+    RecibosViewNUMERO_RECIBO: TStringField;
+    RecibosViewPERSONAID: TLongintField;
+    RecibosViewTIMBRADO: TStringField;
+    RecibosViewTOTAL: TFloatField;
+    RecibosViewVALIDO: TSmallintField;
   private
     FCheckPrecioUnitario: boolean;
     FFacturas: TFacturasDataModule;
@@ -57,8 +68,8 @@ type
     qryDetalleTOTAL: TFloatField;
     StringField1: TStringField;
     procedure AfterConstruction; override;
-    procedure ActualizarTotales;
-      override;
+    procedure ActualizarTotales; override;
+    procedure AnularRecibo(AReciboID: string);
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DataModuleDestroy(Sender: TObject);
     procedure DeterminarImpuesto; override;
@@ -115,6 +126,7 @@ begin
   FFacturas.FacturasView.ServerFilter := 'CONTADO = 0';
   FFacturas.FacturasView.ServerFiltered := True;
   AuxQryList.Add(TObject(FFacturas.FacturasView));
+  AuxQryList.Add(TObject(RecibosView));
   //TalonarioID := TALONARIO_RE;
   CheckPrecioUnitario := True;
 end;
@@ -192,6 +204,35 @@ begin
       qryCabeceraTOTAL.AsFloat + (qryDetalleCANTIDAD.AsFloat *
       qryDetallePRECIO_UNITARIO.AsFloat);
     qryDetalle.Next;
+  end;
+end;
+
+procedure TReciboDataModule.AnularRecibo(AReciboID: string);
+begin
+  try
+    LocateComprobante(AReciboID);
+    if qryCabeceraVALIDO.AsString = DB_FALSE then
+      raise Exception.Create('El recibo ya esta anulado');
+    qryCabecera.Edit;
+    qryCabeceraVALIDO.AsString := DB_FALSE;
+    if qryCabeceraTALONARIOID.IsNull then
+    begin
+      if not RecibosView.Locate('ID', AReciboID, []) then
+        raise Exception.Create('No se pudo obtener el numero y timbrado del recibo');
+      Asientos.ReversarAsientoComprobante(doRecibo, AReciboID,
+        'Anulacion de recibo de compra nro ' + RecibosViewNUMERO_RECIBO.AsString +
+        ' con timbrado ' + RecibosViewTIMBRADO.AsString);
+      qryCabecera.ApplyUpdates;
+      Asientos.SaveChanges;
+    end
+    else
+      qryCabecera.ApplyUpdates;
+    Estado := csGuardado;
+  except
+    on E: EDatabaseError do
+    begin
+      DoOnErrorEvent(Self, E);
+    end;
   end;
 end;
 

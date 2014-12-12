@@ -69,26 +69,67 @@ begin
     begin
       AnularDoc(ATipoDoc, GetCustomModel.NotaCreditoViewID.AsString, Sender);
     end;
+    dtFacturaCompra:
+    begin
+      AnularDoc(ATipoDoc, GetCustomModel.FacturasCompraViewID.AsString, Sender);
+    end;
+    dtReciboCompra:
+    begin
+      AnularDoc(ATipoDoc, GetCustomModel.RecibosViewID.AsString, Sender);
+    end;
+    dtNotaCredCompra:
+    begin
+      AnularDoc(ATipoDoc, GetCustomModel.NCCompraViewID.AsString, Sender);
+    end;
   end;
 end;
 
 procedure TDocumentosController.AnularDoc(ATipoDoc: TDocViewerDocType;
   ADoc: string; Sender: IFormView);
 begin
-  case ATipoDoc of
-    dtFacturaNocobrada:
-    begin
-      GetCustomModel.AnularFactura(ADoc);
-      Sender.ShowInfoMessage('Operacion exitosa');
-      Commit(Sender);
-      RefreshData(Sender);
+  try
+    case ATipoDoc of
+      dtFacturaNocobrada:
+      begin
+        GetCustomModel.AnularFactura(ADoc);
+        Sender.ShowInfoMessage('Operacion exitosa');
+        Commit(Sender);
+        RefreshData(Sender);
+      end;
+      dtNotaCredito:
+      begin
+        GetCustomModel.AnularNotaCredito(ADoc);
+        Sender.ShowInfoMessage('Operacion exitosa');
+        Commit(Sender);
+        RefreshData(Sender);
+      end;
+      dtFacturaCompra:
+      begin
+        GetCustomModel.AnularFactura(ADoc);
+        Sender.ShowInfoMessage('Operacion exitosa');
+        Commit(Sender);
+        RefreshData(Sender);
+      end;
+      dtReciboCompra:
+      begin
+        GetCustomModel.AnularRecibo(ADoc);
+        Sender.ShowInfoMessage('Operacion exitosa');
+        Commit(Sender);
+        RefreshData(Sender);
+      end;
+      dtNotaCredCompra:
+      begin
+        GetCustomModel.AnularNotaCredito(ADoc);
+        Sender.ShowInfoMessage('Operacion exitosa');
+        Commit(Sender);
+        RefreshData(Sender);
+      end;
     end;
-    dtNotaCredito:
+  except
+    on e: Exception do
     begin
-      GetCustomModel.AnularNotaCredito(ADoc);
-      Sender.ShowInfoMessage('Operacion exitosa');
-      Commit(Sender);
-      RefreshData(Sender);
+      Connect(Sender);
+      raise;
     end;
   end;
 end;
@@ -107,7 +148,10 @@ begin
     end;
   except
     on E: Exception do
+    begin
+      Connect(Sender);
       raise;
+    end;
   end;
 end;
 
@@ -117,14 +161,11 @@ begin
   case ATipoDoc of
     dtFacturaCobrada:
     begin
-
       PagoController.AnularPago(GetCustomModel.GetPagoDoc(ADoc, doFactura));
       RefreshData(Sender);
     end;
   end;
 end;
-
-
 
 procedure TDocumentosController.CobrarDoc(ATipoDoc: TDocViewerDocType;
   Sender: IFormView);

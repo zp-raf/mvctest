@@ -73,7 +73,7 @@ type
 
   // Para la ventana de documentos
   TDocViewerDocType = (dtFacturaNocobrada = 1, dtFacturaCobrada = 2,
-    dtRecibo = 3, dtNotaCredito = 4);
+    dtRecibo = 3, dtNotaCredito = 4, dtFacturaCompra, dtReciboCompra, dtNotaCredCompra);
 
   // Para querydatamodule
   TErrorEvent = procedure(Sender: TObject; E: EDatabaseError) of object;

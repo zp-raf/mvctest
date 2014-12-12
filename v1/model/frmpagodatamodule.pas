@@ -5,7 +5,7 @@ unit frmpagodatamodule;
 interface
 
 uses
-  SysUtils, sqldb, DB, frmquerydatamodule, frmfacturadatamodule2, mensajes,
+  SysUtils, sqldb, DB, frmquerydatamodule, frmfacturadatamodule2, mensajes, Classes,
   observerSubject, frmasientosdatamodule, sgcdTypes, frmrecibodatamodule, Dialogs;
 
 const
@@ -257,7 +257,8 @@ end;
 
 procedure TPagoDataModule.AnularPago(APagoID: string);
 var
-  x: string;
+  p: string;
+  x: TStringList;
 begin
   try
     if not Pago.Locate('ID', APagoID, [loCaseInsensitive]) then
@@ -265,26 +266,31 @@ begin
       raise Exception.Create('No se encontro el pago');
       Exit;
     end;
+    if PagoVALIDO.AsString = DB_FALSE then
+      raise Exception.Create('El pago ya esta anulado');
     Pago.Edit;
     Pago.FieldByName('VALIDO').AsString := DB_FALSE;
     Pago.Post;
     Asientos.Movimiento.Open;
     Asientos.MovimientoDet.Open;
     try
+      x := TStringList.Create;
       Asientos.Movimiento.Close;
       Asientos.Movimiento.ServerFilter := 'PAGOID = ' + APagoID;
       Asientos.Movimiento.ServerFiltered := True;
       Asientos.Movimiento.Open;
-      if (Asientos.Movimiento.RecordCount > 1) then
-        raise EDatabaseError.Create(rsRollbackPaymentEntryError);
+      //if (Asientos.Movimiento.RecordCount > 1) then
+      //  raise EDatabaseError.Create('No se pudo reversar el asiento');
       x := Asientos.Movimiento.FieldByName('ID').AsString;
+      p := Asientos.Movimiento.FieldByName('DESCRIPCION').AsString;
     finally
       Asientos.Movimiento.Close;
       Asientos.Movimiento.ServerFilter := '';
       Asientos.Movimiento.ServerFiltered := False;
       Asientos.Movimiento.Open;
+      x.Free;
     end;
-    Asientos.ReversarAsiento(x, DESCRIPCION_REVERSION + ' ' + APagoID);
+    Asientos.ReversarAsiento(x, 'Reversion de ' + p);
     Asientos.PostAsiento;
   except
     on E: EDatabaseError do
@@ -432,9 +438,14 @@ end;
 
 procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
 begin
-  // creamos un nuevo asiento
-  Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryCabeceraNUMERO.AsString,
-    '', APagoID);
+  if not Facturas.FacturasView.Locate('ID', Facturas.qryCabeceraID.AsString, []) then
+    Asientos.NuevoAsiento(DESCRIPCION_DEFAULT + Facturas.qryCabeceraNUMERO.AsString,
+      '', APagoID)
+  else
+    Asientos.NuevoAsiento(DESCRIPCION_DEFAULT +
+      Facturas.FacturasViewNUMERO_FACTURA.AsString + ' con timbrado ' +
+      Facturas.FacturasViewTIMBRADO.AsString,
+      '', APagoID);
   // recorrer la factura y poner los detales de los asientos
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do

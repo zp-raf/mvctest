@@ -25,6 +25,16 @@ type
   TNotaCreditoDataModule = class(TComprobanteDataModule)
     DateField1: TDateField;
     LongintField1: TLongintField;
+    NotasCreditoNuevoViewESCOMPRA: TLongintField;
+    NotasCreditoNuevoViewFECHA_EMISION: TDateField;
+    NotasCreditoNuevoViewID: TLongintField;
+    NotasCreditoNuevoViewNOMBRE: TStringField;
+    NotasCreditoNuevoViewNUMERO_NOTA_CREDITO: TStringField;
+    NotasCreditoNuevoViewPERSONAID: TLongintField;
+    NotasCreditoNuevoViewRUC: TStringField;
+    NotasCreditoNuevoViewTIMBRADO: TStringField;
+    NotasCreditoNuevoViewTOTAL: TFloatField;
+    NotasCreditoNuevoViewVALIDO: TSmallintField;
     qryCabeceraDIRECCION: TStringField;
     qryCabeceraFACTURAID: TLongintField;
     qryCabeceraFECHA_EMISION: TDateField;
@@ -46,6 +56,7 @@ type
     qryCabeceraTIMBRADO: TStringField;
     qryCabeceraTOTAL: TFloatField;
     qryCabeceraVALIDO: TSmallintField;
+    NotasCreditoNuevoView: TSQLQuery;
     StringField1: TStringField;
     StringField2: TStringField;
     StringField3: TStringField;
@@ -126,6 +137,7 @@ begin
   CabeceraGenName := rsGenNotaCredito;
   DetalleGenName := rsGenNotaCreditoDetalle;
   AuxQryList.Add(TObject(FFacturas.FacturasView));
+  AuxQryList.Add(TObject(NotasCreditoNuevoView));
   //TalonarioID := TALONARIO_NC;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
@@ -447,25 +459,26 @@ begin
 end;
 
 procedure TNotaCreditoDataModule.AnularNotaCredito(ANotaID: string);
-var
-  NCNum: string;
 begin
   try
-    if not qryCabecera.Locate('ID', ANotaID, []) then
-      raise EDatabaseError.Create('No se encuentra la nota de credito');
-    NCNum := qryCabecera.FieldByName('NUMERO').AsString;
+    //if not qryCabecera.Locate('ID', ANotaID, []) then
+    //  raise EDatabaseError.Create('No se encuentra la nota de credito');
+    LocateComprobante(ANotaID);
+    if qryCabeceraVALIDO.AsString = DB_FALSE then
+      raise Exception.Create('La nota ya esta anulada');
     qryCabecera.Edit;
     qryCabecera.FieldByName('VALIDO').AsString := DB_FALSE;
     qryCabecera.Post;
-    if not Asientos.Movimiento.Locate('DOCUMENTOID;TIPO_DOCUMENTO',
-      VarArrayOf([ANotaID, NOTA_CREDITO]), []) then
-      raise EDatabaseError.Create(
-        'No se puede revertir el movimiento. Movimiento no encontrado');
-    Asientos.ReversarAsiento(rsDescripcionAnulacion + NCNum);
+    if not NotasCreditoNuevoView.Locate('ID', ANotaID, []) then
+      raise Exception.Create('No se pudo obtener numero y timbrado');
+    Asientos.ReversarAsientoComprobante(doNotaCredito, ANotaID,
+      'Anulacion de nota de credito nro ' +
+      NotasCreditoNuevoViewNUMERO_NOTA_CREDITO.AsString + ' con timbrado ' +
+      NotasCreditoNuevoViewTIMBRADO.AsString);
     Asientos.PostAsiento;
     SaveChanges;
   except
-    on E: EDatabaseError do
+    on E: Exception do
     begin
       Rollback;
       raise;
