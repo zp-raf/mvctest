@@ -21,6 +21,7 @@ type
     asistenciaProfesores: TMenuItem;
     aboutUs1: TMenuItem;
     ayuda1: TMenuItem;
+    Button1: TButton;
     Listaalumnos: TButton;
     Documentos: TButton;
     ingresoegreso: TMenuItem;
@@ -81,6 +82,7 @@ type
     procedure arancelesClick(Sender: TObject);
     procedure AsientosClick(Sender: TObject);
     procedure asistenciaProfesoresClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure calcularnotaClick(Sender: TObject);
     procedure calificarClick(Sender: TObject);
     procedure cargarFacturaClick(Sender: TObject);
@@ -130,6 +132,7 @@ var
   Principal1: TPrincipal1;
 
 implementation
+uses uHelp;
 
 {$R *.lfm}
 
@@ -153,6 +156,11 @@ end;
 procedure TPrincipal1.asistenciaProfesoresClick(Sender: TObject);
 begin
   GetCustomController.OpenAsistenciaForm(Self);
+end;
+
+procedure TPrincipal1.Button1Click(Sender: TObject);
+begin
+  GetCustomController.OpenHelpForm(Self);
 end;
 
 procedure TPrincipal1.arancelesClick(Sender: TObject);

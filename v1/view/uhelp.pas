@@ -77,7 +77,7 @@ begin
     fs := TFileStream.Create(UTF8ToSys(Filename), fmOpenRead);
     try
       NewHTML := TSimpleIpHtml.Create; // Beware: Will be freed automatically by IpHtmlPanel1
-    //  NewHTML.OnGetImageX := @HTMLGetImageX;
+      NewHTML.OnGetImageX := @HTMLGetImageX;
       NewHTML.LoadFromStream(fs);
     finally
       fs.Free;
@@ -86,7 +86,7 @@ begin
   except
     on E: Exception do
       begin
-        MessageDlg('Unable to open HTML file', 'HTML File: ' + Filename + #13 +
+        MessageDlg('Error al abrir archivo de ayuda', 'HTML File: ' + Filename + #13 +
                  'Error: ' + E.Message,mtError, [mbCancel], 0);
       end;
   end;

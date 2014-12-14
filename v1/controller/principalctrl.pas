@@ -153,7 +153,8 @@ uses
   frmseleccionartalonario,
   frmrptingegrdatamodule,
   frmprocesorptingegr,
-  reporteingegrctrl;
+  reporteingegrctrl,
+  uHelp;
 
 type
 
@@ -201,6 +202,7 @@ type
     procedure OpenAprobarJustForm(Sender: IFormView);
     procedure OpenSeleccionTalonarioRecForm(Sender: IFormView);
     procedure OpenIngEgresoReporteForm (Sender: IFormView);
+    procedure OpenHelpForm (Sender: IFormView);
   end;
 
 var
@@ -562,6 +564,14 @@ begin
   (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoReportIngEgr.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoReportIngEgr as IObserver);
+end;
+
+procedure TPrincipalController.OpenHelpForm(Sender: IFormView);
+begin
+//    frmHelp := TfrmHelp.Create(Sender as TComponent);
+    frmHelp := TfrmHelp.CreateNew(Sender as TComponent);
+    frmHelp.Show;
+    frmHelp.OpenHTMLFile('about.html');
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);
