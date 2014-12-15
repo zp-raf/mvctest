@@ -6,13 +6,16 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Menus, ComCtrls, ctrl, mvc, observerSubject, mensajes;
+  Menus, ComCtrls, LazHelpHTML, ctrl, mvc, observerSubject, mensajes;
 
 type
 
   { TMaestro }
 
   TMaestro = class(TForm, IObserver, IView, IFormView)
+    HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer;
+    HTMLHelpDatabase1: THTMLHelpDatabase;
+    procedure FormCreate(Sender: TObject);
   private
     FController: Pointer;
     FOpenOnShow: boolean;
@@ -56,7 +59,6 @@ type
     function ShowConfirmationMessage(AMsg: string): TModalResult;
     function ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
     property OpenOnShow: boolean read FOpenOnShow write SetOpenOnShow;
-    procedure MostrarAyudaForm (Sender: TObject); virtual;
   end;
 
 var
@@ -75,12 +77,13 @@ begin
 end;
 
 procedure TMaestro.MenuItemAyudaClick(Sender: TObject);
-var
-   nombreform : String;
+//var
+//  nombreform: string;
 begin
-//  nombreform:= LowerCase('frm'+ Name) ;
-//  GetController.ShowHelp(Self as IFormView);
-  MostrarAyudaForm(Sender);
+  //  nombreform:= LowerCase('frm'+ Name) ;
+  //  GetController.ShowHelp(Self as IFormView);
+  //MostrarAyudaForm(Sender);
+  ShowHelp;
 end;
 
 function TMaestro.GetController: TController;
@@ -93,6 +96,14 @@ begin
   if TController(FController) = TController(AValue) then
     Exit;
   FController := Pointer(AValue);
+end;
+
+procedure TMaestro.FormCreate(Sender: TObject);
+var
+  namehelpfile: string;
+begin
+  namehelpfile := LowerCase('html/' + UnitName + '.html');
+  HelpKeyword := namehelpfile;
 end;
 
 procedure TMaestro.SetConnStatus(connected: boolean; host: string; username: string);
@@ -213,14 +224,6 @@ end;
 function TMaestro.ShowConfirmationMessage(ATitle: string; AMsg: string): TModalResult;
 begin
   Result := MessageDlg(ATitle, AMsg, mtConfirmation, mbYesNo, 0);
-end;
-
-procedure TMaestro.MostrarAyudaForm(Sender: TObject);
-var
-   namehelpfile: string;
-begin
-    namehelpfile:= LowerCase('html\frm'+ Name+'.html') ;
-    GetController.ShowHelp(Self as IFormView, namehelpfile);
 end;
 
 constructor TMaestro.Create(AOwner: IFormView; AController: Pointer);

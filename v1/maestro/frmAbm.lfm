@@ -3,19 +3,19 @@ inherited Abm: TAbm
   Height = 481
   Top = 240
   Width = 640
-  ClientHeight = 461
+  ClientHeight = 462
   ClientWidth = 640
   Constraints.MinHeight = 481
   Constraints.MinWidth = 640
   Position = poScreenCenter
   inherited StatusBar1: TStatusBar
-    Top = 438
+    Top = 442
     Width = 640
   end
   object ButtonPanel: TButtonPanel[1]
     Left = 6
     Height = 34
-    Top = 398
+    Top = 402
     Width = 628
     OKButton.Name = 'OKButton'
     OKButton.Caption = '&Guardar'
@@ -23,7 +23,7 @@ inherited Abm: TAbm
     OKButton.OnClick = OKButtonClick
     HelpButton.Name = 'HelpButton'
     HelpButton.DefaultCaption = True
-    HelpButton.OnClick = MenuItemAyudaClick
+    HelpButton.OnClick = HelpButtonClick
     CloseButton.Name = 'CloseButton'
     CloseButton.DefaultCaption = True
     CloseButton.OnClick = CloseButtonClick
@@ -40,7 +40,7 @@ inherited Abm: TAbm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel
     Left = 0
-    Height = 392
+    Height = 396
     Top = 0
     Width = 640
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -55,12 +55,12 @@ inherited Abm: TAbm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel
     Left = 0
-    Height = 392
+    Height = 396
     Top = 0
     Width = 640
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 392
+    ClientHeight = 396
     ClientWidth = 640
     TabOrder = 1
     object DBGrid1: TDBGrid
@@ -69,7 +69,7 @@ inherited Abm: TAbm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
       Left = 8
-      Height = 310
+      Height = 314
       Hint = 'Para seleccionar una fila, haga click izquierdo.'#13#10'Para ver el contenido de la fila, haga click derecho.'#13#10'Para eliminar la fila, presione la tecla suprimir o haga click en el boton de eliminar en el panel de navegación.'
       Top = 51
       Width = 624
@@ -90,7 +90,7 @@ inherited Abm: TAbm
       Left = 8
       Height = 25
       Hint = 'Panel de navegación'
-      Top = 365
+      Top = 369
       Width = 313
       BeforeAction = DBNavListBeforeAction
       BevelOuter = bvNone
@@ -112,8 +112,8 @@ inherited Abm: TAbm
       AnchorSideLeft.Control = DBGrid1
       AnchorSideBottom.Control = DBGrid1
       Left = 8
-      Height = 23
-      Top = 24
+      Height = 21
+      Top = 26
       Width = 288
       Anchors = [akLeft, akBottom]
       BorderSpacing.Bottom = 4
@@ -124,9 +124,9 @@ inherited Abm: TAbm
       AnchorSideLeft.Control = EditFilter
       AnchorSideBottom.Control = EditFilter
       Left = 8
-      Height = 15
-      Top = 9
-      Width = 234
+      Height = 13
+      Top = 13
+      Width = 217
       Anchors = [akLeft, akBottom]
       Caption = 'Escriba una palabra para filtrar los resultados'
       ParentColor = False
@@ -138,7 +138,7 @@ inherited Abm: TAbm
       AnchorSideTop.Side = asrCenter
       Left = 304
       Height = 25
-      Top = 23
+      Top = 24
       Width = 40
       BorderSpacing.Left = 8
       Caption = 'Filtrar'
@@ -178,5 +178,9 @@ inherited Abm: TAbm
     end
     inherited MenuAyuda: TMenuItem[2]
     end
+  end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[5]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[6]
   end
 end

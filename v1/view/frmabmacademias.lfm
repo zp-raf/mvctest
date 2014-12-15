@@ -2,7 +2,7 @@ inherited AbmAcademias: TAbmAcademias
   Left = 652
   Top = 343
   Caption = 'ABM Academias'
-  ClientHeight = 461
+  ClientHeight = 462
   inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -12,7 +12,7 @@ inherited AbmAcademias: TAbmAcademias
       AnchorSideRight.Control = PanelDetail
       AnchorSideRight.Side = asrBottom
       Left = 8
-      Height = 23
+      Height = 21
       Top = 21
       Width = 624
       DataField = 'NOMBRE'
@@ -28,9 +28,9 @@ inherited AbmAcademias: TAbmAcademias
       AnchorSideLeft.Control = DBEdit1
       AnchorSideBottom.Control = DBEdit1
       Left = 8
-      Height = 15
-      Top = 6
-      Width = 44
+      Height = 13
+      Top = 8
+      Width = 37
       Anchors = [akLeft, akBottom]
       Caption = 'Nombre'
       ParentColor = False
@@ -45,6 +45,7 @@ inherited AbmAcademias: TAbmAcademias
         item
           PickList.Strings = (          )
           Title.Caption = 'NOMBRE'
+          Width = 57
           FieldName = 'NOMBRE'
         end>
       DataSource = AcademiaDataModule.DataSource1

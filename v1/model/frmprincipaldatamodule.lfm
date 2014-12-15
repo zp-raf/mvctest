@@ -1,6 +1,6 @@
 inherited PrincipalDataModule: TPrincipalDataModule
   Height = 150
-  HorizontalOffset = 1038
-  VerticalOffset = 430
+  HorizontalOffset = 679
+  VerticalOffset = 271
   Width = 179
 end

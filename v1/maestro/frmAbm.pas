@@ -21,6 +21,7 @@ type
     procedure ButtonPanelKeyDown(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure EditFilterKeyUp(Sender: TObject; var Key: word; {%H-}Shift: TShiftState);
+    procedure HelpButtonClick(Sender: TObject);
     procedure MenuItemAgregarClick(Sender: TObject);
     procedure MenuItemEditarClick(Sender: TObject);
     procedure MenuItemEliminarClick(Sender: TObject);
@@ -136,6 +137,11 @@ begin
     Exit;
   if Key = VK_RETURN then
     GetABMController.FilterData(Trim(EditFilter.Text), Self);
+end;
+
+procedure TAbm.HelpButtonClick(Sender: TObject);
+begin
+  MenuItemAyudaClick(Self);
 end;
 
 procedure TAbm.MenuItemAgregarClick(Sender: TObject);

@@ -3,11 +3,13 @@ object Maestro: TMaestro
   Height = 241
   Top = 296
   Width = 320
+  HelpType = htKeyword
   ClientHeight = 222
   ClientWidth = 320
   Menu = MainMenu
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.2.6.0'
   object StatusBar1: TStatusBar
@@ -51,5 +53,18 @@ object Maestro: TMaestro
         OnClick = MenuItemAboutClick
       end
     end
+  end
+  object HTMLHelpDatabase1: THTMLHelpDatabase
+    BaseURL = 'file://D:/mvctest/trunk/v1/html'
+    AutoRegister = True
+    KeywordPrefix = 'html/'
+    left = 40
+    top = 8
+  end
+  object HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer
+    BrowserParams = '%s'
+    AutoRegister = True
+    left = 55
+    top = 124
   end
 end

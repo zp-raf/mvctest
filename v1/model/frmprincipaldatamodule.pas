@@ -5,7 +5,7 @@ unit frmprincipaldatamodule;
 interface
 
 uses
-  frmquerydatamodule, mvc;
+  frmquerydatamodule, mvc, LazHelpHTML;
 
 type
 
