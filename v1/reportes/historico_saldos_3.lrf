@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="1899-12-30 00:00:00"/>
-    <ReportLastChange Value="2014-12-08 19:50:01"/>
+    <ReportLastChange Value="2014-12-15 01:16:26"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -467,8 +467,8 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="33620524"/>
-            <FormatStr Value=""/>
+            <Format Value="33816620"/>
+            <FormatStr Value="dd&quot;/&quot;mm&quot;/&quot;yyyy"/>
             <Memo Value="[det_fecha]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
@@ -513,8 +513,8 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
+            <Format Value="17039404"/>
+            <FormatStr Value="###.###.###,##"/>
             <Memo Value="[det_saldo]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
@@ -533,7 +533,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -559,8 +559,8 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
+            <Format Value="17039404"/>
+            <FormatStr Value="###.###.###,##"/>
             <Memo Value="[det_credito]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
@@ -579,7 +579,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -605,8 +605,8 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
+            <Format Value="17039404"/>
+            <FormatStr Value="###.###.###,##"/>
             <Memo Value="[det_debito]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
@@ -625,7 +625,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -651,8 +651,8 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
+            <Format Value="17039404"/>
+            <FormatStr Value="###.###.###,##"/>
             <Memo Value="Saldo anterior: [CAB_SALDO_ANTERIOR]&#xD;&#xA;Credito anterior: [CAB_CREDITO_ANTERIOR]&#xD;&#xA;Debito anterior: [CAB_DEBITO_ANTERIOR]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
@@ -1051,7 +1051,7 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="536"/>
+            <Left Value="530"/>
             <Top Value="428"/>
             <Width Value="68"/>
             <Height Value="18"/>
@@ -1065,8 +1065,8 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
+            <Format Value="17039404"/>
+            <FormatStr Value="###.###.###,##"/>
             <Memo Value="[CAB_DEBITO]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
@@ -1085,7 +1085,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1097,7 +1097,7 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="608"/>
+            <Left Value="602"/>
             <Top Value="428"/>
             <Width Value="68"/>
             <Height Value="18"/>
@@ -1111,8 +1111,8 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
+            <Format Value="17039404"/>
+            <FormatStr Value="###.###.###,##"/>
             <Memo Value="[CAB_CREDITO]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
@@ -1131,7 +1131,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1143,9 +1143,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="680"/>
+            <Left Value="672"/>
             <Top Value="428"/>
-            <Width Value="64"/>
+            <Width Value="72"/>
             <Height Value="18"/>
           </Size>
           <Flags Value="3"/>
@@ -1157,8 +1157,8 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
+            <Format Value="17039404"/>
+            <FormatStr Value="###.###.###,##"/>
             <Memo Value="[CAB_SALDO]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
@@ -1177,7 +1177,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1189,7 +1189,7 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="436"/>
+            <Left Value="429"/>
             <Top Value="428"/>
             <Width Value="96"/>
             <Height Value="18"/>
