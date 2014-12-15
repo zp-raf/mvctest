@@ -291,4 +291,12 @@ inherited Principal1: TPrincipal1
     left = 112
     top = 8
   end
+  object frReport1: TfrReport[8]
+    InitialZoom = pzDefault
+    Options = []
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    DataType = dtDataSet
+    left = 456
+    top = 16
+  end
 end

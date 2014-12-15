@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CONFIG>
+  <LazReport>
+    <Version Value="26"/>
+    <Title Value=""/>
+    <Subject Value=""/>
+    <KeyWords Value=""/>
+    <Comments Value=""/>
+    <ReportCreateDate Value="1899-12-30 00:00:00"/>
+    <ReportLastChange Value="2014-12-15 14:33:35"/>
+    <ReportVersionBuild Value=""/>
+    <ReportVersionMajor Value=""/>
+    <ReportVersionMinor Value=""/>
+    <ReportVersionRelease Value=""/>
+    <ReportAutor Value=""/>
+    <Script Value=""/>
+    <Pages>
+      <PrintToDefault Value="False"/>
+      <DoublePass Value="False"/>
+      <SelectedPrinter Value="PDFCreator"/>
+      <PageCount Value="1"/>
+      <Page1>
+        <Name Value="Page1"/>
+        <ClassName Value="TfrPageReport"/>
+        <Visible Value="True"/>
+        <Width Value="595"/>
+        <Height Value="842"/>
+        <Script Value=""/>
+        <PgSize Value="9"/>
+        <Margins>
+          <left Value="0"/>
+          <Top Value="0"/>
+          <Right Value="0"/>
+          <Bottom Value="0"/>
+        </Margins>
+        <Orientation Value="poPortrait"/>
+        <UseMargins Value="True"/>
+        <PrintToPrevPage Value="False"/>
+        <ColCount Value="0"/>
+        <ColGap Value="0"/>
+        <LayoutOrder Value="loColumns"/>
+        <ObjectCount Value="2"/>
+        <Object1>
+          <Name Value="Memo1"/>
+          <ClassName Value="TfrMemoView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtMemo"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="28"/>
+            <Top Value="120"/>
+            <Width Value="692"/>
+            <Height Value="912"/>
+          </Size>
+          <Flags Value="3"/>
+          <FillColor Value="clNone"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value=""/>
+          </Frames>
+          <Data>
+            <Format Value="556"/>
+            <FormatStr Value=""/>
+            <Memo Value="·         ABM  Academia&#xD;&#xA;·         ABM  Aranceles&#xD;&#xA;·         ABM Clases&#xD;&#xA;·         ABM Cuentas&#xD;&#xA;·         ABM Nombres de Secciones&#xD;&#xA;·         ABM Equipos&#xD;&#xA;·         ABM Exámenes&#xD;&#xA;·         ABM Impuestos&#xD;&#xA;·         ABM Justificativos&#xD;&#xA;·         ABM Materias&#xD;&#xA;·         ABM Módulos&#xD;&#xA;·         ABM Periodos&#xD;&#xA;·         ABM Personas&#xD;&#xA;·         ABM Préstamos&#xD;&#xA;·         ABM Secciones&#xD;&#xA;·         ABM Talonarios&#xD;&#xA;·         ABM Trabajos&#xD;&#xA;·         Asignación de Aranceles&#xD;&#xA;·         ABM grupos&#xD;&#xA;·         Generación de deudas&#xD;&#xA;·         Listado de Alumnos&#xD;&#xA;·         Multas&#xD;&#xA;·         Pago&#xD;&#xA;·         Aprobar Justificativo&#xD;&#xA;·         Asientos&#xD;&#xA;·         Calificaciones&#xD;&#xA;·         Documentos&#xD;&#xA;·         Entregas de Trabajos&#xD;&#xA;·         Escala&#xD;&#xA;·         Facturación&#xD;&#xA;·         Factura compras&#xD;&#xA;·         Matriculación&#xD;&#xA;·         Nota de Crédito&#xD;&#xA;·         Nota de Crédito Compras&#xD;&#xA;·         Notas&#xD;&#xA;·         Recibos&#xD;&#xA;·         Recibos de Compras&#xD;&#xA;·         Registro Anecdótico&#xD;&#xA;"/>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <Font>
+            <Name Value="Arial"/>
+            <Size Value="10"/>
+            <Color Value="clBlack"/>
+            <Charset Value="0"/>
+            <Style Value=""/>
+          </Font>
+          <Highlight>
+            <FontStyle Value="2"/>
+            <FontColor Value="clBlack"/>
+            <FillColor Value="clWhite"/>
+            <HighlightStr Value=""/>
+          </Highlight>
+          <Alignment Value="taLeftJustify"/>
+          <Layout Value="tlTop"/>
+          <Angle Value="0"/>
+          <Justify Value="False"/>
+        </Object1>
+        <Object2>
+          <Name Value="Memo2"/>
+          <ClassName Value="TfrMemoView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtMemo"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="28"/>
+            <Top Value="24"/>
+            <Width Value="692"/>
+            <Height Value="82"/>
+          </Size>
+          <Flags Value="3"/>
+          <FillColor Value="clNone"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value=""/>
+          </Frames>
+          <Data>
+            <Format Value="556"/>
+            <FormatStr Value=""/>
+            <Memo Value="Sistema de Gestión de Cursos de Danza&#xD;&#xA;&#xD;&#xA;Contenido de la Ayuda:&#xD;&#xA;"/>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <Font>
+            <Name Value="Arial"/>
+            <Size Value="16"/>
+            <Color Value="clBlack"/>
+            <Charset Value="0"/>
+            <Style Value="fsBold"/>
+          </Font>
+          <Highlight>
+            <FontStyle Value="2"/>
+            <FontColor Value="clBlack"/>
+            <FillColor Value="clWhite"/>
+            <HighlightStr Value=""/>
+          </Highlight>
+          <Alignment Value="taCenter"/>
+          <Layout Value="tlTop"/>
+          <Angle Value="0"/>
+          <Justify Value="False"/>
+        </Object2>
+      </Page1>
+      <FVal>
+        <Count Value="0"/>
+      </FVal>
+      <ParentVars Value=""/>
+    </Pages>
+  </LazReport>
+</CONFIG>

@@ -5,8 +5,8 @@ unit Principal;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, frmMaestro,
-  Menus, ExtCtrls, StdCtrls, ComCtrls, mvc, principalctrl;
+  Classes, SysUtils, FileUtil, LR_Class, Forms, Controls, Graphics, Dialogs,
+  frmMaestro, Menus, ExtCtrls, StdCtrls, ComCtrls, mvc, principalctrl;
 
 type
 
@@ -22,6 +22,7 @@ type
     aboutUs1: TMenuItem;
     ayuda1: TMenuItem;
     Button1: TButton;
+    frReport1: TfrReport;
     Listaalumnos: TButton;
     Documentos: TButton;
     ingresoegreso: TMenuItem;
@@ -160,7 +161,12 @@ end;
 
 procedure TPrincipal1.Button1Click(Sender: TObject);
 begin
-  GetCustomController.OpenHelpForm(Self);
+  //GetCustomController.OpenHelpForm(Self);
+  // esto es para probar otra forma en la que podriamos desplegar la ayuda
+  // no es mala opcion hacerlo en un lazreport, pero
+  // la implementacion va a cambiar probablemente
+  frReport1.LoadFromFile('principal.lrf');
+  frReport1.ShowReport;
 end;
 
 procedure TPrincipal1.arancelesClick(Sender: TObject);
