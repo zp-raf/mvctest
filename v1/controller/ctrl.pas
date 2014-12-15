@@ -60,7 +60,7 @@ type
     function IsDBGridEmpty(Grid: TDBGrid; Sender: IFormView): boolean;
     function IsValidDate(ADateStr: string): boolean; virtual;
     function IsValidDate(ADate: TDateTime): boolean; virtual;
-    procedure ShowHelp(Sender: IFormView; namehelpfile : string); virtual;
+    procedure ShowHelp(Sender: IFormView; namehelpfile: string); virtual;
   end;
 
   { TABMController }
@@ -128,16 +128,16 @@ end;
 
 procedure TController.Save(Sender: IView);
 begin
-  try
+  //try
     GetModel.SaveChanges;
     GetModel.RefreshDataSets;
-  except
-    on e: EDatabaseError do
-    begin
-      EditCurrentRecord(Sender);
-      raise;
-    end;
-  end;
+  //except
+  //  on e: EDatabaseError do
+  //  begin
+  //    //EditCurrentRecord(Sender);
+  //    raise;
+  //  end;
+  //end;
 end;
 
 procedure TController.EditCurrentRecord(Sender: IView);
@@ -266,11 +266,11 @@ end;
 
 procedure TController.ShowHelp(Sender: IFormView; namehelpfile: string);
 var
-  wideChars   : array[0..200] of WideChar;
-  lengthnamehelpfile : Integer;
+  wideChars: array[0..200] of widechar;
+  lengthnamehelpfile: integer;
 begin
-  lengthnamehelpfile:= Length(namehelpfile);
- // ShellExecute((Sender as IFormView), 'open', PWideChar(namehelpfile), nil, nil, 1);
+  lengthnamehelpfile := Length(namehelpfile);
+  // ShellExecute((Sender as IFormView), 'open', PWideChar(namehelpfile), nil, nil, 1);
 end;
 
 procedure TController.SetModel(AValue: TQueryDataModule);

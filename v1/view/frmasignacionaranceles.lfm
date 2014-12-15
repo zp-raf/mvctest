@@ -4,19 +4,19 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
   Top = 259
   Width = 640
   Caption = 'Asignacion de aranceles por defecto'
-  ClientHeight = 460
+  ClientHeight = 461
   ClientWidth = 640
   Constraints.MinHeight = 480
   Constraints.MinWidth = 640
   inherited StatusBar1: TStatusBar
-    Top = 437
+    Top = 441
     Width = 640
   end
   inherited ButtonPanel1: TButtonPanel
-    Top = 397
+    Top = 401
     Width = 628
     OKButton.OnClick = OKButtonClick
-    ShowButtons = [pbOK, pbClose, pbHelp]
+    CancelButton.OnClick = CancelButtonClick
   end
   object PageControlAranceles: TPageControl[2]
     AnchorSideLeft.Control = Owner
@@ -25,16 +25,16 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel1
     Left = 0
-    Height = 391
+    Height = 395
     Top = 0
     Width = 640
-    ActivePage = TabSheetDesarrollo
+    ActivePage = TabSheetModulos
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 2
     object TabSheetModulos: TTabSheet
       Caption = 'Por Modulos'
-      ClientHeight = 363
+      ClientHeight = 369
       ClientWidth = 632
       object DBGridModulos: TDBGrid
         AnchorSideLeft.Control = TabSheetModulos
@@ -43,7 +43,7 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = DBNavigator1
         Left = 0
-        Height = 338
+        Height = 344
         Top = 0
         Width = 632
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -73,7 +73,7 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
         AnchorSideBottom.Side = asrBottom
         Left = 0
         Height = 25
-        Top = 338
+        Top = 344
         Width = 241
         Anchors = [akLeft, akBottom]
         BevelOuter = bvNone
@@ -93,7 +93,7 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
     end
     object TabSheetMaterias: TTabSheet
       Caption = 'Por Materias'
-      ClientHeight = 363
+      ClientHeight = 369
       ClientWidth = 632
       object DBGridModulos1: TDBGrid
         AnchorSideLeft.Control = TabSheetMaterias
@@ -102,7 +102,7 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = DBNavigator2
         Left = 0
-        Height = 338
+        Height = 344
         Top = 0
         Width = 632
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -132,7 +132,7 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
         AnchorSideBottom.Side = asrBottom
         Left = 0
         Height = 25
-        Top = 338
+        Top = 344
         Width = 241
         Anchors = [akLeft, akBottom]
         BevelOuter = bvNone
@@ -152,7 +152,7 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
     end
     object TabSheetDesarrollo: TTabSheet
       Caption = 'Por Secciones'
-      ClientHeight = 363
+      ClientHeight = 369
       ClientWidth = 632
       object DBGridModulos2: TDBGrid
         AnchorSideLeft.Control = TabSheetDesarrollo
@@ -161,7 +161,7 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = DBNavigator3
         Left = 0
-        Height = 338
+        Height = 344
         Top = 0
         Width = 632
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -191,7 +191,7 @@ inherited ProcesoAsignacionAranceles: TProcesoAsignacionAranceles
         AnchorSideBottom.Side = asrBottom
         Left = 0
         Height = 25
-        Top = 338
+        Top = 344
         Width = 241
         Anchors = [akLeft, akBottom]
         BevelOuter = bvNone

@@ -3,70 +3,91 @@ inherited AbmMaterias: TAbmMaterias
   Top = 154
   Width = 800
   Caption = 'ABM Materias'
-  ClientHeight = 461
+  ClientHeight = 462
   ClientWidth = 800
   Constraints.MinWidth = 800
   inherited StatusBar1: TStatusBar
+    Top = 442
     Width = 800
   end
   inherited ButtonPanel: TButtonPanel
+    Top = 402
     Width = 788
   end
   inherited PanelList: TPanel[2]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
+    Height = 396
     Width = 800
+    ClientHeight = 396
     ClientWidth = 800
     inherited DBGrid1: TDBGrid
+      Height = 314
       Width = 784
       Columns = <      
         item
           PickList.Strings = (          )
           Title.Caption = 'NOMBRE'
-          Width = 119
+          Width = 57
           FieldName = 'NOMBRE'
         end      
         item
           PickList.Strings = (          )
           Title.Caption = 'DESCRIPCION'
-          Width = 178
+          Width = 84
           FieldName = 'DESCRIPCION'
         end      
         item
           ButtonStyle = cbsCheckboxColumn
           PickList.Strings = (          )
           Title.Caption = 'HABILITADA'
-          Width = 82
+          Width = 75
           FieldName = 'HABILITADA'
         end      
         item
           PickList.Strings = (          )
           Title.Caption = 'MODULO'
-          Width = 38
+          Width = 58
           FieldName = 'MODULO'
         end      
         item
           PickList.Strings = (          )
           Title.Caption = 'GRUPO'
+          Width = 50
           FieldName = 'GRUPO'
         end>
       DataSource = MateriasDataModule.dsMateria
     end
     inherited DBNavList: TDBNavigator
+      Top = 369
       DataSource = MateriasDataModule.dsMateria
       Hints.Strings = (      )
+    end
+    inherited EditFilter: TEdit
+      Height = 21
+      Top = 26
+    end
+    inherited LabelFilter: TLabel
+      Height = 13
+      Top = 13
+      Width = 217
+    end
+    inherited ButtonFilter: TButton
+      Top = 24
     end
   end
   inherited PanelDetail: TPanel[3]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
+    Height = 396
     Width = 800
+    ClientHeight = 396
     ClientWidth = 800
     object DBEdit1: TDBEdit[0]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 23
       Width = 328
       DataField = 'NOMBRE'
@@ -170,9 +191,9 @@ inherited AbmMaterias: TAbmMaterias
     end
     object ButtonPrerreq: TButton[11]
       Left = 16
-      Height = 25
+      Height = 23
       Top = 56
-      Width = 131
+      Width = 123
       AutoSize = True
       Caption = 'Editar Prerrequisitos'
       OnClick = ButtonPrerreqClick
@@ -182,9 +203,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo1
       AnchorSideBottom.Control = DBMemo1
       Left = 16
-      Height = 15
-      Top = 87
-      Width = 62
+      Height = 13
+      Top = 89
+      Width = 54
       Anchors = [akLeft, akBottom]
       Caption = 'Descripcion'
       ParentColor = False
@@ -193,9 +214,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo2
       AnchorSideBottom.Control = DBMemo2
       Left = 176
-      Height = 15
-      Top = 87
-      Width = 48
+      Height = 13
+      Top = 89
+      Width = 42
       Anchors = [akLeft, akBottom]
       Caption = 'Duracion'
       ParentColor = False
@@ -204,9 +225,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo3
       AnchorSideBottom.Control = DBMemo3
       Left = 336
-      Height = 15
-      Top = 87
-      Width = 65
+      Height = 13
+      Top = 89
+      Width = 58
       Anchors = [akLeft, akBottom]
       Caption = 'Justificacion'
       ParentColor = False
@@ -215,9 +236,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo4
       AnchorSideBottom.Control = DBMemo4
       Left = 16
-      Height = 15
-      Top = 241
-      Width = 56
+      Height = 13
+      Top = 243
+      Width = 49
       Anchors = [akLeft, akBottom]
       Caption = 'Contenido'
       ParentColor = False
@@ -226,9 +247,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo5
       AnchorSideBottom.Control = DBMemo5
       Left = 176
-      Height = 15
-      Top = 241
-      Width = 56
+      Height = 13
+      Top = 243
+      Width = 54
       Anchors = [akLeft, akBottom]
       Caption = 'Estrategias'
       ParentColor = False
@@ -237,9 +258,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo6
       AnchorSideBottom.Control = DBMemo6
       Left = 336
-      Height = 15
-      Top = 241
-      Width = 54
+      Height = 13
+      Top = 243
+      Width = 49
       Anchors = [akLeft, akBottom]
       Caption = 'Materiales'
       ParentColor = False
@@ -248,9 +269,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo7
       AnchorSideBottom.Control = DBMemo7
       Left = 496
-      Height = 15
-      Top = 87
-      Width = 50
+      Height = 13
+      Top = 89
+      Width = 46
       Anchors = [akLeft, akBottom]
       Caption = 'Objetivos'
       ParentColor = False
@@ -259,9 +280,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo8
       AnchorSideBottom.Control = DBMemo8
       Left = 495
-      Height = 15
-      Top = 241
-      Width = 57
+      Height = 13
+      Top = 243
+      Width = 51
       Anchors = [akLeft, akBottom]
       Caption = 'Evaluacion'
       ParentColor = False
@@ -270,9 +291,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBMemo9
       AnchorSideBottom.Control = DBMemo9
       Left = 632
-      Height = 15
-      Top = 87
-      Width = 60
+      Height = 13
+      Top = 89
+      Width = 52
       Anchors = [akLeft, akBottom]
       Caption = 'Bibliografia'
       ParentColor = False
@@ -281,16 +302,16 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBEdit1
       AnchorSideBottom.Control = DBEdit1
       Left = 16
-      Height = 15
-      Top = 8
-      Width = 44
+      Height = 13
+      Top = 10
+      Width = 37
       Anchors = [akLeft, akBottom]
       Caption = 'Nombre'
       ParentColor = False
     end
     object DBLookupComboBox1: TDBLookupComboBox[22]
       Left = 360
-      Height = 23
+      Height = 21
       Top = 23
       Width = 208
       AutoComplete = True
@@ -305,7 +326,7 @@ inherited AbmMaterias: TAbmMaterias
     end
     object DBLookupComboBox2: TDBLookupComboBox[23]
       Left = 582
-      Height = 23
+      Height = 21
       Top = 23
       Width = 202
       AutoComplete = True
@@ -322,9 +343,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBLookupComboBox1
       AnchorSideBottom.Control = DBLookupComboBox1
       Left = 360
-      Height = 15
-      Top = 8
-      Width = 42
+      Height = 13
+      Top = 10
+      Width = 34
       Anchors = [akLeft, akBottom]
       Caption = 'Modulo'
       ParentColor = False
@@ -333,9 +354,9 @@ inherited AbmMaterias: TAbmMaterias
       AnchorSideLeft.Control = DBLookupComboBox2
       AnchorSideBottom.Control = DBLookupComboBox2
       Left = 582
-      Height = 15
-      Top = 8
-      Width = 33
+      Height = 13
+      Top = 10
+      Width = 29
       Anchors = [akLeft, akBottom]
       Caption = 'Grupo'
       ParentColor = False

@@ -20,6 +20,8 @@ type
   { TPersonasDataModule }
 
   TPersonasDataModule = class(TQueryDataModule)
+    procedure DireccionBeforePost(DataSet: TDataSet);
+    procedure TelefonoBeforePost(DataSet: TDataSet);
   private
     FAcademia: TAcademiaDataModule;
     FModulo: TModuloDataModule;
@@ -174,6 +176,16 @@ begin
   if FAcademia = AValue then
     Exit;
   FAcademia := AValue;
+end;
+
+procedure TPersonasDataModule.DireccionBeforePost(DataSet: TDataSet);
+begin
+  CheckRequiredFields(DataSet);
+end;
+
+procedure TPersonasDataModule.TelefonoBeforePost(DataSet: TDataSet);
+begin
+  CheckRequiredFields(DataSet);
 end;
 
 procedure TPersonasDataModule.FilterAlumno;
@@ -456,9 +468,11 @@ begin
   if (Persona.State in [dsInactive]) then
     raise Exception.Create('Datos no disponibles');
   PersonasRoles.Open;
-  if PersonasRoles.Locate('ID', Persona.FieldByName('ID').AsString, []) <> null then
+  if PersonasRoles.Locate('ID', Persona.FieldByName('ID').AsString, []) then
     ATemp := PersonasRoles.Lookup('ID', Persona.FieldByName('ID').AsString,
-      'ESALUMNO;ESENCARGADO;ESPROVEEDOR;ESCOORDINADOR;ESADMINISTRATIVO;ESPROFESOR');
+      'ESALUMNO;ESENCARGADO;ESPROVEEDOR;ESCOORDINADOR;ESADMINISTRATIVO;ESPROFESOR')
+  else
+    Exit;
   { tenemos que ver cuantos roles hay; para eso contamos la cantidad de unos
     que hay en el array }
   for j := VarArrayLowBound(ATemp, 1) to VarArrayHighBound(ATemp, 1) do

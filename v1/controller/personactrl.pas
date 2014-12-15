@@ -140,7 +140,7 @@ end;
 
 procedure TPersonaController.SetRol(ARol: TRolPersona; Option: boolean; Sender: IView);
 begin
-  if (GetCustomModel.Persona.State in [dsBrowse, dsInactive]) then
+  if (GetCustomModel.Persona.State in [dsInactive]) then
     Exit;
   GetCustomModel.SetRol(ARol, Option);
 end;

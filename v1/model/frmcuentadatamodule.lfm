@@ -1,5 +1,6 @@
 inherited CuentaDataModule: TCuentaDataModule
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 195
   HorizontalOffset = 883
   VerticalOffset = 400
@@ -10,6 +11,7 @@ inherited CuentaDataModule: TCuentaDataModule
     top = 88
   end
   object Cuenta: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -131,6 +133,21 @@ inherited CuentaDataModule: TCuentaDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+    end
+    object StringField1: TStringField
+      DisplayWidth = 511
+      FieldKind = fkLookup
+      FieldName = 'NOMBRECOMPLETO'
+      Index = 7
+      KeyFields = 'PERSONAID'
+      LookupCache = False
+      LookupDataSet = PersonasDataModule.Persona
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRECOMPLETO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 511
     end
   end
   object CuentaAux: TSQLQuery[2]

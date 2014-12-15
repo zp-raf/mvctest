@@ -1,25 +1,72 @@
 inherited AbmAranceles: TAbmAranceles
   Caption = 'ABM Aranceles'
-  ClientHeight = 461
+  ClientHeight = 462
+  inherited StatusBar1: TStatusBar
+    Top = 442
+  end
+  inherited ButtonPanel: TButtonPanel
+    Top = 402
+  end
   inherited PanelList: TPanel[2]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
+    Height = 396
+    ClientHeight = 396
     inherited DBGrid1: TDBGrid
+      Height = 314
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          Width = 79
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'MONTO'
+          FieldName = 'MONTO'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          FieldName = 'ACTIVO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'DESCRIPCION'
+          FieldName = 'DESCRIPCION'
+        end>
       DataSource = ArancelesDataModule.dsAranceles
     end
     inherited DBNavList: TDBNavigator
+      Top = 369
       DataSource = ArancelesDataModule.dsAranceles
       Hints.Strings = (      )
+    end
+    inherited EditFilter: TEdit
+      Height = 21
+      Top = 26
+    end
+    inherited LabelFilter: TLabel
+      Height = 13
+      Top = 13
+      Width = 217
+    end
+    inherited ButtonFilter: TButton
+      Top = 24
     end
   end
   inherited PanelDetail: TPanel[3]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
+    Height = 396
+    ClientHeight = 396
     object DBEditNombre: TDBEdit[0]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 23
       Width = 320
       DataField = 'NOMBRE'
@@ -30,7 +77,7 @@ inherited AbmAranceles: TAbmAranceles
     end
     object DBEditDesc: TDBEdit[1]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 73
       Width = 616
       DataField = 'DESCRIPCION'
@@ -43,9 +90,9 @@ inherited AbmAranceles: TAbmAranceles
       AnchorSideLeft.Control = DBEditNombre
       AnchorSideBottom.Control = DBEditNombre
       Left = 16
-      Height = 15
-      Top = 8
-      Width = 44
+      Height = 13
+      Top = 10
+      Width = 37
       Anchors = [akLeft, akBottom]
       Caption = 'Nombre'
       ParentColor = False
@@ -54,9 +101,9 @@ inherited AbmAranceles: TAbmAranceles
       AnchorSideLeft.Control = DBEditDesc
       AnchorSideBottom.Control = DBEditDesc
       Left = 16
-      Height = 15
-      Top = 58
-      Width = 62
+      Height = 13
+      Top = 60
+      Width = 54
       Anchors = [akLeft, akBottom]
       Caption = 'Descripcion'
       ParentColor = False
@@ -65,67 +112,67 @@ inherited AbmAranceles: TAbmAranceles
       AnchorSideLeft.Control = DBEditMonto
       AnchorSideBottom.Control = DBEditMonto
       Left = 16
-      Height = 15
-      Top = 108
-      Width = 36
+      Height = 13
+      Top = 110
+      Width = 30
       Anchors = [akLeft, akBottom]
       Caption = 'Monto'
       ParentColor = False
     end
     object DBCheckBoxActivo: TDBCheckBox[5]
-      Left = 16
+      Left = 168
       Height = 23
-      Top = 160
+      Top = 121
       Width = 90
       Caption = 'Activo'
       DataField = 'ACTIVO'
       DataSource = ArancelesDataModule.dsAranceles
-      TabOrder = 2
+      TabOrder = 3
       ValueChecked = '1'
       ValueUnchecked = '0'
     end
     object GroupBoxCuotas: TGroupBox[6]
       Left = 16
-      Height = 199
+      Height = 203
       Top = 192
       Width = 256
       Anchors = [akTop, akLeft, akBottom]
       Caption = 'Cuotas'
-      ClientHeight = 181
+      ClientHeight = 185
       ClientWidth = 252
-      TabOrder = 3
+      TabOrder = 6
       object DBLookupComboBoxVencUnidad: TDBLookupComboBox
         Left = 8
-        Height = 23
+        Height = 21
         Top = 88
         Width = 136
         DataField = 'VENCIMIENTO_UNIDAD'
-        DataSource = CuotaArancelDataModule.dsCuotaXArancel
+        DataSource = ArancelesDataModule.dsCuotaXArancel
         KeyField = 'VALOR'
         ListField = 'SIGNIFICADO'
         ListFieldIndex = 0
         ListSource = CodigosDataModule.dsCodigos
         LookupCache = False
-        TabOrder = 0
+        TabOrder = 1
       end
       object DBEditCantCuotas: TDBEdit
         Left = 8
-        Height = 23
+        Height = 21
         Top = 24
         Width = 96
         DataField = 'CANTIDADCUOTA'
-        DataSource = CuotaArancelDataModule.dsCuotaXArancel
+        DataSource = ArancelesDataModule.dsCuotaXArancel
         CharCase = ecNormal
         MaxLength = 0
-        TabOrder = 1
+        TabOrder = 0
       end
       object DBEditVencCant: TDBEdit
         Left = 8
-        Height = 23
+        Height = 21
         Top = 136
-        Width = 96
+        Width = 136
         DataField = 'VENCIMIENTO_CANTIDAD'
-        DataSource = CuotaArancelDataModule.dsCuotaXArancel
+        DataSource = ArancelesDataModule.dsCuotaXArancel
         CharCase = ecNormal
         MaxLength = 0
         TabOrder = 2
@@ -134,9 +181,9 @@ inherited AbmAranceles: TAbmAranceles
         AnchorSideLeft.Control = DBEditCantCuotas
         AnchorSideBottom.Control = DBEditCantCuotas
         Left = 8
-        Height = 15
-        Top = 9
-        Width = 68
+        Height = 13
+        Top = 11
+        Width = 64
         Anchors = [akLeft, akBottom]
         Caption = 'Cant. Cuotas'
         ParentColor = False
@@ -145,9 +192,9 @@ inherited AbmAranceles: TAbmAranceles
         AnchorSideLeft.Control = DBLookupComboBoxVencUnidad
         AnchorSideBottom.Control = DBLookupComboBoxVencUnidad
         Left = 8
-        Height = 15
-        Top = 73
-        Width = 126
+        Height = 13
+        Top = 75
+        Width = 110
         Anchors = [akLeft, akBottom]
         Caption = 'Unidad del vencimiento'
         ParentColor = False
@@ -156,11 +203,11 @@ inherited AbmAranceles: TAbmAranceles
         AnchorSideLeft.Control = DBEditVencCant
         AnchorSideBottom.Control = DBEditVencCant
         Left = 8
-        Height = 15
-        Top = 121
-        Width = 48
+        Height = 13
+        Top = 123
+        Width = 111
         Anchors = [akLeft, akBottom]
-        Caption = 'Cantidad'
+        Caption = 'Tiempo del vencimiento'
         ParentColor = False
       end
     end
@@ -171,18 +218,18 @@ inherited AbmAranceles: TAbmAranceles
       AnchorSideBottom.Control = GroupBoxCuotas
       AnchorSideBottom.Side = asrBottom
       Left = 280
-      Height = 199
+      Height = 203
       Top = 192
       Width = 352
       Anchors = [akTop, akLeft, akBottom]
       BorderSpacing.Left = 8
       Caption = 'Impuestos'
-      ClientHeight = 181
+      ClientHeight = 185
       ClientWidth = 348
-      TabOrder = 4
+      TabOrder = 7
       object DBGrid2: TDBGrid
         Left = 8
-        Height = 143
+        Height = 147
         Top = 9
         Width = 336
         Anchors = [akTop, akLeft, akBottom]
@@ -194,13 +241,12 @@ inherited AbmAranceles: TAbmAranceles
               'IVA 5%'
             )
             Title.Caption = 'IMPUESTO'
-            Width = 72
+            Width = 66
             FieldName = 'IMPUESTO'
           end        
           item
             ButtonStyle = cbsCheckboxColumn
             Title.Caption = 'INLCUIDO'
-            Width = 69
             FieldName = 'INLCUIDO'
           end>
         DataSource = ArancelesDataModule.dsArancelImpuesto
@@ -213,7 +259,7 @@ inherited AbmAranceles: TAbmAranceles
         AnchorSideTop.Side = asrBottom
         Left = 8
         Height = 25
-        Top = 152
+        Top = 156
         Width = 241
         BevelOuter = bvNone
         ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -232,13 +278,31 @@ inherited AbmAranceles: TAbmAranceles
     end
     object DBEditMonto: TDBEdit[8]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 123
       Width = 128
       DataField = 'MONTO'
       DataSource = ArancelesDataModule.dsAranceles
       CharCase = ecNormal
       MaxLength = 0
+      TabOrder = 2
+    end
+    object CheckBoxSetCuotas: TCheckBox[9]
+      Left = 16
+      Height = 17
+      Top = 168
+      Width = 128
+      Caption = 'El arancel tiene cuotas'
+      OnChange = CheckBoxSetCuotasChange
+      TabOrder = 4
+    end
+    object CheckBoxSetImpuestos: TCheckBox[10]
+      Left = 280
+      Height = 17
+      Top = 168
+      Width = 144
+      Caption = 'El arancel tiene impuestos'
+      OnChange = CheckBoxSetImpuestosChange
       TabOrder = 5
     end
   end

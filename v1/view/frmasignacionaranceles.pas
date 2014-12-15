@@ -14,6 +14,7 @@ type
   { TProcesoAsignacionAranceles }
 
   TProcesoAsignacionAranceles = class(TProceso)
+    procedure CancelButtonClick(Sender: TObject);
   protected
     function GetCustomController: TAsignacionArancelesController;
   published
@@ -38,6 +39,11 @@ implementation
 {$R *.lfm}
 
 { TProcesoAsignacionAranceles }
+
+procedure TProcesoAsignacionAranceles.CancelButtonClick(Sender: TObject);
+begin
+  GetController.Rollback(Self);
+end;
 
 function TProcesoAsignacionAranceles.GetCustomController: TAsignacionArancelesController;
 begin

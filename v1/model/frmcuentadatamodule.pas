@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmquerydatamodule, mvc, observerSubject;
+  frmquerydatamodule, mvc, observerSubject, frmpersonasdatamodule;
 
 resourcestring
   rsGenName = 'GEN_CUENTA';
@@ -16,6 +16,12 @@ type
   { TCuentaDataModule }
 
   TCuentaDataModule = class(TQueryDataModule)
+    StringField1: TStringField;
+    procedure DataModuleDestroy(Sender: TObject);
+  private
+    FPersonas: TPersonasDataModule;
+    procedure SetPersonas(AValue: TPersonasDataModule);
+  published
     CuentaAux: TSQLQuery;
     CuentaAuxCODIGO: TStringField;
     CuentaAuxID: TLongintField;
@@ -41,13 +47,9 @@ type
     CuentasContables: TSQLQuery;
     procedure CuentaCalcFields(DataSet: TDataSet);
     procedure CuentaCUENTA_PADREChange(Sender: TField);
-    procedure CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
     procedure CuentaNewRecord(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject); override;
-  private
-    { private declarations }
-  public
-    { public declarations }
+    property Personas: TPersonasDataModule read FPersonas write SetPersonas;
   end;
 
 var
@@ -62,11 +64,31 @@ implementation
 procedure TCuentaDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
+  FPersonas := TPersonasDataModule.Create(Self, MasterDataModule);
+  FPersonas.Persona.Filter := 'ACTIVO = 1';
+  FPersonas.Persona.Filtered := True;
+  FPersonas.SetReadOnly(True);
   QryList.Add(TObject(Cuenta));
   AuxQryList.Add(TObject(CuentaAux));
   AuxQryList.Add(TObject(CuentasContables));
+  AuxQryList.Add(TObject(FPersonas.Persona));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('CODIGO');
+  Cuenta.OnFilterRecord:=@FilterRecord;
+end;
+
+procedure TCuentaDataModule.DataModuleDestroy(Sender: TObject);
+begin
+  inherited;
+  if Assigned(FPersonas) then
+    FreeAndNil(FPersonas);
+end;
+
+procedure TCuentaDataModule.SetPersonas(AValue: TPersonasDataModule);
+begin
+  if FPersonas = AValue then
+    Exit;
+  FPersonas := AValue;
 end;
 
 procedure TCuentaDataModule.CuentaCalcFields(DataSet: TDataSet);
@@ -88,11 +110,6 @@ begin
     CuentaNATURALEZA.Value := CuentaAuxNATURALEZA.Value;
   end;
   (MasterDataModule as ISubject).Notify;
-end;
-
-procedure TCuentaDataModule.CuentaFilterRecord(DataSet: TDataSet; var Accept: boolean);
-begin
-  FilterRecord(DataSet, Accept);
 end;
 
 procedure TCuentaDataModule.CuentaNewRecord(DataSet: TDataSet);

@@ -1,28 +1,97 @@
 inherited AbmPersonas: TAbmPersonas
-  Left = 710
+  Left = 376
   Height = 600
-  Top = 102
+  Top = 111
   Width = 800
   Caption = 'ABM Personas'
-  ClientHeight = 580
+  ClientHeight = 581
   ClientWidth = 800
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
   inherited StatusBar1: TStatusBar
-    Top = 557
+    Top = 561
     Width = 800
   end
   inherited ButtonPanel: TButtonPanel
-    Top = 517
+    Top = 521
     Width = 788
   end
-  inherited PanelDetail: TPanel
+  inherited PanelList: TPanel[2]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
-    Height = 511
+    Height = 515
     Width = 800
-    ClientHeight = 511
+    ClientHeight = 515
+    ClientWidth = 800
+    inherited DBGrid1: TDBGrid
+      Height = 433
+      Width = 784
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'CEDULA'
+          Width = 54
+          FieldName = 'CEDULA'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          Width = 57
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'APELLIDO'
+          Width = 63
+          FieldName = 'APELLIDO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'SEXO'
+          Width = 41
+          FieldName = 'SEXO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'FECHANAC'
+          Width = 69
+          FieldName = 'FECHANAC'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          Width = 53
+          FieldName = 'ACTIVO'
+        end>
+      DataSource = PersonasDataModule.dsPersona
+    end
+    inherited DBNavList: TDBNavigator
+      Top = 488
+      DataSource = PersonasDataModule.dsPersona
+      Hints.Strings = (      )
+    end
+    inherited EditFilter: TEdit
+      Height = 21
+      Top = 26
+    end
+    inherited LabelFilter: TLabel
+      Height = 13
+      Top = 13
+      Width = 217
+    end
+    inherited ButtonFilter: TButton
+      Top = 24
+    end
+  end
+  inherited PanelDetail: TPanel[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Height = 515
+    Width = 800
+    ClientHeight = 515
     ClientWidth = 800
     object GroupBoxDatosBasicos: TGroupBox[0]
       Left = 8
@@ -36,7 +105,7 @@ inherited AbmPersonas: TAbmPersonas
       TabOrder = 0
       object DBEditNombres: TDBEdit
         Left = 8
-        Height = 23
+        Height = 21
         Top = 13
         Width = 352
         DataField = 'NOMBRE'
@@ -47,7 +116,7 @@ inherited AbmPersonas: TAbmPersonas
       end
       object DBEditApellidos: TDBEdit
         Left = 8
-        Height = 23
+        Height = 21
         Top = 56
         Width = 352
         DataField = 'APELLIDO'
@@ -58,7 +127,7 @@ inherited AbmPersonas: TAbmPersonas
       end
       object DBEditCedula: TDBEdit
         Left = 8
-        Height = 23
+        Height = 21
         Top = 96
         Width = 112
         DataField = 'CEDULA'
@@ -69,7 +138,7 @@ inherited AbmPersonas: TAbmPersonas
       end
       object DBEditRuc: TDBEdit
         Left = 136
-        Height = 23
+        Height = 21
         Top = 96
         Width = 112
         DataField = 'RUC'
@@ -80,7 +149,7 @@ inherited AbmPersonas: TAbmPersonas
       end
       object DateEditFechaNac: TDateEdit
         Left = 392
-        Height = 23
+        Height = 21
         Top = 13
         Width = 80
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
@@ -129,9 +198,9 @@ inherited AbmPersonas: TAbmPersonas
         AnchorSideLeft.Control = DBEditNombres
         AnchorSideBottom.Control = DBEditNombres
         Left = 8
-        Height = 15
-        Top = -2
-        Width = 49
+        Height = 13
+        Top = 0
+        Width = 42
         Anchors = [akLeft, akBottom]
         Caption = 'Nombres'
         ParentColor = False
@@ -140,9 +209,9 @@ inherited AbmPersonas: TAbmPersonas
         AnchorSideLeft.Control = DBEditApellidos
         AnchorSideBottom.Control = DBEditApellidos
         Left = 8
-        Height = 15
-        Top = 41
-        Width = 49
+        Height = 13
+        Top = 43
+        Width = 42
         Anchors = [akLeft, akBottom]
         Caption = 'Apellidos'
         ParentColor = False
@@ -151,9 +220,9 @@ inherited AbmPersonas: TAbmPersonas
         AnchorSideLeft.Control = DBEditCedula
         AnchorSideBottom.Control = DBEditCedula
         Left = 8
-        Height = 15
-        Top = 81
-        Width = 37
+        Height = 13
+        Top = 83
+        Width = 33
         Anchors = [akLeft, akBottom]
         Caption = 'Cedula'
         ParentColor = False
@@ -162,9 +231,9 @@ inherited AbmPersonas: TAbmPersonas
         AnchorSideLeft.Control = DBEditRuc
         AnchorSideBottom.Control = DBEditRuc
         Left = 136
-        Height = 15
-        Top = 81
-        Width = 20
+        Height = 13
+        Top = 83
+        Width = 18
         Anchors = [akLeft, akBottom]
         Caption = 'Ruc'
         ParentColor = False
@@ -173,9 +242,9 @@ inherited AbmPersonas: TAbmPersonas
         AnchorSideLeft.Control = DateEditFechaNac
         AnchorSideBottom.Control = DateEditFechaNac
         Left = 392
-        Height = 15
-        Top = -2
-        Width = 96
+        Height = 13
+        Top = 0
+        Width = 84
         Anchors = [akLeft, akBottom]
         Caption = 'Fecha Nacimiento'
         ParentColor = False
@@ -214,9 +283,9 @@ inherited AbmPersonas: TAbmPersonas
       end
       object ButtonSeleccionarAreas: TButton
         Left = 520
-        Height = 25
+        Height = 23
         Top = 96
-        Width = 55
+        Width = 54
         AutoSize = True
         Caption = 'Areas'
         OnClick = ButtonSeleccionarAreasClick
@@ -228,10 +297,10 @@ inherited AbmPersonas: TAbmPersonas
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = ButtonSeleccionarAreas
         AnchorSideTop.Side = asrCenter
-        Left = 575
-        Height = 25
+        Left = 574
+        Height = 23
         Top = 96
-        Width = 84
+        Width = 77
         AutoSize = True
         Caption = 'Academias'
         OnClick = ButtonSeleccionarAcadClick
@@ -244,18 +313,18 @@ inherited AbmPersonas: TAbmPersonas
       AnchorSideTop.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
       Left = 8
-      Height = 355
+      Height = 359
       Top = 154
       Width = 784
       Anchors = [akTop, akLeft, akRight, akBottom]
       Caption = 'Detalles'
-      ClientHeight = 337
+      ClientHeight = 341
       ClientWidth = 780
       TabOrder = 1
       object DBGridTelefono: TDBGrid
         AnchorSideRight.Side = asrBottom
         Left = 8
-        Height = 130
+        Height = 134
         Top = 176
         Width = 768
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -268,12 +337,12 @@ inherited AbmPersonas: TAbmPersonas
           end        
           item
             Title.Caption = 'NUMERO'
-            Width = 65
+            Width = 58
             FieldName = 'NUMERO'
           end        
           item
             Title.Caption = 'DESCRIPCION'
-            Width = 89
+            Width = 84
             FieldName = 'DESCRIPCION'
           end>
         DataSource = PersonasDataModule.dsTelefono
@@ -300,14 +369,15 @@ inherited AbmPersonas: TAbmPersonas
         DataSource = PersonasDataModule.dsDireccion
         Options = []
         TabOrder = 1
+        VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
       end
       object LabelDirecciones: TLabel
         AnchorSideLeft.Control = DBGridDireccion
         AnchorSideBottom.Control = DBGridDireccion
         Left = 8
-        Height = 15
-        Top = 1
-        Width = 61
+        Height = 13
+        Top = 3
+        Width = 54
         Anchors = [akLeft, akBottom]
         Caption = 'Direcciones'
         ParentColor = False
@@ -323,27 +393,27 @@ inherited AbmPersonas: TAbmPersonas
         Columns = <        
           item
             Title.Caption = 'DIRECCION'
-            Width = 76
+            Width = 72
             FieldName = 'DIRECCION'
           end        
           item
             Title.Caption = 'BARRIO'
-            Width = 56
+            Width = 54
             FieldName = 'BARRIO'
           end        
           item
             Title.Caption = 'CIUDAD'
-            Width = 58
+            Width = 54
             FieldName = 'CIUDAD'
           end        
           item
             Title.Caption = 'DEPARTAMENTO'
-            Width = 108
+            Width = 96
             FieldName = 'DEPARTAMENTO'
           end        
           item
             Title.Caption = 'DESCRIPCION'
-            Width = 89
+            Width = 84
             FieldName = 'DESCRIPCION'
           end>
         DataSource = PersonasDataModule.dsDireccion
@@ -356,7 +426,7 @@ inherited AbmPersonas: TAbmPersonas
         AnchorSideTop.Side = asrBottom
         Left = 8
         Height = 22
-        Top = 306
+        Top = 310
         Width = 242
         BevelOuter = bvNone
         ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -370,75 +440,19 @@ inherited AbmPersonas: TAbmPersonas
         DataSource = PersonasDataModule.dsTelefono
         Options = []
         TabOrder = 3
+        VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
       end
       object LabelTelefonos: TLabel
         AnchorSideLeft.Control = DBGridTelefono
         AnchorSideBottom.Control = DBGridTelefono
         Left = 8
-        Height = 15
-        Top = 161
-        Width = 52
+        Height = 13
+        Top = 163
+        Width = 47
         Anchors = [akLeft, akBottom]
         Caption = 'Telefonos'
         ParentColor = False
       end
-    end
-  end
-  inherited PanelList: TPanel
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    Height = 511
-    Width = 800
-    ClientHeight = 511
-    ClientWidth = 800
-    inherited DBGrid1: TDBGrid
-      Height = 429
-      Width = 784
-      Columns = <      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'CEDULA'
-          Width = 84
-          FieldName = 'CEDULA'
-        end      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'NOMBRE'
-          Width = 126
-          FieldName = 'NOMBRE'
-        end      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'APELLIDO'
-          Width = 130
-          FieldName = 'APELLIDO'
-        end      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'SEXO'
-          Width = 43
-          FieldName = 'SEXO'
-        end      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'FECHANAC'
-          Width = 77
-          FieldName = 'FECHANAC'
-        end      
-        item
-          ButtonStyle = cbsCheckboxColumn
-          PickList.Strings = (          )
-          Title.Caption = 'ACTIVO'
-          Width = 57
-          FieldName = 'ACTIVO'
-        end>
-      DataSource = PersonasDataModule.dsPersona
-    end
-    inherited DBNavList: TDBNavigator
-      Top = 484
-      DataSource = PersonasDataModule.dsPersona
-      Hints.Strings = (      )
     end
   end
   inherited MainMenu: TMainMenu

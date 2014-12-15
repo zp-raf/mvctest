@@ -50,7 +50,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="151">
+    <Units Count="153">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1110,6 +1110,19 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="principalAdministrativo"/>
       </Unit150>
+      <Unit151>
+        <Filename Value="view\frmprocesocargahoraprof.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="procesoCargaHoraProf"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoCargaHoraProf"/>
+      </Unit151>
+      <Unit152>
+        <Filename Value="controller\asistenciactrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="asistenciactrl"/>
+      </Unit152>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

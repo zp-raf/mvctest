@@ -40,6 +40,8 @@ type
     constructor Create(AOwner: TComponent; AMaster: IDBModel); overload;
   published
     procedure BeforeDestruction; override;
+    procedure CheckRequiredFields(ADataSet: TDataSet;
+      ErrorHandler: TDataSetErrorHandler = nil);
     procedure CloseDataSets; virtual;
     procedure Commit; virtual;
     procedure Connect; virtual;
@@ -87,20 +89,31 @@ var
   i: integer;
 begin
   Result := False;
-  for i := 0 to FQryList.Count - 1 do
+  //for i := 0 to FQryList.Count - 1 do
+  //begin
+  //  with TSQLQuery(FQryList.Items[i]) do
+  //  begin
+  //    if (State in [dsEdit, dsInsert]) then
+  //      Result := True;
+  //  end;
+  //end;
+  //for i := 0 to FDetailList.Count - 1 do
+  //begin
+  //  with TSQLQuery(FDetailList.Items[i]) do
+  //  begin
+  //    if (State in [dsEdit, dsInsert]) then
+  //      Result := True;
+  //  end;
+  //end;
+  for i := 0 to Pred(ComponentCount) do
   begin
-    with TSQLQuery(FQryList.Items[i]) do
+    if (Components[i].ClassType = TSQLQuery) and
+      (not TSQLQuery(Components[i]).ReadOnly) and
+      ((TSQLQuery(Components[i]).State in dsEditModes) or
+      (TSQLQuery(Components[i]).ChangeCount > 0)) then
     begin
-      if (State in [dsEdit, dsInsert]) then
-        Result := True;
-    end;
-  end;
-  for i := 0 to FDetailList.Count - 1 do
-  begin
-    with TSQLQuery(FDetailList.Items[i]) do
-    begin
-      if (State in [dsEdit, dsInsert]) then
-        Result := True;
+      Result := True;
+      Break;
     end;
   end;
 end;
@@ -397,10 +410,10 @@ procedure TQueryDataModule.SaveChanges;
 var
   i: integer;
 begin
-
-  for i := 0 to FQryList.Count - 1 do
+  for i := 0 to Pred(QryList.Count) do
   begin
-    with TSQLQuery(FQryList.Items[i]) do
+    CheckRequiredFields(TSQLQuery(QryList.Items[i]));
+    with TSQLQuery(QryList.Items[i]) do
     begin
       if ReadOnly or not Active then
         Continue;
@@ -408,9 +421,10 @@ begin
     end;
   end;
 
-  for i := 0 to FDetailList.Count - 1 do
+  for i := 0 to Pred(DetailList.Count) do
   begin
-    with TSQLQuery(FDetailList.Items[i]) do
+    CheckRequiredFields(TSQLQuery(DetailList.Items[i]));
+    with TSQLQuery(DetailList.Items[i]) do
     begin
       if ReadOnly or not Active then
         Continue;
@@ -514,6 +528,32 @@ begin
   DiscardChanges;
   CloseDataSets;
   inherited BeforeDestruction;
+end;
+
+procedure TQueryDataModule.CheckRequiredFields(ADataSet: TDataSet;
+  ErrorHandler: TDataSetErrorHandler = nil);
+var
+  i: integer;
+begin
+  try
+    if (ADataSet.State in [dsInactive, dsBrowse]) then
+      Exit;
+    for i := 0 to Pred(ADataSet.Fields.Count) do
+    begin
+      if ADataSet.Fields[i].Required and (ADataSet.Fields[i].IsNull or
+        (Trim(ADataSet.Fields[i].AsString) = '')) then
+        raise Exception.Create('El campo ' + ADataSet.Fields[i].DisplayName +
+          ' no puede quedar en blanco');
+    end;
+  except
+    on E: Exception do
+    begin
+      if Assigned(ErrorHandler) then
+        ErrorHandler(ADataSet, e)
+      else
+        raise;
+    end;
+  end;
 end;
 
 procedure TQueryDataModule.CloseDataSets;

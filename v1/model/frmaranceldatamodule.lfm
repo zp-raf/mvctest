@@ -2,7 +2,7 @@ inherited ArancelesDataModule: TArancelesDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 224
-  HorizontalOffset = 1017
+  HorizontalOffset = 907
   VerticalOffset = 442
   Width = 323
   object Arancel: TSQLQuery[0]
@@ -122,7 +122,7 @@ inherited ArancelesDataModule: TArancelesDataModule
   end
   object dsAranceles: TDataSource[1]
     DataSet = Arancel
-    left = 56
+    left = 32
     top = 96
   end
   object ArancelesDetView: TSQLQuery[2]
@@ -170,6 +170,7 @@ inherited ArancelesDataModule: TArancelesDataModule
         Size = 0
       end>
     AfterInsert = ArancelImpuestoAfterInsert
+    BeforePost = ArancelImpuestoBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -182,8 +183,8 @@ inherited ArancelesDataModule: TArancelesDataModule
         Name = 'arancelid'
         ParamType = ptInput
       end>
-    left = 171
-    top = 130
+    left = 160
+    top = 160
     object ArancelImpuestoARANCELID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -232,7 +233,95 @@ inherited ArancelesDataModule: TArancelesDataModule
   end
   object dsArancelImpuesto: TDataSource[4]
     DataSet = ArancelImpuesto
-    left = 248
-    top = 152
+    left = 256
+    top = 160
+  end
+  object CuotaXArancel: TSQLQuery[5]
+    FieldDefs = <    
+      item
+        Name = 'ARANCELID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CANTIDADCUOTA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VENCIMIENTO_UNIDAD'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VENCIMIENTO_CANTIDAD'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    BeforePost = CuotaXArancelBeforePost
+    OnNewRecord = CuotaNewRecord
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from cuotaxarancel'
+      'where arancelid = :arancelid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'arancelid'
+        ParamType = ptInput
+      end>
+    left = 120
+    top = 24
+    object CuotaXArancelARANCELID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ARANCELID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object CuotaXArancelCANTIDADCUOTA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CANTIDADCUOTA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object CuotaXArancelVENCIMIENTO_UNIDAD: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VENCIMIENTO_UNIDAD'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object CuotaXArancelVENCIMIENTO_CANTIDAD: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VENCIMIENTO_CANTIDAD'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object dsCuotaXArancel: TDataSource[6]
+    DataSet = CuotaXArancel
+    left = 120
+    top = 96
   end
 end

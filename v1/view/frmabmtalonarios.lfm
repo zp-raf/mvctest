@@ -1,26 +1,22 @@
 inherited AbmTalonarios: TAbmTalonarios
   Left = 542
   Top = 278
-  ClientHeight = 461
-  inherited PanelList: TPanel[2]
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    inherited DBGrid1: TDBGrid
-      DataSource = TalonarioDataModule.dsTalonario
-    end
-    inherited DBNavList: TDBNavigator
-      DataSource = TalonarioDataModule.dsTalonario
-      Hints.Strings = (      )
-    end
+  ClientHeight = 462
+  inherited StatusBar1: TStatusBar
+    Top = 442
   end
-  inherited PanelDetail: TPanel[3]
+  inherited ButtonPanel: TButtonPanel
+    Top = 402
+  end
+  inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
+    Height = 396
+    ClientHeight = 396
     object DBEditNombre: TDBEdit[0]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 73
       Width = 315
       DataField = 'NOMBRE'
@@ -31,7 +27,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditIni: TDBEdit[1]
       Left = 216
-      Height = 23
+      Height = 21
       Top = 264
       Width = 80
       DataField = 'NUMERO_INI'
@@ -42,7 +38,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditFin: TDBEdit[2]
       Left = 320
-      Height = 23
+      Height = 21
       Top = 264
       Width = 80
       DataField = 'NUMERO_FIN'
@@ -53,7 +49,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditTimbrado: TDBEdit[3]
       Left = 251
-      Height = 23
+      Height = 21
       Top = 217
       Width = 205
       DataField = 'TIMBRADO'
@@ -64,7 +60,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditRUC: TDBEdit[4]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 217
       Width = 216
       DataField = 'RUC'
@@ -75,7 +71,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditRubro: TDBEdit[5]
       Left = 352
-      Height = 23
+      Height = 21
       Top = 72
       Width = 272
       DataField = 'RUBRO'
@@ -86,7 +82,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditTelefono: TDBEdit[6]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 169
       Width = 608
       DataField = 'TELEFONO'
@@ -97,7 +93,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditCaja: TDBEdit[7]
       Left = 424
-      Height = 23
+      Height = 21
       Top = 264
       Width = 80
       DataField = 'CAJA'
@@ -108,7 +104,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditSucursal: TDBEdit[8]
       Left = 528
-      Height = 23
+      Height = 21
       Top = 264
       Width = 80
       DataField = 'SUCURSAL'
@@ -119,7 +115,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditDesde: TDBEdit[9]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 264
       Width = 80
       DataField = 'VALIDO_DESDE'
@@ -130,7 +126,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditHasta: TDBEdit[10]
       Left = 112
-      Height = 23
+      Height = 21
       Top = 264
       Width = 80
       DataField = 'VALIDO_HASTA'
@@ -141,7 +137,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditDireccion: TDBEdit[11]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 120
       Width = 608
       DataField = 'DIRECCION'
@@ -152,7 +148,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBEditCopias: TDBEdit[12]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 312
       Width = 80
       DataField = 'COPIAS'
@@ -175,7 +171,7 @@ inherited AbmTalonarios: TAbmTalonarios
     end
     object DBLookupComboBoxTipo: TDBLookupComboBox[14]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 25
       Width = 256
       DataField = 'TIPO'
@@ -192,9 +188,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditNombre
       AnchorSideBottom.Control = DBEditNombre
       Left = 16
-      Height = 15
-      Top = 58
-      Width = 44
+      Height = 13
+      Top = 60
+      Width = 37
       Anchors = [akLeft, akBottom]
       Caption = 'Nombre'
       ParentColor = False
@@ -203,9 +199,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditIni
       AnchorSideBottom.Control = DBEditIni
       Left = 216
-      Height = 15
-      Top = 249
-      Width = 78
+      Height = 13
+      Top = 251
+      Width = 65
       Anchors = [akLeft, akBottom]
       Caption = 'Numero inicial'
       ParentColor = False
@@ -214,9 +210,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditFin
       AnchorSideBottom.Control = DBEditFin
       Left = 320
-      Height = 15
-      Top = 249
-      Width = 70
+      Height = 13
+      Top = 251
+      Width = 60
       Anchors = [akLeft, akBottom]
       Caption = 'Numero final'
       ParentColor = False
@@ -225,9 +221,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditTimbrado
       AnchorSideBottom.Control = DBEditTimbrado
       Left = 251
-      Height = 15
-      Top = 202
-      Width = 52
+      Height = 13
+      Top = 204
+      Width = 44
       Anchors = [akLeft, akBottom]
       Caption = 'Timbrado'
       ParentColor = False
@@ -236,9 +232,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditRUC
       AnchorSideBottom.Control = DBEditRUC
       Left = 16
-      Height = 15
-      Top = 202
-      Width = 23
+      Height = 13
+      Top = 204
+      Width = 21
       Anchors = [akLeft, akBottom]
       Caption = 'RUC'
       ParentColor = False
@@ -247,9 +243,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditRubro
       AnchorSideBottom.Control = DBEditRubro
       Left = 352
-      Height = 15
-      Top = 57
-      Width = 32
+      Height = 13
+      Top = 59
+      Width = 29
       Anchors = [akLeft, akBottom]
       Caption = 'Rubro'
       ParentColor = False
@@ -258,9 +254,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditTelefono
       AnchorSideBottom.Control = DBEditTelefono
       Left = 16
-      Height = 15
-      Top = 154
-      Width = 47
+      Height = 13
+      Top = 156
+      Width = 42
       Anchors = [akLeft, akBottom]
       Caption = 'Telefono'
       ParentColor = False
@@ -269,9 +265,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditCaja
       AnchorSideBottom.Control = DBEditCaja
       Left = 424
-      Height = 15
-      Top = 249
-      Width = 23
+      Height = 13
+      Top = 251
+      Width = 22
       Anchors = [akLeft, akBottom]
       Caption = 'Caja'
       ParentColor = False
@@ -280,9 +276,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditSucursal
       AnchorSideBottom.Control = DBEditSucursal
       Left = 528
-      Height = 15
-      Top = 249
-      Width = 44
+      Height = 13
+      Top = 251
+      Width = 40
       Anchors = [akLeft, akBottom]
       Caption = 'Sucursal'
       ParentColor = False
@@ -291,9 +287,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditDesde
       AnchorSideBottom.Control = DBEditDesde
       Left = 16
-      Height = 15
-      Top = 249
-      Width = 67
+      Height = 13
+      Top = 251
+      Width = 60
       Anchors = [akLeft, akBottom]
       Caption = 'Valido desde'
       ParentColor = False
@@ -302,9 +298,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditHasta
       AnchorSideBottom.Control = DBEditHasta
       Left = 112
-      Height = 15
-      Top = 249
-      Width = 64
+      Height = 13
+      Top = 251
+      Width = 58
       Anchors = [akLeft, akBottom]
       Caption = 'Valido hasta'
       ParentColor = False
@@ -313,9 +309,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditDireccion
       AnchorSideBottom.Control = DBEditDireccion
       Left = 16
-      Height = 15
-      Top = 105
-      Width = 50
+      Height = 13
+      Top = 107
+      Width = 43
       Anchors = [akLeft, akBottom]
       Caption = 'Direccion'
       ParentColor = False
@@ -324,9 +320,9 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBEditCopias
       AnchorSideBottom.Control = DBEditCopias
       Left = 16
-      Height = 15
-      Top = 297
-      Width = 36
+      Height = 13
+      Top = 299
+      Width = 32
       Anchors = [akLeft, akBottom]
       Caption = 'Copias'
       ParentColor = False
@@ -335,12 +331,103 @@ inherited AbmTalonarios: TAbmTalonarios
       AnchorSideLeft.Control = DBLookupComboBoxTipo
       AnchorSideBottom.Control = DBLookupComboBoxTipo
       Left = 16
-      Height = 15
-      Top = 10
-      Width = 77
+      Height = 13
+      Top = 12
+      Width = 67
       Anchors = [akLeft, akBottom]
       Caption = 'Tipo Talonario'
       ParentColor = False
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Height = 396
+    ClientHeight = 396
+    inherited DBGrid1: TDBGrid
+      Height = 314
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'TIPO_TALONARIO'
+          Width = 79
+          FieldName = 'TIPO_TALONARIO'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          FieldName = 'ACTIVO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'TIMBRADO'
+          FieldName = 'TIMBRADO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'RUC'
+          FieldName = 'RUC'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'VALIDO_DESDE'
+          FieldName = 'VALIDO_DESDE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'VALIDO_HASTA'
+          FieldName = 'VALIDO_HASTA'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NUMERO_INI'
+          FieldName = 'NUMERO_INI'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NUMERO_FIN'
+          FieldName = 'NUMERO_FIN'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'SUCURSAL'
+          FieldName = 'SUCURSAL'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'CAJA'
+          FieldName = 'CAJA'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'COPIAS'
+          FieldName = 'COPIAS'
+        end>
+      DataSource = TalonarioDataModule.dsTalonario
+    end
+    inherited DBNavList: TDBNavigator
+      Top = 369
+      DataSource = TalonarioDataModule.dsTalonario
+      Hints.Strings = (      )
+    end
+    inherited EditFilter: TEdit
+      Height = 21
+      Top = 26
+    end
+    inherited LabelFilter: TLabel
+      Height = 13
+      Top = 13
+      Width = 217
+    end
+    inherited ButtonFilter: TButton
+      Top = 24
     end
   end
 end

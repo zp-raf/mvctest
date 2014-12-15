@@ -151,9 +151,13 @@ uses
   frmprocesoaprobarjustificativo,
   // seleccionar talonario recibo
   frmseleccionartalonario,
+  // reporte ingresos egresos
   frmrptingegrdatamodule,
   frmprocesorptingegr,
   reporteingegrctrl,
+  // registro asistencia
+  frmprocesoCargaHoraProf,
+  asistenciactrl,
   uHelp;
 
 type
@@ -201,7 +205,7 @@ type
     procedure OpenABMJustificativosForm(Sender: IFormView);
     procedure OpenAprobarJustForm(Sender: IFormView);
     procedure OpenSeleccionTalonarioRecForm(Sender: IFormView);
-    procedure OpenIngEgresoReporteForm (Sender: IFormView);
+    procedure OpenIngEgresoReporteForm(Sender: IFormView);
     procedure OpenHelpForm (Sender: IFormView);
   end;
 
@@ -502,7 +506,10 @@ end;
 
 procedure TPrincipalController.OpenAsistenciaForm(Sender: IFormView);
 begin
-
+  procesoCargaHoraProf := TprocesoCargaHoraProf.Create(Sender,
+    TAsistenciaController.Create(nil));
+  procesoCargaHoraProf.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(procesoCargaHoraProf as IObserver);
 end;
 
 procedure TPrincipalController.OpenABMJustificativosForm(Sender: IFormView);
@@ -560,8 +567,8 @@ end;
 procedure TPrincipalController.OpenIngEgresoReporteForm(Sender: IFormView);
 begin
   ProcesoReportIngEgr := TProcesoReportIngEgr.Create(Sender,
-  TRepIngEgrController.Create(TReporteIngEgrDataModule.Create(
-  (Sender as TComponent), GetModel.MasterDataModule)));
+    TRepIngEgrController.Create(TReporteIngEgrDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoReportIngEgr.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoReportIngEgr as IObserver);
 end;

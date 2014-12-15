@@ -13,6 +13,7 @@ type
   { TTalonarioDataModule }
 
   TTalonarioDataModule = class(TQueryDataModule)
+    StringField1: TStringField;
     procedure DataModuleDestroy(Sender: TObject);
   private
     FCodigos: TCodigosDataModule;
@@ -90,6 +91,10 @@ begin
   QryList.Add(TObject(Talonario));
   AuxQryList.Add(TObject(TalonarioView));
   AuxQryList.Add(TObject(FCodigos.Codigos));
+  SearchFieldList.Add('NOMBRE');
+  SearchFieldList.Add('RUC');
+  SearchFieldList.Add('TIMBRADO');
+  Talonario.OnFilterRecord:=@FilterRecord;
 end;
 
 function TTalonarioDataModule.GetTipoTalonario: TTipoTalonario;

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, FileUtil, frmsgcddatamodule, frmquerydatamodule,
-  frmcuotaxarancel, frmimpuestodadamodule, sgcdTypes;
+  frmimpuestodadamodule, sgcdTypes, frmcodigosdatamodule;
 
 resourcestring
   rsGenName = 'SEQ_ARANCEL';
@@ -16,21 +16,12 @@ type
   { TArancelesDataModule }
 
   TArancelesDataModule = class(TQueryDataModule)
-    ArancelImpuesto: TSQLQuery;
-    ArancelImpuestoARANCELID: TLongintField;
-    ArancelImpuestoIMPUESTOID: TLongintField;
-    ArancelImpuestoINLCUIDO: TSmallintField;
-    dsArancelImpuesto: TDataSource;
-    StringField1: TStringField;
-    procedure ArancelAfterScroll(DataSet: TDataSet);
-    procedure ArancelImpuestoAfterInsert(DataSet: TDataSet);
-    procedure ArancelMONTOChange(Sender: TField);
-    procedure ArancelNewRecord(DataSet: TDataSet);
-    procedure DataModuleDestroy(Sender: TObject);
+    procedure ArancelImpuestoBeforePost(DataSet: TDataSet);
+    procedure CuotaXArancelBeforePost(DataSet: TDataSet);
   private
-    FCuotasXArancel: TCuotaArancelDataModule;
+    FCodigos: TCodigosDataModule;
     FImpuesto: TImpuestoDataModule;
-    procedure SetCuotasXArancel(AValue: TCuotaArancelDataModule);
+    procedure SetCodigos(AValue: TCodigosDataModule);
     procedure SetImpuesto(AValue: TImpuestoDataModule);
   published
     Arancel: TSQLQuery;
@@ -40,18 +31,32 @@ type
     ArancelID: TLongintField;
     ArancelMONTO: TFloatField;
     ArancelNOMBRE: TStringField;
+    ArancelImpuesto: TSQLQuery;
+    ArancelImpuestoARANCELID: TLongintField;
+    ArancelImpuestoIMPUESTOID: TLongintField;
+    ArancelImpuestoINLCUIDO: TSmallintField;
     CuotaXArancelARANCELID: TLongintField;
     CuotaXArancelCANTIDADCUOTA: TLongintField;
     CuotaXArancelVENCIMIENTO_CANTIDAD: TLongintField;
     CuotaXArancelVENCIMIENTO_UNIDAD: TLongintField;
     dsAranceles: TDataSource;
     ArancelesDetView: TSQLQuery;
+    CuotaXArancel: TSQLQuery;
+    dsArancelImpuesto: TDataSource;
+    dsCuotaXArancel: TDataSource;
+    StringField1: TStringField;
+    procedure ArancelAfterScroll(DataSet: TDataSet);
+    procedure ArancelImpuestoAfterInsert(DataSet: TDataSet);
+    procedure ArancelMONTOChange(Sender: TField);
+    procedure ArancelNewRecord(DataSet: TDataSet);
+    procedure CuotaNewRecord(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure DataModuleDestroy(Sender: TObject);
     procedure DoDeleteAction(ADataSet: TDataSet); override;
     procedure SaveChanges; override;
-    procedure NewRecord; override;
-    property CuotasXArancel: TCuotaArancelDataModule
-      read FCuotasXArancel write SetCuotasXArancel;
+    function HayCuotas: boolean;
+    function HayImpuestos: boolean;
+    property Codigos: TCodigosDataModule read FCodigos write SetCodigos;
     property Impuesto: TImpuestoDataModule read FImpuesto write SetImpuesto;
   end;
 
@@ -67,19 +72,20 @@ implementation
 procedure TArancelesDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
-  FCuotasXArancel := TCuotaArancelDataModule.Create(Self, MasterDataModule);
+  FCodigos := TCodigosDataModule.Create(Self, MasterDataModule);
+  FCodigos.SetObject('CUOTAXARANCEL.VENCIMIENTO_UNIDAD');
   FImpuesto := TImpuestoDataModule.Create(Self, MasterDataModule);
   QryList.Add(TObject(Arancel));
-  QryList.Add(TObject(FCuotasXArancel.CuotaXArancel));
+  //QryList.Add(TObject(CuotaXArancel));
   AuxQryList.Add(TObject(ArancelesDetView));
   AuxQryList.Add(TObject(FImpuesto.Impuesto));
-  AuxQryList.Add(TObject(FCuotasXArancel.Codigos.Codigos));
+  AuxQryList.Add(TObject(Codigos.Codigos));
   SearchFieldList.Add('NOMBRE');
 end;
 
 procedure TArancelesDataModule.DoDeleteAction(ADataSet: TDataSet);
 begin
-  if ADataSet = CuotasXArancel.CuotaXArancel then
+  if ADataSet = CuotaXArancel then
     Exit;
   if not (ADataSet.State in [dsEdit]) then
     ADataSet.Edit;
@@ -90,13 +96,14 @@ procedure TArancelesDataModule.SaveChanges;
 begin
   inherited SaveChanges;
   ArancelImpuesto.ApplyUpdates;
+  CuotaXArancel.ApplyUpdates;
 end;
 
 procedure TArancelesDataModule.DataModuleDestroy(Sender: TObject);
 begin
   inherited;
-  if Assigned(FCuotasXArancel) then
-    FreeAndNil(FCuotasXArancel);
+  if Assigned(FCodigos) then
+    FreeAndNil(FCodigos);
   if Assigned(FImpuesto) then
     FreeAndNil(FImpuesto);
 end;
@@ -120,16 +127,13 @@ end;
 procedure TArancelesDataModule.ArancelAfterScroll(DataSet: TDataSet);
 begin
   ArancelImpuesto.Close;
+  CuotaXArancel.Close;
   ArancelImpuesto.ParamByName('ARANCELID').AsInteger :=
-    Arancel.FieldByName('ID').AsInteger;
+    DataSet.FieldByName('ID').AsInteger;
+  CuotaXArancel.ParamByName('ARANCELID').AsInteger :=
+    DataSet.FieldByName('ID').AsInteger;
+  CuotaXArancel.Open;
   ArancelImpuesto.Open;
-end;
-
-procedure TArancelesDataModule.SetCuotasXArancel(AValue: TCuotaArancelDataModule);
-begin
-  if FCuotasXArancel = AValue then
-    Exit;
-  FCuotasXArancel := AValue;
 end;
 
 procedure TArancelesDataModule.SetImpuesto(AValue: TImpuestoDataModule);
@@ -139,11 +143,43 @@ begin
   FImpuesto := AValue;
 end;
 
-procedure TArancelesDataModule.NewRecord;
+procedure TArancelesDataModule.ArancelImpuestoBeforePost(DataSet: TDataSet);
 begin
-  inherited;
-  CuotasXArancel.CuotaXArancel.FieldByName('ARANCELID').Value :=
+  CheckRequiredFields(DataSet);
+end;
+
+procedure TArancelesDataModule.CuotaXArancelBeforePost(DataSet: TDataSet);
+begin
+  CheckRequiredFields(DataSet);
+end;
+
+procedure TArancelesDataModule.SetCodigos(AValue: TCodigosDataModule);
+begin
+  if FCodigos = AValue then
+    Exit;
+  FCodigos := AValue;
+end;
+
+procedure TArancelesDataModule.CuotaNewRecord(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('ARANCELID').Value :=
     Arancel.FieldByName('ID').Value;
+end;
+
+function TArancelesDataModule.HayCuotas: boolean;
+begin
+  if CuotaXArancel.Lookup('ARANCELID', ArancelID.AsString, 'ARANCELID') = null then
+    Result := False
+  else
+    Result := True;
+end;
+
+function TArancelesDataModule.HayImpuestos: boolean;
+begin
+  if ArancelImpuesto.Lookup('ARANCELID', ArancelID.AsString, 'ARANCELID') = null then
+    Result := False
+  else
+    Result := True;
 end;
 
 end.

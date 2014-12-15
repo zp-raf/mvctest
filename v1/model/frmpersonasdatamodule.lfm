@@ -2,10 +2,11 @@ inherited PersonasDataModule: TPersonasDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 322
-  HorizontalOffset = 1084
+  HorizontalOffset = 574
   VerticalOffset = 341
   Width = 656
   object Persona: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -214,6 +215,7 @@ inherited PersonasDataModule: TPersonasDataModule
         Size = 255
       end>
     AfterInsert = DireccionAfterInsert
+    BeforePost = DireccionBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -337,6 +339,7 @@ inherited PersonasDataModule: TPersonasDataModule
         Size = 255
       end>
     AfterInsert = TelefonoAfterInsert
+    BeforePost = TelefonoBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -421,7 +424,6 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 256
   end
   object PersonasRoles: TSQLQuery[6]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

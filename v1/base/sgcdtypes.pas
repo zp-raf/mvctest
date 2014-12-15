@@ -78,6 +78,8 @@ type
   // Para querydatamodule
   TErrorEvent = procedure(Sender: TObject; E: EDatabaseError) of object;
 
+  TDataSetErrorHandler = procedure(ADataSet: TDataSet; E: Exception) of object;
+
   TEstadoComprobante = (csInicial, csEditando, csGuardado, csLeyendo);
 
   TFormaPago = (paCheque, paEfectivo, paTarjetaDebito, paTarjetaCredito);

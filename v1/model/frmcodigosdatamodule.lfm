@@ -10,6 +10,7 @@ inherited CodigosDataModule: TCodigosDataModule
     top = 96
   end
   object Codigos: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'VALOR'

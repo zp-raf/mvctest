@@ -98,7 +98,10 @@ var
   Arr: TRoles;
 begin
   inherited ObserverUpdate(Subject);
-  DateEditFechaNac.Date := GetCustomController.GetFechaNac(Self);
+  if GetController.IsValidDate(GetCustomController.GetFechaNac(Self)) then
+    DateEditFechaNac.Date := GetCustomController.GetFechaNac(Self)
+  else
+    DateEditFechaNac.Clear;
   Arr := GetCustomController.GetRol(Self);
   if Arr = nil then
     Exit;

@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, DB, IBConnection, Dialogs, strutils;
 
 resourcestring
-  rsPrimaryKeyError = 'Un campo no admite valores duplicados. Revise los datos.';
+  rsPrimaryKeyError = 'Los datos introducidos ya existen. Reviselos.';
   rsForeignKeyError = 'El registro no puede eliminarse debido a que otros datos dependen de el.';
   rsAppError = 'Error de aplicacion. Mensaje tecnico del error: ';
   rsErrorTitle = 'Error';

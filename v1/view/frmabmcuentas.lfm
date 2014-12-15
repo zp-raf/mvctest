@@ -1,56 +1,49 @@
 inherited AbmCuentas: TAbmCuentas
   Caption = 'ABM Cuentas'
-  ClientHeight = 461
+  ClientHeight = 462
   inherited StatusBar1: TStatusBar
-    Height = 23
+    Top = 442
   end
-  inherited PanelList: TPanel[2]
+  inherited ButtonPanel: TButtonPanel
+    Top = 402
+  end
+  inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
-    inherited DBGrid1: TDBGrid
-      DataSource = CuentaDataModule.dsCuenta
-    end
-    inherited DBNavList: TDBNavigator
-      DataSource = CuentaDataModule.dsCuenta
-      Hints.Strings = (      )
-    end
-  end
-  inherited PanelDetail: TPanel[3]
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
+    Height = 396
+    ClientHeight = 396
     object DBEdit1: TDBEdit[0]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 120
       Width = 608
       DataField = 'CODIGO'
       DataSource = CuentaDataModule.dsCuenta
       Anchors = [akTop, akLeft, akRight]
       CharCase = ecNormal
-      MaxLength = 255
+      MaxLength = 0
       TabOrder = 2
     end
     object DBEdit2: TDBEdit[1]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 21
       Width = 608
       DataField = 'NOMBRE'
       DataSource = CuentaDataModule.dsCuenta
       Anchors = [akTop, akLeft, akRight]
       CharCase = ecNormal
-      MaxLength = 255
+      MaxLength = 0
       TabOrder = 0
     end
     object Nombre: TLabel[2]
       AnchorSideLeft.Control = DBEdit2
       AnchorSideBottom.Control = DBEdit2
       Left = 16
-      Height = 15
-      Top = 6
-      Width = 106
+      Height = 13
+      Top = 8
+      Width = 94
       Anchors = [akLeft, akBottom]
       Caption = 'Nombre (requerido)'
       ParentColor = False
@@ -59,9 +52,9 @@ inherited AbmCuentas: TAbmCuentas
       AnchorSideLeft.Control = DBEdit1
       AnchorSideBottom.Control = DBEdit1
       Left = 16
-      Height = 15
-      Top = 105
-      Width = 101
+      Height = 13
+      Top = 107
+      Width = 90
       Anchors = [akLeft, akBottom]
       Caption = 'Codigo (requerido)'
       ParentColor = False
@@ -86,7 +79,7 @@ inherited AbmCuentas: TAbmCuentas
     end
     object DBLookupComboBox1: TDBLookupComboBox[5]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 72
       Width = 608
       Anchors = [akTop, akLeft, akRight]
@@ -105,12 +98,112 @@ inherited AbmCuentas: TAbmCuentas
       AnchorSideLeft.Control = DBLookupComboBox1
       AnchorSideBottom.Control = DBLookupComboBox1
       Left = 16
-      Height = 15
-      Top = 57
-      Width = 219
+      Height = 13
+      Top = 59
+      Width = 201
       Anchors = [akLeft, akBottom]
       Caption = 'Cuenta Padre (pulse Suprimir para borrar)'
       ParentColor = False
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Height = 396
+    ClientHeight = 396
+    inherited DBGrid1: TDBGrid
+      Height = 314
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'CODIGO'
+          FieldName = 'CODIGO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (
+            'Pedro Acosta'
+            'Mario Santander'
+            'Angelica Benitez'
+            'Liz Mora'
+            'Natalia Ramos'
+            'Viviana Galeano'
+            'Liz Peña'
+            'Lizzie Paniagua'
+            'Rocio Rolón'
+            'Julian Miltos'
+            'Ana Maria Acosta Ortellado'
+            'Laura Esmilce Aguilera Montiel'
+            'Hannah Giselle Alvarez Agüero'
+            'Nadia Patricia Da Rosa Baez'
+            'Eliana Gisell Cords'
+            'Sandra Maria Patricia Kronas Oviedo'
+            'Marians Martinez Montenegro'
+            'Maria Luisa Martinez Caballero'
+            'Maria Paola Oviedo Caceres'
+            'Lorena Estefany Ramirez Delgado'
+            'Ruth Karina Samudia Benitez'
+            'Dora Margarita Silvero Chamorro'
+            'Cecilia Paola Vega Chavez'
+            'Veronica Alejandra Cabrera Aquino'
+            'Maria del Carmen Cañete Torres'
+            'Maria Alejandra Elizabeth Duré Aranda'
+            'Alejandra Linda Gray Murray'
+            'Ivonne Montserrat Martinez Maqueda'
+            'Ana Lucia Mendoza Ruiz Diaz'
+            'María Victoria Mendoza Ruiz Díaz'
+            'Fabiana Ismelda Paredes Ramírez'
+            'Karen KAtiana Rojas Roa'
+            'Génesis Esther Sosa Fernández'
+            'Evelyn Libanes Soto González'
+            'Claudia Beatriz Torres Rivas'
+            'Jessica Basilia Torres Martínez'
+            'Manuel Pérez Vargas'
+            'Ana Carolina Mendieta Castillo'
+            'Alma María Judith Oliver Benítez'
+            'Rebeca Sánchez Giménez'
+            'Norma Beatriz Vargas Zeballos'
+            'Fiorella Virgilli Labella'
+            'Pedro Pablo Oviedo'
+            'Alcides Javier Acosta'
+            'Ives Maurice  Beauvais'
+            'Juan Antonio Ledesma Jorgge'
+            'Rafael Alejandro Aquino Silva'
+            'Santiago Javier Aquino Silva'
+            'MARIA IRENE SILVA DE AQUINO'
+            'Mario Luis Aquino Trinidad'
+            'Juana Pabla  Carrillo de Lopez'
+            'Luis Perez Pucho'
+            'Arsenio Erico'
+            'Federico Miguel Pérez Férnandez'
+            'Gordon Freeman'
+          )
+          Title.Caption = 'NOMBRECOMPLETO'
+          FieldName = 'NOMBRECOMPLETO'
+        end>
+      DataSource = CuentaDataModule.dsCuenta
+    end
+    inherited DBNavList: TDBNavigator
+      Top = 369
+      DataSource = CuentaDataModule.dsCuenta
+      Hints.Strings = (      )
+    end
+    inherited EditFilter: TEdit
+      Height = 21
+      Top = 26
+    end
+    inherited LabelFilter: TLabel
+      Height = 13
+      Top = 13
+      Width = 217
+    end
+    inherited ButtonFilter: TButton
+      Top = 24
     end
   end
 end

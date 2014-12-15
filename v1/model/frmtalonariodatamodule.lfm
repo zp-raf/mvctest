@@ -6,6 +6,7 @@ inherited TalonarioDataModule: TTalonarioDataModule
   VerticalOffset = 449
   Width = 306
   object Talonario: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -278,6 +279,21 @@ inherited TalonarioDataModule: TTalonarioDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+    end
+    object StringField1: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'TIPO_TALONARIO'
+      Index = 16
+      KeyFields = 'TIPO'
+      LookupCache = False
+      LookupDataSet = CodigosDataModule.Codigos
+      LookupKeyFields = 'VALOR'
+      LookupResultField = 'SIGNIFICADO'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
     end
   end
   object dsTalonario: TDataSource[1]
