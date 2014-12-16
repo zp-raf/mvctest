@@ -99,36 +99,32 @@ end;
 
 procedure TMultasDataModule.AplicarMultas(AID: string);
 begin
-  FArancelID := AID;
+  //FArancelID := AID;
   try
-    spGetDeudasEnMora.Close;
-    spGetDeudasEnMora.ParamByName('arancelMultaID').AsString := AID;
-    spGetDeudasEnMora.Open;
-    if spGetDeudasEnMora.IsEmpty then
-      Exit;
-    Deudas.SetArancel(AID);
-    spGetDeudasEnMora.First;
-    while not spGetDeudasEnMora.EOF do
-    begin
-      Deudas.NewRecord;
-      Deudas.SetPersona(spGetDeudasEnMora.FieldByName('PERSONAID').AsString);
-      Deudas.Deuda.FieldByName('ARANCELID').AsString := AID;
-      if not spGetDeudasEnMora.FieldByName('MATRICULAID').IsNull then
-        Deudas.Deuda.FieldByName('MATRICULAID').AsString :=
-          spGetDeudasEnMora.FieldByName('MATRICULAID').AsString;
-      Deudas.GenerarCuotas;
-      spGetDeudasEnMora.Next;
-    end;
-    Deudas.SaveChanges;
+    //  spGetDeudasEnMora.Close;
+    //  spGetDeudasEnMora.ParamByName('arancelMultaID').AsString := AID;
+    //  spGetDeudasEnMora.Open;
+    //  if spGetDeudasEnMora.IsEmpty then
+    //    Exit;
+    //  Deudas.SetArancel(AID);
+    //  spGetDeudasEnMora.First;
+    //  while not spGetDeudasEnMora.EOF do
+    //  begin
+    //    Deudas.NewRecord;
+    //    Deudas.SetPersona(spGetDeudasEnMora.FieldByName('PERSONAID').AsString);
+    //    Deudas.Deuda.FieldByName('ARANCELID').AsString := AID;
+    //    if not spGetDeudasEnMora.FieldByName('MATRICULAID').IsNull then
+    //      Deudas.Deuda.FieldByName('MATRICULAID').AsString :=
+    //        spGetDeudasEnMora.FieldByName('MATRICULAID').AsString;
+    //    Deudas.GenerarCuotas;
+    //    spGetDeudasEnMora.Next;
+    //  end;
+    //  Deudas.SaveChanges;
+    //  Commit;
+    spMulta.Params.Items[0].AsString := AID;
+    spMulta.Prepare;
+    spMulta.ExecSQL;
     Commit;
-    {
-     spMulta.Params.Items[0].AsString := AID;
-     //spMulta.Active:=True;
-     //spMulta.Prepare;
-     spMulta.ExecSQL;
-     //spMulta.ApplyUpdates;
-     Commit;
-    }
   except
     on E:
       EDatabaseError do
@@ -147,6 +143,7 @@ end;
 
 procedure TMultasDataModule.BeforeDestruction;
 begin
+  XMLPropStorage1.Save;
   XMLPropStorage1.Save;
   inherited BeforeDestruction;
 end;

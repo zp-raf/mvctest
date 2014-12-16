@@ -2,7 +2,7 @@ inherited GeneraDeudaDataModule: TGeneraDeudaDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 323
-  HorizontalOffset = 929
+  HorizontalOffset = 874
   VerticalOffset = 253
   Width = 356
   object dsDeuda: TDataSource[0]

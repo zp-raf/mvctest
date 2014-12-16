@@ -1,5 +1,9 @@
 inherited PrincipalAdministrativo: TPrincipalAdministrativo
-  ClientHeight = 80
+  ClientHeight = 81
+  inherited StatusBar1: TStatusBar
+    Height = 20
+    Top = 61
+  end
   inherited MainMenu: TMainMenu
     inherited Academico: TMenuItem
       inherited examenes: TMenuItem

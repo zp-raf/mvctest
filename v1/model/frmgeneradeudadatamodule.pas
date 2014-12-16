@@ -237,6 +237,8 @@ begin
   // para no comprobar el asiento antes de guardar
   FAsientos.ComprobarAsiento := False;
   FCuentas := TCuentaDataModule.Create(Self, FMasterDataModule);
+  // no comprobamos los campos porque puede dar errores
+  CheckReqFields := False;
 end;
 
 procedure TGeneraDeudaDataModule.DeudaNewRecord(DataSet: TDataSet);

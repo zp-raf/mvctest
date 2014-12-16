@@ -7,9 +7,14 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Interfaces, // this includes the LCL widgetset
   Forms,
   frmsgcddatamodule, // database connection
-  ctrl, observerSubject, mvc,
+  ctrl,
+  observerSubject,
+  mvc,
   // home
-  Principal, principalctrl, frmprincipaldatamodule;
+  Principal,
+  principalctrl,
+  frmprincipaldatamodule;
+//frmprincipaladministrativo;
 
 
 {$R *.res}
@@ -24,14 +29,16 @@ begin
 
   Principal1 := TPrincipal1.Create(nil, TPrincipalController.Create(
     TPrincipalDataModule.Create(nil, SgcdDataModule)));
-
+  //PrincipalAdministrativo :=
+  //  TPrincipalAdministrativo.Create(nil, TPrincipalController.Create(
+  //  TPrincipalDataModule.Create(nil, SgcdDataModule)));
   //Application.OnException:=@(Principal1.AppPropsException);
 
   // Hay que castear el objeto para poder añadirle los observadores
   Principal1.Show;
+  //PrincipalAdministrativo.Show;
   (SgcdDataModule as ISubject).Attach(Principal1 as IObserver);
+  //(SgcdDataModule as ISubject).Attach(PrincipalAdministrativo as IObserver);
 
   Application.Run;
 end.
-
-

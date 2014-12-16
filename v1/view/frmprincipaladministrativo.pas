@@ -1,4 +1,4 @@
-unit principalAdministrativo;
+unit frmprincipaladministrativo;
 
 {$mode objfpc}{$H+}
 

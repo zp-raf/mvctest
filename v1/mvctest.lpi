@@ -20,6 +20,12 @@
       <EnableI18N LFM="False"/>
     </i18n>
     <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
+      <MajorVersionNr Value="2"/>
+      <RevisionNr Value="2"/>
+      <BuildNr Value="134"/>
+      <Language Value="040A"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -1103,12 +1109,12 @@
         <UnitName Value="uHelp"/>
       </Unit149>
       <Unit150>
-        <Filename Value="view\principaladministrativo.pas"/>
+        <Filename Value="view\frmprincipaladministrativo.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="PrincipalAdministrativo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="principalAdministrativo"/>
+        <UnitName Value="frmprincipaladministrativo"/>
       </Unit150>
       <Unit151>
         <Filename Value="view\frmprocesocargahoraprof.pas"/>

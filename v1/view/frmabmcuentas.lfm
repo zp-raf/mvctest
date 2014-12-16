@@ -1,18 +1,10 @@
 inherited AbmCuentas: TAbmCuentas
   Caption = 'ABM Cuentas'
   ClientHeight = 462
-  inherited StatusBar1: TStatusBar
-    Top = 442
-  end
-  inherited ButtonPanel: TButtonPanel
-    Top = 402
-  end
   inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
-    Height = 396
-    ClientHeight = 396
     object DBEdit1: TDBEdit[0]
       Left = 16
       Height = 21
@@ -110,19 +102,18 @@ inherited AbmCuentas: TAbmCuentas
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
-    Height = 396
-    ClientHeight = 396
     inherited DBGrid1: TDBGrid
-      Height = 314
       Columns = <      
         item
           PickList.Strings = (          )
           Title.Caption = 'CODIGO'
+          Width = 56
           FieldName = 'CODIGO'
         end      
         item
           PickList.Strings = (          )
           Title.Caption = 'NOMBRE'
+          Width = 57
           FieldName = 'NOMBRE'
         end      
         item
@@ -183,27 +174,15 @@ inherited AbmCuentas: TAbmCuentas
             'Federico Miguel Pérez Férnandez'
             'Gordon Freeman'
           )
-          Title.Caption = 'NOMBRECOMPLETO'
-          FieldName = 'NOMBRECOMPLETO'
+          Title.Caption = 'PERSONA'
+          Width = 111
+          FieldName = 'PERSONA'
         end>
       DataSource = CuentaDataModule.dsCuenta
     end
     inherited DBNavList: TDBNavigator
-      Top = 369
       DataSource = CuentaDataModule.dsCuenta
       Hints.Strings = (      )
-    end
-    inherited EditFilter: TEdit
-      Height = 21
-      Top = 26
-    end
-    inherited LabelFilter: TLabel
-      Height = 13
-      Top = 13
-      Width = 217
-    end
-    inherited ButtonFilter: TButton
-      Top = 24
     end
   end
 end

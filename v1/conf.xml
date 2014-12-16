@@ -2,6 +2,6 @@
 <CONFIG>
   <Principal1>
     <FacturasDataModule talonarioid="17"/>
-    <MultasDataModule arancelid=""/>
+    <MultasDataModule arancelid="0"/>
   </Principal1>
 </CONFIG>

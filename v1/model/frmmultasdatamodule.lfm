@@ -6,6 +6,7 @@ inherited MultasDataModule: TMultasDataModule
   VerticalOffset = 312
   Width = 354
   object qry: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -119,6 +120,7 @@ inherited MultasDataModule: TMultasDataModule
     top = 128
   end
   object spGetDeudasEnMora: TSQLQuery[4]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

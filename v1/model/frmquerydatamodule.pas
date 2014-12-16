@@ -15,6 +15,7 @@ type
   TQueryDataModule = class(TDataModule, IModel)
   private
     FAuxQryList: TQryList;
+    FCheckRequiredFields: boolean;
     FOnError: TErrorEvent;
     FSearchFieldList: TSearchFieldList;
     FSearchText: string;
@@ -28,6 +29,7 @@ type
     function GetSearchText: string;
     function GetQryList: TQryList;
     procedure SetAuxQryList(AValue: TQryList);
+    procedure SetCheckRequiredFields(AValue: boolean);
     procedure SetDetailList(AValue: TQryList);
     procedure SetMasterDataModule(AValue: IDBModel);
     procedure SetOnError(AValue: TErrorEvent);
@@ -67,6 +69,8 @@ type
     function GetCurrentRecordText: string;
     function GetDBStatus: TDBInfo;
     property AuxQryList: TQryList read GetAuxQryList write SetAuxQryList;
+    property CheckReqFields: boolean read FCheckRequiredFields
+      write SetCheckRequiredFields;
     property DetailList: TQryList read GetDetailList write SetDetailList;
     property MasterDataModule: IDBModel read GetMasterDataModule
       write SetMasterDataModule;
@@ -132,6 +136,7 @@ begin
   FAuxQryList := TQryList.Create(False);
   FDetailList := TQryList.Create(False);
   FSearchText := '';
+  FCheckRequiredFields := True;
 end;
 
 procedure TQueryDataModule.DataModuleDestroy(Sender: TObject);
@@ -412,7 +417,8 @@ var
 begin
   for i := 0 to Pred(QryList.Count) do
   begin
-    CheckRequiredFields(TSQLQuery(QryList.Items[i]));
+    if CheckReqFields then
+      CheckRequiredFields(TSQLQuery(QryList.Items[i]));
     with TSQLQuery(QryList.Items[i]) do
     begin
       if ReadOnly or not Active then
@@ -423,7 +429,8 @@ begin
 
   for i := 0 to Pred(DetailList.Count) do
   begin
-    CheckRequiredFields(TSQLQuery(DetailList.Items[i]));
+    if CheckReqFields then
+      CheckRequiredFields(TSQLQuery(DetailList.Items[i]));
     with TSQLQuery(DetailList.Items[i]) do
     begin
       if ReadOnly or not Active then
@@ -627,6 +634,13 @@ begin
   if AValue = FAuxQryList then
     Exit;
   FAuxQryList := AValue;
+end;
+
+procedure TQueryDataModule.SetCheckRequiredFields(AValue: boolean);
+begin
+  if FCheckRequiredFields = AValue then
+    Exit;
+  FCheckRequiredFields := AValue;
 end;
 
 procedure TQueryDataModule.SetDetailList(AValue: TQryList);
