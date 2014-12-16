@@ -16,6 +16,7 @@ type
   { TEquiposDataModule }
 
   TEquiposDataModule = class(TQueryDataModule)
+    dsEquiposDisponibles: TDataSource;
     dsEquipo: TDataSource;
     Equipo: TSQLQuery;
     EquipoACTIVO: TSmallintField;
@@ -24,11 +25,16 @@ type
     EquipoID: TLongintField;
     EquipoNOMBRE: TStringField;
     EquipoNROSERIE: TStringField;
+    EquiposDisponiblesViewDESCRIPCION: TStringField;
+    EquiposDisponiblesViewID: TLongintField;
+    EquiposDisponiblesViewNOMBRE: TStringField;
+    EquiposDisponiblesViewNROSERIE: TStringField;
     PrestamoEQUIPOID: TLongintField;
     PrestamoFECHAFIN: TDateField;
     PrestamoFECHAINICIO: TDateField;
     PrestamoID: TLongintField;
     PrestamoPERSONAID: TLongintField;
+    EquiposDisponiblesView: TSQLQuery;
     StringField1: TStringField;
     procedure DataModuleCreate(Sender: TObject); override;
     procedure DoDeleteAction(ADataSet: TDataSet); override;
@@ -48,6 +54,7 @@ procedure TEquiposDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   QryList.Add(TObject(Equipo));
+  AuxQryList.Add(TObject(EquiposDisponiblesView));
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('NROSERIE');
   Equipo.OnFilterRecord := @FilterRecord;

@@ -63,11 +63,13 @@ type
     procedure RefreshDataSets; virtual;
     procedure Rollback; virtual;
     procedure SaveChanges; virtual;
+    procedure SetFieldValue(AFieldName: string; AValue: variant);
     procedure SetReadOnly(Option: boolean);
     procedure UnfilterData;
     function ArePendingChanges: boolean; virtual;
     function GetCurrentRecordText: string;
     function GetDBStatus: TDBInfo;
+    function GetFieldValue(AFieldName: string): variant;
     property AuxQryList: TQryList read GetAuxQryList write SetAuxQryList;
     property CheckReqFields: boolean read FCheckRequiredFields
       write SetCheckRequiredFields;
@@ -440,6 +442,38 @@ begin
   end;
 end;
 
+procedure TQueryDataModule.SetFieldValue(AFieldName: string; AValue: variant);
+var
+  i: integer;
+  FieldFound: boolean = False;
+  qry: TSQLQuery;
+begin
+  for i := 0 to Pred(QryList.Count) do
+  begin
+    with TSQLQuery(QryList.Items[i]) do
+    begin
+      if (FindField(AFieldName) <> nil) and not FieldFound then
+      begin
+        FieldFound := True;
+        qry := TSQLQuery(QryList.Items[i]);
+      end
+      else if FieldFound then
+        raise Exception.Create(
+          'No se pudo completar la operacion. Hay varios campos con el nombre ' +
+          AFieldName);
+    end;
+  end;
+  if FieldFound then
+  begin
+    if not (qry.State in dsEditModes) then
+      raise Exception.Create(
+        'No se pudo completar la operacion. No se estan editando datos');
+    qry.FieldByName(AFieldName).Value := AValue;
+  end
+  else
+    raise Exception.Create('Campo ' + AFieldName + ' no econtrado');
+end;
+
 procedure TQueryDataModule.SetReadOnly(Option: boolean);
 var
   i: integer;
@@ -516,6 +550,38 @@ end;
 function TQueryDataModule.GetDBStatus: TDBInfo;
 begin
   Result := FMasterDataModule.GetDBStatus;
+end;
+
+function TQueryDataModule.GetFieldValue(AFieldName: string): variant;
+var
+  i: integer;
+  FieldFound: boolean = False;
+  qry: TSQLQuery;
+begin
+  for i := 0 to Pred(QryList.Count) do
+  begin
+    with TSQLQuery(QryList.Items[i]) do
+    begin
+      if (FindField(AFieldName) <> nil) and not FieldFound then
+      begin
+        FieldFound := True;
+        qry := TSQLQuery(QryList.Items[i]);
+      end
+      else if FieldFound then
+        raise Exception.Create(
+          'No se pudo completar la operacion. Hay varios campos con el nombre ' +
+          AFieldName);
+    end;
+  end;
+  if FieldFound then
+  begin
+    if (qry.State in [dsInactive]) then
+      raise Exception.Create(
+        'No se pudo completar la operacion. Datos no disponibles');
+    Result := qry.FieldByName(AFieldName).Value;
+  end
+  else
+    raise Exception.Create('Campo ' + AFieldName + ' no econtrado');
 end;
 
 function TQueryDataModule.GetQryList: TQryList;

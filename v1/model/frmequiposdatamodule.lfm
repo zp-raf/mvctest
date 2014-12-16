@@ -2,9 +2,10 @@ inherited EquiposDataModule: TEquiposDataModule
   OnCreate = DataModuleCreate
   Height = 314
   HorizontalOffset = 826
-  VerticalOffset = 434
+  VerticalOffset = 415
   Width = 402
   object Equipo: TSQLQuery[0]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -42,6 +43,7 @@ inherited EquiposDataModule: TEquiposDataModule
         Precision = -1
         Size = 0
       end>
+    Active = True
     OnNewRecord = EquipoNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -119,5 +121,90 @@ inherited EquiposDataModule: TEquiposDataModule
     DataSet = Equipo
     left = 80
     top = 117
+  end
+  object EquiposDisponiblesView: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NROSERIE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DESCRIPCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from v_equipos_disponibles'
+    )
+    Params = <>
+    left = 189
+    top = 93
+    object EquiposDisponiblesViewID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object EquiposDisponiblesViewNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object EquiposDisponiblesViewNROSERIE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NROSERIE'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object EquiposDisponiblesViewDESCRIPCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DESCRIPCION'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsEquiposDisponibles: TDataSource[3]
+    DataSet = EquiposDisponiblesView
+    left = 209
+    top = 171
   end
 end

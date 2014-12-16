@@ -1,25 +1,15 @@
 inherited AbmEquipos: TAbmEquipos
+  Left = 432
+  Top = 176
   Caption = 'ABM Equipos'
-  ClientHeight = 461
-  inherited PanelList: TPanel[2]
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    inherited DBGrid1: TDBGrid
-      DataSource = EquiposDataModule.dsEquipo
-    end
-    inherited DBNavList: TDBNavigator
-      DataSource = EquiposDataModule.dsEquipo
-      Hints.Strings = (      )
-    end
-  end
-  inherited PanelDetail: TPanel[3]
+  ClientHeight = 462
+  inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     object DBEdit1: TDBEdit[0]
       Left = 16
-      Height = 23
+      Height = 21
       Top = 23
       Width = 353
       DataField = 'NOMBRE'
@@ -29,31 +19,20 @@ inherited AbmEquipos: TAbmEquipos
       TabOrder = 0
     end
     object DBEdit2: TDBEdit[1]
-      Left = 16
-      Height = 23
-      Top = 72
-      Width = 248
+      Left = 392
+      Height = 21
+      Top = 23
+      Width = 224
       DataField = 'NROSERIE'
       DataSource = EquiposDataModule.dsEquipo
       CharCase = ecNormal
       MaxLength = 255
       TabOrder = 1
     end
-    object DBEdit3: TDBEdit[2]
-      Left = 289
+    object DBCheckBoxActivo: TDBCheckBox[2]
+      Left = 144
       Height = 23
-      Top = 72
-      Width = 80
-      DataField = 'FECHAINGRESO'
-      DataSource = EquiposDataModule.dsEquipo
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 2
-    end
-    object DBCheckBoxActivo: TDBCheckBox[3]
-      Left = 16
-      Height = 23
-      Top = 280
+      Top = 68
       Width = 90
       Caption = 'Activo'
       DataField = 'ACTIVO'
@@ -62,58 +41,113 @@ inherited AbmEquipos: TAbmEquipos
       ValueChecked = '1'
       ValueUnchecked = '0'
     end
-    object DBMemo1: TDBMemo[4]
+    object DBMemo1: TDBMemo[3]
       Left = 16
       Height = 144
       Top = 120
-      Width = 353
+      Width = 601
       DataField = 'DESCRIPCION'
       DataSource = EquiposDataModule.dsEquipo
       TabOrder = 4
     end
-    object Nombre: TLabel[5]
+    object Nombre: TLabel[4]
       AnchorSideLeft.Control = DBEdit1
       AnchorSideBottom.Control = DBEdit1
       Left = 16
-      Height = 15
-      Top = 8
-      Width = 44
+      Height = 13
+      Top = 10
+      Width = 37
       Anchors = [akLeft, akBottom]
       Caption = 'Nombre'
       ParentColor = False
     end
-    object NroSerie: TLabel[6]
+    object NroSerie: TLabel[5]
       AnchorSideLeft.Control = DBEdit2
       AnchorSideBottom.Control = DBEdit2
-      Left = 16
-      Height = 15
-      Top = 57
-      Width = 45
+      Left = 392
+      Height = 13
+      Top = 10
+      Width = 59
       Anchors = [akLeft, akBottom]
-      Caption = 'NroSerie'
+      Caption = 'Nro de Serie'
       ParentColor = False
     end
-    object Descripcion: TLabel[7]
+    object Descripcion: TLabel[6]
       AnchorSideLeft.Control = DBMemo1
       AnchorSideBottom.Control = DBMemo1
       Left = 16
-      Height = 15
-      Top = 105
-      Width = 62
+      Height = 13
+      Top = 107
+      Width = 54
       Anchors = [akLeft, akBottom]
       Caption = 'Descripcion'
       ParentColor = False
     end
-    object FechaIngreso: TLabel[8]
-      AnchorSideLeft.Control = DBEdit3
-      AnchorSideBottom.Control = DBEdit3
-      Left = 289
-      Height = 15
+    object FechaIngreso: TLabel[7]
+      AnchorSideLeft.Control = DateEdit1
+      AnchorSideBottom.Control = DateEdit1
+      Left = 16
+      Height = 13
       Top = 57
-      Width = 70
+      Width = 84
       Anchors = [akLeft, akBottom]
-      Caption = 'FechaIngreso'
+      Caption = 'Fecha de Ingreso'
       ParentColor = False
+    end
+    object DateEdit1: TDateEdit[8]
+      Left = 16
+      Height = 21
+      Top = 70
+      Width = 80
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OnAcceptDate = DateEdit1AcceptDate
+      OKCaption = 'OK'
+      CancelCaption = 'Cancel'
+      DateOrder = doDMY
+      ButtonWidth = 23
+      CharCase = ecNormal
+      NumGlyphs = 1
+      MaxLength = 10
+      OnEditingDone = DateEdit1EditingDone
+      TabOrder = 2
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          Width = 197
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NROSERIE'
+          Width = 142
+          FieldName = 'NROSERIE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'DESCRIPCION'
+          Width = 851
+          FieldName = 'DESCRIPCION'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          Width = 53
+          FieldName = 'ACTIVO'
+        end>
+      DataSource = EquiposDataModule.dsEquipo
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = EquiposDataModule.dsEquipo
+      Hints.Strings = (      )
     end
   end
 end

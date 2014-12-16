@@ -1,9 +1,9 @@
 inherited AbmPrestamos: TAbmPrestamos
-  Left = 692
-  Top = 278
+  Left = 389
+  Top = 164
   Width = 800
   Caption = 'Prestamo de equipos'
-  ClientHeight = 461
+  ClientHeight = 462
   ClientWidth = 800
   Constraints.MinWidth = 800
   inherited StatusBar1: TStatusBar
@@ -12,22 +12,7 @@ inherited AbmPrestamos: TAbmPrestamos
   inherited ButtonPanel: TButtonPanel
     Width = 788
   end
-  inherited PanelList: TPanel[2]
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    Width = 800
-    ClientWidth = 800
-    inherited DBGrid1: TDBGrid
-      Width = 784
-      DataSource = PrestamoDataModule.dsPrestamo
-    end
-    inherited DBNavList: TDBNavigator
-      DataSource = PrestamoDataModule.dsPrestamo
-      Hints.Strings = (      )
-    end
-  end
-  inherited PanelDetail: TPanel[3]
+  inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
@@ -35,57 +20,83 @@ inherited AbmPrestamos: TAbmPrestamos
     ClientWidth = 800
     object GroupBoxDetalles: TGroupBox[0]
       Left = 6
-      Height = 129
-      Top = 264
+      Height = 73
+      Top = 320
       Width = 788
       Anchors = [akLeft, akRight, akBottom]
       Caption = 'Detalles'
-      ClientHeight = 111
+      ClientHeight = 55
       ClientWidth = 784
       TabOrder = 0
-      object DBEditFechaIni: TDBEdit
-        Left = 8
-        Height = 23
-        Top = 24
-        Width = 80
-        DataField = 'FECHAINICIO'
-        DataSource = PrestamoDataModule.dsPrestamo
-        CharCase = ecNormal
-        MaxLength = 0
-        TabOrder = 0
-      end
-      object DBEditFechaFin: TDBEdit
-        Left = 8
-        Height = 23
-        Top = 72
-        Width = 80
-        DataField = 'FECHAFIN'
-        DataSource = PrestamoDataModule.dsPrestamo
-        CharCase = ecNormal
-        MaxLength = 0
-        TabOrder = 1
-      end
       object FechaInicio: TLabel
-        AnchorSideLeft.Control = DBEditFechaIni
-        AnchorSideBottom.Control = DBEditFechaIni
+        AnchorSideLeft.Control = DateEditIni
+        AnchorSideBottom.Control = DateEditIni
         Left = 8
-        Height = 15
-        Top = 9
-        Width = 60
+        Height = 13
+        Top = 3
+        Width = 57
         Anchors = [akLeft, akBottom]
-        Caption = 'FechaInicio'
+        Caption = 'Fecha Inicio'
         ParentColor = False
       end
       object FechaFin: TLabel
-        AnchorSideLeft.Control = DBEditFechaFin
-        AnchorSideBottom.Control = DBEditFechaFin
-        Left = 8
-        Height = 15
-        Top = 57
-        Width = 47
+        AnchorSideLeft.Control = DateEditFin
+        AnchorSideBottom.Control = DateEditFin
+        Left = 144
+        Height = 13
+        Top = 3
+        Width = 46
         Anchors = [akLeft, akBottom]
-        Caption = 'FechaFin'
+        Caption = 'Fecha Fin'
         ParentColor = False
+      end
+      object DBCheckBox1: TDBCheckBox
+        Left = 280
+        Height = 23
+        Top = 16
+        Width = 90
+        Caption = 'ACTIVO'
+        DataField = 'ACTIVO'
+        DataSource = PrestamoDataModule.dsPrestamo
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        ValueChecked = '1'
+        ValueUnchecked = '0'
+      end
+      object DateEditIni: TDateEdit
+        Left = 8
+        Height = 21
+        Top = 16
+        Width = 80
+        CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+        OnAcceptDate = DateEditIniAcceptDate
+        OKCaption = 'OK'
+        CancelCaption = 'Cancel'
+        DateOrder = doDMY
+        ButtonWidth = 23
+        CharCase = ecNormal
+        NumGlyphs = 1
+        MaxLength = 10
+        OnEditingDone = DateEditIniEditingDone
+        TabOrder = 1
+      end
+      object DateEditFin: TDateEdit
+        Left = 144
+        Height = 21
+        Top = 16
+        Width = 80
+        CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+        OnAcceptDate = DateEditFinAcceptDate
+        OKCaption = 'OK'
+        CancelCaption = 'Cancel'
+        DateOrder = doDMY
+        ButtonWidth = 23
+        CharCase = ecNormal
+        NumGlyphs = 1
+        MaxLength = 10
+        OnEditingDone = DateEditFinEditingDone
+        TabOrder = 2
       end
     end
     object DBGridEquipos: TDBGrid[1]
@@ -94,7 +105,7 @@ inherited AbmPrestamos: TAbmPrestamos
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
       Left = 464
-      Height = 197
+      Height = 256
       Top = 56
       Width = 328
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -103,15 +114,15 @@ inherited AbmPrestamos: TAbmPrestamos
       Columns = <      
         item
           Title.Caption = 'NROSERIE'
-          Width = 132
+          Width = 142
           FieldName = 'NROSERIE'
         end      
         item
           Title.Caption = 'NOMBRE'
-          Width = 140
+          Width = 197
           FieldName = 'NOMBRE'
         end>
-      DataSource = EquiposDataModule.dsEquipo
+      DataSource = EquiposDataModule.dsEquiposDisponibles
       Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
       ReadOnly = True
       TabOrder = 1
@@ -120,7 +131,7 @@ inherited AbmPrestamos: TAbmPrestamos
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
       Left = 8
-      Height = 197
+      Height = 256
       Top = 56
       Width = 448
       Anchors = [akTop, akLeft, akBottom]
@@ -128,12 +139,12 @@ inherited AbmPrestamos: TAbmPrestamos
       Columns = <      
         item
           Title.Caption = 'CEDULA'
-          Width = 59
+          Width = 72
           FieldName = 'CEDULA'
         end      
         item
           Title.Caption = 'NOMBRECOMPLETO'
-          Width = 127
+          Width = 158
           FieldName = 'NOMBRECOMPLETO'
         end>
       DataSource = PersonasDataModule.dsPersonasRoles
@@ -147,8 +158,8 @@ inherited AbmPrestamos: TAbmPrestamos
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = DBGridEquipos
       Left = 464
-      Height = 23
-      Top = 25
+      Height = 21
+      Top = 27
       Width = 328
       Anchors = [akLeft, akRight, akBottom]
       BorderSpacing.Bottom = 8
@@ -157,8 +168,8 @@ inherited AbmPrestamos: TAbmPrestamos
       EditLabel.AnchorSideRight.Side = asrBottom
       EditLabel.AnchorSideBottom.Control = LabeledEditEq
       EditLabel.Left = 464
-      EditLabel.Height = 15
-      EditLabel.Top = 7
+      EditLabel.Height = 13
+      EditLabel.Top = 11
       EditLabel.Width = 328
       EditLabel.Caption = 'Filrar por nombre o nro. de serie'
       EditLabel.ParentColor = False
@@ -171,8 +182,8 @@ inherited AbmPrestamos: TAbmPrestamos
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = DBGridPersonas
       Left = 8
-      Height = 23
-      Top = 25
+      Height = 21
+      Top = 27
       Width = 448
       Anchors = [akLeft, akRight, akBottom]
       BorderSpacing.Bottom = 8
@@ -181,13 +192,65 @@ inherited AbmPrestamos: TAbmPrestamos
       EditLabel.AnchorSideRight.Side = asrBottom
       EditLabel.AnchorSideBottom.Control = LabeledEditPers
       EditLabel.Left = 8
-      EditLabel.Height = 15
-      EditLabel.Top = 7
+      EditLabel.Height = 13
+      EditLabel.Top = 11
       EditLabel.Width = 448
       EditLabel.Caption = 'Filtrar por nombre, apellida o cedula'
       EditLabel.ParentColor = False
       TabOrder = 4
       OnChange = LabeledEditPersChange
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Width = 800
+    ClientWidth = 800
+    inherited DBGrid1: TDBGrid
+      Width = 784
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'EQUIPO'
+          Width = 197
+          FieldName = 'EQUIPO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'FECHAINICIO'
+          Width = 82
+          FieldName = 'FECHAINICIO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'FECHAFIN'
+          Width = 71
+          FieldName = 'FECHAFIN'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRECOMPLETO'
+          Width = 111
+          FieldName = 'NOMBRECOMPLETO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'CEDULA'
+          Width = 59
+          FieldName = 'CEDULA'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          FieldName = 'ACTIVO'
+        end>
+      DataSource = PrestamoDataModule.dsPrestamo
+    end
+    inherited DBNavList: TDBNavigator
+      DataSource = PrestamoDataModule.dsPrestamo
+      Hints.Strings = (      )
     end
   end
 end

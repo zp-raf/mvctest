@@ -16,76 +16,7 @@ inherited AbmPersonas: TAbmPersonas
     Top = 521
     Width = 788
   end
-  inherited PanelList: TPanel[2]
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    Height = 515
-    Width = 800
-    ClientHeight = 515
-    ClientWidth = 800
-    inherited DBGrid1: TDBGrid
-      Height = 433
-      Width = 784
-      Columns = <      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'CEDULA'
-          Width = 54
-          FieldName = 'CEDULA'
-        end      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'NOMBRE'
-          Width = 57
-          FieldName = 'NOMBRE'
-        end      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'APELLIDO'
-          Width = 63
-          FieldName = 'APELLIDO'
-        end      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'SEXO'
-          Width = 41
-          FieldName = 'SEXO'
-        end      
-        item
-          PickList.Strings = (          )
-          Title.Caption = 'FECHANAC'
-          Width = 69
-          FieldName = 'FECHANAC'
-        end      
-        item
-          ButtonStyle = cbsCheckboxColumn
-          PickList.Strings = (          )
-          Title.Caption = 'ACTIVO'
-          Width = 53
-          FieldName = 'ACTIVO'
-        end>
-      DataSource = PersonasDataModule.dsPersona
-    end
-    inherited DBNavList: TDBNavigator
-      Top = 488
-      DataSource = PersonasDataModule.dsPersona
-      Hints.Strings = (      )
-    end
-    inherited EditFilter: TEdit
-      Height = 21
-      Top = 26
-    end
-    inherited LabelFilter: TLabel
-      Height = 13
-      Top = 13
-      Width = 217
-    end
-    inherited ButtonFilter: TButton
-      Top = 24
-    end
-  end
-  inherited PanelDetail: TPanel[3]
+  inherited PanelDetail: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
@@ -453,6 +384,63 @@ inherited AbmPersonas: TAbmPersonas
         Caption = 'Telefonos'
         ParentColor = False
       end
+    end
+  end
+  inherited PanelList: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Height = 515
+    Width = 800
+    ClientHeight = 515
+    ClientWidth = 800
+    inherited DBGrid1: TDBGrid
+      Height = 433
+      Width = 784
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'CEDULA'
+          Width = 54
+          FieldName = 'CEDULA'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'NOMBRE'
+          Width = 57
+          FieldName = 'NOMBRE'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'APELLIDO'
+          Width = 63
+          FieldName = 'APELLIDO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'SEXO'
+          Width = 41
+          FieldName = 'SEXO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'FECHANAC'
+          Width = 69
+          FieldName = 'FECHANAC'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          Width = 53
+          FieldName = 'ACTIVO'
+        end>
+      DataSource = PersonasDataModule.dsPersona
+    end
+    inherited DBNavList: TDBNavigator
+      Top = 488
+      DataSource = PersonasDataModule.dsPersona
+      Hints.Strings = (      )
     end
   end
   inherited MainMenu: TMainMenu

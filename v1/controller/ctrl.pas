@@ -55,6 +55,8 @@ type
     procedure ShowHelp(Sender: IView); virtual;
     procedure ShowHelp(Sender: IFormView); virtual;
     procedure Save(Sender: IView); virtual;
+    procedure SetFieldValue(AFieldName: string; AValue: variant; Sender: IView);
+    function GetFieldValue(AFieldName: string; Sender: IView): variant;
     function GetVersion(Sender: IView): string; virtual; final;
     function IsDBConnected(Sender: IView): boolean; virtual;
     function IsDBGridEmpty(Grid: TDBGrid; Sender: IFormView): boolean;
@@ -129,8 +131,8 @@ end;
 procedure TController.Save(Sender: IView);
 begin
   //try
-    GetModel.SaveChanges;
-    GetModel.RefreshDataSets;
+  GetModel.SaveChanges;
+  GetModel.RefreshDataSets;
   //except
   //  on e: EDatabaseError do
   //  begin
@@ -138,6 +140,27 @@ begin
   //    raise;
   //  end;
   //end;
+end;
+
+procedure TController.SetFieldValue(AFieldName: string; AValue: variant; Sender: IView);
+
+begin
+  try
+    GetModel.SetFieldValue(AFieldName, AValue);
+  except
+    on E: Exception do
+      raise;
+  end;
+end;
+
+function TController.GetFieldValue(AFieldName: string; Sender: IView): variant;
+begin
+  try
+    Result := GetModel.GetFieldValue(AFieldName);
+  except
+    on E: Exception do
+      raise;
+  end;
 end;
 
 procedure TController.EditCurrentRecord(Sender: IView);
