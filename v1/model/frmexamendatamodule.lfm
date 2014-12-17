@@ -160,6 +160,7 @@ inherited ExamenesDataModule: TExamenesDataModule
   object ExamenPersonaExterna: TSQLQuery[2]
     FieldDefs = <>
     AfterInsert = ExamenPersonaExternaAfterInsert
+    BeforePost = ExamenPersonaExternaBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -173,7 +174,7 @@ inherited ExamenesDataModule: TExamenesDataModule
         ParamType = ptInput
       end>
     left = 165
-    top = 64
+    top = 56
     object ExamenPersonaExternaEXAMENID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData

@@ -24,6 +24,7 @@ type
     StringField3: TStringField;
     procedure ExamenAfterScroll(DataSet: TDataSet);
     procedure ExamenPersonaExternaAfterInsert(DataSet: TDataSet);
+    procedure ExamenPersonaExternaBeforePost(DataSet: TDataSet);
   private
     FCodigos: TCodigosDataModule;
     FDesarrollo: TDesarrolloMateriaDataModule;
@@ -110,6 +111,13 @@ end;
 procedure TExamenesDataModule.ExamenPersonaExternaAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('EXAMENID').AsInteger := Examen.FieldByName('ID').AsInteger;
+end;
+
+procedure TExamenesDataModule.ExamenPersonaExternaBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('PERSONAEXTERNAPERSONAID').IsNull or
+    DataSet.FieldByName('ROL').IsNull then
+    Abort;
 end;
 
 procedure TExamenesDataModule.SetCodigos(AValue: TCodigosDataModule);

@@ -14,6 +14,7 @@ type
   { TAbmExamenes }
 
   TAbmExamenes = class(TAbm)
+
   protected
     function GetCustomController: TExamenesController;
   published
@@ -34,8 +35,8 @@ type
     procedure DateEditFechaAcceptDate(Sender: TObject; var ADate: TDateTime;
       var AcceptDate: boolean);
     procedure DateEditFechaEditingDone(Sender: TObject);
-    procedure FloatSpinEditPesoChange(Sender: TObject);
-    procedure FloatSpinEditPuntajeMaxChange(Sender: TObject);
+    procedure FloatSpinEditPesoEditingDone(Sender: TObject);
+    procedure FloatSpinEditPuntajeMaxEditingDone(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
   end;
 
@@ -48,11 +49,6 @@ implementation
 
 { TAbmExamenes }
 
-procedure TAbmExamenes.FloatSpinEditPesoChange(Sender: TObject);
-begin
-  GetCustomController.SetPeso(FloatSpinEditPeso.Value, Self);
-end;
-
 procedure TAbmExamenes.DateEditFechaAcceptDate(Sender: TObject;
   var ADate: TDateTime; var AcceptDate: boolean);
 begin
@@ -61,6 +57,18 @@ begin
     AcceptDate := True;
     GetCustomController.SetFecha(ADate, Self);
   end;
+end;
+
+procedure TAbmExamenes.FloatSpinEditPesoEditingDone(Sender: TObject);
+begin
+  if PanelDetail.Visible then
+    GetCustomController.SetPeso(FloatSpinEditPeso.Value, Self);
+end;
+
+procedure TAbmExamenes.FloatSpinEditPuntajeMaxEditingDone(Sender: TObject);
+begin
+  if PanelDetail.Visible then
+    GetCustomController.SetPuntajeMax(FloatSpinEditPuntajeMax.Value, Self);
 end;
 
 function TAbmExamenes.GetCustomController: TExamenesController;
@@ -79,11 +87,6 @@ end;
 procedure TAbmExamenes.DateEditFechaEditingDone(Sender: TObject);
 begin
   GetCustomController.SetFecha(DateEditFecha.Date, Self);
-end;
-
-procedure TAbmExamenes.FloatSpinEditPuntajeMaxChange(Sender: TObject);
-begin
-  GetCustomController.SetPuntajeMax(FloatSpinEditPuntajeMax.Value, Self);
 end;
 
 procedure TAbmExamenes.ObserverUpdate(const Subject: IInterface);
