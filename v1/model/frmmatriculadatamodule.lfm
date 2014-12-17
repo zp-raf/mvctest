@@ -2,8 +2,8 @@ inherited MatriculaDataModule: TMatriculaDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 329
-  HorizontalOffset = 711
-  VerticalOffset = 421
+  HorizontalOffset = 514
+  VerticalOffset = 269
   Width = 519
   object dsMatricula: TDataSource[0]
     DataSet = Matricula
@@ -11,6 +11,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
     top = 16
   end
   object Matricula: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -61,10 +62,28 @@ inherited MatriculaDataModule: TMatriculaDataModule
         Size = 0
       end    
       item
-        Name = 'NUMERO'
-        DataType = ftString
+        Name = 'MATERIAID'
+        DataType = ftInteger
         Precision = -1
-        Size = 12
+        Size = 0
+      end    
+      item
+        Name = 'SECCIONID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'MODULOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'GRUPOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
       end>
     Filtered = True
     AfterOpen = MatriculaAfterOpen
@@ -72,9 +91,8 @@ inherited MatriculaDataModule: TMatriculaDataModule
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
-      'select * from matricula'
-      'where activa = 1'
-      'and alumnopersonaid = :alumnoid'
+      'select * from v_matriculas_activas'
+      'where alumnopersonaid = :alumnoid'
     )
     Params = <    
       item
@@ -92,7 +110,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object MatriculaDESARROLLOMATERIAID: TLongintField
       DisplayWidth = 10
@@ -102,7 +120,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object MatriculaALUMNOPERSONAID: TLongintField
       DisplayWidth = 10
@@ -112,7 +130,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object MatriculaFECHA: TDateField
       DisplayWidth = 10
@@ -122,7 +140,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object MatriculaACTIVA: TSmallintField
       DisplayWidth = 10
@@ -132,7 +150,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object MatriculaCONFIRMADA: TSmallintField
       DisplayWidth = 10
@@ -142,7 +160,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
     object MatriculaOBSERVACIONES: TStringField
       DisplayWidth = 255
@@ -163,39 +181,53 @@ inherited MatriculaDataModule: TMatriculaDataModule
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = True
+      Required = False
     end
-    object MatriculaNUMERO: TStringField
-      DisplayWidth = 12
+    object MatriculaMATERIAID: TLongintField
+      DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'NUMERO'
+      FieldName = 'MATERIAID'
       Index = 8
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 12
     end
-    object StringField1: TStringField
-      DisplayWidth = 511
-      FieldKind = fkLookup
-      FieldName = 'MATERIA'
+    object MatriculaSECCIONID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'SECCIONID'
       Index = 9
-      KeyFields = 'DESARROLLOMATERIAID'
       LookupCache = False
-      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
-      LookupKeyFields = 'ID'
-      LookupResultField = 'NOMBRE_MATERIA'
-      ProviderFlags = []
+      ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 511
     end
-    object StringField2: TStringField
+    object MatriculaMODULOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'MODULOID'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object MatriculaGRUPOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'GRUPOID'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object StringField1: TStringField
       DisplayWidth = 255
       FieldKind = fkLookup
       FieldName = 'SECCION'
-      Index = 10
+      Index = 12
       KeyFields = 'DESARROLLOMATERIAID'
       LookupCache = False
       LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
@@ -206,49 +238,50 @@ inherited MatriculaDataModule: TMatriculaDataModule
       Required = False
       Size = 255
     end
-    object StringField3: TStringField
-      DisplayWidth = 255
+    object StringField2: TStringField
+      DisplayWidth = 769
       FieldKind = fkLookup
-      FieldName = 'PERIODO'
-      Index = 11
+      FieldName = 'MATERIA'
+      Index = 13
       KeyFields = 'DESARROLLOMATERIAID'
       LookupCache = False
       LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
       LookupKeyFields = 'ID'
-      LookupResultField = 'NOMBRE_PERIODO'
+      LookupResultField = 'NOMBRE_MATERIA'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 769
+    end
+    object StringField3: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'GRUPO'
+      Index = 14
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_GRUPO'
       ProviderFlags = []
       ReadOnly = False
       Required = False
       Size = 255
     end
     object StringField4: TStringField
-      DisplayWidth = 511
+      DisplayWidth = 255
       FieldKind = fkLookup
-      FieldName = 'PROFESOR'
-      Index = 12
+      FieldName = 'MODULO'
+      Index = 15
       KeyFields = 'DESARROLLOMATERIAID'
       LookupCache = False
       LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
       LookupKeyFields = 'ID'
-      LookupResultField = 'NOMBRE_COMPLETO'
+      LookupResultField = 'NOMBRE_MOD'
       ProviderFlags = []
       ReadOnly = False
       Required = False
-      Size = 511
-    end
-    object LongintField1: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkLookup
-      FieldName = 'MATERIAID'
-      Index = 13
-      KeyFields = 'DESARROLLOMATERIAID'
-      LookupCache = False
-      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
-      LookupKeyFields = 'ID'
-      LookupResultField = 'MATERIAID'
-      ProviderFlags = []
-      ReadOnly = False
-      Required = False
+      Size = 255
     end
   end
   object dsAlumnos: TDataSource[2]
@@ -416,6 +449,7 @@ inherited MatriculaDataModule: TMatriculaDataModule
   end
   object DesarrolloMatActivoDetView: TSQLQuery[5]
     FieldDefs = <>
+    Filtered = True
     OnFilterRecord = DesarrolloMatActivoDetViewFilterRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

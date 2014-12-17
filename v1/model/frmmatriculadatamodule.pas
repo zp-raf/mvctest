@@ -36,7 +36,18 @@ type
     AlumnosMatriculasViewNOMBRE: TStringField;
     AlumnosMatriculasViewOBSERVACIONES: TStringField;
     AlumnosMatriculasViewSECCION: TStringField;
-    LongintField1: TLongintField;
+    MatriculaACTIVA: TSmallintField;
+    MatriculaALUMNOPERSONAID: TLongintField;
+    MatriculaCONFIRMADA: TSmallintField;
+    MatriculaDERECHOEXAMEN: TSmallintField;
+    MatriculaDESARROLLOMATERIAID: TLongintField;
+    MatriculaFECHA: TDateField;
+    MatriculaGRUPOID: TLongintField;
+    MatriculaID: TLongintField;
+    MatriculaMATERIAID: TLongintField;
+    MatriculaMODULOID: TLongintField;
+    MatriculaOBSERVACIONES: TStringField;
+    MatriculaSECCIONID: TLongintField;
     SQLQueryMatHabID: TLongintField;
     SQLQueryMatHabPERSONAID: TLongintField;
     StringField1: TStringField;
@@ -70,15 +81,6 @@ type
     MateriasHabilitadasViewMODULOID: TLongintField;
     MateriasHabilitadasViewNOMBRE: TStringField;
     Matricula: TSQLQuery;
-    MatriculaACTIVA: TSmallintField;
-    MatriculaALUMNOPERSONAID: TLongintField;
-    MatriculaCONFIRMADA: TSmallintField;
-    MatriculaDERECHOEXAMEN: TSmallintField;
-    MatriculaDESARROLLOMATERIAID: TLongintField;
-    MatriculaFECHA: TDateField;
-    MatriculaID: TLongintField;
-    MatriculaNUMERO: TStringField;
-    MatriculaOBSERVACIONES: TStringField;
     DesarrolloViewACTIVO: TSmallintField;
     DesarrolloViewEMPLEADOPERSONAID: TLongintField;
     DesarrolloViewGRUPOID: TLongintField;
@@ -300,9 +302,9 @@ begin
   MateriasHabilitadasView.Close;
   MateriasHabilitadasView.ParamByName('ALUMNOID').AsString := AlumnoID;
   Matricula.ParamByName('ALUMNOID').AsString := AlumnoID;
+  Matricula.Open;
   MateriasHabilitadasView.Open;
   DesarrolloMatActivoDetView.Open;
-  Matricula.Open;
 end;
 
 procedure TMatriculaDataModule.SetPersonas(AValue: TPersonasDataModule);
@@ -351,13 +353,13 @@ procedure TMatriculaDataModule.DesarrolloMatActivoDetViewFilterRecord(
   DataSet: TDataSet;
   var Accept: boolean);
 begin
-//  if MatriculasAux.State in [dsInactive, dsInsert, dsEdit] then
-//    Accept := True
-//  else if not MatriculasAux.Locate('MATERIAID',
-//    DataSet.FieldByName('MATERIAID').AsString, []) then
-//    Accept := True
-//  else
-//    Accept := False;
+  if (Matricula.State in [dsInactive, dsInsert, dsEdit]) then
+    Accept := True
+  else
+  begin
+    Accept := not Matricula.Locate('MATERIAID',
+      DataSet.FieldByName('MATERIAID').AsString, []);
+  end;
 end;
 
 procedure TMatriculaDataModule.MatriculaAfterOpen(DataSet: TDataSet);
@@ -388,7 +390,7 @@ begin
   Matricula.FieldByName('ACTIVA').AsString := DB_TRUE;
   Matricula.FieldByName('CONFIRMADA').AsString := DB_FALSE;
   Matricula.FieldByName('DERECHOEXAMEN').AsString := DB_FALSE;
-  Matricula.Post;
+  Matricula.ApplyUpdates;
   MateriasHabilitadasView.Refresh;
 end;
 

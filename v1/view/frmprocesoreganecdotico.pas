@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, ButtonPanel, StdCtrls, DBCtrls, DBGrids, frmproceso,
-  registroanecdoticoctrl;
+  Menus, ButtonPanel, StdCtrls, DBCtrls, DBGrids, LazHelpHTML, ExtCtrls,
+  frmproceso, registroanecdoticoctrl;
 
 type
 
@@ -15,11 +15,13 @@ type
 
   TProcesoRegistroAnecdotico = class(TProceso)
     DBGrid1: TDBGrid;
-    DBLookupComboBox1: TDBLookupComboBox;
+    DBGrid2: TDBGrid;
     DBNavigator1: TDBNavigator;
     GroupBoxAlumno: TGroupBox;
     GroupBoxRegsitro: TGroupBox;
+    LabeledEdit1: TLabeledEdit;
     procedure CancelButtonClick(Sender: TObject);
+    procedure LabeledEdit1Change(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
   protected
     function GetCustomController: TRegistroAnecdoticoController;
@@ -44,6 +46,11 @@ procedure TProcesoRegistroAnecdotico.CancelButtonClick(Sender: TObject);
 begin
   GetController.Cancel(Self);
   GetController.Rollback(Self);
+end;
+
+procedure TProcesoRegistroAnecdotico.LabeledEdit1Change(Sender: TObject);
+begin
+  GetCustomController.FilterAlumnos(LabeledEdit1.Text, Self);
 end;
 
 function TProcesoRegistroAnecdotico.GetCustomController: TRegistroAnecdoticoController;

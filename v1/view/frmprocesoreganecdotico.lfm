@@ -1,12 +1,13 @@
 inherited ProcesoRegistroAnecdotico: TProcesoRegistroAnecdotico
-  Left = 633
+  Left = 304
   Height = 668
-  Top = 156
+  Top = 28
   Width = 826
   Caption = 'Registro anecdotico'
   ClientHeight = 648
   ClientWidth = 826
   inherited StatusBar1: TStatusBar
+    Height = 23
     Top = 625
     Width = 826
   end
@@ -20,43 +21,76 @@ inherited ProcesoRegistroAnecdotico: TProcesoRegistroAnecdotico
   end
   object GroupBoxAlumno: TGroupBox[2]
     Left = 8
-    Height = 64
+    Height = 224
     Top = 0
     Width = 812
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Alumno'
-    ClientHeight = 46
+    ClientHeight = 206
     ClientWidth = 808
     TabOrder = 2
-    object DBLookupComboBox1: TDBLookupComboBox
+    object DBGrid2: TDBGrid
+      Left = 8
+      Height = 148
+      Top = 48
+      Width = 792
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'CEDULA'
+          Width = 59
+          FieldName = 'CEDULA'
+        end      
+        item
+          Title.Caption = 'NOMBRECOMPLETO'
+          Width = 127
+          FieldName = 'NOMBRECOMPLETO'
+        end>
+      DataSource = PersonasDataModule.dsPersonasRoles
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object LabeledEdit1: TLabeledEdit
+      AnchorSideLeft.Control = DBGrid2
+      AnchorSideBottom.Control = DBGrid2
       Left = 8
       Height = 23
-      Top = 8
-      Width = 336
-      KeyField = 'ID'
-      ListField = 'NOMBRECOMPLETO'
-      ListFieldIndex = 0
-      ListSource = PersonasDataModule.dsPersonasRoles
-      LookupCache = False
-      ScrollListDataset = True
-      TabOrder = 0
+      Top = 21
+      Width = 360
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Bottom = 4
+      EditLabel.AnchorSideLeft.Control = LabeledEdit1
+      EditLabel.AnchorSideRight.Control = LabeledEdit1
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEdit1
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 3
+      EditLabel.Width = 360
+      EditLabel.Caption = 'Filtrar por nombre o numero de cedula'
+      EditLabel.ParentColor = False
+      TabOrder = 1
+      Text = 'LabeledEdit1'
+      OnChange = LabeledEdit1Change
     end
   end
   object GroupBoxRegsitro: TGroupBox[3]
     AnchorSideTop.Control = GroupBoxAlumno
     AnchorSideTop.Side = asrBottom
     Left = 8
-    Height = 513
-    Top = 64
+    Height = 353
+    Top = 224
     Width = 812
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Regsitro'
-    ClientHeight = 495
+    ClientHeight = 335
     ClientWidth = 808
     TabOrder = 3
     object DBGrid1: TDBGrid
       Left = 8
-      Height = 452
+      Height = 292
       Top = 8
       Width = 792
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -87,7 +121,7 @@ inherited ProcesoRegistroAnecdotico: TProcesoRegistroAnecdotico
       AnchorSideTop.Side = asrBottom
       Left = 8
       Height = 25
-      Top = 460
+      Top = 300
       Width = 241
       BevelOuter = bvNone
       ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -107,5 +141,9 @@ inherited ProcesoRegistroAnecdotico: TProcesoRegistroAnecdotico
   inherited MainMenu: TMainMenu[4]
     left = 616
     top = 184
+  end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[5]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[6]
   end
 end

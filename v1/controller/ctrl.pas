@@ -130,16 +130,16 @@ end;
 
 procedure TController.Save(Sender: IView);
 begin
-  //try
-  GetModel.SaveChanges;
-  GetModel.RefreshDataSets;
-  //except
-  //  on e: EDatabaseError do
-  //  begin
-  //    //EditCurrentRecord(Sender);
-  //    raise;
-  //  end;
-  //end;
+  try
+    GetModel.SaveChanges;
+    GetModel.RefreshDataSets;
+  except
+    on e: EDatabaseError do
+    begin
+      //EditCurrentRecord(Sender);
+      raise;
+    end;
+  end;
 end;
 
 procedure TController.SetFieldValue(AFieldName: string; AValue: variant; Sender: IView);
@@ -288,11 +288,11 @@ begin
 end;
 
 procedure TController.ShowHelp(Sender: IFormView; namehelpfile: string);
-var
-  wideChars: array[0..200] of widechar;
-  lengthnamehelpfile: integer;
+//var
+//wideChars: array[0..200] of widechar;
+//lengthnamehelpfile: integer;
 begin
-  lengthnamehelpfile := Length(namehelpfile);
+  //lengthnamehelpfile := Length(namehelpfile);
   // ShellExecute((Sender as IFormView), 'open', PWideChar(namehelpfile), nil, nil, 1);
 end;
 

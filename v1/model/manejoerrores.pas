@@ -10,7 +10,8 @@ uses
 
 resourcestring
   rsPrimaryKeyError = 'Los datos introducidos ya existen. Reviselos.';
-  rsForeignKeyError = 'El registro no puede eliminarse debido a que otros datos dependen de el.';
+  rsForeignKeyError =
+    'El registro no puede eliminarse debido a que otros datos dependen de el.';
   rsAppError = 'Error de aplicacion. Mensaje tecnico del error: ';
   rsErrorTitle = 'Error';
   rsGeneralDBError = 'Error de base de datos. Mensaje tecnico del error: ';
@@ -21,6 +22,7 @@ resourcestring
   rsBlankSpace = ' ';
   rsPeriod = '. ';
   rsErrorMessage = 'Mensaje del error: ';
+  rsMustApplyUpdates = 'Debe guardar los cambios antes de recargar los datos';
 
 function TrimMessage(s: string; token: string): string;
 function GetErrorMessage(E: EIBDatabaseError): string;
@@ -91,6 +93,8 @@ begin
       m := rsCHK1_ESCALA_POS
     else if AnsiContainsText(tmp, 'INTEG_329') then
       m := rsINTEG_329
+    else if AnsiContainsText(tmp, 'must apply updates before') then
+      m := rsMustApplyUpdates
     else
       m := rsGeneralDBError + #13#10 + tmp;
   end

@@ -466,8 +466,9 @@ begin
   if FieldFound then
   begin
     if not (qry.State in dsEditModes) then
-      raise Exception.Create(
-        'No se pudo completar la operacion. No se estan editando datos');
+      //raise Exception.Create(
+      //  'No se pudo completar la operacion. No se estan editando datos');
+      qry.Edit;
     qry.FieldByName(AFieldName).Value := AValue;
   end
   else

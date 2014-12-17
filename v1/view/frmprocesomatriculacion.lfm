@@ -1,7 +1,7 @@
 inherited ProcesoMatriculacion: TProcesoMatriculacion
-  Left = 565
+  Left = 328
   Height = 640
-  Top = 177
+  Top = 35
   Width = 800
   Caption = 'Matriculacion'
   ClientHeight = 620
@@ -424,7 +424,6 @@ inherited ProcesoMatriculacion: TProcesoMatriculacion
             end          
             item
               ButtonStyle = cbsCheckboxColumn
-              ReadOnly = False
               Title.Caption = 'DERECHOEXAMEN'
               Width = 115
               FieldName = 'DERECHOEXAMEN'
@@ -470,7 +469,7 @@ inherited ProcesoMatriculacion: TProcesoMatriculacion
     Left = 148
     Height = 15
     Top = 13
-    Width = 85
+    Width = 86
     BorderSpacing.Left = 8
     DataField = 'NOMBRECOMPLETO'
     DataSource = MatriculaDataModule.dsAlumnos
@@ -490,5 +489,9 @@ inherited ProcesoMatriculacion: TProcesoMatriculacion
     end
     inherited MenuAyuda: TMenuItem[2]
     end
+  end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[6]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[7]
   end
 end

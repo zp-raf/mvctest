@@ -2,47 +2,11 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 368
-  HorizontalOffset = 837
-  VerticalOffset = 404
+  HorizontalOffset = 768
+  VerticalOffset = 382
   Width = 462
   object DesarrolloMateria: TSQLQuery[0]
-    FieldDefs = <    
-      item
-        Name = 'ID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'SECCIONID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'MATERIAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'ACTIVO'
-        DataType = ftSmallint
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'PERIODOLECTIVOID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end    
-      item
-        Name = 'EMPLEADOPERSONAID'
-        DataType = ftInteger
-        Precision = -1
-        Size = 0
-      end>
+    FieldDefs = <>
     OnNewRecord = DesarrolloMateriaNewRecord
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -245,7 +209,7 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
         Name = 'NOMBRE_MATERIA_DET'
         DataType = ftString
         Precision = -1
-        Size = 767
+        Size = 1025
       end    
       item
         Name = 'NOMBRE_PERIODO'
@@ -275,7 +239,7 @@ inherited DesarrolloMateriaDataModule: TDesarrolloMateriaDataModule
         Name = 'NOMBRE_MAT_DETALLADO'
         DataType = ftString
         Precision = -1
-        Size = 1547
+        Size = 1805
       end>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, StdCtrls, DBGrids, PairSplitter, Buttons, DBCtrls,
-  ExtCtrls, frmproceso, mensajes, matriculactrl, sgcdTypes;
+  ExtCtrls, LazHelpHTML, frmproceso, mensajes, matriculactrl, sgcdTypes;
 
 type
 
@@ -132,6 +132,7 @@ procedure TProcesoMatriculacion.CancelButtonClick(Sender: TObject);
 begin
   GetController.Cancel(Self);
   GetController.Rollback(Self);
+  GetController.CloseDataSets(Self);
 end;
 
 end.
