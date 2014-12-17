@@ -55,7 +55,7 @@ object Maestro: TMaestro
     end
   end
   object HTMLHelpDatabase1: THTMLHelpDatabase
-    BaseURL = 'file://D:/mvctest/trunk/v1/html'
+    BaseURL = 'file://html'
     AutoRegister = True
     KeywordPrefix = 'html/'
     left = 40
