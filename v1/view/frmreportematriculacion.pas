@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, LazHelpHTML, ButtonPanel, DBGrids, frmprocesoreporte, rptmatriculacionctrl;
+  Menus, LazHelpHTML, ButtonPanel, DBGrids, ExtCtrls, frmprocesoreporte,
+  rptmatriculacionctrl;
 
 type
 
@@ -14,6 +15,8 @@ type
 
   TProcesoReporteMatriculacion = class(TProcesoReporte)
     DBGrid1: TDBGrid;
+    LabeledEdit1: TLabeledEdit;
+    procedure LabeledEdit1Change(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
   protected
     function GetCustomController: TReporteMatriculacionController;
@@ -31,6 +34,11 @@ implementation
 procedure TProcesoReporteMatriculacion.OKButtonClick(Sender: TObject);
 begin
   GetCustomController.ShowReport(Self);
+end;
+
+procedure TProcesoReporteMatriculacion.LabeledEdit1Change(Sender: TObject);
+begin
+  GetCustomController.Filtrar(LabeledEdit1.Text, Self);
 end;
 
 function TProcesoReporteMatriculacion.GetCustomController:

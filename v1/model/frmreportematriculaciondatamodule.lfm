@@ -5,4 +5,221 @@ inherited ReporteMatriculacionDataModule: TReporteMatriculacionDataModule
   HorizontalOffset = 722
   VerticalOffset = 313
   Width = 349
+  inherited Cabecera: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'APELLIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'FECHANAC'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SEXO'
+        DataType = ftString
+        Precision = -1
+        Size = 1
+      end>
+    SQL.Strings = (
+      'select * from rpt_matriculacion_cab(:alumnoid)'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'alumnoid'
+        ParamType = ptInput
+      end>
+    object CabeceraPERSONAID: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PERSONAID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object CabeceraCEDULA: TStringField[1]
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CEDULA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object CabeceraAPELLIDO: TStringField[2]
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'APELLIDO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object CabeceraNOMBRE: TStringField[3]
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object CabeceraFECHANAC: TDateField[4]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHANAC'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object CabeceraSEXO: TStringField[5]
+      DisplayWidth = 1
+      FieldKind = fkData
+      FieldName = 'SEXO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1
+    end
+  end
+  inherited Detalle: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'FECHA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DERECHOAEXAMEN'
+        DataType = ftString
+        Precision = -1
+        Size = 16
+      end    
+      item
+        Name = 'MATERIA'
+        DataType = ftString
+        Precision = -1
+        Size = 769
+      end    
+      item
+        Name = 'SECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'PROFESOR'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end>
+    SQL.Strings = (
+      'select * from rpt_matriculacion_det(:alumnoid)'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'alumnoid'
+        ParamType = ptInput
+      end>
+    left = 72
+    object DetalleFECHA: TDateField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DetalleDERECHOAEXAMEN: TStringField[1]
+      DisplayWidth = 16
+      FieldKind = fkData
+      FieldName = 'DERECHOAEXAMEN'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 16
+    end
+    object DetalleMATERIA: TStringField[2]
+      DisplayWidth = 769
+      FieldKind = fkData
+      FieldName = 'MATERIA'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 769
+    end
+    object DetalleSECCION: TStringField[3]
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'SECCION'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object DetallePROFESOR: TStringField[4]
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'PROFESOR'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+  end
+  inherited frDBDataSetCabecera: TfrDBDataSet
+    DataSource = dsCabecera
+  end
+  inherited frDBDataSetDetalle: TfrDBDataSet
+    DataSource = dsDetalle
+  end
 end

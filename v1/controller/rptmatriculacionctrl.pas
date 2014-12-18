@@ -5,7 +5,7 @@ unit rptmatriculacionctrl;
 interface
 
 uses
-  Classes, SysUtils, reportectrl, frmreportematriculaciondatamodule, mvc;
+  Classes, SysUtils, reportectrl, frmreportematriculaciondatamodule, mvc, sgcdTypes;
 
 type
 
@@ -16,6 +16,7 @@ type
     function GetCustomModel: TReporteMatriculacionDataModule;
   public
     procedure ShowReport(Sender: IView);
+    procedure Filtrar(Filtro: string; Sender: IView);
   end;
 
 implementation
@@ -31,6 +32,12 @@ procedure TReporteMatriculacionController.ShowReport(Sender: IView);
 begin
   GetCustomModel.ShowReport(GetCustomModel.Personas.PersonasRoles.FieldByName(
     'ID').AsString);
+end;
+
+procedure TReporteMatriculacionController.Filtrar(Filtro: string; Sender: IView
+  );
+begin
+  GetCustomModel.Personas.FilterData(Filtro, roAlumno);
 end;
 
 end.
