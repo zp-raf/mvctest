@@ -88,6 +88,7 @@ inherited AbmGrupos: TAbmGrupos
       ListFieldIndex = 0
       ListSource = GrupoDataModule.dsGruposHabilitadosView
       LookupCache = False
+      NullValueKey = 46
       TabOrder = 1
     end
     object LabelNombre: TLabel[4]
@@ -118,9 +119,9 @@ inherited AbmGrupos: TAbmGrupos
       Left = 384
       Height = 15
       Top = 8
-      Width = 77
+      Width = 220
       Anchors = [akLeft, akBottom]
-      Caption = 'Grupo anterior'
+      Caption = 'Grupo anterior (presione supr para borrar)'
       ParentColor = False
     end
   end
