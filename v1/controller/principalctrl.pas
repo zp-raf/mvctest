@@ -158,7 +158,15 @@ uses
   // registro asistencia
   frmprocesoCargaHoraProf,
   asistenciactrl,
-  uHelp;
+  uHelp,
+  // reporte matriculacion
+  frmreportematriculaciondatamodule,
+  rptmatriculacionctrl,
+  frmreportematriculacion,
+  // otorgar derecho
+  frmderechoexamendatamodule,
+  derechoexamenctrl,
+  frmprocesoderechoexamen;
 
 type
 
@@ -206,7 +214,9 @@ type
     procedure OpenAprobarJustForm(Sender: IFormView);
     procedure OpenSeleccionTalonarioRecForm(Sender: IFormView);
     procedure OpenIngEgresoReporteForm(Sender: IFormView);
-    procedure OpenHelpForm (Sender: IFormView);
+    procedure OpenHelpForm(Sender: IFormView);
+    procedure OpenReporteMatriculacionForm(Sender: IFormView);
+    procedure OpenDerechoExamenForm(Sender: IFormView);
   end;
 
 var
@@ -575,10 +585,30 @@ end;
 
 procedure TPrincipalController.OpenHelpForm(Sender: IFormView);
 begin
-//    frmHelp := TfrmHelp.Create(Sender as TComponent);
-    frmHelp := TfrmHelp.CreateNew(Sender as TComponent);
-    frmHelp.Show;
-    frmHelp.OpenHTMLFile('about.html');
+  //    frmHelp := TfrmHelp.Create(Sender as TComponent);
+  frmHelp := TfrmHelp.CreateNew(Sender as TComponent);
+  frmHelp.Show;
+  frmHelp.OpenHTMLFile('about.html');
+end;
+
+procedure TPrincipalController.OpenReporteMatriculacionForm(Sender: IFormView);
+begin
+  ProcesoReporteMatriculacion :=
+    TProcesoReporteMatriculacion.Create(Sender,
+    TReporteMatriculacionController.Create(TReporteMatriculacionDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoReporteMatriculacion.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoReporteMatriculacion as
+    IObserver);
+end;
+
+procedure TPrincipalController.OpenDerechoExamenForm(Sender: IFormView);
+begin
+  ProcesoDerechoExamen := TProcesoDerechoExamen.Create(Sender,
+    TDerechoExamenController.Create(TDerechoExamenDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoDerechoExamen.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoDerechoExamen as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

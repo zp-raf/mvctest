@@ -15,6 +15,7 @@ type
 
   TCalificacionDataModule = class(TQueryDataModule)
     CalificacionPUNTAJEOBTENIDO: TFloatField;
+    procedure CalificacionPUNTAJEOBTENIDOChange(Sender: TField);
   private
     FEstado: TEdicionEstado;
     FExamenes: TExamenesDataModule;
@@ -130,6 +131,12 @@ begin
   if FExamenes = AValue then
     Exit;
   FExamenes := AValue;
+end;
+
+procedure TCalificacionDataModule.CalificacionPUNTAJEOBTENIDOChange(Sender: TField);
+begin
+  if Sender.Value < 0 then
+    raise Exception.Create('Numero negativo no admitido');
 end;
 
 procedure TCalificacionDataModule.SetEstado(AValue: TEdicionEstado);

@@ -6,7 +6,6 @@ inherited PersonasDataModule: TPersonasDataModule
   VerticalOffset = 341
   Width = 656
   object Persona: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -424,6 +423,7 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 256
   end
   object PersonasRoles: TSQLQuery[6]
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

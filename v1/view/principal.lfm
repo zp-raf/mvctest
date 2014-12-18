@@ -76,6 +76,10 @@ inherited Principal1: TPrincipal1
         Caption = '&Matricular alumnos'
         OnClick = matricularClick
       end
+      object MenuItemDerecho: TMenuItem
+        Caption = '&Derecho a examen'
+        OnClick = MenuItemDerechoClick
+      end
       object clases: TMenuItem
         Caption = 'ABM &Clases'
         OnClick = clasesClick
@@ -265,18 +269,22 @@ inherited Principal1: TPrincipal1
     end
     object reporte1: TMenuItem[3]
       Caption = 'Reportes'
+      object MenuItemRptMatriculacion: TMenuItem
+        Caption = 'Reporte de &Matriculacion'
+        OnClick = MenuItemRptMatriculacionClick
+      end
       object certificadoEstudio: TMenuItem
-        Caption = 'Certificado de Estudios'
+        Caption = 'Certificado de &Estudios'
       end
       object reportRegAsistencia: TMenuItem
-        Caption = 'Registro de Asistencia'
+        Caption = 'Registro de &Asistencia'
       end
       object extracto: TMenuItem
         Caption = '&Extracto de cuenta'
         OnClick = extractoClick
       end
       object ingresoegreso: TMenuItem
-        Caption = 'Ingresos y Egresos'
+        Caption = '&Ingresos y Egresos'
         OnClick = ingresoegresoClick
       end
     end
@@ -296,7 +304,7 @@ inherited Principal1: TPrincipal1
     left = 112
     top = 8
   end
-  object frReport1: TfrReport[8]
+  object frReport1: TfrReport[10]
     InitialZoom = pzDefault
     Options = []
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]

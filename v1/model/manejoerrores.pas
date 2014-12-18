@@ -6,7 +6,7 @@ interface
 
 
 uses
-  Classes, SysUtils, DB, IBConnection, Dialogs, strutils;
+  Classes, SysUtils, DB, IBConnection, Dialogs, strutils, mensajes;
 
 resourcestring
   rsPrimaryKeyError = 'Los datos introducidos ya existen. Reviselos.';
@@ -104,8 +104,15 @@ begin
 end;
 
 function GetErrorMessage(E: Exception): string;
+var
+  m: string;
 begin
-  Result := rsAppError + #13#10 + E.Message;
+  m := e.Message;
+  if AnsiContainsText(m, 'invalid date') then
+    m := rsInvalidDate
+  else if AnsiContainsText(m, 'valid date format') then
+    m := rsInvalidDateFormat;
+  Result := rsAppError + #13#10 + m;
 end;
 
 end.

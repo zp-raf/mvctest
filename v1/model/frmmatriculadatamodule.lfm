@@ -62,6 +62,12 @@ inherited MatriculaDataModule: TMatriculaDataModule
         Size = 0
       end    
       item
+        Name = 'NUMERO'
+        DataType = ftString
+        Precision = -1
+        Size = 12
+      end    
+      item
         Name = 'MATERIAID'
         DataType = ftInteger
         Precision = -1
@@ -278,6 +284,21 @@ inherited MatriculaDataModule: TMatriculaDataModule
       LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
       LookupKeyFields = 'ID'
       LookupResultField = 'NOMBRE_MOD'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField5: TStringField
+      DisplayWidth = 255
+      FieldKind = fkLookup
+      FieldName = 'PERIODO'
+      Index = 16
+      KeyFields = 'DESARROLLOMATERIAID'
+      LookupCache = False
+      LookupDataSet = DesarrolloMateriaDataModule.DesarrolloView
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOMBRE_PERIODO'
       ProviderFlags = []
       ReadOnly = False
       Required = False

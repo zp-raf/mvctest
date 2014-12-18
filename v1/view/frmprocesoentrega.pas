@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, ButtonPanel, StdCtrls, DBGrids, DBCtrls, frmproceso, entregactrl, sgcdTypes;
+  Menus, ButtonPanel, StdCtrls, DBGrids, DBCtrls, LazHelpHTML, frmproceso,
+  entregactrl, sgcdTypes;
 
 type
 

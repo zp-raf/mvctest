@@ -2,7 +2,7 @@ inherited CalificacionDataModule: TCalificacionDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 251
-  HorizontalOffset = 1164
+  HorizontalOffset = 921
   VerticalOffset = 459
   Width = 309
   object Calificacion: TSQLQuery[0]
@@ -90,6 +90,7 @@ inherited CalificacionDataModule: TCalificacionDataModule
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = CalificacionPUNTAJEOBTENIDOChange
       MaxValue = 0
       MinValue = 0
       Precision = -1

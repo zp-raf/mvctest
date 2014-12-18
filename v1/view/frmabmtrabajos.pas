@@ -14,6 +14,8 @@ type
   { TAbmTrabajos }
 
   TAbmTrabajos = class(TAbm)
+    procedure FloatSpinEditPesoEditingDone(Sender: TObject);
+    procedure FloatSpinEditPuntajeMaxEditingDone(Sender: TObject);
   protected
     function GetCustomController: TTrabajosController;
   published
@@ -41,8 +43,6 @@ type
       var AcceptDate: boolean);
     procedure DateEditFechainiCustomDate(Sender: TObject; var ADate: string);
     procedure DateEditFechainiEditingDone(Sender: TObject);
-    procedure FloatSpinEditPesoChange(Sender: TObject);
-    procedure FloatSpinEditPuntajeMaxChange(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
   end;
 
@@ -99,12 +99,12 @@ begin
   GetCustomController.SetFechaIni(StrToDate(DateEditFechaini.Text), Self);
 end;
 
-procedure TAbmTrabajos.FloatSpinEditPesoChange(Sender: TObject);
+procedure TAbmTrabajos.FloatSpinEditPesoEditingDone(Sender: TObject);
 begin
   GetCustomController.SetPeso(FloatSpinEditPeso.Value, Self);
 end;
 
-procedure TAbmTrabajos.FloatSpinEditPuntajeMaxChange(Sender: TObject);
+procedure TAbmTrabajos.FloatSpinEditPuntajeMaxEditingDone(Sender: TObject);
 begin
   GetCustomController.SetPuntajeMax(FloatSpinEditPuntajeMax.Value, Self);
 end;

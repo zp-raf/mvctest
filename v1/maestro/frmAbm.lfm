@@ -3,19 +3,20 @@ inherited Abm: TAbm
   Height = 481
   Top = 240
   Width = 640
-  ClientHeight = 462
+  ClientHeight = 461
   ClientWidth = 640
   Constraints.MinHeight = 481
   Constraints.MinWidth = 640
   Position = poScreenCenter
   inherited StatusBar1: TStatusBar
-    Top = 442
+    Height = 23
+    Top = 438
     Width = 640
   end
   object ButtonPanel: TButtonPanel[1]
     Left = 6
     Height = 34
-    Top = 402
+    Top = 398
     Width = 628
     OKButton.Name = 'OKButton'
     OKButton.Caption = '&Guardar'
@@ -40,7 +41,7 @@ inherited Abm: TAbm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel
     Left = 0
-    Height = 396
+    Height = 392
     Top = 0
     Width = 640
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -55,12 +56,12 @@ inherited Abm: TAbm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel
     Left = 0
-    Height = 396
+    Height = 392
     Top = 0
     Width = 640
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 396
+    ClientHeight = 392
     ClientWidth = 640
     TabOrder = 1
     object DBGrid1: TDBGrid
@@ -69,7 +70,7 @@ inherited Abm: TAbm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
       Left = 8
-      Height = 314
+      Height = 310
       Hint = 'Para seleccionar una fila, haga click izquierdo.'#13#10'Para ver el contenido de la fila, haga click derecho.'#13#10'Para eliminar la fila, presione la tecla suprimir o haga click en el boton de eliminar en el panel de navegación.'
       Top = 51
       Width = 624
@@ -90,7 +91,7 @@ inherited Abm: TAbm
       Left = 8
       Height = 25
       Hint = 'Panel de navegación'
-      Top = 369
+      Top = 365
       Width = 313
       BeforeAction = DBNavListBeforeAction
       BevelOuter = bvNone
@@ -112,8 +113,8 @@ inherited Abm: TAbm
       AnchorSideLeft.Control = DBGrid1
       AnchorSideBottom.Control = DBGrid1
       Left = 8
-      Height = 21
-      Top = 26
+      Height = 23
+      Top = 24
       Width = 288
       Anchors = [akLeft, akBottom]
       BorderSpacing.Bottom = 4
@@ -124,9 +125,9 @@ inherited Abm: TAbm
       AnchorSideLeft.Control = EditFilter
       AnchorSideBottom.Control = EditFilter
       Left = 8
-      Height = 13
-      Top = 13
-      Width = 217
+      Height = 15
+      Top = 9
+      Width = 234
       Anchors = [akLeft, akBottom]
       Caption = 'Escriba una palabra para filtrar los resultados'
       ParentColor = False
@@ -138,7 +139,7 @@ inherited Abm: TAbm
       AnchorSideTop.Side = asrCenter
       Left = 304
       Height = 25
-      Top = 24
+      Top = 23
       Width = 40
       BorderSpacing.Left = 8
       Caption = 'Filtrar'

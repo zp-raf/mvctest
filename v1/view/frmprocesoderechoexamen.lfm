@@ -1,0 +1,116 @@
+inherited ProcesoDerechoExamen: TProcesoDerechoExamen
+  Left = 602
+  Height = 636
+  Top = 184
+  Width = 854
+  Caption = 'Derecho a examen'
+  ClientHeight = 616
+  ClientWidth = 854
+  inherited StatusBar1: TStatusBar
+    Height = 23
+    Top = 593
+    Width = 854
+  end
+  inherited ButtonPanel1: TButtonPanel
+    Top = 553
+    Width = 842
+    OKButton.OnClick = OKButtonClick
+    CancelButton.OnClick = CancelButtonClick
+  end
+  object GroupBoxSeccion: TGroupBox[2]
+    Left = 6
+    Height = 192
+    Top = 0
+    Width = 842
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Seccion'
+    ClientHeight = 174
+    ClientWidth = 838
+    TabOrder = 2
+    object DBGrid1: TDBGrid
+      Left = 8
+      Height = 155
+      Top = 8
+      Width = 826
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'SECCION'
+          Width = 359
+          FieldName = 'SECCION'
+        end>
+      DataSource = DerechoExamenDataModule.dsDesarrolloFilter
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+      ReadOnly = True
+      TabOrder = 0
+    end
+  end
+  object GroupBoxAlumnos: TGroupBox[3]
+    AnchorSideTop.Control = GroupBoxSeccion
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 351
+    Top = 192
+    Width = 842
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Caption = 'Alumnos'
+    ClientHeight = 333
+    ClientWidth = 838
+    TabOrder = 3
+    object DBGrid2: TDBGrid
+      Left = 8
+      Height = 320
+      Top = 8
+      Width = 824
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Color = clWindow
+      Columns = <      
+        item
+          ReadOnly = True
+          Title.Caption = 'CEDULA'
+          Width = 60
+          FieldName = 'CEDULA'
+        end      
+        item
+          ReadOnly = True
+          Title.Caption = 'APELLIDO'
+          Width = 103
+          FieldName = 'APELLIDO'
+        end      
+        item
+          ReadOnly = True
+          Title.Caption = 'NOMBRE'
+          Width = 94
+          FieldName = 'NOMBRE'
+        end      
+        item
+          ReadOnly = True
+          Title.Caption = 'FECHA_MATRICULACION'
+          Width = 152
+          FieldName = 'FECHA'
+        end      
+        item
+          ReadOnly = True
+          Title.Caption = 'OBSERVACIONES'
+          Width = 106
+          FieldName = 'OBSERVACIONES'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          Title.Caption = 'DERECHOEXAMEN'
+          Width = 115
+          FieldName = 'DERECHOEXAMEN'
+        end>
+      DataSource = DerechoExamenDataModule.dsAlumnosMatriculas2
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+      TabOrder = 0
+    end
+  end
+  inherited MainMenu: TMainMenu[4]
+  end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[5]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[6]
+  end
+end

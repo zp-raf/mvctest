@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LR_Class, Forms, Controls, Graphics, Dialogs,
-  frmMaestro, Menus, ExtCtrls, StdCtrls, ComCtrls, mvc, principalctrl;
+  frmMaestro, Menus, ExtCtrls, StdCtrls, ComCtrls, LazHelpHTML, mvc,
+  principalctrl;
 
 type
 
@@ -26,6 +27,8 @@ type
     Listaalumnos: TButton;
     Documentos: TButton;
     ingresoegreso: TMenuItem;
+    MenuItemDerecho: TMenuItem;
+    MenuItemRptMatriculacion: TMenuItem;
     MenuItemTalonarioRec: TMenuItem;
     MenuItemAprobarJusti: TMenuItem;
     MenuItemDocumentos: TMenuItem;
@@ -108,9 +111,11 @@ type
     procedure matricularClick(Sender: TObject);
     procedure MenuItemAprobarJustiClick(Sender: TObject);
     procedure MenuItemAsignacionClick(Sender: TObject);
+    procedure MenuItemDerechoClick(Sender: TObject);
     procedure MenuItemDocumentosClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
+    procedure MenuItemRptMatriculacionClick(Sender: TObject);
     procedure MenuItemTalonarioRecClick(Sender: TObject);
     procedure modulosClick(Sender: TObject);
     procedure multasClick(Sender: TObject);
@@ -133,6 +138,7 @@ var
   Principal1: TPrincipal1;
 
 implementation
+
 uses uHelp;
 
 {$R *.lfm}
@@ -296,6 +302,11 @@ begin
   GetCustomController.OpenAsignacionFrom(Self);
 end;
 
+procedure TPrincipal1.MenuItemDerechoClick(Sender: TObject);
+begin
+ GetCustomController.OpenDerechoExamenForm(Self);
+end;
+
 procedure TPrincipal1.MenuItemDocumentosClick(Sender: TObject);
 begin
   GetCustomController.OpenDocumentosForm(Self);
@@ -309,6 +320,11 @@ end;
 procedure TPrincipal1.MenuItemABMCuentasClick(Sender: TObject);
 begin
   GetCustomController.OpenABMCuentasForm(Self);
+end;
+
+procedure TPrincipal1.MenuItemRptMatriculacionClick(Sender: TObject);
+begin
+  GetCustomController.OpenReporteMatriculacionForm(Self);
 end;
 
 procedure TPrincipal1.MenuItemTalonarioRecClick(Sender: TObject);

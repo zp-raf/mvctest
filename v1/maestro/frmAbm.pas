@@ -73,6 +73,8 @@ end;
 
 procedure TAbm.OK(Sender: TObject);
 begin
+  // para sacar el foco de cualquier control
+  ActiveControl := nil;
   GetController.OK(Self);
   ShowPanel(PanelList);
 end;

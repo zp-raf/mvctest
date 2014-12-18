@@ -1,0 +1,267 @@
+inherited DerechoExamenDataModule: TDerechoExamenDataModule
+  OnCreate = DataModuleCreate
+  Height = 238
+  HorizontalOffset = 922
+  VerticalOffset = 390
+  Width = 307
+  object dsAlumnosMatriculas2: TDataSource[0]
+    DataSet = AlumnosMatriculas2
+    left = 56
+    top = 128
+  end
+  object AlumnosMatriculas2: TSQLQuery[1]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DESARROLLOMATERIAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ALUMNOPERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'APELLIDO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'CONFIRMADO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ACTIVA'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CONFIRMADA'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'OBSERVACIONES'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DERECHOEXAMEN'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'SECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 1805
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from v_alumnos_matriculas_2'
+      'where seccion = :seccion'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'seccion'
+        ParamType = ptInput
+      end>
+    left = 56
+    top = 40
+    object AlumnosMatriculas2ID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculas2DESARROLLOMATERIAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DESARROLLOMATERIAID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculas2ALUMNOPERSONAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ALUMNOPERSONAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculas2NOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AlumnosMatriculas2APELLIDO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'APELLIDO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AlumnosMatriculas2CEDULA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CEDULA'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AlumnosMatriculas2CONFIRMADO: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CONFIRMADO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculas2FECHA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculas2ACTIVA: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ACTIVA'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculas2CONFIRMADA: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CONFIRMADA'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculas2OBSERVACIONES: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'OBSERVACIONES'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object AlumnosMatriculas2DERECHOEXAMEN: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DERECHOEXAMEN'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object AlumnosMatriculas2SECCION: TStringField
+      DisplayWidth = 1805
+      FieldKind = fkData
+      FieldName = 'SECCION'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1805
+    end
+  end
+  object DesarrolloFilter: TSQLQuery[2]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'SECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 1805
+      end>
+    AfterScroll = DesarrolloFilterAfterScroll
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select distinct(seccion) as seccion from v_alumnos_matriculas_2'
+    )
+    Params = <>
+    left = 209
+    top = 59
+  end
+  object dsDesarrolloFilter: TDataSource[3]
+    DataSet = DesarrolloFilter
+    left = 205
+    top = 138
+  end
+end

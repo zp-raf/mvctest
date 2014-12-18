@@ -14,11 +14,15 @@ type
   { TEntregaDataModule }
 
   TEntregaDataModule = class(TQueryDataModule)
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
     procedure EntregaAfterInsert(DataSet: TDataSet);
+    procedure EntregaBeforePost(DataSet: TDataSet);
   private
     FEstado: TEdicionEstado;
     FMatricula: TMatriculaDataModule;
-    FPersonas: TPersonasDataModule;
+    FAlumnos: TPersonasDataModule;
     FTrabajos: TTrabajosDataModule;
     procedure SetEstado(AValue: TEdicionEstado);
     procedure SetMatricula(AValue: TMatriculaDataModule);
@@ -30,9 +34,6 @@ type
     EntregaFECHAENTREGA: TDateField;
     EntregaPUNTAJEOBTENIDO: TFloatField;
     EntregaTRABAJOID: TLongintField;
-    StringField5: TStringField;
-    StringField6: TStringField;
-    StringField7: TStringField;
     dsEntrega: TDataSource;
     Entrega: TSQLQuery;
     procedure DataModuleCreate(Sender: TObject); override;
@@ -42,7 +43,7 @@ type
     procedure SaveChanges; override;
     property Estado: TEdicionEstado read FEstado write SetEstado;
     property Matricula: TMatriculaDataModule read FMatricula write SetMatricula;
-    property Personas: TPersonasDataModule read FPersonas write SetPersonas;
+    property Alumnos: TPersonasDataModule read FAlumnos write SetPersonas;
     property Trabajos: TTrabajosDataModule read FTrabajos write SetTrabajos;
   end;
 
@@ -58,11 +59,12 @@ implementation
 procedure TEntregaDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
-  FTrabajos := TTrabajosDataModule.Create(Self, MasterDataModule);
-  FPersonas := TPersonasDataModule.Create(Self, MasterDataModule);
+  FAlumnos := TPersonasDataModule.Create(Self, MasterDataModule);
   FMatricula := TMatriculaDataModule.Create(Self, MasterDataModule);
+  FTrabajos := TTrabajosDataModule.Create(Self, MasterDataModule);
+  FAlumnos.FilterData('', roAlumno);
   QryList.Add(TObject(Entrega));
-  AuxQryList.Add(TObject(FPersonas.PersonasRoles));
+  AuxQryList.Add(TObject(FAlumnos.PersonasRoles));
   AuxQryList.Add(TObject(FTrabajos.TrabajosDetView));
   AuxQryList.Add(TObject(FMatricula.AlumnosMatriculasView));
   Estado := edInicial;
@@ -73,8 +75,8 @@ begin
   inherited;
   if Assigned(FTrabajos) then
     FreeAndNil(FTrabajos);
-  if Assigned(FPersonas) then
-    FreeAndNil(FPersonas);
+  if Assigned(FAlumnos) then
+    FreeAndNil(FAlumnos);
   if Assigned(FMatricula) then
     FreeAndNil(FMatricula);
 end;
@@ -87,14 +89,20 @@ end;
 
 procedure TEntregaDataModule.SetPersonas(AValue: TPersonasDataModule);
 begin
-  if FPersonas = AValue then
+  if FAlumnos = AValue then
     Exit;
-  FPersonas := AValue;
+  FAlumnos := AValue;
 end;
 
 procedure TEntregaDataModule.EntregaAfterInsert(DataSet: TDataSet);
 begin
   DataSet.FieldByName('FECHAENTREGA').AsDateTime := Now;
+end;
+
+procedure TEntregaDataModule.EntregaBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('PUNTAJEOBTENIDO').Value < 0 then
+    raise Exception.Create('Puntaje invalido');
 end;
 
 procedure TEntregaDataModule.SetEstado(AValue: TEdicionEstado);
@@ -143,8 +151,8 @@ begin
     begin
       Entrega.Insert;
       EntregaTRABAJOID.AsString := ATrabajoID;
-      EntregaALUMNOPERSONAID.AsInteger :=
-        Matricula.AlumnosMatriculasView.FieldByName('ID').AsInteger;
+      EntregaALUMNOPERSONAID.AsString :=
+        Matricula.AlumnosMatriculasView.FieldByName('ALUMNOPERSONAID').AsString;
       EntregaPUNTAJEOBTENIDO.AsFloat := 0.0;
       Matricula.AlumnosMatriculasView.Next;
     end;

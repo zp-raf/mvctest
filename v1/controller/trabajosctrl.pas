@@ -36,8 +36,8 @@ end;
 
 procedure TTrabajosController.SetFechaIni(ADate: TDateTime; Sender: IView);
 begin
-  if (GetCustomModel.Trabajo.State in [dsBrowse, dsInactive]) then
-    Exit;
+  if (GetCustomModel.Trabajo.State in dsEditModes) then
+    GetCustomModel.Trabajo.Edit;
   if not IsValidDate(ADate) then
   begin
     Sender.ShowErrorMessage(rsInvalidDate);
@@ -52,8 +52,8 @@ end;
 
 procedure TTrabajosController.SetFechaFin(ADate: TDateTime; Sender: IView);
 begin
-  if (GetCustomModel.Trabajo.State in [dsBrowse, dsInactive]) then
-    Exit;
+  if (GetCustomModel.Trabajo.State in dsEditModes) then
+    GetCustomModel.Trabajo.Edit;
   if not IsValidDate(ADate) then
   begin
     Sender.ShowErrorMessage(rsInvalidDate);
@@ -68,8 +68,8 @@ end;
 
 procedure TTrabajosController.SetPuntajeMax(AValue: double; Sender: IView);
 begin
-  if (GetCustomModel.Trabajo.State in [dsBrowse, dsInactive]) then
-    Exit;
+  if (GetCustomModel.Trabajo.State in dsEditModes) then
+    GetCustomModel.Trabajo.Edit;
   if AValue < 0 then
     Sender.ShowErrorMessage('Puntaje no debe ser negativo')
   else
@@ -78,8 +78,8 @@ end;
 
 procedure TTrabajosController.SetPeso(AValue: double; Sender: IView);
 begin
-  if (GetCustomModel.Trabajo.State in [dsBrowse, dsInactive]) then
-    Exit;
+  if (GetCustomModel.Trabajo.State in dsEditModes) then
+    GetCustomModel.Trabajo.Edit;
   if (AValue < 0) or (AValue > 100) then
     Sender.ShowErrorMessage('Peso debe estar entre 0 y 100')
   else

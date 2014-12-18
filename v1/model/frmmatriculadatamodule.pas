@@ -54,6 +54,7 @@ type
     StringField2: TStringField;
     StringField3: TStringField;
     StringField4: TStringField;
+    StringField5: TStringField;
     procedure DesarrolloMatActivoDetViewFilterRecord(DataSet: TDataSet;
       var Accept: boolean);
     procedure MatriculaAfterOpen(DataSet: TDataSet);
@@ -364,8 +365,7 @@ end;
 
 procedure TMatriculaDataModule.MatriculaAfterOpen(DataSet: TDataSet);
 begin
-  DesarrolloMatActivoDetView.Close;
-  DesarrolloMatActivoDetView.Open;
+  //DesarrolloMatActivoDetView.Refresh;
 end;
 
 procedure TMatriculaDataModule.SetAsignacion(AValue: TAsignacionArancelesDataModule);
@@ -383,6 +383,10 @@ begin
   if Matricula.Locate('DESARROLLOMATERIAID', ADesarrolloID, []) then
     Exit;
   NewRecord;
+  // se debe asignar aunque no haga falta para que se filtre correctamente
+  // las secciones habilitadas
+  Matricula.FieldByName('MATERIAID').AsString :=
+    DesarrolloMatActivoDetView.FieldByName('MATERIAID').AsString;
   Matricula.FieldByName('DESARROLLOMATERIAID').AsString := ADesarrolloID;
   Matricula.FieldByName('ALUMNOPERSONAID').AsString :=
     Personas.PersonasRoles.FieldByName('ID').AsString;
@@ -392,6 +396,7 @@ begin
   Matricula.FieldByName('DERECHOEXAMEN').AsString := DB_FALSE;
   Matricula.ApplyUpdates;
   MateriasHabilitadasView.Refresh;
+  DesarrolloMatActivoDetView.Refresh;
 end;
 
 procedure TMatriculaDataModule.Commit;

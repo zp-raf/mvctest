@@ -39,6 +39,7 @@ inherited EntregaDataModule: TEntregaDataModule
         Size = 255
       end>
     AfterInsert = EntregaAfterInsert
+    BeforePost = EntregaBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -107,7 +108,7 @@ inherited EntregaDataModule: TEntregaDataModule
       Required = False
       Size = 255
     end
-    object StringField5: TStringField
+    object StringField1: TStringField
       DisplayWidth = 255
       FieldKind = fkLookup
       FieldName = 'CEDULA'
@@ -122,10 +123,10 @@ inherited EntregaDataModule: TEntregaDataModule
       Required = False
       Size = 255
     end
-    object StringField6: TStringField
+    object StringField2: TStringField
       DisplayWidth = 255
       FieldKind = fkLookup
-      FieldName = 'NOMBRE_ALUMNO'
+      FieldName = 'NOMBRE'
       Index = 6
       KeyFields = 'ALUMNOPERSONAID'
       LookupCache = False
@@ -137,10 +138,10 @@ inherited EntregaDataModule: TEntregaDataModule
       Required = False
       Size = 255
     end
-    object StringField7: TStringField
+    object StringField3: TStringField
       DisplayWidth = 255
       FieldKind = fkLookup
-      FieldName = 'APELLIDO_ALUMNO'
+      FieldName = 'APELLIDO'
       Index = 7
       KeyFields = 'ALUMNOPERSONAID'
       LookupCache = False

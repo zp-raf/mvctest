@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="2"/>
       <RevisionNr Value="2"/>
-      <BuildNr Value="140"/>
+      <BuildNr Value="141"/>
       <Language Value="040A"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
@@ -56,7 +56,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="153">
+    <Units Count="159">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1129,6 +1129,48 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="asistenciactrl"/>
       </Unit152>
+      <Unit153>
+        <Filename Value="model\frmreportematriculaciondatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ReporteMatriculacionDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmreportematriculaciondatamodule"/>
+      </Unit153>
+      <Unit154>
+        <Filename Value="controller\rptmatriculacionctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="rptmatriculacionctrl"/>
+      </Unit154>
+      <Unit155>
+        <Filename Value="view\frmreportematriculacion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoReporteMatriculacion"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmreportematriculacion"/>
+      </Unit155>
+      <Unit156>
+        <Filename Value="model\frmderechoexamendatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DerechoExamenDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmderechoexamendatamodule"/>
+      </Unit156>
+      <Unit157>
+        <Filename Value="view\frmprocesoderechoexamen.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoDerechoExamen"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesoderechoexamen"/>
+      </Unit157>
+      <Unit158>
+        <Filename Value="controller\derechoexamenctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="derechoexamenctrl"/>
+      </Unit158>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

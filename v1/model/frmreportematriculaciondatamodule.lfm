@@ -1,0 +1,8 @@
+inherited ReporteMatriculacionDataModule: TReporteMatriculacionDataModule
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 247
+  HorizontalOffset = 722
+  VerticalOffset = 313
+  Width = 349
+end

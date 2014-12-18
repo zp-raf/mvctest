@@ -273,39 +273,6 @@ inherited ProcesoMatriculacion: TProcesoMatriculacion
             end          
             item
               PickList.Strings = (
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-                '2007'
-              )
-              Title.Caption = 'PERIODO'
-              FieldName = 'PERIODO'
-            end          
-            item
-              PickList.Strings = (
                 'Didactica '
                 'Didactica '
                 'Tecnica Teatral '
@@ -372,6 +339,14 @@ inherited ProcesoMatriculacion: TProcesoMatriculacion
               ReadOnly = True
               Title.Caption = 'SECCION'
               FieldName = 'SECCION'
+            end          
+            item
+              Title.Caption = 'MODULO'
+              FieldName = 'MODULO'
+            end          
+            item
+              Title.Caption = 'PERIODO'
+              FieldName = 'PERIODO'
             end          
             item
               PickList.Strings = (
