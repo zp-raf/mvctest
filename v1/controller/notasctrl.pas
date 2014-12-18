@@ -44,13 +44,11 @@ begin
       TDBGrid(AList).DataSource.DataSet.GotoBookmark(
         Pointer(TDBGrid(AList).SelectedRows.Items[i]));
       GetCustomModel.CalcularNota(TDBGrid(AList).DataSource.DataSet.FieldByName(
-        'ID').AsString,
-        TDBGrid(AList).DataSource.DataSet.FieldByName('ALUMNOPERSONAID').AsString);
+        'ID').AsString);
     end
     else
       GetCustomModel.CalcularNota(TDBGrid(AList).DataSource.DataSet.FieldByName(
-        'ID').AsString,
-        TDBGrid(AList).DataSource.DataSet.FieldByName('ALUMNOPERSONAID').AsString);
+        'ID').AsString);
   end;
   Save(Sender);
   Commit(Sender);

@@ -322,17 +322,12 @@ inherited NotasDataModule: TNotasDataModule
     Transaction = sgcdDataModule.tran
     ReadOnly = True
     SQL.Strings = (
-      'execute procedure get_nota(:matriculaid, :alumnoid);'
+      'execute procedure get_nota(:matriculaid);'
     )
     Params = <    
       item
         DataType = ftUnknown
         Name = 'matriculaid'
-        ParamType = ptInput
-      end    
-      item
-        DataType = ftUnknown
-        Name = 'alumnoid'
         ParamType = ptInput
       end>
     left = 199

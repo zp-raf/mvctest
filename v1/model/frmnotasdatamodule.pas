@@ -61,7 +61,7 @@ type
     NotasViewOBS_NOTA: TStringField;
     NotasViewPUNTAJE: TFloatField;
     NotasViewSECCION: TStringField;
-    procedure CalcularNota(AMatriculaID: string; AAlumnoID: string);
+    procedure CalcularNota(AMatriculaID: string);
     procedure FilterRecord; overload;
     procedure DataModuleCreate(Sender: TObject); override;
   end;
@@ -97,12 +97,11 @@ begin
   FilterRecord;
 end;
 
-procedure TNotasDataModule.CalcularNota(AMatriculaID: string; AAlumnoID: string);
+procedure TNotasDataModule.CalcularNota(AMatriculaID: string);
 begin
   try
     CalcularNotasProc.Close;
     CalcularNotasProc.ParamByName('MATRICULAID').AsString := AMatriculaID;
-    CalcularNotasProc.ParamByName('ALUMNOID').AsString := AAlumnoID;
     CalcularNotasProc.Open;
     if not Nota.Locate('MATRICULAID', AMatriculaID, []) then
       Nota.Insert

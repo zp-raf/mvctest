@@ -95,6 +95,8 @@ begin
       m := rsINTEG_329
     else if AnsiContainsText(tmp, 'must apply updates before') then
       m := rsMustApplyUpdates
+    else if AnsiContainsText(tmp, 'CHECK_52') then
+      m := rsInvalidDateRange
     else
       m := rsGeneralDBError + #13#10 + tmp;
   end
