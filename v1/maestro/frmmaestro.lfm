@@ -45,7 +45,6 @@ object Maestro: TMaestro
       ShortCut = 32836
       object MenuItemAyuda: TMenuItem
         Caption = 'A&yuda'
-        ShortCut = 112
         OnClick = MenuItemAyudaClick
       end
       object MenuItemAbout: TMenuItem

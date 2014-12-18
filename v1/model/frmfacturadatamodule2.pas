@@ -24,6 +24,7 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TComprobanteDataModule)
+    procedure qryDetalleCANTIDADChange(Sender: TField);
   private
     FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;
@@ -198,6 +199,12 @@ begin
     on E: Exception do
       raise;
   end;
+end;
+
+procedure TFacturasDataModule.qryDetalleCANTIDADChange(Sender: TField);
+begin
+  CheckNoNegativo(Sender);
+  qryDetallePRECIO_UNITARIOChange(Sender);
 end;
 
 procedure TFacturasDataModule.SetCheckPrecioUnitario(AValue: boolean);

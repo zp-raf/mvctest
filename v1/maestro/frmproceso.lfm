@@ -27,4 +27,8 @@ inherited Proceso: TProceso
   end
   inherited MainMenu: TMainMenu[2]
   end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[3]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[4]
+  end
 end

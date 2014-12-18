@@ -66,6 +66,7 @@ inherited Principal1: TPrincipal1
     Caption = 'Button1'
     OnClick = Button1Click
     TabOrder = 5
+    Visible = False
   end
   inherited MainMenu: TMainMenu[6]
     top = 8
@@ -286,7 +287,11 @@ inherited Principal1: TPrincipal1
       OnClick = SalirClick
     end
   end
-  object ApplicationProperties1: TApplicationProperties[7]
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[7]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[8]
+  end
+  object ApplicationProperties1: TApplicationProperties[9]
     OnException = ApplicationProperties1Exception
     left = 112
     top = 8

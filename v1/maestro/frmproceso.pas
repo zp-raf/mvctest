@@ -30,7 +30,7 @@ implementation
 
 procedure TProceso.HelpButtonClick(Sender: TObject);
 begin
-
+  MenuItemAyudaClick(Self);
 end;
 
 procedure TProceso.CloseButtonClick(Sender: TObject);
