@@ -56,7 +56,7 @@ begin
       GetCustomModel.qryCabecera.ApplyUpdates;
       GetCustomModel.qryDetalle.ApplyUpdates;
       GetCustomModel.RegistrarMovimiento(NotaID);
-      GetModel.SaveChanges;
+      GetCustomModel.SaveChanges;
       GetModel.Commit;
       //GetModel.RefreshDataSets;
       with GetCustomModel do

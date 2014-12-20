@@ -6,17 +6,21 @@ interface
 
 uses
   Forms, Controls, StdCtrls, DBGrids, DBCtrls, PairSplitter, ComCtrls, Menus,
-  ButtonPanel, frmproceso, pagoctrl, mensajes;
+  ButtonPanel, LazHelpHTML, frmproceso, pagoctrl, mensajes;
 
 type
 
   { TProcesoPago }
 
   TProcesoPago = class(TProceso)
+    DBGridDet: TDBGrid;
+    Detalles: TGroupBox;
+    EditTotalNC: TEdit;
+    LabelTotalNC: TLabel;
   protected
     function GetCustomController: TPagoController;
-    public
-      destructor Destroy; override;
+  public
+    destructor Destroy; override;
   published
     DBEditEfectivo: TDBEdit;
     DBEditCheques: TDBEdit;
@@ -69,6 +73,7 @@ procedure TProcesoPago.FormCreate(Sender: TObject);
 begin
   ButtonPanel1.OKButton.ModalResult := mrOk;
   ButtonPanel1.CancelButton.ModalResult := mrCancel;
+  DBGridDet.DataSource := GetCustomController.GetDetallesDataSource;
 end;
 
 procedure TProcesoPago.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -121,6 +126,13 @@ begin
     ButtonPanel1.OKButton.Enabled := True
   else
     ButtonPanel1.OKButton.Enabled := False;
+  if GetCustomController.HayNotasCredito then
+  begin
+    Detalles.Visible := True;
+    EditTotalNC.Text := GetCustomController.GetNCTotalText;
+  end
+  else
+    Detalles.Visible := False;
 end;
 
 end.

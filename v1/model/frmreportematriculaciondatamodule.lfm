@@ -44,6 +44,7 @@ inherited ReporteMatriculacionDataModule: TReporteMatriculacionDataModule
         Precision = -1
         Size = 1
       end>
+    Active = True
     SQL.Strings = (
       'select * from rpt_matriculacion_cab(:alumnoid)'
     )
@@ -151,6 +152,7 @@ inherited ReporteMatriculacionDataModule: TReporteMatriculacionDataModule
         Precision = -1
         Size = 511
       end>
+    Active = True
     SQL.Strings = (
       'select * from rpt_matriculacion_det(:alumnoid)'
     )

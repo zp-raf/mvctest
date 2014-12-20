@@ -660,6 +660,15 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   inherited frDBReporteCab: TfrDBDataSet
     DataSet = qryCabecera
   end
+  inherited DeudaView: TSQLQuery
+    SQL.Strings = (
+      'select * from v_deudas'
+      'where v_deudas.personaid = :personaid'
+      '/*and v_deudas.saldo > 0'
+      'and v_deudas.monto_facturado <> v_deudas.monto_deuda'
+      'and v_deudas.activo = 1*/'
+    )
+  end
   object dsFacturas: TDataSource[17]
     DataSet = FacturasDataModule.FacturasView
     left = 368

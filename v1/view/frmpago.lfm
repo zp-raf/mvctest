@@ -1,7 +1,7 @@
 inherited ProcesoPago: TProcesoPago
-  Left = 254
+  Left = 483
   Height = 680
-  Top = 20
+  Top = 134
   Width = 1080
   Caption = 'Cobro'
   ClientHeight = 660
@@ -14,6 +14,7 @@ inherited ProcesoPago: TProcesoPago
   Position = poDesktopCenter
   ShowInTaskBar = stAlways
   inherited StatusBar1: TStatusBar
+    Height = 23
     Top = 637
     Width = 1080
   end
@@ -194,6 +195,71 @@ inherited ProcesoPago: TProcesoPago
       Color = clInfoBk
       MaxLength = 0
       TabOrder = 5
+    end
+    object Detalles: TGroupBox
+      Left = 296
+      Height = 195
+      Top = 0
+      Width = 752
+      Caption = 'Notas de credito para la factura'
+      ClientHeight = 177
+      ClientWidth = 748
+      TabOrder = 6
+      object DBGridDet: TDBGrid
+        Left = 8
+        Height = 132
+        Top = 8
+        Width = 736
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'FECHA_EMISION'
+            Width = 104
+            FieldName = 'FECHA_EMISION'
+          end        
+          item
+            Title.Caption = 'TOTAL'
+            Width = 52
+            FieldName = 'TOTAL'
+          end        
+          item
+            Title.Caption = 'NUMERO_NOTA_CREDITO'
+            Width = 156
+            FieldName = 'NUMERO_NOTA_CREDITO'
+          end        
+          item
+            Title.Caption = 'TIMBRADO'
+            Width = 75
+            FieldName = 'TIMBRADO'
+          end>
+        DataSource = FacturasDataModule.dsNCView
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+        ReadOnly = True
+        TabOrder = 0
+      end
+      object LabelTotalNC: TLabel
+        Left = 9
+        Height = 15
+        Top = 152
+        Width = 139
+        Caption = 'Total de Notas de credito'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditTotalNC: TEdit
+        AnchorSideLeft.Control = LabelTotalNC
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = LabelTotalNC
+        AnchorSideTop.Side = asrCenter
+        Left = 156
+        Height = 23
+        Top = 148
+        Width = 80
+        BorderSpacing.Left = 8
+        Color = clInfoBk
+        TabOrder = 1
+      end
     end
   end
   object GroupBoxDetalles: TGroupBox[3]
@@ -408,5 +474,9 @@ inherited ProcesoPago: TProcesoPago
   inherited MainMenu: TMainMenu[4]
     left = 760
     top = 24
+  end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[5]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[6]
   end
 end

@@ -6,7 +6,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
   VerticalOffset = 264
   Width = 509
   object FacturasView: TSQLQuery[0]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -219,7 +218,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
     end
   end
   object CobrosView: TSQLQuery[1]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -390,7 +388,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
     top = 128
   end
   object FacturasCobradasView: TSQLQuery[4]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -640,7 +637,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
     top = 125
   end
   object NotaCreditoView: TSQLQuery[6]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -842,7 +838,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
     top = 128
   end
   object RecibosView: TSQLQuery[8]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -904,7 +899,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True
@@ -1025,7 +1019,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
     end
   end
   object FacturasCompraView: TSQLQuery[9]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -1099,7 +1092,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True
@@ -1240,7 +1232,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
     end
   end
   object NCCompraView: TSQLQuery[10]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -1302,7 +1293,6 @@ inherited DocumentosDataModule: TDocumentosDataModule
         Precision = -1
         Size = 0
       end>
-    Active = True
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     ReadOnly = True

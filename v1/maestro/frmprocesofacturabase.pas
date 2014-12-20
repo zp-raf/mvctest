@@ -7,7 +7,7 @@ interface
 uses
   StdCtrls, DBCtrls, EditBtn, ComCtrls, Menus, ButtonPanel, PairSplitter,
   DBGrids, notacreditoctrl, ctrl, Forms, sgcdTypes, Graphics,
-  frmprocesocomprobante;
+  frmprocesocomprobante, Classes;
 
 type
 
@@ -58,5 +58,6 @@ begin
   DBEditNombre.Clear;
   DateEditFecha.Clear;
 end;
+
 
 end.

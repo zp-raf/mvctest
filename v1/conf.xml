@@ -3,5 +3,6 @@
   <Principal1>
     <FacturasDataModule talonarioid="17"/>
     <MultasDataModule arancelid="0"/>
+    <NotaCreditoDataModule talonarioid="18"/>
   </Principal1>
 </CONFIG>

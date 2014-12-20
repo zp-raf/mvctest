@@ -177,7 +177,7 @@ type
     procedure SaveChanges; override;
     procedure SetNumero; virtual; abstract;
     procedure SetTipoComprobante(ATipoComprobante: TTipoDocumento);
-    function GetMontoComprobante: double;
+    function GetMontoComprobante: double; virtual;
     function GetTalonarioDataSource: TDataSource;
     property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
     property Estado: TEstadoComprobante read FEstado write SetEstado;
@@ -264,7 +264,7 @@ begin
 
     // REGISTRAR EN CUENTA PERSONAL
     qryDetalle.First;
-     // hay que buscar la cuenta que le correponde a la persona
+    // hay que buscar la cuenta que le correponde a la persona
     Asientos.Cuenta.Cuenta.Open;
     if Asientos.Cuenta.Cuenta.Lookup('PERSONAID',
       qryCabecera.FieldByName('PERSONAID').AsString, 'ID') = null then
@@ -302,7 +302,7 @@ begin
       end;
       Asientos.NuevoAsientoDetalle(FCuentaCompras, mov,
         qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
-        'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
+        'PRECIO_UNITARIO').AsFloat);
       qryDetalle.Next;
     end;
     Asientos.PostAsiento;
@@ -450,8 +450,8 @@ begin
 
         NuevoComprobanteDetalle;
         qryDetalle.FieldByName('CANTIDAD').AsInteger := 1;
-        qryDetalle.FieldByName('DEUDAID').Value := DeudaViewID.Value;
-        qryDetalle.FieldByName('DETALLE').Value := DeudaViewDESCRIPCION.Value;
+        qryDetalle.FieldByName('DEUDAID').AsString := DeudaViewID.AsString;
+        qryDetalle.FieldByName('DETALLE').AsString := DeudaViewDESCRIPCION.AsString;
         // por ahora se maneja que tiene un solo impuesto pero en el futuro
         // puede tener mas por eso se hace el loop
         while not ImpuestoView.EOF do
@@ -509,17 +509,9 @@ end;
 
 function TComprobanteDataModule.GetMontoComprobante: double;
 begin
-  try
-    if not (Estado in [csLeyendo]) then
-      raise  Exception.Create(rsNoSePuedeSetFac);
-    Result := qryCabecera.FieldByName('TOTAL').AsFloat;
-  except
-    on E: EDatabaseError do
-    begin
-      DoOnErrorEvent(Self, E);
-      raise;
-    end;
-  end;
+  if not (Estado in [csLeyendo]) then
+    raise  Exception.Create(rsNoSePuedeSetFac);
+  Result := qryCabecera.FieldByName('TOTAL').AsFloat;
 end;
 
 function TComprobanteDataModule.GetTalonarioDataSource: TDataSource;

@@ -500,7 +500,6 @@ inherited FacturasDataModule: TFacturasDataModule
         Precision = -1
         Size = 0
       end>
-    BeforePost = qryDetalleBeforePost
     SQL.Strings = (
       'select * from factura_detalle'
       'where factura_detalle.facturaid = :facturaid'
@@ -631,176 +630,6 @@ inherited FacturasDataModule: TFacturasDataModule
         Name = 'TALONARIOID'
         ParamType = ptInput
       end>
-  end
-  inherited tal: TSQLQuery
-    object talID: TLongintField[0]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ID'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talTIPO: TLongintField[1]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'TIPO'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talNOMBRE: TStringField[2]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'NOMBRE'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talRUBRO: TStringField[3]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'RUBRO'
-      Index = 3
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talDIRECCION: TStringField[4]
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'DIRECCION'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 512
-    end
-    object talTELEFONO: TStringField[5]
-      DisplayWidth = 512
-      FieldKind = fkData
-      FieldName = 'TELEFONO'
-      Index = 5
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 512
-    end
-    object talTIMBRADO: TStringField[6]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'TIMBRADO'
-      Index = 6
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talVALIDO_DESDE: TDateField[7]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VALIDO_DESDE'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talVALIDO_HASTA: TDateField[8]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'VALIDO_HASTA'
-      Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talRUC: TStringField[9]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'RUC'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 255
-    end
-    object talSUCURSAL: TStringField[10]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'SUCURSAL'
-      Index = 10
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talCAJA: TStringField[11]
-      DisplayWidth = 255
-      FieldKind = fkData
-      FieldName = 'CAJA'
-      Index = 11
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      Size = 255
-    end
-    object talNUMERO_INI: TLongintField[12]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUMERO_INI'
-      Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talNUMERO_FIN: TLongintField[13]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'NUMERO_FIN'
-      Index = 13
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talCOPIAS: TLongintField[14]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'COPIAS'
-      Index = 14
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object talACTIVO: TSmallintField[15]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'ACTIVO'
-      Index = 15
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
   end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalle
@@ -1018,5 +847,173 @@ inherited FacturasDataModule: TFacturasDataModule
       ReadOnly = False
       Required = False
     end
+  end
+  object NCView: TSQLQuery[18]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESCOMPRA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO_NOTA_CREDITO'
+        DataType = ftString
+        Precision = -1
+        Size = 523
+      end    
+      item
+        Name = 'PERSONAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FECHA_EMISION'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TOTAL'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'VALIDO'
+        DataType = ftSmallint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FACTURAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from V_NOTAS_CREDITO_NUEVO'
+      'where facturaid =:facturaid'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'facturaid'
+        ParamType = ptInput
+      end>
+    left = 464
+    top = 256
+  end
+  object FacTotal: TSQLQuery[19]
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FAC'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NC'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from V_FACTURAS_TOTAL_NOTA_CREDITO'
+      'where id = :id'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptInput
+      end>
+    left = 447
+    top = 326
+  end
+  object dsNCView: TDataSource[20]
+    DataSet = NCView
+    left = 493
+    top = 204
+  end
+  object totalNcFactura: TSQLQuery[21]
+    FieldDefs = <>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'with NCS'
+      'as (select N.FACTURAID, ND.DEUDAID, sum(ND.CANTIDAD * ND.PRECIO_UNITARIO) as TOTAL'
+      '    from NOTA_CREDITO N'
+      '    join NOTA_CREDITO_DETALLE ND on N.ID = ND.NOTACREDITOID'
+      '    group by FACTURAID, DEUDAID)'
+      'select FD.FACTURAID, FD.DEUDAID, FD.CANTIDAD * FD.PRECIO_UNITARIO as FAC_TOTAL, coalesce(NCS.TOTAL, 0) as NC_TOTAL,'
+      '       (FD.CANTIDAD * FD.PRECIO_UNITARIO) - coalesce(NCS.TOTAL, 0) as GRAN_TOTAL'
+      'from FACTURA_DETALLE FD'
+      'left join NCS on FD.FACTURAID = NCS.FACTURAID and FD.DEUDAID = NCS.DEUDAID'
+      'where FD.FACTURAID = :FACTURAID and'
+      '      FD.DEUDAID = :DEUDAID'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'FACTURAID'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'DEUDAID'
+        ParamType = ptInput
+      end>
+    left = 336
+    top = 328
+  end
+  object FacturasCobradasView: TSQLQuery[22]
+    FieldDefs = <>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    SQL.Strings = (
+      'select * from facturas_cobradas'
+    )
+    Params = <>
+    left = 224
+    top = 326
   end
 end

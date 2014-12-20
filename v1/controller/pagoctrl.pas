@@ -5,7 +5,7 @@ unit pagoctrl;
 interface
 
 uses
-  ctrl, frmpagodatamodule, mvc, sgcdtypes, mensajes, SysUtils;
+  ctrl, frmpagodatamodule, mvc, sgcdtypes, mensajes, SysUtils, DB;
 
 type
 
@@ -23,6 +23,9 @@ type
     procedure ImprimirRecibo(Sender: IView);
     procedure NuevoPago(EsCobro: boolean; ADocumentoID: string;
       ATipoDoc: TTipoDocumento);
+    function GetDetallesDataSource: TDataSource;
+    function GetNCTotalText: string;
+    function HayNotasCredito: boolean;
     function PagoListo: boolean;
   end;
 
@@ -46,6 +49,29 @@ procedure TPagoController.NuevoPago(EsCobro: boolean; ADocumentoID: string;
 begin
   GetCustomModel.OpenDataSets;
   GetCustomModel.NuevoPago(EsCobro, ADocumentoID, ATipoDoc);
+end;
+
+function TPagoController.GetDetallesDataSource: TDataSource;
+begin
+  Result := GetCustomModel.Facturas.dsNCView;
+end;
+
+function TPagoController.GetNCTotalText: string;
+begin
+  if GetCustomModel.Facturas.FacTotal.IsEmpty or
+    (GetCustomModel.Facturas.FacTotal.State = dsInactive) then
+    Result := '0'
+  else
+    Result := GetCustomModel.Facturas.FacTotal.FieldByName('NC').AsString;
+end;
+
+function TPagoController.HayNotasCredito: boolean;
+begin
+  if (GetCustomModel.Facturas.NCView.State = dsInactive) or
+    GetCustomModel.Facturas.NCView.IsEmpty then
+    Result := False
+  else
+    Result := True;
 end;
 
 procedure TPagoController.AnularPago(PagoID: string);

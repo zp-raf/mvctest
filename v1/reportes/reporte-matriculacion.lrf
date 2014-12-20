@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="1899-12-30 00:00:00"/>
-    <ReportLastChange Value="2014-12-18 10:28:58"/>
+    <ReportLastChange Value="2014-12-19 10:05:56"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -39,7 +39,7 @@
         <ColCount Value="0"/>
         <ColGap Value="0"/>
         <LayoutOrder Value="loColumns"/>
-        <ObjectCount Value="25"/>
+        <ObjectCount Value="26"/>
         <Object1>
           <Name Value="ReportTitle1"/>
           <ClassName Value="TfrBandView"/>
@@ -160,7 +160,7 @@
             <Left Value="0"/>
             <Top Value="392"/>
             <Width Value="773"/>
-            <Height Value="320"/>
+            <Height Value="40"/>
           </Size>
           <Flags Value="48"/>
           <Data>
@@ -173,6 +173,28 @@
           <DatasetStr Value="frDBDataSetDetalle"/>
         </Object6>
         <Object7>
+          <Name Value="DetailFooter1"/>
+          <ClassName Value="TfrBandView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtBand"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="0"/>
+            <Top Value="452"/>
+            <Width Value="773"/>
+            <Height Value="40"/>
+          </Size>
+          <Flags Value="48"/>
+          <Data>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <BandType Value="btDetailFooter"/>
+          <Condition Value=""/>
+          <DatasetStr Value=""/>
+        </Object7>
+        <Object8>
           <Name Value="Memo1"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -217,8 +239,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object7>
-        <Object8>
+        </Object8>
+        <Object9>
           <Name Value="Memo2"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -263,8 +285,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object8>
-        <Object9>
+        </Object9>
+        <Object10>
           <Name Value="Memo3"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -309,8 +331,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object9>
-        <Object10>
+        </Object10>
+        <Object11>
           <Name Value="Memo4"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -355,8 +377,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object10>
-        <Object11>
+        </Object11>
+        <Object12>
           <Name Value="Memo5"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -401,8 +423,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object11>
-        <Object12>
+        </Object12>
+        <Object13>
           <Name Value="Memo6"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -447,8 +469,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object12>
-        <Object13>
+        </Object13>
+        <Object14>
           <Name Value="Memo7"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -493,8 +515,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object13>
-        <Object14>
+        </Object14>
+        <Object15>
           <Name Value="Memo8"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -539,8 +561,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object14>
-        <Object15>
+        </Object15>
+        <Object16>
           <Name Value="Memo9"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -585,8 +607,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object15>
-        <Object16>
+        </Object16>
+        <Object17>
           <Name Value="Memo10"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -631,8 +653,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object16>
-        <Object17>
+        </Object17>
+        <Object18>
           <Name Value="Memo11"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -677,8 +699,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object17>
-        <Object18>
+        </Object18>
+        <Object19>
           <Name Value="Memo12"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -723,8 +745,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object18>
-        <Object19>
+        </Object19>
+        <Object20>
           <Name Value="Memo13"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -769,8 +791,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object19>
-        <Object20>
+        </Object20>
+        <Object21>
           <Name Value="Memo14"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -815,8 +837,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object20>
-        <Object21>
+        </Object21>
+        <Object22>
           <Name Value="Memo15"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -861,8 +883,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object21>
-        <Object22>
+        </Object22>
+        <Object23>
           <Name Value="Line2"/>
           <ClassName Value="TfrLineView"/>
           <Visible Value="True"/>
@@ -882,8 +904,8 @@
           </Frames>
           <Tag Value=""/>
           <FURLInfo Value=""/>
-        </Object22>
-        <Object23>
+        </Object23>
+        <Object24>
           <Name Value="Line1"/>
           <ClassName Value="TfrLineView"/>
           <Visible Value="True"/>
@@ -903,8 +925,8 @@
           </Frames>
           <Tag Value=""/>
           <FURLInfo Value=""/>
-        </Object23>
-        <Object24>
+        </Object24>
+        <Object25>
           <Name Value="Line3"/>
           <ClassName Value="TfrLineView"/>
           <Visible Value="True"/>
@@ -912,7 +934,7 @@
           <StreamMode Value="0"/>
           <Size>
             <Left Value="16"/>
-            <Top Value="704"/>
+            <Top Value="460"/>
             <Width Value="740"/>
             <Height Value="0"/>
           </Size>
@@ -924,8 +946,8 @@
           </Frames>
           <Tag Value=""/>
           <FURLInfo Value=""/>
-        </Object24>
-        <Object25>
+        </Object25>
+        <Object26>
           <Name Value="Line4"/>
           <ClassName Value="TfrLineView"/>
           <Visible Value="True"/>
@@ -945,7 +967,7 @@
           </Frames>
           <Tag Value=""/>
           <FURLInfo Value=""/>
-        </Object25>
+        </Object26>
       </Page1>
       <FVal>
         <Count Value="11"/>

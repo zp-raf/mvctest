@@ -92,44 +92,40 @@ begin
       dtFacturaNocobrada:
       begin
         GetCustomModel.AnularFactura(ADoc);
-        Sender.ShowInfoMessage('Operacion exitosa');
         Commit(Sender);
         RefreshData(Sender);
       end;
       dtNotaCredito:
       begin
         GetCustomModel.AnularNotaCredito(ADoc);
-        Sender.ShowInfoMessage('Operacion exitosa');
         Commit(Sender);
         RefreshData(Sender);
       end;
       dtFacturaCompra:
       begin
         GetCustomModel.AnularFactura(ADoc);
-        Sender.ShowInfoMessage('Operacion exitosa');
         Commit(Sender);
         RefreshData(Sender);
       end;
       dtReciboCompra:
       begin
         GetCustomModel.AnularRecibo(ADoc);
-        Sender.ShowInfoMessage('Operacion exitosa');
         Commit(Sender);
         RefreshData(Sender);
       end;
       dtNotaCredCompra:
       begin
         GetCustomModel.AnularNotaCredito(ADoc);
-        Sender.ShowInfoMessage('Operacion exitosa');
         Commit(Sender);
         RefreshData(Sender);
       end;
     end;
+    Sender.ShowInfoMessage('Operacion exitosa');
   except
     on e: Exception do
     begin
-      Connect(Sender);
       raise;
+      Connect(Sender);
     end;
   end;
 end;

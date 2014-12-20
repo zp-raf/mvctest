@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
-  frmprocesofacturacion, LCLType, sgcdTypes;
+  frmprocesofacturacion, LCLType, sgcdTypes, mensajes;
 
 type
 
@@ -20,6 +20,9 @@ type
     LabelTimbradoCompra: TLabel;
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
+    procedure DateEditFechaAcceptDate(Sender: TObject; var ADate: TDateTime;
+      var AcceptDate: boolean);
+    procedure DateEditFechaEditingDone(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
@@ -93,6 +96,32 @@ end;
 procedure TProcesoFacturaCompra.CancelButtonClick(Sender: TObject);
 begin
   inherited;
+end;
+
+procedure TProcesoFacturaCompra.DateEditFechaAcceptDate(Sender: TObject;
+  var ADate: TDateTime; var AcceptDate: boolean);
+begin
+  if GetController.IsValidDate(ADate) then
+  begin
+    AcceptDate := True;
+    GetController.SetFieldValue('FECHA_EMISION', DateEditFecha.Date, Self);
+  end
+  else
+  begin
+    AcceptDate := False;
+    ShowErrorMessage(rsInvalidDate);
+  end;
+end;
+
+procedure TProcesoFacturaCompra.DateEditFechaEditingDone(Sender: TObject);
+begin
+  if GetController.IsValidDate(DateEditFecha.Date) then
+    GetController.SetFieldValue('FECHA_EMISION', DateEditFecha.Date, Self)
+  else
+  begin
+    DateEditFecha.Clear;
+    ShowErrorMessage(rsInvalidDate);
+  end;
 end;
 
 procedure TProcesoFacturaCompra.DBGridDetKeyDown(Sender: TObject;

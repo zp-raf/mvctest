@@ -5,8 +5,8 @@ unit frmprocesorecibo;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  frmprocesocomprobante, reciboctrl;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, PairSplitter,
+  StdCtrls, DbCtrls, frmprocesocomprobante, reciboctrl;
 
 type
 

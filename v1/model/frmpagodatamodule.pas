@@ -453,34 +453,47 @@ end;
 
 procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
 var
-  desc: string;
+  desc, CuentaID: string;
 begin
   if not Facturas.FacturasView.Locate('ID', Facturas.qryCabeceraID.AsString, []) then
   begin
     desc := DESCRIPCION_DEFAULT;
     Asientos.NuevoAsiento(desc + Facturas.qryCabeceraNUMERO.AsString,
       '', APagoID);
+    CuentaID := MasterDataModule.DevuelveValor(
+      'select c.id from cuenta c join factura f on f.personaid = c.personaid where f.id = '
+      + Facturas.qryCabeceraID.AsString, 'id');
   end
   else
   begin
     desc := DESCRIPCION_DEFAULT + Facturas.FacturasViewNUMERO_FACTURA.AsString +
       ' con timbrado ' + Facturas.FacturasViewTIMBRADO.AsString;
     Asientos.NuevoAsiento(desc, '', APagoID);
+    CuentaID := MasterDataModule.DevuelveValor(
+      'select c.id from cuenta c join factura f on f.personaid = c.personaid where f.id = '
+      + Facturas.FacturasViewID.AsString, 'id');
   end;
+
   // recorrer la factura y poner los detales de los asientos
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do
   begin
-    DeudaView.Close;
-    DeudaView.ParamByName('DEUDAID').AsString := Facturas.qryDetalleDEUDAID.AsString;
-    DeudaView.Open;
+    //DeudaView.Close;
+    //DeudaView.ParamByName('DEUDAID').AsString := Facturas.qryDetalleDEUDAID.AsString;
+    //DeudaView.Open;
+    Facturas.totalNcFactura.Close;
+    Facturas.totalNcFactura.ParamByName('FACTURAID').AsString :=
+      Facturas.qryCabeceraID.AsString;
+    Facturas.totalNcFactura.ParamByName('DEUDAID').AsString :=
+      Facturas.qryDetalleDEUDAID.AsString;
+    Facturas.totalNcFactura.Open;
     if EsCobro then
-      Asientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvCredito,
-        Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
+      Asientos.NuevoAsientoDetalle(CuentaID, mvCredito,
+        Facturas.totalNcFactura.FieldByName('GRAN_TOTAL').AsFloat,
         Facturas.qryDetalleDEUDAID.AsString, '')
     else
-      Asientos.NuevoAsientoDetalle(DeudaViewCUENTAID.AsString, mvDebito,
-        Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
+      Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,
+        Facturas.totalNcFactura.FieldByName('GRAN_TOTAL').AsFloat,
         Facturas.qryDetalleDEUDAID.AsString, '');
     Facturas.qryDetalle.Next;
   end;
@@ -490,21 +503,25 @@ begin
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do
   begin
-    DeudaView.Close;
-    DeudaView.ParamByName('DEUDAID').AsString := Facturas.qryDetalleDEUDAID.AsString;
-    DeudaView.Open;
+    //DeudaView.Close;
+    //DeudaView.ParamByName('DEUDAID').AsString := Facturas.qryDetalleDEUDAID.AsString;
+    //DeudaView.Open;
+    Facturas.totalNcFactura.Close;
+    Facturas.totalNcFactura.ParamByName('FACTURAID').AsString :=
+      Facturas.qryCabeceraID.AsString;
+    Facturas.totalNcFactura.ParamByName('DEUDAID').AsString :=
+      Facturas.qryDetalleDEUDAID.AsString;
+    Facturas.totalNcFactura.Open;
     if EsCobro then
       Asientos.NuevoAsientoDetalle(PagoINIFile.ReadString('datos',
         'cuentaCompras', CUENTA_COMPRAS_BKP),
         mvDebito,
-        Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
-        Facturas.qryDetalleDEUDAID.AsString, '')
+        Facturas.totalNcFactura.FieldByName('GRAN_TOTAL').AsFloat)
     else
       Asientos.NuevoAsientoDetalle(PagoINIFile.ReadString('datos',
         'cuentaCompras', CUENTA_COMPRAS_BKP),
         mvCredito,
-        Facturas.qryDetallePRECIO_UNITARIO.AsFloat * Facturas.qryDetalleCANTIDAD.AsFloat,
-        Facturas.qryDetalleDEUDAID.AsString, '');
+        Facturas.totalNcFactura.FieldByName('GRAN_TOTAL').AsFloat);
     Facturas.qryDetalle.Next;
   end;
   Asientos.CerrarAsiento;

@@ -1,16 +1,14 @@
 inherited ProcesoFacturacion: TProcesoFacturacion
-  Left = 233
-  Top = 0
+  Left = 466
+  Top = 182
   Width = 901
   Caption = 'Factura Venta'
-  ClientHeight = 621
+  ClientHeight = 620
   ClientWidth = 901
   inherited StatusBar1: TStatusBar
-    Top = 601
     Width = 901
   end
   inherited ButtonPanel1: TButtonPanel
-    Top = 561
     Width = 889
   end
   inherited Cabecera: TGroupBox
@@ -35,7 +33,7 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = LabelSeparator2
       AnchorSideTop.Side = asrCenter
-      Left = 296
+      Left = 307
       Top = 24
       DataSource = FacturasDataModule.dsNum
     end
@@ -47,26 +45,26 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     inherited LabelNro: TLabel
       AnchorSideTop.Control = DBTextSucursal
       AnchorSideRight.Control = DBTextSucursal
-      Left = 127
+      Left = 126
       Top = 24
     end
     inherited LabelTimbrado: TLabel
-      Left = 124
+      Left = 117
       Top = 8
     end
     inherited LabelSeparator1: TLabel
       AnchorSideLeft.Control = DBTextSucursal
       AnchorSideTop.Control = DBTextSucursal
-      Left = 231
+      Left = 237
       Top = 24
     end
     inherited DBTextCaja: TDBText
-      Left = 235
+      Left = 242
       Top = 24
       DataSource = FacturasDataModule.dstal
     end
     inherited LabelSeparator2: TLabel
-      Left = 292
+      Left = 302
       Top = 24
     end
     inherited DBTextSucursal: TDBText
@@ -77,17 +75,11 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       DataSource = FacturasDataModule.dstal
     end
     inherited DBEditNotaRem: TDBEdit
-      Height = 21
       DataSource = FacturasDataModule.dsCabecera
-    end
-    inherited LabelNotaRem: TLabel
-      Height = 13
-      Top = 43
-      Width = 80
     end
     object DateEditVen: TDateEdit[20]
       Left = 736
-      Height = 21
+      Height = 23
       Top = 8
       Width = 88
       CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
@@ -105,9 +97,9 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       AnchorSideLeft.Control = DateEditVen
       AnchorSideBottom.Control = DateEditVen
       Left = 736
-      Height = 13
-      Top = -5
-      Width = 57
+      Height = 15
+      Top = -7
+      Width = 67
       Anchors = [akLeft, akBottom]
       Caption = 'Vencimiento'
       ParentColor = False
@@ -132,157 +124,52 @@ inherited ProcesoFacturacion: TProcesoFacturacion
       )
     end
   end
-  inherited PairSplitterDetSubTot: TPairSplitter
-    AnchorSideLeft.Control = Owner
-    AnchorSideRight.Control = Owner
-    Height = 371
-    Width = 885
-    inherited PairSplitterSide1: TPairSplitterSide
-      Width = 885
-      ClientWidth = 885
-      inherited Detalles: TGroupBox
-        Width = 885
-        ClientWidth = 881
-        inherited DBGridDet: TDBGrid
-          Width = 865
-          Columns = <          
-            item
-              PickList.Strings = (              )
-              ReadOnly = True
-              SizePriority = 0
-              Title.Caption = 'CANTIDAD'
-              Width = 67
-              FieldName = 'CANTIDAD'
-            end          
-            item
-              MinSize = 30
-              PickList.Strings = (              )
-              ReadOnly = True
-              Title.Caption = 'DETALLE'
-              Width = 57
-              FieldName = 'DETALLE'
-            end          
-            item
-              PickList.Strings = (              )
-              SizePriority = 0
-              Title.Caption = 'PRECIO UNITARIO'
-              Width = 106
-              FieldName = 'PRECIO_UNITARIO'
-            end          
-            item
-              PickList.Strings = (              )
-              ReadOnly = True
-              Title.Caption = 'EXENTA'
-              Width = 53
-              FieldName = 'EXENTA'
-            end          
-            item
-              PickList.Strings = (              )
-              ReadOnly = True
-              Title.Caption = 'IVA5'
-              Width = 38
-              FieldName = 'IVA5'
-            end          
-            item
-              PickList.Strings = (              )
-              ReadOnly = True
-              Title.Caption = 'IVA10'
-              Width = 44
-              FieldName = 'IVA10'
-            end>
-          DataSource = FacturasDataModule.dsDetalle
-        end
-        inherited DBNavigatorDet: TDBNavigator
-          DataSource = FacturasDataModule.dsDetalle
-          Hints.Strings = (          )
-          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbDelete, nbEdit, nbPost, nbCancel]
-        end
-      end
-    end
-    inherited PairSplitterSide2: TPairSplitterSide
-      Height = 166
-      Width = 885
-      ClientWidth = 885
-      ClientHeight = 166
-      inherited Totales: TGroupBox
-        Height = 166
-        Width = 885
-        ClientHeight = 148
-        ClientWidth = 881
-        inherited DBEditGranTotal: TDBEdit
-          DataSource = FacturasDataModule.dsCabecera
-          ReadOnly = True
-        end
-        inherited LabelGranTotal: TLabel
-          Top = 51
-        end
-        inherited DBEditSubTotal: TDBEdit
-          Height = 21
-          DataSource = FacturasDataModule.dsCabecera
-          ReadOnly = True
-        end
-        inherited LabelSubtotal: TLabel
-          Height = 13
-          Top = 6
-          Width = 82
-        end
-        inherited LabelSubtotal5: TLabel
-          Height = 13
-          Top = 6
-          Width = 109
-        end
-        inherited DBEditSubTotal5: TDBEdit
-          Height = 21
-          DataSource = FacturasDataModule.dsCabecera
-          ReadOnly = True
-        end
-        inherited DBEditSubTotal10: TDBEdit
-          Height = 21
-          DataSource = FacturasDataModule.dsCabecera
-          ReadOnly = True
-        end
-        inherited LabelSubtotal10: TLabel
-          Height = 13
-          Top = 6
-          Width = 115
-        end
-        inherited DBEditIVA5: TDBEdit
-          Height = 21
-          DataSource = FacturasDataModule.dsCabecera
-          ReadOnly = True
-        end
-        inherited LabelIVA5: TLabel
-          Height = 13
-          Top = 98
-        end
-        inherited LabelIVA10: TLabel
-          Height = 13
-          Top = 99
-        end
-        inherited DBEditIVA10: TDBEdit
-          Height = 21
-          Top = 112
-          DataSource = FacturasDataModule.dsCabecera
-          ReadOnly = True
-        end
-        inherited DBEditIVATotal: TDBEdit
-          Height = 21
-          DataSource = FacturasDataModule.dsCabecera
-          ReadOnly = True
-        end
-        inherited LabelIVATotal: TLabel
-          Height = 13
-          Top = 98
-          Width = 44
-        end
-      end
-    end
-  end
   inherited ButtonSeleccionarPers: TButton
     OnClick = ButtonSeleccionarPersClick
   end
   inherited ButtonSeleccionarFac: TButton
     Enabled = False
     Visible = False
+  end
+  inherited Detalles: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    Width = 885
+    ClientWidth = 881
+    inherited DBGridDet: TDBGrid
+      Width = 865
+      DataSource = FacturasDataModule.dsDetalle
+    end
+    inherited DBNavigatorDet: TDBNavigator
+      DataSource = FacturasDataModule.dsDetalle
+      Hints.Strings = (      )
+    end
+  end
+  inherited Totales: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    Width = 885
+    ClientWidth = 881
+    inherited DBEditGranTotal: TDBEdit
+      DataSource = FacturasDataModule.dsCabecera
+    end
+    inherited DBEditSubTotal: TDBEdit
+      DataSource = FacturasDataModule.dsCabecera
+    end
+    inherited DBEditIVATotal: TDBEdit
+      DataSource = FacturasDataModule.dsCabecera
+    end
+    inherited DBEditIVA10: TDBEdit
+      DataSource = FacturasDataModule.dsCabecera
+    end
+    inherited DBEditIVA5: TDBEdit
+      DataSource = FacturasDataModule.dsCabecera
+    end
+    inherited DBEditSubTotal10: TDBEdit
+      DataSource = FacturasDataModule.dsCabecera
+    end
+    inherited DBEditSubTotal5: TDBEdit
+      DataSource = FacturasDataModule.dsCabecera
+    end
   end
 end

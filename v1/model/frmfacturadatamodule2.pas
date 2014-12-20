@@ -24,7 +24,6 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TComprobanteDataModule)
-    procedure qryDetalleCANTIDADChange(Sender: TField);
   private
     FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;
@@ -33,6 +32,11 @@ type
     procedure SetIVA10Codigo(AValue: string);
     procedure SetIVA5Codigo(AValue: string);
   published
+    dsNCView: TDataSource;
+    NCView: TSQLQuery;
+    FacTotal: TSQLQuery;
+    FacturasCobradasView: TSQLQuery;
+    totalNcFactura: TSQLQuery;
     FacturasViewCONTADO: TSmallintField;
     FacturasViewESCOMPRA: TLongintField;
     FacturasViewFECHA_EMISION: TDateField;
@@ -96,7 +100,10 @@ type
     procedure qryDetalleIVA10Change(Sender: TField);
     procedure qryDetalleIVA5Change(Sender: TField);
     procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
+    procedure qryDetalleCANTIDADChange(Sender: TField);
     procedure SetNumero; override;
+    function EstaCobrada(FID: string): boolean;
+    function GetMontoComprobante: double; override;
     property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
       write SetCheckPrecioUnitario;
     property IVA10Codigo: string read FIVA10Codigo write SetIVA10Codigo;
@@ -292,6 +299,7 @@ begin
     on E: EDatabaseError do
     begin
       DoOnErrorEvent(Self, E);
+      raise;
     end;
   end;
 end;
@@ -304,6 +312,7 @@ begin
   CabeceraGenName := rsGenFacturaID;
   DetalleGenName := rsGenFacturaDetalleID;
   AuxQryList.Add(TObject(FacturasView));
+  AuxQryList.Add(TObject(FacturasCobradasView));
   //TalonarioID := TALONARIO;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
@@ -351,9 +360,11 @@ procedure TFacturasDataModule.FetchDetallePersona(APersonaID: string);
 begin
   try
     qryDetallePRECIO_UNITARIO.OnChange := nil;
+    qryDetalleCANTIDAD.OnChange := nil;
     inherited FetchDetallePersona(APersonaID);
   finally
     qryDetallePRECIO_UNITARIO.OnChange := @qryDetallePRECIO_UNITARIOChange;
+    qryDetalleCANTIDAD.OnChange := @qryDetalleCANTIDADChange;
   end;
 end;
 
@@ -419,23 +430,23 @@ begin
       qryDetalleIVA5.OnChange := nil;
       qryDetalleEXENTA.OnChange := nil;
       // iva 10
-      if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
-        Exit
-      else
+      if not ((qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull) then
+      begin
         qryDetalleIVA10.AsFloat :=
           qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      end
       // iva 5
-      if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
-        Exit
-      else
+      else if not ((qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull) then
+      begin
         qryDetalleIVA5.AsFloat :=
           qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      end
       // exenta
-      if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
-        Exit
-      else
+      else if not ((qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull) then
+      begin
         qryDetalleEXENTA.AsFloat :=
           qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      end;
     finally
       qryDetalleIVA10.OnChange := @qryDetalleIVA10Change;
       qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
@@ -462,6 +473,28 @@ begin
     on E: EDatabaseError do
       DoOnErrorEvent(Self, E);
   end;
+end;
+
+function TFacturasDataModule.EstaCobrada(FID: string): boolean;
+begin
+  Result := FacturasCobradasView.Locate('ID', FID, []);
+end;
+
+function TFacturasDataModule.GetMontoComprobante: double;
+var
+  Temp: double;
+begin
+  Temp := inherited GetMontoComprobante;
+  NCView.Close;
+  FacTotal.Close;
+  NCView.ParamByName('FACTURAID').AsString := qryCabeceraID.AsString;
+  FacTotal.ParamByName('ID').AsString := qryCabeceraID.AsString;
+  NCView.Open;
+  FacTotal.Open;
+  if FacTotal.IsEmpty then
+    Result := Temp
+  else
+    Result := temp - FacTotal.FieldByName('NC').AsFloat;
 end;
 
 end.

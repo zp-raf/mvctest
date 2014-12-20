@@ -5,11 +5,7 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   ClientHeight = 620
   OnCreate = FormCreate
   OnShow = FormShow
-  inherited StatusBar1: TStatusBar
-    Top = 597
-  end
   inherited ButtonPanel1: TButtonPanel
-    Top = 557
     OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
@@ -18,13 +14,11 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
     AnchorSideRight.Control = Owner
     Top = 32
     inherited DateEditFecha: TDateEdit
-      Left = 8
+      OnAcceptDate = DateEditFechaAcceptDate
       DateOrder = doDMY
       Enabled = True
       MaxLength = 10
-    end
-    inherited LabelFecha: TLabel
-      Left = 8
+      OnEditingDone = DateEditFechaEditingDone
     end
     inherited DBTextNro: TDBText
       Left = 575
@@ -57,22 +51,6 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
     inherited DBTextSucursal: TDBText
       Left = 424
       Visible = False
-    end
-    inherited DBEditNotaRem: TDBEdit
-      Height = 23
-    end
-    inherited LabelNotaRem: TLabel
-      Height = 15
-      Top = 41
-      Width = 91
-    end
-    inherited DateEditVen: TDateEdit
-      Height = 23
-    end
-    inherited LabelVen: TLabel
-      Height = 15
-      Top = -7
-      Width = 67
     end
     object DBEditNro: TDBEdit[23]
       Left = 135
@@ -119,123 +97,6 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       ParentColor = False
     end
   end
-  inherited PairSplitterDetSubTot: TPairSplitter
-    AnchorSideLeft.Control = Owner
-    AnchorSideRight.Control = Owner
-    Height = 375
-    Top = 176
-    inherited PairSplitterSide1: TPairSplitterSide
-      inherited Detalles: TGroupBox
-        inherited DBGridDet: TDBGrid
-          Columns = <          
-            item
-              PickList.Strings = (              )
-              SizePriority = 0
-              Title.Caption = 'CANTIDAD'
-              Width = 74
-              FieldName = 'CANTIDAD'
-            end          
-            item
-              MinSize = 30
-              PickList.Strings = (              )
-              Title.Caption = 'DETALLE'
-              Width = 62
-              FieldName = 'DETALLE'
-            end          
-            item
-              PickList.Strings = (              )
-              SizePriority = 0
-              Title.Caption = 'PRECIO UNITARIO'
-              Width = 112
-              FieldName = 'PRECIO_UNITARIO'
-            end          
-            item
-              PickList.Strings = (              )
-              ReadOnly = True
-              Title.Caption = 'EXENTA'
-              Width = 58
-              FieldName = 'EXENTA'
-            end          
-            item
-              PickList.Strings = (              )
-              ReadOnly = True
-              Title.Caption = 'IVA5'
-              Width = 39
-              FieldName = 'IVA5'
-            end          
-            item
-              PickList.Strings = (              )
-              ReadOnly = True
-              Title.Caption = 'IVA10'
-              Width = 45
-              FieldName = 'IVA10'
-            end>
-          OnKeyDown = DBGridDetKeyDown
-        end
-        inherited DBNavigatorDet: TDBNavigator
-          Hints.Strings = (          )
-          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
-        end
-      end
-    end
-    inherited PairSplitterSide2: TPairSplitterSide
-      Height = 170
-      ClientHeight = 170
-      inherited Totales: TGroupBox
-        Height = 170
-        ClientHeight = 152
-        inherited LabelGranTotal: TLabel
-          Top = 49
-        end
-        inherited DBEditSubTotal: TDBEdit
-          Height = 23
-        end
-        inherited LabelSubtotal: TLabel
-          Height = 15
-          Top = 4
-          Width = 86
-        end
-        inherited LabelSubtotal5: TLabel
-          Height = 15
-          Top = 4
-          Width = 114
-        end
-        inherited DBEditSubTotal5: TDBEdit
-          Height = 23
-        end
-        inherited DBEditSubTotal10: TDBEdit
-          Height = 23
-        end
-        inherited LabelSubtotal10: TLabel
-          Height = 15
-          Top = 4
-          Width = 120
-        end
-        inherited DBEditIVA5: TDBEdit
-          Height = 23
-        end
-        inherited LabelIVA5: TLabel
-          Height = 15
-          Top = 96
-        end
-        inherited LabelIVA10: TLabel
-          Height = 15
-          Top = 97
-        end
-        inherited DBEditIVA10: TDBEdit
-          Height = 23
-        end
-        inherited DBEditIVATotal: TDBEdit
-          Height = 23
-        end
-        inherited LabelIVATotal: TLabel
-          Height = 15
-          Top = 96
-          Width = 48
-        end
-      end
-    end
-  end
   inherited ButtonLimpiar: TButton
     Width = 155
     AutoSize = True
@@ -250,6 +111,65 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
   inherited ButtonSeleccionarFac: TButton
     Left = 179
     BorderSpacing.Left = 8
+  end
+  inherited Detalles: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGridDet: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          ReadOnly = False
+          SizePriority = 0
+          Title.Caption = 'CANTIDAD'
+          Width = 74
+          FieldName = 'CANTIDAD'
+        end      
+        item
+          MinSize = 30
+          PickList.Strings = (          )
+          ReadOnly = False
+          Title.Caption = 'DETALLE'
+          Width = 62
+          FieldName = 'DETALLE'
+        end      
+        item
+          PickList.Strings = (          )
+          SizePriority = 0
+          Title.Caption = 'PRECIO UNITARIO'
+          Width = 112
+          FieldName = 'PRECIO_UNITARIO'
+        end      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'EXENTA'
+          Width = 58
+          FieldName = 'EXENTA'
+        end      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'IVA5'
+          Width = 39
+          FieldName = 'IVA5'
+        end      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'IVA10'
+          Width = 45
+          FieldName = 'IVA10'
+        end>
+      OnKeyDown = DBGridDetKeyDown
+    end
+    inherited DBNavigatorDet: TDBNavigator
+      Hints.Strings = (      )
+    end
+  end
+  inherited Totales: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
   end
   inherited MainMenu: TMainMenu
     inherited MenuItemOpciones: TMenuItem

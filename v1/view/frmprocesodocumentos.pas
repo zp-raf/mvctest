@@ -24,6 +24,7 @@ type
     TabSheetReciboCompra: TTabSheet;
     TabSheetNotaCredito: TTabSheet;
     procedure CancelButtonClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
     procedure TabSheetFacturaCompraShow(Sender: TObject);
     procedure TabSheetNCCompraShow(Sender: TObject);
@@ -143,6 +144,13 @@ end;
 procedure TProcesoDocumentos.CancelButtonClick(Sender: TObject);
 begin
   GetController.Rollback(Self);
+end;
+
+procedure TProcesoDocumentos.FormShow(Sender: TObject);
+begin
+  inherited;
+  TabSheetFactura.Show;
+  TabSheetFacturaShow(TabSheetFactura);
 end;
 
 procedure TProcesoDocumentos.OKButtonClick(Sender: TObject);

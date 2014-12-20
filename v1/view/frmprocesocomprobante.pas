@@ -52,9 +52,6 @@ type
     LabelNombre: TLabel;
     MenuItemTalonario: TMenuItem;
     MenuItemOpciones: TMenuItem;
-    PairSplitterDetSubTot: TPairSplitter;
-    PairSplitterSide1: TPairSplitterSide;
-    PairSplitterSide2: TPairSplitterSide;
     Totales: TGroupBox;
     procedure ButtonSeleccionarPersClick(Sender: TObject);
     procedure ButtonLimpiarClick(Sender: TObject);

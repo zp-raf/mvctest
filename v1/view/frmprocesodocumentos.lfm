@@ -8,6 +8,7 @@ inherited ProcesoDocumentos: TProcesoDocumentos
   ClientWidth = 890
   Constraints.MinHeight = 600
   Constraints.MinWidth = 890
+  OnShow = FormShow
   inherited StatusBar1: TStatusBar
     Height = 23
     Top = 557
@@ -567,5 +568,9 @@ inherited ProcesoDocumentos: TProcesoDocumentos
   inherited MainMenu: TMainMenu[4]
     left = 792
     top = 0
+  end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[5]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[6]
   end
 end

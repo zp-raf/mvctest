@@ -188,23 +188,23 @@ begin
       qryDetalleIVA5.OnChange := nil;
       qryDetalleEXENTA.OnChange := nil;
       // iva 10
-      if (qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull then
-        Exit
-      else
+      if not ((qryDetalleIVA10.AsFloat = 0) or qryDetalleIVA10.IsNull) then
+      begin
         qryDetalleIVA10.AsFloat :=
           qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      end
       // iva 5
-      if (qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull then
-        Exit
-      else
+      else if not ((qryDetalleIVA5.AsFloat = 0) or qryDetalleIVA5.IsNull) then
+      begin
         qryDetalleIVA5.AsFloat :=
           qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      end
       // exenta
-      if (qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull then
-        Exit
-      else
+      else if not ((qryDetalleEXENTA.AsFloat = 0) or qryDetalleEXENTA.IsNull) then
+      begin
         qryDetalleEXENTA.AsFloat :=
           qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      end;
     finally
       qryDetalleIVA10.OnChange := @qryDetalleIVA10Change;
       qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
@@ -229,6 +229,10 @@ begin
       raise Exception.Create(rsCreatingDoc);
     if not qryCabecera.Locate('ID', ANotaID, []) then
       raise EDatabaseError.Create(rsNoSeEncontroDoc);
+    // si la factura ya esta cobrada se necesita meter un movimiento de credito
+    // caso contrario no se debe ya que puede llevar a inconsistencia de movimientos
+    if not Facturas.EstaCobrada(qryCabeceraFACTURAID.AsString) then
+      Exit;
     desc := 'nota de credito nro ' + tal.FieldByName('SUCURSAL').AsString +
       '-' + tal.FieldByName('CAJA').AsString + '-' +
       qryCabecera.FieldByName('NUMERO').AsString + ' con timbrado ' +
@@ -263,7 +267,7 @@ begin
     begin
       Asientos.NuevoAsientoDetalle(FCuentaCompras, mvCredito,
         qryDetalle.FieldByName('CANTIDAD').AsFloat * qryDetalle.FieldByName(
-        'PRECIO_UNITARIO').AsFloat, qryDetalle.FieldByName('DEUDAID').AsString, '');
+        'PRECIO_UNITARIO').AsFloat);
       qryDetalle.Next;
     end;
     Asientos.PostAsiento;
@@ -288,9 +292,7 @@ begin
   begin
     Asientos.Movimiento.ApplyUpdates;
     Asientos.MovimientoDet.ApplyUpdates;
-  end
-  else
-    raise EDatabaseError.Create('Error al registrar movimiento');
+  end;
 end;
 
 procedure TNotaCreditoDataModule.SetNumero;
@@ -552,28 +554,61 @@ end;
 procedure TNotaCreditoDataModule.FetchDetalleFactura(AFacturaID: string);
 begin
   try
+    qryDetallePRECIO_UNITARIO.OnChange := nil;
+    qryDetalleEXENTA.OnChange := nil;
+    qryDetalleIVA5.OnChange := nil;
+    qryDetalleIVA10.OnChange := nil;
     qryDetalle.AfterPost := nil;
     Facturas.qryDetalle.First;
+    DeudaView.Close;
+    DeudaView.ParamByName('personaid').AsString :=
+      Facturas.qryCabeceraPERSONAID.AsString;
+    DeudaView.Open;
     while not Facturas.qryDetalle.EOF do
     begin
       NuevoComprobanteDetalle;
+      qryDetalleDEUDAID.AsString :=
+        Facturas.qryDetalle.FieldByName('DEUDAID').AsString;
       qryDetalleFACTURADETALLEID.AsString :=
         Facturas.qryDetalle.FieldByName('ID').AsString;
-      qryDetalleDEUDAID.AsString := Facturas.qryDetalle.FieldByName('DEUDAID').AsString;
       qryDetalleCANTIDAD.AsInteger :=
         Facturas.qryDetalle.FieldByName('CANTIDAD').AsInteger;
       qryDetalleDETALLE.AsString := Facturas.qryDetalle.FieldByName('DETALLE').AsString;
-      qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
-        Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
-      qryDetalleEXENTA.AsFloat := Facturas.qryDetalle.FieldByName('EXENTA').AsFloat;
-      qryDetalleIVA5.AsFloat := Facturas.qryDetalle.FieldByName('IVA5').AsFloat;
-      qryDetalleIVA10.AsFloat := Facturas.qryDetalle.FieldByName('IVA10').AsFloat;
+      if DeudaView.Locate('ID', Facturas.qryDetalle.FieldByName(
+        'DEUDAID').AsString, []) then
+      begin
+        qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
+          //DeudaView.FieldByName('MONTO_DEUDA').AsFloat -
+          DeudaView.FieldByName('MONTO_FACTURADO').AsFloat;
+        if not Facturas.qryDetalle.FieldByName('EXENTA').IsNull then
+          qryDetalleEXENTA.AsFloat :=
+            qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat
+        else if not Facturas.qryDetalle.FieldByName('IVA5').IsNull then
+          qryDetalleIVA5.AsFloat :=
+            qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat
+        else if Facturas.qryDetalle.FieldByName('IVA10').IsNull then
+          qryDetalleIVA10.AsFloat :=
+            qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
+      end
+      else
+      begin
+        qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
+          Facturas.qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat;
+        qryDetalleEXENTA.AsFloat :=
+          Facturas.qryDetalle.FieldByName('EXENTA').AsFloat;
+        qryDetalleIVA5.AsFloat := Facturas.qryDetalle.FieldByName('IVA5').AsFloat;
+        qryDetalleIVA10.AsFloat := Facturas.qryDetalle.FieldByName('IVA10').AsFloat;
+      end;
       Facturas.qryDetalle.Next;
     end;
+    ActualizarTotales;
   finally
-    //qryDetalle.AfterPost := @qryDetalleAfterPost;
+    qryDetallePRECIO_UNITARIO.OnChange := @qryDetallePRECIO_UNITARIOChange;
+    qryDetalleEXENTA.OnChange := @qryDetalleEXENTAChange;
+    qryDetalleIVA5.OnChange := @qryDetalleIVA5Change;
+    qryDetalleIVA10.OnChange := @qryDetalleIVA10Change;
+    qryDetalle.AfterPost := @qryDetalleAfterPost;
   end;
-  ActualizarTotales;
 end;
 
 procedure TNotaCreditoDataModule.FiltrarFacturas(ACompraVenta: TCompraVenta);
@@ -582,11 +617,9 @@ begin
   case ACompraVenta of
     cvCompra: Facturas.FacturasView.ServerFilter := 'ESCOMPRA = 1';
     cvVenta: Facturas.FacturasView.ServerFilter :=
-        'ESCOMPRA = 0 AND EXISTS (SELECT 1 FROM PAGO P WHERE P.COMPROBANTEID = V_FACTURAS.ID AND P.TIPO_COMPROBANTE = '
-        + FACTURA + ')';
+        'ESCOMPRA = 0';
     cvCualquiera: Facturas.FacturasView.ServerFilter :=
-        'ESCOMPRA IN (1,0) AND EXISTS (SELECT 1 FROM PAGO P WHERE P.COMPROBANTEID = V_FACTURAS.ID AND P.TIPO_COMPROBANTE = '
-        + FACTURA + ')';
+        'ESCOMPRA IN (1,0)';
   end;
   Facturas.FacturasView.ServerFiltered := True;
   Facturas.FacturasView.Open;
