@@ -922,6 +922,7 @@ inherited FacturasDataModule: TFacturasDataModule
     SQL.Strings = (
       'select * from V_NOTAS_CREDITO_NUEVO'
       'where facturaid =:facturaid'
+      'and valido = 1'
     )
     Params = <    
       item
@@ -983,6 +984,7 @@ inherited FacturasDataModule: TFacturasDataModule
       'as (select N.FACTURAID, ND.DEUDAID, sum(ND.CANTIDAD * ND.PRECIO_UNITARIO) as TOTAL'
       '    from NOTA_CREDITO N'
       '    join NOTA_CREDITO_DETALLE ND on N.ID = ND.NOTACREDITOID'
+      '    where N.VALIDO = 1'
       '    group by FACTURAID, DEUDAID)'
       'select FD.FACTURAID, FD.DEUDAID, FD.CANTIDAD * FD.PRECIO_UNITARIO as FAC_TOTAL, coalesce(NCS.TOTAL, 0) as NC_TOTAL,'
       '       (FD.CANTIDAD * FD.PRECIO_UNITARIO) - coalesce(NCS.TOTAL, 0) as GRAN_TOTAL'

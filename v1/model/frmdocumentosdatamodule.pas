@@ -234,7 +234,7 @@ begin
     on E: EDatabaseError do
     begin
       Rollback;
-      Connect;
+      raise;
     end;
   end;
 end;
@@ -248,7 +248,7 @@ begin
     on E: EDatabaseError do
     begin
       Rollback;
-      Connect;
+      raise;
     end;
   end;
 end;

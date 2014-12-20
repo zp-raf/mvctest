@@ -463,6 +463,8 @@ begin
 end;
 
 procedure TNotaCreditoDataModule.AnularNotaCredito(ANotaID: string);
+var
+  c, desc: string;
 begin
   try
     //if not qryCabecera.Locate('ID', ANotaID, []) then
@@ -475,10 +477,65 @@ begin
     qryCabecera.ApplyUpdates;
     if not NotasCreditoNuevoView.Locate('ID', ANotaID, []) then
       raise Exception.Create('No se pudo obtener numero y timbrado');
-    Asientos.ReversarAsientoComprobante(doNotaCredito, ANotaID,
-      'Anulacion de nota de credito nro ' +
-      NotasCreditoNuevoViewNUMERO_NOTA_CREDITO.AsString + ' con timbrado ' +
-      NotasCreditoNuevoViewTIMBRADO.AsString);
+
+    // si es nota credito de venta
+    if not qryCabeceraTALONARIOID.IsNull then
+    begin
+      NotasCreditoNuevoView.Locate('ID', ANotaID, []);
+      Facturas.LocateComprobante(qryCabeceraFACTURAID.AsString);
+      Asientos.OpenDataSets;
+      // si fue una NC generada antes de cobrar la factura
+      if Facturas.EstaCobrada(qryCabeceraFACTURAID.AsString) and not
+        Asientos.Movimiento.Locate('DOCUMENTOID;TIPO_DOCUMENTO',
+        VarArrayOf([ANotaID, NOTA_CREDITO]), []) then
+      begin
+        c := MasterDataModule.DevuelveValor(
+          'select c.id from cuenta c join nota_credito n on n.personaid = c.personaid where n.id = '
+          + ANotaID, 'ID');
+        desc := 'nota de credito nro ' +
+          NotasCreditoNuevoViewNUMERO_NOTA_CREDITO.AsString +
+          ' con timbrado ' + NotasCreditoNuevoViewTIMBRADO.AsString;
+        Asientos.NuevoAsiento('Anulacion de ' + desc,
+          doNotaCredito, ANotaID);
+        while not qryDetalle.EOF do
+        begin
+          Asientos.NuevoAsientoDetalle(c, mvDebito, qryDetalleCANTIDAD.AsFloat *
+            qryDetallePRECIO_UNITARIO.AsFloat, qryDetalleDEUDAID.AsString, '');
+          qryDetalle.Next;
+        end;
+        Asientos.SaveChanges;
+        // ahora en la cuenta de ingresos egresos
+        Asientos.NuevoAsiento('Anulacion de ' + desc,
+          doNotaCredito, ANotaID);
+        while not qryDetalle.EOF do
+        begin
+          Asientos.NuevoAsientoDetalle(FCuentaCompras, mvCredito,
+            qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat,
+            qryDetalleDEUDAID.AsString, '');
+          qryDetalle.Next;
+        end;
+        Asientos.SaveChanges;
+      end
+      // si se genero despues de cobrar
+      else if Facturas.EstaCobrada(qryCabeceraFACTURAID.AsString) and
+        Asientos.Movimiento.Locate('DOCUMENTOID;TIPO_DOCUMENTO',
+        VarArrayOf([ANotaID, NOTA_CREDITO]), []) then
+
+      begin
+        Asientos.ReversarAsientoComprobante(doNotaCredito, ANotaID,
+          'Anulacion de nota de credito nro ' +
+          NotasCreditoNuevoViewNUMERO_NOTA_CREDITO.AsString +
+          ' con timbrado ' + NotasCreditoNuevoViewTIMBRADO.AsString);
+      end
+      // si no se cobro todavia la factura
+      else if not Facturas.EstaCobrada(qryCabeceraFACTURAID.AsString) then
+        Exit;
+    end
+    else
+      Asientos.ReversarAsientoComprobante(doNotaCredito, ANotaID,
+        'Anulacion de nota de credito nro ' +
+        NotasCreditoNuevoViewNUMERO_NOTA_CREDITO.AsString + ' con timbrado ' +
+        NotasCreditoNuevoViewTIMBRADO.AsString);
   except
     on E: Exception do
     begin
