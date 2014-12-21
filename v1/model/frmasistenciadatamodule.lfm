@@ -1,0 +1,6 @@
+inherited AsistenciaDataModule: TAsistenciaDataModule
+  Height = 150
+  HorizontalOffset = 549
+  VerticalOffset = 387
+  Width = 150
+end

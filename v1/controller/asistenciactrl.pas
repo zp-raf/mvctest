@@ -5,13 +5,16 @@ unit asistenciactrl;
 interface
 
 uses
-  Classes, SysUtils, ctrl;
+  Classes, SysUtils, ctrl, frmasistenciadatamodule;
 
 type
 
   { TAsistenciaController }
 
   TAsistenciaController = class(TController)
+  protected
+    function GetCustomModel: TAsistenciaDataModule;
+
   public
     destructor Destroy; override;
   end;
@@ -19,6 +22,11 @@ type
 implementation
 
 { TAsistenciaController }
+
+function TAsistenciaController.GetCustomModel: TAsistenciaDataModule;
+begin
+  Result := GetModel as TAsistenciaDataModule;
+end;
 
 destructor TAsistenciaController.Destroy;
 begin

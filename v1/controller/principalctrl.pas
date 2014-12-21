@@ -158,6 +158,7 @@ uses
   // registro asistencia
   frmprocesoCargaHoraProf,
   asistenciactrl,
+  frmasistenciadatamodule,
   uHelp,
   // reporte matriculacion
   frmreportematriculaciondatamodule,
@@ -517,7 +518,8 @@ end;
 procedure TPrincipalController.OpenAsistenciaForm(Sender: IFormView);
 begin
   procesoCargaHoraProf := TprocesoCargaHoraProf.Create(Sender,
-    TAsistenciaController.Create(nil));
+    TAsistenciaController.Create(TAsistenciaDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
   procesoCargaHoraProf.Show;
   (GetModel.MasterDataModule as ISubject).Attach(procesoCargaHoraProf as IObserver);
 end;

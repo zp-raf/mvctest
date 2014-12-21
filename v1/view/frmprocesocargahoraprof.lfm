@@ -257,7 +257,11 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
     left = 512
     top = 48
   end
-  object qryCabecera: TSQLQuery[9]
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[9]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[10]
+  end
+  object qryCabecera: TSQLQuery[11]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -331,6 +335,8 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
         Precision = -1
         Size = 0
       end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
     SQL.Strings = (
       'select * from ASISTENCIA2;'
     )
@@ -488,17 +494,17 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
       Required = False
     end
   end
-  object dsCabecera: TDataSource[10]
+  object dsCabecera: TDataSource[12]
     DataSet = qryCabecera
     OnDataChange = dsCabeceraDataChange
     left = 112
     top = 88
   end
-  object OpenDialog1: TOpenDialog[11]
+  object OpenDialog1: TOpenDialog[13]
     left = 24
     top = 376
   end
-  object qryPersona: TSQLQuery[12]
+  object qryPersona: TSQLQuery[14]
     FieldDefs = <    
       item
         Name = 'ID'
@@ -542,6 +548,8 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
         Precision = -1
         Size = 511
       end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
     SQL.Strings = (
       'select * from persona'
     )
@@ -581,18 +589,18 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
       Size = 511
     end
   end
-  object dsPersona: TDataSource[13]
+  object dsPersona: TDataSource[15]
     DataSet = qryPersona
     OnDataChange = dsCabeceraDataChange
     left = 168
     top = 240
   end
-  object frDBDataSet1: TfrDBDataSet[14]
+  object frDBDataSet1: TfrDBDataSet[16]
     DataSet = qryCabecera
     left = 480
     top = 360
   end
-  object frReport1: TfrReport[15]
+  object frReport1: TfrReport[17]
     DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
