@@ -8,7 +8,7 @@ uses
   SysUtils, Graphics, Menus, Controls, sgcdTypes,
   StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids, ComCtrls, ButtonPanel,
   frmproceso, comprobantectrl, frmcomprobantedatamodule,
-  frmbuscarpersonas, ctrl, Classes;
+  frmbuscarpersonas, ctrl, Classes, frmMaestro, manejoerrores, IBConnection , db;
 
 type
 
@@ -69,6 +69,7 @@ type
     procedure Limpiar; virtual;
     procedure OKButtonClick(Sender: TObject); virtual;
     procedure CancelButtonClick(Sender: TObject);
+    function cwLeftPad(const aString: AnsiString; aCharCount: Integer; aChar: AnsiChar): AnsiString;
     property Popup: TPopupSeleccionPersonas read FPopup write FPopup;
   end;
 
@@ -263,9 +264,16 @@ begin
     GetComprobanteController.CerrarComprobante(Self);
     ShowInfoMessage('Comprobante ingresado correctamente');
     Limpiar;
+    // esto resuelve el problema de que se muestra la excepcion de la BD
+   // pero con partes del trigger
   except
-    on e: Exception do
-      ShowErrorMessage('Comprobante descartado. Error: ' + e.Message);
+    on e: EIBDatabaseError do
+      ShowErrorMessage('Comprobante descartado. ' + GetErrorMessage (e));
+   on e: EDatabaseError do
+      ShowErrorMessage('Comprobante descartado. ' + GetErrorMessage (e));
+   on e: Exception do
+   //   ShowErrorMessage('Comprobante descartado. Error: ' + e.Message);
+      ShowErrorMessage('Comprobante descartado. Error: ' + GetErrorMessage (e));
   end;
   GetController.CloseDataSets(Self);
 end;
@@ -277,6 +285,21 @@ begin
   ShowInfoMessage('Comprobante descartado');
   Limpiar;
   GetController.CloseDataSets(Self);
+end;
+
+function TProcesoComprobante.cwLeftPad(const aString: AnsiString;
+  aCharCount: Integer; aChar: AnsiChar): AnsiString;
+var
+      PadCount: Integer;
+    begin   // rellena de 0 a la izq, para nro de factura.
+      PadCount := ACharCount - Length(AString);
+      if PadCount > 0 then begin
+        SetLength(Result, ACharCount);
+        FillChar(Result[1], PadCount, AChar);
+        Move(AString[1], Result[PadCount + 1], Length(AString));
+      end else
+        Result := AString;
+
 end;
 
 end.

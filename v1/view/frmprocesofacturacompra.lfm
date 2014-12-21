@@ -57,11 +57,14 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       Height = 23
       Top = 16
       Width = 80
+      CustomEditMask = True
       DataField = 'NUMERO_FACT_COMPRA'
       DataSource = FacturasDataModule.dsCabecera
       CharCase = ecNormal
-      MaxLength = 0
+      EditMask = '999-999-9999999;1; '
+      MaxLength = 15
       TabOrder = 8
+      OnExit = DBEditNroExit
     end
     object DBEditTimbrado: TDBEdit[24]
       Left = 240

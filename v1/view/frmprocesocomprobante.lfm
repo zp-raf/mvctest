@@ -144,10 +144,12 @@ inherited ProcesoComprobante: TProcesoComprobante
       ParentColor = False
     end
     object DBTextNro: TDBText
-      Left = 181
+      AnchorSideTop.Control = LabelSeparator2
+      Left = 304
       Height = 15
       Top = 16
       Width = 57
+      Anchors = [akTop]
       DataField = 'NUM'
       ParentColor = False
     end
@@ -160,10 +162,10 @@ inherited ProcesoComprobante: TProcesoComprobante
       ParentColor = False
     end
     object LabelNro: TLabel
-      AnchorSideTop.Control = DBTextNro
+      AnchorSideTop.Control = DBTextSucursal
       AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = DBTextNro
-      Left = 151
+      AnchorSideRight.Control = DBTextSucursal
+      Left = 123
       Height = 15
       Top = 16
       Width = 26
@@ -187,12 +189,14 @@ inherited ProcesoComprobante: TProcesoComprobante
     object LabelSeparator1: TLabel
       AnchorSideLeft.Control = DBTextNro
       AnchorSideLeft.Side = asrBottom
-      AnchorSideTop.Control = DBTextNro
+      AnchorSideTop.Control = DBTextCaja
       AnchorSideTop.Side = asrCenter
-      Left = 238
+      AnchorSideRight.Control = DBTextCaja
+      Left = 234
       Height = 15
       Top = 16
       Width = 5
+      Anchors = [akTop, akRight]
       Caption = '-'
       ParentColor = False
     end
@@ -201,34 +205,40 @@ inherited ProcesoComprobante: TProcesoComprobante
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = LabelSeparator1
       AnchorSideTop.Side = asrCenter
-      Left = 243
+      AnchorSideRight.Control = LabelSeparator2
+      Left = 239
       Height = 15
       Top = 16
       Width = 60
+      Anchors = [akRight]
       DataField = 'CAJA'
       ParentColor = False
     end
     object LabelSeparator2: TLabel
-      AnchorSideLeft.Control = DBTextCaja
+      AnchorSideLeft.Control = DBTextSucursal
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = DBTextCaja
       AnchorSideTop.Side = asrCenter
-      Left = 303
+      AnchorSideRight.Control = DBTextNro
+      Left = 299
       Height = 15
       Top = 16
       Width = 5
+      Anchors = [akTop, akRight]
       Caption = '-'
       ParentColor = False
     end
     object DBTextSucursal: TDBText
       AnchorSideLeft.Control = LabelSeparator2
       AnchorSideLeft.Side = asrBottom
-      AnchorSideTop.Control = LabelSeparator2
+      AnchorSideTop.Control = LabelSeparator1
       AnchorSideTop.Side = asrCenter
-      Left = 308
+      AnchorSideRight.Control = LabelSeparator1
+      Left = 153
       Height = 15
       Top = 16
       Width = 81
+      Anchors = [akTop, akRight]
       DataField = 'SUCURSAL'
       ParentColor = False
     end

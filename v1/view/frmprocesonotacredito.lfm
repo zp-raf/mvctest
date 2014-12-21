@@ -26,7 +26,7 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
       MaxLength = 0
     end
     inherited DBTextNro: TDBText
-      Left = 160
+      Left = 307
       Top = 24
       DataSource = NotaCreditoDataModule.dsNum
     end
@@ -35,27 +35,27 @@ inherited ProcesoNotaCredito: TProcesoNotaCredito
       DataSource = NotaCreditoDataModule.dstal
     end
     inherited LabelNro: TLabel
-      Left = 130
+      Left = 126
       Top = 24
     end
     inherited LabelTimbrado: TLabel
       Top = 8
     end
     inherited LabelSeparator1: TLabel
-      Left = 217
+      Left = 237
       Top = 24
     end
     inherited DBTextCaja: TDBText
-      Left = 222
+      Left = 242
       Top = 24
       DataSource = NotaCreditoDataModule.dstal
     end
     inherited LabelSeparator2: TLabel
-      Left = 282
+      Left = 302
       Top = 24
     end
     inherited DBTextSucursal: TDBText
-      Left = 287
+      Left = 156
       Top = 24
       DataSource = NotaCreditoDataModule.dstal
     end

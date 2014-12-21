@@ -23,6 +23,7 @@ type
     procedure DateEditFechaAcceptDate(Sender: TObject; var ADate: TDateTime;
       var AcceptDate: boolean);
     procedure DateEditFechaEditingDone(Sender: TObject);
+    procedure DBEditNroExit(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
@@ -63,11 +64,30 @@ begin
   //  ShowErrorMessage('Complete los campos de numero y timbrado');
   //  Exit;
   //end;
+  if RadioCondicion.ItemIndex = -1 then
+  begin
+    ShowErrorMessage('Por favor seleccione una condicion de compra');
+    Exit;
+  end;
   if not GetController.IsValidDate(DateEditFecha.Date) or
     (DateEditFecha.Date > Now) then
   begin
     ShowErrorMessage('Fecha de emision invalida');
     Exit;
+  end;
+  // aca ya verifico que el nro y el timbrado esten cargados.
+  // Porque al verificar en el metodo CerrarComprobanteCompra de facturactrl
+  // hace el exit pero luego se muestra el mensaje de que el comprobante
+  // se ingreso correctamente y se llama al metodo limpiar
+  if ((DBEditNro.Text = '') or (DBEditNro.Text = '   -   -       ')) then
+  begin
+       ShowErrorMessage('Número inválido');
+       Exit;
+  end;
+  if ((DBEditTimbrado.Text = '') or (strlen( PChar ( DBEditTimbrado.Text)) > 8)) then
+  Begin
+       ShowErrorMessage('Timbrado inválido');
+       Exit;
   end;
   inherited;
 end;
@@ -122,6 +142,15 @@ begin
     DateEditFecha.Clear;
     ShowErrorMessage(rsInvalidDate);
   end;
+end;
+
+procedure TProcesoFacturaCompra.DBEditNroExit(Sender: TObject);
+begin
+ // qryPrincipalNUMERO_FACTURA.Value := copy(DBEdit3.Field.NewValue, 1, 8)
+ //   + datos.cwLeftPad(Trim(copy(DBEdit3.Field.NewValue, 9, 7)), 7, '0');
+ DBEditNro.Text:= copy (DBEditNro.Field.NewValue,1,8) +
+  cwLeftPad(Trim(Copy(DBEditNro.Field.NewValue, 9,7)),7,'0') ;
+
 end;
 
 procedure TProcesoFacturaCompra.DBGridDetKeyDown(Sender: TObject;
