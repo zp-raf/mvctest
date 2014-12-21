@@ -103,7 +103,11 @@ var
   namehelpfile: string;
 begin
   namehelpfile := LowerCase('html/' + UnitName + '.html');
-  HelpKeyword := namehelpfile;
+  // si existe el archivo, lo asigno al formulario
+  if FileExists(namehelpfile) then
+    HelpKeyword := namehelpfile
+  else
+    HelpKeyword:= '';
 end;
 
 procedure TMaestro.SetConnStatus(connected: boolean; host: string; username: string);
