@@ -1,42 +1,43 @@
 inherited procesoCargaHoraProf: TprocesoCargaHoraProf
-  Left = 426
-  Height = 500
-  Top = 107
-  Width = 700
+  Left = 248
+  Height = 533
+  Top = 117
+  Width = 870
   Caption = 'Registro de Asistencia'
-  ClientHeight = 481
-  ClientWidth = 700
+  ClientHeight = 513
+  ClientWidth = 870
   Constraints.MinHeight = 500
   Constraints.MinWidth = 700
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   inherited StatusBar1: TStatusBar
-    Top = 461
-    Width = 700
+    Height = 23
+    Top = 490
+    Width = 870
   end
   inherited ButtonPanel1: TButtonPanel
-    Top = 421
-    Width = 688
+    Top = 450
+    Width = 858
     OKButton.OnClick = OKButtonClick
     CancelButton.OnClick = CancelButtonClick
   end
   object GroupBox1: TGroupBox[2]
     Left = 6
-    Height = 373
+    Height = 405
     Top = 0
-    Width = 688
+    Width = 858
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Detalles de asistencia'
-    ClientHeight = 355
-    ClientWidth = 684
+    ClientHeight = 387
+    ClientWidth = 854
     TabOrder = 1
     object DBGrid1: TDBGrid
       AnchorSideRight.Side = asrBottom
       Left = 8
-      Height = 315
+      Height = 347
       Top = 5
-      Width = 668
+      Width = 838
       Anchors = [akTop, akLeft, akRight, akBottom]
       Color = clWindow
       Columns = <      
@@ -180,7 +181,7 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
       AnchorSideBottom.Side = asrBottom
       Left = 8
       Height = 25
-      Top = 324
+      Top = 356
       Width = 241
       BevelOuter = bvNone
       BorderSpacing.Top = 4
@@ -202,7 +203,7 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
   object Button2: TButton[3]
     Left = 16
     Height = 25
-    Top = 385
+    Top = 417
     Width = 136
     Anchors = [akLeft, akBottom]
     Caption = 'Seleccionar Archivo'
@@ -215,7 +216,7 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
     AnchorSideTop.Control = Button2
     Left = 156
     Height = 25
-    Top = 385
+    Top = 417
     Width = 200
     BorderSpacing.Left = 4
     Caption = 'Cargar desde Archivo Seleccionado'
@@ -226,27 +227,33 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
   object lblArchivoSeleccionado: TLabel[5]
     AnchorSideLeft.Control = Button1
     AnchorSideLeft.Side = asrBottom
-    AnchorSideTop.Control = Button1
+    AnchorSideTop.Control = lblNombreArchivoSeleccionado
     AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = lblNombreArchivoSeleccionado
     Left = 364
-    Height = 13
-    Top = 391
-    Width = 43
+    Height = 15
+    Top = 417
+    Width = 47
     BorderSpacing.Left = 8
     Caption = 'Archivo: '
     ParentColor = False
   end
   object lblNombreArchivoSeleccionado: TLabel[6]
-    Left = 440
-    Height = 1
-    Top = 404
-    Width = 1
+    AnchorSideLeft.Control = lblArchivoSeleccionado
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = lblArchivoSeleccionado
+    Left = 411
+    Height = 15
+    Top = 417
+    Width = 124
+    Anchors = [akLeft]
+    Caption = 'ksfndkgksnkgsdngksng'
     ParentColor = False
   end
   object btnReporte: TButton[7]
-    Left = 586
+    Left = 756
     Height = 25
-    Top = 385
+    Top = 417
     Width = 99
     Anchors = [akRight, akBottom]
     Caption = 'Reporte'
@@ -453,7 +460,7 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
       LookupDataSet = qryPersona
       LookupKeyFields = 'ID'
       LookupResultField = 'NOMBRECOMPLETO'
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
       Size = 511
@@ -468,7 +475,7 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
       LookupDataSet = qryPersona
       LookupKeyFields = 'ID'
       LookupResultField = 'CEDULA'
-      ProviderFlags = [pfInUpdate, pfInWhere]
+      ProviderFlags = []
       ReadOnly = False
       Required = False
       Size = 255
@@ -597,8 +604,8 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
   end
   object frDBDataSet1: TfrDBDataSet[16]
     DataSet = qryCabecera
-    left = 480
-    top = 360
+    left = 496
+    top = 344
   end
   object frReport1: TfrReport[17]
     DefaultCopies = 0
@@ -606,7 +613,7 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
     Options = []
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
     DataType = dtDataSet
-    left = 544
-    top = 368
+    left = 552
+    top = 328
   end
 end
