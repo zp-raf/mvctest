@@ -243,11 +243,10 @@ inherited procesoCargaHoraProf: TprocesoCargaHoraProf
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = lblArchivoSeleccionado
     Left = 411
-    Height = 15
-    Top = 417
-    Width = 124
+    Height = 1
+    Top = 424
+    Width = 1
     Anchors = [akLeft]
-    Caption = 'ksfndkgksnkgsdngksng'
     ParentColor = False
   end
   object btnReporte: TButton[7]

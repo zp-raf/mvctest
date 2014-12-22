@@ -73,6 +73,7 @@ implementation
 
 procedure TprocesoCargaHoraProf.FormCreate(Sender: TObject);
 begin
+  inherited;
   AbrirCursor;
 end;
 
