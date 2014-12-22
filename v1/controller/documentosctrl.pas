@@ -179,6 +179,7 @@ begin
     dtFacturaNocobrada: CobrarDoc(ATipoDoc,
         GetCustomModel.FacturasViewID.AsString, Sender);
   end;
+  Connect(Sender);
 end;
 
 procedure TDocumentosController.CobrarDoc(ATipoDoc: TDocViewerDocType;
