@@ -21,6 +21,37 @@ type
   { TReciboDataModule }
 
   TReciboDataModule = class(TComprobanteDataModule)
+    dsCabReport: TDataSource;
+    dsDetReport: TDataSource;
+    qryCabeceraReport: TSQLQuery;
+    qryCabeceraReportCEDULA: TStringField;
+    qryCabeceraReportDIRECCION: TStringField;
+    qryCabeceraReportESCOMPRA: TLongintField;
+    qryCabeceraReportFECHA_EMISION: TDateField;
+    qryCabeceraReportID: TLongintField;
+    qryCabeceraReportNOMBRE: TStringField;
+    qryCabeceraReportNUMERO_RECIBO: TStringField;
+    qryCabeceraReportPERS_DIRECCION: TStringField;
+    qryCabeceraReportPERS_NOMBRECOMPLETO: TStringField;
+    qryCabeceraReportPERS_RUCCEDULA: TStringField;
+    qryCabeceraReportPERS_TELEFONO: TStringField;
+    qryCabeceraReportTAL_DIRECCION: TStringField;
+    qryCabeceraReportTAL_NOMBRE: TStringField;
+    qryCabeceraReportTAL_RUBRO: TStringField;
+    qryCabeceraReportTAL_RUC: TStringField;
+    qryCabeceraReportTAL_TELEFONO: TStringField;
+    qryCabeceraReportTELEFONO: TStringField;
+    qryCabeceraReportTIMBRADO: TStringField;
+    qryCabeceraReportTOTAL: TFloatField;
+    qryCabeceraReportVALIDO_HASTA: TDateField;
+    qryDetalleReport: TSQLQuery;
+    qryDetalleReportCANTIDAD: TLongintField;
+    qryDetalleReportDETALLE: TStringField;
+    qryDetalleReportDEUDAID: TLongintField;
+    qryDetalleReportID: TLongintField;
+    qryDetalleReportPRECIO_UNITARIO: TFloatField;
+    qryDetalleReportRECIBOID: TLongintField;
+    qryDetalleReportTOTAL: TFloatField;
     RecibosView: TSQLQuery;
     RecibosViewCEDULA: TStringField;
     RecibosViewESCOMPRA: TLongintField;
@@ -127,9 +158,12 @@ begin
   FFacturas.FacturasView.ServerFiltered := True;
   AuxQryList.Add(TObject(FFacturas.FacturasView));
   AuxQryList.Add(TObject(RecibosView));
+  AuxQryList.Add(TObject(qryCabeceraReport));
+  AuxQryList.Add(TObject(qryDetalleReport));
   //TalonarioID := TALONARIO_RE;
   CheckPrecioUnitario := True;
   ReportFile := 'reportes\reporte-recibo.lrf';
+  ReportFileCompra := 'reportes\reporte-recibo-compra.lrf';
 end;
 
 procedure TReciboDataModule.DataModuleDestroy(Sender: TObject);
@@ -313,7 +347,13 @@ end;
 procedure TReciboDataModule.qryCabeceraAfterScroll(DataSet: TDataSet);
 begin
   qryDetalle.Close;
+  qryCabeceraReport.Close;
+  qryDetalleReport.Close;
   qryDetalle.ParamByName('RECIBOID').Value := DataSet.FieldByName('ID').Value;
+  qryCabeceraReport.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
+  qryDetalleReport.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
+  qryCabeceraReport.Open;
+  qryDetalleReport.Open;
   qryDetalle.Open;
 end;
 

@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 14:58:09"/>
+    <ReportLastChange Value="2014-12-22 15:16:35"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -381,7 +381,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[TALONARIO_NOMBRE]&#xD;&#xA;[TALONARIO_RUBRO]&#xD;&#xA;[TALONARIO_DIRECCION] &#xD;&#xA;[TALONARIO_TELEFONO]&#xD;&#xA;"/>
+            <Memo Value="[PERS_NOMBRE]&#xD;&#xA;&#xD;&#xA;[PERS_DIRECCION]&#xD;&#xA;[PRES_TELEFONO]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
@@ -427,7 +427,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Timbrado N° [TIMBRADO]&#xD;&#xA;Válido hasta [VALIDO_HASTA]&#xD;&#xA;&#xD;&#xA;RUC: [TALONARIO_RUC]&#xD;&#xA;&#xD;&#xA;RECIBO&#xD;&#xA;&#xD;&#xA;N° [NUMERO]&#xD;&#xA;"/>
+            <Memo Value="Timbrado N° [TIMBRADO]&#xD;&#xA;&#xD;&#xA;RUC-CEDULA: [PERS_RUC]&#xD;&#xA;&#xD;&#xA;RECIBO&#xD;&#xA;&#xD;&#xA;N° [NUMERO]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>

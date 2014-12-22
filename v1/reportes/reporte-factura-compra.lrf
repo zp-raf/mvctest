@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 14:57:11"/>
+    <ReportLastChange Value="2014-12-22 15:11:11"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -39,7 +39,7 @@
         <ColCount Value="1"/>
         <ColGap Value="0"/>
         <LayoutOrder Value="loColumns"/>
-        <ObjectCount Value="36"/>
+        <ObjectCount Value="37"/>
         <Object1>
           <Name Value="MasterData1"/>
           <ClassName Value="TfrBandView"/>
@@ -565,7 +565,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[TALONARIO_NOMBRE]&#xD;&#xA;[TALONARIO_RUBRO]&#xD;&#xA;[TALONARIO_RUC]&#xD;&#xA;[TALONARIO_DIRECCION]&#xD;&#xA;[TALONARIO_TELEFONO]&#xD;&#xA;"/>
+            <Memo Value="[PERS_NOMBRE]&#xD;&#xA;&#xD;&#xA;[PERS_DIRECCION]&#xD;&#xA;[PRES_TELEFONO]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
@@ -611,7 +611,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Timbrado N° [TIMBRADO]&#xD;&#xA;Válido hasta [VALIDO_HASTA]&#xD;&#xA;&#xD;&#xA;RUC: [TALONARIO_RUC]&#xD;&#xA;&#xD;&#xA;NOTA DE CREDITO&#xD;&#xA;&#xD;&#xA;N° [NUMERO]&#xD;&#xA;"/>
+            <Memo Value="Timbrado N° [TIMBRADO]&#xD;&#xA;&#xD;&#xA;RUC-CEDULA: [PERS_RUC]&#xD;&#xA;&#xD;&#xA;FACTURA&#xD;&#xA;&#xD;&#xA;N° [NUMERO]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
@@ -635,6 +635,52 @@
           <Justify Value="False"/>
         </Object15>
         <Object16>
+          <Name Value="Memo3"/>
+          <ClassName Value="TfrMemoView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtMemo"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="335"/>
+            <Top Value="174"/>
+            <Width Value="402"/>
+            <Height Value="18"/>
+          </Size>
+          <Flags Value="3"/>
+          <FillColor Value="clNone"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
+          </Frames>
+          <Data>
+            <Format Value="556"/>
+            <FormatStr Value=""/>
+            <Memo Value="  Condición de venta: Contado [CONTADO] Credito [CREDITO]&#xD;&#xA;"/>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <Font>
+            <Name Value="Arial"/>
+            <Size Value="10"/>
+            <Color Value="clBlack"/>
+            <Charset Value="0"/>
+            <Style Value=""/>
+          </Font>
+          <Highlight>
+            <FontStyle Value="2"/>
+            <FontColor Value="clBlack"/>
+            <FillColor Value="clWhite"/>
+            <HighlightStr Value=""/>
+          </Highlight>
+          <Alignment Value="taLeftJustify"/>
+          <Layout Value="tlTop"/>
+          <Angle Value="0"/>
+          <Justify Value="False"/>
+        </Object16>
+        <Object17>
           <Name Value="Memo1"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -679,8 +725,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object16>
-        <Object17>
+        </Object17>
+        <Object18>
           <Name Value="Memo20"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -725,8 +771,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object17>
-        <Object18>
+        </Object18>
+        <Object19>
           <Name Value="Memo21"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -771,8 +817,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object18>
-        <Object19>
+        </Object19>
+        <Object20>
           <Name Value="Memo24"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -817,8 +863,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object19>
-        <Object20>
+        </Object20>
+        <Object21>
           <Name Value="Memo25"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -863,8 +909,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object20>
-        <Object21>
+        </Object21>
+        <Object22>
           <Name Value="Memo26"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -909,8 +955,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object21>
-        <Object22>
+        </Object22>
+        <Object23>
           <Name Value="Memo28"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -955,8 +1001,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object22>
-        <Object23>
+        </Object23>
+        <Object24>
           <Name Value="Memo4"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1001,8 +1047,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object23>
-        <Object24>
+        </Object24>
+        <Object25>
           <Name Value="Memo10"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1047,8 +1093,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object24>
-        <Object25>
+        </Object25>
+        <Object26>
           <Name Value="Memo11"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1093,8 +1139,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object25>
-        <Object26>
+        </Object26>
+        <Object27>
           <Name Value="Memo12"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1139,8 +1185,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object26>
-        <Object27>
+        </Object27>
+        <Object28>
           <Name Value="Memo13"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1185,8 +1231,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object27>
-        <Object28>
+        </Object28>
+        <Object29>
           <Name Value="Memo19"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1231,8 +1277,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object28>
-        <Object29>
+        </Object29>
+        <Object30>
           <Name Value="Memo22"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1277,8 +1323,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object29>
-        <Object30>
+        </Object30>
+        <Object31>
           <Name Value="Memo23"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1323,8 +1369,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object30>
-        <Object31>
+        </Object31>
+        <Object32>
           <Name Value="Memo27"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1369,30 +1415,9 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object31>
-        <Object32>
-          <Name Value="Line1"/>
-          <ClassName Value="TfrLineView"/>
-          <Visible Value="True"/>
-          <Typ Value="gtLine"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="440"/>
-            <Top Value="317"/>
-            <Width Value="0"/>
-            <Height Value="0"/>
-          </Size>
-          <Flags Value="0"/>
-          <Frames>
-            <FrameColor Value="clBlack"/>
-            <FrameStyle Value="frsSolid"/>
-            <FrameWidth Value="2"/>
-          </Frames>
-          <Tag Value=""/>
-          <FURLInfo Value=""/>
         </Object32>
         <Object33>
-          <Name Value="Line2"/>
+          <Name Value="Line1"/>
           <ClassName Value="TfrLineView"/>
           <Visible Value="True"/>
           <Typ Value="gtLine"/>
@@ -1413,6 +1438,27 @@
           <FURLInfo Value=""/>
         </Object33>
         <Object34>
+          <Name Value="Line2"/>
+          <ClassName Value="TfrLineView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtLine"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="440"/>
+            <Top Value="317"/>
+            <Width Value="0"/>
+            <Height Value="0"/>
+          </Size>
+          <Flags Value="0"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="2"/>
+          </Frames>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+        </Object34>
+        <Object35>
           <Name Value="Memo35"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1457,8 +1503,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="True"/>
-        </Object34>
-        <Object35>
+        </Object35>
+        <Object36>
           <Name Value="Memo36"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1503,8 +1549,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="True"/>
-        </Object35>
-        <Object36>
+        </Object36>
+        <Object37>
           <Name Value="Memo37"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1549,15 +1595,15 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="True"/>
-        </Object36>
+        </Object37>
       </Page1>
       <FVal>
-        <Count Value="31"/>
+        <Count Value="34"/>
         <Objects1>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="NUMERO_NOTA_CREDITO"/>
+          <Field Value="NUMERO_FACTURA"/>
           <Item Value="NUMERO"/>
         </Objects1>
         <Objects2>
@@ -1571,207 +1617,228 @@
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="RUC"/>
-          <Item Value="RUC"/>
+          <Field Value="REP_CONT"/>
+          <Item Value="CONTADO"/>
         </Objects3>
         <Objects4>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="NOMBRE"/>
-          <Item Value="NOMBRE"/>
+          <Field Value="VENCIMIENTO"/>
+          <Item Value="VENCIMIENTO"/>
         </Objects4>
         <Objects5>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="DIRECCION"/>
-          <Item Value="DIRECCION"/>
+          <Field Value="RUC"/>
+          <Item Value="RUC"/>
         </Objects5>
         <Objects6>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="NOTA_REMISION"/>
-          <Item Value="NOTA_REMISION"/>
+          <Field Value="NOMBRE"/>
+          <Item Value="NOMBRE"/>
         </Objects6>
         <Objects7>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="TELEFONO"/>
-          <Item Value="TELEFONO"/>
+          <Field Value="DIRECCION"/>
+          <Item Value="DIRECCION"/>
         </Objects7>
         <Objects8>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="SUBTOTAL_EXENTAS"/>
-          <Item Value="SUBTOTAL_EXENTAS"/>
+          <Field Value="NOTA_REMISION"/>
+          <Item Value="NOTA_REMISION"/>
         </Objects8>
         <Objects9>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="SUBTOTAL_IVA5"/>
-          <Item Value="SUBTOTAL_IVA5"/>
+          <Field Value="TELEFONO"/>
+          <Item Value="TELEFONO"/>
         </Objects9>
         <Objects10>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="SUBTOTAL_IVA10"/>
-          <Item Value="SUBTOTAL_IVA10"/>
+          <Field Value="SUBTOTAL_EXENTAS"/>
+          <Item Value="SUBTOTAL_EXENTAS"/>
         </Objects10>
         <Objects11>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="TOTAL"/>
-          <Item Value="TOTAL"/>
+          <Field Value="SUBTOTAL_IVA5"/>
+          <Item Value="SUBTOTAL_IVA5"/>
         </Objects11>
         <Objects12>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="TIMBRADO"/>
-          <Item Value="TIMBRADO"/>
+          <Field Value="SUBTOTAL_IVA10"/>
+          <Item Value="SUBTOTAL_IVA10"/>
         </Objects12>
         <Objects13>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
-          <Dataset Value="qryDetalleReport"/>
-          <Field Value="CANTIDAD"/>
-          <Item Value="CANTIDAD"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="TOTAL"/>
+          <Item Value="TOTAL"/>
         </Objects13>
         <Objects14>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
-          <Dataset Value="qryDetalleReport"/>
-          <Field Value="DETALLE"/>
-          <Item Value="DETALLE"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="TIMBRADO"/>
+          <Item Value="TIMBRADO"/>
         </Objects14>
         <Objects15>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryDetalleReport"/>
-          <Field Value="PRECIO_UNITARIO"/>
-          <Item Value="PRECIO_UNITARIO"/>
+          <Field Value="CANTIDAD"/>
+          <Item Value="CANTIDAD"/>
         </Objects15>
         <Objects16>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
-          <Dataset Value="qryCabeceraReport"/>
-          <Field Value="IVA5"/>
-          <Item Value="IVA5"/>
+          <Dataset Value="qryDetalleReport"/>
+          <Field Value="DETALLE"/>
+          <Item Value="DETALLE"/>
         </Objects16>
         <Objects17>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
-          <Dataset Value="qryCabeceraReport"/>
-          <Field Value="IVA10"/>
-          <Item Value="IVA10"/>
+          <Dataset Value="qryDetalleReport"/>
+          <Field Value="PRECIO_UNITARIO"/>
+          <Item Value="PRECIO_UNITARIO"/>
         </Objects17>
         <Objects18>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="IVA_TOTAL"/>
-          <Item Value="IVA_TOTAL"/>
+          <Field Value="IVA5"/>
+          <Item Value="IVA5"/>
         </Objects18>
         <Objects19>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="VALIDO_HASTA"/>
-          <Item Value="VALIDO_HASTA"/>
+          <Field Value="IVA10"/>
+          <Item Value="IVA10"/>
         </Objects19>
         <Objects20>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="IVA_TOTAL"/>
+          <Item Value="IVA_TOTAL"/>
+        </Objects20>
+        <Objects21>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="VALIDO_HASTA"/>
+          <Item Value="VALIDO_HASTA"/>
+        </Objects21>
+        <Objects22>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="REP_CRED"/>
+          <Item Value="CREDITO"/>
+        </Objects22>
+        <Objects23>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryDetalleReport"/>
           <Field Value="EXENTA"/>
           <Item Value="DET_EXENTA"/>
-        </Objects20>
-        <Objects21>
+        </Objects23>
+        <Objects24>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryDetalleReport"/>
           <Field Value="IVA5"/>
           <Item Value="DET_IVA5"/>
-        </Objects21>
-        <Objects22>
+        </Objects24>
+        <Objects25>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryDetalleReport"/>
           <Field Value="IVA10"/>
           <Item Value="DET_IVA10"/>
-        </Objects22>
-        <Objects23>
-          <Typ Value="1"/>
-          <OtherKind Value="0"/>
-          <Dataset Value="qryCabeceraReport"/>
-          <Field Value="PERS_NOMBRECOMPLETO"/>
-          <Item Value="PERS_NOMBRE"/>
-        </Objects23>
-        <Objects24>
-          <Typ Value="1"/>
-          <OtherKind Value="0"/>
-          <Dataset Value="qryCabeceraReport"/>
-          <Field Value="PERS_RUCCEDULA"/>
-          <Item Value="PERS_RUC"/>
-        </Objects24>
-        <Objects25>
-          <Typ Value="1"/>
-          <OtherKind Value="0"/>
-          <Dataset Value="qryCabeceraReport"/>
-          <Field Value="PERS_DIRECCION"/>
-          <Item Value="PERS_DIRECCION"/>
         </Objects25>
         <Objects26>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="PERS_TELEFONO"/>
-          <Item Value="PRES_TELEFONO"/>
+          <Field Value="PERS_NOMBRECOMPLETO"/>
+          <Item Value="PERS_NOMBRE"/>
         </Objects26>
         <Objects27>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="TAL_RUC"/>
-          <Item Value="TALONARIO_RUC"/>
+          <Field Value="PERS_RUCCEDULA"/>
+          <Item Value="PERS_RUC"/>
         </Objects27>
         <Objects28>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="TAL_NOMBRE"/>
-          <Item Value="TALONARIO_NOMBRE"/>
+          <Field Value="PERS_DIRECCION"/>
+          <Item Value="PERS_DIRECCION"/>
         </Objects28>
         <Objects29>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="TAL_DIRECCION"/>
-          <Item Value="TALONARIO_DIRECCION"/>
+          <Field Value="PERS_TELEFONO"/>
+          <Item Value="PRES_TELEFONO"/>
         </Objects29>
         <Objects30>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
-          <Field Value="TAL_TELEFONO"/>
-          <Item Value="TALONARIO_TELEFONO"/>
+          <Field Value="TAL_RUC"/>
+          <Item Value="TALONARIO_RUC"/>
         </Objects30>
         <Objects31>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
           <Dataset Value="qryCabeceraReport"/>
+          <Field Value="TAL_NOMBRE"/>
+          <Item Value="TALONARIO_NOMBRE"/>
+        </Objects31>
+        <Objects32>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="TAL_DIRECCION"/>
+          <Item Value="TALONARIO_DIRECCION"/>
+        </Objects32>
+        <Objects33>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="TAL_TELEFONO"/>
+          <Item Value="TALONARIO_TELEFONO"/>
+        </Objects33>
+        <Objects34>
+          <Typ Value="1"/>
+          <OtherKind Value="0"/>
+          <Dataset Value="qryCabeceraReport"/>
           <Field Value="TAL_RUBRO"/>
           <Item Value="TALONARIO_RUBRO"/>
-        </Objects31>
+        </Objects34>
       </FVal>
-      <ParentVars Value="Cabecera&#xD;&#xA; TALONARIO_RUC&#xD;&#xA; TALONARIO_NOMBRE&#xD;&#xA; TALONARIO_DIRECCION&#xD;&#xA; TALONARIO_TELEFONO&#xD;&#xA; TALONARIO_RUBRO&#xD;&#xA; NUMERO&#xD;&#xA; FECHA_EMISION&#xD;&#xA; RUC&#xD;&#xA; NOMBRE&#xD;&#xA; DIRECCION&#xD;&#xA; NOTA_REMISION&#xD;&#xA; TELEFONO&#xD;&#xA; SUBTOTAL_EXENTAS&#xD;&#xA; SUBTOTAL_IVA5&#xD;&#xA; SUBTOTAL_IVA10&#xD;&#xA; IVA5&#xD;&#xA; IVA10&#xD;&#xA; IVA_TOTAL&#xD;&#xA; TOTAL&#xD;&#xA; TIMBRADO&#xD;&#xA; VALIDO_HASTA&#xD;&#xA;Detalle&#xD;&#xA; CANTIDAD&#xD;&#xA; DETALLE&#xD;&#xA; PRECIO_UNITARIO&#xD;&#xA; DET_EXENTA&#xD;&#xA; DET_IVA5&#xD;&#xA; DET_IVA10&#xD;&#xA;Persona&#xD;&#xA; PERS_NOMBRE&#xD;&#xA; PERS_RUC&#xD;&#xA; PERS_DIRECCION&#xD;&#xA; PRES_TELEFONO&#xD;&#xA;"/>
+      <ParentVars Value="Cabecera&#xD;&#xA; TALONARIO_RUC&#xD;&#xA; TALONARIO_NOMBRE&#xD;&#xA; TALONARIO_DIRECCION&#xD;&#xA; TALONARIO_TELEFONO&#xD;&#xA; TALONARIO_RUBRO&#xD;&#xA; NUMERO&#xD;&#xA; FECHA_EMISION&#xD;&#xA; CONTADO&#xD;&#xA; CREDITO&#xD;&#xA; VENCIMIENTO&#xD;&#xA; RUC&#xD;&#xA; NOMBRE&#xD;&#xA; DIRECCION&#xD;&#xA; NOTA_REMISION&#xD;&#xA; TELEFONO&#xD;&#xA; SUBTOTAL_EXENTAS&#xD;&#xA; SUBTOTAL_IVA5&#xD;&#xA; SUBTOTAL_IVA10&#xD;&#xA; IVA5&#xD;&#xA; IVA10&#xD;&#xA; IVA_TOTAL&#xD;&#xA; TOTAL&#xD;&#xA; TIMBRADO&#xD;&#xA; VALIDO_HASTA&#xD;&#xA;Detalle&#xD;&#xA; CANTIDAD&#xD;&#xA; DETALLE&#xD;&#xA; PRECIO_UNITARIO&#xD;&#xA; DET_EXENTA&#xD;&#xA; DET_IVA5&#xD;&#xA; DET_IVA10&#xD;&#xA;Persona&#xD;&#xA; PERS_NOMBRE&#xD;&#xA; PERS_RUC&#xD;&#xA; PERS_DIRECCION&#xD;&#xA; PRES_TELEFONO&#xD;&#xA;"/>
     </Pages>
   </LazReport>
 </CONFIG>

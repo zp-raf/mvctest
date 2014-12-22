@@ -60,6 +60,10 @@ type
     qryCabeceraReportNOMBRE: TStringField;
     qryCabeceraReportNOTA_REMISION: TStringField;
     qryCabeceraReportNUMERO_NOTA_CREDITO: TStringField;
+    qryCabeceraReportPERS_DIRECCION: TStringField;
+    qryCabeceraReportPERS_NOMBRECOMPLETO: TStringField;
+    qryCabeceraReportPERS_RUCCEDULA: TStringField;
+    qryCabeceraReportPERS_TELEFONO: TStringField;
     qryCabeceraReportRUC: TStringField;
     qryCabeceraReportSUBTOTAL_EXENTAS: TFloatField;
     qryCabeceraReportSUBTOTAL_IVA10: TFloatField;
@@ -182,6 +186,7 @@ begin
   IVA5Codigo := IVA5;
   CheckPrecioUnitario := True;
   ReportFile := 'reportes\reporte-nota-credito.lrf';
+  ReportFileCompra := 'reportes\reporte-nota-credito-compra.lrf';
 end;
 
 procedure TNotaCreditoDataModule.qryCabeceraNewRecord(DataSet: TDataSet);

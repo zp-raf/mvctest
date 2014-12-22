@@ -1,10 +1,10 @@
 inherited ReciboDataModule: TReciboDataModule
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 333
+  Height = 480
   HorizontalOffset = 563
   VerticalOffset = 218
-  Width = 542
+  Width = 797
   inherited qryCabecera: TSQLQuery
     FieldDefs = <    
       item
@@ -480,10 +480,12 @@ inherited ReciboDataModule: TReciboDataModule
       end>
   end
   inherited frDBReporteDet: TfrDBDataSet
-    DataSet = qryDetalle
+    DataSet = qryDetalleReport
+    DataSource = dsDetReport
   end
   inherited frDBReporteCab: TfrDBDataSet
-    DataSet = qryCabecera
+    DataSet = qryDetalleReport
+    DataSource = dsDetReport
   end
   inherited frReport1: TfrReport
     Dataset = frDBReporteCab
@@ -682,5 +684,529 @@ inherited ReciboDataModule: TReciboDataModule
       ReadOnly = False
       Required = False
     end
+  end
+  object qryCabeceraReport: TSQLQuery[20]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'ESCOMPRA'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TIMBRADO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NUMERO_RECIBO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'VALIDO_HASTA'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TAL_RUC'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TAL_NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TAL_RUBRO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TAL_DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'TAL_TELEFONO'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end    
+      item
+        Name = 'FECHA_EMISION'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TELEFONO'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'TOTAL'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PERS_NOMBRECOMPLETO'
+        DataType = ftString
+        Precision = -1
+        Size = 511
+      end    
+      item
+        Name = 'PERS_RUCCEDULA'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'PERS_DIRECCION'
+        DataType = ftString
+        Precision = -1
+        Size = 1024
+      end    
+      item
+        Name = 'PERS_TELEFONO'
+        DataType = ftString
+        Precision = -1
+        Size = 512
+      end>
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'with DIR'
+      'as (select P.ID, P.NOMBRECOMPLETO, coalesce(P.RUC, P.CEDULA) as RUCCEDULA,'
+      '           cast(list(distinct T.PREFIJO || ''-'' || T.NUMERO, '' / '') as varchar(512)) as TELEFONO,'
+      '           cast(list(distinct D.DIRECCION, '' / '') as varchar(1024)) as DIRECCION'
+      '    from PERSONA P'
+      '    left outer join DIRECCION D on P.ID = D.IDPERSONA'
+      '    left outer join TELEFONO T on P.ID = T.IDPERSONA'
+      '    group by ID, NOMBRECOMPLETO, RUCCEDULA)'
+      'select F.ID, iif(F.TALONARIOID is null, 0, 1) as ESCOMPRA, coalesce(F.TIMBRADO, T.TIMBRADO) as TIMBRADO,'
+      '       iif(F.TIMBRADO is null, lpad(T.SUCURSAL, 3, ''0'') || ''-'' || lpad(T.CAJA, 3, ''0'') || ''-'' || lpad(F.NUMERO, 7, ''0''), F.NUMERO_REC_COMPRA) as NUMERO_RECIBO,'
+      '       T.VALIDO_HASTA, T.RUC as TAL_RUC, T.NOMBRE as TAL_NOMBRE, T.RUBRO as TAL_RUBRO, T.DIRECCION as TAL_DIRECCION,'
+      '       T.TELEFONO as TAL_TELEFONO, F.FECHA_EMISION, F.CEDULA, F.NOMBRE, F.DIRECCION, F.TELEFONO, F.TOTAL,'
+      '       DIR.NOMBRECOMPLETO as PERS_NOMBRECOMPLETO, DIR.RUCCEDULA as PERS_RUCCEDULA, DIR.DIRECCION as PERS_DIRECCION,'
+      '       DIR.TELEFONO as PERS_TELEFONO'
+      'from RECIBO F'
+      'left outer join TALONARIO T on F.TALONARIOID = T.ID'
+      'left outer join DIR on DIR.ID = F.PERSONAID'
+      'where F.ID = :ID'
+    )
+    Params = <    
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+        Size = 4
+      end>
+    left = 549
+    top = 85
+    object qryCabeceraReportID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryCabeceraReportESCOMPRA: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ESCOMPRA'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryCabeceraReportTIMBRADO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TIMBRADO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportNUMERO_RECIBO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NUMERO_RECIBO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportVALIDO_HASTA: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'VALIDO_HASTA'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryCabeceraReportTAL_RUC: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TAL_RUC'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportTAL_NOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TAL_NOMBRE'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportTAL_RUBRO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TAL_RUBRO'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportTAL_DIRECCION: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'TAL_DIRECCION'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 512
+    end
+    object qryCabeceraReportTAL_TELEFONO: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'TAL_TELEFONO'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 512
+    end
+    object qryCabeceraReportFECHA_EMISION: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'FECHA_EMISION'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryCabeceraReportCEDULA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'CEDULA'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object qryCabeceraReportNOMBRE: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NOMBRE'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportDIRECCION: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'DIRECCION'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportTELEFONO: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'TELEFONO'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportTOTAL: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TOTAL'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object qryCabeceraReportPERS_NOMBRECOMPLETO: TStringField
+      DisplayWidth = 511
+      FieldKind = fkData
+      FieldName = 'PERS_NOMBRECOMPLETO'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 511
+    end
+    object qryCabeceraReportPERS_RUCCEDULA: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'PERS_RUCCEDULA'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qryCabeceraReportPERS_DIRECCION: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'PERS_DIRECCION'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object qryCabeceraReportPERS_TELEFONO: TStringField
+      DisplayWidth = 512
+      FieldKind = fkData
+      FieldName = 'PERS_TELEFONO'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 512
+    end
+  end
+  object qryDetalleReport: TSQLQuery[21]
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'RECIBOID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DEUDAID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CANTIDAD'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DETALLE'
+        DataType = ftString
+        Precision = -1
+        Size = 1024
+      end    
+      item
+        Name = 'PRECIO_UNITARIO'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TOTAL'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end>
+    Active = True
+    Database = sgcdDataModule.db
+    Transaction = sgcdDataModule.tran
+    ReadOnly = True
+    SQL.Strings = (
+      'select * from recibo_detalle'
+      'where reciboid = :id'
+    )
+    Params = <    
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+        Size = 4
+      end>
+    left = 540
+    top = 160
+    object qryDetalleReportID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryDetalleReportRECIBOID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'RECIBOID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryDetalleReportDEUDAID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'DEUDAID'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryDetalleReportCANTIDAD: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'CANTIDAD'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryDetalleReportDETALLE: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'DETALLE'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 1024
+    end
+    object qryDetalleReportPRECIO_UNITARIO: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'PRECIO_UNITARIO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+    object qryDetalleReportTOTAL: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'TOTAL'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = -1
+    end
+  end
+  object dsCabReport: TDataSource[22]
+    DataSet = qryCabeceraReport
+    left = 660
+    top = 85
+  end
+  object dsDetReport: TDataSource[23]
+    DataSet = qryDetalleReport
+    left = 660
+    top = 164
   end
 end

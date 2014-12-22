@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 11:43:20"/>
+    <ReportLastChange Value="2014-12-22 14:56:01"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -1775,31 +1775,31 @@
           <Item Value="DET_IVA10"/>
         </Objects25>
         <Objects26>
-          <Typ Value="0"/>
+          <Typ Value="1"/>
           <OtherKind Value="0"/>
-          <Dataset Value="detallesPersonaReport"/>
-          <Field Value="NOMBRECOMPLETO"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="PERS_NOMBRECOMPLETO"/>
           <Item Value="PERS_NOMBRE"/>
         </Objects26>
         <Objects27>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
-          <Dataset Value="detallesPersonaReport"/>
-          <Field Value="RUCCEDULA"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="PERS_RUCCEDULA"/>
           <Item Value="PERS_RUC"/>
         </Objects27>
         <Objects28>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
-          <Dataset Value="detallesPersonaReport"/>
-          <Field Value="DIRECCION"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="PERS_DIRECCION"/>
           <Item Value="PERS_DIRECCION"/>
         </Objects28>
         <Objects29>
           <Typ Value="1"/>
           <OtherKind Value="0"/>
-          <Dataset Value="detallesPersonaReport"/>
-          <Field Value="TELEFONO"/>
+          <Dataset Value="qryCabeceraReport"/>
+          <Field Value="PERS_TELEFONO"/>
           <Item Value="PRES_TELEFONO"/>
         </Objects29>
         <Objects30>

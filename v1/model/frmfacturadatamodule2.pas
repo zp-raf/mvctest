@@ -42,6 +42,10 @@ type
     qryCabeceraReportNOMBRE: TStringField;
     qryCabeceraReportNOTA_REMISION: TStringField;
     qryCabeceraReportNUMERO_FACTURA: TStringField;
+    qryCabeceraReportPERS_DIRECCION: TStringField;
+    qryCabeceraReportPERS_NOMBRECOMPLETO: TStringField;
+    qryCabeceraReportPERS_RUCCEDULA: TStringField;
+    qryCabeceraReportPERS_TELEFONO: TStringField;
     qryCabeceraReportREP_CONT: TStringField;
     qryCabeceraReportREP_CRED: TStringField;
     qryCabeceraReportRUC: TStringField;
@@ -382,6 +386,7 @@ begin
   IVA5Codigo := IVA5;
   CheckPrecioUnitario := True;
   ReportFile := 'reportes\reporte-factura.lrf';
+  ReportFileCompra := 'reportes\reporte-factura-compra.lrf';
 end;
 
 procedure TFacturasDataModule.DeterminarImpuesto;

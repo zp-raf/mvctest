@@ -23,6 +23,7 @@ type
     FEstado: TEstadoComprobante;
     FPersonas: TPersonasDataModule;
     FReportFile: string;
+    FReportFileCompra: string;
     FTalonarios: TTalonarioDataModule;
     procedure RestoreProperties;
     procedure SetAsientos(AValue: TAsientosDataModule);
@@ -192,6 +193,7 @@ type
     property TalonarioID: string read FTalonarioID write SetTalonarioID;
     property Compra: boolean read FCompra write SetCompra;
     property ReportFile: string read FReportFile write FReportFile;
+    property ReportFileCompra: string read FReportFileCompra write FReportFileCompra;
   end;
 
 var
@@ -527,10 +529,20 @@ begin
    qryDetalle.Filtered:=True;
    qryCabecera.Open;
   }
-  if Trim(ReportFile) = '' then
-    raise Exception.Create('Archivo de comprobante no valido');
-  frReport1.LoadFromFile(ReportFile);
-  frReport1.ShowReport;
+  if qryCabecera.FieldByName('TALONARIOID').IsNull then
+  begin
+    if Trim(ReportFileCompra) = '' then
+      raise Exception.Create('Archivo de comprobante no valido');
+    frReport1.LoadFromFile(ReportFileCompra);
+    frReport1.ShowReport;
+  end
+  else
+  begin
+    if Trim(ReportFile) = '' then
+      raise Exception.Create('Archivo de comprobante no valido');
+    frReport1.LoadFromFile(ReportFile);
+    frReport1.ShowReport;
+  end;
 end;
 
 //procedure TComprobanteDataModule.ShowReporte;
