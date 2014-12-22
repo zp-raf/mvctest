@@ -263,7 +263,9 @@ begin
   try
     GetComprobanteController.CerrarComprobante(Self);
     ShowInfoMessage('Comprobante ingresado correctamente');
+//    GetComprobanteController.;
     Limpiar;
+    GetComprobanteController.ShowReport(Self);
     // esto resuelve el problema de que se muestra la excepcion de la BD
    // pero con partes del trigger
   except

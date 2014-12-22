@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="1899-12-30 00:00:00"/>
-    <ReportLastChange Value="2014-12-15 01:16:26"/>
+    <ReportLastChange Value="2014-12-22 00:28:07"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -513,7 +513,7 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="17039404"/>
+            <Format Value="16974380"/>
             <FormatStr Value="###.###.###,##"/>
             <Memo Value="[det_saldo]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -559,7 +559,7 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="17039404"/>
+            <Format Value="16974380"/>
             <FormatStr Value="###.###.###,##"/>
             <Memo Value="[det_credito]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -605,7 +605,7 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="17039404"/>
+            <Format Value="16974380"/>
             <FormatStr Value="###.###.###,##"/>
             <Memo Value="[det_debito]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -651,7 +651,7 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="17039404"/>
+            <Format Value="16974380"/>
             <FormatStr Value="###.###.###,##"/>
             <Memo Value="Saldo anterior: [CAB_SALDO_ANTERIOR]&#xD;&#xA;Credito anterior: [CAB_CREDITO_ANTERIOR]&#xD;&#xA;Debito anterior: [CAB_DEBITO_ANTERIOR]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1065,7 +1065,7 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="17039404"/>
+            <Format Value="16974380"/>
             <FormatStr Value="###.###.###,##"/>
             <Memo Value="[CAB_DEBITO]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1111,7 +1111,7 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="17039404"/>
+            <Format Value="16974380"/>
             <FormatStr Value="###.###.###,##"/>
             <Memo Value="[CAB_CREDITO]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1157,7 +1157,7 @@
             <FrameBorders Value=""/>
           </Frames>
           <Data>
-            <Format Value="17039404"/>
+            <Format Value="16974380"/>
             <FormatStr Value="###.###.###,##"/>
             <Memo Value="[CAB_SALDO]&#xD;&#xA;"/>
             <Script Value=""/>

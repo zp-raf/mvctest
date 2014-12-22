@@ -37,6 +37,7 @@ type
     FDatosCurso: TDatosCurso;
     FCuentaCompras: string;
     FINIFile: TIniFile;
+    ComprobanteID: Integer;
   public
     procedure AfterConstruction; override;
   published
@@ -177,6 +178,8 @@ type
     procedure SaveChanges; override;
     procedure SetNumero; virtual; abstract;
     procedure SetTipoComprobante(ATipoComprobante: TTipoDocumento);
+    procedure ShowReport (IComprobanteID: Integer);
+    procedure ShowReporte;
     function GetMontoComprobante: double; virtual;
     function GetTalonarioDataSource: TDataSource;
     property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
@@ -245,6 +248,7 @@ end;
 procedure TComprobanteDataModule.qryCabeceraNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(CabeceraGenName);
+  ComprobanteID := DataSet.FieldByName('ID').AsInteger;
   DataSet.FieldByName('FECHA_EMISION').AsDateTime := Now;
   DataSet.FieldByName('VALIDO').AsInteger := 1;
   DataSet.FieldByName('TOTAL').AsFloat := 0;
@@ -505,6 +509,23 @@ begin
     TalonarioView.ServerFiltered := True;
     TalonarioView.Open;
   end;
+end;
+
+procedure TComprobanteDataModule.ShowReport(IComprobanteID: Integer);
+begin
+{  qryDetalle.Close;
+  qryCabecera.Close;}
+  qryCabecera.FieldByName('ID').AsInteger:= IComprobanteID;
+  if (qryDetalle.Filtered = False ) then
+  qryDetalle.Filtered:=True;
+  qryCabecera.Open;
+  frReport1.LoadFromFile('reportes\reporte-factura.lrf');
+  frReport1.ShowReport;
+end;
+
+procedure TComprobanteDataModule.ShowReporte;
+begin
+  ShowReport(ComprobanteID);
 end;
 
 function TComprobanteDataModule.GetMontoComprobante: double;

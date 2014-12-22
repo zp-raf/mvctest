@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-13 12:31:06"/>
+    <ReportLastChange Value="2014-12-22 02:20:22"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -17,7 +17,7 @@
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="False"/>
-      <SelectedPrinter Value="HP Deskjet F2100 series"/>
+      <SelectedPrinter Value="PDFCreator"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>
@@ -39,7 +39,7 @@
         <ColCount Value="1"/>
         <ColGap Value="0"/>
         <LayoutOrder Value="loColumns"/>
-        <ObjectCount Value="40"/>
+        <ObjectCount Value="38"/>
         <Object1>
           <Name Value="MasterData1"/>
           <ClassName Value="TfrBandView"/>
@@ -904,7 +904,7 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="92"/>
+            <Left Value="88"/>
             <Top Value="282"/>
             <Width Value="265"/>
             <Height Value="31"/>
@@ -1492,98 +1492,6 @@
           <FURLInfo Value=""/>
         </Object35>
         <Object36>
-          <Name Value="Memo30"/>
-          <ClassName Value="TfrMemoView"/>
-          <Visible Value="True"/>
-          <Typ Value="gtMemo"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="512"/>
-            <Top Value="168"/>
-            <Width Value="24"/>
-            <Height Value="14"/>
-          </Size>
-          <Flags Value="3"/>
-          <FillColor Value="clNone"/>
-          <Frames>
-            <FrameColor Value="clBlack"/>
-            <FrameStyle Value="frsSolid"/>
-            <FrameWidth Value="1"/>
-            <FrameBorders Value=""/>
-          </Frames>
-          <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
-            <Memo Value="[qryCabecera1.&quot;ES_CONTADO&quot;]&#xD;&#xA;"/>
-            <Script Value=""/>
-          </Data>
-          <Tag Value=""/>
-          <FURLInfo Value=""/>
-          <Font>
-            <Name Value="Arial"/>
-            <Size Value="10"/>
-            <Color Value="clBlack"/>
-            <Charset Value="0"/>
-            <Style Value=""/>
-          </Font>
-          <Highlight>
-            <FontStyle Value="2"/>
-            <FontColor Value="clBlack"/>
-            <FillColor Value="clWhite"/>
-            <HighlightStr Value=""/>
-          </Highlight>
-          <Alignment Value="taLeftJustify"/>
-          <Layout Value="tlTop"/>
-          <Angle Value="0"/>
-          <Justify Value="False"/>
-        </Object36>
-        <Object37>
-          <Name Value="Memo31"/>
-          <ClassName Value="TfrMemoView"/>
-          <Visible Value="True"/>
-          <Typ Value="gtMemo"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="668"/>
-            <Top Value="168"/>
-            <Width Value="24"/>
-            <Height Value="14"/>
-          </Size>
-          <Flags Value="3"/>
-          <FillColor Value="clNone"/>
-          <Frames>
-            <FrameColor Value="clBlack"/>
-            <FrameStyle Value="frsSolid"/>
-            <FrameWidth Value="1"/>
-            <FrameBorders Value=""/>
-          </Frames>
-          <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
-            <Memo Value="[qryCabecera1.&quot;ES_CREDITO&quot;]&#xD;&#xA;"/>
-            <Script Value=""/>
-          </Data>
-          <Tag Value=""/>
-          <FURLInfo Value=""/>
-          <Font>
-            <Name Value="Arial"/>
-            <Size Value="10"/>
-            <Color Value="clBlack"/>
-            <Charset Value="0"/>
-            <Style Value=""/>
-          </Font>
-          <Highlight>
-            <FontStyle Value="2"/>
-            <FontColor Value="clBlack"/>
-            <FillColor Value="clWhite"/>
-            <HighlightStr Value=""/>
-          </Highlight>
-          <Alignment Value="taLeftJustify"/>
-          <Layout Value="tlTop"/>
-          <Angle Value="0"/>
-          <Justify Value="False"/>
-        </Object37>
-        <Object38>
           <Name Value="Memo35"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1628,8 +1536,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="True"/>
-        </Object38>
-        <Object39>
+        </Object36>
+        <Object37>
           <Name Value="Memo36"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1674,8 +1582,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="True"/>
-        </Object39>
-        <Object40>
+        </Object37>
+        <Object38>
           <Name Value="Memo37"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -1720,7 +1628,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="True"/>
-        </Object40>
+        </Object38>
       </Page1>
       <FVal>
         <Count Value="0"/>
