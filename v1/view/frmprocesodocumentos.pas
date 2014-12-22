@@ -108,6 +108,7 @@ begin
   if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
   begin
     GetCustomController.CobrarDoc(dtFacturaNocobrada, Self);
+    GetController.Disconnect(Self);
     GetController.Connect(Self);
   end;
 end;

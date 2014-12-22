@@ -176,8 +176,35 @@ procedure TDocumentosController.CobrarDoc(ATipoDoc: TDocViewerDocType;
   Sender: IFormView);
 begin
   case ATipoDoc of
-    dtFacturaNocobrada: CobrarDoc(ATipoDoc,
-        GetCustomModel.FacturasViewID.AsString, Sender);
+    dtFacturaNocobrada:
+    begin
+      //CobrarDoc(ATipoDoc,
+      //  GetCustomModel.FacturasViewID.AsString, Sender);
+      try
+        ProcesoPago := TProcesoPago.Create(Sender, PagoController);
+        (GetModel.MasterDataModule as ISubject).Attach(ProcesoPago as IObserver);
+        case ATipoDoc of
+          dtFacturaNocobrada:
+          begin
+            PagoController.NuevoPago(True, GetCustomModel.FacturasViewID.AsString,
+              doFactura);
+          end;
+        end;
+        case ProcesoPago.ShowModal of
+          mrOk:
+          begin
+            //Connect(Sender);
+          end;
+          mrCancel:
+          begin
+            //Connect(Sender);
+          end;
+        end;
+      finally
+        (GetModel.MasterDataModule as ISubject).Detach(ProcesoPago as IObserver);
+        ProcesoPago.Free;
+      end;
+    end;
   end;
   //Connect(Sender);
 end;
