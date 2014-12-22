@@ -520,7 +520,6 @@ begin
   qryCabecera.Close;
   }
   LocateComprobante(IComprobanteID);
-
   // Te salia campo requerido porque aca vos estabas editando el comprobante jeje
   {
    qryCabecera.FieldByName('ID').AsInteger:= IComprobanteID;

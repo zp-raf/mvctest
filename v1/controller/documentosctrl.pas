@@ -247,6 +247,14 @@ begin
         GetCustomModel.FacturasViewID.AsString, Sender);
     dtFacturaCobrada: VerDocumento(ATipoDoc,
         GetCustomModel.FacturasCobradasViewID.AsString, Sender);
+    dtNotaCredito: VerDocumento(ATipoDoc,
+        GetCustomModel.NotaCreditoViewID.AsString, Sender);
+    dtFacturaCompra: VerDocumento(ATipoDoc,
+        GetCustomModel.FacturasCompraViewID.AsString, Sender);
+    dtReciboCompra: VerDocumento(ATipoDoc,
+        GetCustomModel.RecibosViewID.AsString, Sender);
+    dtNotaCredCompra: VerDocumento(ATipoDoc,
+        GetCustomModel.NCCompraViewID.AsString, Sender);
   end;
 end;
 

@@ -149,7 +149,7 @@ type
       ATipoDocumento: TTipoDocumento; ADescripcion: string;
       ADescripcionCtaPersonal: string); override;
     procedure SetNumero; override;
-    procedure ShowReport(IComprobanteID: string); override;
+    //procedure ShowReport(IComprobanteID: string); override;
     function EstaCobrada(FID: string): boolean;
     function GetMontoComprobante: double; override;
     property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
@@ -448,14 +448,14 @@ end;
 procedure TFacturasDataModule.qryCabeceraAfterScroll(DataSet: TDataSet);
 begin
   qryDetalle.Close;
-  //qryCabeceraReport.Close;
-  //detallesPersonaReport.Close;
+  qryCabeceraReport.Close;
+  qryDetalleReport.Close;
   qryDetalle.ParamByName('FACTURAID').Value := DataSet.FieldByName('ID').Value;
-  //qryCabeceraReport.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
-  //detallesPersonaReport.ParamByName('PERSONAID').Value := DataSet.FieldByName('ID').Value;
+  qryCabeceraReport.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
+  qryDetalleReport.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
+  qryCabeceraReport.Open;
+  qryDetalleReport.Open;
   qryDetalle.Open;
-  //qryCabeceraReport.Open;
-  //detallesPersonaReport.Open;
 end;
 
 procedure TFacturasDataModule.qryCabeceraNewRecord(DataSet: TDataSet);
@@ -541,25 +541,25 @@ begin
   qryCabecera.FieldByName('NUMERO').AsString := qryNumeroNUM.AsString;
 end;
 
-procedure TFacturasDataModule.ShowReport(IComprobanteID: string);
-begin
-  try
-    LocateComprobante(IComprobanteID);
-    qryCabecera.Close;
-    qryCabecera.ServerFilter := 'ID = ' + IComprobanteID;
-    qryCabecera.ServerFiltered := True;
-    qryCabecera.Open;
-    if Trim(ReportFile) = '' then
-      raise Exception.Create('Archivo de comprobante no valido');
-    frReport1.LoadFromFile(ReportFile);
-    frReport1.ShowReport;
-  finally
-    qryCabecera.Close;
-    qryCabecera.ServerFilter := '';
-    qryCabecera.ServerFiltered := False;
-    qryCabecera.Open;
-  end;
-end;
+//procedure TFacturasDataModule.ShowReport(IComprobanteID: string);
+//begin
+//  try
+//    LocateComprobante(IComprobanteID);
+//    qryCabecera.Close;
+//    qryCabecera.ServerFilter := 'ID = ' + IComprobanteID;
+//    qryCabecera.ServerFiltered := True;
+//    qryCabecera.Open;
+//    if Trim(ReportFile) = '' then
+//      raise Exception.Create('Archivo de comprobante no valido');
+//    frReport1.LoadFromFile(ReportFile);
+//    frReport1.ShowReport;
+//  finally
+//    qryCabecera.Close;
+//    qryCabecera.ServerFilter := '';
+//    qryCabecera.ServerFiltered := False;
+//    qryCabecera.Open;
+//  end;
+//end;
 
 function TFacturasDataModule.EstaCobrada(FID: string): boolean;
 begin

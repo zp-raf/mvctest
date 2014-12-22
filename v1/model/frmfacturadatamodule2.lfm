@@ -1214,7 +1214,6 @@ inherited FacturasDataModule: TFacturasDataModule
         ParamType = ptInput
         Size = 4
       end>
-    DataSource = dsCabecera
     left = 493
     top = 29
     object qryCabeceraReportID: TLongintField
@@ -1584,7 +1583,6 @@ inherited FacturasDataModule: TFacturasDataModule
         ParamType = ptInput
         Size = 4
       end>
-    DataSource = dsCabReport
     left = 493
     top = 104
     object qryDetalleReportID: TLongintField

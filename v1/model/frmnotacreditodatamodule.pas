@@ -24,6 +24,8 @@ type
 
   TNotaCreditoDataModule = class(TComprobanteDataModule)
     DateField1: TDateField;
+    dsCabReport: TDataSource;
+    dsDetReport: TDataSource;
     LongintField1: TLongintField;
     NotasCreditoNuevoViewESCOMPRA: TLongintField;
     NotasCreditoNuevoViewFECHA_EMISION: TDateField;
@@ -47,6 +49,30 @@ type
     qryCabeceraNUMERO: TLongintField;
     qryCabeceraNUMERO_NOTA_COMPRA: TStringField;
     qryCabeceraPERSONAID: TLongintField;
+    qryCabeceraReport: TSQLQuery;
+    qryCabeceraReportDIRECCION: TStringField;
+    qryCabeceraReportESCOMPRA: TLongintField;
+    qryCabeceraReportFECHA_EMISION: TDateField;
+    qryCabeceraReportID: TLongintField;
+    qryCabeceraReportIVA10: TFloatField;
+    qryCabeceraReportIVA5: TFloatField;
+    qryCabeceraReportIVA_TOTAL: TFloatField;
+    qryCabeceraReportNOMBRE: TStringField;
+    qryCabeceraReportNOTA_REMISION: TStringField;
+    qryCabeceraReportNUMERO_NOTA_CREDITO: TStringField;
+    qryCabeceraReportRUC: TStringField;
+    qryCabeceraReportSUBTOTAL_EXENTAS: TFloatField;
+    qryCabeceraReportSUBTOTAL_IVA10: TFloatField;
+    qryCabeceraReportSUBTOTAL_IVA5: TFloatField;
+    qryCabeceraReportTAL_DIRECCION: TStringField;
+    qryCabeceraReportTAL_NOMBRE: TStringField;
+    qryCabeceraReportTAL_RUBRO: TStringField;
+    qryCabeceraReportTAL_RUC: TStringField;
+    qryCabeceraReportTAL_TELEFONO: TStringField;
+    qryCabeceraReportTELEFONO: TStringField;
+    qryCabeceraReportTIMBRADO: TStringField;
+    qryCabeceraReportTOTAL: TFloatField;
+    qryCabeceraReportVALIDO_HASTA: TDateField;
     qryCabeceraRUC: TStringField;
     qryCabeceraSUBTOTAL_EXENTAS: TFloatField;
     qryCabeceraSUBTOTAL_IVA10: TFloatField;
@@ -57,6 +83,17 @@ type
     qryCabeceraTOTAL: TFloatField;
     qryCabeceraVALIDO: TSmallintField;
     NotasCreditoNuevoView: TSQLQuery;
+    qryDetalleReport: TSQLQuery;
+    qryDetalleReportCANTIDAD: TLongintField;
+    qryDetalleReportDETALLE: TStringField;
+    qryDetalleReportDEUDAID: TLongintField;
+    qryDetalleReportEXENTA: TFloatField;
+    qryDetalleReportFACTURADETALLEID: TLongintField;
+    qryDetalleReportID: TLongintField;
+    qryDetalleReportIVA10: TFloatField;
+    qryDetalleReportIVA5: TFloatField;
+    qryDetalleReportNOTACREDITOID: TLongintField;
+    qryDetalleReportPRECIO_UNITARIO: TFloatField;
     StringField1: TStringField;
     StringField2: TStringField;
     StringField3: TStringField;
@@ -138,11 +175,13 @@ begin
   DetalleGenName := rsGenNotaCreditoDetalle;
   AuxQryList.Add(TObject(FFacturas.FacturasView));
   AuxQryList.Add(TObject(NotasCreditoNuevoView));
+  AuxQryList.Add(TObject(qryCabeceraReport));
+  AuxQryList.Add(TObject(qryDetalleReport));
   //TalonarioID := TALONARIO_NC;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
   CheckPrecioUnitario := True;
-  ReportFile:='reportes\reporte-nota-credito.lrf';
+  ReportFile := 'reportes\reporte-nota-credito.lrf';
 end;
 
 procedure TNotaCreditoDataModule.qryCabeceraNewRecord(DataSet: TDataSet);
@@ -705,7 +744,13 @@ end;
 procedure TNotaCreditoDataModule.qryCabeceraAfterScroll(DataSet: TDataSet);
 begin
   qryDetalle.Close;
+  qryCabeceraReport.Close;
+  qryDetalleReport.Close;
   qryDetalle.ParamByName('NOTACREDITOID').Value := DataSet.FieldByName('ID').Value;
+  qryCabeceraReport.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
+  qryDetalleReport.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
+  qryCabeceraReport.Open;
+  qryDetalleReport.Open;
   qryDetalle.Open;
 end;
 
