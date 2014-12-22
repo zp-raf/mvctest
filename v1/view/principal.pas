@@ -27,6 +27,7 @@ type
     Listaalumnos: TButton;
     Documentos: TButton;
     ingresoegreso: TMenuItem;
+    MenuItemDevolucion: TMenuItem;
     MenuItemDerecho: TMenuItem;
     MenuItemRptMatriculacion: TMenuItem;
     MenuItemTalonarioRec: TMenuItem;
@@ -112,6 +113,7 @@ type
     procedure MenuItemAprobarJustiClick(Sender: TObject);
     procedure MenuItemAsignacionClick(Sender: TObject);
     procedure MenuItemDerechoClick(Sender: TObject);
+    procedure MenuItemDevolucionClick(Sender: TObject);
     procedure MenuItemDocumentosClick(Sender: TObject);
     procedure MenuItemGenerarDeudaClick(Sender: TObject);
     procedure MenuItemABMCuentasClick(Sender: TObject);
@@ -305,6 +307,11 @@ end;
 procedure TPrincipal1.MenuItemDerechoClick(Sender: TObject);
 begin
  GetCustomController.OpenDerechoExamenForm(Self);
+end;
+
+procedure TPrincipal1.MenuItemDevolucionClick(Sender: TObject);
+begin
+  GetCustomController.OpenDevolucionForm(Self);
 end;
 
 procedure TPrincipal1.MenuItemDocumentosClick(Sender: TObject);

@@ -24,6 +24,50 @@ type
   { TFacturasDataModule }
 
   TFacturasDataModule = class(TComprobanteDataModule)
+    dsCabReport: TDataSource;
+    dsDetReport: TDataSource;
+    detallesPersonaReportDIRECCION: TStringField;
+    detallesPersonaReportID: TLongintField;
+    detallesPersonaReportNOMBRECOMPLETO: TStringField;
+    detallesPersonaReportRUCCEDULA: TStringField;
+    detallesPersonaReportTELEFONO: TStringField;
+    qryCabeceraReport: TSQLQuery;
+    qryCabeceraReportDIRECCION: TStringField;
+    qryCabeceraReportESCOMPRA: TLongintField;
+    qryCabeceraReportFECHA_EMISION: TDateField;
+    qryCabeceraReportID: TLongintField;
+    qryCabeceraReportIVA10: TFloatField;
+    qryCabeceraReportIVA5: TFloatField;
+    qryCabeceraReportIVA_TOTAL: TFloatField;
+    qryCabeceraReportNOMBRE: TStringField;
+    qryCabeceraReportNOTA_REMISION: TStringField;
+    qryCabeceraReportNUMERO_FACTURA: TStringField;
+    qryCabeceraReportREP_CONT: TStringField;
+    qryCabeceraReportREP_CRED: TStringField;
+    qryCabeceraReportRUC: TStringField;
+    qryCabeceraReportSUBTOTAL_EXENTAS: TFloatField;
+    qryCabeceraReportSUBTOTAL_IVA10: TFloatField;
+    qryCabeceraReportSUBTOTAL_IVA5: TFloatField;
+    qryCabeceraReportTAL_DIRECCION: TStringField;
+    qryCabeceraReportTAL_NOMBRE: TStringField;
+    qryCabeceraReportTAL_RUBRO: TStringField;
+    qryCabeceraReportTAL_RUC: TStringField;
+    qryCabeceraReportTAL_TELEFONO: TStringField;
+    qryCabeceraReportTELEFONO: TStringField;
+    qryCabeceraReportTIMBRADO: TStringField;
+    qryCabeceraReportTOTAL: TFloatField;
+    qryCabeceraReportVALIDO_HASTA: TDateField;
+    qryCabeceraReportVENCIMIENTO: TDateField;
+    qryDetalleReport: TSQLQuery;
+    qryDetalleReportCANTIDAD: TLongintField;
+    qryDetalleReportDETALLE: TStringField;
+    qryDetalleReportDEUDAID: TLongintField;
+    qryDetalleReportEXENTA: TFloatField;
+    qryDetalleReportFACTURAID: TLongintField;
+    qryDetalleReportID: TLongintField;
+    qryDetalleReportIVA10: TFloatField;
+    qryDetalleReportIVA5: TFloatField;
+    qryDetalleReportPRECIO_UNITARIO: TFloatField;
   private
     FCheckPrecioUnitario: boolean;
     FIVA10Codigo: string;
@@ -101,7 +145,11 @@ type
     procedure qryDetalleIVA5Change(Sender: TField);
     procedure qryDetallePRECIO_UNITARIOChange(Sender: TField);
     procedure qryDetalleCANTIDADChange(Sender: TField);
+    procedure RegistrarMovimientoCompra(ADocID: string;
+      ATipoDocumento: TTipoDocumento; ADescripcion: string;
+      ADescripcionCtaPersonal: string); override;
     procedure SetNumero; override;
+    procedure ShowReport(IComprobanteID: string); override;
     function EstaCobrada(FID: string): boolean;
     function GetMontoComprobante: double; override;
     property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
@@ -214,6 +262,20 @@ begin
   qryDetallePRECIO_UNITARIOChange(Sender);
 end;
 
+procedure TFacturasDataModule.RegistrarMovimientoCompra(ADocID: string;
+  ATipoDocumento: TTipoDocumento; ADescripcion: string;
+  ADescripcionCtaPersonal: string);
+begin
+  if (qryCabecera.State in [dsEdit, dsInsert]) then
+    raise Exception.Create(rsCreatingDoc);
+  if not qryCabecera.Locate('ID', ADocID, []) then
+    raise EDatabaseError.Create(rsNoSeEncontroDoc);
+  if qryCabeceraCONTADO.AsString = DB_FALSE then
+    Exit;
+  inherited RegistrarMovimientoCompra(ADocID, ATipoDocumento, ADescripcion,
+    ADescripcionCtaPersonal);
+end;
+
 procedure TFacturasDataModule.SetCheckPrecioUnitario(AValue: boolean);
 begin
   if FCheckPrecioUnitario = AValue then
@@ -313,10 +375,13 @@ begin
   DetalleGenName := rsGenFacturaDetalleID;
   AuxQryList.Add(TObject(FacturasView));
   AuxQryList.Add(TObject(FacturasCobradasView));
+  AuxQryList.Add(TObject(qryCabeceraReport));
+  AuxQryList.Add(TObject(qryDetalleReport));
   //TalonarioID := TALONARIO;
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
   CheckPrecioUnitario := True;
+  ReportFile := 'reportes\reporte-factura.lrf';
 end;
 
 procedure TFacturasDataModule.DeterminarImpuesto;
@@ -383,8 +448,14 @@ end;
 procedure TFacturasDataModule.qryCabeceraAfterScroll(DataSet: TDataSet);
 begin
   qryDetalle.Close;
+  //qryCabeceraReport.Close;
+  //detallesPersonaReport.Close;
   qryDetalle.ParamByName('FACTURAID').Value := DataSet.FieldByName('ID').Value;
+  //qryCabeceraReport.ParamByName('ID').Value := DataSet.FieldByName('ID').Value;
+  //detallesPersonaReport.ParamByName('PERSONAID').Value := DataSet.FieldByName('ID').Value;
   qryDetalle.Open;
+  //qryCabeceraReport.Open;
+  //detallesPersonaReport.Open;
 end;
 
 procedure TFacturasDataModule.qryCabeceraNewRecord(DataSet: TDataSet);
@@ -463,11 +534,31 @@ end;
 
 procedure TFacturasDataModule.SetNumero;
 begin
-    qryNumero.Close;
-    qryNumero.ParamByName('TALONARIOID').AsString := TalonarioID;
-    qryNumero.Open;
-    qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID; // por si acaso...
-    qryCabecera.FieldByName('NUMERO').AsString := qryNumeroNUM.AsString;
+  qryNumero.Close;
+  qryNumero.ParamByName('TALONARIOID').AsString := TalonarioID;
+  qryNumero.Open;
+  qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID; // por si acaso...
+  qryCabecera.FieldByName('NUMERO').AsString := qryNumeroNUM.AsString;
+end;
+
+procedure TFacturasDataModule.ShowReport(IComprobanteID: string);
+begin
+  try
+    LocateComprobante(IComprobanteID);
+    qryCabecera.Close;
+    qryCabecera.ServerFilter := 'ID = ' + IComprobanteID;
+    qryCabecera.ServerFiltered := True;
+    qryCabecera.Open;
+    if Trim(ReportFile) = '' then
+      raise Exception.Create('Archivo de comprobante no valido');
+    frReport1.LoadFromFile(ReportFile);
+    frReport1.ShowReport;
+  finally
+    qryCabecera.Close;
+    qryCabecera.ServerFilter := '';
+    qryCabecera.ServerFiltered := False;
+    qryCabecera.Open;
+  end;
 end;
 
 function TFacturasDataModule.EstaCobrada(FID: string): boolean;

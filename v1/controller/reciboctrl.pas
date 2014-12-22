@@ -18,7 +18,7 @@ type
   public
     procedure Cancel(Sender: IView); override;
     procedure CerrarComprobante(Sender: IView); override;
-    procedure CerrarComprobanteCompra(Sender: IView);
+    procedure CerrarComprobanteCompra(Sender: IView); virtual;
     procedure FetchCabeceraPersona(Sender: IView);
     function GetFacturaDataSource: TDataSource;
     function GetPersonasDataSource: TDataSource;
@@ -162,15 +162,26 @@ begin
 end;
 
 procedure TReciboController.SetCompra(Option: boolean);
+var
+  x: string;
 begin
   inherited SetCompra(Option);
   GetCustomModel.Facturas.FacturasView.Close;
+  x := 'select * from V_FACTURAS F where ' +
+    'F.ESCOMPRA = 1 and F.CONTADO = 0 and not exists(select 1 from RECIBO R ' +
+    'where R.TALONARIOID is null and R.VALIDO = 1 and R.FACTURAID = F.ID)';
   if Option then
-    GetCustomModel.Facturas.FacturasView.ServerFilter := 'CONTADO = 0 AND ESCOMPRA = 1'
+  begin
+    GetCustomModel.Facturas.FacturasView.SQL.Text := x;
+    GetCustomModel.Facturas.FacturasView.ServerFilter := '';
+    GetCustomModel.Facturas.FacturasView.ServerFiltered := False;
+  end
   else
-    GetCustomModel.Facturas.FacturasView.ServerFilter := 'CONTADO = 0 AND ESCOMPRA = 0';
-  GetCustomModel.Facturas.FacturasView.ServerFiltered := True;
+  begin
+    GetCustomModel.Facturas.FacturasView.ServerFilter :=
+      'F.CONTADO = 0 AND F.ESCOMPRA = 0';
+    GetCustomModel.Facturas.FacturasView.ServerFiltered := True;
+  end;
 end;
 
 end.
-

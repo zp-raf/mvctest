@@ -129,6 +129,7 @@ begin
   AuxQryList.Add(TObject(RecibosView));
   //TalonarioID := TALONARIO_RE;
   CheckPrecioUnitario := True;
+  ReportFile := 'reportes\reporte-recibo.lrf';
 end;
 
 procedure TReciboDataModule.DataModuleDestroy(Sender: TObject);

@@ -167,7 +167,11 @@ uses
   // otorgar derecho
   frmderechoexamendatamodule,
   derechoexamenctrl,
-  frmprocesoderechoexamen;
+  frmprocesoderechoexamen,
+  // devolucion de saldo
+  frmdevoluciondatamodule,
+  frmprocesodevolucion,
+  devolucionctrl;
 
 type
 
@@ -218,6 +222,7 @@ type
     procedure OpenHelpForm(Sender: IFormView);
     procedure OpenReporteMatriculacionForm(Sender: IFormView);
     procedure OpenDerechoExamenForm(Sender: IFormView);
+    procedure OpenDevolucionForm(Sender: IFormView);
   end;
 
 var
@@ -611,6 +616,15 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoDerechoExamen.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoDerechoExamen as IObserver);
+end;
+
+procedure TPrincipalController.OpenDevolucionForm(Sender: IFormView);
+begin
+  ProcesoDevolucion := TProcesoDevolucion.Create(Sender,
+    TDevolucionController.Create(TDevolucionDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoDevolucion.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoDevolucion as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

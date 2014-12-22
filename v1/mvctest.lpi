@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="2"/>
       <RevisionNr Value="2"/>
-      <BuildNr Value="163"/>
+      <BuildNr Value="175"/>
       <Language Value="040A"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
@@ -56,7 +56,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="160">
+    <Units Count="163">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1179,6 +1179,27 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmasistenciadatamodule"/>
       </Unit159>
+      <Unit160>
+        <Filename Value="view\frmprocesodevolucion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoDevolucion"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesodevolucion"/>
+      </Unit160>
+      <Unit161>
+        <Filename Value="controller\devolucionctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="devolucionctrl"/>
+      </Unit161>
+      <Unit162>
+        <Filename Value="model\frmdevoluciondatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DevolucionDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmdevoluciondatamodule"/>
+      </Unit162>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -1192,11 +1213,6 @@
       <OtherUnitFiles Value="view;model;controller;maestro;base"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <Optimizations>
-        <OptimizationLevel Value="0"/>
-      </Optimizations>
-    </CodeGeneration>
     <Linking>
       <Options>
         <Win32>

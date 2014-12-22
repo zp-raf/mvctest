@@ -229,6 +229,10 @@ inherited Principal1: TPrincipal1
           Caption = 'Cuentas por &pagar'
           Visible = False
         end
+        object MenuItemDevolucion: TMenuItem
+          Caption = 'De&volucion de saldo'
+          OnClick = MenuItemDevolucionClick
+        end
         object cargarRecibo: TMenuItem
           Caption = 'Cargar r&ecibo de compra'
           OnClick = cargarReciboClick

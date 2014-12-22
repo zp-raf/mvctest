@@ -258,15 +258,27 @@ begin
   case ATipoDoc of
     dtFacturaNocobrada:
     begin
-      GetCustomModel.Facturas.LocateComprobante(ADoc);
+      GetCustomModel.Facturas.ShowReport(ADoc);
     end;
     dtFacturaCobrada:
     begin
-      GetCustomModel.Facturas.LocateComprobante(ADoc);
+      GetCustomModel.Facturas.ShowReport(ADoc);
     end;
-    dtRecibo:
+    dtNotaCredito:
     begin
-      GetCustomModel.Pagos.Pago.Locate('ID', ADoc, []);
+      GetCustomModel.NotaCredito.ShowReport(ADoc);
+    end;
+    dtFacturaCompra:
+    begin
+      GetCustomModel.Facturas.ShowReport(ADoc);
+    end;
+    dtReciboCompra:
+    begin
+      GetCustomModel.Recibos.ShowReport(ADoc);
+    end;
+    dtNotaCredCompra:
+    begin
+      GetCustomModel.NotaCredito.ShowReport(ADoc);
     end;
   end;
 end;

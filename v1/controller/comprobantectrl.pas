@@ -109,7 +109,7 @@ end;
 
 procedure TComprobanteController.ShowReport(Sender: IView);
 begin
-  GetComprobanteModel.ShowReporte;
+  //GetComprobanteModel.ShowReport();
 end;
 
 function TComprobanteController.EsCompra: boolean;

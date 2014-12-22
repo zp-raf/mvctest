@@ -25,9 +25,11 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
     ClientWidth = 780
     inherited DateEditFecha: TDateEdit
       Left = 8
+      OnAcceptDate = DateEditFechaAcceptDate
       DateOrder = doDMY
       Enabled = True
       MaxLength = 10
+      OnEditingDone = DateEditFechaEditingDone
     end
     inherited LabelFecha: TLabel
       Left = 8

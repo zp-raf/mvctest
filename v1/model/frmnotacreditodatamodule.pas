@@ -142,6 +142,7 @@ begin
   IVA10Codigo := IVA10;
   IVA5Codigo := IVA5;
   CheckPrecioUnitario := True;
+  ReportFile:='reportes\reporte-nota-credito.lrf';
 end;
 
 procedure TNotaCreditoDataModule.qryCabeceraNewRecord(DataSet: TDataSet);

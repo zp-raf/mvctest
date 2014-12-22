@@ -62,13 +62,17 @@ begin
 end;
 
 procedure TFacturaController.CerrarComprobante(Sender: IView);
+var
+  c: string;
 begin
   if EsCompra then
     CerrarComprobanteCompra(Sender)
   else
   begin
+    c := GetCustomModel.qryCabeceraID.AsString;
     GetModel.SaveChanges;
     GetModel.Commit;
+    GetCustomModel.ShowReport(c);
     //GetModel.RefreshDataSets;
   end;
 end;

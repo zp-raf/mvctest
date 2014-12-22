@@ -108,8 +108,8 @@ begin
   if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
   begin
     GetCustomController.CobrarDoc(dtFacturaNocobrada, Self);
-    GetController.Disconnect(Self);
-    GetController.Connect(Self);
+    //GetController.Disconnect(Self);
+    //GetController.Connect(Self);
   end;
 end;
 
@@ -142,7 +142,15 @@ begin
   else if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
     GetCustomController.VerDocumento(dtFacturaNocobrada, Self)
   else if PageControlDocs.ActivePageIndex = TabSheetFacturasCobradas.PageIndex then
-    GetCustomController.VerDocumento(dtFacturaCobrada, Self);
+    GetCustomController.VerDocumento(dtFacturaCobrada, Self)
+  else if PageControlDocs.ActivePageIndex = TabSheetNotaCredito.PageIndex then
+    GetCustomController.VerDocumento(dtNotaCredito, Self)
+  else if PageControlDocs.ActivePageIndex = TabSheetFacturaCompra.PageIndex then
+    GetCustomController.VerDocumento(dtFacturaCompra, Self)
+  else if PageControlDocs.ActivePageIndex = TabSheetReciboCompra.PageIndex then
+    GetCustomController.VerDocumento(dtReciboCompra, Self)
+  else if PageControlDocs.ActivePageIndex = TabSheetNCCompra.PageIndex then
+    GetCustomController.VerDocumento(dtNotaCredCompra, Self);
 end;
 
 procedure TProcesoDocumentos.CancelButtonClick(Sender: TObject);

@@ -18,20 +18,23 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     ClientWidth = 881
     inherited DBEditDireccion: TDBEdit
       DataSource = FacturasDataModule.dsCabecera
+      MaxLength = 0
     end
     inherited DBEditRuc: TDBEdit
       DataSource = FacturasDataModule.dsCabecera
+      MaxLength = 0
     end
     inherited DBEditTelefono: TDBEdit
       DataSource = FacturasDataModule.dsCabecera
+      MaxLength = 0
     end
     inherited DBEditNombre: TDBEdit
       DataSource = FacturasDataModule.dsCabecera
+      MaxLength = 0
     end
     inherited DBTextNro: TDBText
       AnchorSideLeft.Control = LabelSeparator2
       AnchorSideLeft.Side = asrBottom
-      AnchorSideTop.Control = LabelSeparator2
       AnchorSideTop.Side = asrCenter
       Left = 307
       Top = 24
@@ -39,14 +42,14 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     end
     inherited DBTextTimbrado: TDBText
       Left = 176
+      Height = 1
       Top = 8
+      Width = 1
       DataSource = FacturasDataModule.dstal
     end
     inherited LabelNro: TLabel
-      AnchorSideTop.Control = DBTextSucursal
-      AnchorSideRight.Control = DBTextSucursal
-      Left = 126
-      Top = 24
+      Left = 265
+      Top = 17
     end
     inherited LabelTimbrado: TLabel
       Left = 117
@@ -55,12 +58,14 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     inherited LabelSeparator1: TLabel
       AnchorSideLeft.Control = DBTextSucursal
       AnchorSideTop.Control = DBTextSucursal
-      Left = 237
-      Top = 24
+      Left = 296
+      Top = 17
     end
     inherited DBTextCaja: TDBText
-      Left = 242
-      Top = 24
+      Left = 301
+      Height = 1
+      Top = 31
+      Width = 1
       DataSource = FacturasDataModule.dstal
     end
     inherited LabelSeparator2: TLabel
@@ -70,12 +75,15 @@ inherited ProcesoFacturacion: TProcesoFacturacion
     inherited DBTextSucursal: TDBText
       AnchorSideLeft.Control = nil
       AnchorSideTop.Control = nil
-      Left = 156
+      Left = 295
+      Height = 1
       Top = 24
+      Width = 1
       DataSource = FacturasDataModule.dstal
     end
     inherited DBEditNotaRem: TDBEdit
       DataSource = FacturasDataModule.dsCabecera
+      MaxLength = 0
     end
     object DateEditVen: TDateEdit[20]
       Left = 736

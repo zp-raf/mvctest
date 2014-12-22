@@ -22,6 +22,7 @@ type
     FDetalleGenName: string;
     FEstado: TEstadoComprobante;
     FPersonas: TPersonasDataModule;
+    FReportFile: string;
     FTalonarios: TTalonarioDataModule;
     procedure RestoreProperties;
     procedure SetAsientos(AValue: TAsientosDataModule);
@@ -37,7 +38,7 @@ type
     FDatosCurso: TDatosCurso;
     FCuentaCompras: string;
     FINIFile: TIniFile;
-    ComprobanteID: Integer;
+    //ComprobanteID: Integer;
   public
     procedure AfterConstruction; override;
   published
@@ -173,13 +174,13 @@ type
     procedure PropiertiesSaveProperties(Sender: TObject);
     procedure RegistrarMovimientoCompra(ADocID: string;
       ATipoDocumento: TTipoDocumento; ADescripcion: string;
-      ADescripcionCtaPersonal: string);
+      ADescripcionCtaPersonal: string); virtual;
     procedure Rollback; override;
     procedure SaveChanges; override;
     procedure SetNumero; virtual; abstract;
     procedure SetTipoComprobante(ATipoComprobante: TTipoDocumento);
-    procedure ShowReport (IComprobanteID: Integer);
-    procedure ShowReporte;
+    procedure ShowReport(IComprobanteID: string); virtual;
+    //procedure ShowReporte;
     function GetMontoComprobante: double; virtual;
     function GetTalonarioDataSource: TDataSource;
     property Asientos: TAsientosDataModule read FAsientos write SetAsientos;
@@ -190,6 +191,7 @@ type
     property Talonarios: TTalonarioDataModule read FTalonarios write SetTalonarios;
     property TalonarioID: string read FTalonarioID write SetTalonarioID;
     property Compra: boolean read FCompra write SetCompra;
+    property ReportFile: string read FReportFile write FReportFile;
   end;
 
 var
@@ -248,7 +250,7 @@ end;
 procedure TComprobanteDataModule.qryCabeceraNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('ID').AsInteger := MasterDataModule.NextValue(CabeceraGenName);
-  ComprobanteID := DataSet.FieldByName('ID').AsInteger;
+  //ComprobanteID := DataSet.FieldByName('ID').AsInteger;
   DataSet.FieldByName('FECHA_EMISION').AsDateTime := Now;
   DataSet.FieldByName('VALIDO').AsInteger := 1;
   DataSet.FieldByName('TOTAL').AsFloat := 0;
@@ -511,22 +513,31 @@ begin
   end;
 end;
 
-procedure TComprobanteDataModule.ShowReport(IComprobanteID: Integer);
+procedure TComprobanteDataModule.ShowReport(IComprobanteID: string);
 begin
-{  qryDetalle.Close;
-  qryCabecera.Close;}
-  qryCabecera.FieldByName('ID').AsInteger:= IComprobanteID;
-  if (qryDetalle.Filtered = False ) then
-  qryDetalle.Filtered:=True;
-  qryCabecera.Open;
-  frReport1.LoadFromFile('reportes\reporte-factura.lrf');
+  {
+  qryDetalle.Close;
+  qryCabecera.Close;
+  }
+  LocateComprobante(IComprobanteID);
+
+  // Te salia campo requerido porque aca vos estabas editando el comprobante jeje
+  {
+   qryCabecera.FieldByName('ID').AsInteger:= IComprobanteID;
+   if (qryDetalle.Filtered = False ) then
+   qryDetalle.Filtered:=True;
+   qryCabecera.Open;
+  }
+  if Trim(ReportFile) = '' then
+    raise Exception.Create('Archivo de comprobante no valido');
+  frReport1.LoadFromFile(ReportFile);
   frReport1.ShowReport;
 end;
 
-procedure TComprobanteDataModule.ShowReporte;
-begin
-  ShowReport(ComprobanteID);
-end;
+//procedure TComprobanteDataModule.ShowReporte;
+//begin
+//  ShowReport(ComprobanteID);
+//end;
 
 function TComprobanteDataModule.GetMontoComprobante: double;
 begin

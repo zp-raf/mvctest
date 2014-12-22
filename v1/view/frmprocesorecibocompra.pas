@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
   frmprocesorecibo, LCLType, LazHelpHTML, sgcdTypes, frmbuscarpersonas,
-  frmbuscarfacturas;
+  frmbuscarfacturas, mensajes;
 
 type
 
@@ -21,6 +21,9 @@ type
     LabelTimbradoCompra: TLabel;
     procedure ButtonSeleccionarFacClick(Sender: TObject);
     procedure ButtonSeleccionarPersClick(Sender: TObject);
+    procedure DateEditFechaAcceptDate(Sender: TObject; var ADate: TDateTime;
+      var AcceptDate: boolean);
+    procedure DateEditFechaEditingDone(Sender: TObject);
     procedure DBEditNumeroExit(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure ButtonLimpiarClick(Sender: TObject);
@@ -60,10 +63,36 @@ begin
   inherited;
 end;
 
+procedure TProcesoReciboCompra.DateEditFechaAcceptDate(Sender: TObject;
+  var ADate: TDateTime; var AcceptDate: boolean);
+begin
+  if GetController.IsValidDate(ADate) then
+  begin
+    AcceptDate := True;
+    GetController.SetFieldValue('FECHA_EMISION', ADate, Self);
+  end
+  else
+  begin
+    AcceptDate := False;
+    ShowErrorMessage(rsInvalidDate);
+  end;
+end;
+
+procedure TProcesoReciboCompra.DateEditFechaEditingDone(Sender: TObject);
+begin
+  if GetController.IsValidDate(DateEditFecha.Date) then
+    GetController.SetFieldValue('FECHA_EMISION', DateEditFecha.Date, Self)
+  else
+  begin
+    DateEditFecha.Clear;
+    ShowErrorMessage(rsInvalidDate);
+  end;
+end;
+
 procedure TProcesoReciboCompra.DBEditNumeroExit(Sender: TObject);
 begin
-   DBEditNumero.Text:= copy (DBEditNumero.Field.NewValue,1,8) +
-  cwLeftPad(Trim(Copy(DBEditNumero.Field.NewValue, 9,7)),7,'0') ;
+  DBEditNumero.Text := copy(DBEditNumero.Field.NewValue, 1, 8) +
+    cwLeftPad(Trim(Copy(DBEditNumero.Field.NewValue, 9, 7)), 7, '0');
 end;
 
 procedure TProcesoReciboCompra.ButtonSeleccionarFacClick(Sender: TObject);

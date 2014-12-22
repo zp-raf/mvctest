@@ -1,0 +1,89 @@
+inherited ProcesoDevolucion: TProcesoDevolucion
+  Caption = 'Devolucion de excedentes'
+  inherited Cabecera: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBEditDireccion: TDBEdit
+      DataSource = DevolucionDataModule.dsCabecera
+    end
+    inherited DBEditRuc: TDBEdit
+      DataSource = DevolucionDataModule.dsCabecera
+    end
+    inherited DBEditTelefono: TDBEdit
+      DataSource = DevolucionDataModule.dsCabecera
+    end
+    inherited DateEditFecha: TDateEdit
+      OnAcceptDate = nil
+      OnEditingDone = nil
+    end
+    inherited DBEditNombre: TDBEdit
+      DataSource = DevolucionDataModule.dsCabecera
+    end
+    inherited LabelNumero: TLabel
+      Visible = False
+    end
+    inherited LabelTimbradoCompra: TLabel
+      Visible = False
+    end
+    inherited DBEditNumero: TDBEdit
+      DataSource = DevolucionDataModule.dsCabecera
+      Visible = False
+    end
+    inherited DBEditTimbrado: TDBEdit
+      DataSource = DevolucionDataModule.dsCabecera
+      Visible = False
+    end
+  end
+  inherited ButtonSeleccionarFac: TButton
+    Visible = False
+  end
+  inherited Detalles: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGridDet: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          SizePriority = 0
+          Title.Caption = 'CANTIDAD'
+          Width = 74
+          FieldName = 'CANTIDAD'
+        end      
+        item
+          MinSize = 30
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'DETALLE'
+          Width = 62
+          FieldName = 'DETALLE'
+        end      
+        item
+          PickList.Strings = (          )
+          SizePriority = 0
+          Title.Caption = 'PRECIO UNITARIO'
+          Width = 112
+          FieldName = 'PRECIO_UNITARIO'
+        end      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'TOTAL'
+          Width = 52
+          FieldName = 'TOTAL'
+        end>
+      DataSource = DevolucionDataModule.dsDetalle
+    end
+    inherited DBNavigatorDet: TDBNavigator
+      DataSource = DevolucionDataModule.dsDetalle
+      Hints.Strings = (      )
+    end
+  end
+  inherited Totales: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBEditGranTotal: TDBEdit
+      DataSource = DevolucionDataModule.dsCabecera
+    end
+  end
+end
