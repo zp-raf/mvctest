@@ -5,7 +5,6 @@ inherited FacturasDataModule: TFacturasDataModule
   VerticalOffset = 251
   Width = 695
   inherited qryCabecera: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -446,7 +445,6 @@ inherited FacturasDataModule: TFacturasDataModule
     end
   end
   inherited qryDetalle: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -633,25 +631,15 @@ inherited FacturasDataModule: TFacturasDataModule
         ParamType = ptInput
       end>
   end
-  inherited tal: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
-    Active = True
-  end
   inherited frDBReporteDet: TfrDBDataSet
     DataSet = qryDetalleReport
-    DataSource = dsDetReport
   end
   inherited frDBReporteCab: TfrDBDataSet
     DataSet = qryCabeceraReport
-    DataSource = dsCabReport
   end
   inherited dsPersonasRoles: TDataSource
     left = 296
     top = 112
-  end
-  inherited AuxTalonario: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
-    Active = True
   end
   object FacturasView: TSQLQuery[17]
     FieldDefs = <    
@@ -1035,7 +1023,6 @@ inherited FacturasDataModule: TFacturasDataModule
     top = 326
   end
   object qryCabeceraReport: TSQLQuery[23]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -1250,7 +1237,7 @@ inherited FacturasDataModule: TFacturasDataModule
         Size = 4
       end>
     left = 493
-    top = 29
+    top = 32
     object qryCabeceraReportID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -1592,7 +1579,6 @@ inherited FacturasDataModule: TFacturasDataModule
     end
   end
   object qryDetalleReport: TSQLQuery[24]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'

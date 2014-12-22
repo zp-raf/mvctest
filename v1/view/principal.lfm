@@ -279,6 +279,7 @@ inherited Principal1: TPrincipal1
       end
       object certificadoEstudio: TMenuItem
         Caption = 'Certificado de &Estudios'
+        OnClick = certificadoEstudioClick
       end
       object reportRegAsistencia: TMenuItem
         Caption = 'Registro de &Asistencia'

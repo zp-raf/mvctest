@@ -423,7 +423,6 @@ inherited PersonasDataModule: TPersonasDataModule
     top = 256
   end
   object PersonasRoles: TSQLQuery[6]
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'ID'
@@ -914,6 +913,7 @@ inherited PersonasDataModule: TPersonasDataModule
         Size = 0
       end>
     AfterInsert = CursaAfterInsert
+    BeforePost = CursaBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (
@@ -980,6 +980,7 @@ inherited PersonasDataModule: TPersonasDataModule
         Size = 0
       end>
     AfterInsert = AcademiaAlumnoAfterInsert
+    BeforePost = AcademiaAlumnoBeforePost
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
     SQL.Strings = (

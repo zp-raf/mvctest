@@ -93,6 +93,7 @@ type
     procedure cargarFacturaClick(Sender: TObject);
     procedure cargarNotaCreditoClick(Sender: TObject);
     procedure cargarReciboClick(Sender: TObject);
+    procedure certificadoEstudioClick(Sender: TObject);
     procedure clasesClick(Sender: TObject);
     procedure desarrolloMateriasClick(Sender: TObject);
     procedure DocumentosClick(Sender: TObject);
@@ -210,6 +211,11 @@ end;
 procedure TPrincipal1.cargarReciboClick(Sender: TObject);
 begin
   GetCustomController.OpenReciboCompraForm(Self);
+end;
+
+procedure TPrincipal1.certificadoEstudioClick(Sender: TObject);
+begin
+  GetCustomController.OpenReporteCertificadoForm(Self);
 end;
 
 procedure TPrincipal1.clasesClick(Sender: TObject);

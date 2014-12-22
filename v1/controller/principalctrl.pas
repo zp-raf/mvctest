@@ -171,7 +171,11 @@ uses
   // devolucion de saldo
   frmdevoluciondatamodule,
   frmprocesodevolucion,
-  devolucionctrl;
+  devolucionctrl,
+  // certificado de estudios
+  frmrepcertificadodatamodule,
+  frmprocesorptcertificado,
+  rptcertificadoctrl;
 
 type
 
@@ -223,6 +227,7 @@ type
     procedure OpenReporteMatriculacionForm(Sender: IFormView);
     procedure OpenDerechoExamenForm(Sender: IFormView);
     procedure OpenDevolucionForm(Sender: IFormView);
+    procedure OpenReporteCertificadoForm(Sender: IFormView);
   end;
 
 var
@@ -625,6 +630,15 @@ begin
     (Sender as TComponent), GetModel.MasterDataModule)));
   ProcesoDevolucion.Show;
   (GetModel.MasterDataModule as ISubject).Attach(ProcesoDevolucion as IObserver);
+end;
+
+procedure TPrincipalController.OpenReporteCertificadoForm(Sender: IFormView);
+begin
+  ProcesoRptCertificado := TProcesoRptCertificado.Create(Sender,
+    TReporteCertificadoController.Create(TReporteCertificadoDataModule.Create(
+    (Sender as TComponent), GetModel.MasterDataModule)));
+  ProcesoRptCertificado.Show;
+  (GetModel.MasterDataModule as ISubject).Attach(ProcesoRptCertificado as IObserver);
 end;
 
 procedure TPrincipalController.OpenNotaCreditoForm(Sender: IFormView);

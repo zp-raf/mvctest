@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="2"/>
       <RevisionNr Value="2"/>
-      <BuildNr Value="178"/>
+      <BuildNr Value="182"/>
       <Language Value="040A"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
@@ -56,7 +56,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="163">
+    <Units Count="167">
       <Unit0>
         <Filename Value="mvctest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1200,6 +1200,35 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="frmdevoluciondatamodule"/>
       </Unit162>
+      <Unit163>
+        <Filename Value="model\frmrepcertificadodatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ReporteCertificadoDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmrepcertificadodatamodule"/>
+      </Unit163>
+      <Unit164>
+        <Filename Value="model\frmrepasistenciadatamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ReporteAsistenciaDataModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="frmrepasistenciadatamodule"/>
+      </Unit164>
+      <Unit165>
+        <Filename Value="view\frmprocesorptcertificado.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProcesoRptCertificado"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmprocesorptcertificado"/>
+      </Unit165>
+      <Unit166>
+        <Filename Value="controller\rptcertificadoctrl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="rptcertificadoctrl"/>
+      </Unit166>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -1213,6 +1242,11 @@
       <OtherUnitFiles Value="view;model;controller;maestro;base"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <Optimizations>
+        <OptimizationLevel Value="3"/>
+      </Optimizations>
+    </CodeGeneration>
     <Linking>
       <Options>
         <Win32>

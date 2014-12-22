@@ -6,6 +6,36 @@ inherited AbmDesarrolloMAt: TAbmDesarrolloMAt
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     inherited DBGrid1: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'MATERIA'
+          Width = 65
+          FieldName = 'MATERIA'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'PERIODO'
+          FieldName = 'PERIODO'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'SECCION'
+          FieldName = 'SECCION'
+        end      
+        item
+          PickList.Strings = (          )
+          Title.Caption = 'PROFESOR'
+          Width = 72
+          FieldName = 'PROFESOR'
+        end      
+        item
+          ButtonStyle = cbsCheckboxColumn
+          PickList.Strings = (          )
+          Title.Caption = 'ACTIVO'
+          Width = 57
+          FieldName = 'ACTIVO'
+        end>
       DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
     end
     inherited DBNavList: TDBNavigator
@@ -21,8 +51,9 @@ inherited AbmDesarrolloMAt: TAbmDesarrolloMAt
       Left = 16
       Height = 23
       Top = 25
-      Width = 256
+      Width = 616
       AutoComplete = True
+      AutoDropDown = True
       DataField = 'SECCIONID'
       DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
       KeyField = 'ID'
@@ -36,8 +67,9 @@ inherited AbmDesarrolloMAt: TAbmDesarrolloMAt
       Left = 16
       Height = 23
       Top = 72
-      Width = 256
+      Width = 616
       AutoComplete = True
+      AutoDropDown = True
       DataField = 'MATERIAID'
       DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
       KeyField = 'ID'
@@ -51,8 +83,9 @@ inherited AbmDesarrolloMAt: TAbmDesarrolloMAt
       Left = 16
       Height = 23
       Top = 120
-      Width = 256
+      Width = 616
       AutoComplete = True
+      AutoDropDown = True
       DataField = 'PERIODOLECTIVOID'
       DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
       KeyField = 'ID'
@@ -66,8 +99,9 @@ inherited AbmDesarrolloMAt: TAbmDesarrolloMAt
       Left = 16
       Height = 23
       Top = 168
-      Width = 256
+      Width = 616
       AutoComplete = True
+      AutoDropDown = True
       DataField = 'EMPLEADOPERSONAID'
       DataSource = DesarrolloMateriaDataModule.dsDesarrolloMateria
       KeyField = 'ID'

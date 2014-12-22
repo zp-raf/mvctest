@@ -16,6 +16,7 @@ type
     function GetCustomModel: TNotasDataModule;
   public
     procedure CalcularNotas(AList: Pointer; Sender: IView);
+    procedure MostrarTodos(Option: boolean; Sender: IView);
     procedure SetCriterios(ACri: TCriterios; Sender: IView);
   end;
 
@@ -52,6 +53,11 @@ begin
   end;
   Save(Sender);
   Commit(Sender);
+end;
+
+procedure TNotasController.MostrarTodos(Option: boolean; Sender: IView);
+begin
+  GetCustomModel.MostrarTodos(Option);
 end;
 
 procedure TNotasController.SetCriterios(ACri: TCriterios; Sender: IView);

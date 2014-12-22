@@ -10,6 +10,7 @@ inherited PopupSeleccionExamen: TPopupSeleccionExamen
   Constraints.MinWidth = 640
   OnCreate = FormCreate
   inherited StatusBar1: TStatusBar
+    Height = 23
     Top = 437
     Width = 640
   end
@@ -113,9 +114,14 @@ inherited PopupSeleccionExamen: TPopupSeleccionExamen
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Filtro'
     TabOrder = 4
+    Visible = False
   end
   inherited MainMenu: TMainMenu[5]
     left = 584
     top = 8
+  end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[6]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[7]
   end
 end

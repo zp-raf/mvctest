@@ -1,0 +1,6 @@
+inherited ReporteAsistenciaDataModule: TReporteAsistenciaDataModule
+  Height = 247
+  HorizontalOffset = 772
+  VerticalOffset = 336
+  Width = 349
+end

@@ -25,6 +25,12 @@ type
   { TNotasDataModule }
 
   TNotasDataModule = class(TQueryDataModule)
+  private
+    FCriterios: TCriterios;
+    procedure SetCriterios(AValue: TCriterios);
+  public
+    property Criterios: TCriterios read FCriterios write SetCriterios;
+  published
     CalcularNotasProc: TSQLQuery;
     CalcularNotasProcNOTA: TLongintField;
     CalcularNotasProcPUNTAJE_FINAL: TFloatField;
@@ -35,13 +41,6 @@ type
     NotaNOTA: TLongintField;
     NotaOBSERVACIONES: TStringField;
     NotaPUNTAJE: TFloatField;
-    procedure NotaAfterInsert(DataSet: TDataSet);
-  private
-    FCriterios: TCriterios;
-    procedure SetCriterios(AValue: TCriterios);
-  public
-    property Criterios: TCriterios read FCriterios write SetCriterios;
-  published
     dsNotasView: TDataSource;
     NotasView: TSQLQuery;
     NotasViewACTIVA: TSmallintField;
@@ -64,6 +63,8 @@ type
     procedure CalcularNota(AMatriculaID: string);
     procedure FilterRecord; overload;
     procedure DataModuleCreate(Sender: TObject); override;
+    procedure MostrarTodos(Option: boolean);
+    procedure NotaAfterInsert(DataSet: TDataSet);
   end;
 
 var
@@ -83,6 +84,28 @@ begin
   SearchFieldList.Add('NOMBRE');
   SearchFieldList.Add('APELLIDO');
   SearchFieldList.Add('CEDULA');
+end;
+
+procedure TNotasDataModule.MostrarTodos(Option: boolean);
+var
+  f: string;
+begin
+  NotasView.Close;
+  //if Option and (NotasView.ServerFilter <> '') then
+  //  f := NotasView.ServerFilter + ' AND ACTIVA IN (1, 0)'
+  //else if option then
+  //  f := 'ACTIVA IN (1, 0)'
+  //else if NotasView.ServerFilter <> '' then
+  //  f := NotasView.ServerFilter + ' AND ACTIVA = 1'
+  //else
+  //  f := 'ACTIVA = 1';
+  if Option then
+    f := 'DERECHOEXAMEN = 1 AND ACTIVA IN (1, 0)'
+  else
+    f := 'DERECHOEXAMEN = 1 AND ACTIVA = 1';
+  NotasView.ServerFilter := f;
+  NotasView.ServerFiltered := True;
+  NotasView.Open;
 end;
 
 procedure TNotasDataModule.NotaAfterInsert(DataSet: TDataSet);

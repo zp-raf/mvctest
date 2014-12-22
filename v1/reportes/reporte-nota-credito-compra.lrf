@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 15:15:06"/>
+    <ReportLastChange Value="2014-12-22 16:13:07"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -1255,7 +1255,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[EXENTA]&#xD;&#xA;"/>
+            <Memo Value="[DET_EXENTA]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
@@ -1301,7 +1301,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[IVA5]&#xD;&#xA;"/>
+            <Memo Value="[DET_IVA5]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
@@ -1347,7 +1347,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[IVA10]&#xD;&#xA;"/>
+            <Memo Value="[DET_IVA10]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>

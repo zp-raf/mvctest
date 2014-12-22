@@ -20,6 +20,8 @@ type
   { TPersonasDataModule }
 
   TPersonasDataModule = class(TQueryDataModule)
+    procedure AcademiaAlumnoBeforePost(DataSet: TDataSet);
+    procedure CursaBeforePost(DataSet: TDataSet);
     procedure DireccionBeforePost(DataSet: TDataSet);
     procedure TelefonoBeforePost(DataSet: TDataSet);
   private
@@ -176,6 +178,20 @@ begin
   if FAcademia = AValue then
     Exit;
   FAcademia := AValue;
+end;
+
+procedure TPersonasDataModule.AcademiaAlumnoBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('ACADEMIAID').IsNull or
+    DataSet.FieldByName('ALUMNOPERSONAID').IsNull then
+    Abort;
+end;
+
+procedure TPersonasDataModule.CursaBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('MODULOID').IsNull or
+    DataSet.FieldByName('ALUMNOPERSONAID').IsNull then
+    Abort;
 end;
 
 procedure TPersonasDataModule.DireccionBeforePost(DataSet: TDataSet);

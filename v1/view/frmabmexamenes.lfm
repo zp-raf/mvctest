@@ -3,21 +3,11 @@ inherited AbmExamenes: TAbmExamenes
   Top = 157
   Caption = 'ABM Examenes'
   ClientHeight = 461
-  inherited StatusBar1: TStatusBar
-    Height = 23
-    Top = 438
-  end
-  inherited ButtonPanel: TButtonPanel
-    Top = 398
-  end
   inherited PanelList: TPanel[2]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
-    Height = 392
-    ClientHeight = 392
     inherited DBGrid1: TDBGrid
-      Height = 310
       Columns = <      
         item
           PickList.Strings = (          )
@@ -58,34 +48,20 @@ inherited AbmExamenes: TAbmExamenes
       DataSource = ExamenesDataModule.dsExamen
     end
     inherited DBNavList: TDBNavigator
-      Top = 365
       DataSource = ExamenesDataModule.dsExamen
       Hints.Strings = (      )
-    end
-    inherited EditFilter: TEdit
-      Height = 23
-      Top = 24
-    end
-    inherited LabelFilter: TLabel
-      Height = 15
-      Top = 9
-      Width = 234
-    end
-    inherited ButtonFilter: TButton
-      Top = 23
     end
   end
   inherited PanelDetail: TPanel[3]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
-    Height = 392
-    ClientHeight = 392
     object DBLookupComboBoxSeccion: TDBLookupComboBox[0]
       Left = 16
       Height = 23
-      Top = 24
+      Top = 23
       Width = 336
+      Anchors = [akTop, akLeft, akRight]
       AutoComplete = True
       AutoDropDown = True
       DataField = 'DESARROLLOMATERIAID'
@@ -119,6 +95,7 @@ inherited AbmExamenes: TAbmExamenes
       Height = 154
       Top = 24
       Width = 238
+      Anchors = [akTop, akRight]
       DataField = 'OBSERVACIONES'
       DataSource = ExamenesDataModule.dsExamen
       TabOrder = 5
@@ -140,7 +117,7 @@ inherited AbmExamenes: TAbmExamenes
       AnchorSideBottom.Control = DBLookupComboBoxSeccion
       Left = 16
       Height = 15
-      Top = 9
+      Top = 8
       Width = 41
       Anchors = [akLeft, akBottom]
       Caption = 'Seccion'

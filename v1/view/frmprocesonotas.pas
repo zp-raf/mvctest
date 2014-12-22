@@ -6,16 +6,19 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, ButtonPanel, DBGrids, ExtCtrls, StdCtrls, frmproceso, notasctrl,
-  frmnotasdatamodule;
+  Menus, ButtonPanel, DBGrids, ExtCtrls, StdCtrls, LazHelpHTML, frmproceso,
+  notasctrl, frmnotasdatamodule;
 
 type
 
   { TProcesoNotas }
 
   TProcesoNotas = class(TProceso)
+    CheckBoxTodos: TCheckBox;
     RadioGroup1: TRadioGroup;
     RadioGroup2: TRadioGroup;
+    procedure CheckBoxTodosChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
     procedure RadioGroup1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
@@ -83,6 +86,18 @@ end;
 procedure TProcesoNotas.OKButtonClick(Sender: TObject);
 begin
   GetCustomController.CalcularNotas(Pointer(DBGrid1), Self);
+end;
+
+procedure TProcesoNotas.CheckBoxTodosChange(Sender: TObject);
+begin
+  GetCustomController.MostrarTodos(CheckBoxTodos.Checked, Self);
+end;
+
+procedure TProcesoNotas.FormShow(Sender: TObject);
+begin
+  inherited;
+  CheckBoxTodos.Checked := False;
+  CheckBoxTodosChange(CheckBoxTodos);
 end;
 
 procedure TProcesoNotas.RadioGroup2Click(Sender: TObject);

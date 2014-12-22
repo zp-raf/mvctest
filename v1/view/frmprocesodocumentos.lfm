@@ -295,13 +295,14 @@ inherited ProcesoDocumentos: TProcesoDocumentos
           end>
         DataSource = DocumentosDataModule.dsNotaCredito
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+        ReadOnly = True
         TabOrder = 0
       end
     end
     object TabSheetFacturaCompra: TTabSheet
       Caption = 'Facturas Compra'
-      ClientHeight = 837
-      ClientWidth = 1898
+      ClientHeight = 420
+      ClientWidth = 868
       OnShow = TabSheetFacturaCompraShow
       object DBGridFactComp: TDBGrid
         AnchorSideLeft.Control = TabSheetFacturaCompra
@@ -311,9 +312,9 @@ inherited ProcesoDocumentos: TProcesoDocumentos
         AnchorSideBottom.Control = TabSheetFacturaCompra
         AnchorSideBottom.Side = asrBottom
         Left = 0
-        Height = 837
+        Height = 420
         Top = 0
-        Width = 1898
+        Width = 868
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <        

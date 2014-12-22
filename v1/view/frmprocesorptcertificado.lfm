@@ -1,0 +1,42 @@
+inherited ProcesoRptCertificado: TProcesoRptCertificado
+  Caption = 'Certificado de estudios'
+  ClientHeight = 328
+  inherited StatusBar1: TStatusBar
+    Height = 23
+  end
+  inherited ButtonPanel1: TButtonPanel
+    OKButton.OnClick = OKButtonClick
+  end
+  object DBGrid1: TDBGrid[2]
+    Left = 6
+    Height = 248
+    Top = 8
+    Width = 439
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'APELLIDO'
+        Width = 79
+        FieldName = 'APELLIDO'
+      end    
+      item
+        Title.Caption = 'NOMBRE'
+        FieldName = 'NOMBRE'
+      end    
+      item
+        Title.Caption = 'CEDULA'
+        FieldName = 'CEDULA'
+      end>
+    DataSource = ReporteCertificadoDataModule.dsalumnos
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+    ReadOnly = True
+    TabOrder = 2
+  end
+  inherited MainMenu: TMainMenu[3]
+  end
+  inherited HTMLHelpDatabase1: THTMLHelpDatabase[4]
+  end
+  inherited HTMLBrowserHelpViewer1: THTMLBrowserHelpViewer[5]
+  end
+end
