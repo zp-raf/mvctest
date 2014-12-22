@@ -8,9 +8,10 @@ inherited ProcesoPago: TProcesoPago
   ClientWidth = 1080
   Constraints.MinHeight = 680
   Constraints.MinWidth = 1080
-  OnClose = FormClose
+  OnClose = nil
+  OnCloseQuery = nil
   OnCreate = FormCreate
-  OnShow = FormShow
+  OnShow = nil
   Position = poDesktopCenter
   ShowInTaskBar = stAlways
   inherited StatusBar1: TStatusBar
@@ -232,7 +233,6 @@ inherited ProcesoPago: TProcesoPago
             Width = 75
             FieldName = 'TIMBRADO'
           end>
-        DataSource = FacturasDataModule.dsNCView
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
         ReadOnly = True
         TabOrder = 0

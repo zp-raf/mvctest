@@ -7,7 +7,7 @@ interface
 uses
   SysUtils, sqldb, DB, frmquerydatamodule, frmfacturadatamodule2, mensajes, Classes,
   observerSubject, frmasientosdatamodule, sgcdTypes, frmrecibodatamodule, Dialogs,
-  IniFiles;
+  IniFiles, frmNotaCreditoDataModule;
 
 const
   ITEM_SEPARATOR = ', ';
@@ -29,6 +29,7 @@ type
     FAsientos: TAsientosDataModule;
     FFactura: TFacturasDataModule;
     FListo: boolean;
+    FPagoINIFile: TIniFile;
     FPuedeImprimirRecibo: boolean;
     FRecibos: TReciboDataModule;
     function GetEstado: boolean;
@@ -133,6 +134,7 @@ type
     property Recibos: TReciboDataModule read FRecibos write SetRecibos;
     property PuedeImprimirRecibo: boolean read FPuedeImprimirRecibo
       write SetPuedeImprimirRecibo;
+    property PagoINIFile: TIniFile read FPagoINIFile write FPagoINIFile;
   private
     { private declarations }
   public
@@ -141,7 +143,6 @@ type
 
 var
   PagoDataModule: TPagoDataModule;
-  PagoINIFile: TIniFile;
 
 implementation
 
@@ -210,8 +211,8 @@ begin
     FreeAndNil(FAsientos);
   if Assigned(FRecibos) then
     FreeAndNil(FRecibos);
-  if Assigned(PagoINIFile) then
-    FreeAndNil(PagoINIFile);
+  if Assigned(FPagoINIFile) then
+    FreeAndNil(FPagoINIFile);
 end;
 
 function TPagoDataModule.GetEstado: boolean;
@@ -338,15 +339,15 @@ begin
   //PagoDetTarjetas.ParamByName('TIPO_PAGO2').AsString := TARJETA_CREDITO;
   //PagoDetTarjetas.ParamByName('TIPO_PAGO2').Bound := True;
   //objetos auxiliares
-  Facturas := TFacturasDataModule.Create(Self, MasterDataModule);
-  //Facturas.SetReadOnly(True);
-  Asientos := TAsientosDataModule.Create(Self, MasterDataModule);
-  Asientos.ComprobarAsiento := False; // cuando se arregle el tema contable sacar
+  FFactura := TFacturasDataModule.Create(Self, MasterDataModule);
+  //FFactura.SetReadOnly(True);
+  FAsientos := TAsientosDataModule.Create(Self, MasterDataModule);
+  FAsientos.ComprobarAsiento := False; // cuando se arregle el tema contable sacar
   PuedeImprimirRecibo := False;
   // obviamente no esta listo el pago jeje
   Listo := False;
-  Recibos := TReciboDataModule.Create(Self, MasterDataModule);
-  PagoINIFile := TIniFile.Create('curso.ini');
+  FRecibos := TReciboDataModule.Create(Self, MasterDataModule);
+  FPagoINIFile := TIniFile.Create('curso.ini');
 end;
 
 procedure TPagoDataModule.Disconnect;
@@ -454,6 +455,8 @@ end;
 procedure TPagoDataModule.RegistrarMovimiento(EsCobro: boolean; APagoID: string);
 var
   desc, CuentaID: string;
+  HayNC: boolean = False;
+  NC: TNotaCreditoDataModule;
 begin
   if not Facturas.FacturasView.Locate('ID', Facturas.qryCabeceraID.AsString, []) then
   begin
@@ -481,24 +484,28 @@ begin
     //DeudaView.Close;
     //DeudaView.ParamByName('DEUDAID').AsString := Facturas.qryDetalleDEUDAID.AsString;
     //DeudaView.Open;
-    Facturas.totalNcFactura.Close;
-    Facturas.totalNcFactura.ParamByName('FACTURAID').AsString :=
+    Facturas.totalNcFacturaDetalle.Close;
+    Facturas.totalNcFacturaDetalle.ParamByName('FACTURAID').AsString :=
       Facturas.qryCabeceraID.AsString;
-    Facturas.totalNcFactura.ParamByName('DEUDAID').AsString :=
+    Facturas.totalNcFacturaDetalle.ParamByName('DEUDAID').AsString :=
       Facturas.qryDetalleDEUDAID.AsString;
-    Facturas.totalNcFactura.Open;
+    Facturas.totalNcFacturaDetalle.Open;
+    if Facturas.totalNcFacturaDetalle.FieldByName('NC_TOTAL').AsFloat <> 0 then
+      HayNC := True;
     if EsCobro then
       Asientos.NuevoAsientoDetalle(CuentaID, mvCredito,
-        Facturas.totalNcFactura.FieldByName('GRAN_TOTAL').AsFloat,
+        Facturas.totalNcFacturaDetalle.FieldByName('GRAN_TOTAL').AsFloat,
         Facturas.qryDetalleDEUDAID.AsString, '')
     else
       Asientos.NuevoAsientoDetalle(CuentaID, mvDebito,
-        Facturas.totalNcFactura.FieldByName('GRAN_TOTAL').AsFloat,
+        Facturas.totalNcFacturaDetalle.FieldByName('GRAN_TOTAL').AsFloat,
         Facturas.qryDetalleDEUDAID.AsString, '');
     Facturas.qryDetalle.Next;
   end;
-  // registrar en cuenta de ingresos y egresos
   Asientos.CerrarAsiento;
+
+  // registrar en cuenta de ingresos y egresos
+  desc := StringReplace(desc, 'PAGO', 'COBRO', []);
   Asientos.NuevoAsiento(desc, '', APagoID);
   Facturas.qryDetalle.First;
   while not facturas.qryDetalle.EOF do
@@ -506,26 +513,54 @@ begin
     //DeudaView.Close;
     //DeudaView.ParamByName('DEUDAID').AsString := Facturas.qryDetalleDEUDAID.AsString;
     //DeudaView.Open;
-    Facturas.totalNcFactura.Close;
-    Facturas.totalNcFactura.ParamByName('FACTURAID').AsString :=
+    Facturas.totalNcFacturaDetalle.Close;
+    Facturas.totalNcFacturaDetalle.ParamByName('FACTURAID').AsString :=
       Facturas.qryCabeceraID.AsString;
-    Facturas.totalNcFactura.ParamByName('DEUDAID').AsString :=
+    Facturas.totalNcFacturaDetalle.ParamByName('DEUDAID').AsString :=
       Facturas.qryDetalleDEUDAID.AsString;
-    Facturas.totalNcFactura.Open;
+    Facturas.totalNcFacturaDetalle.Open;
     if EsCobro then
       Asientos.NuevoAsientoDetalle(PagoINIFile.ReadString('datos',
         'cuentaCompras', CUENTA_COMPRAS_BKP),
         mvDebito,
-        Facturas.totalNcFactura.FieldByName('GRAN_TOTAL').AsFloat)
+        Facturas.totalNcFacturaDetalle.FieldByName('GRAN_TOTAL').AsFloat)
     else
       Asientos.NuevoAsientoDetalle(PagoINIFile.ReadString('datos',
         'cuentaCompras', CUENTA_COMPRAS_BKP),
         mvCredito,
-        Facturas.totalNcFactura.FieldByName('GRAN_TOTAL').AsFloat);
+        Facturas.totalNcFacturaDetalle.FieldByName('GRAN_TOTAL').AsFloat);
     Facturas.qryDetalle.Next;
   end;
   Asientos.CerrarAsiento;
+
+  //si por ahi hay una nota de credito cargamos el movimiento
+  if HayNC then
+  begin
+    NC := TNotaCreditoDataModule.Create(Self, MasterDataModule);
+    try
+      // cargar todas las notas de credito que tiene la factura
+      Facturas.NCView.Close;
+      Facturas.NCView.ParamByName('FACTURAID').AsString :=
+        Facturas.qryCabeceraID.AsString;
+      Facturas.NCView.Open;
+      Facturas.NCView.First;
+      while not Facturas.NCView.EOF do
+      begin
+        NC.OpenDataSets;
+        NC.Facturas.FacturasCobradasView.Refresh;
+        NC.RegistrarMovimiento(Facturas.NCView.FieldByName('ID').AsString,
+          'nota de credito nro ' + Facturas.NCView.FieldByName(
+          'NUMERO_NOTA_CREDITO').AsString + ' con timbrado ' +
+          Facturas.NCView.FieldByName('TIMBRADO').AsString);
+        NC.Asientos.SaveChanges;
+        Facturas.NCView.Next;
+      end;
+    finally
+      NC.Free;
+    end;
+  end;
 end;
+
 
 procedure TPagoDataModule.SaveChanges;
 var

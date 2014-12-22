@@ -132,6 +132,7 @@ procedure TReciboController.NuevoComprobanteCompra(Sender: IView);
 begin
   GetCustomModel.CheckPrecioUnitario := False;
   GetCustomModel.NuevoComprobanteCompra;
+  GetCustomModel.FetchCabeceraPersona;
   GetCustomModel.FetchCabeceraCompra;
   GetCustomModel.NuevoComprobanteDetalle;
 end;

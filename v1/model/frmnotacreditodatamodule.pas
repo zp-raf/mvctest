@@ -103,7 +103,7 @@ type
     procedure qryDetalleEXENTAChange(Sender: TField);
     procedure qryDetalleIVA10Change(Sender: TField);
     procedure qryDetalleIVA5Change(Sender: TField);
-    procedure RegistrarMovimiento(ANotaID: string);
+    procedure RegistrarMovimiento(ANotaID: string; Desc: string = '');
     procedure SaveChanges; override;
     procedure SetNumero; override;
     property CheckPrecioUnitario: boolean read FCheckPrecioUnitario
@@ -219,10 +219,9 @@ begin
   end;
 end;
 
-procedure TNotaCreditoDataModule.RegistrarMovimiento(ANotaID: string);
+procedure TNotaCreditoDataModule.RegistrarMovimiento(ANotaID: string; Desc: string);
 var
   CuentaID: string;
-  desc: string;
 begin
   try
     if (qryCabecera.State in [dsEdit, dsInsert]) then
@@ -233,10 +232,12 @@ begin
     // caso contrario no se debe ya que puede llevar a inconsistencia de movimientos
     if not Facturas.EstaCobrada(qryCabeceraFACTURAID.AsString) then
       Exit;
-    desc := 'nota de credito nro ' + tal.FieldByName('SUCURSAL').AsString +
-      '-' + tal.FieldByName('CAJA').AsString + '-' +
-      qryCabecera.FieldByName('NUMERO').AsString + ' con timbrado ' +
-      tal.FieldByName('TIMBRADO').AsString;
+    // solucion karape: se le llama al metodo con este parametro desde PagoDatamodule
+    if Trim(Desc) = '' then
+      desc := 'nota de credito nro ' + tal.FieldByName('SUCURSAL').AsString +
+        '-' + tal.FieldByName('CAJA').AsString + '-' +
+        qryCabecera.FieldByName('NUMERO').AsString + ' con timbrado ' +
+        tal.FieldByName('TIMBRADO').AsString;
     qryDetalle.First;
     // hay que buscar la cuenta que le correponde a la persona
     Asientos.Cuenta.Cuenta.Open;
@@ -539,8 +540,8 @@ begin
   except
     on E: Exception do
     begin
-      Rollback;
       raise;
+      Rollback;
     end;
   end;
 end;
@@ -637,13 +638,13 @@ begin
         qryDetalle.FieldByName('PRECIO_UNITARIO').AsFloat :=
           //DeudaView.FieldByName('MONTO_DEUDA').AsFloat -
           DeudaView.FieldByName('MONTO_FACTURADO').AsFloat;
-        if not Facturas.qryDetalle.FieldByName('EXENTA').IsNull then
+        if Facturas.qryDetalle.FieldByName('EXENTA').AsFloat <> 0 then
           qryDetalleEXENTA.AsFloat :=
             qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat
-        else if not Facturas.qryDetalle.FieldByName('IVA5').IsNull then
+        else if Facturas.qryDetalle.FieldByName('IVA5').AsFloat <> 0 then
           qryDetalleIVA5.AsFloat :=
             qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat
-        else if Facturas.qryDetalle.FieldByName('IVA10').IsNull then
+        else if Facturas.qryDetalle.FieldByName('IVA10').AsFloat <> 0 then
           qryDetalleIVA10.AsFloat :=
             qryDetalleCANTIDAD.AsFloat * qryDetallePRECIO_UNITARIO.AsFloat;
       end

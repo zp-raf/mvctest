@@ -4,7 +4,7 @@ inherited NotaCreditoDataModule: TNotaCreditoDataModule
   Height = 399
   HorizontalOffset = 650
   VerticalOffset = 265
-  Width = 562
+  Width = 563
   inherited qryCabecera: TSQLQuery
     FieldDefs = <    
       item

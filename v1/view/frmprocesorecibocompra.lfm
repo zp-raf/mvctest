@@ -23,15 +23,6 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
     AnchorSideRight.Control = Owner
     Width = 784
     ClientWidth = 780
-    inherited DBEditDireccion: TDBEdit
-      DataSource = ReciboDataModule.dsCabecera
-    end
-    inherited DBEditRuc: TDBEdit
-      DataSource = ReciboDataModule.dsCabecera
-    end
-    inherited DBEditTelefono: TDBEdit
-      DataSource = ReciboDataModule.dsCabecera
-    end
     inherited DateEditFecha: TDateEdit
       Left = 8
       DateOrder = doDMY
@@ -40,9 +31,6 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
     end
     inherited LabelFecha: TLabel
       Left = 8
-    end
-    inherited DBEditNombre: TDBEdit
-      DataSource = ReciboDataModule.dsCabecera
     end
     inherited DBTextNro: TDBText
       Left = 536
@@ -54,7 +42,7 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
       Visible = False
     end
     inherited LabelNro: TLabel
-      Left = 506
+      Left = 355
       Visible = False
     end
     inherited LabelTimbrado: TLabel
@@ -63,18 +51,18 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
       Visible = False
     end
     inherited LabelSeparator1: TLabel
-      Left = 593
+      Left = 466
       Visible = False
     end
     inherited DBTextCaja: TDBText
-      Left = 598
+      Left = 471
     end
     inherited LabelSeparator2: TLabel
-      Left = 658
+      Left = 531
       Visible = False
     end
     inherited DBTextSucursal: TDBText
-      Left = 663
+      Left = 385
     end
     object LabelNumero: TLabel[18]
       AnchorSideLeft.Control = DBEditNumero
@@ -130,6 +118,59 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
   end
   inherited ButtonSeleccionarFac: TButton
     OnClick = ButtonSeleccionarFacClick
+  end
+  inherited Detalles: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    Height = 243
+    Width = 784
+    ClientHeight = 225
+    ClientWidth = 780
+    inherited DBGridDet: TDBGrid
+      Height = 176
+      Width = 764
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          ReadOnly = False
+          SizePriority = 0
+          Title.Caption = 'CANTIDAD'
+          Width = 74
+          FieldName = 'CANTIDAD'
+        end      
+        item
+          MinSize = 30
+          PickList.Strings = (          )
+          ReadOnly = False
+          Title.Caption = 'DETALLE'
+          Width = 62
+          FieldName = 'DETALLE'
+        end      
+        item
+          PickList.Strings = (          )
+          SizePriority = 0
+          Title.Caption = 'PRECIO UNITARIO'
+          Width = 112
+          FieldName = 'PRECIO_UNITARIO'
+        end      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'TOTAL'
+          FieldName = 'TOTAL'
+        end>
+    end
+    inherited DBNavigatorDet: TDBNavigator
+      Top = 192
+      Hints.Strings = (      )
+    end
+  end
+  inherited Totales: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    Top = 435
+    Width = 784
+    ClientWidth = 780
   end
   inherited MainMenu: TMainMenu
     inherited MenuItemOpciones: TMenuItem

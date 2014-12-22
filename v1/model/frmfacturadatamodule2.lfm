@@ -718,7 +718,7 @@ inherited FacturasDataModule: TFacturasDataModule
       'select * from v_facturas'
     )
     Params = <>
-    left = 372
+    left = 376
     top = 257
     object FacturasViewID: TLongintField
       DisplayWidth = 10
@@ -974,7 +974,7 @@ inherited FacturasDataModule: TFacturasDataModule
     left = 493
     top = 204
   end
-  object totalNcFactura: TSQLQuery[21]
+  object totalNcFacturaDetalle: TSQLQuery[21]
     FieldDefs = <>
     Database = sgcdDataModule.db
     Transaction = sgcdDataModule.tran
@@ -1004,8 +1004,8 @@ inherited FacturasDataModule: TFacturasDataModule
         Name = 'DEUDAID'
         ParamType = ptInput
       end>
-    left = 336
-    top = 328
+    left = 352
+    top = 326
   end
   object FacturasCobradasView: TSQLQuery[22]
     FieldDefs = <>

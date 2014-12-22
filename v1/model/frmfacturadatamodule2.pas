@@ -36,7 +36,7 @@ type
     NCView: TSQLQuery;
     FacTotal: TSQLQuery;
     FacturasCobradasView: TSQLQuery;
-    totalNcFactura: TSQLQuery;
+    totalNcFacturaDetalle: TSQLQuery;
     FacturasViewCONTADO: TSmallintField;
     FacturasViewESCOMPRA: TLongintField;
     FacturasViewFECHA_EMISION: TDateField;
@@ -463,20 +463,16 @@ end;
 
 procedure TFacturasDataModule.SetNumero;
 begin
-  try
     qryNumero.Close;
     qryNumero.ParamByName('TALONARIOID').AsString := TalonarioID;
     qryNumero.Open;
     qryCabecera.FieldByName('TALONARIOID').AsString := TalonarioID; // por si acaso...
     qryCabecera.FieldByName('NUMERO').AsString := qryNumeroNUM.AsString;
-  except
-    on E: EDatabaseError do
-      DoOnErrorEvent(Self, E);
-  end;
 end;
 
 function TFacturasDataModule.EstaCobrada(FID: string): boolean;
 begin
+  FacturasCobradasView.Refresh;
   Result := FacturasCobradasView.Locate('ID', FID, []);
 end;
 

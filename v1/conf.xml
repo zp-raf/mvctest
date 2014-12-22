@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CONFIG>
   <Principal1>
-    <FacturasDataModule talonarioid="17"/>
+    <FacturasDataModule talonarioid="1"/>
     <MultasDataModule arancelid="0"/>
     <NotaCreditoDataModule talonarioid="18"/>
   </Principal1>

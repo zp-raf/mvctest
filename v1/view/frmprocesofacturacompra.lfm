@@ -122,7 +122,6 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
       Columns = <      
         item
           PickList.Strings = (          )
-          ReadOnly = False
           SizePriority = 0
           Title.Caption = 'CANTIDAD'
           Width = 74
@@ -131,7 +130,6 @@ inherited ProcesoFacturaCompra: TProcesoFacturaCompra
         item
           MinSize = 30
           PickList.Strings = (          )
-          ReadOnly = False
           Title.Caption = 'DETALLE'
           Width = 62
           FieldName = 'DETALLE'

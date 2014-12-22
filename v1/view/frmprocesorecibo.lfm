@@ -2,6 +2,7 @@ inherited ProcesoRecibo: TProcesoRecibo
   Left = 640
   Top = 205
   Caption = 'Recibo'
+  ClientHeight = 582
   inherited Cabecera: TGroupBox
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
@@ -35,6 +36,7 @@ inherited ProcesoRecibo: TProcesoRecibo
     inherited DBNavigatorDet: TDBNavigator
       DataSource = ReciboDataModule.dsDetalle
       Hints.Strings = (      )
+      VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbDelete, nbEdit, nbPost, nbCancel]
     end
   end
   inherited Totales: TGroupBox

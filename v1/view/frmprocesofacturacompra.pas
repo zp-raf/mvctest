@@ -124,7 +124,7 @@ begin
   if GetController.IsValidDate(ADate) then
   begin
     AcceptDate := True;
-    GetController.SetFieldValue('FECHA_EMISION', DateEditFecha.Date, Self);
+    GetController.SetFieldValue('FECHA_EMISION', ADate, Self);
   end
   else
   begin

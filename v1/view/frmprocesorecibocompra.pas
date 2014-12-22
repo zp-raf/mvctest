@@ -7,7 +7,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Menus, ButtonPanel, StdCtrls, DBCtrls, EditBtn, PairSplitter, DBGrids,
-  frmprocesorecibo, LCLType, sgcdTypes, frmbuscarpersonas, frmbuscarfacturas;
+  frmprocesorecibo, LCLType, LazHelpHTML, sgcdTypes, frmbuscarpersonas,
+  frmbuscarfacturas;
 
 type
 

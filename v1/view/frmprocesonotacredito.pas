@@ -46,6 +46,7 @@ begin
   GetController.Connect(Self);
   // si ya se esta editando la factura simplemente la cancelamos y hacemos otra
   GetCustomController.NuevoComprobante(Self);
+  DBGridDet.AutoSizeColumns;
 end;
 
 procedure TProcesoNotaCredito.FormCreate(Sender: TObject);

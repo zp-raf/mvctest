@@ -541,8 +541,8 @@ begin
   except
     on E: EDatabaseError do
     begin
-      DoOnErrorEvent(Self, E);
       raise;
+      DoOnErrorEvent(Self, E);
     end;
   end;
 end;
@@ -568,8 +568,8 @@ begin
   except
     on E: EDatabaseError do
     begin
-      DoOnErrorEvent(Self, E);
       raise;
+      DoOnErrorEvent(Self, E);
     end;
   end;
 end;
@@ -585,8 +585,8 @@ begin
   except
     on E: EDatabaseError do
     begin
-      DoOnErrorEvent(Self, E);
       raise;
+      DoOnErrorEvent(Self, E);
     end;
   end;
 end;

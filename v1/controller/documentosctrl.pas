@@ -22,6 +22,7 @@ type
     function GetCustomModel: TDocumentosDataModule;
   public
     constructor Create(AModel: Pointer); overload; override;
+    destructor Destroy; override;
     procedure AnularDoc(ATipoDoc: TDocViewerDocType; Sender: IFormView);
     procedure AnularDoc(ATipoDoc: TDocViewerDocType; ADoc: string; Sender: IFormView);
     procedure AnularPago(ATipoDoc: TDocViewerDocType; Sender: IFormView);
@@ -55,6 +56,12 @@ constructor TDocumentosController.Create(AModel: Pointer);
 begin
   inherited Create(AModel);
   PagoController := TPagoController.Create(GetCustomModel.Pagos);
+end;
+
+destructor TDocumentosController.Destroy;
+begin
+  PagoController.Free;
+  inherited Destroy;
 end;
 
 procedure TDocumentosController.AnularDoc(ATipoDoc: TDocViewerDocType;
@@ -125,7 +132,7 @@ begin
     on e: Exception do
     begin
       raise;
-      Connect(Sender);
+      OpenDataSets(Sender);
     end;
   end;
 end;
@@ -147,8 +154,8 @@ begin
   except
     on E: Exception do
     begin
-      Connect(Sender);
       raise;
+      OpenDataSets(Sender);
     end;
   end;
 end;
@@ -176,8 +183,6 @@ end;
 
 procedure TDocumentosController.CobrarDoc(ATipoDoc: TDocViewerDocType;
   ADoc: string; Sender: IFormView);
-var
-  ProcesoPago: TProcesoPago;
 begin
   try
     ProcesoPago := TProcesoPago.Create(Sender, PagoController);
@@ -191,17 +196,18 @@ begin
     case ProcesoPago.ShowModal of
       mrOk:
       begin
-        GetCustomModel.Connect;
+        //Connect(Sender);
       end;
       mrCancel:
       begin
-        GetCustomModel.Connect;
+        //Connect(Sender);
       end;
     end;
   finally
     (GetModel.MasterDataModule as ISubject).Detach(ProcesoPago as IObserver);
     ProcesoPago.Free;
   end;
+  //GetCustomModel.OpenDataSets;
 end;
 
 procedure TDocumentosController.VerDocumento(ATipoDoc: TDocViewerDocType;

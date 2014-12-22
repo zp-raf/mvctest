@@ -46,9 +46,7 @@ type
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
     procedure CancelButtonClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure Limpiar;
     procedure OKButtonClick(Sender: TObject);
     procedure ObserverUpdate(const Subject: IInterface); override;
@@ -63,22 +61,12 @@ implementation
 
 { TProcesoPago }
 
-procedure TProcesoPago.FormShow(Sender: TObject);
-begin
-  if GetOwner <> nil then
-    TForm(GetOwner).Enabled := False;
-end;
-
 procedure TProcesoPago.FormCreate(Sender: TObject);
 begin
   ButtonPanel1.OKButton.ModalResult := mrOk;
   ButtonPanel1.CancelButton.ModalResult := mrCancel;
   DBGridDet.DataSource := GetCustomController.GetDetallesDataSource;
-end;
-
-procedure TProcesoPago.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  CloseAction := caFree;
+  OpenOnShow := False;
 end;
 
 function TProcesoPago.GetCustomController: TPagoController;

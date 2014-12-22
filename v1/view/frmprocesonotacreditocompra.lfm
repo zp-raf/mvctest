@@ -4,24 +4,16 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
   Caption = 'Nota de credito compra'
   ClientHeight = 620
   OnCreate = FormCreate
-  inherited StatusBar1: TStatusBar
-    Top = 597
-  end
   inherited ButtonPanel1: TButtonPanel
-    Top = 557
     OKButton.OnClick = OKButtonClick
   end
   inherited Cabecera: TGroupBox
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
     inherited DateEditFecha: TDateEdit
-      Left = 8
       DateOrder = doDMY
       Enabled = True
       MaxLength = 10
-    end
-    inherited LabelFecha: TLabel
-      Left = 8
     end
     inherited DBEditNombre: TDBEdit
       Width = 480
@@ -39,7 +31,7 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
       Visible = False
     end
     inherited LabelNro: TLabel
-      Left = 570
+      Left = 419
       Visible = False
     end
     inherited LabelTimbrado: TLabel
@@ -48,34 +40,18 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
       Visible = False
     end
     inherited LabelSeparator1: TLabel
-      Left = 657
+      Left = 530
       Visible = False
     end
     inherited DBTextCaja: TDBText
-      Left = 662
+      Left = 535
     end
     inherited LabelSeparator2: TLabel
-      Left = 722
+      Left = 595
       Visible = False
     end
     inherited DBTextSucursal: TDBText
-      Left = 727
-    end
-    inherited DBEditNotaRem: TDBEdit
-      Height = 23
-    end
-    inherited LabelNotaRem: TLabel
-      Height = 15
-      Top = 41
-      Width = 91
-    end
-    inherited DBEditFactura: TDBEdit
-      Height = 23
-    end
-    inherited LabelFactNro: TLabel
-      Height = 15
-      Top = 121
-      Width = 65
+      Left = 449
     end
     object DBEditNro: TDBEdit[22]
       Left = 128
@@ -123,7 +99,6 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
     end
   end
   inherited ButtonLimpiar: TButton
-    Height = 25
     Width = 142
     Caption = 'Nueva nota en blanco'
     OnClick = ButtonLimpiarClick
@@ -136,6 +111,64 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
   inherited ButtonSeleccionarFac: TButton
     Left = 166
     BorderSpacing.Left = 8
+  end
+  inherited Detalles: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    inherited DBGridDet: TDBGrid
+      Columns = <      
+        item
+          PickList.Strings = (          )
+          ReadOnly = False
+          SizePriority = 0
+          Title.Caption = 'CANTIDAD'
+          Width = 74
+          FieldName = 'CANTIDAD'
+        end      
+        item
+          MinSize = 30
+          PickList.Strings = (          )
+          ReadOnly = False
+          Title.Caption = 'DETALLE'
+          Width = 62
+          FieldName = 'DETALLE'
+        end      
+        item
+          PickList.Strings = (          )
+          SizePriority = 0
+          Title.Caption = 'PRECIO UNITARIO'
+          Width = 112
+          FieldName = 'PRECIO_UNITARIO'
+        end      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'EXENTA'
+          Width = 58
+          FieldName = 'EXENTA'
+        end      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'IVA5'
+          Width = 39
+          FieldName = 'IVA5'
+        end      
+        item
+          PickList.Strings = (          )
+          ReadOnly = True
+          Title.Caption = 'IVA10'
+          Width = 45
+          FieldName = 'IVA10'
+        end>
+    end
+    inherited DBNavigatorDet: TDBNavigator
+      Hints.Strings = (      )
+    end
+  end
+  inherited Totales: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
   end
   inherited MainMenu: TMainMenu
     inherited MenuItemOpciones: TMenuItem
