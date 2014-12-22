@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 15:16:35"/>
+    <ReportLastChange Value="2014-12-22 18:23:18"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -471,7 +471,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="  Total a pagar: [TOTAL]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -793,7 +793,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[PRECIO_UNITARIO]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -839,7 +839,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[DET_TOTAL]&#xD;&#xA;"/>
             <Script Value=""/>

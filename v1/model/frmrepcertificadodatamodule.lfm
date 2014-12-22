@@ -55,6 +55,7 @@ inherited ReporteCertificadoDataModule: TReporteCertificadoDataModule
         Precision = -1
         Size = 0
       end>
+    Active = True
     AfterScroll = CabeceraAfterScroll
     SQL.Strings = (
       'select distinct(D.NOMBRE_MOD) as MODULO, P.APELLIDO, P.NOMBRE, P.SEXO, P.FECHANAC, P.CEDULA, P.ID, D.MODULOID'
@@ -214,6 +215,7 @@ inherited ReporteCertificadoDataModule: TReporteCertificadoDataModule
         Precision = -1
         Size = 0
       end>
+    Active = True
     SQL.Strings = (
       'select MA.NOMBRE as MATERIA, D.NOMBRE_MOD as MODULO, D.NOMBRE_GRUPO as GRUPO, D.NOMBRE_PERIODO as PERIODO, N.NOTA,'
       '       N.FECHA_NOTA, N.OBSERVACIONES, P.ID, D.MODULOID'

@@ -66,7 +66,7 @@ procedure TReporteCertificadoDataModule.DataModuleCreate(Sender: TObject);
 begin
   inherited;
   AuxQryList.Add(TObject(alumnos));
-  ReportFile:='reportes\certif_estudios.lrf';
+  ReportFile := 'reportes\certif_estudios.lrf';
 end;
 
 procedure TReporteCertificadoDataModule.ShowReport;
@@ -74,6 +74,11 @@ begin
   Cabecera.Close;
   Detalle.Close;
   Cabecera.ParamByName('PERSONAID').AsString := alumnos.FieldByName('ID').AsString;
+  if Cabecera.IsEmpty then
+  begin
+    ShowMessage('No hay notas que mostrar');
+    Exit;
+  end;
   Cabecera.Open;
   Detalle.Open;
   frReport1.LoadFromFile(ReportFile);

@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 16:12:13"/>
+    <ReportLastChange Value="2014-12-22 18:20:04"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -425,7 +425,7 @@
             <FrameBorders Value="frbTop,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="(5%) [IVA5]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -471,7 +471,7 @@
             <FrameBorders Value="frbTop,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="(10%) [IVA10]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -517,7 +517,7 @@
             <FrameBorders Value="frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="Total IVA [IVA_TOTAL]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -747,7 +747,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="  Total a pagar: [TOTAL]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1299,7 +1299,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[DET_EXENTA]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1345,7 +1345,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[DET_IVA5]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1391,7 +1391,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[DET_IVA10]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1479,7 +1479,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[SUBTOTAL_EXENTAS]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1525,7 +1525,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[SUBTOTAL_IVA5]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1571,7 +1571,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[SUBTOTAL_IVA10]&#xD;&#xA;"/>
             <Script Value=""/>

@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 17:12:28"/>
+    <ReportLastChange Value="2014-12-22 18:21:13"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -17,7 +17,7 @@
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="False"/>
-      <SelectedPrinter Value="PDFCreator"/>
+      <SelectedPrinter Value="HP Deskjet F2100 series"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>
@@ -1255,7 +1255,7 @@
           <Data>
             <Format Value="16843308"/>
             <FormatStr Value=""/>
-            <Memo Value="[EXENTA]&#xD;&#xA;"/>
+            <Memo Value="[DET_EXENTA]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
@@ -1301,7 +1301,7 @@
           <Data>
             <Format Value="16974380"/>
             <FormatStr Value=""/>
-            <Memo Value="[IVA5]&#xD;&#xA;"/>
+            <Memo Value="[DET_IVA5]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
@@ -1347,7 +1347,7 @@
           <Data>
             <Format Value="16974380"/>
             <FormatStr Value=""/>
-            <Memo Value="[IVA10]&#xD;&#xA;"/>
+            <Memo Value="[DET_IVA10]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
