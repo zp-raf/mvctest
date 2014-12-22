@@ -26,7 +26,7 @@ type
     procedure NuevoComprobante(Sender: IView); virtual; abstract;
     procedure NuevoComprobanteDetalle(Sender: IView); virtual;
     procedure SeleccionarTalonario(Sender: IFormView);
-    procedure SetCompra(Option: boolean);
+    procedure SetCompra(Option: boolean); virtual;
     function EsCompra: boolean;
     function GetEstadoComprobante(Sender: IView): TEstadoComprobante;
     property BuscarPersonaController: TBuscarPersonaController

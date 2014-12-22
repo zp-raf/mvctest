@@ -94,8 +94,10 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
       DataField = 'NUMERO_REC_COMPRA'
       DataSource = ReciboDataModule.dsCabecera
       CharCase = ecNormal
-      MaxLength = 0
+      EditMask = '999-999-9999999;1; '
+      MaxLength = 15
       TabOrder = 5
+      OnExit = DBEditNumeroExit
     end
     object DBEditTimbrado: TDBEdit[21]
       Left = 240
@@ -132,7 +134,6 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
       Columns = <      
         item
           PickList.Strings = (          )
-          ReadOnly = False
           SizePriority = 0
           Title.Caption = 'CANTIDAD'
           Width = 74
@@ -141,7 +142,6 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
         item
           MinSize = 30
           PickList.Strings = (          )
-          ReadOnly = False
           Title.Caption = 'DETALLE'
           Width = 62
           FieldName = 'DETALLE'
@@ -157,6 +157,7 @@ inherited ProcesoReciboCompra: TProcesoReciboCompra
           PickList.Strings = (          )
           ReadOnly = True
           Title.Caption = 'TOTAL'
+          Width = 52
           FieldName = 'TOTAL'
         end>
     end

@@ -106,7 +106,10 @@ end;
 procedure TProcesoDocumentos.ButtonCobrarClick(Sender: TObject);
 begin
   if PageControlDocs.ActivePageIndex = TabSheetFactura.PageIndex then
+  begin
     GetCustomController.CobrarDoc(dtFacturaNocobrada, Self);
+    GetController.Connect(Self);
+  end;
 end;
 
 procedure TProcesoDocumentos.ButtonAnularClick(Sender: TObject);

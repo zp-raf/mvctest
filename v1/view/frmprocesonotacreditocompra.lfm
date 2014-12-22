@@ -61,8 +61,10 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
       DataField = 'NUMERO_NOTA_COMPRA'
       DataSource = NotaCreditoDataModule.dsCabecera
       CharCase = ecNormal
-      MaxLength = 0
+      EditMask = '999-999-9999999;1; '
+      MaxLength = 15
       TabOrder = 7
+      OnExit = DBEditNroExit
     end
     object DBEditTimbrado: TDBEdit[23]
       Left = 240
@@ -119,7 +121,6 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
       Columns = <      
         item
           PickList.Strings = (          )
-          ReadOnly = False
           SizePriority = 0
           Title.Caption = 'CANTIDAD'
           Width = 74
@@ -128,7 +129,6 @@ inherited ProcesoNotaCreditoCompra: TProcesoNotaCreditoCompra
         item
           MinSize = 30
           PickList.Strings = (          )
-          ReadOnly = False
           Title.Caption = 'DETALLE'
           Width = 62
           FieldName = 'DETALLE'

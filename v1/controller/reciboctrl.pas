@@ -27,6 +27,7 @@ type
     procedure NuevoComprobanteCompra(Sender: IView);
     procedure NuevoComprobanteCompraFac(Sender: IView);
     procedure SetPrecioTotal(Sender: IFormView);
+    procedure SetCompra(Option: boolean); override;
   end;
 
 implementation
@@ -158,6 +159,17 @@ begin
     //GetCustomModel.ActualizarTotales;
     GetCustomModel.qryDetalle.Post;
   end;
+end;
+
+procedure TReciboController.SetCompra(Option: boolean);
+begin
+  inherited SetCompra(Option);
+  GetCustomModel.Facturas.FacturasView.Close;
+  if Option then
+    GetCustomModel.Facturas.FacturasView.ServerFilter := 'CONTADO = 0 AND ESCOMPRA = 1'
+  else
+    GetCustomModel.Facturas.FacturasView.ServerFilter := 'CONTADO = 0 AND ESCOMPRA = 0';
+  GetCustomModel.Facturas.FacturasView.ServerFiltered := True;
 end;
 
 end.

@@ -20,6 +20,7 @@ type
     LabelTimbradoCompra: TLabel;
     procedure ButtonLimpiarClick(Sender: TObject);
     procedure ButtonSeleccionarPersClick(Sender: TObject);
+    procedure DBEditNroExit(Sender: TObject);
     procedure DBGridDetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure OKButtonClick(Sender: TObject); override;
@@ -64,6 +65,12 @@ begin
     GetComprobanteController.BuscarPersonaController);
   Popup.SetDataSource(GetCustomController.GetPersonasDataSource);
   inherited;
+end;
+
+procedure TProcesoNotaCreditoCompra.DBEditNroExit(Sender: TObject);
+begin
+  DBEditNro.Text := copy(DBEditNro.Field.NewValue, 1, 8) +
+    cwLeftPad(Trim(Copy(DBEditNro.Field.NewValue, 9, 7)), 7, '0');
 end;
 
 procedure TProcesoNotaCreditoCompra.DBGridDetKeyDown(Sender: TObject;
