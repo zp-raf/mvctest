@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 14:57:11"/>
+    <ReportLastChange Value="2014-12-22 17:12:28"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -17,7 +17,7 @@
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="False"/>
-      <SelectedPrinter Value="HP Deskjet F2100 series"/>
+      <SelectedPrinter Value="PDFCreator"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>
@@ -425,7 +425,7 @@
             <FrameBorders Value="frbTop,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="(5%) [IVA5]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -445,7 +445,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -471,7 +471,7 @@
             <FrameBorders Value="frbTop,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="(10%) [IVA10]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -491,7 +491,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -517,7 +517,7 @@
             <FrameBorders Value="frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="Total IVA [IVA_TOTAL]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -537,7 +537,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -549,9 +549,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="209"/>
+            <Left Value="9"/>
             <Top Value="28"/>
-            <Width Value="283"/>
+            <Width Value="483"/>
             <Height Value="142"/>
           </Size>
           <Flags Value="3"/>
@@ -1124,7 +1124,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1135,7 +1135,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1170,7 +1170,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1181,7 +1181,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1207,7 +1207,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[PRECIO_UNITARIO]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1216,7 +1216,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1227,7 +1227,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1253,7 +1253,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16843308"/>
             <FormatStr Value=""/>
             <Memo Value="[EXENTA]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1262,7 +1262,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1273,7 +1273,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1299,7 +1299,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[IVA5]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1308,7 +1308,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1319,7 +1319,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1345,7 +1345,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[IVA10]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1354,7 +1354,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1365,7 +1365,7 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
@@ -1433,7 +1433,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[SUBTOTAL_EXENTAS]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1442,7 +1442,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1453,10 +1453,10 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-          <Justify Value="True"/>
+          <Justify Value="False"/>
         </Object34>
         <Object35>
           <Name Value="Memo36"/>
@@ -1479,7 +1479,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[SUBTOTAL_IVA5]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1488,7 +1488,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1499,10 +1499,10 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-          <Justify Value="True"/>
+          <Justify Value="False"/>
         </Object35>
         <Object36>
           <Name Value="Memo37"/>
@@ -1525,7 +1525,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[SUBTOTAL_IVA10]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -1534,7 +1534,7 @@
           <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
-            <Size Value="10"/>
+            <Size Value="8"/>
             <Color Value="clBlack"/>
             <Charset Value="0"/>
             <Style Value=""/>
@@ -1545,10 +1545,10 @@
             <FillColor Value="clWhite"/>
             <HighlightStr Value=""/>
           </Highlight>
-          <Alignment Value="taLeftJustify"/>
+          <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-          <Justify Value="True"/>
+          <Justify Value="False"/>
         </Object36>
       </Page1>
       <FVal>

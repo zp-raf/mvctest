@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-07-13 22:26:14"/>
-    <ReportLastChange Value="2014-12-22 14:58:09"/>
+    <ReportLastChange Value="2014-12-22 17:06:48"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -17,7 +17,7 @@
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="False"/>
-      <SelectedPrinter Value="HP Deskjet F2100 series"/>
+      <SelectedPrinter Value="PDFCreator"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>
@@ -365,9 +365,9 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="209"/>
+            <Left Value="9"/>
             <Top Value="28"/>
-            <Width Value="283"/>
+            <Width Value="483"/>
             <Height Value="142"/>
           </Size>
           <Flags Value="3"/>
@@ -471,7 +471,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="  Total a pagar: [TOTAL]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -793,7 +793,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[PRECIO_UNITARIO]&#xD;&#xA;"/>
             <Script Value=""/>
@@ -839,7 +839,7 @@
             <FrameBorders Value="frbLeft,frbTop,frbRight,frbBottom"/>
           </Frames>
           <Data>
-            <Format Value="556"/>
+            <Format Value="16974380"/>
             <FormatStr Value=""/>
             <Memo Value="[DET_TOTAL]&#xD;&#xA;"/>
             <Script Value=""/>
